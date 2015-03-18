@@ -7,6 +7,8 @@ namespace Digipost.Api.Client
         static void Main(string[] args)
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
+
+
         }
     }
 }

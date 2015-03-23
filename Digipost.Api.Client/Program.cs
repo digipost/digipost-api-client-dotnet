@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace Digipost.Api.Client
 {
@@ -10,6 +6,9 @@ namespace Digipost.Api.Client
     {
         static void Main(string[] args)
         {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+
+
         }
     }
 }

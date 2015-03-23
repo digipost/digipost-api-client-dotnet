@@ -1,9 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Digipost.Api.Client
+﻿namespace Digipost.Api.Client
 {
     class Program
     {

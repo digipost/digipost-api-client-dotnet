@@ -9,16 +9,15 @@ namespace Digipost.Api.Client.Testklient
 {
     class Program
     {
-        private static string xmlMessage;
-        private static byte[] attachment;
-        private static string DocumentGuid = Guid.NewGuid().ToString();
+        private static string DocumentGuid = Guid.NewGuid().ToString();//'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        private static string xmlMessage = GetXmlMessage(DocumentGuid);
+        private static byte[] attachment = GetAttachment();
+        private static string technicalSenderId = "779052"; //106768801
 
         static void Main(string[] args)
         {
-
-            xmlMessage = GetXmlMessage();
-            attachment = GetAttachment();
-            var t = DigipostApi.Send("106768801", "forsendelseId", "Digipostadresse", "Emne", xmlMessage, attachment, DocumentGuid);
+ 
+            var t = DigipostApi.Send(technicalSenderId, "forsendelseId", "Digipostadresse", "Emne", xmlMessage, attachment, DocumentGuid);
             var r = t.Result;
         }
 
@@ -28,14 +27,14 @@ namespace Digipost.Api.Client.Testklient
             return File.ReadAllBytes(path);
         }
 
-        private static string GetXmlMessage()
+        private static string GetXmlMessage(String docID)
         {
 
             return
                 string.Format("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><message xmlns=\"http://api.digipost.no/schema/v6\"><recipient>" +
-                              "<personal-identification-number>01013300001</personal-identification-number></recipient>" +
-                              "<primary-document><uuid>{0}</uuid><subject>Dokumentets emne</subject><file-type>txt</file-type><sms-notification><after-hours>1</after-hours></sms-notification><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level>" +
-                              "</primary-document></message>", DocumentGuid);
+                              "<personal-identification-number>31108446911</personal-identification-number></recipient>" +
+                              "<primary-document><uuid>{0}</uuid><subject>Dokumentets emne</subject><file-type>txt</file-type><sms-notification/><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level>" +
+                              "</primary-document></message>", docID);
         }
     }
 }

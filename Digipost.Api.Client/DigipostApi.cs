@@ -29,9 +29,7 @@ namespace Digipost.Api.Client
                 var method = "POST";
                 var uri = "messages";
                 var date = DateTime.UtcNow.ToString("R");
-
-                var hash = ComputeHash(xmlMessage);
-                
+                                
                 var boundary = Guid.NewGuid().ToString();
 
                 client.DefaultRequestHeaders.Add("X-Digipost-UserId", userId);
@@ -64,7 +62,7 @@ namespace Digipost.Api.Client
                         content.Add(documentContent);
                     }
 
-                    var multipartContent = await content.ReadAsStringAsync();
+                    var multipartContent = await content.ReadAsByteArrayAsync();
                     var computeHash = ComputeHash(multipartContent);
 
                     client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
@@ -88,14 +86,15 @@ namespace Digipost.Api.Client
             return null;
         }
 
-        private static string ComputeHash(string input)
+        private static string ComputeHash(Byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
-            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
             Byte[] hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
 
             return Convert.ToBase64String(hashedBytes);
         }
+
+     
 
         private static string ComputeSignature(string method, string uri, string date, string sha256Hash, string userId)
         {
@@ -131,7 +130,7 @@ namespace Digipost.Api.Client
         {
             return
                 new X509Certificate2(
-                    @"\\vmware-host\Shared Folders\Development\digipost_testkonto.p12",
+                    @"C:\Users\krist\Documents\GitHub\certificate.p12",
                     "Qwer12345", X509KeyStorageFlags.Exportable);
         }
     }

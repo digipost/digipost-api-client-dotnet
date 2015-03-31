@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client
 {
-    class SerializeUtil
+    public class SerializeUtil
     {
         private sealed class Utf8StringWriter : StringWriter
         {

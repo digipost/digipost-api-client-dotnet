@@ -42,10 +42,33 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AuthenticationLevel.cs" />
+    <Compile Include="ContentHash.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="EmailNotification.cs" />
+    <Compile Include="ForeignAdress.cs" />
+    <Compile Include="IdentificationChoice.cs" />
+    <Compile Include="Invoice.cs" />
+    <Compile Include="Link.cs" />
+    <Compile Include="ListedTime.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageRecipient.cs" />
+    <Compile Include="NameAndAdress.cs" />
+    <Compile Include="NondeliverableHandling.cs" />
+    <Compile Include="NorwegianAddress.cs" />
+    <Compile Include="PostType.cs" />
+    <Compile Include="PrintColors.cs" />
+    <Compile Include="PrintDetails.cs" />
+    <Compile Include="PrintRecipient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="resources\xsd\api_v6.cs">
       <DependentUpon>api_v6.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SenderOrganization.cs" />
+    <Compile Include="SensitivityLevel.cs" />
+    <Compile Include="SmsNotification.cs" />
+    <Compile Include="SmsOverrides.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\xsd\api_v6.xsd">

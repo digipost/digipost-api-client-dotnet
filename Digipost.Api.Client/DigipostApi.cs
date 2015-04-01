@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Digipost.Api.Client.Domain;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,7 +19,99 @@ namespace Digipost.Api.Client
      //   public static readonly string BaseAddress = isHttps ? "https://qa2.api.digipost.no/" : "http://qa2.api.digipost.no/";
         public static readonly string BaseAddress = isHttps ? "https://api.digipost.no/" : "http://api.digipost.no/";
 
-        public static async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] attachment, string DocumentGuid)
+
+        public static async Task<string> Send(string technicalSenderId,  Message message)
+        {
+            var loggingHandler = new LoggingHandler(new HttpClientHandler());
+
+            using (var client = new HttpClient(loggingHandler))
+            {
+                client.BaseAddress = new Uri(BaseAddress);
+
+                var method = "POST";
+                var uri = "messages";
+                var date = DateTime.UtcNow.ToString("R");
+
+                var boundary = Guid.NewGuid().ToString();
+
+                client.DefaultRequestHeaders.Add("X-Digipost-UserId", technicalSenderId);
+                client.DefaultRequestHeaders.Add("Date", date);
+                client.DefaultRequestHeaders.Add("Accept", "application/vnd.digipost-v6+xml");
+
+                using (var content = new MultipartFormDataContent(boundary))
+                {
+                    var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
+                    mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
+                    content.Headers.ContentType = mediaTypeHeaderValue;
+
+                    {
+                        string xmlMessage="";
+                        try
+                        {
+                            xmlMessage = SerializeUtil.Serialize(message);
+                        }
+                        catch (Exception e)
+                        {
+                            int i = 0;
+                        }
+
+                        var messageContent = new StringContent(xmlMessage);
+                        messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
+                        messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                        {
+                            FileName = "\"message\""
+                        };
+                        content.Add(messageContent);
+                    }
+
+                    {
+                        var documentContent = new ByteArrayContent(message.PrimaryDocument.contentOfDocument);
+                        documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                        documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                        {
+                            FileName = message.PrimaryDocument.uuid
+                        };
+                        content.Add(documentContent);
+                    }
+
+                    {
+                        foreach (Document attachment in message.Attachment)
+                        {
+                            var attachmentContent = new ByteArrayContent(attachment.contentOfDocument);
+                            attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                            attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                            {
+                                FileName = attachment.uuid
+                            };
+                            content.Add(attachmentContent);
+                        }
+                    }
+
+                    var multipartContent = await content.ReadAsByteArrayAsync();
+                    var computeHash = ComputeHash(multipartContent);
+
+                    client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
+                    client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, technicalSenderId));
+
+                    try
+                    {
+                        var result = client.PostAsync(uri, content).Result;
+                        Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message, e);
+                        int i = 0;
+                    }
+                }
+
+
+            }
+
+            return null;
+        }
+
+        public static async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] primaryDocument, string primaryDocumentGuid,Dictionary<string, byte[]> attachmentList)
         {
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
 
@@ -53,13 +146,26 @@ namespace Digipost.Api.Client
                     }
 
                     {
-                        var documentContent = new ByteArrayContent(attachment);
+                        var documentContent = new ByteArrayContent(primaryDocument);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
-                            FileName = DocumentGuid
+                            FileName = primaryDocumentGuid
                         };
                         content.Add(documentContent);
+                    }
+
+                    {
+                        foreach(KeyValuePair<string, byte[]> entry in attachmentList)
+                        {
+                            var attachmentContent = new ByteArrayContent(entry.Value);
+                            attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                            attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                            {
+                                FileName = entry.Key
+                            };
+                            content.Add(attachmentContent);
+                        }
                     }
 
                     var multipartContent = await content.ReadAsByteArrayAsync();

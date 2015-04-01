@@ -52,7 +52,10 @@ namespace Digipost.Api.Client
                         }
                         catch (Exception e)
                         {
+
                             int i = 0;
+
+                            throw e;
                         }
 
                         var messageContent = new StringContent(xmlMessage);

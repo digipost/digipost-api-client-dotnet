@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Domain
 
         private IdentificationChoice itemElementNameField;
 
-        private printdetails printdetailsField;
+        private PrintDetails printdetailsField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
@@ -57,7 +57,7 @@ namespace Digipost.Api.Client.Domain
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("print-details")]
-        public printdetails printdetails
+        public PrintDetails printdetails
         {
             get
             {

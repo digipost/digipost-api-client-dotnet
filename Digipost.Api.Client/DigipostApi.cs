@@ -13,18 +13,20 @@ namespace Digipost.Api.Client
 {
    public class DigipostApi
     {
-        private static bool isHttps = true;
-        
-     //   public static readonly string BaseAddress = isHttps ? "https://qa2.api.digipost.no/" : "http://qa2.api.digipost.no/";
-        public static readonly string BaseAddress = isHttps ? "https://api.digipost.no/" : "http://api.digipost.no/";
+       public ClientConfig Config { get; set; }
+       
+       public DigipostApi(ClientConfig config)
+       {
+           Config = config;
+       }
 
-        public static async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] attachment, string DocumentGuid)
+       public async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] attachment, string DocumentGuid)
         {
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
 
             using (var client = new HttpClient(loggingHandler))
             {
-                client.BaseAddress = new Uri(BaseAddress);
+                client.BaseAddress = new Uri(Config.ApiUrl.AbsoluteUri);
 
                 var method = "POST";
                 var uri = "messages";
@@ -129,6 +131,11 @@ namespace Digipost.Api.Client
 
         private static X509Certificate2 GetCert()
         {
+            return
+                new X509Certificate2(
+                    @"Z:\aleksander sjafjell On My Mac\Development\Shared\sdp-data\testdata\rest\certificate.p12",
+                    "Qwer12345", X509KeyStorageFlags.Exportable);
+
             return
                 new X509Certificate2(
                     @"\\vmware-host\Shared Folders\Development\digipost_testkonto.p12",

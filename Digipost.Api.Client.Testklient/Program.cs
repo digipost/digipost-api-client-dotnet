@@ -1,29 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Digipost.Api.Client.Testklient
 {
     class Program
     {
-        private static string DocumentGuid = Guid.NewGuid().ToString();//'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-        private static string xmlMessage = GetXmlMessage(DocumentGuid);
-        private static byte[] attachment = GetAttachment();
-        private static string technicalSenderId = "779052"; //106768801
+        private static readonly string DocumentGuid = Guid.NewGuid().ToString();//'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        private static readonly string XmlMessage = GetXmlMessage(DocumentGuid);
+        private const string TechnicalSenderId = "106768801";
 
         static void Main(string[] args)
         {
- 
-            var t = DigipostApi.Send(technicalSenderId, "forsendelseId", "Digipostadresse", "Emne", xmlMessage, attachment, DocumentGuid);
+            var config = new ClientConfig(TechnicalSenderId);
+            var api = new DigipostApi(config);
+
+            var attachment = GetAttachment();
+
+            var t = api.Send(TechnicalSenderId, "forsendelseId", "Digipostadresse", "Emne", XmlMessage, attachment, DocumentGuid);
             var r = t.Result;
         }
 
         private static byte[] GetAttachment()
         {
-            var path = @"\\vmware-host\Shared Folders\Development\Hoveddokument.txt";
+            var path =
+                @"Z:\aleksander sjafjell On My Mac\Development\Shared\sdp-data\testdata\hoveddokument\Hoveddokument.txt";
             return File.ReadAllBytes(path);
         }
 

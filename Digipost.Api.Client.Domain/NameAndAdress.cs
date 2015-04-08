@@ -1,158 +1,99 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "name-and-address", Namespace = "http://api.digipost.no/schema/v6")]
-    public partial class NameAndAddress
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "name-and-address", Namespace = "http://api.digipost.no/schema/v6")]
+    public class NameAndAddress
     {
+        private string _addressLine1;
+        private string _addressLine2;
+        private DateTime _birthdate;
+        private bool _birthdateSpecified;
+        private string _city;
+        private string _emailAddress;
+        private string _fullName;
+        private string _phonenumber;
+        private string _postalcode;
 
-        private string fullnameField;
-
-        private string addressline1Field;
-
-        private string addressline2Field;
-
-        private string postalcodeField;
-
-        private string cityField;
-
-        private System.DateTime birthdateField;
-
-        private bool birthdateFieldSpecified;
-
-        private string phonenumberField;
-
-        private string emailaddressField;
-
-        /// <remarks/>
-        public string fullname
+        /// <remarks />
+        [XmlElement("fullname")]
+        public string FullName
         {
-            get
-            {
-                return this.fullnameField;
-            }
-            set
-            {
-                this.fullnameField = value;
-            }
+            get { return _fullName; }
+            set { _fullName = value; }
         }
 
-        /// <remarks/>
-        public string addressline1
+        /// <remarks />
+        [XmlElement("addressline1")]
+        public string AddressLine1
         {
-            get
-            {
-                return this.addressline1Field;
-            }
-            set
-            {
-                this.addressline1Field = value;
-            }
+            get { return _addressLine1; }
+            set { _addressLine1 = value; }
         }
 
-        /// <remarks/>
-        public string addressline2
+        /// <remarks />
+        [XmlElement("addressline2")]
+        public string Addressline2
         {
-            get
-            {
-                return this.addressline2Field;
-            }
-            set
-            {
-                this.addressline2Field = value;
-            }
+            get { return _addressLine2; }
+            set { _addressLine2 = value; }
         }
 
-        /// <remarks/>
-        public string postalcode
+        /// <remarks />
+        [XmlElement("postalcode")]
+        public string Postalcode
         {
-            get
-            {
-                return this.postalcodeField;
-            }
-            set
-            {
-                this.postalcodeField = value;
-            }
+            get { return _postalcode; }
+            set { _postalcode = value; }
         }
 
-        /// <remarks/>
-        public string city
+        /// <remarks />
+        [XmlElement("city")]
+        public string City
         {
-            get
-            {
-                return this.cityField;
-            }
-            set
-            {
-                this.cityField = value;
-            }
+            get { return _city; }
+            set { _city = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("birth-date", DataType = "date")]
-        public System.DateTime birthdate
+        /// <remarks />
+        [XmlElement("birth-date", DataType = "date")]
+        public DateTime Birthdate
         {
-            get
-            {
-                return this.birthdateField;
-            }
-            set
-            {
-                this.birthdateField = value;
-            }
+            get { return _birthdate; }
+            set { _birthdate = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool birthdateSpecified
+        /// <remarks />
+        [XmlIgnore]
+        public bool BirthdateSpecified
         {
-            get
-            {
-                return this.birthdateFieldSpecified;
-            }
-            set
-            {
-                this.birthdateFieldSpecified = value;
-            }
+            get { return _birthdateSpecified; }
+            set { _birthdateSpecified = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("phone-number")]
-        public string phonenumber
+        /// <remarks />
+        [XmlElement("phone-number")]
+        public string Phonenumber
         {
-            get
-            {
-                return this.phonenumberField;
-            }
-            set
-            {
-                this.phonenumberField = value;
-            }
+            get { return _phonenumber; }
+            set { _phonenumber = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("email-address")]
-        public string emailaddress
+        /// <remarks />
+        [XmlElement("email-address")]
+        public string EmailAddress
         {
-            get
-            {
-                return this.emailaddressField;
-            }
-            set
-            {
-                this.emailaddressField = value;
-            }
+            get { return _emailAddress; }
+            set { _emailAddress = value; }
         }
     }
 }

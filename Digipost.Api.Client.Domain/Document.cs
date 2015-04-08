@@ -1,133 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
     // Document
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "document", Namespace = "http://api.digipost.no/schema/v6")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public partial class Document
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "document", Namespace = "http://api.digipost.no/schema/v6")]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    public class Document
     {
+        private AuthenticationLevel _authenticationlevel;
+        private byte[] _content;
+        private string _fileType;
+        private SensitivityLevel _sensitivitylevel;
+        private string _subject;
+        private string _technicaltypeField;
+        private string _uuid;
 
-        private string uuid;
-
-        private string subject;
-
-        private string fileType;
-
-        private AuthenticationLevel authenticationlevel;
-
-        private SensitivityLevel sensitivitylevel;
-
-        private string technicaltypeField;
-
-        private byte[] content;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("uuid")]
+        /// <remarks />
+        [XmlElement("uuid")]
         public string Uuid
         {
-            get
-            {
-                return this.uuid;
-            }
-            set
-            {
-                this.uuid = value;
-            }
+            get { return _uuid; }
+            set { _uuid = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("subject")]
+        /// <remarks />
+        [XmlElement("subject")]
         public string Subject
         {
-            get
-            {
-                return this.subject;
-            }
-            set
-            {
-                this.subject = value;
-            }
+            get { return _subject; }
+            set { _subject = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("file-type")]
+        /// <remarks />
+        [XmlElement("file-type")]
         public string FileType
         {
-            get
-            {
-                return this.fileType;
-            }
-            set
-            {
-                this.fileType = value;
-            }
+            get { return _fileType; }
+            set { _fileType = value; }
         }
 
-       
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("authentication-level")]
+        /// <remarks />
+        [XmlElement("authentication-level")]
         public AuthenticationLevel Authenticationlevel
         {
-            get
-            {
-                return this.authenticationlevel;
-            }
-            set
-            {
-                this.authenticationlevel = value;
-            }
+            get { return _authenticationlevel; }
+            set { _authenticationlevel = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sensitivity-level")]
+        /// <remarks />
+        [XmlElement("sensitivity-level")]
         public SensitivityLevel Sensitivitylevel
         {
-            get
-            {
-                return this.sensitivitylevel;
-            }
-            set
-            {
-                this.sensitivitylevel = value;
-            }
+            get { return _sensitivitylevel; }
+            set { _sensitivitylevel = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("technical-type")]
+        /// <remarks />
+        [XmlAttribute("technical-type")]
         public string Technicaltype
         {
-            get
-            {
-                return this.technicaltypeField;
-            }
-            set
-            {
-                this.technicaltypeField = value;
-            }
+            get { return _technicaltypeField; }
+            set { _technicaltypeField = value; }
         }
-        
-        [System.Xml.Serialization.XmlIgnore]
+
+        [XmlIgnore]
         public byte[] Content
         {
-            get
-            {
-                return this.content;
-            }
-            set
-            {
-                this.content = value;
-            }
+            get { return _content; }
+            set { _content = value; }
         }
     }
 }

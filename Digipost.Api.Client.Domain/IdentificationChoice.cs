@@ -1,33 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
     //IdentificationChoice
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [XmlType(Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
     public enum IdentificationChoice
     {
+        /// <remarks />
+        [XmlEnum("digipost-address")] Digipostaddress,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("digipost-address")]
-        digipostaddress,
+        /// <remarks />
+        [XmlEnum("name-and-address")] Nameandaddress,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("name-and-address")]
-        nameandaddress,
+        /// <remarks />
+        [XmlEnum("organisation-number")] Organisationnumber,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("organisation-number")]
-        organisationnumber,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("personal-identification-number")]
-        personalidentificationnumber,
+        /// <remarks />
+        [XmlEnum("personal-identification-number")] Personalidentificationnumber
     }
 }

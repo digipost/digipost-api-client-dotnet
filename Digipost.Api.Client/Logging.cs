@@ -6,21 +6,21 @@ namespace Digipost.Api.Client
 
     namespace Digipost.Api.Client
     {
-        internal class Logging
+        public class Logging
         {
             private static Action<TraceEventType, Guid?, string, string> _logAction = null;
 
-            internal static void Initialize(ClientConfig konfigurasjon)
+            public static void Initialize(ClientConfig konfigurasjon)
             {
                 _logAction = konfigurasjon.Logger;
             }
 
-            internal static void Log(TraceEventType severity, string message, [CallerMemberName] string callerMember = null)
+            public static void Log(TraceEventType severity, string message, [CallerMemberName] string callerMember = null)
             {
                 Log(severity, null, message, callerMember);
             }
 
-            internal static void Log(TraceEventType severity, Guid? conversationId, string message, [CallerMemberName] string callerMember = null)
+            public static void Log(TraceEventType severity, Guid? conversationId, string message, [CallerMemberName] string callerMember = null)
             {
                 if (_logAction == null)
                     return;
@@ -31,12 +31,20 @@ namespace Digipost.Api.Client
                 _logAction(severity, conversationId, callerMember, message);
             }
 
-            internal static Action<TraceEventType, Guid?, string, string> TraceLogger()
+            public static Action<TraceEventType, Guid?, string, string> TraceLogger()
             {
-                TraceSource _traceSource = new TraceSource("Digipost.Api.Klient");
+                TraceSource traceSource = new TraceSource("Digipost.Api.Klient");
                 return (severity, koversasjonsId, caller, message) =>
                 {
-                    _traceSource.TraceEvent(severity, 1, "[{0}, {1}] {2}", koversasjonsId.GetValueOrDefault(), caller, message);
+                    traceSource.TraceEvent(severity, 1, "[{0}, {1}] {2}", koversasjonsId.GetValueOrDefault(), caller, message);
+                };
+            }
+
+            public static Action<TraceEventType, Guid?, string, string> ConsoleLogger()
+            {
+                return (severity, koversasjonsId, caller, message) =>
+                {
+                    Console.WriteLine("[{0}] {1}", caller, message);
                 };
             }
         }

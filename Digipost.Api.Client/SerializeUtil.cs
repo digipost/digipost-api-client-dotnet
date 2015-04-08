@@ -19,17 +19,19 @@ namespace Digipost.Api.Client
                 return null;
             }
 
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof(T));
 
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Encoding = new UTF8Encoding(false);
-            settings.ConformanceLevel = ConformanceLevel.Document;
-            settings.Indent = false;
-            settings.OmitXmlDeclaration = false;
-
-            using (Utf8StringWriter textWriter = new Utf8StringWriter())
+            var settings = new XmlWriterSettings
             {
-                using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, settings))
+                Encoding = new UTF8Encoding(false),
+                ConformanceLevel = ConformanceLevel.Document,
+                Indent = false,
+                OmitXmlDeclaration = false
+            };
+
+            using (var textWriter = new Utf8StringWriter())
+            {
+                using (var xmlWriter = XmlWriter.Create(textWriter, settings))
                 {
                     serializer.Serialize(xmlWriter, value);
                 }
@@ -39,20 +41,18 @@ namespace Digipost.Api.Client
 
         public static T Deserialize<T>(string xml)
         {
-
             if (string.IsNullOrEmpty(xml))
             {
                 return default(T);
             }
 
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof(T));
 
-            XmlReaderSettings settings = new XmlReaderSettings();
-            // No settings need modifying here
+            var settings = new XmlReaderSettings();
 
-            using (StringReader textReader = new StringReader(xml))
+            using (var textReader = new StringReader(xml))
             {
-                using (XmlReader xmlReader = XmlReader.Create(textReader, settings))
+                using (var xmlReader = XmlReader.Create(textReader, settings))
                 {
                     return (T)serializer.Deserialize(xmlReader);
                 }

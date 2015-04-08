@@ -1,51 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "sender-organization", Namespace = "http://api.digipost.no/schema/v6")]
-    public partial class SenderOrganization
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "sender-organization", Namespace = "http://api.digipost.no/schema/v6")]
+    public class SenderOrganization
     {
+        private string _organizationId;
+        private string _partId;
 
-        private string organizationidField;
-
-        private string partidField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("organization-id")]
+        /// <remarks />
+        [XmlElement("organization-id")]
         public string OrganizationId
         {
-            get
-            {
-                return this.organizationidField;
-            }
-            set
-            {
-                this.organizationidField = value;
-            }
+            get { return _organizationId; }
+            set { _organizationId = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("part-id")]
+        /// <remarks />
+        [XmlElement("part-id")]
         public string PartId
         {
-            get
-            {
-                return this.partidField;
-            }
-            set
-            {
-                this.partidField = value;
-            }
+            get { return _partId; }
+            set { _partId = value; }
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Digipost.Api.Client
             if (!String.IsNullOrEmpty(technicalSenderId))
                 _technicalSenderId = technicalSenderId;
             
-            Logger = Logging.TraceLogger();
+            Logger = Logging.ConsoleLogger();
             LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Properties.Settings.Default.LogToFile);
             LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
         }

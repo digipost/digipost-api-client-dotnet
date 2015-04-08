@@ -1,66 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "message", Namespace = "http://api.digipost.no/schema/v6")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public partial class Message
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "message", Namespace = "http://api.digipost.no/schema/v6")]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    public class Message
     {
+        private Document[] _attachments;
+        private Document _primarydocument;
+        private MessageRecipient _recipient;
 
-        private MessageRecipient recipient;
-
-        private Document primarydocument;
-
-        private Document[] attachments;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("recipient")]
+        /// <remarks />
+        [XmlElement("recipient")]
         public MessageRecipient Recipient
         {
-            get
-            {
-                return this.recipient;
-            }
-            set
-            {
-                this.recipient = value;
-            }
+            get { return _recipient; }
+            set { _recipient = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("primary-document")]
+        /// <remarks />
+        [XmlElement("primary-document")]
         public Document PrimaryDocument
         {
-            get
-            {
-                return this.primarydocument;
-            }
-            set
-            {
-                this.primarydocument = value;
-            }
+            get { return _primarydocument; }
+            set { _primarydocument = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("attachment")]
+        /// <remarks />
+        [XmlElement("attachment")]
         public Document[] Attachment
         {
-            get
-            {
-                return this.attachments;
-            }
-            set
-            {
-                this.attachments = value;
-            }
+            get { return _attachments; }
+            set { _attachments = value; }
         }
     }
 }

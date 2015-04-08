@@ -1,15 +1,13 @@
-﻿using Digipost.Api.Client.Domain;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Management.Instrumentation;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Digipost.Api.Client;
+using Digipost.Api.Client.Domain;
 using DigipostApiClientShared;
 using DigipostApiClientShared.Enums;
 
@@ -26,15 +24,16 @@ namespace Digipost.Api.Client
 
         public async Task<string> Send(Message message)
         {
+            Logging.Log(TraceEventType.Information, "> Starting Send()");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
-
+            Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
             using (var client = new HttpClient(loggingHandler))
             {
 
                 client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
-
-                var method = "POST";
-                var uri = "messages";
+                
+                const string method = "POST";
+                const string uri = "messages";
                 var date = DateTime.UtcNow.ToString("R");
 
                 var boundary = Guid.NewGuid().ToString();
@@ -43,6 +42,7 @@ namespace Digipost.Api.Client
                 client.DefaultRequestHeaders.Add("Date", date);
                 client.DefaultRequestHeaders.Add("Accept", "application/vnd.digipost-v6+xml");
 
+                Logging.Log(TraceEventType.Information, " - Initializing MultipartFormDataContent");
                 using (var content = new MultipartFormDataContent(boundary))
                 {
                     var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
@@ -50,9 +50,10 @@ namespace Digipost.Api.Client
                     content.Headers.ContentType = mediaTypeHeaderValue;
 
                     {
-                        string xmlMessage = "";
+                        Logging.Log(TraceEventType.Information, "  - Creating XML-body");
+                        var xmlMessage = "";
                         xmlMessage = SerializeUtil.Serialize(message);
-
+                        Logging.Log(TraceEventType.Information, String.Format("   -  XML-body \n [{0}]", xmlMessage));
                         var messageContent = new StringContent(xmlMessage);
                         messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
                         messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -63,6 +64,7 @@ namespace Digipost.Api.Client
                     }
 
                     {
+                        Logging.Log(TraceEventType.Information, "  - Adding primary document");
                         var documentContent = new ByteArrayContent(message.PrimaryDocument.Content);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -75,6 +77,7 @@ namespace Digipost.Api.Client
                     {
                         foreach (Document attachment in message.Attachment)
                         {
+                            Logging.Log(TraceEventType.Information, "  - Adding attachment");
                             var attachmentContent = new ByteArrayContent(attachment.Content);
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                             attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -86,33 +89,28 @@ namespace Digipost.Api.Client
                     }
 
                     var multipartContent = await content.ReadAsByteArrayAsync();
+                    Logging.Log(TraceEventType.Information, " - Hashing byteStream of body content");
                     var computeHash = ComputeHash(multipartContent);
 
                     client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
                     client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, ClientConfig.TechnicalSenderId));
 
-                    try
-                    {
-                        var result = client.PostAsync(uri, content).Result;
-                        Debug.WriteLine(await result.Content.ReadAsStringAsync());
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.Message, e);
-                        int i = 0;
-                    }
+                    Logging.Log(TraceEventType.Information, String.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl+uri));
+                    var requestResult = client.PostAsync(uri, content).Result;
+
+                    var contentResult = await requestResult.Content.ReadAsStringAsync();
+                    Logging.Log(TraceEventType.Information, String.Format("  - Result \n [{0}]", contentResult));
+
+                    return contentResult;
                 }
-
-
             }
-
-            return null;
+            
         }
 
         private static string ComputeHash(Byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
-            Byte[] hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
+            var hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
 
             return Convert.ToBase64String(hashedBytes);
         }
@@ -121,7 +119,7 @@ namespace Digipost.Api.Client
 
         private static string ComputeSignature(string method, string uri, string date, string sha256Hash, string userId)
         {
-            var parameters = ""; //HttpUtility.UrlEncode(request.RequestUri.Query).ToLower();
+            const string parameters = ""; //HttpUtility.UrlEncode(request.RequestUri.Query).ToLower();
 
             Debug.WriteLine("Canonical string generated by .NET Client:");
             Debug.WriteLine("===START===");
@@ -151,10 +149,10 @@ namespace Digipost.Api.Client
 
         private static X509Certificate2 GetCert()
         {
-            X509Store storeMy = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            var storeMy = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             storeMy.Open(OpenFlags.ReadOnly);
-            var thumbprint = "F7DE9C384EE6D0A81DAD7E8E60BD3776FA5DE9F4";
-        
+            const string thumbprint = "F7DE9C384EE6D0A81DAD7E8E60BD3776FA5DE9F4";
+
             return CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 

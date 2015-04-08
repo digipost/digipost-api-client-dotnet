@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
     // AuthenticationLevel
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "authentication-level", Namespace = "http://api.digipost.no/schema/v6")]
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable()]
+    [XmlType(TypeName = "authentication-level", Namespace = "http://api.digipost.no/schema/v6")]
     public enum AuthenticationLevel
     {
 

@@ -1,57 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "message-recipient", Namespace = "http://api.digipost.no/schema/v6")]
-    [System.Xml.Serialization.XmlRootAttribute("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public partial class MessageRecipient
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.33440")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(TypeName = "message-recipient", Namespace = "http://api.digipost.no/schema/v6")]
+    [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    public class MessageRecipient
     {
+        private IdentificationChoice _identification;
+        private object _identificationValue;
 
-        private object identificationValue;
-
-        private IdentificationChoice identification;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(NameAndAddress))]
-        [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("personal-identification-number", typeof(string))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        /// <remarks />
+        [XmlElement("digipost-address", typeof (string))]
+        [XmlElement("name-and-address", typeof (NameAndAddress))]
+        [XmlElement("organisation-number", typeof (string))]
+        [XmlElement("personal-identification-number", typeof (string))]
+        [XmlChoiceIdentifier("ItemElementName")]
         public object Identification
         {
-            get
-            {
-                return this.identificationValue;
-            }
-            set
-            {
-                this.identificationValue = value;
-            }
+            get { return _identificationValue; }
+            set { _identificationValue = value; }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        /// <remarks />
+        [XmlIgnore]
         public IdentificationChoice ItemElementName
         {
-            get
-            {
-                return this.identification;
-            }
-            set
-            {
-                this.identification = value;
-            }
+            get { return _identification; }
+            set { _identification = value; }
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Testklient
@@ -11,12 +12,14 @@ namespace Digipost.Api.Client.Testklient
         private static void Main(string[] args)
         {
             var message = GetMessage();
-
             var config = new ClientConfig(technicalSenderId);
+            Logging.Initialize(config);
+
             var api = new DigipostApi(config);
             var t = api.Send(message);
 
             var r = t.Result;
+            Console.ReadKey();
         }
 
         private static Message GetMessage()
@@ -24,7 +27,7 @@ namespace Digipost.Api.Client.Testklient
             //primary document
             var doc = new Document();
             doc.Authenticationlevel = AuthenticationLevel.PASSWORD;
-            doc.Sensitivitylevel = SensitivityLevel.NORMAL;
+            doc.Sensitivitylevel = SensitivityLevel.Normal;
             doc.FileType = "pdf";
             doc.Subject = "test";
             doc.Uuid = Guid.NewGuid().ToString();
@@ -34,7 +37,7 @@ namespace Digipost.Api.Client.Testklient
             //attachment1
             var attachment1 = new Document();
             attachment1.Authenticationlevel = AuthenticationLevel.PASSWORD;
-            attachment1.Sensitivitylevel = SensitivityLevel.NORMAL;
+            attachment1.Sensitivitylevel = SensitivityLevel.Normal;
             attachment1.FileType = "pdf";
             attachment1.Subject = "attachment";
             attachment1.Uuid = Guid.NewGuid().ToString();
@@ -43,7 +46,7 @@ namespace Digipost.Api.Client.Testklient
             //attachment2
             var attachment2 = new Document();
             attachment2.Authenticationlevel = AuthenticationLevel.PASSWORD;
-            attachment2.Sensitivitylevel = SensitivityLevel.NORMAL;
+            attachment2.Sensitivitylevel = SensitivityLevel.Normal;
             attachment2.FileType = "pdf";
             attachment2.Subject = "attachment";
             attachment2.Uuid = Guid.NewGuid().ToString();
@@ -51,7 +54,7 @@ namespace Digipost.Api.Client.Testklient
 
             //recipient
             var mr = new MessageRecipient();
-            mr.ItemElementName = IdentificationChoice.personalidentificationnumber;
+            mr.ItemElementName = IdentificationChoice.Personalidentificationnumber;
             mr.Identification = "01013300001";
 
             //message

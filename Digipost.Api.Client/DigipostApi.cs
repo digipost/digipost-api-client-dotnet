@@ -26,6 +26,7 @@ namespace Digipost.Api.Client
 
             using (var client = new HttpClient(loggingHandler))
             {
+                
                 client.BaseAddress = new Uri(BaseAddress);
 
                 var method = "POST";
@@ -46,18 +47,8 @@ namespace Digipost.Api.Client
 
                     {
                         string xmlMessage="";
-                        try
-                        {
-                            xmlMessage = SerializeUtil.Serialize(message);
-                        }
-                        catch (Exception e)
-                        {
-
-                            int i = 0;
-
-                            throw e;
-                        }
-
+                        xmlMessage = SerializeUtil.Serialize(message);
+                       
                         var messageContent = new StringContent(xmlMessage);
                         messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
                         messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -68,11 +59,11 @@ namespace Digipost.Api.Client
                     }
 
                     {
-                        var documentContent = new ByteArrayContent(message.PrimaryDocument.contentOfDocument);
+                        var documentContent = new ByteArrayContent(message.PrimaryDocument.Content);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
-                            FileName = message.PrimaryDocument.uuid
+                            FileName = message.PrimaryDocument.Uuid
                         };
                         content.Add(documentContent);
                     }
@@ -80,11 +71,11 @@ namespace Digipost.Api.Client
                     {
                         foreach (Document attachment in message.Attachment)
                         {
-                            var attachmentContent = new ByteArrayContent(attachment.contentOfDocument);
+                            var attachmentContent = new ByteArrayContent(attachment.Content);
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                             attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                             {
-                                FileName = attachment.uuid
+                                FileName = attachment.Uuid
                             };
                             content.Add(attachmentContent);
                         }

@@ -8,7 +8,6 @@ namespace Digipost.Api.Client.Domain
 {
     // Document
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Invoice))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -18,236 +17,93 @@ namespace Digipost.Api.Client.Domain
     public partial class Document
     {
 
-        private string uuidField;
+        private string uuid;
 
-        private string subjectField;
+        private string subject;
 
-        private string filetypeField;
+        private string fileType;
 
-        private object itemField;
+        private AuthenticationLevel authenticationlevel;
 
-        private SmsNotification smsnotificationField;
-
-        private EmailNotification emailnotificationField;
-
-        private AuthenticationLevel authenticationlevelField;
-
-        private bool authenticationlevelFieldSpecified;
-
-        private SensitivityLevel sensitivitylevelField;
-
-        private bool sensitivitylevelFieldSpecified;
-
-        private bool preencryptField;
-
-        private bool preencryptFieldSpecified;
-
-        private ContentHash contenthashField;
-
-        private Link[] linkField;
+        private SensitivityLevel sensitivitylevel;
 
         private string technicaltypeField;
 
         private byte[] content;
 
         /// <remarks/>
-        public string uuid
+        public string Uuid
         {
             get
             {
-                return this.uuidField;
+                return this.uuid;
             }
             set
             {
-                this.uuidField = value;
+                this.uuid = value;
             }
         }
 
         /// <remarks/>
-        public string subject
+        public string Subject
         {
             get
             {
-                return this.subjectField;
+                return this.subject;
             }
             set
             {
-                this.subjectField = value;
+                this.subject = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("file-type")]
-        public string filetype
+        public string FileType
         {
             get
             {
-                return this.filetypeField;
+                return this.fileType;
             }
             set
             {
-                this.filetypeField = value;
+                this.fileType = value;
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("opened", typeof(bool))]
-        [System.Xml.Serialization.XmlElementAttribute("opening-receipt", typeof(string))]
-        public object Item
-        {
-            get
-            {
-                return this.itemField;
-            }
-            set
-            {
-                this.itemField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sms-notification")]
-        public SmsNotification smsnotification
-        {
-            get
-            {
-                return this.smsnotificationField;
-            }
-            set
-            {
-                this.smsnotificationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("email-notification")]
-        public EmailNotification emailnotification
-        {
-            get
-            {
-                return this.emailnotificationField;
-            }
-            set
-            {
-                this.emailnotificationField = value;
-            }
-        }
+       
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("authentication-level")]
-        public AuthenticationLevel authenticationlevel
+        public AuthenticationLevel Authenticationlevel
         {
             get
             {
-                return this.authenticationlevelField;
+                return this.authenticationlevel;
             }
             set
             {
-                this.authenticationlevelField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool authenticationlevelSpecified
-        {
-            get
-            {
-                return this.authenticationlevelFieldSpecified;
-            }
-            set
-            {
-                this.authenticationlevelFieldSpecified = value;
+                this.authenticationlevel = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("sensitivity-level")]
-        public SensitivityLevel sensitivitylevel
+        public SensitivityLevel Sensitivitylevel
         {
             get
             {
-                return this.sensitivitylevelField;
+                return this.sensitivitylevel;
             }
             set
             {
-                this.sensitivitylevelField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool sensitivitylevelSpecified
-        {
-            get
-            {
-                return this.sensitivitylevelFieldSpecified;
-            }
-            set
-            {
-                this.sensitivitylevelFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("pre-encrypt")]
-        public bool preencrypt
-        {
-            get
-            {
-                return this.preencryptField;
-            }
-            set
-            {
-                this.preencryptField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool preencryptSpecified
-        {
-            get
-            {
-                return this.preencryptFieldSpecified;
-            }
-            set
-            {
-                this.preencryptFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("content-hash")]
-        public ContentHash contenthash
-        {
-            get
-            {
-                return this.contenthashField;
-            }
-            set
-            {
-                this.contenthashField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("link")]
-        public Link[] link
-        {
-            get
-            {
-                return this.linkField;
-            }
-            set
-            {
-                this.linkField = value;
+                this.sensitivitylevel = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute("technical-type")]
-        public string technicaltype
+        public string Technicaltype
         {
             get
             {
@@ -260,7 +116,7 @@ namespace Digipost.Api.Client.Domain
         }
         
         [System.Xml.Serialization.XmlIgnore]
-        public byte[] contentOfDocument
+        public byte[] Content
         {
             get
             {

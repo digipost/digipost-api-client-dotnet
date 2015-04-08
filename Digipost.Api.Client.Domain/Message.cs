@@ -15,17 +15,15 @@ namespace Digipost.Api.Client.Domain
     public partial class Message
     {
 
-        private string messageidField;
+        private string messageid;
 
-        private object senderIdField;
+        private object senderId;
 
-        private MessageRecipient recipientField;
+        private MessageRecipient recipient;
 
-        private string invoicereferenceField;
+        private Document primarydocument;
 
-        private Document primarydocumentField;
-
-        private Document[] attachmentField;
+        private Document[] attachments;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("message-id")]
@@ -33,11 +31,11 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return this.messageidField;
+                return this.messageid;
             }
             set
             {
-                this.messageidField = value;
+                this.messageid = value;
             }
         }
 
@@ -48,40 +46,25 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return this.senderIdField;
+                return this.senderId;
             }
             set
             {
-                this.senderIdField = value;
+                this.senderId = value;
             }
         }
 
         /// <remarks/>
-        public MessageRecipient recipient
+        [System.Xml.Serialization.XmlElementAttribute("message-recipient")]
+        public MessageRecipient Recipient
         {
             get
             {
-                return this.recipientField;
+                return this.recipient;
             }
             set
             {
-                this.recipientField = value;
-            }
-        }
-
-      //TODO: fix deliveryDateSpecified. KSE
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("invoice-reference")]
-        public string InvoiceReference
-        {
-            get
-            {
-                return this.invoicereferenceField;
-            }
-            set
-            {
-                this.invoicereferenceField = value;
+                this.recipient = value;
             }
         }
 
@@ -91,11 +74,11 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return this.primarydocumentField;
+                return this.primarydocument;
             }
             set
             {
-                this.primarydocumentField = value;
+                this.primarydocument = value;
             }
         }
 
@@ -105,11 +88,11 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return this.attachmentField;
+                return this.attachments;
             }
             set
             {
-                this.attachmentField = value;
+                this.attachments = value;
             }
         }
     }

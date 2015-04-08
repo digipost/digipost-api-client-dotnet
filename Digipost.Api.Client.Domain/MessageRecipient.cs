@@ -17,27 +17,25 @@ namespace Digipost.Api.Client.Domain
     public partial class MessageRecipient
     {
 
-        private object itemField;
+        private object identificationValue;
 
-        private IdentificationChoice itemElementNameField;
-
-        private PrintDetails printdetailsField;
+        private IdentificationChoice identification;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(nameandaddress))]
+        [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(NameAndAddress))]
         [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
         [System.Xml.Serialization.XmlElementAttribute("personal-identification-number", typeof(string))]
         [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-        public object Item
+        public object IdentificationValue
         {
             get
             {
-                return this.itemField;
+                return this.identificationValue;
             }
             set
             {
-                this.itemField = value;
+                this.identificationValue = value;
             }
         }
 
@@ -47,26 +45,13 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return this.itemElementNameField;
+                return this.identification;
             }
             set
             {
-                this.itemElementNameField = value;
+                this.identification = value;
             }
         }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("print-details")]
-        public PrintDetails printdetails
-        {
-            get
-            {
-                return this.printdetailsField;
-            }
-            set
-            {
-                this.printdetailsField = value;
-            }
-        }
     }
 }

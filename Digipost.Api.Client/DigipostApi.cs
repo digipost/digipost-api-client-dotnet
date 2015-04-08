@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using DigipostApiClientShared;
+using DigipostApiClientShared.Enums;
 
 namespace Digipost.Api.Client
 {
@@ -148,15 +151,12 @@ namespace Digipost.Api.Client
 
         private static X509Certificate2 GetCert()
         {
-            return
-                new X509Certificate2(
-                    @"Z:\aleksander sjafjell On My Mac\Development\Shared\sdp-data\testdata\rest\certificate.p12",
-                    "Qwer12345", X509KeyStorageFlags.Exportable);
-
-            return
-                new X509Certificate2(
-                    @"\\vmware-host\Shared Folders\Development\digipost_testkonto.p12",
-                    "Qwer12345", X509KeyStorageFlags.Exportable);
+            X509Store storeMy = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            storeMy.Open(OpenFlags.ReadOnly);
+            var thumbprint = "F7DE9C384EE6D0A81DAD7E8E60BD3776FA5DE9F4";
+        
+            return CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
+
     }
 }

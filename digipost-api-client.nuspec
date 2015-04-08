@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>digipost-api-client</id>
+        <version>1.0.0</version>
+        <title>digipost-api-client</title>
+        <authors>Aleksander Sjåfjell,Kristian Enge</authors>
+        <owners>Digipost</owners>
+        <projectUrl>https://github.com/digipost/digipost-api-client-dotnet</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Klientbibliotek for integrasjon mot Digipost REST-API.</description>
+        <summary>Apache Licence 2.0</summary>
+    </metadata>
+    <files>
+        <file src="Digipost.Api.Client\bin\Release\*.dll" target="lib\net45\" />        
+    </files>
+</package>

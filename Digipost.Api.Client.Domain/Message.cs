@@ -15,10 +15,6 @@ namespace Digipost.Api.Client.Domain
     public partial class Message
     {
 
-        private string messageid;
-
-        private object senderId;
-
         private MessageRecipient recipient;
 
         private Document primarydocument;
@@ -26,36 +22,7 @@ namespace Digipost.Api.Client.Domain
         private Document[] attachments;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("message-id")]
-        public string MessageId
-        {
-            get
-            {
-                return this.messageid;
-            }
-            set
-            {
-                this.messageid = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("sender-id", typeof(long))]
-        [System.Xml.Serialization.XmlElementAttribute("sender-organization", typeof(SenderOrganization))]
-        public object SenderId
-        {
-            get
-            {
-                return this.senderId;
-            }
-            set
-            {
-                this.senderId = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("message-recipient")]
+        [System.Xml.Serialization.XmlElementAttribute("recipient")]
         public MessageRecipient Recipient
         {
             get

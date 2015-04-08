@@ -105,87 +105,6 @@ namespace Digipost.Api.Client
             return null;
         }
 
-        public static async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] primaryDocument, string primaryDocumentGuid,Dictionary<string, byte[]> attachmentList)
-        {
-            var loggingHandler = new LoggingHandler(new HttpClientHandler());
-
-            using (var client = new HttpClient(loggingHandler))
-            {
-                client.BaseAddress = new Uri(BaseAddress);
-
-                var method = "POST";
-                var uri = "messages";
-                var date = DateTime.UtcNow.ToString("R");
-                                
-                var boundary = Guid.NewGuid().ToString();
-
-                client.DefaultRequestHeaders.Add("X-Digipost-UserId", userId);
-                client.DefaultRequestHeaders.Add("Date", date);
-                client.DefaultRequestHeaders.Add("Accept", "application/vnd.digipost-v6+xml");
-
-                using (var content = new MultipartFormDataContent(boundary))
-                {
-                    var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
-                    mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
-                    content.Headers.ContentType = mediaTypeHeaderValue;
-
-                    {
-                        var messageContent = new StringContent(xmlMessage);
-                        messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
-                        messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                        {
-                            FileName = "\"message\""
-                        };
-                        content.Add(messageContent);
-                    }
-
-                    {
-                        var documentContent = new ByteArrayContent(primaryDocument);
-                        documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-                        documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                        {
-                            FileName = primaryDocumentGuid
-                        };
-                        content.Add(documentContent);
-                    }
-
-                    {
-                        foreach(KeyValuePair<string, byte[]> entry in attachmentList)
-                        {
-                            var attachmentContent = new ByteArrayContent(entry.Value);
-                            attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-                            attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                            {
-                                FileName = entry.Key
-                            };
-                            content.Add(attachmentContent);
-                        }
-                    }
-
-                    var multipartContent = await content.ReadAsByteArrayAsync();
-                    var computeHash = ComputeHash(multipartContent);
-
-                    client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
-                    client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, userId));
-
-                    try
-                    {
-                        var result = client.PostAsync(uri, content).Result;
-                        Debug.WriteLine(await result.Content.ReadAsStringAsync());
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.Message, e);
-                        int i = 0;
-                    }
-                }
-
-
-            }
-
-            return null;
-        }
-
         private static string ComputeHash(Byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
@@ -230,7 +149,7 @@ namespace Digipost.Api.Client
         {
             return
                 new X509Certificate2(
-                    @"C:\Users\krist\Documents\GitHub\certificate.p12",
+                    @"\\vmware-host\Shared Folders\Development\digipost_testkonto.p12",
                     "Qwer12345", X509KeyStorageFlags.Exportable);
         }
     }

@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Domain
         [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
         [System.Xml.Serialization.XmlElementAttribute("personal-identification-number", typeof(string))]
         [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-        public object IdentificationValue
+        public object Identification
         {
             get
             {

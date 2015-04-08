@@ -56,11 +56,10 @@ namespace Digipost.Api.Client.Testklient
             //recipient
             MessageRecipient mr = new MessageRecipient();
             mr.ItemElementName = IdentificationChoice.personalidentificationnumber;
-            mr.IdentificationValue = "31108446911";
+            mr.Identification = "31108446911";
 
             //message
             Message m = new Message();
-            
             m.PrimaryDocument = doc;
             m.Attachment = new Document[2];
             m.Attachment[0] = attachment1;

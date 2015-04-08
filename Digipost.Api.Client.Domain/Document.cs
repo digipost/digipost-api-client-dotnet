@@ -32,6 +32,7 @@ namespace Digipost.Api.Client.Domain
         private byte[] content;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("uuid")]
         public string Uuid
         {
             get
@@ -45,6 +46,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("subject")]
         public string Subject
         {
             get

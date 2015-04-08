@@ -64,6 +64,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AuthFilter.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DigipostApi.cs" />
     <Compile Include="Logging.cs" />

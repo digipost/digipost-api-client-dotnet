@@ -71,6 +71,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SerializeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

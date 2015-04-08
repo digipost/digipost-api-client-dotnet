@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Digipost.Api.Client.Domain;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,32 +12,31 @@ using System.Threading.Tasks;
 
 namespace Digipost.Api.Client
 {
-   public class DigipostApi
+    public class DigipostApi
     {
-       public ClientConfig Config { get; set; }
-       
-       public DigipostApi(ClientConfig config)
-       {
-           Config = config;
-       }
+        private ClientConfig ClientConfig { get; set; }
 
-       public async Task<string> Send(string userId, string forsendelseId, string digipostAdresse, string emne, string xmlMessage, byte[] attachment, string DocumentGuid)
+        public DigipostApi(ClientConfig clientConfig)
+        {
+            ClientConfig = clientConfig;
+        }
+
+        public async Task<string> Send(Message message)
         {
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
 
             using (var client = new HttpClient(loggingHandler))
             {
-                client.BaseAddress = new Uri(Config.ApiUrl.AbsoluteUri);
+
+                client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
 
                 var method = "POST";
                 var uri = "messages";
                 var date = DateTime.UtcNow.ToString("R");
 
-                var hash = ComputeHash(xmlMessage);
-                
                 var boundary = Guid.NewGuid().ToString();
 
-                client.DefaultRequestHeaders.Add("X-Digipost-UserId", userId);
+                client.DefaultRequestHeaders.Add("X-Digipost-UserId", ClientConfig.TechnicalSenderId);
                 client.DefaultRequestHeaders.Add("Date", date);
                 client.DefaultRequestHeaders.Add("Accept", "application/vnd.digipost-v6+xml");
 
@@ -47,6 +47,9 @@ namespace Digipost.Api.Client
                     content.Headers.ContentType = mediaTypeHeaderValue;
 
                     {
+                        string xmlMessage = "";
+                        xmlMessage = SerializeUtil.Serialize(message);
+
                         var messageContent = new StringContent(xmlMessage);
                         messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
                         messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -57,20 +60,33 @@ namespace Digipost.Api.Client
                     }
 
                     {
-                        var documentContent = new ByteArrayContent(attachment);
+                        var documentContent = new ByteArrayContent(message.PrimaryDocument.Content);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
-                            FileName = DocumentGuid
+                            FileName = message.PrimaryDocument.Uuid
                         };
                         content.Add(documentContent);
                     }
 
-                    var multipartContent = await content.ReadAsStringAsync();
+                    {
+                        foreach (Document attachment in message.Attachment)
+                        {
+                            var attachmentContent = new ByteArrayContent(attachment.Content);
+                            attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                            attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                            {
+                                FileName = attachment.Uuid
+                            };
+                            content.Add(attachmentContent);
+                        }
+                    }
+
+                    var multipartContent = await content.ReadAsByteArrayAsync();
                     var computeHash = ComputeHash(multipartContent);
 
                     client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
-                    client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, userId));
+                    client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, ClientConfig.TechnicalSenderId));
 
                     try
                     {
@@ -90,14 +106,15 @@ namespace Digipost.Api.Client
             return null;
         }
 
-        private static string ComputeHash(string input)
+        private static string ComputeHash(Byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
-            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
             Byte[] hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
 
             return Convert.ToBase64String(hashedBytes);
         }
+
+
 
         private static string ComputeSignature(string method, string uri, string date, string sha256Hash, string userId)
         {

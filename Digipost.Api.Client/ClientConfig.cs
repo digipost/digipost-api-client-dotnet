@@ -49,6 +49,25 @@ namespace Digipost.Api.Client
         }
 
         /// <summary>
+        /// Client configuration used for setting up the client with settings as timeout, Url and logging.
+        /// </summary>
+        /// <param name="technicalSenderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
+        public ClientConfig(string technicalSenderId = "")
+        {
+            ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Properties.Settings.Default.Url));
+            TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Properties.Settings.Default.TimeoutMilliseconds);
+
+            _technicalSenderId = SetFromAppConfig<string>("DP:TechnicalSenderId",Properties.Settings.Default.TechnicalSenderId);
+            
+            if (!String.IsNullOrEmpty(technicalSenderId))
+                _technicalSenderId = technicalSenderId;
+            
+            Logger = Logging.TraceLogger();
+            LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Properties.Settings.Default.LogToFile);
+            LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
+        }
+
+        /// <summary>
         /// Exposes logging where you can integrate your own logger or third party logger (i.e. log4net). For use, set an anonymous function with
         /// the following parameters: conversationId, method, message. As a default, trace logging is enabled with 'Digipost.Api.Client', which can be 
         /// activated in App.config.
@@ -62,26 +81,6 @@ namespace Digipost.Api.Client
 
         public string LogPath { get; set; }
 
-        /// <summary>
-        /// Client configuration used for setting up the client with settings as timeout, Url and logging.
-        /// </summary>
-        /// <param name="technicalSenderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
-        public ClientConfig(string technicalSenderId = "")
-        {
-            ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Properties.Settings.Default.Url));
-            TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Properties.Settings.Default.TimeoutMilliseconds);
-
-            if (String.IsNullOrEmpty(technicalSenderId))
-            {
-                _technicalSenderId = SetFromAppConfig<string>("DP:TechnicalSenderId",
-                    Properties.Settings.Default.TechnicalSenderId);
-            }
-            
-            Logger = Logging.TraceLogger();
-            LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Properties.Settings.Default.LogToFile);
-            LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
-        }
-        
         private T SetFromAppConfig<T>(string key, T @default)
         {
             var appSettings = ConfigurationManager.AppSettings;

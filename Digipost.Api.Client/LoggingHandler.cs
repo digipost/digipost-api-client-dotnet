@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Digipost.Api.Client.Digipost.Api.Client;
+using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
@@ -15,6 +16,8 @@ namespace Digipost.Api.Client
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+
+            Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - Start!");
             Debug.WriteLine("Request:");
             Debug.WriteLine(request.ToString());
             if (request.Content != null)

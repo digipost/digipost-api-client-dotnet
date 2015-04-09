@@ -37,6 +37,8 @@ namespace Digipost.Api.Client
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
+
+            Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - Start!");
             const string method = "POST";
             const string uri = "messages";
             var date = DateTime.UtcNow.ToString("R");

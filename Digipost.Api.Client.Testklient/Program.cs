@@ -2,6 +2,9 @@
 using System.IO;
 using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
+using System.Security.Cryptography.X509Certificates;
+using DigipostApiClientShared;
+using DigipostApiClientShared.Enums;
 
 namespace Digipost.Api.Client.Testklient
 {
@@ -15,7 +18,7 @@ namespace Digipost.Api.Client.Testklient
             var config = new ClientConfig(technicalSenderId);
             Logging.Initialize(config);
 
-            var api = new DigipostApi(config);
+            var api = new DigipostApi(config,GetCert());
             var t = api.Send(message);
 
             var r = t.Result;
@@ -79,6 +82,15 @@ namespace Digipost.Api.Client.Testklient
         {
             var documentPath = @"\\vmware-host\Shared Folders\Development\04_HelloWorld.pdf";
             return File.ReadAllBytes(documentPath);
+        }
+
+        private static X509Certificate2 GetCert()
+        {
+            var storeMy = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            storeMy.Open(OpenFlags.ReadOnly);
+            const string thumbprint = "F7DE9C384EE6D0A81DAD7E8E60BD3776FA5DE9F4";
+
+            return CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
     }
 }

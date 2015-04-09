@@ -16,10 +16,12 @@ namespace Digipost.Api.Client
     public class DigipostApi
     {
         private ClientConfig ClientConfig { get; set; }
+        private X509Certificate2 PrivateCertificate { get; set; }
 
-        public DigipostApi(ClientConfig clientConfig)
+        public DigipostApi(ClientConfig clientConfig, X509Certificate2 privateCertificate)
         {
             ClientConfig = clientConfig;
+            this.PrivateCertificate = privateCertificate;
         }
 
         public async Task<string> Send(Message message)
@@ -27,11 +29,10 @@ namespace Digipost.Api.Client
             const string uri = "messages";
             Logging.Log(TraceEventType.Information, "> Starting Send()");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, uri, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, uri, loggingHandler);
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
             using (var client = new HttpClient(authenticationHandler))
             {
-
                 client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
                 var boundary = Guid.NewGuid().ToString();
 

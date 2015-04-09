@@ -24,23 +24,16 @@ namespace Digipost.Api.Client
 
         public async Task<string> Send(Message message)
         {
+            const string uri = "messages";
             Logging.Log(TraceEventType.Information, "> Starting Send()");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, uri, loggingHandler);
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-            using (var client = new HttpClient(loggingHandler))
+            using (var client = new HttpClient(authenticationHandler))
             {
 
                 client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
-                
-                const string method = "POST";
-                const string uri = "messages";
-                var date = DateTime.UtcNow.ToString("R");
-
                 var boundary = Guid.NewGuid().ToString();
-
-                client.DefaultRequestHeaders.Add("X-Digipost-UserId", ClientConfig.TechnicalSenderId);
-                client.DefaultRequestHeaders.Add("Date", date);
-                client.DefaultRequestHeaders.Add("Accept", "application/vnd.digipost-v6+xml");
 
                 Logging.Log(TraceEventType.Information, " - Initializing MultipartFormDataContent");
                 using (var content = new MultipartFormDataContent(boundary))
@@ -87,14 +80,7 @@ namespace Digipost.Api.Client
                             content.Add(attachmentContent);
                         }
                     }
-
-                    var multipartContent = await content.ReadAsByteArrayAsync();
-                    Logging.Log(TraceEventType.Information, " - Hashing byteStream of body content");
-                    var computeHash = ComputeHash(multipartContent);
-
-                    client.DefaultRequestHeaders.Add("X-Content-SHA256", computeHash);
-                    client.DefaultRequestHeaders.Add("X-Digipost-Signature", ComputeSignature(method, uri, date, computeHash, ClientConfig.TechnicalSenderId));
-
+                    
                     Logging.Log(TraceEventType.Information, String.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl+uri));
                     var requestResult = client.PostAsync(uri, content).Result;
 

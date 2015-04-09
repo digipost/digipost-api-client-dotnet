@@ -71,13 +71,13 @@ namespace Digipost.Api.Client.Testklient
 
         private static byte[] GetPrimaryDocument()
         {
-            var documentPath = @"Z:\aleksander sjafjell On My Mac\Development\Shared\sdp-data\testdata\hoveddokument\OWASP_Top_10_ 2013.pdf";
+            var documentPath = @"\\vmware-host\Shared Folders\Development\01_HelloWorld.pdf";
             return File.ReadAllBytes(documentPath);
         }
 
         private static byte[] GetAttachment()
         {
-            var documentPath = @"Z:\aleksander sjafjell On My Mac\Development\Shared\sdp-data\testdata\hoveddokument\OWASP_Top_10_ 2013.pdf";
+            var documentPath = @"\\vmware-host\Shared Folders\Development\04_HelloWorld.pdf";
             return File.ReadAllBytes(documentPath);
         }
     }

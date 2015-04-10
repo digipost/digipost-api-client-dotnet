@@ -12,15 +12,15 @@ namespace Digipost.Api.Client.Domain
     public enum IdentificationChoice
     {
         /// <remarks />
-        [XmlEnum("digipost-address")] Digipostaddress,
+        [XmlEnum("digipost-address")] DigipostAddress,
 
         /// <remarks />
-        [XmlEnum("name-and-address")] Nameandaddress,
+        [XmlEnum("name-and-address")] NameAndAddress,
 
         /// <remarks />
-        [XmlEnum("organisation-number")] Organisationnumber,
+        [XmlEnum("organisation-number")] OrganisationNumber,
 
         /// <remarks />
-        [XmlEnum("personal-identification-number")] Personalidentificationnumber
+        [XmlEnum("personal-identification-number")] PersonalidentificationNumber
     }
 }

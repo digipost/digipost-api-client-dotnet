@@ -57,8 +57,8 @@ namespace Digipost.Api.Client.Testklient
 
             //recipient
             var mr = new MessageRecipient();
-            mr.ItemElementName = IdentificationChoice.Personalidentificationnumber;
-            mr.Identification = "01013300001";
+            mr.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
+            mr.IdentificationValue = "01013300001";
 
             //message
             var m = new Message();

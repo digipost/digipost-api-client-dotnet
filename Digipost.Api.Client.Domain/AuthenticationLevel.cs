@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    // AuthenticationLevel
     /// <remarks/>
     [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable()]
@@ -13,15 +12,19 @@ namespace Digipost.Api.Client.Domain
     {
 
         /// <remarks/>
-        PASSWORD,
+        [XmlEnum("PASSWORD")]
+        Password,
 
         /// <remarks/>
-        TWO_FACTOR,
+        [XmlEnum("TWO_FACTOR")]
+        TwoFactor,
 
         /// <remarks/>
-        IDPORTEN_3,
+        [XmlEnum("IDPORTEN_3")]
+        IdPorten_3,
 
         /// <remarks/>
-        IDPORTEN_4,
+        [XmlEnum("IDPORTEN_4")]
+        IdPorten_4,
     }
 }

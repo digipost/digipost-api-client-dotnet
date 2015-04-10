@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var doc = new Document();
-            doc.Authenticationlevel = AuthenticationLevel.PASSWORD;
+            doc.Authenticationlevel = AuthenticationLevel.Password;
             doc.Sensitivitylevel = SensitivityLevel.Normal;
             doc.FileType = "pdf";
             doc.Subject = "test";
@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Testklient
 
             //attachment1
             var attachment1 = new Document();
-            attachment1.Authenticationlevel = AuthenticationLevel.PASSWORD;
+            attachment1.Authenticationlevel = AuthenticationLevel.Password;
             attachment1.Sensitivitylevel = SensitivityLevel.Normal;
             attachment1.FileType = "pdf";
             attachment1.Subject = "attachment";
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Testklient
 
             //attachment2
             var attachment2 = new Document();
-            attachment2.Authenticationlevel = AuthenticationLevel.PASSWORD;
+            attachment2.Authenticationlevel = AuthenticationLevel.Password;
             attachment2.Sensitivitylevel = SensitivityLevel.Normal;
             attachment2.FileType = "pdf";
             attachment2.Subject = "attachment";

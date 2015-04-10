@@ -1,6 +1,4 @@
 ﻿using Digipost.Api.Client.Digipost.Api.Client;
-using DigipostApiClientShared;
-using DigipostApiClientShared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

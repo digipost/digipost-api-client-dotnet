@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Domain
         private string _fileType;
         private SensitivityLevel _sensitivitylevel;
         private string _subject;
-        private string _technicaltypeField;
+        private string _technicaltype;
         private string _uuid;
 
         /// <remarks />
@@ -68,8 +68,8 @@ namespace Digipost.Api.Client.Domain
         [XmlAttribute("technical-type")]
         public string Technicaltype
         {
-            get { return _technicaltypeField; }
-            set { _technicaltypeField = value; }
+            get { return _technicaltype; }
+            set { _technicaltype = value; }
         }
 
         [XmlIgnore]

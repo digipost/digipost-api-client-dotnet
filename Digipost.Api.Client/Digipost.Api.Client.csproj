@@ -39,9 +39,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DigipostApiClientShared">
-      <HintPath>..\packages\digipost-api-client-shared.1.0.5564.24199\lib\net45\DigipostApiClientShared.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -64,6 +61,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DigipostApi.cs" />
     <Compile Include="Logging.cs" />
@@ -77,6 +75,7 @@
     <Compile Include="SerializeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

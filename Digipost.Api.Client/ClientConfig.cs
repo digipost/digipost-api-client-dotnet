@@ -9,30 +9,32 @@ namespace Digipost.Api.Client
 {
     /// <summary>
     /// Contains configuration for sending digital post. Values can be overridden in App.config , using following format: 
-    /// 'DP:Variable', where
+    /// 'DP:Variable', where Variable is placeholder for variable name in this class. Changing the timeout (TimeoutMilliseconds)
+    /// would result in the following in App.config: <![CDATA[<appSettings><add key="DP:TimeoutMilliseconds" value="10"/></appSettings> ]]>
     /// </summary>
     public class ClientConfig
     {
         /// <summary>
-        /// Defines Uri to be used for sending messages. Default value is 'https://api.digipost.no/'. 
-        /// Angir Uri som skal benyttes for sending av meldinger. Standardverdi er 'https://api.digipost.no/'. Denne verdien kan også overstyres i 
-        /// applikasjonens konfigurasjonsfil gjennom med appSettings verdi med nøkkelen 'SDP:MeldingsformidlerUrl'.
+        /// Defines Uri to be used for sending messages. Default value is 'https://api.digipost.no/'. Defines Url to be used for message delivery.
+        /// This value can be overridden in the application configuration file with key 'DP:Url' in appSettings.
         /// </summary>
         /// <remarks>
-        /// Uri for QA miljø er 'https://qaoffentlig.meldingsformidler.digipost.no/api/ebms'.
+        /// Url for QA is 'https://api.digipost.no/'.
         /// </remarks>
         public Uri ApiUrl { get; set; }
 
         /// <summary>
-        /// Angir timeout for komunikasjonen fra og til meldingsformindleren. Default tid er 30 sekunder. Denne verdien kan også overstyres i 
-        /// applikasjonens konfigurasjonsfil gjennom med appSettings verdi med nøkkelen 'SDP:TimeoutIMillisekunder'.
+        /// Defines the timeout for communication with Digipost API. Default is 30 seconds. This 
+        /// Angir timeout for komunikasjonen fra og til meldingsformindleren. Default tid er 30 sekunder.
+        /// This value can be overridden in the application configuration file with key 'DP:TimeoutMilliseconds' in appSettings.
         /// </summary>
         public int TimeoutMilliseconds { get; set; }
 
         private string _technicalSenderId = String.Empty;
 
         /// <summary>
-        /// The id of the technical sender of messages to Digipost
+        /// The identification of the technical sender of messages to Digipost. This value is obtained during registration of
+        /// sender. 
         /// </summary>
         public string TechnicalSenderId
         {
@@ -49,7 +51,7 @@ namespace Digipost.Api.Client
         }
 
         /// <summary>
-        /// Client configuration used for setting up the client with settings as timeout, Url and logging.
+        /// Client configuration used for setting up the client with settings.
         /// </summary>
         /// <param name="technicalSenderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
         public ClientConfig(string technicalSenderId = "")
@@ -61,7 +63,7 @@ namespace Digipost.Api.Client
             
             if (!String.IsNullOrEmpty(technicalSenderId))
                 _technicalSenderId = technicalSenderId;
-            
+
             Logger = Logging.ConsoleLogger();
             LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Properties.Settings.Default.LogToFile);
             LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
@@ -79,6 +81,10 @@ namespace Digipost.Api.Client
         /// </summary>
         public bool LogToFile { get; set; }
 
+        /// <summary>
+        /// Defines the path for logging messages sent and received from Digipost API. Default 
+        /// path is %Appdata%/Digipost/Rest/Log
+        /// </summary>
         public string LogPath { get; set; }
 
         private T SetFromAppConfig<T>(string key, T @default)

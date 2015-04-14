@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
-using DigipostApiClientShared;
-using DigipostApiClientShared.Enums;
 
 namespace Digipost.Api.Client
 {

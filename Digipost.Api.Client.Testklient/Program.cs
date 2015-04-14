@@ -1,21 +1,23 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using ApiClientShared;
+using ApiClientShared.Enums;
 using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
-using System.Security.Cryptography.X509Certificates;
-using DigipostApiClientShared;
-using DigipostApiClientShared.Enums;
 
 namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private static readonly string technicalSenderId = "106768801";
+        private const string TechnicalSenderId = "106768801";
+        private static ResourceUtility _resourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
             var message = GetMessage();
-            var config = new ClientConfig(technicalSenderId);
+            var config = new ClientConfig(TechnicalSenderId);
             Logging.Initialize(config);
 
             var api = new DigipostApi(config,GetCert());
@@ -74,14 +76,13 @@ namespace Digipost.Api.Client.Testklient
 
         private static byte[] GetPrimaryDocument()
         {
-            var documentPath = @"\\vmware-host\Shared Folders\Development\01_HelloWorld.pdf";
-            return File.ReadAllBytes(documentPath);
+            return _resourceUtility.ReadAllBytes(true ,"Hoveddokument.txt");
+
         }
 
         private static byte[] GetAttachment()
         {
-            var documentPath = @"\\vmware-host\Shared Folders\Development\04_HelloWorld.pdf";
-            return File.ReadAllBytes(documentPath);
+            return _resourceUtility.ReadAllBytes(true, "Vedlegg.txt");
         }
 
         private static X509Certificate2 GetCert()

@@ -22,14 +22,14 @@ namespace Digipost.Api.Client.Domain
         private SensitivityLevel _sensitivitylevel;
         private string _subject;
         private string _technicaltype;
-        private string _uuid;
+        private string _guid;
 
         /// <remarks />
         [XmlElement("uuid")]
-        public string Uuid
+        public string Guid
         {
-            get { return _uuid; }
-            set { _uuid = value; }
+            get { return _guid; }
+            set { _guid = value; }
         }
 
         /// <remarks />

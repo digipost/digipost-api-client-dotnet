@@ -2,11 +2,8 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
@@ -62,7 +59,7 @@ namespace Digipost.Api.Client
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
-                            FileName = message.PrimaryDocument.Uuid
+                            FileName = message.PrimaryDocument.Guid
                         };
                         content.Add(documentContent);
                     }
@@ -75,7 +72,7 @@ namespace Digipost.Api.Client
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                             attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                             {
-                                FileName = attachment.Uuid
+                                FileName = attachment.Guid
                             };
                             content.Add(attachmentContent);
                         }

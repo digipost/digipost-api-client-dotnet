@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Properties;
 
 namespace Digipost.Api.Client
 {
@@ -56,16 +56,16 @@ namespace Digipost.Api.Client
         /// <param name="technicalSenderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
         public ClientConfig(string technicalSenderId = "")
         {
-            ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Properties.Settings.Default.Url));
-            TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Properties.Settings.Default.TimeoutMilliseconds);
+            ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Settings.Default.Url));
+            TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Settings.Default.TimeoutMilliseconds);
 
-            _technicalSenderId = SetFromAppConfig<string>("DP:TechnicalSenderId",Properties.Settings.Default.TechnicalSenderId);
+            _technicalSenderId = SetFromAppConfig<string>("DP:TechnicalSenderId",Settings.Default.TechnicalSenderId);
             
             if (!String.IsNullOrEmpty(technicalSenderId))
                 _technicalSenderId = technicalSenderId;
 
             Logger = Logging.ConsoleLogger();
-            LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Properties.Settings.Default.LogToFile);
+            LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Settings.Default.LogToFile);
             LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
         }
 

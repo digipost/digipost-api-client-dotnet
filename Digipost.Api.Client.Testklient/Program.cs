@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Management.Instrumentation;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using ApiClientShared.Enums;
-using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Testklient
@@ -13,7 +9,7 @@ namespace Digipost.Api.Client.Testklient
     internal class Program
     {
         private const string TechnicalSenderId = "779052";  //"106768801";
-        private static ResourceUtility _resourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
+        private static readonly ResourceUtility _resourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
@@ -36,7 +32,7 @@ namespace Digipost.Api.Client.Testklient
             doc.Sensitivitylevel = SensitivityLevel.Normal;
             doc.FileType = "txt";
             doc.Subject = "test";
-            doc.Uuid = Guid.NewGuid().ToString();
+            doc.Guid = Guid.NewGuid().ToString();
             doc.Content = GetPrimaryDocument();
 
 

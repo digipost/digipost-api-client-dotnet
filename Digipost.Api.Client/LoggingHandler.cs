@@ -1,13 +1,11 @@
-﻿using Digipost.Api.Client.Digipost.Api.Client;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Digipost.Api.Client
 {
-    public class LoggingHandler : DelegatingHandler
+    internal class LoggingHandler : DelegatingHandler
     {
         public LoggingHandler(HttpMessageHandler innerHandler)
             : base(innerHandler)

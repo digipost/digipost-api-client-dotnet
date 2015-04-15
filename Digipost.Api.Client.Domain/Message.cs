@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Message
     {
-        private Document[] _attachments;
+        private Document[] _attachments = new Document[0];
         private Document _primarydocument;
         private MessageRecipient _recipient;
 

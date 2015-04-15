@@ -53,6 +53,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Resources\Hoveddokument.pdf" />
+    <None Include="Resources\Vedlegg.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">

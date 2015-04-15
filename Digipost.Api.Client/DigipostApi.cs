@@ -31,6 +31,7 @@ namespace Digipost.Api.Client
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
             using (var client = new HttpClient(authenticationHandler))
             {
+                client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
                 client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
                 var boundary = Guid.NewGuid().ToString();
 

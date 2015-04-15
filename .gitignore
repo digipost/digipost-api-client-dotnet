@@ -160,4 +160,4 @@ FakesAssemblies/
 *.opt
 
 .DS_Store
-
+/cert/*

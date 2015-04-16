@@ -22,7 +22,21 @@ namespace Digipost.Api.Client.Domain
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
+        public MessageRecipient() { /**Must exist for serialization.**/ }
+
+        public MessageRecipient(NameAndAddress nameAndAddress)
+        {
+            IdentificationValue = nameAndAddress;
+            IdentificationType = IdentificationChoice.NameAndAddress;
+        }
+
+        public MessageRecipient(IdentificationChoice identificationChoice, string id)
+        {
+            IdentificationValue = id;
+            IdentificationType = identificationChoice;
+        }
+
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get; set; }
+        public IdentificationChoice IdentificationType { get; private set; }
     }
 }

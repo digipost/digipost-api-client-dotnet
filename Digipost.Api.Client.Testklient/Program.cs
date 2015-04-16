@@ -31,11 +31,7 @@ namespace Digipost.Api.Client.Testklient
             var doc = new Document("Testsubject", "txt", GetPrimaryDocument());
             
             //recipient
-            var mr = new MessageRecipient
-            {
-                IdentificationType = IdentificationChoice.PersonalidentificationNumber,
-                IdentificationValue = "31108446911"
-            };
+            var mr = new MessageRecipient(IdentificationChoice.PersonalidentificationNumber, "31108446911");
 
             //message
             var m = new Message(mr, doc);

@@ -6,8 +6,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    // Document
-    
     [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
@@ -16,12 +14,6 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Document
     {
-        private AuthenticationLevel _authenticationlevel;
-        private byte[] _content;
-        private string _fileType;
-        private SensitivityLevel _sensitivitylevel;
-        private string _technicaltype;
-
         private Document() { /**Must exist for serialization.**/ }
 
         public Document(string subject, string filetype, byte[] contentBytes, AuthenticationLevel authLevel = AuthenticationLevel.Password, 

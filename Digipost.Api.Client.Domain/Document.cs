@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain
 {
     // Document
-    /// <remarks />
+    
     [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
@@ -20,63 +20,40 @@ namespace Digipost.Api.Client.Domain
         private byte[] _content;
         private string _fileType;
         private SensitivityLevel _sensitivitylevel;
-        private string _subject;
         private string _technicaltype;
-        private string _guid;
 
-        /// <remarks />
+        private Document() { /**Must exist for serialization.**/ }
+
+        public Document(string subject, string filetype, byte[] contentBytes, AuthenticationLevel authLevel = AuthenticationLevel.Password, 
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal)
+        {
+            Guid = System.Guid.NewGuid().ToString();
+            Subject = subject;
+            FileType = filetype;
+            ContentBytes = contentBytes;
+            Authenticationlevel = authLevel;
+            Sensitivitylevel = sensitivityLevel;
+        }
+
         [XmlElement("uuid")]
-        public string Guid
-        {
-            get { return _guid; }
-            set { _guid = value; }
-        }
-
-        /// <remarks />
+        public string Guid { get; set; }
+        
         [XmlElement("subject")]
-        public string Subject
-        {
-            get { return _subject; }
-            set { _subject = value; }
-        }
-
-        /// <remarks />
+        public string Subject { get; set; }
+        
         [XmlElement("file-type")]
-        public string FileType
-        {
-            get { return _fileType; }
-            set { _fileType = value; }
-        }
-
-        /// <remarks />
+        public string FileType { get; set; }
+        
         [XmlElement("authentication-level")]
-        public AuthenticationLevel Authenticationlevel
-        {
-            get { return _authenticationlevel; }
-            set { _authenticationlevel = value; }
-        }
+        public AuthenticationLevel Authenticationlevel { get; set; }
 
-        /// <remarks />
         [XmlElement("sensitivity-level")]
-        public SensitivityLevel Sensitivitylevel
-        {
-            get { return _sensitivitylevel; }
-            set { _sensitivitylevel = value; }
-        }
-
-        /// <remarks />
+        public SensitivityLevel Sensitivitylevel { get; set; }
+        
         [XmlAttribute("technical-type")]
-        public string Technicaltype
-        {
-            get { return _technicaltype; }
-            set { _technicaltype = value; }
-        }
+        public string Technicaltype { get; set; }
 
         [XmlIgnore]
-        public byte[] Content
-        {
-            get { return _content; }
-            set { _content = value; }
-        }
+        public byte[] ContentBytes { get; set; }
     }
 }

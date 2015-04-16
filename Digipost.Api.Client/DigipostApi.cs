@@ -55,7 +55,7 @@ namespace Digipost.Api.Client
 
                     {
                         Logging.Log(TraceEventType.Information, "  - Adding primary document");
-                        var documentContent = new ByteArrayContent(message.PrimaryDocument.Content);
+                        var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
@@ -68,7 +68,7 @@ namespace Digipost.Api.Client
                         foreach (Document attachment in message.Attachments)
                         {
                             Logging.Log(TraceEventType.Information, "  - Adding attachment");
-                            var attachmentContent = new ByteArrayContent(attachment.Content);
+                            var attachmentContent = new ByteArrayContent(attachment.ContentBytes);
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                             attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                             {

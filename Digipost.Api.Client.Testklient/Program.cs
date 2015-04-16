@@ -27,35 +27,8 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var doc = new Document
-            {
-                Authenticationlevel = AuthenticationLevel.Password,
-                Sensitivitylevel = SensitivityLevel.Normal,
-                FileType = "txt",
-                Subject = "test",
-                Guid = Guid.NewGuid().ToString(),
-                Content = GetPrimaryDocument()
-            };
-
-
-            ////attachment1
-            //var attachment1 = new Document();
-            //attachment1.Authenticationlevel = AuthenticationLevel.Password;
-            //attachment1.Sensitivitylevel = SensitivityLevel.Normal;
-            //attachment1.FileType = "pdf";
-            //attachment1.Subject = "attachment";
-            //attachment1.Uuid = Guid.NewGuid().ToString();
-            //attachment1.Content = GetAttachment();
-
-            ////attachment2
-            //var attachment2 = new Document();
-            //attachment2.Authenticationlevel = AuthenticationLevel.Password;
-            //attachment2.Sensitivitylevel = SensitivityLevel.Normal;
-            //attachment2.FileType = "pdf";
-            //attachment2.Subject = "attachment";
-            //attachment2.Uuid = Guid.NewGuid().ToString();
-            //attachment2.Content = GetAttachment();
-
+            var doc = new Document("Testsubject", "txt", GetPrimaryDocument());
+            
             //recipient
             var mr = new MessageRecipient
             {
@@ -65,12 +38,6 @@ namespace Digipost.Api.Client.Testklient
 
             //message
             var m = new Message(mr, doc);
-            //m.PrimaryDocument = doc;
-            //m.Attachment = new Document[2];
-            //m.Attachment[0] = attachment1;
-            //m.Attachment[1] = attachment2;
-            //m.Recipient = mr;
-
             return m;
         }
 

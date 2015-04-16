@@ -4,16 +4,15 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    /// <remarks />
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
+    [GeneratedCode("xsd", "4.0.30319.33440")]
     [XmlType(TypeName = "sensitivity-level", Namespace = "http://api.digipost.no/schema/v6")]
     public enum SensitivityLevel
     {
-        /// <remarks />
-        [XmlEnum("NORMAL")] Normal,
+        [XmlEnum("NORMAL")] 
+        Normal,
 
-        /// <remarks />
-        [XmlEnum("SENSITIVE")] Sensitive
+        [XmlEnum("SENSITIVE")] 
+        Sensitive
     }
 }

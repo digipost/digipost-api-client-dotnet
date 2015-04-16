@@ -7,7 +7,6 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -22,7 +21,21 @@ namespace Digipost.Api.Client.Domain
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
+        private MessageRecipient() { /**Must exist for serialization.**/ }
+
+        public MessageRecipient(NameAndAddress nameAndAddress)
+        {
+            IdentificationValue = nameAndAddress;
+            IdentificationType = IdentificationChoice.NameAndAddress;
+        }
+
+        public MessageRecipient(IdentificationChoice identificationChoice, string id)
+        {
+            IdentificationValue = id;
+            IdentificationType = identificationChoice;
+        }
+
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get; set; }
+        public IdentificationChoice IdentificationType { get; private set; }
     }
 }

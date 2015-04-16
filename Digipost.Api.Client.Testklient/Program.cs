@@ -31,11 +31,10 @@ namespace Digipost.Api.Client.Testklient
             var doc = new Document("Testsubject", "txt", GetPrimaryDocument());
             
             //recipient
-            var mr = new MessageRecipient
-            {
-                IdentificationType = IdentificationChoice.PersonalidentificationNumber,
-                IdentificationValue = "31108446911"
+            var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
+                Email = "kristian.denstore@digipost.no"
             };
+            var mr = new MessageRecipient(nameandaddr);
 
             //message
             var m = new Message(mr, doc);

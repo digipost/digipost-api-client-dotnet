@@ -9,10 +9,22 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [XmlType(TypeName = "name-and-address", Namespace = "http://api.digipost.no/schema/v6")]
     public class NameAndAddress
     {
+        private NameAndAddress()
+        {
+            BirthDate = null;
+        }
+
+        public NameAndAddress(string fullName, string addressLine, string postalCode, string city)
+        {
+            FullName = fullName;
+            AddressLine1 = addressLine;
+            PostalCode = postalCode;
+            City = city;
+        }
+
         [XmlElement("fullname")]
         public string FullName { get; set; }
 
@@ -20,24 +32,30 @@ namespace Digipost.Api.Client.Domain
         public string AddressLine1 { get; set; }
 
         [XmlElement("addressline2")]
-        public string Addressline2 { get; set; }
+        public string AddressLine2 { get; set; }
 
         [XmlElement("postalcode")]
-        public string Postalcode { get; set; }
+        public string PostalCode { get; set; }
 
         [XmlElement("city")]
         public string City { get; set; }
 
         [XmlElement("birth-date", DataType = "date")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
-        [XmlIgnore]
-        public bool BirthdateSpecified { get; set; }
+        public bool ShouldSerializeBirthDate()
+        {
+            /** Note: This field must have same name as BirthDate with prefix ShouldSerialize in order to work.
+                Is recognized by framework, as seen in: 
+                http://stackoverflow.com/questions/1296468/suppress-null-value-types-from-being-emitted-by-xmlserializer
+             **/
+            return BirthDate != null;
+        }
 
         [XmlElement("phone-number")]
-        public string Phonenumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [XmlElement("email-address")]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -7,7 +7,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]

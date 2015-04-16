@@ -42,19 +42,17 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AuthenticationLevel.cs" />
+    <Compile Include="Enums\AuthenticationLevel.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
-    <Compile Include="IdentificationChoice.cs" />
+    <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageRecipient.cs" />
     <Compile Include="NameAndAdress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SensitivityLevel.cs" />
+    <Compile Include="Enums\SensitivityLevel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="resources\xsd\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

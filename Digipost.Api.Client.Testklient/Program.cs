@@ -3,6 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Testklient
 {

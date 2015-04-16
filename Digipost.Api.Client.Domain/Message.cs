@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
@@ -14,32 +15,22 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Message
     {
-        private Document[] _attachments;
-        private Document _primarydocument;
-        private MessageRecipient _recipient;
+        private Message(){ /**Must exist for serialization.**/ }
 
-        /// <remarks />
+        public Message(MessageRecipient messageRecipient, Document primaryDocument)
+        {
+           Recipient = messageRecipient;
+           PrimaryDocument = primaryDocument;
+           Attachments = new List<Document>();
+        }
+
         [XmlElement("recipient")]
-        public MessageRecipient Recipient
-        {
-            get { return _recipient; }
-            set { _recipient = value; }
-        }
+        public MessageRecipient Recipient { get; set; }
 
-        /// <remarks />
         [XmlElement("primary-document")]
-        public Document PrimaryDocument
-        {
-            get { return _primarydocument; }
-            set { _primarydocument = value; }
-        }
+        public Document PrimaryDocument { get; set; }
 
-        /// <remarks />
         [XmlElement("attachment")]
-        public Document[] Attachment
-        {
-            get { return _attachments; }
-            set { _attachments = value; }
-        }
+        public List<Document> Attachments { get; set; }
     }
 }

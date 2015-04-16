@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client
 {
-    public class SerializeUtil
+    internal class SerializeUtil
     {
         private sealed class Utf8StringWriter : StringWriter
         {

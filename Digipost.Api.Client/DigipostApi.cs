@@ -2,11 +2,8 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Digipost.Api.Client;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
@@ -58,24 +55,24 @@ namespace Digipost.Api.Client
 
                     {
                         Logging.Log(TraceEventType.Information, "  - Adding primary document");
-                        var documentContent = new ByteArrayContent(message.PrimaryDocument.Content);
+                        var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
                         documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                         documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                         {
-                            FileName = message.PrimaryDocument.Uuid
+                            FileName = message.PrimaryDocument.Guid
                         };
                         content.Add(documentContent);
                     }
 
                     {
-                        foreach (Document attachment in message.Attachment)
+                        foreach (Document attachment in message.Attachments)
                         {
                             Logging.Log(TraceEventType.Information, "  - Adding attachment");
-                            var attachmentContent = new ByteArrayContent(attachment.Content);
+                            var attachmentContent = new ByteArrayContent(attachment.ContentBytes);
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                             attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                             {
-                                FileName = attachment.Uuid
+                                FileName = attachment.Guid
                             };
                             content.Add(attachmentContent);
                         }

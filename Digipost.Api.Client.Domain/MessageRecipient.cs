@@ -3,10 +3,10 @@ using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
-    /// <remarks />
     [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
@@ -15,27 +15,14 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class MessageRecipient
     {
-        private IdentificationChoice _identification;
-        private object _identificationValue;
-
-        /// <remarks />
         [XmlElement("digipost-address", typeof (string))]
         [XmlElement("name-and-address", typeof (NameAndAddress))]
         [XmlElement("organisation-number", typeof (string))]
         [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]
-        public object IdentificationValue
-        {
-            get { return _identificationValue; }
-            set { _identificationValue = value; }
-        }
+        public object IdentificationValue { get; set; }
 
-        /// <remarks />
         [XmlIgnore]
-        public IdentificationChoice IdentificationType
-        {
-            get { return _identification; }
-            set { _identification = value; }
-        }
+        public IdentificationChoice IdentificationType { get; set; }
     }
 }

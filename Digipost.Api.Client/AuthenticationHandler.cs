@@ -1,9 +1,5 @@
-﻿using Digipost.Api.Client.Digipost.Api.Client;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -11,25 +7,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace Digipost.Api.Client
 {
 
     public class AuthenticationHandler : DelegatingHandler
     {
         private ClientConfig ClientConfig { get; set; }
-        private string URI { get; set; }
+        private string Url { get; set; }
         private X509Certificate2 PrivateCertificate { get; set; }
 
-
-
-        public AuthenticationHandler(ClientConfig clientConfig ,X509Certificate2 privateCertificate, string uri,HttpMessageHandler innerHandler)
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url, HttpMessageHandler innerHandler)
             : base(innerHandler)
-        
         {
-            this.ClientConfig = clientConfig;
-            this.URI = uri;
-            this.PrivateCertificate = privateCertificate;
+            ClientConfig = clientConfig;
+            Url = url;
+            PrivateCertificate = privateCertificate;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -48,7 +40,7 @@ namespace Digipost.Api.Client
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", "application/vnd.digipost-v6+xml");
             request.Headers.Add("X-Content-SHA256", computeHash);
-            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, URI, date, computeHash, technicalSender,PrivateCertificate));
+            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash, technicalSender,PrivateCertificate));
 
             
             return await base.SendAsync(request, cancellationToken);

@@ -65,7 +65,7 @@ namespace Digipost.Api.Client
                     }
 
                     {
-                        foreach (Document attachment in message.Attachment)
+                        foreach (Document attachment in message.Attachments)
                         {
                             Logging.Log(TraceEventType.Information, "  - Adding attachment");
                             var attachmentContent = new ByteArrayContent(attachment.Content);

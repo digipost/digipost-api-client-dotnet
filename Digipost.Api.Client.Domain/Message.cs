@@ -14,32 +14,18 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Message
     {
-        private Document[] _attachments = new Document[0];
-        private Document _primarydocument;
-        private MessageRecipient _recipient;
-
-        /// <remarks />
+        public Message()
+        {
+            Attachments = new Document[0];
+        }
+        
         [XmlElement("recipient")]
-        public MessageRecipient Recipient
-        {
-            get { return _recipient; }
-            set { _recipient = value; }
-        }
+        public MessageRecipient Recipient { get; set; }
 
-        /// <remarks />
         [XmlElement("primary-document")]
-        public Document PrimaryDocument
-        {
-            get { return _primarydocument; }
-            set { _primarydocument = value; }
-        }
+        public Document PrimaryDocument { get; set; }
 
-        /// <remarks />
         [XmlElement("attachment")]
-        public Document[] Attachment
-        {
-            get { return _attachments; }
-            set { _attachments = value; }
-        }
+        public Document[] Attachments { get; set; }
     }
 }

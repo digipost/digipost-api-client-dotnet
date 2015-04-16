@@ -8,7 +8,6 @@ namespace Digipost.Api.Client.Domain.Enums
     /// Defines if the message is sensitive or not.
     /// </summary>
     [Serializable]
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [XmlType(TypeName = "sensitivity-level", Namespace = "http://api.digipost.no/schema/v6")]
     public enum SensitivityLevel
     {

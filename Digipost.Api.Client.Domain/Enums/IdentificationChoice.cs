@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Enums
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [XmlType(Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
     public enum IdentificationChoice

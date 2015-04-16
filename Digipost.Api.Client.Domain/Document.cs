@@ -7,7 +7,6 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]

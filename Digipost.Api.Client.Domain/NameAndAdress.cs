@@ -9,7 +9,6 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [XmlType(TypeName = "name-and-address", Namespace = "http://api.digipost.no/schema/v6")]
     public class NameAndAddress
     {

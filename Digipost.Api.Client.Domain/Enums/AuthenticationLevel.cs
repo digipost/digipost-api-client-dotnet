@@ -11,7 +11,6 @@ namespace Digipost.Api.Client.Domain.Enums
     /// response.
     /// </summary>
     [Serializable]
-    [GeneratedCode("xsd", "4.0.30319.33440")]
     [XmlType(TypeName = "authentication-level", Namespace = "http://api.digipost.no/schema/v6")]
     public enum AuthenticationLevel
     {

@@ -14,9 +14,6 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class MessageRecipient
     {
-        private IdentificationChoice _identification;
-        private object _identificationValue;
-
         [XmlElement("digipost-address", typeof (string))]
         [XmlElement("name-and-address", typeof (NameAndAddress))]
         [XmlElement("organisation-number", typeof (string))]

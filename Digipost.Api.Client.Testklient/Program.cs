@@ -31,7 +31,9 @@ namespace Digipost.Api.Client.Testklient
             var doc = new Document("Testsubject", "txt", GetPrimaryDocument());
             
             //recipient
-            var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo");
+            var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
+                Email = "kristian.denstore@digipost.no"
+            };
             var mr = new MessageRecipient(nameandaddr);
 
             //message

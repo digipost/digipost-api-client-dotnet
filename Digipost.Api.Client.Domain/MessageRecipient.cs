@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    /// <remarks />
     [GeneratedCode("xsd", "4.0.30319.33440")]
     [Serializable]
     [DebuggerStepThrough]
@@ -18,24 +17,14 @@ namespace Digipost.Api.Client.Domain
         private IdentificationChoice _identification;
         private object _identificationValue;
 
-        /// <remarks />
         [XmlElement("digipost-address", typeof (string))]
         [XmlElement("name-and-address", typeof (NameAndAddress))]
         [XmlElement("organisation-number", typeof (string))]
         [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]
-        public object IdentificationValue
-        {
-            get { return _identificationValue; }
-            set { _identificationValue = value; }
-        }
+        public object IdentificationValue { get; set; }
 
-        /// <remarks />
         [XmlIgnore]
-        public IdentificationChoice IdentificationType
-        {
-            get { return _identification; }
-            set { _identification = value; }
-        }
+        public IdentificationChoice IdentificationType { get; set; }
     }
 }

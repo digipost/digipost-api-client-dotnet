@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
@@ -20,7 +21,7 @@ namespace Digipost.Api.Client.Domain
         {
            Recipient = messageRecipient;
            PrimaryDocument = primaryDocument;
-           Attachments = new Document[0];
+           Attachments = new List<Document>();
         }
 
         [XmlElement("recipient")]
@@ -30,6 +31,6 @@ namespace Digipost.Api.Client.Domain
         public Document PrimaryDocument { get; set; }
 
         [XmlElement("attachment")]
-        public Document[] Attachments { get; set; }
+        public List<Document> Attachments { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain.Enums
 {
     /// <summary>
-    /// Defines sensitivity levels for a message.
+    /// Defines if the message is sensitive or not.
     /// </summary>
     [Serializable]
     [GeneratedCode("xsd", "4.0.30319.33440")]

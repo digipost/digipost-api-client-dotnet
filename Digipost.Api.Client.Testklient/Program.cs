@@ -9,16 +9,16 @@ namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private const string TechnicalSenderId = "779052";  //"106768801";
-        private static readonly ResourceUtility _resourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
+        private const string SenderId = "779052";  //"106768801";
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
             var message = GetMessage();
-            var config = new ClientConfig(TechnicalSenderId);
+            var config = new ClientConfig(SenderId);
             Logging.Initialize(config);
 
-            var api = new DigipostApi(config, GetCert());
+            var api = new DigipostClient(config, GetCert());
             var t = api.Send(message);
 
             var r = t.Result;
@@ -43,13 +43,13 @@ namespace Digipost.Api.Client.Testklient
 
         private static byte[] GetPrimaryDocument()
         {
-            return _resourceUtility.ReadAllBytes(true, "Hoveddokument.txt");
+            return ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt");
 
         }
 
         private static byte[] GetAttachment()
         {
-            return _resourceUtility.ReadAllBytes(true, "Vedlegg.txt");
+            return ResourceUtility.ReadAllBytes(true, "Vedlegg.txt");
         }
 
         private static X509Certificate2 GetCert()

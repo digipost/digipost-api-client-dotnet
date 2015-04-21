@@ -30,39 +30,39 @@ namespace Digipost.Api.Client
         /// </summary>
         public int TimeoutMilliseconds { get; set; }
 
-        private string _technicalSenderId = String.Empty;
+        private string _senderId = String.Empty;
 
         /// <summary>
         /// The identification of the technical sender of messages to Digipost. This value is obtained during registration of
         /// sender. 
         /// </summary>
-        public string TechnicalSenderId
+        public string SenderId
         {
             get
             {
-                if (String.IsNullOrEmpty(_technicalSenderId))
+                if (string.IsNullOrEmpty(_senderId))
                 {
                     throw new ConfigException("Technical sender id must be valid set to send messages. Set this by code on ClientConfig or in App.config under node" +
-                                              "'appSettings' with key 'DP:TechnicalSenderId' (<add key=\"DP:TechnicalSenderId\" value=\"01234567\"/>)");
+                                              "'appSettings' with key 'DP:SenderId' (<add key=\"DP:SenderId\" value=\"01234567\"/>)");
                 }
 
-                return _technicalSenderId;
+                return _senderId;
             }
         }
 
         /// <summary>
         /// Client configuration used for setting up the client with settings.
         /// </summary>
-        /// <param name="technicalSenderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
-        public ClientConfig(string technicalSenderId = "")
+        /// <param name="senderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
+        public ClientConfig(string senderId = "")
         {
             ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Settings.Default.Url));
             TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Settings.Default.TimeoutMilliseconds);
 
-            _technicalSenderId = SetFromAppConfig<string>("DP:TechnicalSenderId",Settings.Default.TechnicalSenderId);
+            _senderId = SetFromAppConfig<string>("DP:SenderId",Settings.Default.SenderId);
             
-            if (!String.IsNullOrEmpty(technicalSenderId))
-                _technicalSenderId = technicalSenderId;
+            if (!String.IsNullOrEmpty(senderId))
+                _senderId = senderId;
 
             Logger = Logging.ConsoleLogger();
             LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Settings.Default.LogToFile);

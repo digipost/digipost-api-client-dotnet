@@ -8,12 +8,12 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
 {
-    public class DigipostApi
+    public class DigipostClient
     {
         private ClientConfig ClientConfig { get; set; }
         private X509Certificate2 PrivateCertificate { get; set; }
 
-        public DigipostApi(ClientConfig clientConfig, X509Certificate2 privateCertificate)
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 privateCertificate)
         {
             ClientConfig = clientConfig;
             this.PrivateCertificate = privateCertificate;

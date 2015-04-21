@@ -30,13 +30,13 @@ namespace Digipost.Api.Client
             Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - Start!");
             const string method = "POST";
             var date = DateTime.UtcNow.ToString("R");
-            var technicalSender = ClientConfig.TechnicalSenderId;
+            var technicalSender = ClientConfig.SenderId;
             var multipartContent = await request.Content.ReadAsByteArrayAsync();
             
             Logging.Log(TraceEventType.Information, " - Hashing byteStream of body content");
             var computeHash = ComputeHash(multipartContent);
 
-            request.Headers.Add("X-Digipost-UserId", ClientConfig.TechnicalSenderId);
+            request.Headers.Add("X-Digipost-UserId", ClientConfig.SenderId);
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", "application/vnd.digipost-v6+xml");
             request.Headers.Add("X-Content-SHA256", computeHash);

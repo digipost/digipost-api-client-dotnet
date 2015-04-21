@@ -14,6 +14,7 @@ namespace Digipost.Api.Client.Domain
     {
         private NameAndAddress()
         {
+            /**Must exist for serialization.**/ 
             BirthDate = null;
         }
 

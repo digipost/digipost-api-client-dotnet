@@ -14,7 +14,7 @@
     <Setting Name="LogPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="TechnicalSenderId" Type="System.String" Scope="User">
+    <Setting Name="SenderId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

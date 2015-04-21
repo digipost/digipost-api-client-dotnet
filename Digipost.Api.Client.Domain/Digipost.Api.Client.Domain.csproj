@@ -51,6 +51,7 @@
     <Compile Include="NameAndAdress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
+    <Compile Include="SmsNotification.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

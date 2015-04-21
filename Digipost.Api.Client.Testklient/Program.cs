@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Testklient
     internal class Program
     {
         private const string TechnicalSenderId = "779052";  //"106768801";
-        private static readonly ResourceUtility _resourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
@@ -28,7 +28,13 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var doc = new Document("Testsubject", "txt", GetPrimaryDocument());
+            var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument())
+            {
+                Authenticationlevel = AuthenticationLevel.Password,
+                Sensitivitylevel = SensitivityLevel.Sensitive,
+                Smsnotification = new Smsnotification(DateTime.Now.AddMinutes(1))
+            };
+
             
             //recipient
             var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
@@ -43,13 +49,13 @@ namespace Digipost.Api.Client.Testklient
 
         private static byte[] GetPrimaryDocument()
         {
-            return _resourceUtility.ReadAllBytes(true, "Hoveddokument.txt");
+            return ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt");
 
         }
 
         private static byte[] GetAttachment()
         {
-            return _resourceUtility.ReadAllBytes(true, "Vedlegg.txt");
+            return ResourceUtility.ReadAllBytes(true, "Vedlegg.txt");
         }
 
         private static X509Certificate2 GetCert()

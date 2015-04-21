@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Domain
         private Document() { /**Must exist for serialization.**/ }
 
         public Document(string subject, string filetype, byte[] contentBytes, AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal,Smsnotification smsnotification = null)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, Smsnotification smsnotification = null)
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
@@ -49,11 +49,7 @@ namespace Digipost.Api.Client.Domain
 
 
         [XmlElementAttribute("sms-notification")]
-        public Smsnotification Smsnotification
-        {
-            get;
-            set;
-        }
+        public Smsnotification Smsnotification { get; set; }
 
         /// <summary>
         /// The level of authentication for the document.

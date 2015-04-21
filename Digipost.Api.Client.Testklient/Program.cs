@@ -28,12 +28,7 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument())
-            {
-                Authenticationlevel = AuthenticationLevel.Password,
-                Sensitivitylevel = SensitivityLevel.Sensitive,
-                Smsnotification = new Smsnotification(DateTime.Now.AddMinutes(1))
-            };
+            var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument());
 
             
             //recipient

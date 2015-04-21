@@ -11,6 +11,7 @@ namespace Digipost.Api.Client.Testklient
     {
         private const string SenderId = "779052";  //"106768801";
         private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
+        static readonly string Thumbprint = "84e492a972b7edc197a32d9e9c94ea27bd5ac4d9".ToUpper();
 
         private static void Main(string[] args)
         {
@@ -18,9 +19,9 @@ namespace Digipost.Api.Client.Testklient
             var config = new ClientConfig(SenderId);
             Logging.Initialize(config);
 
-            var api = new DigipostClient(config, GetCert());
+            var api = new DigipostClient(config, Thumbprint);
             var t = api.Send(message);
-
+            
             var r = t.Result;
             Console.ReadKey();
         }
@@ -52,13 +53,5 @@ namespace Digipost.Api.Client.Testklient
             return ResourceUtility.ReadAllBytes(true, "Vedlegg.txt");
         }
 
-        private static X509Certificate2 GetCert()
-        {
-            //‎f7 de 9c 38 4e e6 d0 a8 1d ad 7e 8e 60 bd 37 76 fa 5d e9 f4
-            //var thumbprint = "‎‎‎84e492a972b7edc197a32d9e9c94ea27bd5ac4d9".ToUpper();
-            string thumbprint = "84e492a972b7edc197a32d9e9c94ea27bd5ac4d9".ToUpper();
-
-            return CertificateUtility.SenderCertificate(thumbprint, Language.English);
-        }
     }
 }

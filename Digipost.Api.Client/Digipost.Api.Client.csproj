@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiClientShared">
+      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,7 +66,7 @@
     </Compile>
     <Compile Include="AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
-    <Compile Include="DigipostApi.cs" />
+    <Compile Include="DigipostClient.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="LoggingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

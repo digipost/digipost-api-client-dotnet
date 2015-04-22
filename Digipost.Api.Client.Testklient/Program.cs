@@ -30,7 +30,6 @@ namespace Digipost.Api.Client.Testklient
             //primary document
             var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument());
 
-            
             //recipient
             var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
                 Email = "kristian.denstore@digipost.no"

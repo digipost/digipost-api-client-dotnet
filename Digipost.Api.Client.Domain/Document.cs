@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Domain
             FileType = filetype;
             ContentBytes = contentBytes;
             Authenticationlevel = authLevel;
-            Sensitivitylevel = sensitivityLevel;
+            SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;
         }
 
@@ -63,16 +63,17 @@ namespace Digipost.Api.Client.Domain
         public AuthenticationLevel Authenticationlevel { get; set; }
 
         /// <summary>
-        ///     The sensitivity level for the document.
+        ///     Sets the sensitivity level for the document.
         /// </summary>
         [XmlElement("sensitivity-level")]
-        public SensitivityLevel Sensitivitylevel { get; set; }
+        public SensitivityLevel SensitivityLevel { get; set; }
 
         /// <summary>
-        ///     The technical type of the document.
+        ///     This attribute is for Digipost internal-use. 
         /// </summary>
+        /// This field should not be exposed to customers/senders. It is used to make documents invisible in the inbox. (technical documents)
         [XmlAttribute("technical-type")]
-        public string Technicaltype { get; set; }
+        private string TechnicalType { get; set; }
 
         /// <summary>
         ///     The document encoded as a byte array.

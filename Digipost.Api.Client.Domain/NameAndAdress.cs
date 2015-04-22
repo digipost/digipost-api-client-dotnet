@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
@@ -14,6 +13,7 @@ namespace Digipost.Api.Client.Domain
     {
         private NameAndAddress()
         {
+            /**Must exist for serialization.**/
             BirthDate = null;
         }
 
@@ -43,6 +43,12 @@ namespace Digipost.Api.Client.Domain
         [XmlElement("birth-date", DataType = "date")]
         public DateTime? BirthDate { get; set; }
 
+        [XmlElement("phone-number")]
+        public string PhoneNumber { get; set; }
+
+        [XmlElement("email-address")]
+        public string Email { get; set; }
+
         public bool ShouldSerializeBirthDate()
         {
             /** Note: This field must have same name as BirthDate with prefix ShouldSerialize in order to work.
@@ -51,11 +57,5 @@ namespace Digipost.Api.Client.Domain
              **/
             return BirthDate != null;
         }
-
-        [XmlElement("phone-number")]
-        public string PhoneNumber { get; set; }
-
-        [XmlElement("email-address")]
-        public string Email { get; set; }
     }
 }

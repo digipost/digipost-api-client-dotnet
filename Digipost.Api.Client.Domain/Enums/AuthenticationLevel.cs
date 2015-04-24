@@ -24,6 +24,18 @@ namespace Digipost.Api.Client.Domain.Enums
         /// Two factor authentication will be required to read it.
         /// </summary>
         [XmlEnum("TWO_FACTOR")]
-        TwoFactor
+        TwoFactor,
+
+        /// <summary>
+        /// ID-porten level 3. Can only be used by government agencies.
+        /// </summary>
+        [XmlEnum("IDPORTEN_3")]
+        IdPorten3,
+
+        /// <summary>
+        /// ID-porten level 4. Can only be used by government agencies.
+        /// </summary>
+        [XmlEnum("IDPORTEN_4")]
+        IdPorten4,
     }
 }

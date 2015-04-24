@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
             var t = api.Send(message);
             
-            var r = t.StatusMessage;
+            var r = t.Result;
             Console.ReadKey();
         }
 
@@ -32,10 +32,10 @@ namespace Digipost.Api.Client.Testklient
             var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument());
 
             //recipient
-            var nameandaddr = new RecipientByNameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
+            var nameandaddr = new NameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
                 Email = "kristian.denstore@digipost.no"
             };
-            var mr = new Recipient(nameandaddr);
+            var mr = new MessageRecipient(nameandaddr);
 
             //message
             var m = new Message(mr, doc);

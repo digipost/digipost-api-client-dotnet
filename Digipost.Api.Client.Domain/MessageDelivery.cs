@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [XmlType(TypeName = "delivery-method", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("delivery-method", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public enum Deliverymethod
+    internal enum Deliverymethod
     {
         /// <remarks />
         PRINT,
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [XmlType(TypeName = "message-status", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("message-status", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public enum Messagestatus
+    internal enum Messagestatus
     {
         /// <remarks />
         NOT_COMPLETE,
@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "link", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("link", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class Link
+    internal class Link
     {
         [XmlAttribute("rel")]
         public string Rel { get; set; }

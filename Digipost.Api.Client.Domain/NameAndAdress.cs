@@ -9,15 +9,15 @@ namespace Digipost.Api.Client.Domain
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "name-and-address", Namespace = "http://api.digipost.no/schema/v6")]
-    public class RecipientByNameAndAddress
+    public class NameAndAddress
     {
-        private RecipientByNameAndAddress()
+        private NameAndAddress()
         {
             /**Must exist for serialization.**/
             BirthDate = null;
         }
 
-        public RecipientByNameAndAddress(string fullName, string addressLine, string postalCode, string city)
+        public NameAndAddress(string fullName, string addressLine, string postalCode, string city)
         {
             FullName = fullName;
             AddressLine1 = addressLine;

@@ -24,6 +24,7 @@ namespace Digipost.Api.Client.Domain
             PostalCode = postalCode;
             City = city;
         }
+
         /// <summary>
         ///     Full name of person, first name first.
         /// </summary>

@@ -62,12 +62,12 @@ namespace Digipost.Api.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TechnicalSenderId {
+        public string SenderId {
             get {
-                return ((string)(this["TechnicalSenderId"]));
+                return ((string)(this["SenderId"]));
             }
             set {
-                this["TechnicalSenderId"] = value;
+                this["SenderId"] = value;
             }
         }
     }

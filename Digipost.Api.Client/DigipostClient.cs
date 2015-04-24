@@ -4,22 +4,30 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using ApiClientShared;
+using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
 {
-    public class DigipostApi
+    public class DigipostClient
     {
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 privateCertificate)
+        {
+            ClientConfig = clientConfig;
+            PrivateCertificate = privateCertificate;
+        }
+
+        public DigipostClient(ClientConfig clientConfig, string thumbprint)
+        {
+            ClientConfig = clientConfig;
+            PrivateCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
+        }
+
         private ClientConfig ClientConfig { get; set; }
         private X509Certificate2 PrivateCertificate { get; set; }
 
-        public DigipostApi(ClientConfig clientConfig, X509Certificate2 privateCertificate)
-        {
-            ClientConfig = clientConfig;
-            this.PrivateCertificate = privateCertificate;
-        }
-
-        public async Task<string> Send(Message message)
+        public async Task<DigipostClientResponse> Send(Message message)
         {
             const string uri = "messages";
             Logging.Log(TraceEventType.Information, "> Starting Send()");
@@ -43,7 +51,7 @@ namespace Digipost.Api.Client
                         Logging.Log(TraceEventType.Information, "  - Creating XML-body");
                         var xmlMessage = "";
                         xmlMessage = SerializeUtil.Serialize(message);
-                        Logging.Log(TraceEventType.Information, String.Format("   -  XML-body \n [{0}]", xmlMessage));
+                        Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
                         var messageContent = new StringContent(xmlMessage);
                         messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
                         messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -65,29 +73,33 @@ namespace Digipost.Api.Client
                     }
 
                     {
-                        foreach (Document attachment in message.Attachments)
+                        foreach (var attachment in message.Attachments)
                         {
                             Logging.Log(TraceEventType.Information, "  - Adding attachment");
                             var attachmentContent = new ByteArrayContent(attachment.ContentBytes);
                             attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-                            attachmentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                            {
-                                FileName = attachment.Guid
-                            };
+                            attachmentContent.Headers.ContentDisposition =
+                                new ContentDispositionHeaderValue("attachment")
+                                {
+                                    FileName = attachment.Guid
+                                };
                             content.Add(attachmentContent);
                         }
                     }
-                    
-                    Logging.Log(TraceEventType.Information, String.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl+uri));
+
+                    Logging.Log(TraceEventType.Information,
+                        string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
                     var requestResult = client.PostAsync(uri, content).Result;
 
                     var contentResult = await requestResult.Content.ReadAsStringAsync();
-                    Logging.Log(TraceEventType.Information, String.Format("  - Result \n [{0}]", contentResult));
+                    Logging.Log(TraceEventType.Information, string.Format("  - Result \n [{0}]", contentResult));
 
-                    return contentResult;
+                    var messagedelivery = SerializeUtil.Deserialize<Messagedelivery>(contentResult);
+                    var clientResponse = new DigipostClientResponse(messagedelivery,contentResult);
+
+                    return clientResponse;
                 }
             }
-            
         }
     }
 }

@@ -29,14 +29,11 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     List of Date and Time when an sms will be sent out
+        ///     List of integers, where each element is hours after an SMS will be sent out
         /// </summary>
         [XmlElement("at")]
         public List<Listedtime> At { get; set; }
 
-        /// <summary>
-        ///     List of integers, where each element is hours after an SMS will be sent out
-        /// </summary>
         [XmlElement("after-hours")]
         public List<int> Afterhours { get; set; }
     }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using ApiClientShared;
 using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
@@ -16,6 +17,18 @@ namespace Digipost.Api.Client.Domain
         private Document()
         {
             /**Must exist for serialization.**/
+        }
+
+        public Document(string subject, string filetype, string pathToDocument,
+            AuthenticationLevel authLevel = AuthenticationLevel.Password,
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal)
+        {
+            Guid = System.Guid.NewGuid().ToString();
+            Subject = subject;
+            FileType = filetype;
+            ContentBytes = ReadAllBytes(pathToDocument);
+            Authenticationlevel = authLevel;
+            SensitivityLevel = sensitivityLevel;
         }
 
         public Document(string subject, string filetype, byte[] contentBytes,
@@ -51,8 +64,8 @@ namespace Digipost.Api.Client.Domain
         public string FileType { get; set; }
 
         /// <summary>
-        ///    Optional SMS notification to Recipient.
-        ///    Additional charges apply.
+        ///     Optional SMS notification to Recipient.
+        ///     Additional charges apply.
         /// </summary>
         [XmlElement("sms-notification")]
         public SmsNotification SmsNotification { get; set; }
@@ -70,16 +83,22 @@ namespace Digipost.Api.Client.Domain
         public SensitivityLevel SensitivityLevel { get; set; }
 
         /// <summary>
-        ///     This attribute is for Digipost internal-use. 
+        ///     This attribute is for Digipost internal-use.
         /// </summary>
         /// This field should not be exposed to customers/senders. It is used to make documents invisible in the inbox. (technical documents)
         [XmlAttribute("technical-type")]
         private string TechnicalType { get; set; }
 
         /// <summary>
-        ///   The document encoded as a byte array.
+        ///     The document encoded as a byte array.
         /// </summary>
         [XmlIgnore]
         public byte[] ContentBytes { get; set; }
+
+        private byte[] ReadAllBytes(string pathToDocument)
+        {
+            var resourceUtility = new ResourceUtility("Digipost.Api.Client.Domain.Resources");
+            return resourceUtility.ReadAllBytes(false, pathToDocument);
+        }
     }
 }

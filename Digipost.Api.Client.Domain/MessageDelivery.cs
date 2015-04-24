@@ -15,10 +15,10 @@ namespace Digipost.Api.Client.Domain
         public string Messageid { get; set; }
 
         [XmlElement("delivery-method")]
-        internal Deliverymethod Deliverymethod { get; set; }
+        public Deliverymethod Deliverymethod { get; set; }
 
         [XmlElement("status")]
-        internal Messagestatus Status { get; set; }
+        public Messagestatus Status { get; set; }
 
         [XmlElement("delivery-time")]
         public DateTime Deliverytime { get; set; }
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Domain
         public List<Document> Attachment { get; set; }
 
         [XmlElement("link")]
-        internal List<Link> Link { get; set; }
+        public List<Link> Link { get; set; }
     }
 
     [Serializable]

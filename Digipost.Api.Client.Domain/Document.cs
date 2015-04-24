@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Xml.Serialization;
 using ApiClientShared;
 using Digipost.Api.Client.Domain.Enums;
@@ -97,8 +98,7 @@ namespace Digipost.Api.Client.Domain
 
         private byte[] ReadAllBytes(string pathToDocument)
         {
-            var resourceUtility = new ResourceUtility("Digipost.Api.Client.Domain.Resources");
-            return resourceUtility.ReadAllBytes(false, pathToDocument);
+            return File.ReadAllBytes(pathToDocument);
         }
     }
 }

@@ -12,25 +12,29 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message-recipient", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class MessageRecipient
+    public class Recipient
     {
         [XmlElement("digipost-address", typeof (string))]
-        [XmlElement("name-and-address", typeof (NameAndAddress))]
+        [XmlElement("name-and-address", typeof (RecipientByNameAndAddress))]
         [XmlElement("organisation-number", typeof (string))]
         [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
-        private MessageRecipient() { /**Must exist for serialization.**/ }
+        private Recipient() { /**Must exist for serialization.**/ }
 
-        public MessageRecipient(NameAndAddress nameAndAddress)
+        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            IdentificationValue = nameAndAddress;
+            IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoice.NameAndAddress;
         }
 
-        public MessageRecipient(IdentificationChoice identificationChoice, string id)
+        public Recipient(IdentificationChoice identificationChoice, string id)
         {
+            if (identificationChoice == IdentificationChoice.NameAndAddress)		
+                throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +		
+                                                          "when using string as id",		
+                                                          IdentificationChoice.NameAndAddress.ToString()));
             IdentificationValue = id;
             IdentificationType = identificationChoice;
         }

@@ -16,15 +16,15 @@ namespace Digipost.Api.Client.Domain
     {
         private Message(){ /**Must exist for serialization.**/ }
 
-        public Message(MessageRecipient messageRecipient, Document primaryDocument)
+        public Message(Recipient recipient, Document primaryDocument)
         {
-           Recipient = messageRecipient;
+           Recipient = recipient;
            PrimaryDocument = primaryDocument;
            Attachments = new List<Document>();
         }
 
         [XmlElement("recipient")]
-        public MessageRecipient Recipient { get; set; }
+        public Recipient Recipient { get; set; }
 
         [XmlElement("primary-document")]
         public Document PrimaryDocument { get; set; }

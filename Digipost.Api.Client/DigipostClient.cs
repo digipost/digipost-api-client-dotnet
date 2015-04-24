@@ -27,13 +27,7 @@ namespace Digipost.Api.Client
         private ClientConfig ClientConfig { get; set; }
         private X509Certificate2 PrivateCertificate { get; set; }
 
-        
-        public DigipostClientResponse Send(Message message)
-        {
-            return SendAsync(message).Result;
-        }
-
-        public async Task<DigipostClientResponse> SendAsync(Message message)
+        public async Task<DigipostClientResponse> Send(Message message)
         {
             const string uri = "messages";
             Logging.Log(TraceEventType.Information, "> Starting Send()");

@@ -51,7 +51,8 @@ namespace Digipost.Api.Client.Domain
         public string FileType { get; set; }
 
         /// <summary>
-        ///     Optional SMS notification for the document
+        ///    Optional SMS notification to Recipient.
+        ///    Additional charges apply.
         /// </summary>
         [XmlElement("sms-notification")]
         public SmsNotification SmsNotification { get; set; }
@@ -76,7 +77,7 @@ namespace Digipost.Api.Client.Domain
         private string TechnicalType { get; set; }
 
         /// <summary>
-        ///     The document encoded as a byte array.
+        ///   The document encoded as a byte array.
         /// </summary>
         [XmlIgnore]
         public byte[] ContentBytes { get; set; }

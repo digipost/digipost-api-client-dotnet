@@ -19,27 +19,27 @@ namespace Digipost.Api.Client.Domain
             /**Must exist for serialization.**/
         }
 
-        public Document(string subject, string filetype, string pathToDocument,
+        public Document(string subject, string fileMimeType, string pathToDocument,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal)
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
-            FileType = filetype;
+            FileMimeType = fileMimeType;
             ContentBytes = ReadAllBytes(pathToDocument);
-            Authenticationlevel = authLevel;
+            AuthenticationLevel = authLevel;
             SensitivityLevel = sensitivityLevel;
         }
 
-        public Document(string subject, string filetype, byte[] contentBytes,
+        public Document(string subject, string fileMimeType, byte[] contentBytes,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
-            FileType = filetype;
+            FileMimeType = fileMimeType;
             ContentBytes = contentBytes;
-            Authenticationlevel = authLevel;
+            AuthenticationLevel = authLevel;
             SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;
         }
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Domain
         ///     The file type of the document, indicated by MIME-type.
         /// </summary>
         [XmlElement("file-type")]
-        public string FileType { get; set; }
+        public string FileMimeType { get; set; }
 
         /// <summary>
         ///     Optional SMS notification to Recipient.
@@ -74,7 +74,7 @@ namespace Digipost.Api.Client.Domain
         ///     The level of authentication for the document.
         /// </summary>
         [XmlElement("authentication-level")]
-        public AuthenticationLevel Authenticationlevel { get; set; }
+        public AuthenticationLevel AuthenticationLevel { get; set; }
 
         /// <summary>
         ///     Sets the sensitivity level for the document.

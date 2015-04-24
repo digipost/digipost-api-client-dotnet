@@ -6,9 +6,6 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     /// <summary>
     /// Authentication-levels you may require the receiver to be authenticated with to read documents.
-    /// Note that IDPORTEN_3 and IDPORTEN_4 needs an explicit permission to use, and are intended for
-    /// government agencies. Using those levels while not being permitted to, will result in an error
-    /// response.
     /// </summary>
     [Serializable]
     [XmlType(TypeName = "authentication-level", Namespace = "http://api.digipost.no/schema/v6")]

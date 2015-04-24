@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
-using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Testklient
 {
@@ -30,7 +27,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument());
-
+            
             //recipient
             var nameandaddr = new RecipientByNameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
                 Email = "kristian.denstore@digipost.no"

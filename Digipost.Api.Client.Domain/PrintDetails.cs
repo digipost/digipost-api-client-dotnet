@@ -11,56 +11,30 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("print-details", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class PrintDetails
     {
-        private Printcolors _color;
-        private NondeliverableHandling _nondeliverableHandling;
-        private Posttype _postType;
-        private PrintRecipient _recipient;
-        private PrintRecipient _returnAddress;
-
         public PrintDetails()
         {
-            _returnAddress = new PrintRecipient();
-            _recipient = new PrintRecipient();
-            _color = Printcolors.Monochrome;
-            _nondeliverableHandling = NondeliverableHandling.ReturnToSender;
+            ReturnAddress = new PrintRecipient();
+            Recipient = new PrintRecipient();
+            Color = Printcolors.Monochrome;
+            NondeliverableHandling = NondeliverableHandling.ReturnToSender;
         }
 
         [XmlElement("recipient")]
-        public PrintRecipient Recipient
-        {
-            get { return _recipient; }
-            set { _recipient = value; }
-        }
+        public PrintRecipient Recipient { get; set; }
 
         [XmlElement("return-address")]
-        public PrintRecipient ReturnAddress
-        {
-            get { return _returnAddress; }
-            set { _returnAddress = value; }
-        }
+        public PrintRecipient ReturnAddress { get; set; }
 
         [XmlElement("post-type")]
-        public Posttype PostType
-        {
-            get { return _postType; }
-            set { _postType = value; }
-        }
+        public Posttype PostType { get; set; }
 
         [DefaultValue(Printcolors.Monochrome)]
         [XmlElement("color")]
-        public Printcolors Color
-        {
-            get { return _color; }
-            set { _color = value; }
-        }
+        public Printcolors Color { get; set; }
 
         [XmlElement("nondeliverable-handling")]
         [DefaultValue(NondeliverableHandling.ReturnToSender)]
-        public NondeliverableHandling NondeliverableHandling
-        {
-            get { return _nondeliverableHandling; }
-            set { _nondeliverableHandling = value; }
-        }
+        public NondeliverableHandling NondeliverableHandling { get; set; }
     }
 
     [Serializable]
@@ -69,23 +43,12 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("print-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class PrintRecipient
     {
-        private object _itemField;
-        private string _nameField;
-
         [XmlElement("name")]
-        public string Name
-        {
-            get { return _nameField; }
-            set { _nameField = value; }
-        }
+        public string Name { get; set; }
 
         [XmlElement("foreign-address", typeof (Foreignaddress))]
         [XmlElement("norwegian-address", typeof (NorwegianAddress))]
-        public object Item
-        {
-            get { return _itemField; }
-            set { _itemField = value; }
-        }
+        public object Address { get; set; }
     }
 
     [GeneratedCode("System.Xml", "4.6.42.0")]
@@ -95,62 +58,30 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("foreign-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class Foreignaddress
     {
-        private string _addressline1;
-        private string _addressline2;
-        private string _addressline3;
-        private string _addressline4;
-        private string _item;
-        private ItemChoiceType3 _itemElementName;
-
         [XmlElement("addressline1")]
-        public string Addressline1
-        {
-            get { return _addressline1; }
-            set { _addressline1 = value; }
-        }
+        public string Addressline1 { get; set; }
 
         [XmlElement("addressline2")]
-        public string Addressline2
-        {
-            get { return _addressline2; }
-            set { _addressline2 = value; }
-        }
+        public string Addressline2 { get; set; }
 
         [XmlElement("addressline3")]
-        public string Addressline3
-        {
-            get { return _addressline3; }
-            set { _addressline3 = value; }
-        }
+        public string Addressline3 { get; set; }
 
         [XmlElement("addressline4")]
-        public string Addressline4
-        {
-            get { return _addressline4; }
-            set { _addressline4 = value; }
-        }
+        public string Addressline4 { get; set; }
 
         [XmlElement("country", typeof (string))]
         [XmlElement("country-code", typeof (string))]
         [XmlChoiceIdentifier("ItemElementName")]
-        public string Item
-        {
-            get { return _item; }
-            set { _item = value; }
-        }
+        public string CountryIdentifierValue { get; set; }
 
         [XmlIgnore]
-        public ItemChoiceType3 ItemElementName
-        {
-            get { return _itemElementName; }
-            set { _itemElementName = value; }
-        }
+        public CountryIdentifier CountryIdentifier { get; set; }
     }
 
-    [GeneratedCode("System.Xml", "4.6.42.0")]
     [Serializable]
     [XmlType(Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
-    public enum ItemChoiceType3
+    public enum CountryIdentifier
     {
         /// <remarks />
         [XmlEnum("country")] Country,
@@ -165,46 +96,20 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("norwegian-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class NorwegianAddress
     {
-        private string _addressline1;
-        private string _addressline2;
-        private string _addressline3;
-        private string _city;
-        private string _zipCode;
-
         [XmlElement("addressline1")]
-        public string Addressline1
-        {
-            get { return _addressline1; }
-            set { _addressline1 = value; }
-        }
+        public string Addressline1 { get; set; }
 
         [XmlElement("addressline2")]
-        public string Addressline2
-        {
-            get { return _addressline2; }
-            set { _addressline2 = value; }
-        }
+        public string Addressline2 { get; set; }
 
         [XmlElement("addressline3")]
-        public string Addressline3
-        {
-            get { return _addressline3; }
-            set { _addressline3 = value; }
-        }
+        public string Addressline3 { get; set; }
 
         [XmlElement("zip-code")]
-        public string ZipCode
-        {
-            get { return _zipCode; }
-            set { _zipCode = value; }
-        }
+        public string ZipCode { get; set; }
 
         [XmlElement("city")]
-        public string City
-        {
-            get { return _city; }
-            set { _city = value; }
-        }
+        public string City { get; set; }
     }
 
     [Serializable]
@@ -213,10 +118,10 @@ namespace Digipost.Api.Client.Domain
     public enum Posttype
     {
         /// <remarks />
-        A,
+        [XmlEnum("A")] A,
 
         /// <remarks />
-        B
+        [XmlEnum("B")] B
     }
 
 

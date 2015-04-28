@@ -26,14 +26,36 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var doc = new Document("Sensitivt uten bankid", "txt", GetPrimaryDocument());
+            var doc = new Document(subject: "Sensitivt uten bankid", fileMimeType: "txt", contentBytes: GetPrimaryDocument());
             
             //recipient
             var nameandaddr = new RecipientByNameAndAddress("Kristian Sæther Enge", "Colletts Gate 68", "0460", "Oslo"){
                 Email = "kristian.denstore@digipost.no"
             };
-            var mr = new Recipient(nameandaddr);
+            var mr = new Recipient(nameandaddr)
+            {
+                Printdetails = new PrintDetails
+                {
+                    Color = Printcolors.Monochrome,
+                    NondeliverableHandling = NondeliverableHandling.Shred,
+                    PostType = Posttype.B,
+                    Recipient = new PrintRecipient()
+                }
+            };
 
+            var norwegianAddress = new NorwegianAddress
+            {
+                Addressline1 = "Colletts gate 68",
+                Addressline2 = "leil. 402",
+                City = "Oslo",
+                ZipCode = "0460"
+            };
+
+            mr.Printdetails.Recipient.Item = norwegianAddress;
+            mr.Printdetails.Recipient.Name = "Kristian Sæther Enge";
+            
+            mr.Printdetails.ReturnAddress.Item = norwegianAddress;
+            mr.Printdetails.ReturnAddress.Name = "Kristian Sæther Enge";
             //message
             var m = new Message(mr, doc);
             return m;

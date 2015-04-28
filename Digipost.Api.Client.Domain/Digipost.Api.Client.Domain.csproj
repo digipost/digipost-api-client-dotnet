@@ -52,6 +52,7 @@
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageDelivery.cs" />
+    <Compile Include="PrintDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
     <Compile Include="Recipient.cs" />

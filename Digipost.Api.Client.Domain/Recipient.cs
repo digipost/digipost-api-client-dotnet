@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
@@ -21,6 +20,8 @@ namespace Digipost.Api.Client.Domain
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
+        private PrintDetails _printdetails;
+
         private Recipient() { /**Must exist for serialization.**/ }
 
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress)
@@ -37,6 +38,19 @@ namespace Digipost.Api.Client.Domain
                                                           IdentificationChoice.NameAndAddress.ToString()));
             IdentificationValue = id;
             IdentificationType = identificationChoice;
+        }
+
+        [XmlElement("print-details")]
+        public PrintDetails Printdetails
+        {
+            get
+            {
+                return _printdetails;
+            }
+            set
+            {
+                _printdetails = value;
+            }
         }
 
         [XmlIgnore]

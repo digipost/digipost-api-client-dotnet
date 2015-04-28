@@ -61,8 +61,8 @@ namespace Digipost.Api.Client
 
             _senderId = SetFromAppConfig<string>("DP:SenderId",Settings.Default.SenderId);
             
-            if (!String.IsNullOrEmpty(senderId))
-                _senderId = senderId;
+            if (!string.IsNullOrEmpty(senderId))
+                _senderId = senderId;       
 
             Logger = Logging.ConsoleLogger();
             LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Settings.Default.LogToFile);

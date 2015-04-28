@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Enums
@@ -9,25 +8,23 @@ namespace Digipost.Api.Client.Domain.Enums
     public enum IdentificationChoice
     {
         /// <summary>
-        /// Digipost address. Issued by Digipost. eg. firstname.surname#id01. Unique per person.
+        ///     Digipost address. Issued by Digipost. eg. firstname.surname#id01. Unique per person.
         /// </summary>
-        [XmlEnum("digipost-address")] 
-        DigipostAddress,
-        /// <summary>
-        /// Name and Address of recipient. look at NameAndAddress.cs for more info.
-        /// </summary>
-        [XmlEnum("name-and-address")] 
-        NameAndAddress,
+        [XmlEnum("digipost-address")] DigipostAddress,
 
         /// <summary>
-        ///  Organisation number. A nine digit registration number issued by the goverment. Unique per organisation.
+        ///     Name and Address of recipient. look at NameAndAddress.cs for more info.
         /// </summary>
-        [XmlEnum("organisation-number")] 
-        OrganisationNumber,
+        [XmlEnum("name-and-address")] NameAndAddress,
+
         /// <summary>
-        ///  Social security number. A twelve digit number issued by the goverment. Unique per person.
+        ///     Organisation number. A nine digit registration number issued by the goverment. Unique per organisation.
         /// </summary>
-        [XmlEnum("personal-identification-number")] 
-        PersonalidentificationNumber
+        [XmlEnum("organisation-number")] OrganisationNumber,
+
+        /// <summary>
+        ///     Social security number. A twelve digit number issued by the goverment. Unique per person.
+        /// </summary>
+        [XmlEnum("personal-identification-number")] PersonalidentificationNumber
     }
 }

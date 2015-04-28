@@ -38,11 +38,17 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("delivery-method", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum Deliverymethod
     {
-        /// <remarks />
-        PRINT,
+        /// <summary>
+        ///     Delivered through fysical print and postal service.
+        /// </summary>
+        [XmlEnum("PRINT")]
+        Print,
 
-        /// <remarks />
-        DIGIPOST
+        /// <summary>
+        ///     Delivered digitally in Digipost
+        /// </summary>
+        [XmlEnum("DIGIPOST")]
+        Digipost
     }
 
     [Serializable]
@@ -50,32 +56,33 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("message-status", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum Messagestatus
     {
-        /// <remarks />
-        NOT_COMPLETE,
+        /// <summary>
+        ///     The message resource is not complete. Consult the provided links to see what options are availiable.
+        /// </summary>
+        [XmlEnum("NOT_COMPLETE")]
+        NotComplete,
 
-        /// <remarks />
-        COMPLETE,
 
-        /// <remarks />
-        DELIVERED,
+        /// <summary>
+        ///     The message resource is complete, and can be sent. Note that you can also tweak the message before sending it.
+        ///     Consult the provided links to see what options are availiable.
+        /// </summary>
+        [XmlEnum("COMPLETE")]
+        Complete,
 
-        /// <remarks />
-        DELIVERED_TO_PRINT
+
+        /// <summary>
+        /// The message is delivered. Consult the provided links to see what options are availiable.
+        /// </summary>
+        [XmlEnum("DELIVERED")]
+        Delivered,
+
+        /// <summary>
+        /// The message is delivered to print. Consult the provided links to see what options are availiable.
+        /// </summary>
+        [XmlEnum("DELIVERED_TO_PRINT")]
+        DeliveredToPrint
     }
 
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "link", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("link", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class Link
-    {
-        [XmlAttribute("rel")]
-        public string Rel { get; set; }
-
-        [XmlAttribute("uri")]
-        public string Uri { get; set; }
-
-        [XmlAttribute("media-type")]
-        public string Mediatype { get; set; }
-    }
+   
 }

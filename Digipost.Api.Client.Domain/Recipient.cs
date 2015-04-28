@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain
 {
@@ -24,10 +25,12 @@ namespace Digipost.Api.Client.Domain
 
         private Recipient() { /**Must exist for serialization.**/ }
 
-        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress)
+        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
         {
+
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoice.NameAndAddress;
+            Printdetails = printDetails;
         }
 
         public Recipient(IdentificationChoice identificationChoice, string id)
@@ -38,6 +41,11 @@ namespace Digipost.Api.Client.Domain
                                                           IdentificationChoice.NameAndAddress.ToString()));
             IdentificationValue = id;
             IdentificationType = identificationChoice;
+        }
+
+        public Recipient(PrintDetails printDetails)
+        {
+            Printdetails = printDetails;
         }
 
         [XmlElement("print-details")]

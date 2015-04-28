@@ -51,10 +51,10 @@ namespace Digipost.Api.Client.Testklient
                 ZipCode = "0460"
             };
 
-            mr.Printdetails.Recipient.Item = norwegianAddress;
+            mr.Printdetails.Recipient.Address = norwegianAddress;
             mr.Printdetails.Recipient.Name = "Kristian Sæther Enge";
             
-            mr.Printdetails.ReturnAddress.Item = norwegianAddress;
+            mr.Printdetails.ReturnAddress.Address = norwegianAddress;
             mr.Printdetails.ReturnAddress.Name = "Kristian Sæther Enge";
             //message
             var m = new Message(mr, doc);

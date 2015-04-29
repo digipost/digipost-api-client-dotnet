@@ -21,8 +21,6 @@ namespace Digipost.Api.Client.Domain
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
-        private PrintDetails _printdetails;
-
         private Recipient() { /**Must exist for serialization.**/ }
 
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
@@ -33,7 +31,7 @@ namespace Digipost.Api.Client.Domain
             Printdetails = printDetails;
         }
 
-        public Recipient(IdentificationChoice identificationChoice, string id)
+        public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
         {
             if (identificationChoice == IdentificationChoice.NameAndAddress)		
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +		
@@ -41,6 +39,7 @@ namespace Digipost.Api.Client.Domain
                                                           IdentificationChoice.NameAndAddress.ToString()));
             IdentificationValue = id;
             IdentificationType = identificationChoice;
+            Printdetails = printDetails;
         }
 
         public Recipient(PrintDetails printDetails)
@@ -49,17 +48,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         [XmlElement("print-details")]
-        public PrintDetails Printdetails
-        {
-            get
-            {
-                return _printdetails;
-            }
-            set
-            {
-                _printdetails = value;
-            }
-        }
+        public PrintDetails Printdetails { get; set; }
 
         [XmlIgnore]
         public IdentificationChoice IdentificationType { get; private set; }

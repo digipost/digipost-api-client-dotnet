@@ -32,10 +32,12 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     Constructor to send physical mail, where the letter should be destroyed if the letter can not be delivered.
         /// </summary>
-        public PrintDetails(PrintRecipient printRecipient)
+        public PrintDetails(PrintRecipient printRecipient,PostType postType = PostType.B,PrintColors printColors = PrintColors.Monochrome)
         {
             Recipient = printRecipient;
             NondeliverableHandling = NondeliverableHandling.Shred;
+            PostType = postType;
+            Color = printColors;
         }
 
         /// <summary>
@@ -54,14 +56,12 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     Defines how fast you want the item delivered. Note: additional charges may apply
         /// </summary>
-        [DefaultValue(PostType.B)]
         [XmlElement("post-type")]
         public PostType PostType { get; set; }
 
         /// <summary>
         ///     Defines if you want the documents printed in black / white or color (Note: additional charges may apply).
         /// </summary>
-        [DefaultValue(PrintColors.Monochrome)]
         [XmlElement("color")]
         public PrintColors Color { get; set; }
 
@@ -69,7 +69,6 @@ namespace Digipost.Api.Client.Domain.Print
         ///     Determines the exception handling that will occur when the letter can not be delivered.
         /// </summary>
         [XmlElement("nondeliverable-handling")]
-        [DefaultValue(NondeliverableHandling.ReturnToSender)]
         public NondeliverableHandling NondeliverableHandling { get; set; }
     }
 }

@@ -23,16 +23,9 @@ namespace Digipost.Api.Client.Testklient
             Logging.Initialize(config);
 
             var api = new DigipostClient(config, Thumbprint);
-            DigipostClientResponse digipostClientResponse = null;
-            try
-            {
-                digipostClientResponse = api.Send(message);
-            }
-            catch (Exception exception)
-            {
-                Logging.Log(TraceEventType.Error, exception.Message);
-            }
-
+            
+            var digipostClientResponse = api.Send(message);
+            
             Logging.Log(TraceEventType.Information, digipostClientResponse.ToString());
 
             Console.ReadKey();
@@ -64,19 +57,19 @@ namespace Digipost.Api.Client.Testklient
             var printRecipient = new PrintRecipient("Eirik Sæther Enge", recieptAddress);
             var printReturnAddress = new PrintRecipient("Kristian Sæther Enge", returnAddress);
 
-            var printDetails = new PrintDetails(printRecipient, printReturnAddress)
-            {
-                NondeliverableHandling = NondeliverableHandling.Shred
-            };
+            var printDetails = new PrintDetails(printRecipient, printReturnAddress);
+            
 
             var digitalMedFallbackPrint = new Recipient(nameandaddr, printDetails);
 
-            var digital = new Recipient(nameandaddr);
+            var digFallBackPrint = new Recipient(IdentificationChoice.PersonalidentificationNumber,"31108446911",printDetails);
+
+            var digital = new Recipient(IdentificationChoice.PersonalidentificationNumber,"31108446911");
 
             var fysiskPrint = new Recipient(new PrintDetails(printRecipient));
 
             //message
-            var m = new Message(digital, doc);
+            var m = new Message(digitalMedFallbackPrint, doc);
             return m;
         }
 

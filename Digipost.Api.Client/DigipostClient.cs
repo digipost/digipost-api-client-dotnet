@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
@@ -59,10 +60,9 @@ namespace Digipost.Api.Client
                     Logging.Log(TraceEventType.Information,
                         string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
                     var requestResult = client.PostAsync(uri, content).Result;
-
                     var contentResult = await ReadResponse(requestResult);
 
-                    return ParseResponse(contentResult);
+                    return CreateClientResponse(contentResult, requestResult.StatusCode);
                 }
             }
         }
@@ -126,19 +126,15 @@ namespace Digipost.Api.Client
             }
         }
 
-        private static DigipostClientResponse ParseResponse(string contentResult)
+        private static DigipostClientResponse CreateClientResponse(string contentResult, HttpStatusCode statusCode)
         {
-            try
+            if (statusCode == HttpStatusCode.OK)
             {
                 var messagedelivery = SerializeUtil.Deserialize<Messagedelivery>(contentResult);
                 return new DigipostClientResponse(messagedelivery, contentResult);
             }
-            catch (Exception e)
-            {
-                Logging.Log(TraceEventType.Error, e.Message);
-                var error = SerializeUtil.Deserialize<Error>(contentResult);
-                return new DigipostClientResponse(error, contentResult);
-            }
+            var error = SerializeUtil.Deserialize<Error>(contentResult);
+            return new DigipostClientResponse(error, contentResult);
         }
     }
 }

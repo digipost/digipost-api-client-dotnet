@@ -12,7 +12,6 @@ namespace Digipost.Api.Client.Domain
     [XmlType(TypeName = "sms-notification", Namespace = "http://api.digipost.no/schema/v6")]
     public class SmsNotification
     {
-
         public SmsNotification(int afterHours)
         {
             AfterHours = new List<int> {afterHours};
@@ -25,6 +24,7 @@ namespace Digipost.Api.Client.Domain
 
         private SmsNotification()
         {
+            /**must exist for serializing**/
             AfterHours = new List<int>();
             At = new List<Listedtime>();
         }

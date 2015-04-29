@@ -14,6 +14,34 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Recipient
     {
+        private Recipient()
+        {
+            /**Must exist for serialization.**/
+        }
+
+        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
+        {
+            IdentificationValue = recipientByNameAndAddress;
+            IdentificationType = IdentificationChoice.NameAndAddress;
+            PrintDetails = printDetails;
+        }
+
+        public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
+        {
+            if (identificationChoice == IdentificationChoice.NameAndAddress)
+                throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
+                                                          "when using string as id",
+                    IdentificationChoice.NameAndAddress.ToString()));
+            IdentificationValue = id;
+            IdentificationType = identificationChoice;
+            PrintDetails = printDetails;
+        }
+
+        public Recipient(PrintDetails printDetails)
+        {
+            PrintDetails = printDetails;
+        }
+
         [XmlElement("digipost-address", typeof (string))]
         [XmlElement("name-and-address", typeof (RecipientByNameAndAddress))]
         [XmlElement("organisation-number", typeof (string))]
@@ -21,34 +49,8 @@ namespace Digipost.Api.Client.Domain
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
-        private Recipient() { /**Must exist for serialization.**/ }
-
-        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
-        {
-
-            IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoice.NameAndAddress;
-            Printdetails = printDetails;
-        }
-
-        public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
-        {
-            if (identificationChoice == IdentificationChoice.NameAndAddress)		
-                throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +		
-                                                          "when using string as id",		
-                                                          IdentificationChoice.NameAndAddress.ToString()));
-            IdentificationValue = id;
-            IdentificationType = identificationChoice;
-            Printdetails = printDetails;
-        }
-
-        public Recipient(PrintDetails printDetails)
-        {
-            Printdetails = printDetails;
-        }
-
         [XmlElement("print-details")]
-        public PrintDetails Printdetails { get; set; }
+        public PrintDetails PrintDetails { get; set; }
 
         [XmlIgnore]
         public IdentificationChoice IdentificationType { get; private set; }

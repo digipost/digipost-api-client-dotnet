@@ -11,6 +11,22 @@ namespace Digipost.Api.Client.Domain.Print
     [XmlRoot("foreign-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class ForeignAddress
     {
+        private ForeignAddress()
+        {
+            /**must exist for serializing**/
+        }
+
+        public ForeignAddress(string addressline1, CountryIdentifier countryIdentifier, string countryIdentifierValue,
+            string addressline2 = null, string addressline3 = null, string addressline4 = null)
+        {
+            Addressline1 = addressline1;
+            Addressline2 = addressline2;
+            Addressline3 = addressline3;
+            Addressline4 = addressline4;
+            CountryIdentifier = countryIdentifier;
+            CountryIdentifierValue = countryIdentifierValue;
+        }
+
         [XmlElement("addressline1")]
         public string Addressline1 { get; set; }
 
@@ -26,8 +42,8 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     The value of the contryIdentifier. Either Country or Country-code
         /// </summary>
-        [XmlElement("country", typeof(string))]
-        [XmlElement("country-code", typeof(string))]
+        [XmlElement("country", typeof (string))]
+        [XmlElement("country-code", typeof (string))]
         [XmlChoiceIdentifier("CountryIdentifier")]
         public string CountryIdentifierValue { get; set; }
 
@@ -37,5 +53,4 @@ namespace Digipost.Api.Client.Domain.Print
         [XmlIgnore]
         public CountryIdentifier CountryIdentifier { get; set; }
     }
-
 }

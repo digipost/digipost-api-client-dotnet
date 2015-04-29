@@ -27,12 +27,14 @@ namespace Digipost.Api.Client.Domain.Print
 
         private PrintDetails()
         {
+            /**must exist for serializing**/
         }
 
         /// <summary>
         ///     Constructor to send physical mail, where the letter should be destroyed if the letter can not be delivered.
         /// </summary>
-        public PrintDetails(PrintRecipient printRecipient,PostType postType = PostType.B,PrintColors printColors = PrintColors.Monochrome)
+        public PrintDetails(PrintRecipient printRecipient, PostType postType = PostType.B,
+            PrintColors printColors = PrintColors.Monochrome)
         {
             Recipient = printRecipient;
             NondeliverableHandling = NondeliverableHandling.Shred;

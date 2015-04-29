@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Testklient
@@ -23,10 +22,10 @@ namespace Digipost.Api.Client.Testklient
             Logging.Initialize(config);
 
             var api = new DigipostClient(config, Thumbprint);
-            
+
             var digipostClientResponse = api.Send(message);
-            
-            Logging.Log(TraceEventType.Information, digipostClientResponse.ToString());
+
+            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
 
             Console.ReadKey();
         }
@@ -34,43 +33,31 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var doc = new Document("Test", "txt", GetPrimaryDocument());
+            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument())
+            {
+                SmsNotification = new SmsNotification(0) // SMS reminder after 0 hour
+            };
+            //attachment
+            var attachment = new Document("Attachment", "txt", GetAttachment());
+
+            //printdetails for fallback to print (physical mail)
+            var printDetails =
+                new PrintDetails(new PrintRecipient("Kristian Sæther Enge", "Colletts gate 68", "0460", "Oslo"),
+                    new PrintRecipient("Kristian Sæther Enge", "Colletts gate 68", "0460", "Oslo")
+                    );
+
+            //recipientIdentifier for digital mail
+            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
+                "0460", "Oslo");
 
             //recipient
-            var nameandaddr = new RecipientByNameAndAddress("Eirik Sæther Enge", "Enge gård", "2651", "Østre Gausdal");
-
-            //printdetails
-            var recieptAddress = new NorwegianAddress
-            {
-                Addressline1 = "Enge gård",
-                City = "Østre Gausdal",
-                ZipCode = "2651"
-            };
-
-            var returnAddress = new NorwegianAddress
-            {
-                Addressline1 = "Colletts gate 68",
-                City = "Oslo",
-                ZipCode = "0460"
-            };
-
-            var printRecipient = new PrintRecipient("Eirik Sæther Enge", recieptAddress);
-            var printReturnAddress = new PrintRecipient("Kristian Sæther Enge", returnAddress);
-
-            var printDetails = new PrintDetails(printRecipient, printReturnAddress);
-            
-
-            var digitalMedFallbackPrint = new Recipient(nameandaddr, printDetails);
-
-            var digFallBackPrint = new Recipient(IdentificationChoice.PersonalidentificationNumber,"31108446911",printDetails);
-
-            var digital = new Recipient(IdentificationChoice.PersonalidentificationNumber,"31108446911");
-
-            var fysiskPrint = new Recipient(new PrintDetails(printRecipient));
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
 
             //message
-            var m = new Message(digitalMedFallbackPrint, doc);
-            return m;
+            var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);
+            message.Attachments.Add(attachment);
+
+            return message;
         }
 
         private static byte[] GetPrimaryDocument()

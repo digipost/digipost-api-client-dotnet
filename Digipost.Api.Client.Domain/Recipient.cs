@@ -19,6 +19,9 @@ namespace Digipost.Api.Client.Domain
             /**Must exist for serialization.**/
         }
 
+        /// <summary>
+        ///     Preferred digital delivery with fallback to physical delivery. 
+        /// </summary>
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
         {
             IdentificationValue = recipientByNameAndAddress;
@@ -26,6 +29,9 @@ namespace Digipost.Api.Client.Domain
             PrintDetails = printDetails;
         }
 
+        /// <summary>
+        ///     Preferred digital delivery with fallback to physical delivery. 
+        /// </summary>
         public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
         {
             if (identificationChoice == IdentificationChoice.NameAndAddress)
@@ -37,6 +43,9 @@ namespace Digipost.Api.Client.Domain
             PrintDetails = printDetails;
         }
 
+        /// <summary>
+        ///     Preferred physical delivery. (not Digital)
+        /// </summary>
         public Recipient(PrintDetails printDetails)
         {
             PrintDetails = printDetails;

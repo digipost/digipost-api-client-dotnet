@@ -48,10 +48,24 @@
     <Compile Include="DigipostClientResponse.cs" />
     <Compile Include="Enums\AuthenticationLevel.cs" />
     <Compile Include="Document.cs" />
+    <Compile Include="Enums\CountryIdentifier.cs" />
+    <Compile Include="Enums\DeliveryMethod.cs" />
+    <Compile Include="Enums\MessageStatus.cs" />
+    <Compile Include="Enums\NonDeliverableHandling.cs" />
+    <Compile Include="Enums\PostType.cs" />
+    <Compile Include="Enums\PrintColors.cs" />
+    <Compile Include="ErrorMessage.cs" />
+    <Compile Include="Exceptions\APIException.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
+    <Compile Include="Exceptions\XmlParseException.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageDelivery.cs" />
+    <Compile Include="Print\ForeignAddress.cs" />
+    <Compile Include="Print\NorwegianAddress.cs" />
+    <Compile Include="Print\PrintDetails.cs" />
+    <Compile Include="Print\PrintRecipient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
     <Compile Include="Recipient.cs" />
@@ -61,6 +75,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

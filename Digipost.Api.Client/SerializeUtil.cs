@@ -7,19 +7,14 @@ namespace Digipost.Api.Client
 {
     internal class SerializeUtil
     {
-        private sealed class Utf8StringWriter : StringWriter
-        {
-            public override Encoding Encoding { get { return Encoding.UTF8; } }
-        }
         public static string Serialize<T>(T value)
         {
-
             if (value == null)
             {
                 return null;
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof (T));
 
             var settings = new XmlWriterSettings
             {
@@ -46,7 +41,7 @@ namespace Digipost.Api.Client
                 return default(T);
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof (T));
 
             var settings = new XmlReaderSettings();
 
@@ -54,8 +49,16 @@ namespace Digipost.Api.Client
             {
                 using (var xmlReader = XmlReader.Create(textReader, settings))
                 {
-                    return (T)serializer.Deserialize(xmlReader);
+                    return (T) serializer.Deserialize(xmlReader);
                 }
+            }
+        }
+
+        private sealed class Utf8StringWriter : StringWriter
+        {
+            public override Encoding Encoding
+            {
+                get { return Encoding.UTF8; }
             }
         }
     }

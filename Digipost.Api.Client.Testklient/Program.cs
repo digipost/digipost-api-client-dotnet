@@ -35,8 +35,6 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
-            
-
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());
@@ -44,8 +42,8 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    recipient: new PrintRecipient("Kristian Sæther Enge", "Colletts gate 68", "0460", "Oslo"),
-                    returnAddress: new PrintRecipient("Kristian Sæther Enge", "Colletts gate 68", "0460", "Oslo")
+                    recipient: new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo")),
+                    returnAddress: new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo"))
                     );
 
 

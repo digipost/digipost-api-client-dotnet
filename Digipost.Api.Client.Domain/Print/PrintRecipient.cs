@@ -24,17 +24,6 @@ namespace Digipost.Api.Client.Domain.Print
         }
 
         /// <summary>
-        ///     Constructor for foreign(not Norwegian) recipients
-        /// </summary>
-        public PrintRecipient(string name, string addressline1, CountryIdentifier countryIdentifier,
-            string countryIdentifierValue, string addressline2 = null, string addressline3 = null,
-            string addressline4 = null)
-        {
-            Name = name;
-            Address = new ForeignAddress(addressline1, countryIdentifier, countryIdentifierValue);
-        }
-
-        /// <summary>
         ///     Constructor for Norwegian recipients
         /// </summary>
         public PrintRecipient(string name, NorwegianAddress address)
@@ -43,16 +32,7 @@ namespace Digipost.Api.Client.Domain.Print
             Address = address;
         }
 
-        /// <summary>
-        ///     Constructor for Norwegian recipients
-        /// </summary>
-        public PrintRecipient(string name, string addressline1, string zipCode,
-            string city, string addressline2 = null, string addressline3 = null)
-        {
-            Name = name;
-            Address = new NorwegianAddress(addressline1, zipCode, city, addressline2, addressline3);
-        }
-
+        
         private PrintRecipient()
         {
             /**must exist for serializing**/

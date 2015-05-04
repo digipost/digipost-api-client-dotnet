@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Domain.Print
     public class PrintDetails
     {
         /// <summary>
-        ///     Constructor to send physical mail.
+        ///     Constructor to send physical letter.
         /// </summary>
         public PrintDetails(PrintRecipient recipient, PrintRecipient returnAddress, PostType postType = PostType.B,
             PrintColors color = PrintColors.Monochrome,
@@ -31,7 +31,7 @@ namespace Digipost.Api.Client.Domain.Print
         }
 
         /// <summary>
-        ///     Constructor to send physical mail, where the letter should be destroyed if the letter can not be delivered.
+        ///     Constructor to send physical letter, where the letter should be destroyed if it can not be delivered.
         /// </summary>
         public PrintDetails(PrintRecipient printRecipient, PostType postType = PostType.B,
             PrintColors printColors = PrintColors.Monochrome)

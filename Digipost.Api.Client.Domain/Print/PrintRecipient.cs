@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 
 namespace Digipost.Api.Client.Domain.Print
@@ -32,7 +31,6 @@ namespace Digipost.Api.Client.Domain.Print
             Address = address;
         }
 
-        
         private PrintRecipient()
         {
             /**must exist for serializing**/

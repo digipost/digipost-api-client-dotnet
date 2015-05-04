@@ -8,42 +8,67 @@ using Digipost.Api.Client.Properties;
 namespace Digipost.Api.Client
 {
     /// <summary>
-    /// Contains configuration for sending digital post. Values can be overridden in App.config , using following format: 
-    /// 'DP:Variable', where Variable is placeholder for variable name in this class. Changing the timeout (TimeoutMilliseconds)
-    /// would result in the following in App.config: <![CDATA[<appSettings><add key="DP:TimeoutMilliseconds" value="10"/></appSettings> ]]>
+    ///     Contains configuration for sending digital post. Values can be overridden in App.config , using following format:
+    ///     'DP:Variable', where Variable is placeholder for variable name in this class. Changing the timeout
+    ///     (TimeoutMilliseconds)
+    ///     would result in the following in App.config: <![CDATA[<appSettings><add key="DP:TimeoutMilliseconds" value="10"/></appSettings> ]]>
     /// </summary>
     public class ClientConfig
     {
+        private readonly string _senderId = string.Empty;
+
         /// <summary>
-        /// Defines Uri to be used for sending messages. Default value is 'https://api.digipost.no/'. Defines Url to be used for message delivery.
-        /// This value can be overridden in the application configuration file with key 'DP:Url' in appSettings.
+        ///     Client configuration used for setting up the client with settings.
+        /// </summary>
+        /// <param name="senderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
+        public ClientConfig(string senderId = "")
+        {
+            ApiUrl = SetFromAppConfig("DP:Url", new Uri(Settings.Default.Url));
+            TimeoutMilliseconds = SetFromAppConfig("DP:TimeoutMilliseconds", Settings.Default.TimeoutMilliseconds);
+
+            _senderId = SetFromAppConfig("DP:SenderId", Settings.Default.SenderId);
+
+            if (!string.IsNullOrEmpty(senderId))
+                _senderId = senderId;
+
+            Logger = Logging.ConsoleLogger();
+            LogToFile = SetFromAppConfig("DP:LogToFile", Settings.Default.LogToFile);
+            LogPath = SetFromAppConfig("DP:LogPath",
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest",
+                    "Log"));
+        }
+
+        /// <summary>
+        ///     Defines Uri to be used for sending messages. Default value is 'https://api.digipost.no/'. Defines Url to be used
+        ///     for message delivery.
+        ///     This value can be overridden in the application configuration file with key 'DP:Url' in appSettings.
         /// </summary>
         /// <remarks>
-        /// Url for QA is 'https://api.digipost.no/'.
+        ///     Url for QA is 'https://api.digipost.no/'.
         /// </remarks>
         public Uri ApiUrl { get; set; }
 
         /// <summary>
-        /// Defines the timeout for communication with Digipost API. Default is 30 seconds. This 
-        /// Angir timeout for komunikasjonen fra og til meldingsformindleren. Default tid er 30 sekunder.
-        /// This value can be overridden in the application configuration file with key 'DP:TimeoutMilliseconds' in appSettings.
+        ///     Defines the timeout for communication with Digipost API. Default is 30 seconds. This
+        ///     Angir timeout for komunikasjonen fra og til meldingsformindleren. Default tid er 30 sekunder.
+        ///     This value can be overridden in the application configuration file with key 'DP:TimeoutMilliseconds' in
+        ///     appSettings.
         /// </summary>
         public int TimeoutMilliseconds { get; set; }
 
-        private string _senderId = String.Empty;
-
         /// <summary>
-        /// The identification of the technical sender of messages to Digipost. This value is obtained during registration of
-        /// sender. 
+        ///     The identification of the technical sender of messages to Digipost. This value is obtained during registration of
+        ///     sender.
         /// </summary>
         public string SenderId
         {
             get
             {
-                if (String.IsNullOrEmpty(_senderId))
+                if (string.IsNullOrEmpty(_senderId))
                 {
-                    throw new ConfigException("Technical sender id must be valid set to send messages. Set this by code on ClientConfig or in App.config under node" +
-                                              "'appSettings' with key 'DP:SenderId' (<add key=\"DP:SenderId\" value=\"01234567\"/>)");
+                    throw new ConfigException(
+                        "Technical sender id must be valid set to send messages. Set this by code on ClientConfig or in App.config under node" +
+                        "'appSettings' with key 'DP:SenderId' (<add key=\"DP:SenderId\" value=\"01234567\"/>)");
                 }
 
                 return _senderId;
@@ -51,39 +76,22 @@ namespace Digipost.Api.Client
         }
 
         /// <summary>
-        /// Client configuration used for setting up the client with settings.
-        /// </summary>
-        /// <param name="senderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
-        public ClientConfig(string senderId = "")
-        {
-            ApiUrl = SetFromAppConfig<Uri>("DP:Url", new Uri(Settings.Default.Url));
-            TimeoutMilliseconds = SetFromAppConfig<int>("DP:TimeoutMilliseconds", Settings.Default.TimeoutMilliseconds);
-
-            _senderId = SetFromAppConfig<string>("DP:SenderId",Settings.Default.SenderId);
-            
-            if (!String.IsNullOrEmpty(senderId))
-                _senderId = senderId;       
-
-            Logger = Logging.ConsoleLogger();
-            LogToFile = SetFromAppConfig<bool>("DP:LogToFile", Settings.Default.LogToFile);
-            LogPath = SetFromAppConfig<string>("DP:LogPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest", "Log"));
-        }
-
-        /// <summary>
-        /// Exposes logging where you can integrate your own logger or third party logger (i.e. log4net). For use, set an anonymous function with
-        /// the following parameters: conversationId, method, message. As a default, trace logging is enabled with 'Digipost.Api.Client', which can be 
-        /// activated in App.config.
+        ///     Exposes logging where you can integrate your own logger or third party logger (i.e. log4net). For use, set an
+        ///     anonymous function with
+        ///     the following parameters: conversationId, method, message. As a default, trace logging is enabled with
+        ///     'Digipost.Api.Client', which can be
+        ///     activated in App.config.
         /// </summary>
         public Action<TraceEventType, Guid?, string, string> Logger { get; set; }
 
         /// <summary>
-        /// Defines if logging is to be done for all messages between the client and Digipost
+        ///     Defines if logging is to be done for all messages between the client and Digipost
         /// </summary>
         public bool LogToFile { get; set; }
 
         /// <summary>
-        /// Defines the path for logging messages sent and received from Digipost API. Default 
-        /// path is %Appdata%/Digipost/Rest/Log
+        ///     Defines the path for logging messages sent and received from Digipost API. Default
+        ///     path is %Appdata%/Digipost/Rest/Log
         /// </summary>
         public string LogPath { get; set; }
 
@@ -91,16 +99,16 @@ namespace Digipost.Api.Client
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            string value = appSettings[key];
+            var value = appSettings[key];
             if (value == null)
                 return @default;
 
-            if (typeof(IConvertible).IsAssignableFrom(typeof(T)))
+            if (typeof (IConvertible).IsAssignableFrom(typeof (T)))
             {
-                return (T)Convert.ChangeType(value, typeof(T));
+                return (T) Convert.ChangeType(value, typeof (T));
             }
-            
-            return (T)Activator.CreateInstance(typeof(T), value);
+
+            return (T) Activator.CreateInstance(typeof (T), value);
         }
     }
 }

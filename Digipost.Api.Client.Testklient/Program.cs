@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Testklient
@@ -42,20 +41,17 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    recipient: new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo")),
-                    returnAddress: new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo"))
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo")),
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo"))
                     );
 
 
             //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddress(
-                fullName: "Kristian Sæther Enge",
-                addressLine: "Collettsgate 68", 
-                postalCode: "0460",
-                city: "Oslo");
+            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
+                "0460", "Oslo");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
 
             //message
             var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);

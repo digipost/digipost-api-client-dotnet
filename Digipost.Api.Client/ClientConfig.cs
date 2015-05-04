@@ -40,7 +40,7 @@ namespace Digipost.Api.Client
         {
             get
             {
-                if (string.IsNullOrEmpty(_senderId))
+                if (String.IsNullOrEmpty(_senderId))
                 {
                     throw new ConfigException("Technical sender id must be valid set to send messages. Set this by code on ClientConfig or in App.config under node" +
                                               "'appSettings' with key 'DP:SenderId' (<add key=\"DP:SenderId\" value=\"01234567\"/>)");
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client
 
             _senderId = SetFromAppConfig<string>("DP:SenderId",Settings.Default.SenderId);
             
-            if (!string.IsNullOrEmpty(senderId))
+            if (!String.IsNullOrEmpty(senderId))
                 _senderId = senderId;       
 
             Logger = Logging.ConsoleLogger();

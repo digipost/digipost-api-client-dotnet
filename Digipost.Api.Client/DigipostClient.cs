@@ -130,7 +130,7 @@ namespace Digipost.Api.Client
         {
             if (statusCode == HttpStatusCode.OK)
             {
-                var messagedelivery = SerializeUtil.Deserialize<Messagedelivery>(contentResult);
+                var messagedelivery = SerializeUtil.Deserialize<MessageDelivery>(contentResult);
                 return new DigipostClientResponse(messagedelivery, contentResult);
             }
             var error = SerializeUtil.Deserialize<Error>(contentResult);

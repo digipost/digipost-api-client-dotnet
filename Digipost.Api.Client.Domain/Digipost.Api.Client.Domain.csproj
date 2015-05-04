@@ -49,6 +49,8 @@
     <Compile Include="Enums\AuthenticationLevel.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Enums\CountryIdentifier.cs" />
+    <Compile Include="Enums\DeliveryMethod.cs" />
+    <Compile Include="Enums\MessageStatus.cs" />
     <Compile Include="Enums\NonDeliverableHandling.cs" />
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />

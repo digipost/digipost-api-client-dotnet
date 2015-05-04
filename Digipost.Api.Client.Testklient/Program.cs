@@ -34,10 +34,10 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument())
-            {
-                SmsNotification = new SmsNotification(0) // SMS reminder after 0 hour
-            };
+            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
+            
+
+
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());
 
@@ -57,7 +57,7 @@ namespace Digipost.Api.Client.Testklient
                 city: "Oslo");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(IdentificationChoice.PersonalidentificationNumber,"12312312311",printDetails);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);
 
             //message
             var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);

@@ -22,6 +22,7 @@ namespace Digipost.Api.Client.Domain
         public SmsNotification(int afterHours)
         {
             AfterHours = new List<int> {afterHours};
+            At = new List<Listedtime>();
         }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace Digipost.Api.Client.Domain
         public SmsNotification(DateTime sendingTime)
         {
             At = new List<Listedtime> {new Listedtime(sendingTime)};
+            AfterHours =  new List<int>();
         }
 
         private SmsNotification()

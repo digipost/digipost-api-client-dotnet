@@ -20,6 +20,11 @@ namespace Digipost.Api.Client.Domain
             /**Must exist for serialization.**/
         }
 
+        /// <param name="subject">The subject of the document.</param>
+        /// <param name="fileMimeType">The mime type of the file. e.g pdf,txt..</param>
+        /// <param name="pathToDocument">The path to the file. e.g c:\docs\file01.txt</param>
+        /// <param name="authLevel">Required authentication level of the document. Default password.</param>
+        /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
         public Document(string subject, string fileMimeType, string pathToDocument,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal)
@@ -32,6 +37,13 @@ namespace Digipost.Api.Client.Domain
             SensitivityLevel = sensitivityLevel;
         }
 
+
+        /// <param name="subject">The subject of the document.</param>
+        /// <param name="fileMimeType">The mime type of the file. e.g pdf,txt..</param>
+        /// <param name="contentBytes">The content of file in byteArray.</param>
+        /// <param name="authLevel">Required authentication level of the document. Default password.</param>
+        /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
+        /// <param name="smsNotification">Sets SMS notification setting. Default null.</param>
         public Document(string subject, string fileMimeType, byte[] contentBytes,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
@@ -40,6 +52,26 @@ namespace Digipost.Api.Client.Domain
             Subject = subject;
             FileMimeType = fileMimeType;
             ContentBytes = contentBytes;
+            AuthenticationLevel = authLevel;
+            SensitivityLevel = sensitivityLevel;
+            SmsNotification = smsNotification;
+        }
+
+
+        /// <param name="subject">The subject of the document.</param>
+        /// <param name="fileMimeType">The mime type of the file. e.g pdf,txt..</param>
+        /// <param name="documentStream">Stream of the file.</param>
+        /// <param name="authLevel">Required authentication level of the document. Default password.</param>
+        /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
+        /// <param name="smsNotification">Sets SMS notification setting. Default null.</param>
+        public Document(string subject, string fileMimeType, Stream documentStream,
+           AuthenticationLevel authLevel = AuthenticationLevel.Password,
+           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+        {
+            Guid = System.Guid.NewGuid().ToString();
+            Subject = subject;
+            FileMimeType = fileMimeType;
+            ContentBytes = File.ReadAllBytes(new StreamReader(documentStream).ReadToEnd());
             AuthenticationLevel = authLevel;
             SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;

@@ -12,6 +12,7 @@
         <summary>Apache Licence 2.0</summary>
     </metadata>
     <files>
-        <file src="Digipost.Api.Client\bin\Release\*.dll" target="lib\net45\" />        
+        <file src="Digipost.Api.Client\bin\Release\*.dll" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\*.xml" target="lib\net45\" />        
     </files>
 </package>

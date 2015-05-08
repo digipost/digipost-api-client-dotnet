@@ -15,14 +15,14 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        public NorwegianAddress(string addressline1, string zipCode,
-            string city, string addressline2 = null, string addressline3 = null)
+        public NorwegianAddress( string postalCode,
+            string city, string addressline1, string addressline2 = null, string addressline3 = null)
         {
             Addressline1 = addressline1;
             Addressline2 = addressline2;
             Addressline3 = addressline3;
             City = city;
-            ZipCode = zipCode;
+            PostalCode = postalCode;
         }
 
         [XmlElement("addressline1")]
@@ -35,7 +35,7 @@ namespace Digipost.Api.Client.Domain.Print
         public string Addressline3 { get; set; }
 
         [XmlElement("zip-code")]
-        public string ZipCode { get; set; }
+        public string PostalCode { get; set; }
 
         [XmlElement("city")]
         public string City { get; set; }

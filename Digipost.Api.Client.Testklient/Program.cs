@@ -41,8 +41,8 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo")),
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("Colletts gate 68", "0460", "Oslo"))
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode:"0460" , city: "Oslo", addressline1: "Colletts gate 68")),
+                    new PrintReturnAddress("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68"))
                     );
 
 

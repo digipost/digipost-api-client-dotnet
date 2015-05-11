@@ -11,8 +11,8 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     If mail is undeliverable the mail will be destroyed.
         /// </summary>
-        [XmlEnum("SHRED")]
-        Shred,
+        //[XmlEnum("SHRED")] //This is not supported for the private API.
+        //Shred,
 
         /// <summary>
         ///     If mail is undeliverable the mail will be returned to the return address.

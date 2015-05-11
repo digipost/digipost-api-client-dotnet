@@ -9,12 +9,6 @@ namespace Digipost.Api.Client.Domain.Enums
     public enum NondeliverableHandling
     {
         /// <summary>
-        ///     If mail is undeliverable the mail will be destroyed.
-        /// </summary>
-        //[XmlEnum("SHRED")] //This is not supported for the private API.
-        //Shred,
-
-        /// <summary>
         ///     If mail is undeliverable the mail will be returned to the return address.
         /// </summary>
         [XmlEnum("RETURN_TO_SENDER")]

@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
-            return string.Format("StatusMessage[{0}] \n Deliverytime[{1}] \n Deliverytime[{2}]   \n ErrorCode[{3}] \n ErrorType[{4}] \n ResponseMessage[{5}]]", StatusMessage, DeliveryTime, DeliveryMethod, ErrorCode, ErrorType, ResponseXml);
+            return string.Format("StatusMessage[{0}] \n DeliveryTime[{1}] \n DeliveryMethod[{2}]   \n ErrorCode[{3}] \n ErrorType[{4}] \n ResponseMessage[{5}]]", StatusMessage, DeliveryTime, DeliveryMethod, ErrorCode, ErrorType, ResponseXml);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.Testklient
                     new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode:"0460" , city: "Oslo", addressline1: "Colletts gate 68")),
                     new PrintReturnAddress("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68"))
                     );
-
+           
 
             //recipientIdentifier for digital mail
             var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",

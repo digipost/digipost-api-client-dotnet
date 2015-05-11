@@ -16,8 +16,8 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        public ForeignAddress(string addressline1, CountryIdentifier countryIdentifier, string countryIdentifierValue,
-            string addressline2 = null, string addressline3 = null, string addressline4 = null)
+        public ForeignAddress( CountryIdentifier countryIdentifier, string countryIdentifierValue,
+            string addressline1, string addressline2 = null, string addressline3 = null, string addressline4 = null)
         {
             Addressline1 = addressline1;
             Addressline2 = addressline2;

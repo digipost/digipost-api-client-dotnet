@@ -28,12 +28,12 @@ namespace Digipost.Api.Client
         private ClientConfig ClientConfig { get; set; }
         private X509Certificate2 PrivateCertificate { get; set; }
 
-        public DigipostClientResponse Send(Message message)
+        public ClientResponse Send(Message message)
         {
             return SendAsync(message).Result;
         }
 
-        public async Task<DigipostClientResponse> SendAsync(Message message)
+        public async Task<ClientResponse> SendAsync(Message message)
         {
             const string uri = "messages";
             Logging.Log(TraceEventType.Information, "> Starting Send()");
@@ -126,15 +126,15 @@ namespace Digipost.Api.Client
             }
         }
 
-        private static DigipostClientResponse CreateClientResponse(string contentResult, HttpStatusCode statusCode)
+        private static ClientResponse CreateClientResponse(string contentResult, HttpStatusCode statusCode)
         {
             if (statusCode == HttpStatusCode.OK)
             {
                 var messagedelivery = SerializeUtil.Deserialize<MessageDelivery>(contentResult);
-                return new DigipostClientResponse(messagedelivery, contentResult);
+                return new ClientResponse(messagedelivery, contentResult);
             }
             var error = SerializeUtil.Deserialize<Error>(contentResult);
-            return new DigipostClientResponse(error, contentResult);
+            return new ClientResponse(error, contentResult);
         }
     }
 }

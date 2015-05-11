@@ -65,8 +65,10 @@
     <Compile Include="MessageDelivery.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\NorwegianAddress.cs" />
+    <Compile Include="Print\PrintAddress.cs" />
     <Compile Include="Print\PrintDetails.cs" />
     <Compile Include="Print\PrintRecipient.cs" />
+    <Compile Include="Print\PrintReturnAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
     <Compile Include="Recipient.cs" />

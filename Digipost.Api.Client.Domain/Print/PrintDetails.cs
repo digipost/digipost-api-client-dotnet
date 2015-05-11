@@ -14,11 +14,11 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     Constructor to send physical letter.
         /// </summary>
-        public PrintDetails(PrintRecipient recipient, PrintRecipient returnAddress, PostType postType = PostType.B,
+        public PrintDetails(PrintRecipient recipient, PrintReturnAddress printReturnAddress, PostType postType = PostType.B,
             PrintColors color = PrintColors.Monochrome,
             NondeliverableHandling nondeliverableHandling = NondeliverableHandling.ReturnToSender)
         {
-            ReturnAddress = returnAddress;
+            PrintReturnAddress = printReturnAddress;
             Recipient = recipient;
             Color = color;
             NondeliverableHandling = nondeliverableHandling;
@@ -30,17 +30,18 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        /// <summary>
-        ///     Constructor to send physical letter, where the letter should be destroyed if it can not be delivered.
-        /// </summary>
-        public PrintDetails(PrintRecipient printRecipient, PostType postType = PostType.B,
-            PrintColors printColors = PrintColors.Monochrome)
-        {
-            Recipient = printRecipient;
-            NondeliverableHandling = NondeliverableHandling.Shred;
-            PostType = postType;
-            Color = printColors;
-        }
+        //Not supported atm.
+        ///// <summary>
+        /////     Constructor to send physical letter, where the letter should be destroyed if it can not be delivered.
+        ///// </summary>
+        //public PrintDetails(PrintRecipient printRecipient, PostType postType = PostType.B,
+        //    PrintColors printColors = PrintColors.Monochrome)
+        //{
+        //    Recipient = printRecipient;
+        //    NondeliverableHandling = NondeliverableHandling.Shred;
+        //    PostType = postType;
+        //    Color = printColors;
+        //}
 
         /// <summary>
         ///     The recipient of the physical mail.
@@ -53,7 +54,7 @@ namespace Digipost.Api.Client.Domain.Print
         ///     ReturnToSender)
         /// </summary>
         [XmlElement("return-address")]
-        public PrintRecipient ReturnAddress { get; set; }
+        public PrintReturnAddress PrintReturnAddress { get; set; }
 
         /// <summary>
         ///     Defines how fast you want the item delivered. Note: additional charges may apply
@@ -71,6 +72,6 @@ namespace Digipost.Api.Client.Domain.Print
         ///     Determines the exception handling that will occur when the letter can not be delivered.
         /// </summary>
         [XmlElement("nondeliverable-handling")]
-        public NondeliverableHandling NondeliverableHandling { get; set; }
+        private NondeliverableHandling NondeliverableHandling { get; set; }
     }
 }

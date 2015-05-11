@@ -30,19 +30,6 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        //Not supported atm.
-        ///// <summary>
-        /////     Constructor to send physical letter, where the letter should be destroyed if it can not be delivered.
-        ///// </summary>
-        //public PrintDetails(PrintRecipient printRecipient, PostType postType = PostType.B,
-        //    PrintColors printColors = PrintColors.Monochrome)
-        //{
-        //    Recipient = printRecipient;
-        //    NondeliverableHandling = NondeliverableHandling.Shred;
-        //    PostType = postType;
-        //    Color = printColors;
-        //}
-
         /// <summary>
         ///     The recipient of the physical mail.
         /// </summary>

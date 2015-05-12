@@ -68,8 +68,6 @@
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DigipostClient.cs" />
-    <Compile Include="IdentificationResult.cs" />
-    <Compile Include="IdentificationResultCode.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -60,12 +60,12 @@ namespace Digipost.Api.Client
                     var requestResult = client.PostAsync(uri, content).Result;
                     var contentResult = await ReadResponse(requestResult);
 
-                    return CreateClientResponse(contentResult, requestResult.StatusCode);
+                    return CreateSendResponse(contentResult, requestResult.StatusCode);
                 }
             }
         }
 
-        public async Task<string> Identify(Identification identification)
+        public async Task<IdentificationResult> Identify(Identification identification)
         {
             const string uri = "identification";
             Logging.Log(TraceEventType.Information, "> Starting Send()");
@@ -81,16 +81,31 @@ namespace Digipost.Api.Client
 
                 Logging.Log(TraceEventType.Information,
                        string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
-                //var content = new StringContent(SerializeUtil.Serialize(identification));
-                var content = new StringContent("<?xml version=\"1.0\" encoding=\"utf-8\"?><identification xmlns=\"http://api.digipost.no/schema/v6\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><personal-identification-number>31108446911</personal-identification-number></identification>");
-                var requestResult = client.PostAsync(uri, content).Result;
+
+                var messageContent = CreateMessageContent(identification);
+                AddHeaderToContent(boundary, messageContent);
+                
+                var requestResult = client.PostAsync(uri, messageContent).Result;
                 var contentResult = await ReadResponse(requestResult);
+                var identificationResult = SerializeUtil.Deserialize<IdentificationResult>(contentResult);
 
-                return contentResult;
-
+                return identificationResult;
             }
+        }
 
+        private static StringContent CreateMessageContent(Identification identification)
+        {
+            var xmlMessage = SerializeUtil.Serialize(identification);
+            Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
+            var messageContent = new StringContent(xmlMessage);
+            return messageContent;
+        }
 
+        private static void AddHeaderToContent(string boundary, StringContent messageContent)
+        {
+            var mediaTypeHeaderValue = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
+            mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
+            messageContent.Headers.ContentType = mediaTypeHeaderValue;
         }
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
@@ -124,22 +139,7 @@ namespace Digipost.Api.Client
                 content.Add(messageContent);
             }
         }
-        private static void AddBodyToContent(Identification identification, MultipartFormDataContent content)
-        {
-            {
-                Logging.Log(TraceEventType.Information, "  - Creating XML-body");
-                var xmlMessage = SerializeUtil.Serialize(identification);
-
-                Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
-                var messageContent = new StringContent(xmlMessage);
-                messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
-                messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = "\"message\""
-                };
-                content.Add(messageContent);
-            }
-        }
+       
 
         private static void AddPrimaryDocumentToContent(Message message, MultipartFormDataContent content)
         {
@@ -169,7 +169,7 @@ namespace Digipost.Api.Client
             }
         }
 
-        private static ClientResponse CreateClientResponse(string contentResult, HttpStatusCode statusCode)
+        private static ClientResponse CreateSendResponse(string contentResult, HttpStatusCode statusCode)
         {
             if (statusCode == HttpStatusCode.OK)
             {
@@ -179,5 +179,7 @@ namespace Digipost.Api.Client
             var error = SerializeUtil.Deserialize<Error>(contentResult);
             return new ClientResponse(error, contentResult);
         }
+
+       
     }
 }

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Testklient
@@ -27,9 +28,10 @@ namespace Digipost.Api.Client.Testklient
 
             //SendMessage(api);
             Identification identification = new Identification();
-            identification.PersonalIdentifcationNumber = "31108446911";
+            identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
+            identification.IdentificationValue = "31108446911";
 
-            string result  = api.Identify(identification).Result;
+            IdentificationResult result = api.Identify(identification).Result;
 
             Console.ReadKey();
         }

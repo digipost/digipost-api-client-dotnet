@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client
 {
@@ -49,13 +50,10 @@ namespace Digipost.Api.Client
                 Logging.Log(TraceEventType.Information, " - Initializing MultipartFormDataContent");
                 using (var content = new MultipartFormDataContent(boundary))
                 {
-                    CreateHeader(boundary, content);
-
-                    CreateBody(message, content);
-
-                    AppendPrimaryDocument(message, content);
-
-                    AppendAttachments(message, content);
+                    AddHeaderToContent(boundary, content);
+                    AddBodyToContent(message, content);
+                    AddPrimaryDocumentToContent(message, content);
+                    AddAttachmentsToContent(message, content);
 
                     Logging.Log(TraceEventType.Information,
                         string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
@@ -67,6 +65,34 @@ namespace Digipost.Api.Client
             }
         }
 
+        public async Task<string> Identify(Identification identification)
+        {
+            const string uri = "identification";
+            Logging.Log(TraceEventType.Information, "> Starting Send()");
+            var loggingHandler = new LoggingHandler(new HttpClientHandler());
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, uri, loggingHandler);
+            Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
+
+            var boundary = Guid.NewGuid().ToString();
+            using (var client = new HttpClient(authenticationHandler))
+            {
+                client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
+                client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
+
+                Logging.Log(TraceEventType.Information,
+                       string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
+                //var content = new StringContent(SerializeUtil.Serialize(identification));
+                var content = new StringContent("<?xml version=\"1.0\" encoding=\"utf-8\"?><identification xmlns=\"http://api.digipost.no/schema/v6\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><personal-identification-number>31108446911</personal-identification-number></identification>");
+                var requestResult = client.PostAsync(uri, content).Result;
+                var contentResult = await ReadResponse(requestResult);
+
+                return contentResult;
+
+            }
+
+
+        }
+
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
             var contentResult = await requestResult.Content.ReadAsStringAsync();
@@ -74,14 +100,15 @@ namespace Digipost.Api.Client
             return contentResult;
         }
 
-        private static void CreateHeader(string boundary, MultipartFormDataContent content)
+        private static void AddHeaderToContent(string boundary, MultipartFormDataContent content)
         {
             var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
             mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
             content.Headers.ContentType = mediaTypeHeaderValue;
         }
 
-        private static void CreateBody(Message message, MultipartFormDataContent content)
+
+        private static void AddBodyToContent(Message message, MultipartFormDataContent content)
         {
             {
                 Logging.Log(TraceEventType.Information, "  - Creating XML-body");
@@ -97,8 +124,24 @@ namespace Digipost.Api.Client
                 content.Add(messageContent);
             }
         }
+        private static void AddBodyToContent(Identification identification, MultipartFormDataContent content)
+        {
+            {
+                Logging.Log(TraceEventType.Information, "  - Creating XML-body");
+                var xmlMessage = SerializeUtil.Serialize(identification);
 
-        private static void AppendPrimaryDocument(Message message, MultipartFormDataContent content)
+                Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
+                var messageContent = new StringContent(xmlMessage);
+                messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
+                messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = "\"message\""
+                };
+                content.Add(messageContent);
+            }
+        }
+
+        private static void AddPrimaryDocumentToContent(Message message, MultipartFormDataContent content)
         {
             Logging.Log(TraceEventType.Information, "  - Adding primary document");
             var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
@@ -110,7 +153,7 @@ namespace Digipost.Api.Client
             content.Add(documentContent);
         }
 
-        private static void AppendAttachments(Message message, MultipartFormDataContent content)
+        private static void AddAttachmentsToContent(Message message, MultipartFormDataContent content)
         {
             foreach (var attachment in message.Attachments)
             {

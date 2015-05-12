@@ -44,7 +44,7 @@ namespace Digipost.Api.Client
         ///     This value can be overridden in the application configuration file with key 'DP:Url' in appSettings.
         /// </summary>
         /// <remarks>
-        ///     Url for QA is 'https://api.digipost.no/'.
+        ///     Url for QA is 'https://qa.api.digipost.no/'.
         /// </remarks>
         public Uri ApiUrl { get; set; }
 

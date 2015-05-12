@@ -25,8 +25,5 @@
         {
             /**must exist for serializing**/
         }
-       
     }
-
-   
 }

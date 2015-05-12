@@ -60,6 +60,7 @@
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
+    <Compile Include="Identification.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageDelivery.cs" />

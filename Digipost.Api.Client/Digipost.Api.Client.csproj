@@ -65,11 +65,13 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AuthenticationHandler.cs" />
+    <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DigipostClient.cs" />
+    <Compile Include="IdentificationResult.cs" />
+    <Compile Include="IdentificationResultCode.cs" />
     <Compile Include="Logging.cs" />
-    <Compile Include="LoggingHandler.cs" />
+    <Compile Include="Handlers\LoggingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Handlers
 {
     internal class LoggingHandler : DelegatingHandler
     {

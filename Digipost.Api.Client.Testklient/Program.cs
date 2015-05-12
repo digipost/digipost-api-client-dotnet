@@ -17,17 +17,28 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            var message = GetMessage();
+            
             var config = new ClientConfig(SenderId);
+            config.ApiUrl = new Uri("https://api.digipost.no");
+
             Logging.Initialize(config);
 
             var api = new DigipostClient(config, Thumbprint);
 
-            var digipostClientResponse = api.Send(message);
+            //SendMessage(api);
+            Identification identification = new Identification();
+            identification.PersonalIdentifcationNumber = "31108446911";
 
-            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
+            string result  = api.Identify(identification).Result;
 
             Console.ReadKey();
+        }
+
+        private static void SendMessage(DigipostClient api)
+        {
+            var message = GetMessage();
+            var digipostClientResponse = api.Send(message);
+            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
         }
 
         private static Message GetMessage()

@@ -19,9 +19,6 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            
- 
-            
             var config = new ClientConfig(SenderId);
             config.ApiUrl = new Uri("https://api.digipost.no");
 
@@ -36,7 +33,7 @@ namespace Digipost.Api.Client.Testklient
             identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
             identification.IdentificationValue = "31108446911";
 
-            IdentificationResult result = api.Identify(identification).Result;
+            
 
             Console.ReadKey();
         }

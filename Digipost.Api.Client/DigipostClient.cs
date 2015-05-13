@@ -36,62 +36,24 @@ namespace Digipost.Api.Client
 
         public async Task<ClientResponse> SendMessageAsync(Message message)
         {
-            const string uri = "messages";
-            Logging.Log(TraceEventType.Information, "> Starting Send()");
-            var loggingHandler = new LoggingHandler(new HttpClientHandler());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, uri, loggingHandler);
-            Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-            using (var client = new HttpClient(authenticationHandler))
-            {
-                client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
-                client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
-                var boundary = Guid.NewGuid().ToString();
-
-                Logging.Log(TraceEventType.Information, " - Initializing MultipartFormDataContent");
-                using (var content = new MultipartFormDataContent(boundary))
-                {
-                    AddHeaderToContent(boundary, content);
-                    AddBodyToContent(message, content);
-                    AddPrimaryDocumentToContent(message, content);
-                    AddAttachmentsToContent(message, content);
-
-                    Logging.Log(TraceEventType.Information,
-                        string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
-                    var requestResult = client.PostAsync(uri, content).Result;
-                    var contentResult = await ReadResponse(requestResult);
-
-                    return CreateSendResponse(contentResult, requestResult.StatusCode);
-                }
-            }
+            DigipostAction action = new MessageAction(ClientConfig,PrivateCertificate,"messages");
+            var requestResult = action.SendAsync(message).Result;
+            var contentResult = await ReadResponse(requestResult);
+            return CreateSendResponse(contentResult, requestResult.StatusCode);
         }
 
-        public async Task<IdentificationResult> Identify(Identification identification)
-        {
-            const string uri = "identification";
-            Logging.Log(TraceEventType.Information, "> Starting Send()");
-            var loggingHandler = new LoggingHandler(new HttpClientHandler());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, uri, loggingHandler);
-            Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
+        //public async Task<IdentificationResult> Identify(Identification identification)
+        //{
+        //    const string uri = "identification";
+        //    DigipostAction action = new IdentificationAction(ClientConfig, PrivateCertificate, "messages");
 
-            var boundary = Guid.NewGuid().ToString();
-            using (var client = new HttpClient(authenticationHandler))
-            {
-                client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
-                client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
+        //    var requestResult = client.PostAsync(uri, messageContent).Result;
+        //    var contentResult = await ReadResponse(requestResult);
+        //    var identificationResult = SerializeUtil.Deserialize<IdentificationResult>(contentResult);
 
-                Logging.Log(TraceEventType.Information,
-                       string.Format(" - Posting to URL[{0}]", ClientConfig.ApiUrl + uri));
+        //    return identificationResult;
 
-                var messageContent = CreateMessageContent(identification);
-                AddHeaderToContent(boundary, messageContent);
-                
-                var requestResult = client.PostAsync(uri, messageContent).Result;
-                var contentResult = await ReadResponse(requestResult);
-                var identificationResult = SerializeUtil.Deserialize<IdentificationResult>(contentResult);
-
-                return identificationResult;
-            }
-        }
+        //}
 
         private static StringContent CreateMessageContent(Identification identification)
         {

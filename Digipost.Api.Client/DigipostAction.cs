@@ -3,11 +3,12 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client
 {
-    public  abstract class DigipostAction
+    public abstract class DigipostAction
     {
         private readonly string _uri;
         public ClientConfig ClientConfig { get; set; }
@@ -20,21 +21,23 @@ namespace Digipost.Api.Client
             PrivateCertificate = privateCertificate;
         }
 
-        protected Task<HttpResponseMessage> SendAsync(string xml, HttpContent content) 
+        protected abstract HttpContent Content(XmlBodyContent xmlBodyContent);
+
+        public Task<HttpResponseMessage> SendAsync(XmlBodyContent xmlBodyContent)
         {
             Logging.Log(TraceEventType.Information, "> Starting to build request ...");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
             var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, _uri, loggingHandler);
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-            using (var client = new HttpClient(authenticationHandler))
-            {
-                Logging.Log(TraceEventType.Information, " - Sending request.");
-                client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
-                client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
-                Logging.Log(TraceEventType.Information, " - Request sent.");
+            var client = new HttpClient(authenticationHandler);
 
-                return client.PostAsync(_uri, content);
-            }            
+            Logging.Log(TraceEventType.Information, " - Sending request.");
+            client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
+            client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
+            Logging.Log(TraceEventType.Information, " - Request sent.");
+
+            return client.PostAsync(_uri, Content(xmlBodyContent));
+
         }
 
     }

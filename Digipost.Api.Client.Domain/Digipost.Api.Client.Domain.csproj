@@ -80,6 +80,7 @@
     <Compile Include="Recipient.cs" />
     <Compile Include="RecipientByNameAndAddress.cs" />
     <Compile Include="SmsNotification.cs" />
+    <Compile Include="XmlBodyContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

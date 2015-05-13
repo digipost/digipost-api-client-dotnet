@@ -68,7 +68,7 @@
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="MessageDelivery.cs" />
+    <Compile Include="MessageDeliveryResult.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\NorwegianAddress.cs" />
     <Compile Include="Print\PrintAddress.cs" />

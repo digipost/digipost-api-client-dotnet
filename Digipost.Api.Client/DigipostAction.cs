@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -28,18 +29,34 @@ namespace Digipost.Api.Client
             Logging.Log(TraceEventType.Information, "> Starting to build request ...");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
             var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, _uri, loggingHandler);
+            
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
             var client = new HttpClient(authenticationHandler);
 
             Logging.Log(TraceEventType.Information, " - Sending request.");
             client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
             client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
+            
             Logging.Log(TraceEventType.Information, " - Request sent.");
 
             return client.PostAsync(_uri, Content(xmlBodyContent));
 
         }
 
+        public static DigipostAction CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
+        {
+            if (type == typeof (Message))
+            {
+                return new MessageAction(clientConfig, privateCertificate, uri);
+            }
+
+            if (type == typeof(Identification))
+            {
+                return new IdentificationAction(clientConfig, privateCertificate, uri);
+            }
+
+            throw new Exception(string.Format("Could not create class with type{0}", type.Name));
+        }
     }
 
 }

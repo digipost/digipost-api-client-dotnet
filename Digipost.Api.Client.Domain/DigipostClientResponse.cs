@@ -4,11 +4,11 @@ namespace Digipost.Api.Client.Domain
 {
     public class ClientResponse
     {
-        public ClientResponse(MessageDelivery messageDelivery,string xml)
+        public ClientResponse(MessageDeliveryResult messageDeliveryResult,string xml)
         {
-            StatusMessage = messageDelivery.Status.ToString();
-            DeliveryTime = messageDelivery.Deliverytime;
-            DeliveryMethod = messageDelivery.Deliverymethod.ToString();
+            StatusMessage = messageDeliveryResult.Status.ToString();
+            DeliveryTime = messageDeliveryResult.Deliverytime;
+            DeliveryMethod = messageDeliveryResult.Deliverymethod.ToString();
             ResponseXml = xml;
             HasErrors = false;
         }

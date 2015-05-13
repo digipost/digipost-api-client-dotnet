@@ -26,23 +26,17 @@ namespace Digipost.Api.Client.Testklient
 
             var api = new DigipostClient(config, Thumbprint);
 
-            SendMessage(api);
-
-
+            var message = GetMessage();
+            var digipostClientResponse = api.SendMessage(message);
+            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
+            
             Identification identification = new Identification();
             identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
             identification.IdentificationValue = "31108446911";
 
-            
+            var identificationResult = api.IdentifyAsync(identification);
 
             Console.ReadKey();
-        }
-
-        private static void SendMessage(DigipostClient api)
-        {
-            var message = GetMessage();
-            var digipostClientResponse = api.SendMessage(message);
-            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
         }
 
         private static Message GetMessage()

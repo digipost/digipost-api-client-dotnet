@@ -70,6 +70,7 @@
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DigipostClient.cs" />
+    <Compile Include="IdentificationAction.cs" />
     <Compile Include="IDigipostApi.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />

@@ -42,11 +42,8 @@ namespace Digipost.Api.Client.Testklient
             }
 
 
-            var identification = new Identification();
-            identification.IdentificationType = IdentificationChoice.NameAndAddress;
-            identification.IdentificationValue = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
-                "0460", "Oslo");
-
+            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber,"31108446911");
+            
             try
             {
                 var identificationResponse = api.Identify(identification);
@@ -61,6 +58,25 @@ namespace Digipost.Api.Client.Testklient
             {
                 Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
             }
+
+
+            var identificationByNameAndAddress = new Identification(IdentificationChoice.NameAndAddress, new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
+
+            try
+            {
+                var identificationResponse = api.Identify(identificationByNameAndAddress);
+                Logging.Log(TraceEventType.Information, "\n" + identificationResponse);
+            }
+            catch (ClientResponseException e)
+            {
+                var errorMessage = e.Error;
+                Logging.Log(TraceEventType.Information, "\n" + errorMessage);
+            }
+            catch (Exception e)
+            {
+                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
+            }
+
             Console.ReadKey();
         }
 
@@ -86,7 +102,7 @@ namespace Digipost.Api.Client.Testklient
                 "0460", "Oslo");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(printDetails);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);
 
             //message
             var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 
@@ -35,11 +36,12 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
+            var attachments = Attachment.Aggregate(" ", (current, doc) => current + (doc.ToString() ));
             return
                 string.Format(
                     "Messageid: {0}, Deliverymethod: {1}, Status: {2}, Deliverytime: {3}, Primarydocument: {4}, " +
-                    "Attachment: {5}, Link: {6}", Messageid, Deliverymethod, Status, Deliverytime, Primarydocument,
-                    Attachment, Link);
+                    "Attachment: {5}", Messageid, Deliverymethod, Status, Deliverytime, Primarydocument,
+                    attachments);
         }
     }
 }

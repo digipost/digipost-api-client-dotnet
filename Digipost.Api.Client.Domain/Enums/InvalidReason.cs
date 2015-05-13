@@ -8,13 +8,22 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlRoot("invalid-reason", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum InvalidReason
     {
-        /// <remarks />
-        INVALID_PERSONAL_IDENTIFICATION_NUMBER,
+        /// <summary>
+        /// Invalid SSN. Check the number and try again.
+        /// </summary>
+        [XmlEnum("INVALID_PERSONAL_IDENTIFICATION_NUMBER")]
+        InvalidPersonalIdentificationNumber,
 
-        /// <remarks />
-        INVALID_ORGANISATION_NUMBER,
+        /// <summary>
+        /// Invalid organisation number. Check the number and try again.
+        /// </summary>
+        [XmlEnum("INVALID_ORGANISATION_NUMBER")]
+        InvalidOrganisationNumber,
 
-        /// <remarks />
-        UNKNOWN
+        /// <summary>
+        /// Subject is unknown.
+        /// </summary>
+        [XmlEnum("UNKNOWN")]
+        Unknown
     }
 }

@@ -8,10 +8,16 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlRoot("unidentified-reason", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum UnidentifiedReason
     {
-        /// <remarks />
-        MULTIPLE_MATCHES,
+        /// <summary>
+        /// When more than one possible subject. Try narrow down the search with more information about the subject.
+        /// </summary>
+        [XmlEnum("MULTIPLE_MATCHES")]
+        MultipleMatches,
 
-        /// <remarks />
-        NOT_FOUND
+        /// <summary>
+        /// Subject not found on you criteria. 
+        /// </summary>
+        [XmlEnum("NOT_FOUND")]
+        NotFound
     }
 }

@@ -21,10 +21,12 @@ namespace Digipost.Api.Client.Domain
         [XmlElement("person-alias", typeof (string))]
         [XmlElement("unidentified-reason", typeof (UnidentifiedReason))]
         [XmlChoiceIdentifier("IdentificationType")]
-        public object IdentificationValue { get; set; }
+        public object IdentificationValue { get;  set; }
 
         [XmlIgnore]
-        public IdentificationResultType IdentificationType { get; set; }
+        public IdentificationResultType IdentificationType { get;  set; }
+
+        
 
         public override string ToString()
         {

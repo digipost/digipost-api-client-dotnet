@@ -17,7 +17,8 @@ namespace Digipost.Api.Client.Handlers
         private X509Certificate2 PrivateCertificate { get; set; }
 
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url, HttpMessageHandler innerHandler)
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url,
+            HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
             ClientConfig = clientConfig;
@@ -41,7 +42,8 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", "application/vnd.digipost-v6+xml");
             request.Headers.Add("X-Content-SHA256", computeHash);
-            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash, technicalSender,PrivateCertificate));
+            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash, 
+                technicalSender,PrivateCertificate));
 
             
             return await base.SendAsync(request, cancellationToken);
@@ -56,7 +58,8 @@ namespace Digipost.Api.Client.Handlers
             return Convert.ToBase64String(hashedBytes);
         }
 
-        private static string ComputeSignature(string method, string uri, string date, string sha256Hash, string userId, X509Certificate2 privateCertificate)
+        private static string ComputeSignature(string method, string uri, string date, string sha256Hash,
+            string userId, X509Certificate2 privateCertificate)
         {
             const string parameters = ""; //HttpUtility.UrlEncode(request.RequestUri.Query).ToLower();
 

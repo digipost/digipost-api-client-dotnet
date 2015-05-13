@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
@@ -19,6 +20,8 @@ namespace Digipost.Api.Client.Testklient
         private static void Main(string[] args)
         {
             
+ 
+            
             var config = new ClientConfig(SenderId);
             config.ApiUrl = new Uri("https://api.digipost.no");
 
@@ -26,7 +29,9 @@ namespace Digipost.Api.Client.Testklient
 
             var api = new DigipostClient(config, Thumbprint);
 
-            //SendMessage(api);
+            SendMessage(api);
+
+
             Identification identification = new Identification();
             identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
             identification.IdentificationValue = "31108446911";
@@ -39,7 +44,7 @@ namespace Digipost.Api.Client.Testklient
         private static void SendMessage(DigipostClient api)
         {
             var message = GetMessage();
-            var digipostClientResponse = api.Send(message);
+            var digipostClientResponse = api.SendMessage(message);
             Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
         }
 

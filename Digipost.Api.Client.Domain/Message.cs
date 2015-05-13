@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Message
     {
-        private Message(){ /**Must exist for serialization.**/ }
+        public Message(){ /**Must exist for serialization.**/ }
 
         public Message(Recipient recipient, Document primaryDocument)
         {

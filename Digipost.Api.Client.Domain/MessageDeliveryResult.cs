@@ -32,5 +32,12 @@ namespace Digipost.Api.Client.Domain
 
         [XmlElement("link")]
         public List<Link> Link { get; set; }
-    } 
+
+        public override string ToString()
+        {
+            return string.Format("Messageid: {0}, Deliverymethod: {1}, Status: {2}, Deliverytime: {3}, Primarydocument: {4}, " +
+                                 "Attachment: {5}, Link: {6}", Messageid, Deliverymethod, Status, Deliverytime, Primarydocument,
+                                 Attachment, Link);
+        }
+    }
 }

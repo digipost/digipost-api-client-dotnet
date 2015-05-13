@@ -27,5 +27,11 @@ namespace Digipost.Api.Client.Domain
 
         [XmlElement("link")]
         public List<Link> Link { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Errorcode: {0}, Errormessage: {1}, Errortype: {2}", 
+                Errorcode, Errormessage, Errortype);
+        }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Domain.Exceptions;
 
 namespace Digipost.Api.Client
 {
@@ -33,18 +28,31 @@ namespace Digipost.Api.Client
 
         public MessageDeliveryResult SendMessage(Message message)
         {
-            return SendMessageAsync(message).Result;
+            var messageDelivery = SendMessageAsync(message);
+
+            if (messageDelivery.IsFaulted)
+            {
+                throw messageDelivery.Exception.InnerException;
+            }
+
+            return messageDelivery.Result;
         }
 
         public IdentificationResult Identify(Identification identification)
         {
-            return IdentifyAsync(identification).Result;
+            var identifyResponse =  IdentifyAsync(identification);
+            
+            if (identifyResponse.IsFaulted)
+            {
+                throw identifyResponse.Exception.InnerException;
+            }
+            return identifyResponse.Result;
         }
 
         public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
         {
             const string uri = "messages";
-            var result = await GenericSendAsync<MessageDeliveryResult>(message, uri, message.GetType());
+            var result = await GenericSendAsync<MessageDeliveryResult>(message, uri);
 
             return result;
         }
@@ -60,17 +68,25 @@ namespace Digipost.Api.Client
         private async Task<T> GenericSendAsync<T>(XmlBodyContent message, string uri)
         {
             DigipostAction action = DigipostAction.CreateClass(message.GetType(),ClientConfig, PrivateCertificate, uri);
-            var requestResult = action.SendAsync(message).Result;
-            var contentResult = await ReadResponse(requestResult);
-            var result = SerializeUtil.Deserialize<T>(contentResult);
-            return result;
+            var response = action.SendAsync(message).Result;
+            var responseContent = await ReadResponse(response);
+
+
+            try
+            {
+                return SerializeUtil.Deserialize<T>(responseContent);
+            }
+            catch (InvalidOperationException exception)
+            {
+                var error=  SerializeUtil.Deserialize<Error>(responseContent);
+                throw  new ClientResponseException("Failed to deserialize response object." +
+                                                   "Check inner Error object for more information.",error,exception);
+            }
         }
         
-
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
             var contentResult = await requestResult.Content.ReadAsStringAsync();
-            Logging.Log(TraceEventType.Information, string.Format("  - Result \n [{0}]", contentResult));
             return contentResult;
         }
 

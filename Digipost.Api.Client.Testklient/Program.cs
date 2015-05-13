@@ -4,6 +4,7 @@ using System.Net.Http;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Testklient
@@ -27,17 +28,45 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             var message = GetMessage();
-            var digipostClientResponse = api.SendMessage(message);
-            Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
-            
+            try
+            {
+                var digipostClientResponse = api.SendMessage(message);
+                Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
+
+            }
+            catch (ClientResponseException e)
+            {
+                Logging.Log(TraceEventType.Information, "\n" + e.Error);
+            }
+            catch (Exception e)
+            {
+                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
+            }
+
+
             Identification identification = new Identification();
             identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
-            identification.IdentificationValue = "31108446911";
+            identification.IdentificationValue = "3110844691";
 
-            var identificationResult = api.IdentifyAsync(identification);
+            try
+            {
+                var identificationResponse = api.Identify(identification);
+                Logging.Log(TraceEventType.Information, "\n" + identificationResponse);
+            }
+            catch (ClientResponseException e)
+            {
 
+                var errorMessage = e.Error;
+                Logging.Log(TraceEventType.Information, "\n" + errorMessage);
+
+            }
+            catch (Exception e)
+            {
+                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
+            }
             Console.ReadKey();
         }
+
 
         private static Message GetMessage()
         {
@@ -50,17 +79,17 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode:"0460" , city: "Oslo", addressline1: "Colletts gate 68")),
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68")),
                     new PrintReturnAddress("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68"))
                     );
-           
+
 
             //recipientIdentifier for digital mail
             var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
                 "0460", "Oslo");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
+            var digitalRecipientWithFallbackPrint = new Recipient(printDetails);
 
             //message
             var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);

@@ -60,6 +60,7 @@
     <Compile Include="Enums\UnidentifiedReason.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="Exceptions\APIException.cs" />
+    <Compile Include="Exceptions\ClientResponseException.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="IdentificationResult.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Link.cs" />
+    <Compile Include="Listedtime.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageDeliveryResult.cs" />
     <Compile Include="Print\ForeignAddress.cs" />

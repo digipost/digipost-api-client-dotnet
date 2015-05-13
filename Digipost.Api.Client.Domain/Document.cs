@@ -132,5 +132,13 @@ namespace Digipost.Api.Client.Domain
         {
             return File.ReadAllBytes(pathToDocument);
         }
+
+        public override string ToString()
+        {
+            return string.Format(
+                "Guid: {0}, Subject: {1}, FileMimeType: {2}, SmsNotification: {3}, AuthenticationLevel: {4}, " +
+                "SensitivityLevel: {5}, TechnicalType: {6}", 
+                Guid, Subject, FileMimeType, SmsNotification, AuthenticationLevel, SensitivityLevel, TechnicalType);
+        }
     }
 }

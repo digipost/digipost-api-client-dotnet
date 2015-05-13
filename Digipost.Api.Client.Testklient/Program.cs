@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net.Http;
 using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
@@ -46,7 +45,7 @@ namespace Digipost.Api.Client.Testklient
 
             Identification identification = new Identification();
             identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
-            identification.IdentificationValue = "3110844691";
+            identification.IdentificationValue = "07078942716";
 
             try
             {

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Action
 {
     public class IdentificationAction : DigipostAction
     {

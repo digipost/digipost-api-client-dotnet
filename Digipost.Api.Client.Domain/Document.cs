@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
-using ApiClientShared;
 using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain

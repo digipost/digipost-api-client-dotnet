@@ -31,7 +31,6 @@ namespace Digipost.Api.Client.Testklient
             {
                 var digipostClientResponse = api.SendMessage(message);
                 Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
-
             }
             catch (ClientResponseException e)
             {
@@ -43,9 +42,10 @@ namespace Digipost.Api.Client.Testklient
             }
 
 
-            Identification identification = new Identification();
-            identification.IdentificationType = IdentificationChoice.PersonalidentificationNumber;
-            identification.IdentificationValue = "07078942716";
+            var identification = new Identification();
+            identification.IdentificationType = IdentificationChoice.NameAndAddress;
+            identification.IdentificationValue = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
+                "0460", "Oslo");
 
             try
             {
@@ -54,10 +54,8 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (ClientResponseException e)
             {
-
                 var errorMessage = e.Error;
                 Logging.Log(TraceEventType.Information, "\n" + errorMessage);
-
             }
             catch (Exception e)
             {
@@ -65,7 +63,6 @@ namespace Digipost.Api.Client.Testklient
             }
             Console.ReadKey();
         }
-
 
         private static Message GetMessage()
         {
@@ -78,8 +75,9 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68")),
-                    new PrintReturnAddress("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68"))
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo", "Colletts gate 68")),
+                    new PrintReturnAddress("Kristian Sæther Enge",
+                        new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
 
 

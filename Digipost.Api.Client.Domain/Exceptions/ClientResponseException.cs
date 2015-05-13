@@ -4,8 +4,6 @@ namespace Digipost.Api.Client.Domain.Exceptions
 {
     public class ClientResponseException : Exception
     {
-        public Error Error { get; set; }
-
         public ClientResponseException(string message, Error error)
             : base(message)
         {
@@ -21,5 +19,7 @@ namespace Digipost.Api.Client.Domain.Exceptions
         {
             Error = error;
         }
+
+        public Error Error { get; set; }
     }
 }

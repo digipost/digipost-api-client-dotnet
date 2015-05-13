@@ -11,13 +11,11 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Prints the document in black/white.
         /// </summary>
-        [XmlEnum("MONOCHROME")]
-        Monochrome,
+        [XmlEnum("MONOCHROME")] Monochrome,
 
         /// <summary>
         ///     Prints the document in colors. Note: additional charges may apply.
         /// </summary>
-        [XmlEnum("COLORS")]
-        Colors
+        [XmlEnum("COLORS")] Colors
     }
 }

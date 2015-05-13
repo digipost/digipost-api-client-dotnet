@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.Exceptions
         {
         }
 
-        public ConfigException(string message, Exception inner) : base (message, inner)
+        public ConfigException(string message, Exception inner) : base(message, inner)
         {
         }
     }

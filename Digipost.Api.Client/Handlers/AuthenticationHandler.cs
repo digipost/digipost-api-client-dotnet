@@ -9,14 +9,8 @@ using System.Threading.Tasks;
 
 namespace Digipost.Api.Client.Handlers
 {
-
     public class AuthenticationHandler : DelegatingHandler
     {
-        private ClientConfig ClientConfig { get; set; }
-        private string Url { get; set; }
-        private X509Certificate2 PrivateCertificate { get; set; }
-
-
         public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url,
             HttpMessageHandler innerHandler)
             : base(innerHandler)
@@ -26,6 +20,10 @@ namespace Digipost.Api.Client.Handlers
             PrivateCertificate = privateCertificate;
         }
 
+        private ClientConfig ClientConfig { get; set; }
+        private string Url { get; set; }
+        private X509Certificate2 PrivateCertificate { get; set; }
+
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -34,7 +32,7 @@ namespace Digipost.Api.Client.Handlers
             var date = DateTime.UtcNow.ToString("R");
             var technicalSender = ClientConfig.SenderId;
             var multipartContent = await request.Content.ReadAsByteArrayAsync();
-            
+
             Logging.Log(TraceEventType.Information, " - Hashing byteStream of body content");
             var computeHash = ComputeHash(multipartContent);
 
@@ -42,15 +40,14 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", "application/vnd.digipost-v6+xml");
             request.Headers.Add("X-Content-SHA256", computeHash);
-            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash, 
-                technicalSender,PrivateCertificate));
+            request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
+                technicalSender, PrivateCertificate));
 
-            
+
             return await base.SendAsync(request, cancellationToken);
         }
 
-
-        private static string ComputeHash(Byte[] inputBytes)
+        private static string ComputeHash(byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
             var hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
@@ -79,25 +76,24 @@ namespace Digipost.Api.Client.Handlers
 
             var rsa = privateCertificate.PrivateKey as RSACryptoServiceProvider;
             var rsa2 = new RSACryptoServiceProvider();
-            
+
             try
             {
-            var privateKeyBlob = rsa.ExportCspBlob(true);
-            rsa2.ImportCspBlob(privateKeyBlob);
+                var privateKeyBlob = rsa.ExportCspBlob(true);
+                rsa2.ImportCspBlob(privateKeyBlob);
             }
             catch (Exception e)
             {
                 Logging.Log(TraceEventType.Error, e.Message);
-                throw new CryptographicException("Exception while exporting CspBlob. Check if certificate is exportable.");
+                throw new CryptographicException(
+                    "Exception while exporting CspBlob. Check if certificate is exportable.");
             }
-            
+
             var sha = SHA256.Create();
             var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(s));
             var signature = rsa2.SignHash(hash, CryptoConfig.MapNameToOID("SHA256"));
 
             return Convert.ToBase64String(signature);
         }
-
-      
     }
 }

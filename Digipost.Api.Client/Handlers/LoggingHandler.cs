@@ -12,9 +12,9 @@ namespace Digipost.Api.Client.Handlers
         {
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
-
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - Start!");
             Debug.WriteLine("Request:");
             Debug.WriteLine(request.ToString());
@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Handlers
             }
             Debug.WriteLine("");
 
-            HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken);
 
             Debug.WriteLine("Response:");
             Debug.WriteLine(response.ToString());

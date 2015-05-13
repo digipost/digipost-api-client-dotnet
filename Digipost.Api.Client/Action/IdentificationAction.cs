@@ -8,7 +8,8 @@ namespace Digipost.Api.Client.Action
 {
     public class IdentificationAction : DigipostAction
     {
-        public IdentificationAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri) : base(clientConfig, privateCertificate, uri)
+        public IdentificationAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
+            : base(clientConfig, privateCertificate, uri)
         {
         }
 

@@ -14,7 +14,8 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     Constructor to send physical letter.
         /// </summary>
-        public PrintDetails(PrintRecipient recipient, PrintReturnAddress printReturnAddress, PostType postType = PostType.B,
+        public PrintDetails(PrintRecipient recipient, PrintReturnAddress printReturnAddress,
+            PostType postType = PostType.B,
             PrintColors color = PrintColors.Monochrome,
             NondeliverableHandling nondeliverableHandling = NondeliverableHandling.ReturnToSender)
         {

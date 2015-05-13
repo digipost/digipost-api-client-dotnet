@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 
@@ -32,7 +33,7 @@ namespace Digipost.Api.Client
 
             if (messageDelivery.IsFaulted)
             {
-                throw messageDelivery.Exception.InnerException;
+                if (messageDelivery.Exception != null) throw messageDelivery.Exception.InnerException;
             }
 
             return messageDelivery.Result;
@@ -40,11 +41,11 @@ namespace Digipost.Api.Client
 
         public IdentificationResult Identify(Identification identification)
         {
-            var identifyResponse =  IdentifyAsync(identification);
-            
+            var identifyResponse = IdentifyAsync(identification);
+
             if (identifyResponse.IsFaulted)
             {
-                throw identifyResponse.Exception.InnerException;
+                if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
             return identifyResponse.Result;
         }
@@ -67,7 +68,7 @@ namespace Digipost.Api.Client
 
         private async Task<T> GenericSendAsync<T>(XmlBodyContent message, string uri)
         {
-            DigipostAction action = DigipostAction.CreateClass(message.GetType(),ClientConfig, PrivateCertificate, uri);
+            var action = DigipostAction.CreateClass(message.GetType(), ClientConfig, PrivateCertificate, uri);
             var response = action.SendAsync(message).Result;
             var responseContent = await ReadResponse(response);
 
@@ -78,17 +79,16 @@ namespace Digipost.Api.Client
             }
             catch (InvalidOperationException exception)
             {
-                var error=  SerializeUtil.Deserialize<Error>(responseContent);
-                throw  new ClientResponseException("Failed to deserialize response object." +
-                                                   "Check inner Error object for more information.",error,exception);
+                var error = SerializeUtil.Deserialize<Error>(responseContent);
+                throw new ClientResponseException("Failed to deserialize response object." +
+                                                  "Check inner Error object for more information.", error, exception);
             }
         }
-        
+
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
             var contentResult = await requestResult.Content.ReadAsStringAsync();
             return contentResult;
         }
-
     }
 }

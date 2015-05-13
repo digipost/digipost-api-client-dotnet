@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     Preferred digital delivery with fallback to physical delivery. 
+        ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
         {
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     Preferred digital delivery with fallback to physical delivery. 
+        ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
         {

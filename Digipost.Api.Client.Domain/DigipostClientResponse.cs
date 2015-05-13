@@ -4,7 +4,7 @@ namespace Digipost.Api.Client.Domain
 {
     public class ClientResponse
     {
-        public ClientResponse(MessageDeliveryResult messageDeliveryResult,string xml)
+        public ClientResponse(MessageDeliveryResult messageDeliveryResult, string xml)
         {
             StatusMessage = messageDeliveryResult.Status.ToString();
             DeliveryTime = messageDeliveryResult.Deliverytime;
@@ -15,7 +15,6 @@ namespace Digipost.Api.Client.Domain
 
         public ClientResponse(Error error, string xml)
         {
-
             StatusMessage = error.Errormessage;
             ResponseXml = xml;
             ErrorCode = error.Errorcode;
@@ -33,7 +32,10 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
-            return string.Format("StatusMessage[{0}] \n DeliveryTime[{1}] \n DeliveryMethod[{2}]   \n ErrorCode[{3}] \n ErrorType[{4}] \n ResponseMessage[{5}]]", StatusMessage, DeliveryTime, DeliveryMethod, ErrorCode, ErrorType, ResponseXml);
+            return
+                string.Format(
+                    "StatusMessage[{0}] \n DeliveryTime[{1}] \n DeliveryMethod[{2}]   \n ErrorCode[{3}] \n ErrorType[{4}] \n ResponseMessage[{5}]]",
+                    StatusMessage, DeliveryTime, DeliveryMethod, ErrorCode, ErrorType, ResponseXml);
         }
     }
 }

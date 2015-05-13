@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Enums
@@ -9,11 +8,10 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlRoot("unidentified-reason", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum UnidentifiedReason
     {
-
-        /// <remarks/>
+        /// <remarks />
         MULTIPLE_MATCHES,
 
-        /// <remarks/>
+        /// <remarks />
         NOT_FOUND
     }
 }

@@ -6,7 +6,6 @@ namespace Digipost.Api.Client.Domain.Exceptions
     {
         public APIException(string message) : base(message)
         {
-            
         }
 
         public APIException(string message, Exception inner)

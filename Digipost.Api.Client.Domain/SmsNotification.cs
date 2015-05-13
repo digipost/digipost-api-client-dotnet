@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain
 {
     /// <summary>
-    /// Optional SMS notification to Recipient.
-    /// Additional charges apply.
+    ///     Optional SMS notification to Recipient.
+    ///     Additional charges apply.
     /// </summary>
     [Serializable]
     [DebuggerStepThrough]
@@ -18,7 +18,7 @@ namespace Digipost.Api.Client.Domain
     public class SmsNotification
     {
         /// <summary>
-        ///    Amount of hours untill an SMS will be sent out
+        ///     Amount of hours untill an SMS will be sent out
         /// </summary>
         public SmsNotification(int afterHours)
         {
@@ -27,12 +27,12 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///    The date and time an SMS will be sent out
+        ///     The date and time an SMS will be sent out
         /// </summary>
         public SmsNotification(DateTime sendingTime)
         {
             SendSmsNotificationAtTime = new List<Listedtime> {new Listedtime(sendingTime)};
-            SendSmsNotificationAfterHours =  new List<int>();
+            SendSmsNotificationAfterHours = new List<int>();
         }
 
         private SmsNotification()
@@ -56,7 +56,8 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
-            string res = SendSmsNotificationAtTime.Aggregate(" ", (current, listedTime) => current + (listedTime.Time.ToString("R")));
+            var res = SendSmsNotificationAtTime.Aggregate(" ",
+                (current, listedTime) => current + (listedTime.Time.ToString("R")));
 
             return string.Format("At: {0}, AfterHours: {1}", SendSmsNotificationAtTime, SendSmsNotificationAfterHours);
         }

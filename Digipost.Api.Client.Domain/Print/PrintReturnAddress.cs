@@ -2,7 +2,7 @@
 {
     public class PrintReturnAddress : PrintAddress
     {
-          /// <summary>
+        /// <summary>
         ///     Constructor for foreign(not Norwegian) return address
         /// </summary>
         public PrintReturnAddress(string name, ForeignAddress address)

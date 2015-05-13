@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Enums
@@ -9,14 +8,13 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlRoot("invalid-reason", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum InvalidReason
     {
-
-        /// <remarks/>
+        /// <remarks />
         INVALID_PERSONAL_IDENTIFICATION_NUMBER,
 
-        /// <remarks/>
+        /// <remarks />
         INVALID_ORGANISATION_NUMBER,
 
-        /// <remarks/>
+        /// <remarks />
         UNKNOWN
     }
 }

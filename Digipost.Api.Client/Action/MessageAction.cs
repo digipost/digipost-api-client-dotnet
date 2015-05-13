@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
+using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
@@ -12,7 +13,6 @@ namespace Digipost.Api.Client
         public MessageAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
             : base(clientConfig, privateCertificate, uri)
         {
-
         }
 
         protected override HttpContent Content(XmlBodyContent xmlBodyContent)
@@ -31,7 +31,6 @@ namespace Digipost.Api.Client
             AddAttachmentsToContent(message, content);
 
             return content;
-            
         }
 
         private static void AddBodyToContent(Message message, MultipartFormDataContent content)
@@ -48,7 +47,6 @@ namespace Digipost.Api.Client
             };
             content.Add(messageContent);
         }
-
 
         private static void AddPrimaryDocumentToContent(Message message, MultipartFormDataContent content)
         {
@@ -79,4 +77,3 @@ namespace Digipost.Api.Client
         }
     }
 }
-

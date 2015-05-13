@@ -13,11 +13,10 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Identification : XmlBodyContent
     {
-
-        [XmlElement("digipost-address", typeof(string))]
-        [XmlElement("name-and-address", typeof(RecipientByNameAndAddress))]
-        [XmlElement("organisation-number", typeof(string))]
-        [XmlElement("personal-identification-number", typeof(string))]
+        [XmlElement("digipost-address", typeof (string))]
+        [XmlElement("name-and-address", typeof (RecipientByNameAndAddress))]
+        [XmlElement("organisation-number", typeof (string))]
+        [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 

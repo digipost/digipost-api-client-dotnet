@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
-            return string.Format("Errorcode: {0}, Errormessage: {1}, Errortype: {2}", 
+            return string.Format("Errorcode: {0}, Errormessage: {1}, Errortype: {2}",
                 Errorcode, Errormessage, Errortype);
         }
     }

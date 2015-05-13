@@ -23,8 +23,8 @@ namespace Digipost.Api.Client.Domain.Print
         ///     Sets the address of the recipient.(Also used for the return address) Choose between ForeignAddress or
         ///     NorwegianAddress.
         /// </summary>
-        [XmlElement("foreign-address", typeof(ForeignAddress))]
-        [XmlElement("norwegian-address", typeof(NorwegianAddress))]
+        [XmlElement("foreign-address", typeof (ForeignAddress))]
+        [XmlElement("norwegian-address", typeof (NorwegianAddress))]
         public object Address
         {
             get { return _address; }

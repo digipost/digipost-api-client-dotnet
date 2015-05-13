@@ -6,7 +6,6 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
-
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -17,10 +16,10 @@ namespace Digipost.Api.Client.Domain
         [XmlElement("result")]
         public IdentificationResultCode IdentificationResultCode { get; set; }
 
-        [XmlElement("digipost-address", typeof(string))]
-        [XmlElement("invalid-reason", typeof(InvalidReason))]
-        [XmlElement("person-alias", typeof(string))]
-        [XmlElement("unidentified-reason", typeof(UnidentifiedReason))]
+        [XmlElement("digipost-address", typeof (string))]
+        [XmlElement("invalid-reason", typeof (InvalidReason))]
+        [XmlElement("person-alias", typeof (string))]
+        [XmlElement("unidentified-reason", typeof (UnidentifiedReason))]
         [XmlChoiceIdentifier("IdentificationType")]
         public object IdentificationValue { get; set; }
 
@@ -29,7 +28,7 @@ namespace Digipost.Api.Client.Domain
 
         public override string ToString()
         {
-            return string.Format("IdentificationResultCode: {0}, IdentificationType: {1}, IdentificationValue: {2}", 
+            return string.Format("IdentificationResultCode: {0}, IdentificationType: {1}, IdentificationValue: {2}",
                 IdentificationResultCode, IdentificationType, IdentificationValue);
         }
     }

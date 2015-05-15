@@ -1,6 +1,5 @@
 ﻿namespace Digipost.Api.Client.Domain.Print
 {
-    
     public class PrintRecipient : PrintAddress
     {
         /// <summary>
@@ -25,8 +24,5 @@
         {
             /**must exist for serializing**/
         }
-       
     }
-
-   
 }

@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
-using ApiClientShared;
 using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
@@ -37,7 +36,6 @@ namespace Digipost.Api.Client.Domain
             SensitivityLevel = sensitivityLevel;
         }
 
-
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileMimeType">The mime type of the file. e.g pdf,txt..</param>
         /// <param name="contentBytes">The content of file in byteArray.</param>
@@ -57,7 +55,6 @@ namespace Digipost.Api.Client.Domain
             SmsNotification = smsNotification;
         }
 
-
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileMimeType">The mime type of the file. e.g pdf,txt..</param>
         /// <param name="documentStream">Stream of the file.</param>
@@ -65,8 +62,8 @@ namespace Digipost.Api.Client.Domain
         /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
         /// <param name="smsNotification">Sets SMS notification setting. Default null.</param>
         public Document(string subject, string fileMimeType, Stream documentStream,
-           AuthenticationLevel authLevel = AuthenticationLevel.Password,
-           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            AuthenticationLevel authLevel = AuthenticationLevel.Password,
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
@@ -131,6 +128,14 @@ namespace Digipost.Api.Client.Domain
         private byte[] ReadAllBytes(string pathToDocument)
         {
             return File.ReadAllBytes(pathToDocument);
+        }
+
+        public override string ToString()
+        {
+            return string.Format(
+                "Guid: {0}, Subject: {1}, FileMimeType: {2}, SmsNotification: {3}, AuthenticationLevel: {4}, " +
+                "SensitivityLevel: {5}, TechnicalType: {6}",
+                Guid, Subject, FileMimeType, SmsNotification, AuthenticationLevel, SensitivityLevel, TechnicalType);
         }
     }
 }

@@ -18,5 +18,7 @@ namespace Digipost.Api.Client.Domain
 
         [XmlAttribute("media-type")]
         public string Mediatype { get; set; }
+
+        private Link() { }
     }
 }

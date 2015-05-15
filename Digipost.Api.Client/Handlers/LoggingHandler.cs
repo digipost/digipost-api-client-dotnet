@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Handlers
 {
     internal class LoggingHandler : DelegatingHandler
     {
@@ -12,9 +12,9 @@ namespace Digipost.Api.Client
         {
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
-
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - Start!");
             Debug.WriteLine("Request:");
             Debug.WriteLine(request.ToString());
@@ -24,7 +24,7 @@ namespace Digipost.Api.Client
             }
             Debug.WriteLine("");
 
-            HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken);
 
             Debug.WriteLine("Response:");
             Debug.WriteLine(response.ToString());

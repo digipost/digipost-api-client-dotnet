@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,15 +11,18 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Message
+    public class Message : RequestContent
     {
-        private Message(){ /**Must exist for serialization.**/ }
+        public Message()
+        {
+            /**Must exist for serialization.**/
+        }
 
         public Message(Recipient recipient, Document primaryDocument)
         {
-           Recipient = recipient;
-           PrimaryDocument = primaryDocument;
-           Attachments = new List<Document>();
+            Recipient = recipient;
+            PrimaryDocument = primaryDocument;
+            Attachments = new List<Document>();
         }
 
         [XmlElement("recipient")]

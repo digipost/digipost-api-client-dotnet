@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        public NorwegianAddress( string postalCode,
+        public NorwegianAddress(string postalCode,
             string city, string addressline1, string addressline2 = null, string addressline3 = null)
         {
             Addressline1 = addressline1;

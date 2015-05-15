@@ -6,17 +6,17 @@ namespace Digipost.Api.Client.Domain.Exceptions
     {
         private static readonly string XmlException = "Could not parse parse XML.";
 
-        public XmlParseException(string xmlRawData) : base (XmlException)
+        public XmlParseException(string xmlRawData) : base(XmlException)
         {
             XmlRawData = xmlRawData;
         }
 
-        public XmlParseException(string message, Exception inner,string xmlRawData)
+        public XmlParseException(string message, Exception inner, string xmlRawData)
             : base(message, inner)
         {
             XmlRawData = xmlRawData;
         }
 
-        public string XmlRawData{get; private set; }
+        public string XmlRawData { get; private set; }
     }
 }

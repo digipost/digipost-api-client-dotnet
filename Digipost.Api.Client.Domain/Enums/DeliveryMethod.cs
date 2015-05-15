@@ -11,13 +11,13 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Delivered through fysical print and postal service.
         /// </summary>
-        [XmlEnum("PRINT")]
+        [XmlEnum("PRINT")] 
         Print,
 
         /// <summary>
         ///     Delivered digitally in Digipost
         /// </summary>
-        [XmlEnum("DIGIPOST")]
+        [XmlEnum("DIGIPOST")] 
         Digipost
     }
 }

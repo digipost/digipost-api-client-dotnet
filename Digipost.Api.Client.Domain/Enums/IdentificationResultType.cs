@@ -10,21 +10,25 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         /// The subjects digipost-address
         /// </summary>
-        [XmlEnum("digipost-address")] Digipostaddress,
+        [XmlEnum("digipost-address")] 
+        Digipostaddress,
 
         /// <summary>
         /// Enum of invalidreason
         /// </summary>
-        [XmlEnum("invalid-reason")] Invalidreason,
+        [XmlEnum("invalid-reason")] 
+        Invalidreason,
 
         /// <summary>
         /// The subjects personalias.
         /// </summary>
-        [XmlEnum("person-alias")] Personalias,
+        [XmlEnum("person-alias")] 
+        Personalias,
 
         /// <summary>
         /// Enum of unidentified reason.
         /// </summary>
-        [XmlEnum("unidentified-reason")] Unidentifiedreason
+        [XmlEnum("unidentified-reason")] 
+        Unidentifiedreason
     }
 }

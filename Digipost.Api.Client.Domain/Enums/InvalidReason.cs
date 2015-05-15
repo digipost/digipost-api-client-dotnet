@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.Domain.Enums
     public enum InvalidReason
     {
         /// <summary>
-        /// Invalid SSN. Check the number and try again.
+        /// Invalid Social Security Number (SSN). Check the number and try again.
         /// </summary>
         [XmlEnum("INVALID_PERSONAL_IDENTIFICATION_NUMBER")]
         InvalidPersonalIdentificationNumber,

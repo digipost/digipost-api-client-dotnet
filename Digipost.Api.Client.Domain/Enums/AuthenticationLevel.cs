@@ -13,11 +13,13 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Default. Social security number and password is required to open the letter.
         /// </summary>
-        [XmlEnum("PASSWORD")] Password,
+        [XmlEnum("PASSWORD")] 
+        Password,
 
         /// <summary>
         ///     Two factor authentication will be required to open the letter.
         /// </summary>
-        [XmlEnum("TWO_FACTOR")] TwoFactor
+        [XmlEnum("TWO_FACTOR")] 
+        TwoFactor
     }
 }

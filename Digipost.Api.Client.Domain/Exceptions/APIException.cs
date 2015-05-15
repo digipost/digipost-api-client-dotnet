@@ -2,13 +2,13 @@
 
 namespace Digipost.Api.Client.Domain.Exceptions
 {
-    public class APIException : Exception
+    public class ApiException : Exception
     {
-        public APIException(string message) : base(message)
+        public ApiException(string message) : base(message)
         {
         }
 
-        public APIException(string message, Exception inner)
+        public ApiException(string message, Exception inner)
             : base(message, inner)
         {
         }

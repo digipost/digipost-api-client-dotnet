@@ -12,20 +12,20 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
-        public DigipostApi(ClientConfig clientConfig, X509Certificate2 privateCertificate)
+        public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
-            PrivateCertificate = privateCertificate;
+            BusinessCertificate = businessCertificate;
         }
 
         public DigipostApi(ClientConfig clientConfig, string thumbprint)
         {
             ClientConfig = clientConfig;
-            PrivateCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
+            BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
         private ClientConfig ClientConfig { get; set; }
-        private X509Certificate2 PrivateCertificate { get; set; }
+        private X509Certificate2 BusinessCertificate { get; set; }
 
         public MessageDeliveryResult SendMessage(Message message)
         {
@@ -64,9 +64,9 @@ namespace Digipost.Api.Client.Api
             return GenericSendAsync<IdentificationResult>(identification, uri);
         }
 
-        private async Task<T> GenericSendAsync<T>(XmlBodyContent message, string uri)
+        private async Task<T> GenericSendAsync<T>(RequestContent message, string uri)
         {
-            var action = DigipostActionFactory.CreateClass(message.GetType(), ClientConfig, PrivateCertificate, uri);
+            var action = DigipostActionFactory.CreateClass(message.GetType(), ClientConfig, BusinessCertificate, uri);
             var response = action.SendAsync(message).Result;
             var responseContent = await ReadResponse(response);
 

@@ -31,7 +31,7 @@ namespace Digipost.Api.Client.Domain.Print
             set
             {
                 if (!(value is ForeignAddress) && !(value is NorwegianAddress))
-                    throw new APIException("Invalid type of Address! Valid types are [NorwegianAddress,Foreignaddress]");
+                    throw new ApiException("Invalid type of Address! Valid types are [NorwegianAddress,Foreignaddress]");
 
                 _address = value;
             }

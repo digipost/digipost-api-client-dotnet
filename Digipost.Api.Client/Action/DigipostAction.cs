@@ -21,9 +21,9 @@ namespace Digipost.Api.Client.Action
 
         public ClientConfig ClientConfig { get; set; }
         public X509Certificate2 PrivateCertificate { get; set; }
-        protected abstract HttpContent Content(XmlBodyContent xmlBodyContent);
+        protected abstract HttpContent Content(RequestContent requestContent);
 
-        public Task<HttpResponseMessage> SendAsync(XmlBodyContent xmlBodyContent)
+        public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
             Logging.Log(TraceEventType.Information, "> Starting to build request ...");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
@@ -38,7 +38,7 @@ namespace Digipost.Api.Client.Action
 
             Logging.Log(TraceEventType.Information, " - Request sent.");
 
-            return client.PostAsync(_uri, Content(xmlBodyContent));
+            return client.PostAsync(_uri, Content(requestContent));
         }
     }
 }

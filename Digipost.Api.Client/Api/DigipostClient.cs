@@ -8,9 +8,9 @@ namespace Digipost.Api.Client.Api
     {
 
         private DigipostApi api;
-        public DigipostClient(ClientConfig clientConfig, X509Certificate2 senderCertificate)
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            api = new DigipostApi(clientConfig,senderCertificate);
+            api = new DigipostApi(clientConfig,businessCertificate);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)

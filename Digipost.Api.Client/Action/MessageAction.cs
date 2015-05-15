@@ -10,14 +10,14 @@ namespace Digipost.Api.Client
 {
     internal class MessageAction : DigipostAction
     {
-        public MessageAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
-            : base(clientConfig, privateCertificate, uri)
+        public MessageAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+            : base(clientConfig, businessCertificate, uri)
         {
         }
 
-        protected override HttpContent Content(XmlBodyContent xmlBodyContent)
+        protected override HttpContent Content(RequestContent requestContent)
         {
-            var message = xmlBodyContent as Message;
+            var message = requestContent as Message;
             var boundary = Guid.NewGuid().ToString();
 
             var content = new MultipartFormDataContent(boundary);

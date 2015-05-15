@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Identification : XmlBodyContent
+    public class Identification : RequestContent
     {
 
         /// <summary>

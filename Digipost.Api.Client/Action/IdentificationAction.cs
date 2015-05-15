@@ -13,9 +13,9 @@ namespace Digipost.Api.Client.Action
         {
         }
 
-        protected override HttpContent Content(XmlBodyContent xmlBodyContent)
+        protected override HttpContent Content(RequestContent requestContent)
         {
-            var identification = xmlBodyContent as Identification;
+            var identification = requestContent as Identification;
             var xmlMessage = SerializeUtil.Serialize(identification);
             var messageContent = new StringContent(xmlMessage);
 

@@ -54,12 +54,13 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Action\DigipostAction.cs" />
-    <Compile Include="Api\DigipostApi.cs" />
+    <Compile Include="Action\DigipostActionFactory.cs" />
+    <Compile Include="Api\DigipostClient.cs" />
+    <Compile Include="Api\IDigipostApi.cs" />
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
-    <Compile Include="DigipostClient.cs" />
+    <Compile Include="Api\DigipostApi.cs" />
     <Compile Include="Action\IdentificationAction.cs" />
-    <Compile Include="Api\IDigipostApi.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />
     <Compile Include="Action\MessageAction.cs" />

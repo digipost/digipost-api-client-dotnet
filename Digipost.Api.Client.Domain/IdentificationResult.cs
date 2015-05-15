@@ -26,7 +26,7 @@ namespace Digipost.Api.Client.Domain
         [XmlIgnore]
         public IdentificationResultType IdentificationType { get;  set; }
 
-        
+        private IdentificationResult() { }
 
         public override string ToString()
         {

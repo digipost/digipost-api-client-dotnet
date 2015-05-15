@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using ApiClientShared;
+using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
@@ -19,6 +20,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
+
             var config = new ClientConfig(SenderId);
             config.ApiUrl = new Uri("https://api.digipost.no");
 
@@ -41,6 +43,7 @@ namespace Digipost.Api.Client.Testklient
                 Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
             }
 
+            Logging.Log(TraceEventType.Information, "\n\n\n\n");
 
             var identification = new Identification(IdentificationChoice.PersonalidentificationNumber,"31108446911");
             
@@ -59,6 +62,7 @@ namespace Digipost.Api.Client.Testklient
                 Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
             }
 
+            Logging.Log(TraceEventType.Information, "\n\n\n\n");
 
             var identificationByNameAndAddress = new Identification(IdentificationChoice.NameAndAddress, new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
 

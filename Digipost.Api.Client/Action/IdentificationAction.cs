@@ -6,7 +6,7 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action
 {
-    public class IdentificationAction : DigipostAction
+    internal class IdentificationAction : DigipostAction
     {
         public IdentificationAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
             : base(clientConfig, privateCertificate, uri)
@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Action
             var messageContent = new StringContent(xmlMessage);
 
             var boundary = Guid.NewGuid().ToString();
-            var mediaTypeHeaderValue = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
+            var mediaTypeHeaderValue = new MediaTypeHeaderValue(DigipostVersion.V6);
             mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
             messageContent.Headers.ContentType = mediaTypeHeaderValue;
 

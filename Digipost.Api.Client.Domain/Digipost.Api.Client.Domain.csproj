@@ -39,6 +39,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DigipostVersion.cs" />
     <Compile Include="Enums\AuthenticationLevel.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Enums\CountryIdentifier.cs" />

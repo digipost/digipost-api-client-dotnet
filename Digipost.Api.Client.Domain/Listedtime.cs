@@ -20,5 +20,6 @@ namespace Digipost.Api.Client.Domain
         /// </summary>
         [XmlAttribute("time")]
         public DateTime Time { get; set; }
+        
     }
 }

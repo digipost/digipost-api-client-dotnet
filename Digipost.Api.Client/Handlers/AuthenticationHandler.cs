@@ -6,10 +6,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Handlers
 {
-    public class AuthenticationHandler : DelegatingHandler
+    internal class AuthenticationHandler : DelegatingHandler
     {
         public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url,
             HttpMessageHandler innerHandler)
@@ -38,7 +39,7 @@ namespace Digipost.Api.Client.Handlers
 
             request.Headers.Add("X-Digipost-UserId", ClientConfig.SenderId);
             request.Headers.Add("Date", date);
-            request.Headers.Add("Accept", "application/vnd.digipost-v6+xml");
+            request.Headers.Add("Accept", DigipostVersion.V6);
             request.Headers.Add("X-Content-SHA256", computeHash);
             request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
                 technicalSender, PrivateCertificate));

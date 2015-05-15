@@ -8,7 +8,7 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client
 {
-    public class MessageAction : DigipostAction
+    internal class MessageAction : DigipostAction
     {
         public MessageAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
             : base(clientConfig, privateCertificate, uri)
@@ -40,7 +40,7 @@ namespace Digipost.Api.Client
 
             Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
             var messageContent = new StringContent(xmlMessage);
-            messageContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.digipost-v6+xml");
+            messageContent.Headers.ContentType = new MediaTypeHeaderValue(DigipostVersion.V6);
             messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = "\"message\""

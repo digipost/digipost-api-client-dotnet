@@ -8,7 +8,7 @@ using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client.Action
 {
-    public abstract class DigipostAction
+    internal abstract class DigipostAction
     {
         private readonly string _uri;
 
@@ -39,22 +39,6 @@ namespace Digipost.Api.Client.Action
             Logging.Log(TraceEventType.Information, " - Request sent.");
 
             return client.PostAsync(_uri, Content(xmlBodyContent));
-        }
-
-        public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
-            X509Certificate2 privateCertificate, string uri)
-        {
-            if (type == typeof (Message))
-            {
-                return new MessageAction(clientConfig, privateCertificate, uri);
-            }
-
-            if (type == typeof (Identification))
-            {
-                return new IdentificationAction(clientConfig, privateCertificate, uri);
-            }
-
-            throw new Exception(string.Format("Could not create class with type{0}", type.Name));
         }
     }
 }

@@ -12,22 +12,22 @@ namespace Digipost.Api.Client.Action
     {
         private readonly string _uri;
 
-        protected DigipostAction(ClientConfig clientConfig, X509Certificate2 privateCertificate, string uri)
+        protected DigipostAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             _uri = uri;
             ClientConfig = clientConfig;
-            PrivateCertificate = privateCertificate;
+            BusinessCertificate = businessCertificate;
         }
 
         public ClientConfig ClientConfig { get; set; }
-        public X509Certificate2 PrivateCertificate { get; set; }
+        public X509Certificate2 BusinessCertificate { get; set; }
         protected abstract HttpContent Content(RequestContent requestContent);
 
         public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
             Logging.Log(TraceEventType.Information, "> Starting to build request ...");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, PrivateCertificate, _uri, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri, loggingHandler);
 
             Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
             var client = new HttpClient(authenticationHandler);

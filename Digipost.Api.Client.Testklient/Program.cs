@@ -25,63 +25,64 @@ namespace Digipost.Api.Client.Testklient
             config.ApiUrl = new Uri("https://api.digipost.no");
 
             Logging.Initialize(config);
-
             var api = new DigipostClient(config, Thumbprint);
 
+
+            SendMessageToPerson(api);
+
+            IdentifyPerson(api);
+
+
+            Console.ReadKey();
+        }
+
+        private static void SendMessageToPerson(DigipostClient api)
+        {
+            Console.WriteLine("======================================");
+            Console.WriteLine("Sending message:");
+            Console.WriteLine("======================================");
             var message = GetMessage();
             try
             {
-                var digipostClientResponse = api.SendMessage(message);
-                Logging.Log(TraceEventType.Information, "\n" + digipostClientResponse);
+                Console.WriteLine("> Starter å sende melding");
+                var messageDeliveryResult = api.SendMessage(message);
+                Logging.Log(TraceEventType.Information, ""+messageDeliveryResult);
+                WriteToConsoleWithColor("> Alt gikk fint!" , false);
             }
             catch (ClientResponseException e)
             {
-                Logging.Log(TraceEventType.Information, "\n" + e.Error);
+                var errorMessage = e.Error;
+                WriteToConsoleWithColor("> Error." + errorMessage, true);
             }
             catch (Exception e)
             {
-                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
+                WriteToConsoleWithColor("> Oh snap... " + e.Message, true);
             }
+        }
 
-            Logging.Log(TraceEventType.Information, "\n\n\n\n");
+        private static void IdentifyPerson(DigipostClient api)
+        {
+            Console.WriteLine("======================================");
+            Console.WriteLine("Identifiserer person:");
+            Console.WriteLine("======================================");
 
-            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber,"31108446911");
-            
+            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "31108446911");
+
             try
             {
                 var identificationResponse = api.Identify(identification);
-                Logging.Log(TraceEventType.Information, "\n" + identificationResponse);
+                Logging.Log(TraceEventType.Information, "Identification resp: \n" + identificationResponse);
+                WriteToConsoleWithColor("> Personen ble identifisert!", false);
             }
             catch (ClientResponseException e)
             {
                 var errorMessage = e.Error;
-                Logging.Log(TraceEventType.Information, "\n" + errorMessage);
+                WriteToConsoleWithColor("> Feilet." + errorMessage, true);
             }
             catch (Exception e)
             {
-                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
+                WriteToConsoleWithColor("> Oh snap... " + e.Message, true);
             }
-
-            Logging.Log(TraceEventType.Information, "\n\n\n\n");
-
-            var identificationByNameAndAddress = new Identification(IdentificationChoice.NameAndAddress, new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
-
-            try
-            {
-                var identificationResponse = api.Identify(identificationByNameAndAddress);
-                Logging.Log(TraceEventType.Information, "\n" + identificationResponse);
-            }
-            catch (ClientResponseException e)
-            {
-                var errorMessage = e.Error;
-                Logging.Log(TraceEventType.Information, "\n" + errorMessage);
-            }
-            catch (Exception e)
-            {
-                Logging.Log(TraceEventType.Error, "\n" + "Nåkka gikk fette galt.");
-            }
-
-            Console.ReadKey();
         }
 
         private static Message GetMessage()
@@ -123,6 +124,13 @@ namespace Digipost.Api.Client.Testklient
         private static byte[] GetAttachment()
         {
             return ResourceUtility.ReadAllBytes(true, "Vedlegg.txt");
+        }
+
+        private static void WriteToConsoleWithColor(string message, bool isError = false)
+        {
+            Console.ForegroundColor = isError ? ConsoleColor.Red : ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
         }
     }
 }

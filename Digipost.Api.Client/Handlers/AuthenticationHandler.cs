@@ -12,18 +12,18 @@ namespace Digipost.Api.Client.Handlers
 {
     internal class AuthenticationHandler : DelegatingHandler
     {
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 privateCertificate, string url,
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, string url,
             HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
             ClientConfig = clientConfig;
             Url = url;
-            PrivateCertificate = privateCertificate;
+            BusinessCertificate = businessCertificate;
         }
 
         private ClientConfig ClientConfig { get; set; }
         private string Url { get; set; }
-        private X509Certificate2 PrivateCertificate { get; set; }
+        private X509Certificate2 BusinessCertificate { get; set; }
 
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
@@ -42,7 +42,7 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("Accept", DigipostVersion.V6);
             request.Headers.Add("X-Content-SHA256", computeHash);
             request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
-                technicalSender, PrivateCertificate));
+                technicalSender, BusinessCertificate));
 
 
             return await base.SendAsync(request, cancellationToken);
@@ -57,7 +57,7 @@ namespace Digipost.Api.Client.Handlers
         }
 
         private static string ComputeSignature(string method, string uri, string date, string sha256Hash,
-            string userId, X509Certificate2 privateCertificate)
+            string userId, X509Certificate2 businessCertificate)
         {
             const string parameters = ""; //HttpUtility.UrlEncode(request.RequestUri.Query).ToLower();
 
@@ -75,7 +75,7 @@ namespace Digipost.Api.Client.Handlers
             Logging.Log(TraceEventType.Information, "===SLUTT===");
 
 
-            var rsa = privateCertificate.PrivateKey as RSACryptoServiceProvider;
+            var rsa = businessCertificate.PrivateKey as RSACryptoServiceProvider;
             var rsa2 = new RSACryptoServiceProvider();
 
             try

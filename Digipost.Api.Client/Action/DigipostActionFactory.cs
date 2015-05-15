@@ -7,16 +7,16 @@ namespace Digipost.Api.Client.Action
     internal class DigipostActionFactory
     {
         public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
-            X509Certificate2 privateCertificate, string uri)
+            X509Certificate2 businessCertificate, string uri)
         {
             if (type == typeof(Message))
             {
-                return new MessageAction(clientConfig, privateCertificate, uri);
+                return new MessageAction(clientConfig, businessCertificate, uri);
             }
 
             if (type == typeof(Identification))
             {
-                return new IdentificationAction(clientConfig, privateCertificate, uri);
+                return new IdentificationAction(clientConfig, businessCertificate, uri);
             }
 
             throw new Exception(string.Format("Could not create class with type{0}", type.Name));

@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Domain
     {
 
         /// <summary>
-        ///     Identify if person is in Digipost by Digipost-address, organisation number or Social Security Number (SSN).
+        ///     Identify if recipient exists in Digipost by Digipost-address, organisation number or Social Security Number (SSN).
         /// </summary>
         public Identification(IdentificationChoice identificationChoice, string value)
         {
@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     Identify if person is in Digipost by name and address.
+        ///     Identify if recipient exists in Digipost by name and address.
         /// </summary>
         public Identification(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
         {
@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     Identify if person is in Digipost by name and address.
+        ///     Identify if recipient exists in Digipost by name and address.
         /// </summary>
         public Identification(RecipientByNameAndAddress recipientByNameAndAddress)
         {

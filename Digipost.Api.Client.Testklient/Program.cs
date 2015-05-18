@@ -28,9 +28,10 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
 
+            IdentifyPerson(api);
             SendMessageToPerson(api);
 
-            IdentifyPerson(api);
+            
 
 
             Console.ReadKey();

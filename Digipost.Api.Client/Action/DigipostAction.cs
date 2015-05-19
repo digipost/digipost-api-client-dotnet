@@ -11,6 +11,31 @@ namespace Digipost.Api.Client.Action
     internal abstract class DigipostAction
     {
         private readonly string _uri;
+        private HttpClient _httpClient;
+        public ClientConfig ClientConfig { get; set; }
+        public X509Certificate2 BusinessCertificate { get; set; }
+
+        internal HttpClient Client
+        {
+            get
+            {
+                if (_httpClient != null) return _httpClient;
+
+                Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
+                var loggingHandler = new LoggingHandler(new HttpClientHandler());
+                var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri,
+                    loggingHandler);
+
+                _httpClient = new HttpClient(authenticationHandler)
+                {
+                    Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
+                    BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
+                };
+
+                return _httpClient;
+            }
+            set { _httpClient = value; }
+        }
 
         protected DigipostAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
@@ -19,26 +44,20 @@ namespace Digipost.Api.Client.Action
             BusinessCertificate = businessCertificate;
         }
 
-        public ClientConfig ClientConfig { get; set; }
-        public X509Certificate2 BusinessCertificate { get; set; }
         protected abstract HttpContent Content(RequestContent requestContent);
+
 
         public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
-            Logging.Log(TraceEventType.Information, "> Starting to build request ...");
-            var loggingHandler = new LoggingHandler(new HttpClientHandler());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri, loggingHandler);
-
-            Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-            var client = new HttpClient(authenticationHandler);
-
-            Logging.Log(TraceEventType.Information, " - Sending request.");
-            client.Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds);
-            client.BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri);
-
-            Logging.Log(TraceEventType.Information, " - Request sent.");
-
-            return client.PostAsync(_uri, Content(requestContent));
+            try
+            {
+                Logging.Log(TraceEventType.Information, " - Sending request.");
+                return Client.PostAsync(_uri, Content(requestContent));
+            }
+            finally
+            {
+                Logging.Log(TraceEventType.Information, " - Request sent.");
+            }
         }
     }
 }

@@ -12,6 +12,9 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private ClientConfig ClientConfig { get; set; }
+        private X509Certificate2 BusinessCertificate { get; set; }
+
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
@@ -23,9 +26,6 @@ namespace Digipost.Api.Client.Api
             ClientConfig = clientConfig;
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
-
-        private ClientConfig ClientConfig { get; set; }
-        private X509Certificate2 BusinessCertificate { get; set; }
 
         public MessageDeliveryResult SendMessage(Message message)
         {

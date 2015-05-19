@@ -4,8 +4,10 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action
 {
-    internal class DigipostActionFactory
+    internal class DigipostActionFactory : IDigipostActionFactory
     {
+        private IDigipostActionFactory currentFactory;
+        
         public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
             X509Certificate2 businessCertificate, string uri)
         {
@@ -20,6 +22,11 @@ namespace Digipost.Api.Client.Action
             }
 
             throw new Exception(string.Format("Could not create class with type{0}", type.Name));
+        }
+
+        DigipostAction IDigipostActionFactory.CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        {
+            return CreateClass(type, clientConfig, businessCertificate, uri);
         }
     }
 }

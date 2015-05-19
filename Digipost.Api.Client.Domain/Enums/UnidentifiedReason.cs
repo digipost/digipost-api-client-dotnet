@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Domain.Enums
         MultipleMatches,
 
         /// <summary>
-        /// Subject not found on you criteria. 
+        /// Subject not found based on search criteria. 
         /// </summary>
         [XmlEnum("NOT_FOUND")]
         NotFound

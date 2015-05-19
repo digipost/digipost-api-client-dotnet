@@ -13,8 +13,6 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot("message-delivery", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class MessageDeliveryResult
     {
-        [XmlElement("message-id")]
-        public string Messageid { get; set; }
 
         [XmlElement("delivery-method")]
         public DeliveryMethod Deliverymethod { get; set; }
@@ -39,8 +37,8 @@ namespace Digipost.Api.Client.Domain
             var attachments = Attachment.Aggregate(" ", (current, doc) => current + (doc.ToString() ));
             return
                 string.Format(
-                    "Messageid: {0}, Deliverymethod: {1}, Status: {2}, Deliverytime: {3}, Primarydocument: {4}, " +
-                    "Attachment: {5}", Messageid, Deliverymethod, Status, Deliverytime, Primarydocument,
+                    "Deliverymethod: {0}, Status: {1}, Deliverytime: {2}, Primarydocument: {3}, " +
+                    "Attachment: {4}", Deliverymethod, Status, Deliverytime, Primarydocument,
                     attachments);
         }
     }

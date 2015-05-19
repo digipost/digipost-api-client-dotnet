@@ -64,12 +64,11 @@ namespace Digipost.Api.Client.Api
             return GenericSendAsync<IdentificationResult>(identification, uri);
         }
 
-        private async Task<T> GenericSendAsync<T>(RequestContent message, string uri)
+        private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
         {
-            var action = DigipostActionFactory.CreateClass(message.GetType(), ClientConfig, BusinessCertificate, uri);
-            var response = action.SendAsync(message).Result;
+            var action = new DigipostActionFactory().CreateClass(content.GetType(), ClientConfig, BusinessCertificate, uri);
+            var response = action.SendAsync(content).Result;
             var responseContent = await ReadResponse(response);
-
 
             try
             {
@@ -82,6 +81,8 @@ namespace Digipost.Api.Client.Api
                                                   "Check inner Error object for more information.", error, exception);
             }
         }
+
+       
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {

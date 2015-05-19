@@ -12,10 +12,12 @@ namespace Digipost.Api.Client.Action
     {
         private readonly string _uri;
         private HttpClient _httpClient;
+        
         public ClientConfig ClientConfig { get; set; }
+        
         public X509Certificate2 BusinessCertificate { get; set; }
 
-        internal HttpClient Client
+        internal HttpClient HttpClient
         {
             get
             {
@@ -52,7 +54,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request.");
-                return Client.PostAsync(_uri, Content(requestContent));
+                return HttpClient.PostAsync(_uri, Content(requestContent));
             }
             finally
             {

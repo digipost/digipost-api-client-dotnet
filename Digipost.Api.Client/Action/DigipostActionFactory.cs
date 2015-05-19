@@ -6,10 +6,7 @@ namespace Digipost.Api.Client.Action
 {
     internal class DigipostActionFactory : IDigipostActionFactory
     {
-        private IDigipostActionFactory currentFactory;
-        
-        public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
-            X509Certificate2 businessCertificate, string uri)
+        public DigipostAction CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             if (type == typeof(Message))
             {
@@ -21,12 +18,7 @@ namespace Digipost.Api.Client.Action
                 return new IdentificationAction(clientConfig, businessCertificate, uri);
             }
 
-            throw new Exception(string.Format("Could not create class with type{0}", type.Name));
-        }
-
-        DigipostAction IDigipostActionFactory.CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
-        {
-            return CreateClass(type, clientConfig, businessCertificate, uri);
+            throw new Exception(string.Format("Could not create class with type {0}", type.Name));
         }
     }
 }

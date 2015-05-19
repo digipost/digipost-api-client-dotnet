@@ -7,7 +7,5 @@ namespace Digipost.Api.Client.Action
     {
         DigipostAction CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate,
             string uri);
-
-
     }
 }

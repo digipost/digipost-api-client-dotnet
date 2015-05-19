@@ -55,7 +55,8 @@
     </Compile>
     <Compile Include="Action\DigipostAction.cs" />
     <Compile Include="Action\DigipostActionFactory.cs" />
-    <Compile Include="Api\DigipostClient.cs" />
+    <Compile Include="Action\IDigipostActionFactory.cs" />
+    <Compile Include="DigipostClient.cs" />
     <Compile Include="Api\IDigipostApi.cs" />
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />

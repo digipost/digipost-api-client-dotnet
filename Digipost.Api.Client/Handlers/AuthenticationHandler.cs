@@ -44,8 +44,8 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
                 technicalSender, BusinessCertificate));
 
-
-            return await base.SendAsync(request, cancellationToken);
+            var result = await base.SendAsync(request, cancellationToken);
+            return result;
         }
 
         private static string ComputeHash(byte[] inputBytes)

@@ -22,8 +22,8 @@ namespace Digipost.Api.Client.Domain
         /// </summary>
         public SmsNotification(int afterHours)
         {
-            SendSmsNotificationAfterHours = new List<int> {afterHours};
-            SendSmsNotificationAtTime = new List<Listedtime>();
+            AddAfterHours = new List<int> {afterHours};
+            AddAtTime = new List<Listedtime>();
         }
 
         /// <summary>
@@ -31,35 +31,35 @@ namespace Digipost.Api.Client.Domain
         /// </summary>
         public SmsNotification(DateTime sendingTime)
         {
-            SendSmsNotificationAtTime = new List<Listedtime> {new Listedtime(sendingTime)};
-            SendSmsNotificationAfterHours = new List<int>();
+            AddAtTime = new List<Listedtime> {new Listedtime(sendingTime)};
+            AddAfterHours = new List<int>();
         }
 
         private SmsNotification()
         {
             /**must exist for serializing**/
-            SendSmsNotificationAfterHours = new List<int>();
-            SendSmsNotificationAtTime = new List<Listedtime>();
+            AddAfterHours = new List<int>();
+            AddAtTime = new List<Listedtime>();
         }
 
         /// <summary>
         ///     List of Listedtime, where each element is the date and time an SMS will be sent out
         /// </summary>
         [XmlElement("at")]
-        public List<Listedtime> SendSmsNotificationAtTime { get; set; }
+        public List<Listedtime> AddAtTime { get; set; }
 
         /// <summary>
         ///     List of integers, where each element is hours after an SMS will be sent out
         /// </summary>
         [XmlElement("after-hours")]
-        public List<int> SendSmsNotificationAfterHours { get; set; }
+        public List<int> AddAfterHours { get; set; }
 
         public override string ToString()
         {
-            var res = SendSmsNotificationAtTime.Aggregate(" ",
+            var res = AddAtTime.Aggregate(" ",
                 (current, listedTime) => current + (listedTime.Time.ToString("R")));
 
-            return string.Format("At: {0}, AfterHours: {1}", SendSmsNotificationAtTime, SendSmsNotificationAfterHours);
+            return string.Format("At: {0}, AfterHours: {1}", AddAtTime, AddAfterHours);
         }
     }
 }

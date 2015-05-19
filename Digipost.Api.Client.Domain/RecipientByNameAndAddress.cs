@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Domain
             BirthDate = null;
         }
 
-        public RecipientByNameAndAddress(string fullName, string addressLine, string postalCode, string city)
+        public RecipientByNameAndAddress(string fullName, string postalCode, string city, string addressLine)
         {
             FullName = fullName;
             AddressLine1 = addressLine;

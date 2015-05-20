@@ -62,6 +62,6 @@ namespace Digipost.Api.Client.Domain
         public PrintDetails PrintDetails { get; set; }
 
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get;  set; }
+        public IdentificationChoice IdentificationType { get; internal set; }
     }
 }

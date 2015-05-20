@@ -12,6 +12,7 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private IDigipostActionFactory _digipostActionFactory;
         private ClientConfig ClientConfig { get; set; }
         private X509Certificate2 BusinessCertificate { get; set; }
 
@@ -27,15 +28,19 @@ namespace Digipost.Api.Client.Api
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
+        internal IDigipostActionFactory DigipostActionFactory
+        {
+            get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
+            set { _digipostActionFactory = value; }
+        }
+
         public MessageDeliveryResult SendMessage(Message message)
         {
             var messageDelivery = SendMessageAsync(message);
 
-            if (messageDelivery.IsFaulted)
-            {
-                if (messageDelivery.Exception != null) throw messageDelivery.Exception.InnerException;
-            }
-
+            if (messageDelivery.IsFaulted && messageDelivery.Exception != null) 
+                    throw messageDelivery.Exception.InnerException;
+            
             return messageDelivery.Result;
         }
 
@@ -66,7 +71,7 @@ namespace Digipost.Api.Client.Api
 
         private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
         {
-            var action = new DigipostActionFactory().CreateClass(content.GetType(), ClientConfig, BusinessCertificate, uri);
+            var action = DigipostActionFactory.CreateClass(content.GetType(), ClientConfig, BusinessCertificate, uri);
             var response = action.SendAsync(content).Result;
             var responseContent = await ReadResponse(response);
 
@@ -81,8 +86,6 @@ namespace Digipost.Api.Client.Api
                                                   "Check inner Error object for more information.", error, exception);
             }
         }
-
-       
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {

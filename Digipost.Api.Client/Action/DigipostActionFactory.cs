@@ -7,6 +7,7 @@ namespace Digipost.Api.Client.Action
     internal class DigipostActionFactory : IDigipostActionFactory
     {
         public DigipostAction CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+
         {
             if (type == typeof(Message))
             {

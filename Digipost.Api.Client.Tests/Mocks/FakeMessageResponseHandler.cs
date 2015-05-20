@@ -11,7 +11,12 @@ namespace Digipost.Api.Client.Tests.Mocks
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return await new Task<HttpResponseMessage>(() => GetResponse());
+            var response = new HttpResponseMessage()
+            {
+                Content = MessageContent(),
+                StatusCode = HttpStatusCode.OK
+            };
+            return await Task.FromResult<HttpResponseMessage>(response);
         }
 
         private HttpResponseMessage GetResponse()

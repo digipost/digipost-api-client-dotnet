@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiClientShared, Version=1.0.5578.25965, Culture=neutral, PublicKeyToken=6e0e24e0c7886562, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
@@ -52,6 +56,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mocks\FakeIdentificationResponseHandler.cs" />
+    <Compile Include="Mocks\FakeMessageAction.cs" />
     <Compile Include="Mocks\FakeMessageResponseHandler.cs" />
     <Compile Include="Mocks\FakeDigipostActionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,8 +65,29 @@
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
+      <Name>Digipost.Api.Client.Domain</Name>
+    </ProjectReference>
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="Unittest\SerializeTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
+      <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Hoveddokument.pdf" />
+    <EmbeddedResource Include="Resources\Vedlegg.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Hoveddokument.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Vedlegg.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

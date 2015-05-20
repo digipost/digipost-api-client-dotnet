@@ -8,7 +8,7 @@ using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client.Action
 {
-    internal abstract class DigipostAction
+    public abstract class DigipostAction
     {
         private readonly string _uri;
         private HttpClient _httpClient;

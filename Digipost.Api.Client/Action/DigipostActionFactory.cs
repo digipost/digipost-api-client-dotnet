@@ -6,7 +6,7 @@ namespace Digipost.Api.Client.Action
 {
     internal class DigipostActionFactory : IDigipostActionFactory
     {
-        private IDigipostActionFactory currentFactory;
+        private IDigipostActionFactory _currentFactory;
         
         public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
             X509Certificate2 businessCertificate, string uri)

@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Tests.Mocks
             var action = new MessageAction(clientConfig, businessCertificate, uri);
             
             
-            action.HttpClient = new HttpClient();
+            action.HttpClient = new HttpClient(new FakeMessageResponseHandler());
 
             return null;
         }

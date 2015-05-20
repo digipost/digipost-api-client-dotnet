@@ -7,35 +7,35 @@ namespace Digipost.Api.Client.Api
     public class DigipostClient 
     {
 
-        private DigipostApi api;
+        private readonly DigipostApi _api;
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            api = new DigipostApi(clientConfig,businessCertificate);
+            _api = new DigipostApi(clientConfig,businessCertificate);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
         {
-            api = new DigipostApi(clientConfig,thumbprint);
+            _api = new DigipostApi(clientConfig,thumbprint);
         }
 
         public IdentificationResult Identify(Identification identification)
         {
-            return api.Identify(identification);
+            return _api.Identify(identification);
         }
 
         public Task<IdentificationResult> IdentifyAsync(Identification identification)
         {
-            return api.IdentifyAsync(identification);
+            return _api.IdentifyAsync(identification);
         }
 
         public MessageDeliveryResult SendMessage(Message message)
         {
-            return api.SendMessage(message);
+            return _api.SendMessage(message);
         }
 
         public Task<MessageDeliveryResult> SendMessageAsync(Message message)
         {
-            return api.SendMessageAsync(message);
+            return _api.SendMessageAsync(message);
         }
     }
 }

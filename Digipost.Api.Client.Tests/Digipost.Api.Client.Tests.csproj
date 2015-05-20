@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>f20a3dc4-0c7b-4e62-823d-6b82ec74b1ba</ProjectGuid>
+    <ProjectGuid>{15EF7A88-A8DC-4E39-A314-474F1BEE8249}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Digipost.Api.Client.Tests</RootNamespace>

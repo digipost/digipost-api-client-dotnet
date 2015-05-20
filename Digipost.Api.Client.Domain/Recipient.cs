@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Domain
             if (identificationChoice == IdentificationChoice.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
                                                           "when using string as id",
-                    IdentificationChoice.NameAndAddress.ToString()));
+                    IdentificationChoice.NameAndAddress));
             IdentificationValue = id;
             IdentificationType = identificationChoice;
             PrintDetails = printDetails;
@@ -62,6 +62,6 @@ namespace Digipost.Api.Client.Domain
         public PrintDetails PrintDetails { get; set; }
 
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get; private set; }
+        public IdentificationChoice IdentificationType { get; internal set; }
     }
 }

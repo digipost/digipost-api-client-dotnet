@@ -43,9 +43,16 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("X-Content-SHA256", computeHash);
             request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
                 technicalSender, BusinessCertificate));
-
+            request.Headers.Add("UserAgent", GetAssemblyVersion());
 
             return await base.SendAsync(request, cancellationToken);
+        }
+
+        private static string GetAssemblyVersion()
+        {
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
         }
 
         private static string ComputeHash(byte[] inputBytes)

@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Tests.Mocks
 
             if (type == typeof(Message))
             {
-                return new FakeMessageAction(clientConfig, businessCertificate, uri)
+                return new FakeAction(clientConfig, businessCertificate, uri)
                 {
                     HttpClient = new HttpClient(new FakeMessageResponseHandler())
                     {
@@ -25,7 +25,7 @@ namespace Digipost.Api.Client.Tests.Mocks
 
             if (type == typeof(Identification))
             {
-                return new IdentificationAction(clientConfig, businessCertificate, uri)
+                return new Action.FakeAction(clientConfig, businessCertificate, uri)
                 {
                     HttpClient = new HttpClient(new FakeIdentificationResponseHandler())
                     {

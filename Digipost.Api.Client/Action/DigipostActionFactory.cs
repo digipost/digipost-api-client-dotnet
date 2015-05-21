@@ -16,7 +16,7 @@ namespace Digipost.Api.Client.Action
 
             if (type == typeof(Identification))
             {
-                return new IdentificationAction(clientConfig, businessCertificate, uri);
+                return new FakeAction(clientConfig, businessCertificate, uri);
             }
 
             throw new Exception(string.Format("Could not create class with type {0}", type.Name));

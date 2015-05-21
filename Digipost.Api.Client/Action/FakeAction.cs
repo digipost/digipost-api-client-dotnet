@@ -6,9 +6,9 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action
 {
-    internal class IdentificationAction : DigipostAction
+    internal class FakeAction : DigipostAction
     {
-        public IdentificationAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public FakeAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
             : base(clientConfig, businessCertificate, uri)
         {
         }

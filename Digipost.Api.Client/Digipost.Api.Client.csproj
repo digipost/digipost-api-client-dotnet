@@ -61,7 +61,7 @@
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="Api\DigipostApi.cs" />
-    <Compile Include="Action\IdentificationAction.cs" />
+    <Compile Include="Action\FakeAction.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />
     <Compile Include="Action\MessageAction.cs" />

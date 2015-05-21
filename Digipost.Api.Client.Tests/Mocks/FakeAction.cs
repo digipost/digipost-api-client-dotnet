@@ -5,9 +5,9 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Tests.Mocks
 {
-    public class FakeMessageAction : DigipostAction
+    public class FakeAction : DigipostAction
     {
-        public FakeMessageAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri) : base(clientConfig, businessCertificate, uri)
+        public FakeAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri) : base(clientConfig, businessCertificate, uri)
         {
         }
 

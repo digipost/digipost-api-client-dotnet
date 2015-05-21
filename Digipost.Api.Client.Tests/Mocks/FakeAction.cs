@@ -11,6 +11,11 @@ namespace Digipost.Api.Client.Tests.Mocks
         {
         }
 
+        internal FakeAction() : base(new ClientConfig("1337"), new X509Certificate2(), "http://fake.uri.com"  )
+        {
+            
+        }
+
         protected override HttpContent Content(RequestContent requestContent)
         {
             return new StringContent("Tullebeskjed som sendes");

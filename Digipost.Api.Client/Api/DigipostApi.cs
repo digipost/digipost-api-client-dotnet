@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Api
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
-        internal IDigipostActionFactory DigipostActionFactory
+        public DigipostActionFactory DigipostActionFactory
         {
             get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
             set { _digipostActionFactory = value; }

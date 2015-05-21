@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Digipost.Api.Client.Api;
@@ -6,6 +7,7 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
@@ -60,6 +62,30 @@ namespace Digipost.Api.Client.Tests.Smoke
             {
                 Assert.Fail();
             }
+
+        }
+
+        [TestMethod]
+        public void MoqTest()
+        {
+            var mockContainer = new Mock<IDigipostApi>();
+
+            mockContainer.Setup(t => t.DigipostActionFactory
+                .CreateClass(
+                    GetType(), new ClientConfig("1337"), new X509Certificate2(), "http://tulleuri"))
+                .Returns(() => new FakeAction
+                {
+                        HttpClient = new HttpClient(new FakeMessageResponseHandler())
+                        {
+                            BaseAddress = new Uri("http://fake.uri.for.tests.moq.com") 
+                        }
+                    }
+                );
+            
+            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+
+            var api = mockContainer.Object;
+            var identity = api.Identify(identification);
 
         }
 

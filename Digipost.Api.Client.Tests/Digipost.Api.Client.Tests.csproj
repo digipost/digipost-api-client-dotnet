@@ -59,11 +59,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mocks\FakeIdentificationResponseHandler.cs" />
-    <Compile Include="Mocks\FakeAction.cs" />
     <Compile Include="Mocks\FakeMessageResponseHandler.cs" />
-    <Compile Include="Mocks\FakeDigipostActionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unittest\DigipostApiTests.cs" />
+    <Compile Include="Integration\DigipostApiIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
@@ -91,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\certificate.p12" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Smoke\" />

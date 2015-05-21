@@ -45,10 +45,9 @@ namespace Digipost.Api.Client.Action
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
-
+        
         protected abstract HttpContent Content(RequestContent requestContent);
-
-
+        
         public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
             try

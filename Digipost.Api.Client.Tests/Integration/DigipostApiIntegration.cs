@@ -11,7 +11,7 @@ using Digipost.Api.Client.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Digipost.Api.Client.Tests.Smoke
+namespace Digipost.Api.Client.Tests.Integration
 {
     [TestClass]
     public class DigipostApiTests

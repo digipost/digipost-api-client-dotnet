@@ -12,19 +12,26 @@ namespace Digipost.Api.Client.Tests
 {
     public class TestHelper
     {
+        public static byte[] GetBytes(string str)
+        {
+            var bytes = new byte[str.Length * sizeof(char)];
+            Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
         public static void LookLikeEachOther(object a, object b)
         {
-            Type typeA = a.GetType();
-            Type typeB = b.GetType();
+            var typeA = a!=null?a.GetType():null;
+            var typeB = b!=null?b.GetType():null;
 
             Assert.AreEqual(typeA, typeB, "The types of instances a and b are not the same.");
 
-            PropertyInfo[] myProperties = typeA.GetProperties(BindingFlags.DeclaredOnly
+            var myProperties = typeA.GetProperties(BindingFlags.DeclaredOnly
                                 | BindingFlags.Public | BindingFlags.Instance);
 
-            foreach (PropertyInfo myPropertyA in myProperties)
+            foreach (var myPropertyA in myProperties)
             {
-                PropertyInfo myPropertyB = typeB.GetProperty(myPropertyA.Name);
+                var myPropertyB = typeB.GetProperty(myPropertyA.Name);
                 Assert.IsNotNull(myPropertyB, string.Format(@"The property {0} from instance a 
            was not found on instance b.", myPropertyA.Name));
 
@@ -35,21 +42,30 @@ namespace Digipost.Api.Client.Tests
 
                 var valueA = myPropertyA.GetValue(a, null);
                 var valueB = myPropertyB.GetValue(b, null);
+
+                if((valueA == null || valueB == null) && valueA == valueB)
+                    continue;
                 
-                if (IsList(valueA) || IsDictionary(valueA))
+                if (IsList(valueA) && IsList(valueB))
                 {
                     var aType = valueA.GetType();
-                    var isAlike = false;
                     if (aType == typeof(List<Listedtime>))
                     {
-                        isAlike = ScrambledEquals((IEnumerable<Listedtime>) valueA, (IEnumerable<Listedtime>) valueB);     
+                         CheckList((IEnumerable<Listedtime>)valueA, (IEnumerable<Listedtime>)valueB);     
                     }
                     else if (aType == typeof(List<int>))
                     {
-                        isAlike = ScrambledEquals((IEnumerable<int>) valueA, (IEnumerable<int>) valueB);     
+                        CheckList((IEnumerable<int>)valueA, (IEnumerable<int>)valueB);     
                     }
-
-                   Assert.IsTrue(isAlike);
+                    else if (aType == typeof (List<Document>))
+                    {
+                         CheckList((IEnumerable<Document>)valueA, (IEnumerable<Document>)valueB);
+                    }
+                    else
+                    {
+                        Assert.Fail("Unkown type in list."); 
+                    }
+                   
                    continue;
                 }
 
@@ -57,34 +73,17 @@ namespace Digipost.Api.Client.Tests
             }
         }
 
-        public static bool ScrambledEquals<T>(IEnumerable<T> list1, IEnumerable<T> list2)
+         public static void CheckList<T>(IEnumerable<T> list1, IEnumerable<T> list2)
         {
-            var cnt = new Dictionary<T, int>();
-            foreach (var s in list1)
-            {
-                if (cnt.ContainsKey(s))
-                {
-                    cnt[s]++;
-                }
-                else
-                {
-                    cnt.Add(s, 1);
-                }
-            }
-            foreach (var s in list2)
-            {
-                if (cnt.ContainsKey(s))
-                {
-                    cnt[s]--;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return cnt.Values.All(c => c == 0);
+             foreach (var l1 in list1)
+             {
+                 foreach(var l2 in list2){
+                     TestPrimitiveValue(l1, l2);
+                 }
+             }
         }
 
+        
         private static void TestPrimitiveValue(object valueA, object valueB)
         {
             if (valueA != null && !PrimitiveTypes.Test(valueA.GetType()))
@@ -97,8 +96,6 @@ namespace Digipost.Api.Client.Tests
                     string.Format(@"The value {1}  of the property {0} on instance a is different from 
             the value {2}  on instance b.",( valueA == null?"null":valueA.GetType().Name), valueA, valueB));    
             }
-
-            
         }
 
         public static bool IsList(object o)
@@ -118,7 +115,7 @@ namespace Digipost.Api.Client.Tests
         }
         static class PrimitiveTypes
         {
-            public static readonly Type[] List;
+            private static readonly Type[] List;
 
             static PrimitiveTypes()
             {
@@ -165,6 +162,5 @@ namespace Digipost.Api.Client.Tests
                 return nut != null && nut.IsEnum;
             }
         }
-
     }
 }

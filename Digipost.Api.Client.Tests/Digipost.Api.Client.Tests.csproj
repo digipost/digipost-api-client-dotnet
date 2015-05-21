@@ -69,6 +69,7 @@
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
     <Compile Include="TestHelper.cs" />
+    <Compile Include="Unittest\DeSerializeTest.cs" />
     <Compile Include="Unittest\SerializeTest.cs" />
   </ItemGroup>
   <ItemGroup>

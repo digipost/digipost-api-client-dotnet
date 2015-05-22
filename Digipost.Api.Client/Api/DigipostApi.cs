@@ -12,6 +12,10 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private IDigipostActionFactory _digipostActionFactory;
+        private ClientConfig ClientConfig { get; set; }
+        private X509Certificate2 BusinessCertificate { get; set; }
+
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
@@ -24,18 +28,19 @@ namespace Digipost.Api.Client.Api
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
-        private ClientConfig ClientConfig { get; set; }
-        private X509Certificate2 BusinessCertificate { get; set; }
+        public IDigipostActionFactory DigipostActionFactory
+        {
+            get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
+            set { _digipostActionFactory = value; }
+        }
 
         public MessageDeliveryResult SendMessage(Message message)
         {
             var messageDelivery = SendMessageAsync(message);
 
-            if (messageDelivery.IsFaulted)
-            {
-                if (messageDelivery.Exception != null) throw messageDelivery.Exception.InnerException;
-            }
-
+            if (messageDelivery.IsFaulted && messageDelivery.Exception != null) 
+                    throw messageDelivery.Exception.InnerException;
+            
             return messageDelivery.Result;
         }
 
@@ -64,12 +69,11 @@ namespace Digipost.Api.Client.Api
             return GenericSendAsync<IdentificationResult>(identification, uri);
         }
 
-        private async Task<T> GenericSendAsync<T>(RequestContent message, string uri)
+        private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
         {
-            var action = DigipostActionFactory.CreateClass(message.GetType(), ClientConfig, BusinessCertificate, uri);
-            var response = action.SendAsync(message).Result;
+            var action = DigipostActionFactory.CreateClass(content.GetType(), ClientConfig, BusinessCertificate, uri);
+            var response = action.SendAsync(content).Result;
             var responseContent = await ReadResponse(response);
-
 
             try
             {

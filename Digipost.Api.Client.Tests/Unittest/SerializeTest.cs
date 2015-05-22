@@ -23,6 +23,7 @@ namespace Digipost.Api.Client.Tests.Unittest
              
          }
 
+<<<<<<< HEAD
          private const string InvoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123</kid><amount>100</amount><account>123</account><due-date>2015-05-22</due-date></invoice>";
          [TestMethod]
          public void SerializeInvoice()
@@ -36,6 +37,8 @@ namespace Digipost.Api.Client.Tests.Unittest
 
          }
 
+=======
+>>>>>>> master
          private const string RecipientBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message-recipient xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><name-and-address><fullname>Kristian Sæther Enge</fullname><addressline1>Colletts gate 68</addressline1><postalcode>0460</postalcode><city>Oslo</city></name-and-address><print-details><recipient><name>Kristian Sæther Enge</name><norwegian-address><addressline1>Collettsgate 68</addressline1><addressline2>Leil h401</addressline2><addressline3>dør 2</addressline3><zip-code>0460</zip-code><city>Oslo</city></norwegian-address></recipient><return-address><name>Ola Digipost</name><foreign-address><addressline1>svenskegatan 1</addressline1><addressline2> leil h101</addressline2><addressline3>pb 12</addressline3><addressline4>skuff 3</addressline4><country>SE</country></foreign-address></return-address><post-type>B</post-type><color>MONOCHROME</color></print-details></message-recipient>";
          [TestMethod]
          public void SerializeRecipient()

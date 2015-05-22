@@ -1,13 +1,13 @@
 ﻿using System;
+using System.CodeDom;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action
 {
-    internal class DigipostActionFactory
+    internal class DigipostActionFactory : IDigipostActionFactory
     {
-        public static DigipostAction CreateClass(Type type, ClientConfig clientConfig,
-            X509Certificate2 businessCertificate, string uri)
+        public virtual DigipostAction CreateClass(Type type, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             if (type == typeof(Message))
             {
@@ -19,7 +19,7 @@ namespace Digipost.Api.Client.Action
                 return new IdentificationAction(clientConfig, businessCertificate, uri);
             }
 
-            throw new Exception(string.Format("Could not create class with type{0}", type.Name));
+            throw new Exception(string.Format("Could not create class with type {0}", type.Name));
         }
     }
 }

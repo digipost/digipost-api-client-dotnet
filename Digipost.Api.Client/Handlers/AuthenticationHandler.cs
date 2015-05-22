@@ -50,9 +50,13 @@ namespace Digipost.Api.Client.Handlers
 
         private static string GetAssemblyVersion()
         {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            return fvi.FileVersion;
+            var netVersion = Assembly
+                    .GetExecutingAssembly()
+                    .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
+
+            var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            return string.Format("Digipost-Api/{1} .NET/{0},", netVersion, assemblyVersion);
         }
 
         private static string ComputeHash(byte[] inputBytes)

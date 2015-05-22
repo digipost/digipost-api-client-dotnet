@@ -7,17 +7,16 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
-    [Serializable]
+    [XmlIncludeAttribute(typeof(Invoice))]
+    [SerializableAttribute()]
     [DebuggerStepThrough]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "document", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [DesignerCategoryAttribute("code")]
+    [XmlTypeAttribute("document", Namespace = "http://api.digipost.no/schema/v6")]
+    [XmlRootAttribute(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Document
     {
-        private Document()
-        {
-            /**Must exist for serialization.**/
-        }
+
+        protected Document() { }
 
         /// <param name="subject">The subject of the document.</param>
         /// <param name="mimeType">The mime type of the file. e.g pdf,txt..</param>

@@ -90,6 +90,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
+            var invoice = new Invoice("Invoice 1", "txt", GetPrimaryDocument(), 1, "15941432384", DateTime.Now, "123123123");
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());
@@ -104,14 +105,14 @@ namespace Digipost.Api.Client.Testklient
 
 
             //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
-                "0460", "Oslo");
+            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", 
+                "0460", "Oslo","Collettsgate 68");
 
             //recipient
             var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);
 
             //message
-            var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);
+            var message = new Message(digitalRecipientWithFallbackPrint, invoice);
             message.Attachments.Add(attachment);
 
             return message;

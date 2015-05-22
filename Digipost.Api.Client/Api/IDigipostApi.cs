@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Api
@@ -12,5 +13,7 @@ namespace Digipost.Api.Client.Api
         Task<MessageDeliveryResult> SendMessageAsync(Message message);
 
         Task<IdentificationResult> IdentifyAsync(Identification identification);
+
+        IDigipostActionFactory DigipostActionFactory { get; set; }
     }
 }

@@ -97,18 +97,19 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo", "Colletts gate 68")),
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68")),
                     new PrintReturnAddress("Kristian Sæther Enge",
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
 
 
             //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
-                "0460", "Oslo");
+
+            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
+                "Oslo", "Collettsgate 68");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
 
             //message
             var message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);

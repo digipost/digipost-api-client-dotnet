@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
+using System.Reflection;
+using System.Linq;
+
 
 namespace Digipost.Api.Client.Handlers
 {
@@ -43,13 +46,19 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("X-Content-SHA256", computeHash);
             request.Headers.Add("X-Digipost-Signature", ComputeSignature(method, Url, date, computeHash,
                 technicalSender, BusinessCertificate));
-            request.Headers.Add("UserAgent", GetAssemblyVersion());
+
+            
+            var assemblyVersion = GetAssemblyVersion();
+            Logging.Log(TraceEventType.Information, "UserAgent:"+assemblyVersion);
+            request.Headers.Add("UserAgent", assemblyVersion);
+            
 
             return await base.SendAsync(request, cancellationToken);
         }
 
         private static string GetAssemblyVersion()
         {
+            
             var netVersion = Assembly
                     .GetExecutingAssembly()
                     .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();

@@ -104,8 +104,8 @@ namespace Digipost.Api.Client.Testklient
 
 
             //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "Collettsgate 68",
-                "0460", "Oslo");
+            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge",
+                "0460", "Oslo","Collettsgate 68");
 
             //recipient
             var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress,printDetails);

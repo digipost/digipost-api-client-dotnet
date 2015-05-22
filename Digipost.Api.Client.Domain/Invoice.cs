@@ -41,15 +41,27 @@ namespace Digipost.Api.Client.Domain
             Duedate = duedate;
         }
 
+        /// <summary>
+        /// Customer identification number. 2 to 25 digits with no spaces or dots. Mandatory by default.  
+        /// </summary>
         [XmlElementAttribute("kid")]
         public string Kid { get; set; }
 
+        /// <summary>
+        /// The amount of the invoice.
+        /// </summary>
         [XmlElementAttribute("amount")]
         public decimal Amount { get; set; }
 
+        /// <summary>
+        /// Receiving account. 11 digits with no spaces or dots.
+        /// </summary>
         [XmlElementAttribute("account")]
         public string Account { get; set; }
-
+        
+        /// <summary>
+        /// When the invoice is due.
+        /// </summary>
         [XmlElementAttribute("due-date", DataType = "date")]
         public DateTime Duedate { get; set; }
     }

@@ -73,7 +73,7 @@
     <Compile Include="TestHelper.cs" />
     <Compile Include="Unittest\DeserializeTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
-    <Compile Include="Unittest\SerializeTests.cs" />
+    <Compile Include="Unittest\SerializeUtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
@@ -93,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Resources\certificateold.p12" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />
   </ItemGroup>
   <ItemGroup />

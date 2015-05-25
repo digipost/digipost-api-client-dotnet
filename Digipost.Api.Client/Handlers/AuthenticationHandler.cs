@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Handlers
             return result;
         }
 
-        private static string ComputeHash(byte[] inputBytes)
+        internal static string ComputeHash(byte[] inputBytes)
         {
             HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
             var hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
@@ -94,10 +94,6 @@ namespace Digipost.Api.Client.Handlers
             try
             {
                 var privateKeyBlob = rsa.ExportCspBlob(true);
-
-                var base64 = Convert.ToBase64String(privateKeyBlob);
-                var bytes = Convert.FromBase64String(base64);
-
                 rsa2.ImportCspBlob(privateKeyBlob);
             }
             catch (Exception e)

@@ -18,16 +18,16 @@ namespace Digipost.Api.Client.Tests.Integration
     {
         private static ResourceUtility _resourceUtility;
         private static ClientConfig _clientConfig;
-        private static X509Certificate2 _certificate;
         private static string _uri;
+        private static X509Certificate2 _certificate;
 
         [ClassInitialize]
         public static void Init(TestContext context)
         {
             _resourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
             _clientConfig = new ClientConfig("1337");
-            _certificate = new X509Certificate2(_resourceUtility.ReadAllBytes(true, "certificate.p12"), "abc123hest", X509KeyStorageFlags.Exportable);
             _uri = "identification";
+            _certificate = TestProperties.Certificate();
 
         }
 

@@ -31,6 +31,10 @@ namespace Digipost.Api.Client.Tests.Integration
 
         }
 
+        /// <summary>
+        /// This integration test assures that the connection between handlers is correct and that a message is built and sent. 
+        /// The ActionFactory is mocked to prevent actual HTTP-request to Digipost. 
+        /// </summary>
         [TestMethod]
         public void DigipostApi_SendMessageRequest_Integration()
         {

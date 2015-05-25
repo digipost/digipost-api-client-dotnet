@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Exceptions;
 
 namespace Digipost.Api.Client.Action
 {
@@ -19,7 +20,7 @@ namespace Digipost.Api.Client.Action
                 return new IdentificationAction(clientConfig, businessCertificate, uri);
             }
 
-            throw new Exception(string.Format("Could not create class with type {0}", type.Name));
+            throw new ConfigException(string.Format("Could not create class with type {0}", type.Name));
         }
     }
 }

@@ -58,8 +58,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Mocks\FakeIdentificationResponseHandler.cs" />
-    <Compile Include="Mocks\FakeMessageResponseHandler.cs" />
+    <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
+    <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\DigipostApiIntegration.cs" />
   </ItemGroup>
@@ -69,8 +69,9 @@
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Unittest\DeSerializeTest.cs" />
-    <Compile Include="Unittest\SerializeTest.cs" />
+    <Compile Include="Unittest\DeserializeTests.cs" />
+    <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
+    <Compile Include="Unittest\SerializeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
@@ -92,9 +93,7 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\certificate.p12" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Smoke\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

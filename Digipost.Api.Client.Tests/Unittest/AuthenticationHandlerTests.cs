@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Tests.Unittest
         public class ComputeHashMethod
         {
             [TestMethod]
-            public void ComputesCorrectHash()
+            public void ReturnsCorrectHash()
             {
                 //Arrange
                 var contentBytes = Encoding.UTF8.GetBytes("This is the content to hash.");

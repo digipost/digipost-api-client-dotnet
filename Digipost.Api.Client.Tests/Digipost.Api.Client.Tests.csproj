@@ -71,9 +71,8 @@
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Unittest\DeserializeTests.cs" />
-    <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
+    <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">

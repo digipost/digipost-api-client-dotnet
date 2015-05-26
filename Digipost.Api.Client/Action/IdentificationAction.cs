@@ -2,14 +2,15 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action
 {
     internal class IdentificationAction : DigipostAction
     {
-        public IdentificationAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
-            : base(clientConfig, businessCertificate, uri)
+        public IdentificationAction(Identification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+            : base(identification, clientConfig, businessCertificate, uri)
         {
         }
 

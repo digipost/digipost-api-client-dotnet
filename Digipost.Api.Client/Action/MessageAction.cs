@@ -10,8 +10,8 @@ namespace Digipost.Api.Client
 {
     internal class MessageAction : DigipostAction
     {
-        public MessageAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
-            : base(clientConfig, businessCertificate, uri)
+        public MessageAction(Message message, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+            : base(message, clientConfig, businessCertificate, uri)
         {
         }
 

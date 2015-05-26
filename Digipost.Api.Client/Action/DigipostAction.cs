@@ -3,13 +3,16 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
+        private readonly RequestContent _content;
         private readonly string _uri;
         private HttpClient _httpClient;
         
@@ -39,14 +42,13 @@ namespace Digipost.Api.Client.Action
             set { _httpClient = value; }
         }
 
-        protected DigipostAction(ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        protected DigipostAction(RequestContent content, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
+            _content = content;
             _uri = uri;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
-        
-        protected abstract HttpContent Content(RequestContent requestContent);
         
         public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
@@ -60,5 +62,21 @@ namespace Digipost.Api.Client.Action
                 Logging.Log(TraceEventType.Information, " - Request sent.");
             }
         }
+
+        protected abstract HttpContent Content(RequestContent requestContent);
+
+        private XmlDocument _requestContent;
+
+        public RequestContent RequestContent
+        {
+            get
+            {
+                if(_requestContent == null || _requestContent.InnerXml.Length == 0)
+                    throw new ConfigException("Null or empty exception.  Digipost Action not configured correctly.");
+
+                return null;
+            }
+        }
+        
     }
 }

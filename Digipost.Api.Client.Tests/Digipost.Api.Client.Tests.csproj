@@ -65,6 +65,7 @@
     <Compile Include="Integration\DigipostApiIntegration.cs" />
     <Compile Include="TestProperties.cs" />
     <Compile Include="Unittest\AuthenticationHandlerTests.cs" />
+    <Compile Include="Unittest\DigipostActionTests.cs" />
     <Compile Include="Unittest\DigipostApiTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -55,8 +55,8 @@ namespace Digipost.Api.Client.Tests.Integration
                     //Setup - init mock of ActionFactory to inject fake identification response handler
                     var mockFacktory = new Mock<DigipostActionFactory>();
                     mockFacktory.Setup(
-                        f => f.CreateClass(typeof(Message), It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
-                        .Returns(new MessageAction(ClientConfig, Certificate, Uri)
+                        f => f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
+                        .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                         {
                             HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
                         });
@@ -94,8 +94,8 @@ namespace Digipost.Api.Client.Tests.Integration
                     //Setup - init mock of ActionFactory to inject fake identification response handler
                     var mockFacktory = new Mock<DigipostActionFactory>();
                     mockFacktory.Setup(
-                        f => f.CreateClass(typeof(Identification), It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
-                        .Returns(new IdentificationAction(ClientConfig, Certificate, Uri)
+                        f => f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
+                        .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                         {
                             HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
                         });

@@ -2,18 +2,22 @@
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
         private IDigipostActionFactory _digipostActionFactory;
+
         private ClientConfig ClientConfig { get; set; }
+        
         private X509Certificate2 BusinessCertificate { get; set; }
 
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
@@ -91,6 +95,19 @@ namespace Digipost.Api.Client.Api
         {
             var contentResult = await requestResult.Content.ReadAsStringAsync();
             return contentResult;
+        }
+
+        internal static void Validate(XmlDocument document)
+        {
+            if (document.InnerXml.Length == 0) { return; }
+
+            var xmlValidator = new ApiClientXmlValidator();
+            var isValidXml = xmlValidator.ValiderDokumentMotXsd(document.InnerXml);
+
+            if (!isValidXml)
+            {
+                throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
+            }
         }
     }
 }

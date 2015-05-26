@@ -57,13 +57,13 @@
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Identification.cs" />
-    <Compile Include="IdentificationResult.cs" />
+    <Compile Include="Identification\Identification.cs" />
+    <Compile Include="Identification\IdentificationResult.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Listedtime.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageDeliveryResult.cs" />
+    <Compile Include="Message\Message.cs" />
+    <Compile Include="Message\MessageDeliveryResult.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\NorwegianAddress.cs" />
     <Compile Include="Print\PrintAddress.cs" />
@@ -72,8 +72,8 @@
     <Compile Include="Print\PrintReturnAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
-    <Compile Include="Recipient.cs" />
-    <Compile Include="RecipientByNameAndAddress.cs" />
+    <Compile Include="Recipient\Recipient.cs" />
+    <Compile Include="Recipient\RecipientByNameAndAddress.cs" />
     <Compile Include="SmsNotification.cs" />
     <Compile Include="RequestContent.cs" />
   </ItemGroup>

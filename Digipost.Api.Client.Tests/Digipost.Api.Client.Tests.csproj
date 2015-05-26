@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -64,6 +65,7 @@
     <Compile Include="Integration\DigipostApiIntegration.cs" />
     <Compile Include="TestProperties.cs" />
     <Compile Include="Unittest\AuthenticationHandlerTests.cs" />
+    <Compile Include="Unittest\DigipostApiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">

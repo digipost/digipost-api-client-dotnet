@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
+using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
@@ -28,18 +29,52 @@ namespace Digipost.Api.Client.Tests.Unittest
             public void EmptyOrNullBodyThrowsException()
             {
                 //Arrange
-                ClientConfig clientConfig = new ClientConfig("123");
-                X509Certificate2 certificate = TestProperties.Certificate();
-                string uri = "AFakeUri";
+                var clientConfig = new ClientConfig("123");
+                var certificate = TestProperties.Certificate();
+                const string uri = "AFakeUri";
+          
+                //Act
+                var action = new MessageAction(null, clientConfig, certificate, uri);
+                var content = action.RequestContent; //Throws exception
+            }
+
+            [TestMethod]
+            public void ReturnsCorrectDataForMessage()
+            {
+                //Arrange
+                var clientConfig = new ClientConfig("123");
+                var certificate = TestProperties.Certificate();
+                const string uri = "AFakeUri";
                 var message = new Message(
                         new Recipient(IdentificationChoice.PersonalidentificationNumber, "00000000000"),
-                        new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Vedlegg.txt"))
+                        new Document("Testdoc", "txt", ResourceUtility.ReadAllBytes(true, "Vedlegg.txt"))
                     );
-                
+
                 //Act
                 var action = new MessageAction(message, clientConfig, certificate, uri);
                 var content = action.RequestContent;
-                
+
+                //Assert
+                var expected = SerializeUtil.Serialize(message);
+                Assert.AreEqual(expected, content.InnerXml);
+            }
+
+            [TestMethod]
+            public void ReturnsCorrectDataForIdentification()
+            {
+                //Arrange
+                var clientConfig = new ClientConfig("123");
+                var certificate = TestProperties.Certificate();
+                const string uri = "AFakeUri";
+                var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+
+                //Act
+                var action = new IdentificationAction(identification, clientConfig, certificate, uri);
+                var content = action.RequestContent;
+
+                //Assert
+                var expected = SerializeUtil.Serialize(identification);
+                Assert.AreEqual(expected, content.InnerXml);
             }
         }
     }

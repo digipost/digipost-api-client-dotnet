@@ -76,6 +76,7 @@ namespace Digipost.Api.Client.Api
         private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
+            Validate(action.RequestContent);
             var response = action.SendAsync(content).Result;
             var responseContent = await ReadResponse(response);
 

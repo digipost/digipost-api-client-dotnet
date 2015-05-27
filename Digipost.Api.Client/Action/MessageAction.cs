@@ -33,6 +33,11 @@ namespace Digipost.Api.Client
             return content;
         }
 
+        protected override string Serialize(RequestContent requestContent)
+        {
+            return SerializeUtil.Serialize((Message) requestContent);
+        }
+
         private static void AddBodyToContent(Message message, MultipartFormDataContent content)
         {
             Logging.Log(TraceEventType.Information, "  - Creating XML-body");

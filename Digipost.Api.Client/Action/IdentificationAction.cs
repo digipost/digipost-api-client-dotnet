@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Action
         protected override HttpContent Content(RequestContent requestContent)
         {
             var identification = requestContent as Identification;
-            var xmlMessage = SerializeUtil.Serialize(identification);
+            var xmlMessage = Serialize(requestContent);
             var messageContent = new StringContent(xmlMessage);
 
             var boundary = Guid.NewGuid().ToString();
@@ -26,6 +26,11 @@ namespace Digipost.Api.Client.Action
             messageContent.Headers.ContentType = mediaTypeHeaderValue;
 
             return messageContent;
+        }
+
+        protected override string Serialize(RequestContent requestContent)
+        {
+            return SerializeUtil.Serialize((Identification) requestContent);
         }
     }
 }

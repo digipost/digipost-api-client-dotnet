@@ -12,13 +12,13 @@ namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
-        private readonly RequestContent _content;
         private readonly string _uri;
         private HttpClient _httpClient;
-        
+
         public ClientConfig ClientConfig { get; set; }
-        
+
         public X509Certificate2 BusinessCertificate { get; set; }
+        public XmlDocument RequestContent { get; internal set; }
 
         internal HttpClient HttpClient
         {
@@ -42,14 +42,14 @@ namespace Digipost.Api.Client.Action
             set { _httpClient = value; }
         }
 
-        protected DigipostAction(RequestContent content, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        protected DigipostAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
-            _content = content;
+            InitializeRequestXmlContent(requestContent);
             _uri = uri;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
-        
+
         public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
         {
             try
@@ -65,18 +65,21 @@ namespace Digipost.Api.Client.Action
 
         protected abstract HttpContent Content(RequestContent requestContent);
 
-        private XmlDocument _requestContent;
+        protected abstract string Serialize(RequestContent requestContent);
 
-        public RequestContent RequestContent
+        private void InitializeRequestXmlContent(RequestContent requestContent)
         {
-            get
-            {
-                if(_requestContent == null || _requestContent.InnerXml.Length == 0)
-                    throw new ConfigException("Null or empty exception.  Digipost Action not configured correctly.");
+            var document = new XmlDocument();
 
-                return null;
+            if (requestContent == null)
+            {
+                throw new ConfigException("Null or empty Request content" + typeof(RequestContent) + ".  Digipost Action not configured correctly.");
             }
+
+            var serialized = Serialize(requestContent);
+            document.LoadXml(serialized);
+
+            RequestContent = document;
         }
-        
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="Identification\Identification.cs" />
     <Compile Include="Identification\IdentificationResult.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Listedtime.cs" />
     <Compile Include="Message\Message.cs" />

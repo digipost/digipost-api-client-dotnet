@@ -69,6 +69,9 @@
     <Compile Include="Unittest\DigipostApiTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client.Domain</Name>

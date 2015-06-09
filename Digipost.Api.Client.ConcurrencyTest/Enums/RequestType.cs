@@ -1,6 +1,6 @@
 ﻿namespace Digipost.Api.Client.ConcurrencyTest.Enums
 {
-    enum RequestType
+    internal enum RequestType
     {
         Message,
         Identify

@@ -12,11 +12,11 @@ namespace ConcurrencyTester
     {
         private readonly int _defaultConnectionLimit;
         private readonly int _degreeOfParallelism;
-       
-        public DigipostParalell(int numberOfRequests, int defaultConnectionLimit,int degreeOfParallelism, ClientConfig clientConfig, string thumbprint) :
-            base(clientConfig, thumbprint, numberOfRequests)
+
+        public DigipostParalell(int numberOfRequests, int defaultConnectionLimit, int degreeOfParallelism,
+            ClientConfig clientConfig, string thumbprint) :
+                base(clientConfig, thumbprint, numberOfRequests)
         {
-            
             _defaultConnectionLimit = defaultConnectionLimit;
             _degreeOfParallelism = degreeOfParallelism;
         }
@@ -26,18 +26,17 @@ namespace ConcurrencyTester
             Stopwatch.Start();
             ServicePointManager.DefaultConnectionLimit = _defaultConnectionLimit;
 
-            List<Message> messages = new List<Message>();
+            var messages = new List<Message>();
             while (RunsLeft() > 0)
             {
                 messages.Add(GetMessage());
             }
 
             var options = new ParallelOptions {MaxDegreeOfParallelism = _degreeOfParallelism};
-            Parallel.ForEach(messages, options, (message) => Send(Client,requestType));
+            Parallel.ForEach(messages, options, message => Send(Client, requestType));
 
             Stopwatch.Stop();
             DisplayTestResults();
         }
     }
 }
-

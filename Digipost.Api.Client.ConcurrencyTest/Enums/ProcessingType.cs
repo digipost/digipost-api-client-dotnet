@@ -1,9 +1,8 @@
 ﻿namespace Digipost.Api.Client.ConcurrencyTest.Enums
 {
-    enum ProcessingType
+    internal enum ProcessingType
     {
         Parallel,
         Async
     }
-
 }

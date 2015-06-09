@@ -20,13 +20,15 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            var config = new ClientConfig(SenderId) {ApiUrl = new Uri("https://api.digipost.no")};
+            var config = new ClientConfig(SenderId) { ApiUrl = new Uri("https://api.digipost.no") };
 
             Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
-            
+
             IdentifyPerson(api);
             SendMessageToPerson(api);
+            //ConcurrencyTest.Initializer.Run(); //concurency runner
+            
             
             Console.ReadKey();
         }

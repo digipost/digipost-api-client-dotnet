@@ -9,40 +9,38 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
-    abstract class DigipostRunner
+    internal abstract class DigipostRunner
     {
         private readonly Lazy<DigipostClient> _client;
+        private readonly object _lock = new object();
         private readonly ResourceUtility _resourceManager;
-        private int _failedCalls;
-        private int _successfulCalls;
-        private int _itemsLeft;
         private byte[] _documentBytes;
-        private Message _message;
+        private int _failedCalls;
         private Identification _identification;
+        private int _itemsLeft;
+        private Message _message;
+        private int _successfulCalls;
+        public Stopwatch Stopwatch;
 
         protected DigipostRunner(ClientConfig clientConfig, string thumbprint, int numOfRuns)
         {
             _client = new Lazy<DigipostClient>(() => new DigipostClient(clientConfig, thumbprint));
-            _resourceManager = new ResourceUtility("ConcurrencyTester.Resources");
+            _resourceManager = new ResourceUtility("Digipost.Api.Client.ConcurrencyTest.Resources");
             Stopwatch = new Stopwatch();
             _itemsLeft = numOfRuns + 1; //Fordi vi decrementer teller før return
         }
-
-        public Stopwatch Stopwatch;
-
-        public int RunsLeft()
-        {
-           return Interlocked.Decrement(ref _itemsLeft);
-        }
-
-        public abstract void Run(RequestType requestType);
 
         public DigipostClient Client
         {
             get { return _client.Value; }
         }
 
-        private readonly Object _lock = new Object();
+        public int RunsLeft()
+        {
+            return Interlocked.Decrement(ref _itemsLeft);
+        }
+
+        public abstract void Run(RequestType requestType);
 
         public Message GetMessage()
         {
@@ -65,7 +63,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
         {
             lock (_lock)
             {
-                if(_identification != null) return _identification;
+                if (_identification != null) return _identification;
                 _identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "31108446911");
             }
 
@@ -74,9 +72,8 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         private byte[] GetDocumentBytes()
         {
-            return _documentBytes 
-                    ?? (_documentBytes = _resourceManager.ReadAllBytes(true, "Hoveddokument.txt"));
-            
+            return _documentBytes
+                   ?? (_documentBytes = _resourceManager.ReadAllBytes(true, "Hoveddokument.txt"));
         }
 
         public async void Send(DigipostClient digipostClient, RequestType requestType)
@@ -94,14 +91,14 @@ namespace Digipost.Api.Client.ConcurrencyTest
                     default:
                         throw new ArgumentOutOfRangeException("requestType", requestType, null);
                 }
-                
-                Interlocked.Increment(ref _successfulCalls);
 
+                Interlocked.Increment(ref _successfulCalls);
             }
             catch (Exception e)
             {
                 Interlocked.Increment(ref _failedCalls);
-                Console.WriteLine("Request failed. Are you connected to VPN? Reason{0}. Inner: {1}", e.Message, e.InnerException.Message);
+                Console.WriteLine("Request failed. Are you connected to VPN? Reason{0}. Inner: {1}", e.Message,
+                    e.InnerException.Message);
                 Console.WriteLine(e.InnerException.InnerException);
             }
 
@@ -110,7 +107,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         protected void DisplayTestResults()
         {
-            var performanceAllWork = _successfulCalls / (Stopwatch.ElapsedMilliseconds / 1000d);
+            var performanceAllWork = _successfulCalls/(Stopwatch.ElapsedMilliseconds/1000d);
 
             Console.WriteLine();
             Console.WriteLine(

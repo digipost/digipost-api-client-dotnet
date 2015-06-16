@@ -58,7 +58,7 @@ namespace Digipost.Api.Client.Tests.Integration
                         f => f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
                         .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                         {
-                            HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                            ThreadSafeHttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
                         });
 
                     var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
@@ -90,19 +90,18 @@ namespace Digipost.Api.Client.Tests.Integration
                     var loggingHandler = new LoggingHandler(fakehandler);
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
 
-
                     //Setup - init mock of ActionFactory to inject fake identification response handler
                     var mockFacktory = new Mock<DigipostActionFactory>();
                     mockFacktory.Setup(
                         f => f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
                         .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                         {
-                            HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                            ThreadSafeHttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
                         });
 
                     var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
 
-                    dpApi.Identify(identification);
+                    var v = dpApi.Identify(identification);
                 }
                 catch
                 {

@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Digipost.Api.Client.Domain.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\digipost-api-client-dotnet.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
@@ -82,6 +88,9 @@
     <Compile Include="RequestContent.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\digipost-api-client-dotnet.pfx">
+      <Link>digipost-api-client-dotnet.pfx</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

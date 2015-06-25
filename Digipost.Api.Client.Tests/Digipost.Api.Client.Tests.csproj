@@ -34,6 +34,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+<<<<<<< Updated upstream
+=======
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+>>>>>>> Stashed changes
   <ItemGroup>
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
@@ -97,6 +106,12 @@
     <EmbeddedResource Include="Resources\Vedlegg.txt" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
+=======
+    <None Include="C:\Keys\digipost.pfx">
+      <Link>digipost.pfx</Link>
+    </None>
+>>>>>>> Stashed changes
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />
   </ItemGroup>

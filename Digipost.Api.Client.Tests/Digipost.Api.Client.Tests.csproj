@@ -44,7 +44,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\digipost-api-client-dotnet.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared">
@@ -109,13 +109,8 @@
     <EmbeddedResource Include="Resources\Vedlegg.txt" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <None Include="C:\Keys\digipost.pfx">
       <Link>digipost.pfx</Link>
-=======
-    <None Include="..\digipost-api-client-dotnet.pfx">
-      <Link>digipost-api-client-dotnet.pfx</Link>
->>>>>>> b138270ce6339e1573885693ebfd5f09a921c2a1
     </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />

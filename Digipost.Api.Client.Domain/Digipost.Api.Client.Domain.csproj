@@ -36,6 +36,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>

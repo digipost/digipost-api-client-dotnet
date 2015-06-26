@@ -161,3 +161,4 @@ FakesAssemblies/
 
 .DS_Store
 /cert/*
+*.pk

@@ -30,15 +30,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Digipost.Api.Client.Domain.XML</DocumentationFile>
   </PropertyGroup>
-<<<<<<< Updated upstream
-=======
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
->>>>>>> Stashed changes
   <ItemGroup>
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>

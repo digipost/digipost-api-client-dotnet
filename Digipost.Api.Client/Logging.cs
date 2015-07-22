@@ -8,6 +8,7 @@ namespace Digipost.Api.Client
     {
         private static Action<TraceEventType, Guid?, string, string> _logAction;
 
+        [Obsolete("Initialize is called within the DigipostClient and calls to this method can be removed. NB. This will be removed in future version.")] 
         public static void Initialize(ClientConfig konfigurasjon)
         {
             _logAction = konfigurasjon.Logger;
@@ -21,11 +22,15 @@ namespace Digipost.Api.Client
         public static void Log(TraceEventType severity, Guid? conversationId, string message,
             [CallerMemberName] string callerMember = null)
         {
-            if (_logAction == null)
-                return;
+            if (_logAction == null) 
+            { 
+                _logAction = ConsoleLogger();
+            }
 
-            if (callerMember == null)
+            if (callerMember == null) 
+            { 
                 callerMember = new StackFrame(1).GetMethod().Name;
+            }
 
             _logAction(severity, conversationId, callerMember, message);
         }

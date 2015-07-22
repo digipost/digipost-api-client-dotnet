@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Api;
@@ -64,14 +66,15 @@ namespace Digipost.Api.Client.Tests.Integration
                     var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
 
                     dpApi.SendMessage(message);
+
+                    Assert.AreEqual(1,fakehandler.HasBeenCalled,"The httpClient has been called more than expected.");
                 }
                 catch
                 {
                     Assert.Fail();
                 }
-            }    
-        }
-
+            }
+       }
         [TestClass]
         public class SendIdentifyMethod : DigipostApiIntegrationTests
         {

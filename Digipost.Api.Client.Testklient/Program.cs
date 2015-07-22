@@ -20,9 +20,20 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            var config = new ClientConfig(SenderId) { ApiUrl = new Uri("https://api.digipost.no") };
+            var config = new ClientConfig(SenderId)
+            {
+                ApiUrl = new Uri("https://api.digipost.no"),
+                Logger = (severity, konversasjonsId, metode, melding) =>
+                {
+                    Debug.WriteLine("{0} - {1} [{2}]",
+                        DateTime.Now,
+                        melding,
+                        konversasjonsId.GetValueOrDefault()
+                    );
+                }
+            };
 
-            Logging.Initialize(config);
+            //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
             IdentifyPerson(api);
@@ -85,8 +96,8 @@ namespace Digipost.Api.Client.Testklient
         private static Message GetMessage()
         {
             //primary document
-            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
-            var invoice = new Invoice("Invoice 1", "txt", GetPrimaryDocument(), 1, "15941432384", DateTime.Now, "123123123");
+            var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
+            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "15941432384", duedate: DateTime.Now, kid: "123123123");
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());

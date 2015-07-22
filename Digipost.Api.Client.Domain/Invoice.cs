@@ -21,9 +21,9 @@ namespace Digipost.Api.Client.Domain
         {
 
         }
-        public Invoice(string subject, string mimeType, string path, decimal amount, string account, DateTime duedate, string kid= null,
+        public Invoice(string subject, string fileType, string path, decimal amount, string account, DateTime duedate, string kid= null,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal) : base(subject,mimeType,path,authLevel,sensitivityLevel)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal) : base(subject,fileType,path,authLevel,sensitivityLevel)
         {
             Kid = kid;
             Amount = amount;
@@ -31,9 +31,9 @@ namespace Digipost.Api.Client.Domain
             Duedate = duedate;
         }
 
-        public Invoice(string subject, string mimeType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid= null,
+        public Invoice(string subject, string fileType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid= null,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null): base(subject,mimeType,contentBytes,authLevel,sensitivityLevel)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null): base(subject,fileType,contentBytes,authLevel,sensitivityLevel)
         {
             Kid = kid;
             Amount = amount;

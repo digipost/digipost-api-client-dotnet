@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                     dpApi.SendMessage(message);
 
-                    Assert.AreEqual(1,fakehandler.HasBeenCalled,"The httpClient have been called more than expected.");
+                    Assert.AreEqual(1,fakehandler.HasBeenCalled,"The httpClient has been called more than expected.");
                 }
                 catch
                 {

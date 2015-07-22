@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Digipost.Api.Client.Tests.Mocks
+namespace Digipost.Api.Client.Tests.Fakes
 {
     public class FakeMessageResponseHandler : DelegatingHandler
     {
-        public int HasBeenCalled = 0;
+        public int HasBeenCalledCount = 0;
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -16,7 +16,7 @@ namespace Digipost.Api.Client.Tests.Mocks
                 Content = MessageContent(),
                 StatusCode = HttpStatusCode.OK
             };
-            HasBeenCalled++;
+            HasBeenCalledCount++;
             return await Task.FromResult(response);
         }
         

@@ -7,6 +7,7 @@ namespace Digipost.Api.Client.Tests.Mocks
 {
     public class FakeMessageResponseHandler : DelegatingHandler
     {
+        public int HasBeenCalled = 0;
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -15,6 +16,7 @@ namespace Digipost.Api.Client.Tests.Mocks
                 Content = MessageContent(),
                 StatusCode = HttpStatusCode.OK
             };
+            HasBeenCalled++;
             return await Task.FromResult(response);
         }
         

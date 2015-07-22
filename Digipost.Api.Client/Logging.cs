@@ -22,11 +22,13 @@ namespace Digipost.Api.Client
         public static void Log(TraceEventType severity, Guid? conversationId, string message,
             [CallerMemberName] string callerMember = null)
         {
-            if (_logAction == null) { 
+            if (_logAction == null) 
+            { 
                 _logAction = ConsoleLogger();
             }
 
-            if (callerMember == null) { 
+            if (callerMember == null) 
+            { 
                 callerMember = new StackFrame(1).GetMethod().Name;
             }
 

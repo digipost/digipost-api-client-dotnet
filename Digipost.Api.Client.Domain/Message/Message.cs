@@ -26,6 +26,20 @@ namespace Digipost.Api.Client.Domain
             Attachments = new List<Document>();
         }
 
+        public Message(Recipient recipient, Document primaryDocument, long senderId):
+            this(recipient, primaryDocument)
+        {
+            SenderValue = senderId;
+            SenderType = SenderChoiceType.SenderId; 
+        }
+
+        public Message(Recipient recipient, Document primaryDocument, SenderOrganization senderOrganization)
+            : this(recipient, primaryDocument)
+        {
+            SenderValue = senderOrganization;
+            SenderType = SenderChoiceType.SenderOrganization;
+        }
+        
         //public long SenderId { get; set; }
         //public SenderOrganization SenderOrganization { get; set; }
 

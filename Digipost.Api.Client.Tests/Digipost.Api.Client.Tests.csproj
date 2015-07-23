@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
     <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
+    <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\DigipostApiIntegration.cs" />
     <Compile Include="TestProperties.cs" />

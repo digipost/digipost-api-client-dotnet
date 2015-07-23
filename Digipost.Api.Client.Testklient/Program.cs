@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            IdentifyPerson(api);
+            //IdentifyPerson(api);
             SendMessageToPerson(api);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
@@ -120,9 +120,15 @@ namespace Digipost.Api.Client.Testklient
             var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
 
             //message
-            var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            message.Attachments.Add(attachment);
+            //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
+            var message = new Message(digitalRecipientWithFallbackPrint, invoice, 633048);
+            //var message = new Message(digitalRecipientWithFallbackPrint, invoice, new SenderOrganization("Awesom", "AwesomePartId"));
 
+            
+            message.Attachments.Add(attachment);
+            //message.SenderOrganization = new SenderOrganization(){OrganizationNumber = "123Sammahvilkenid", unitId = "Partid"};
+            //message.SenderId = 12333;
+            
             return message;
         }
 

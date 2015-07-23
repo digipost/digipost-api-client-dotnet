@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 if (_message != null) return _message;
 
                 var primaryDocument = new Document("document subject", "txt", GetDocumentBytes());
-                var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
+                var recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0460",
                     "Oslo", "Collettsgate 68");
 
                 var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             lock (_lock)
             {
                 if (_identification != null) return _identification;
-                _identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "31108446911");
+                _identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
             }
 
             return _identification;

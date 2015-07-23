@@ -97,7 +97,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
-            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "15941432384", duedate: DateTime.Now, kid: "123123123");
+            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "18941362738", duedate: DateTime.Now, kid: "123123123");
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());

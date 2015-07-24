@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
@@ -7,6 +7,7 @@ using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Tests.Fakes;
 using Digipost.Api.Client.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -64,6 +65,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
 
                     dpApi.SendMessage(message);
+                    Assert.AreEqual(1, fakehandler.HasBeenCalledCount, "The httpClient has been called more than expected.");
                 }
                 catch
                 {
@@ -115,3 +117,4 @@ namespace Digipost.Api.Client.Tests.Integration
 
     }
 }
+

@@ -34,6 +34,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
@@ -97,6 +109,9 @@
     <EmbeddedResource Include="Resources\Vedlegg.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="C:\Keys\digipost.pfx">
+      <Link>digipost.pfx</Link>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />
   </ItemGroup>

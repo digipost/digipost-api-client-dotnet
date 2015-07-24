@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ConcurrencyTester;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 
@@ -27,7 +28,14 @@ namespace Digipost.Api.Client.ConcurrencyTest
             Console.WriteLine("Starting to send digipost: {0}, with requests: {1}, poolcount: {2}", processingType,
                 numberOfRequests, connectionLimit);
 
-            var clientConfig = new ClientConfig(SenderId) {ApiUrl = new Uri(HttpsQa2ApiDigipostNo)};
+            var clientConfig = new ClientConfig(SenderId)
+            {
+                ApiUrl = new Uri(HttpsQa2ApiDigipostNo),
+                Logger = (severity, konversasjonsId, metode, melding) =>
+                {
+                    
+                }
+            };
 
             switch (processingType)
             {

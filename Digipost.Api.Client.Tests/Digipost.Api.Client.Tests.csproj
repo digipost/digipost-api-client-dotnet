@@ -72,6 +72,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ByteUtility.cs" />
+    <Compile Include="Comparator.cs" />
     <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
     <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
@@ -90,7 +92,6 @@
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
-    <Compile Include="TestUtility.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
   </ItemGroup>

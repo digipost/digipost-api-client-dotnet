@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (Exception e)
             {
-                WriteToConsoleWithColor("> Oh snap... " + e.Message, true);
+                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Digipost.Api.Client.Testklient
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(digitalRecipientWithFallbackPrint, invoice, 633048);
+            var message = new Message(digitalRecipientWithFallbackPrint, invoice, 633047);
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice, new SenderOrganization("Awesom", "AwesomePartId"));
 
             

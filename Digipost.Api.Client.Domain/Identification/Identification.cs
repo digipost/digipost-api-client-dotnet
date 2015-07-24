@@ -6,6 +6,10 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
+    /// <summary>
+    /// Used to identify users in Digipost, by Digipost address, name and address, 
+    /// Organization Number or Social Security Number.
+    /// </summary>
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -15,7 +19,8 @@ namespace Digipost.Api.Client.Domain
     {
 
         /// <summary>
-        ///     Identify if recipient exists in Digipost by Digipost-address, organisation number or Social Security Number (SSN).
+        /// Identify if recipient exists in Digipost by Digipost address, Organization 
+        /// Number or Social Security Number.
         /// </summary>
         public Identification(IdentificationChoice identificationChoice, string value)
         {
@@ -29,17 +34,16 @@ namespace Digipost.Api.Client.Domain
         }
 
         /// <summary>
-        ///     Identify if recipient exists in Digipost by name and address.
+        /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
         public Identification(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoice.NameAndAddress;   
         }
 
         /// <summary>
-        ///     Identify if recipient exists in Digipost by name and address.
+        /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
         public Identification(RecipientByNameAndAddress recipientByNameAndAddress)
         {

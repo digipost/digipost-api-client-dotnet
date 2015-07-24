@@ -7,20 +7,23 @@ namespace Digipost.Api.Client.Tests.Fakes
 {
     public class FakeMessageResponseHandler : DelegatingHandler
     {
-        public int HasBeenCalledCount = 0;
+        public HttpStatusCode? ResultCode { get; set; }
+        public HttpContent HttpContent { get; set; }
+        public int CalledCount = 0;
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            
             var response = new HttpResponseMessage()
             {
-                Content = MessageContent(),
-                StatusCode = HttpStatusCode.OK
+                Content = HttpContent ?? DefaultOkMessageContent(),
+                StatusCode = ResultCode ?? HttpStatusCode.OK  
             };
-            HasBeenCalledCount++;
+            CalledCount++;
             return await Task.FromResult(response);
         }
-        
-        private static HttpContent MessageContent()
+
+        private static HttpContent DefaultOkMessageContent()
         {
             return new StringContent(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +

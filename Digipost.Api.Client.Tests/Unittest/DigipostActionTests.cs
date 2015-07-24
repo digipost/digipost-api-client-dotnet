@@ -5,6 +5,7 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest
@@ -45,10 +46,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var clientConfig = new ClientConfig("123");
                 var certificate = TestProperties.Certificate();
                 const string uri = "AFakeUri";
-                var message = new Message(
-                        new Recipient(IdentificationChoice.PersonalidentificationNumber, "00000000000"),
-                        new Document("Testdoc", "txt", ResourceUtility.ReadAllBytes(true, "Vedlegg.txt"))
-                    );
+                var message = DomainUtility.GetSimpleMessage();
 
                 //Act
                 var action = new MessageAction(message, clientConfig, certificate, uri);

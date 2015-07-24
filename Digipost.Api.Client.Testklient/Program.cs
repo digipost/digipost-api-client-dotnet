@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            IdentifyPerson(api);
+            //IdentifyPerson(api);
             SendMessageToPerson(api);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (Exception e)
             {
-                WriteToConsoleWithColor("> Oh snap... " + e.Message, true);
+                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
-            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "15941432384", duedate: DateTime.Now, kid: "123123123");
+            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "18941362738", duedate: DateTime.Now, kid: "123123123");
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());
@@ -120,9 +120,15 @@ namespace Digipost.Api.Client.Testklient
             var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
 
             //message
-            var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            message.Attachments.Add(attachment);
+            //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
+            var message = new Message(digitalRecipientWithFallbackPrint, invoice, 633047);
+            //var message = new Message(digitalRecipientWithFallbackPrint, invoice, new SenderOrganization("Awesom", "AwesomePartId"));
 
+            
+            message.Attachments.Add(attachment);
+            //message.SenderOrganization = new SenderOrganization(){OrganizationNumber = "123Sammahvilkenid", unitId = "Partid"};
+            //message.SenderId = 12333;
+            
             return message;
         }
 

@@ -2,13 +2,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Api;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Tests.Fakes;
 using Digipost.Api.Client.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -18,15 +16,16 @@ namespace Digipost.Api.Client.Tests.Integration
     [TestClass]
     public class DigipostApiIntegrationTests
     {
-        protected ResourceUtility ResourceUtility;
-        protected ClientConfig ClientConfig;
-        protected string Uri;
         protected X509Certificate2 Certificate;
+        protected ClientConfig ClientConfig;
+
+        protected string Uri;
+
 
         [TestInitialize]
         public void Init()
         {
-            ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
+
             ClientConfig = new ClientConfig("1337");
             Uri = "identification";
             Certificate = TestProperties.Certificate();
@@ -35,17 +34,16 @@ namespace Digipost.Api.Client.Tests.Integration
         [TestClass]
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
+
+
             /// <summary>
-            /// This integration test assures that the connection between handlers is correct and that a message is built and sent. 
-            /// The ActionFactory is mocked to prevent actual HTTP-request to Digipost. 
+            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
+            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
             /// </summary>
             [TestMethod]
             public void ProperRequestSent()
             {
-                var message = new Message(
-                    new Recipient(IdentificationChoice.PersonalidentificationNumber, "00000000000"),
-                    new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Vedlegg.txt"))
-                    );
+                var message = DomainUtility.GetSimpleMessage();
 
                 try
                 {
@@ -57,7 +55,9 @@ namespace Digipost.Api.Client.Tests.Integration
                     //Setup - init mock of ActionFactory to inject fake identification response handler
                     var mockFacktory = new Mock<DigipostActionFactory>();
                     mockFacktory.Setup(
-                        f => f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
+                        f =>
+                            f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<string>()))
                         .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                         {
                             HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
@@ -67,25 +67,63 @@ namespace Digipost.Api.Client.Tests.Integration
 
                     dpApi.SendMessage(message);
 
-                    Assert.AreEqual(1,fakehandler.HasBeenCalled,"The httpClient has been called more than expected.");
+                    Assert.AreEqual(1, fakehandler.CalledCount, "The httpClient has been called more than expected.");
                 }
-                catch
+                catch (Exception exception)
                 {
-                    Assert.Fail();
+                    Assert.Fail(exception.Message);
                 }
             }
-       }
+
+            /// <summary>
+            /// This integration test assures that the connection between handlers is correct and that a message is built and sent.
+            /// The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
+            /// </summary>
+            [TestMethod]
+            [ExpectedException(typeof(ClientResponseException))]
+            public void InternalServerErrorShouldCauseDigipostResponseException()
+            {
+                var message = DomainUtility.GetSimpleMessage();
+
+                var fakehandler = new FakeMessageResponseHandler
+                {
+                    ResultCode = HttpStatusCode.InternalServerError,
+                    HttpContent = new StringContent(string.Empty)
+                };
+                var loggingHandler = new LoggingHandler(fakehandler);
+                var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
+
+
+                //Setup - init mock of ActionFactory to inject fake identification response handler
+                var mockFacktory = new Mock<DigipostActionFactory>();
+                mockFacktory.Setup(
+                    f =>
+                        f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                            It.IsAny<string>()))
+                    .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
+                    {
+                        HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                    });
+
+                var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
+
+                var result = dpApi.SendMessage(message);
+
+                Assert.AreEqual(1, fakehandler.CalledCount, "The httpClient has been called more than expected.");
+            }
+        }
+
         [TestClass]
         public class SendIdentifyMethod : DigipostApiIntegrationTests
         {
             /// <summary>
-            /// This integration test assures that the connection between handlers is correct and that a message is built and sent. 
-            /// The ActionFactory is mocked to prevent actual HTTP-request to Digipost. 
+            /// This integration test assures that the connection between handlers is correct and that a message is built and sent.
+            /// The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
             /// </summary>
             [TestMethod]
             public void ProperRequestSent()
             {
-                var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+                var identification = DomainUtility.GetPersonalIdentification();
 
                 try
                 {
@@ -97,7 +135,9 @@ namespace Digipost.Api.Client.Tests.Integration
                     //Setup - init mock of ActionFactory to inject fake identification response handler
                     var mockFacktory = new Mock<DigipostActionFactory>();
                     mockFacktory.Setup(
-                        f => f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(), It.IsAny<string>()))
+                        f =>
+                            f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<string>()))
                         .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                         {
                             HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
@@ -107,15 +147,11 @@ namespace Digipost.Api.Client.Tests.Integration
 
                     dpApi.Identify(identification);
                 }
-                catch
+                catch (Exception exception)
                 {
-                    Assert.Fail();
+                    Assert.Fail(exception.Message);
                 }
-
             }
         }
-       
-
-
     }
 }

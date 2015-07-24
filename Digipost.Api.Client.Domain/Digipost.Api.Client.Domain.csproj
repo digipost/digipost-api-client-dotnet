@@ -62,6 +62,7 @@
     <Compile Include="Enums\NonDeliverableHandling.cs" />
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />
+    <Compile Include="Enums\SenderChoiceType.cs" />
     <Compile Include="Enums\UnidentifiedReason.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="Exceptions\APIException.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Listedtime.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Message\MessageDeliveryResult.cs" />
+    <Compile Include="Message\SenderOrganization.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\NorwegianAddress.cs" />
     <Compile Include="Print\PrintAddress.cs" />

@@ -61,6 +61,7 @@ namespace Digipost.Api.Client.Domain
         [XmlElement("print-details")]
         public PrintDetails PrintDetails { get; set; }
 
+        [Obsolete("Will be renamed to IdentificationChoiceType. NB. This will be removed in future version.")] //With next breaking change, rename to IdenticicationChoiceType.
         [XmlIgnore]
         public IdentificationChoice IdentificationType { get;  set; }
     }

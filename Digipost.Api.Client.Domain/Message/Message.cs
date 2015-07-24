@@ -40,16 +40,13 @@ namespace Digipost.Api.Client.Domain
             SenderType = SenderChoiceType.SenderOrganization;
         }
         
-        //public long SenderId { get; set; }
-        //public SenderOrganization SenderOrganization { get; set; }
-
         [XmlChoiceIdentifier("SenderType")]
         [XmlElement("sender-id", typeof(long))]
         [XmlElement("sender-organization", typeof(SenderOrganization))]
         public object SenderValue { get; set; }
 
         [XmlIgnore]
-        public SenderChoiceType SenderType;
+        public SenderChoiceType SenderType { get; set; }
 
         [XmlElement("recipient")]
         public Recipient Recipient { get; set; }
@@ -60,8 +57,4 @@ namespace Digipost.Api.Client.Domain
         [XmlElement("attachment")]
         public List<Document> Attachments { get; set; }
     }
-
-  
-
-
 }

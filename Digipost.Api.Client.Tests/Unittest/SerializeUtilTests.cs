@@ -23,10 +23,10 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
-                var attachment =  new Invoice("Subject", "txt", TestUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
+                var attachment =  new Invoice("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
 
 
@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 attachment.ContentBytes = null; //Bytes are not included as a part of XML (XmlIgnore)
                 
                 //Assert
-                TestUtility.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
                 var messageTemplate = new Message(recipient, document, new SenderOrganization("12345678911", "ViktigperAvdelingen"));
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                TestUtility.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
                 
 
             }
@@ -75,7 +75,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
                 var messageTemplate = new Message(recipient, document, 1237732);
@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                TestUtility.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -93,7 +93,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
 
                 //Act
@@ -101,7 +101,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;    //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                TestUtility.LookLikeEachOther(document, deserializedDocumentBlueprint);
+                Comparator.LookLikeEachOther(document, deserializedDocumentBlueprint);
             }
 
             [TestMethod]
@@ -118,7 +118,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedRecipientBlueprint = SerializeUtil.Deserialize<Recipient>(recipientBlueprint);
 
                 //Assert
-                TestUtility.LookLikeEachOther(recipient, deserializedRecipientBlueprint);
+                Comparator.LookLikeEachOther(recipient, deserializedRecipientBlueprint);
 
             }
 
@@ -133,7 +133,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
 
                 //Assert
-                TestUtility.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
             }
             
             [TestMethod]
@@ -147,7 +147,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
 
                 //Assert
-                TestUtility.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
             }
 
             [TestMethod]
@@ -155,14 +155,14 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
-                var invoice = new Invoice("Subject", "txt", TestUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
+                var invoice = new Invoice("Subject", "txt", ByteUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
 
                 //Act
                 var deserializedInvoice = SerializeUtil.Deserialize<Invoice>(invoiceBlueprint);
 
                 //Assert
-                TestUtility.LookLikeEachOther(invoice, deserializedInvoice);
+                Comparator.LookLikeEachOther(invoice, deserializedInvoice);
             }
         }
 
@@ -178,9 +178,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { SmsNotification = new SmsNotification(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635" };
-                var attachment = new Document("attachment", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var attachment = new Document("attachment", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "c75d8cb9-bd47-4ae7-9bd3-92105d12f49a" };
                 var message = new Message(recipient, document);
                 message.Attachments.Add(attachment);
@@ -203,7 +203,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
                 var messageTemplate = new Message(recipient, document, new SenderOrganization("12345678911", "ViktigperAvdelingen"));
@@ -227,7 +227,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var recipient =
                     new Recipient(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
                 var messageTemplate = new Message(recipient, document, 1237732);
@@ -246,7 +246,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
-                var document = new Document("Subject", "txt", TestUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
 
                 //Act
@@ -287,7 +287,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
 
                 //Assert
-                TestUtility.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
             }
 
             [TestMethod]
@@ -310,7 +310,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
-                var invoice = new Invoice("Subject", "txt", TestUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
+                var invoice = new Invoice("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
 
                 //Act

@@ -21,8 +21,8 @@ namespace Digipost.Api.Client.Testklient
         private static void Main(string[] args)
         {
 
-            Performance();
-            //Send();
+            //Performance();
+            Send();
             Console.ReadKey();
         }
 

@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Testklient
                 ApiUrl = new Uri("https://api.digipost.no"),
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
-                    Debug.WriteLine("{0} - {1} [{2}]",
+                    Console.WriteLine("{0} - {1} [{2}]",
                         DateTime.Now,
                         melding,
                         konversasjonsId.GetValueOrDefault()
@@ -136,10 +136,13 @@ namespace Digipost.Api.Client.Testklient
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(digitalRecipientWithFallbackPrint, invoice, 633047);
-            //var message = new Message(digitalRecipientWithFallbackPrint, invoice, new SenderOrganization("Awesom", "AwesomePartId"));
-
+            var message = new Message(
+                recipient: digitalRecipientWithFallbackPrint,
+                primaryDocument: invoice) 
+                {};
             
+            //message.Deliverytime = DateTime.Now.AddDays(1);
+
             message.Attachments.Add(attachment);
             //message.SenderOrganization = new SenderOrganization(){OrganizationNumber = "123Sammahvilkenid", unitId = "Partid"};
             //message.SenderId = 12333;

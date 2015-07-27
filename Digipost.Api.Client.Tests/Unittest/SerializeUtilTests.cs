@@ -3,6 +3,7 @@ using System.Globalization;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest
@@ -319,6 +320,31 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 Assert.IsNotNull(serializedIdentification);
                 Assert.AreEqual(invoiceBlueprint, serializedIdentification);
+            }
+
+            [TestMethod]
+            public void MessageDeliveryTimeIsOptionalAfterSerializing()
+            {
+                //Arrange
+                const string messageWithDeliverytimeBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><recipient><personal-identification-number>00000000000</personal-identification-number></recipient><delivery-time>2015-07-27T00:00:00</delivery-time><primary-document><uuid>786711a5-1ed6-4f7c-8eda-a5b762c446cb</uuid><subject>Integrasjonstjest</subject><file-type>txt</file-type><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level></primary-document></message>";
+                const string messageWithoutDeliverytimeBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><recipient><personal-identification-number>00000000000</personal-identification-number></recipient><primary-document><uuid>e560a8aa-797e-4d05-93c9-9c6ae9badbab</uuid><subject>Integrasjonstjest</subject><file-type>txt</file-type><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level></primary-document></message>";
+                var messageWithDeliverytime = DomainUtility.GetSimpleMessage();
+
+                messageWithDeliverytime.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
+                messageWithDeliverytime.Deliverytime = DateTime.Parse("2015.07.27 00:00:00");
+
+                var messageWithoutDeliverytime = DomainUtility.GetSimpleMessage();
+                messageWithoutDeliverytime.PrimaryDocument.Guid = "e560a8aa-797e-4d05-93c9-9c6ae9badbab"; //To ensure that the guid is the same as in the blueprint
+
+                //Act
+                var serializedMessageWithDeliverytime = SerializeUtil.Serialize(messageWithDeliverytime);
+                var serializedMessageWithoutDeliverytime = SerializeUtil.Serialize(messageWithoutDeliverytime);
+
+                //Assert
+                Assert.IsNotNull(serializedMessageWithDeliverytime);
+                Assert.IsNotNull(serializedMessageWithoutDeliverytime);
+                Assert.AreEqual(messageWithDeliverytimeBlueprint, serializedMessageWithDeliverytime);
+                Assert.AreEqual(messageWithoutDeliverytimeBlueprint, serializedMessageWithoutDeliverytime);
             }
         }
 

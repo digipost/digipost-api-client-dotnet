@@ -14,6 +14,7 @@ namespace Digipost.Api.Client.Domain
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class Message : RequestContent
     {
+       
         private Message()
         {
             /**Must exist for serialization.**/
@@ -50,6 +51,25 @@ namespace Digipost.Api.Client.Domain
 
         [XmlElement("recipient")]
         public Recipient Recipient { get; set; }
+
+        /// <summary>
+        /// Optional. The time when the document will be made visible to the user. 
+        /// </summary>
+        [XmlElement("delivery-time")]
+        public DateTime? Deliverytime { get; set; }
+
+
+        [XmlIgnoreAttribute()]
+        public bool DeliverytimeSpecified
+        {
+            get
+            {
+                return Deliverytime != null;
+            }
+            private set { }
+
+        }
+
         
         [XmlElement("primary-document")]
         public Document PrimaryDocument { get; set; }

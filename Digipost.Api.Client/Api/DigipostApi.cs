@@ -1,4 +1,6 @@
 ﻿using System;
+using System.CodeDom;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -76,29 +78,30 @@ namespace Digipost.Api.Client.Api
         private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
-            Validate(action.RequestContent);
-            var response = action.SendAsync(content).Result;
-            var responseContent = await ReadResponse(response);
+            
+            ValidateXml(action.RequestContent);
 
-            try
+            using (var responseTask = action.SendAsync(content))
             {
-                return SerializeUtil.Deserialize<T>(responseContent);
-            }
-            catch (InvalidOperationException exception)
-            {
-                var error = SerializeUtil.Deserialize<Error>(responseContent);
-                throw new ClientResponseException("Failed to deserialize response object." +
-                                                  "Check inner Error object for more information.", error, exception);
+                var responseTaskResult = responseTask.Result;
+                var responseContent = await ReadResponse(responseTaskResult);
+                
+                if (!responseTaskResult.IsSuccessStatusCode)
+                {
+                    var emptyResponse = string.IsNullOrEmpty(responseContent);
+
+                    if (!emptyResponse)
+                        ThrowNotEmptyResponseError(responseContent);
+                    else
+                    {
+                        ThrowEmptyResponseError(responseTaskResult.StatusCode);
+                    }
+                }
+                return HandleSuccessResponse<T>(responseContent);
             }
         }
 
-        private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
-        {
-            var contentResult = await requestResult.Content.ReadAsStringAsync();
-            return contentResult;
-        }
-
-        internal static void Validate(XmlDocument document)
+        internal static void ValidateXml(XmlDocument document)
         {
             if (document.InnerXml.Length == 0) { return; }
 
@@ -109,6 +112,28 @@ namespace Digipost.Api.Client.Api
             {
                 throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
             }
+        }
+
+        private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
+        {
+            var contentResult = await requestResult.Content.ReadAsStringAsync();
+            return contentResult;
+        }
+
+        private static void ThrowNotEmptyResponseError(string responseContent)
+        {
+            var error = SerializeUtil.Deserialize<Error>(responseContent);
+            throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
+        }
+
+        private static void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
+        {
+            throw new ClientResponseException((int)httpStatusCode + ": " + httpStatusCode);
+        }
+
+        private static T HandleSuccessResponse<T>(string responseContent)
+        {
+            return SerializeUtil.Deserialize<T>(responseContent);
         }
     }
 }

@@ -5,6 +5,7 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest
@@ -28,10 +29,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 var factory = new DigipostActionFactory();
-                var message = new Message(
-                        new Recipient(IdentificationChoice.PersonalidentificationNumber, "00000000000"),
-                        new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Vedlegg.txt"))
-                    );
+                var message = DomainUtility.GetSimpleMessage();
 
                 //Act
                 var action = factory.CreateClass(message, new ClientConfig(), new X509Certificate2(), "uri");
@@ -45,7 +43,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 var factory = new DigipostActionFactory();
-                var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+                var identification = DomainUtility.GetPersonalIdentification();
                         
                 //Act
                 var action = factory.CreateClass(identification, new ClientConfig(), new X509Certificate2(), "uri");

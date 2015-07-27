@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain
 {
@@ -25,9 +26,31 @@ namespace Digipost.Api.Client.Domain
             Attachments = new List<Document>();
         }
 
+        public Message(Recipient recipient, Document primaryDocument, long senderId):
+            this(recipient, primaryDocument)
+        {
+            SenderValue = senderId;
+            SenderType = SenderChoiceType.SenderId; 
+        }
+
+        public Message(Recipient recipient, Document primaryDocument, SenderOrganization senderOrganization)
+            : this(recipient, primaryDocument)
+        {
+            SenderValue = senderOrganization;
+            SenderType = SenderChoiceType.SenderOrganization;
+        }
+        
+        [XmlChoiceIdentifier("SenderType")]
+        [XmlElement("sender-id", typeof(long))]
+        [XmlElement("sender-organization", typeof(SenderOrganization))]
+        public object SenderValue { get; set; }
+
+        [XmlIgnore]
+        public SenderChoiceType SenderType { get; set; }
+
         [XmlElement("recipient")]
         public Recipient Recipient { get; set; }
-
+        
         [XmlElement("primary-document")]
         public Document PrimaryDocument { get; set; }
 

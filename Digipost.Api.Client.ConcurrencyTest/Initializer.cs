@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ConcurrencyTester;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 
@@ -7,10 +8,10 @@ namespace Digipost.Api.Client.ConcurrencyTest
     public class Initializer
     {
         private const ProcessingType ProcessingType = Enums.ProcessingType.Parallel;
-        private const RequestType RequestType = Enums.RequestType.Identify;
+        private const RequestType RequestType = Enums.RequestType.Message;
         private const string HttpsQa2ApiDigipostNo = "https://qa2.api.digipost.no";
-        private const string Thumbprint = "7d fc c9 8b 88 55 16 4d 03 a3 64 a4 90 98 26 9d 23 31 4d 0f";
-        private const string SenderId = "106799002"; //"779052"; 
+        private const string Thumbprint = "29 7e 44 24 f2 8d ed 2c 9a a7 3d 9b 22 7c 73 48 f1 8a 1b 9b";
+        private const string SenderId = "106824802"; //"779052"; 
         private const int DegreeOfParallelism = 4;
         private const int NumberOfRequests = 100;
         private const int ThreadsActive = 4;
@@ -27,7 +28,14 @@ namespace Digipost.Api.Client.ConcurrencyTest
             Console.WriteLine("Starting to send digipost: {0}, with requests: {1}, poolcount: {2}", processingType,
                 numberOfRequests, connectionLimit);
 
-            var clientConfig = new ClientConfig(SenderId) {ApiUrl = new Uri(HttpsQa2ApiDigipostNo)};
+            var clientConfig = new ClientConfig(SenderId)
+            {
+                ApiUrl = new Uri(HttpsQa2ApiDigipostNo),
+                Logger = (severity, konversasjonsId, metode, melding) =>
+                {
+                    
+                }
+            };
 
             switch (processingType)
             {

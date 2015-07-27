@@ -20,6 +20,20 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
+
+            Performance();
+            //Send();
+            Console.ReadKey();
+        }
+
+        private static void Performance()
+        {
+            ConcurrencyTest.Initializer.Run(); //concurency runner
+        }
+
+        private static void Send()
+        {
+
             var config = new ClientConfig(SenderId)
             {
                 ApiUrl = new Uri("https://api.digipost.no"),
@@ -32,6 +46,7 @@ namespace Digipost.Api.Client.Testklient
                     );
                 }
             };
+
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);

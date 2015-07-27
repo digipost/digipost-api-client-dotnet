@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -20,26 +21,44 @@ namespace Digipost.Api.Client.Action
         public X509Certificate2 BusinessCertificate { get; set; }
         public XmlDocument RequestContent { get; internal set; }
 
-        internal HttpClient HttpClient
+        /// <summary>
+        /// Start testkode
+        /// </summary>
+        /// 
+
+        private readonly object _threadLock = new Object();
+
+        internal HttpClient ThreadSafeHttpClient
         {
             get
             {
-                if (_httpClient != null) return _httpClient;
+                lock (_threadLock)
+                {
+                    if (_httpClient != null) return _httpClient;
 
-                Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-                var loggingHandler = new LoggingHandler(new HttpClientHandler());
-                var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri,
+                    Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
+                    
+                    var loggingHandler = new LoggingHandler(new HttpClientHandler());
+                    var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri,
                     loggingHandler);
 
-                _httpClient = new HttpClient(authenticationHandler)
-                {
-                    Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
-                    BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
-                };
+                    _httpClient = new HttpClient(authenticationHandler)
+                    {
+                        Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
+                        BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
+                    };
 
-                return _httpClient;
+                    return _httpClient;
+                }
             }
-            set { _httpClient = value; }
+
+            set
+            {
+                lock (_threadLock)
+                {
+                    _httpClient = value;
+                }
+            }
         }
 
         protected DigipostAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
@@ -55,7 +74,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request.");
-                return HttpClient.PostAsync(_uri, Content(requestContent));
+                return  ThreadSafeHttpClient.PostAsync(_uri, Content(requestContent));
             }
             finally
             {

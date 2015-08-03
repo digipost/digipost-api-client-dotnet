@@ -62,6 +62,7 @@ namespace Digipost.Api.Client.Domain
         public List<Document> Attachment { get; set; }
 
         [XmlElement("link")]
+        [Obsolete("This field has no relevant information and will therefore be removed in future version.")]
         public List<Link> Link { get; set; }
 
         public override string ToString()

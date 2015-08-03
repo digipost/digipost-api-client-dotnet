@@ -17,30 +17,52 @@ namespace Digipost.Api.Client.Domain
     public class MessageDeliveryResult
     {
         /// <summary>
-        /// The type of delivery method
+        /// The type of postage delivery method.
         /// </summary>
         [XmlElement("delivery-method")]
         public DeliveryMethod Deliverymethod { get; set; }
 
         /// <summary>
-        /// The current status of the message in Digipost
+        /// The current status of the message in Digipost.
         /// </summary>
         [XmlElement("status")]
         public MessageStatus Status { get; set; }
 
         /// <summary>
-        /// The delivery time of the document
+        /// Optional. The time when the document will be made visible to the user. 
+        /// </summary>
+        [Obsolete("Use DeliveryTime insted. This is just a rename of field name and has no side effects. NB! This will be removed in future verion.")]
+        public DateTime Deliverytime { get { return DeliveryTime; } set { DeliveryTime = value; } }
+
+        /// <summary>
+        /// Optional. The time when the document will be made visible to the user. 
         /// </summary>
         [XmlElement("delivery-time")]
-        public DateTime Deliverytime { get; set; }
+        public DateTime DeliveryTime { get; set; }
 
+        /// <summary>
+        /// The primary document of the delivery. This is the document that will be shown first in the 
+        /// recipient's inbox when opening the letter.
+        /// </summary>
+        [Obsolete("Use PrimaryDocument insted. This is just a rename of field name and has no side effects. NB! This will be removed in future version.")]
+        public Document Primarydocument { get { return PrimaryDocument; } set { PrimaryDocument = value; } }
+
+        /// <summary>
+        /// The primary document of the delivery. This is the document that will be shown first in the 
+        /// recipient's inbox when opening the letter.
+        /// </summary>
         [XmlElement("primary-document")]
-        public Document Primarydocument { get; set; }
-
+        public Document PrimaryDocument { get; set; }
+        
+        /// <summary>
+        /// Optional. Attachments can be added to the message, and can be of same types as the primary
+        /// document.
+        /// </summary>
         [XmlElement("attachment")]
         public List<Document> Attachment { get; set; }
 
         [XmlElement("link")]
+        [Obsolete("This field has no relevant information and will therefore be removed in future version.")]
         public List<Link> Link { get; set; }
 
         public override string ToString()
@@ -48,7 +70,7 @@ namespace Digipost.Api.Client.Domain
             var attachments = Attachment.Aggregate(" ", (current, doc) => current + (doc.ToString() ));
             return
                 string.Format(
-                    "Deliverymethod: {0}, Status: {1}, Deliverytime: {2}, Primarydocument: {3}, " +
+                    "Deliverymethod: {0}, Status: {1}, DeliveryTime: {2}, Primarydocument: {3}, " +
                     "Attachment: {4}", Deliverymethod, Status, Deliverytime, Primarydocument,
                     attachments);
         }

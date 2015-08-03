@@ -331,7 +331,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var messageWithDeliverytime = DomainUtility.GetSimpleMessage();
 
                 messageWithDeliverytime.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
-                messageWithDeliverytime.Deliverytime = DateTime.Parse("2015.07.27 00:00:00");
+                messageWithDeliverytime.DeliveryTime = DateTime.Parse("2015.07.27 00:00:00");
 
                 var messageWithoutDeliverytime = DomainUtility.GetSimpleMessage();
                 messageWithoutDeliverytime.PrimaryDocument.Guid = "e560a8aa-797e-4d05-93c9-9c6ae9badbab"; //To ensure that the guid is the same as in the blueprint

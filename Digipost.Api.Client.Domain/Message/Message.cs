@@ -88,13 +88,13 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return Deliverytime != null;
+                return DeliveryTime != null;
             }
         }
         
         /// <summary>
         /// The primary document of the delivery. This is the document that will be shown first in the 
-        /// recipient inbox. 
+        /// recipient's inbox when opening the letter.
         /// </summary>
         [XmlElement("primary-document")]
         public Document PrimaryDocument { get; set; }

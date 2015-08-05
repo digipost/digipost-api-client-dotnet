@@ -20,17 +20,17 @@ namespace Digipost.Api.Client
             var message = requestContent as Message;
             var boundary = Guid.NewGuid().ToString();
 
-            var content = new MultipartFormDataContent(boundary);
+            var multipartFormDataContent = new MultipartFormDataContent(boundary);
 
             var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
             mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
-            content.Headers.ContentType = mediaTypeHeaderValue;
+            multipartFormDataContent.Headers.ContentType = mediaTypeHeaderValue;
 
-            AddBodyToContent(message, content);
-            AddPrimaryDocumentToContent(message, content);
-            AddAttachmentsToContent(message, content);
+            AddBodyToContent(message, multipartFormDataContent);
+            AddPrimaryDocumentToContent(message, multipartFormDataContent);
+            AddAttachmentsToContent(message, multipartFormDataContent);
 
-            return content;
+            return multipartFormDataContent;
         }
 
         protected override string Serialize(RequestContent requestContent)

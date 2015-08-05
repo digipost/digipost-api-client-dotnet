@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
@@ -15,6 +16,16 @@ namespace Digipost.Api.Client.Domain
 
         [XmlAttribute("uri")]
         public string Uri { get; set; }
+
+        public string SubUri
+        {
+            get
+            {
+                var splitter = "digipost.no";
+                var v = Regex.Split(Uri, "digipost.no/");
+                return v[1];
+            }
+        }
 
         [XmlAttribute("media-type")]
         public string Mediatype { get; set; }

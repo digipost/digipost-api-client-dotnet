@@ -2,33 +2,36 @@
 using System.Diagnostics;
 using ApiClientShared;
 using Digipost.Api.Client.Api;
+using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Testklient.Properties;
 
 namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private const string SenderId = "779052"; //"106768801";
+        private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
+        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
+        private static readonly string Url = Settings.Default.Url ;
 
         private static readonly ResourceUtility ResourceUtility =
             new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
-        private static readonly string Thumbprint = "84e492a972b7edc197a32d9e9c94ea27bd5ac4d9".ToUpper();
-
         private static void Main(string[] args)
         {
-
             //Performance();
             Send();
             Console.ReadKey();
+
         }
 
         private static void Performance()
         {
-            ConcurrencyTest.Initializer.Run(); //concurency runner
+            Initializer.Run(); //concurency runner
         }
 
         private static void Send()
@@ -36,13 +39,11 @@ namespace Digipost.Api.Client.Testklient
 
             var config = new ClientConfig(SenderId)
             {
-                ApiUrl = new Uri("https://api.digipost.no"),
+                ApiUrl = new Uri(Url),
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
-                    Console.WriteLine("{0} - {1} [{2}]",
-                        DateTime.Now,
-                        melding,
-                        konversasjonsId.GetValueOrDefault()
+                    Console.WriteLine("{0}",
+                        melding
                     );
                 }
             };
@@ -52,19 +53,30 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             //IdentifyPerson(api);
-            SendMessageToPerson(api);
+            //SendMessageToPerson(api, true);
+            var response = Autocomplete(api);
+
+            api.Person(response.Suggestion[0].Result);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
             
             Console.ReadKey();
         }
 
-        private static void SendMessageToPerson(DigipostClient api)
+        private static AutocompleteResult Autocomplete(DigipostClient api)
+        {
+           return  api.Autocomplete("Marit");
+        }
+
+        private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)
         {
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
             Console.WriteLine("======================================");
-            var message = GetMessage();
+            Message message;
+
+            message = isQaOrLocal ? GetMessageForQaOrLocal() : GetMessage();
+            
             try
             {
                 Console.WriteLine("> Starter å sende melding");
@@ -106,6 +118,18 @@ namespace Digipost.Api.Client.Testklient
             {
                 WriteToConsoleWithColor("> Oh snap... " + e.Message, true);
             }
+        }
+
+        private static Message GetMessageForQaOrLocal()
+        {
+            //primary document
+            var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
+   
+            var digitalRecipient = new Recipient(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+
+            var message = new Message(digitalRecipient, primaryDocument);
+
+            return message;
         }
 
         private static Message GetMessage()

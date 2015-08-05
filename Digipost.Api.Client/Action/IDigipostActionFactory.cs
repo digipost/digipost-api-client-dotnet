@@ -8,5 +8,8 @@ namespace Digipost.Api.Client.Action
     {
         DigipostAction CreateClass(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate,
             string uri);
+
+        DigipostAction CreateClass(ClientConfig clientConfig, X509Certificate2 businessCertificate,
+            string uri);
     }
 }

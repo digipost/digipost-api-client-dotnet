@@ -1,6 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
 
 namespace Digipost.Api.Client.Api
 {
@@ -38,6 +40,16 @@ namespace Digipost.Api.Client.Api
         public Task<MessageDeliveryResult> SendMessageAsync(Message message)
         {
             return api.SendMessageAsync(message);
+        }
+
+        public AutocompleteResult Autocomplete(string query)
+        {
+            return api.Autocomplete(query);
+        }
+
+        public IdentificationResult Person(Link link)
+        {
+            return api.Person(link);
         }
     }
 }

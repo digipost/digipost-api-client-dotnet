@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.Autocomplete
+namespace Digipost.Api.Client.Domain.PersonDetails
 {
-    [Serializable]
+    /// <summary>
+    /// A collection of Person Details as a result of a request via the Person Details API. 
+    /// </summary>
     [DesignerCategory("code")]
     [XmlType("recipients", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class PersonDetailsResult
     {
         [XmlElement("recipient")]
-        public List<PersonDetails> Recipients { get; set; } 
+        public List<PersonDetails> PersonDetails { get; set; } 
     }
 }

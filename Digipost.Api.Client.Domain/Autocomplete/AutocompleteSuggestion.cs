@@ -10,6 +10,14 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class AutocompleteSuggestion
     {
+        /// <summary>
+        /// When searching for a person via the Autocomplete API, an AutocompleteSuggestion
+        /// is a representation of a concrete result. Note that this result does not contain
+        /// person information. To get the personal info, use this class as input to the 
+        /// Person Details API. 
+        /// </summary>
+        /// <param name="searchString">The actual search string result.</param>
+        /// <param name="link">The link to the personal info.</param>
         public AutocompleteSuggestion(string searchString, Link link)
         {
             SearchString = searchString;

@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.Autocomplete
+namespace Digipost.Api.Client.Domain.PersonDetails
 {
+    /// <summary>
+    /// When requesting person information via the PersonDetails API, this class is the result.
+    /// </summary>
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("recipient", Namespace = "http://api.digipost.no/schema/v6")]

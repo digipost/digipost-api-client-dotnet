@@ -47,9 +47,14 @@ namespace Digipost.Api.Client.Api
             return api.Autocomplete(query);
         }
 
-        public IdentificationResult Person(Link link)
+        public IdentificationResult GetPersonDetails(Suggestion suggestion)
         {
-            return api.Person(link);
+            return api.GetPersonDetails(suggestion);
+        }
+
+        public Task<IdentificationResult> GetPersonDetailsAsync(Suggestion suggestion)
+        {
+            return api.GetPersonDetailsAsync(suggestion);
         }
     }
 }

@@ -18,12 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.ConcurrencyTest", "Digipost.Api.Client.ConcurrencyTest\Digipost.Api.Client.ConcurrencyTest.csproj", "{5F13D547-B7FA-4723-A617-112D14239620}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items (2)", "Solution Items (2)", "{37A77DFF-2B1D-45D5-AF65-94BF38A83E5E}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Keys\digipost.pfx = C:\Keys\digipost.pfx
-		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

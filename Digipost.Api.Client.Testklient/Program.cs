@@ -16,7 +16,7 @@ namespace Digipost.Api.Client.Testklient
     {
         private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
         private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
-        private static readonly string Url = Settings.Default.Url ;
+        private static readonly string Url = Settings.Default.Url;
 
         private static readonly ResourceUtility ResourceUtility =
             new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
@@ -56,7 +56,8 @@ namespace Digipost.Api.Client.Testklient
             //SendMessageToPerson(api, true);
             var response = Autocomplete(api);
 
-            api.Person(response.Suggestion[0].Result);
+            
+            api.GetPersonDetails(response.Suggestion[0]);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
             

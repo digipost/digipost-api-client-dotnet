@@ -36,10 +36,11 @@ namespace Digipost.Api.Client.Domain
         /// <summary>
         /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
+        [Obsolete("Deprecated, this constuctor is not necessary as the IdentificationChoice will not change the result. Note! This will be removed in future version.")]
         public Identification(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoice.NameAndAddress;   
+            IdentificationType = IdentificationChoice.NameAndAddress;
         }
 
         /// <summary>

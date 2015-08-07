@@ -1,5 +1,6 @@
 ﻿using ApiClientShared;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Tests.Integration
@@ -21,6 +22,11 @@ namespace Digipost.Api.Client.Tests.Integration
         {
             var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
             return identification;
+        }
+
+        public static Suggestion GetSuggestion()
+        {
+            return new Suggestion("Marit", new Link("https://qa2.api.digipost.no/relations/search", "https://qa2.api.digipost.no/recipients/search/marit%20johansen", "application/vnd.digipost-v6+xml"));
         }
     }
 }

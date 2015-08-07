@@ -55,26 +55,30 @@ namespace Digipost.Api.Client.Api
         public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
         {
             const string uri = "messages";
-            var result = await GenericPostAsync<MessageDeliveryResult>(message, uri);
+            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResult>(message, uri);
 
-            return result;
+
+            if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
+                throw messageDeliveryResultTask.Exception.InnerException;
+
+            return await messageDeliveryResultTask;
         }
 
         public IdentificationResult Identify(Identification identification)
         {
-            var identifyResponse = IdentifyAsync(identification);
+            return IdentifyAsync(identification).Result;
+        }
+
+        public async Task<IdentificationResult> IdentifyAsync(Identification identification)
+        {
+            const string uri = "identification";
+            var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
-            return identifyResponse.Result;
-        }
-
-        public Task<IdentificationResult> IdentifyAsync(Identification identification)
-        {
-            const string uri = "identification";
-            return GenericPostAsync<IdentificationResult>(identification, uri);
+            return await identifyResponse;
         }
 
         public AutocompleteResult Autocomplete(string search)
@@ -83,11 +87,22 @@ namespace Digipost.Api.Client.Api
             return GenericGetAsync<AutocompleteResult>(uri).Result;
         }
 
-        public IdentificationResult Person(Link link)
+        public IdentificationResult GetPersonDetails(Suggestion suggestion)
         {
-            var ret = GenericGetAsync<AutocompleteResult>(link.SubUri).Result;
+            return GetPersonDetailsAsync(suggestion).Result;
+        }
 
-            return GenericGetAsync<IdentificationResult>(link.SubUri).Result;
+        public async Task<IdentificationResult> GetPersonDetailsAsync(Suggestion suggestion)
+        {
+            var personDetailsTask =
+                GenericGetAsync<IdentificationResult>(suggestion.Link.LocalPath);
+
+            if (personDetailsTask.IsFaulted)
+            {
+                if (personDetailsTask.Exception != null) throw personDetailsTask.Exception.InnerException;
+            }
+
+            return await personDetailsTask;
         }
 
         private Task<T> GenericPostAsync<T>(RequestContent content, string uri)
@@ -103,14 +118,8 @@ namespace Digipost.Api.Client.Api
         private Task<T> GenericGetAsync<T>(string uri)
         {
             var action = DigipostActionFactory.CreateClass(ClientConfig, BusinessCertificate, uri);
-            
             Task<HttpResponseMessage> responseTask = action.GetAsync();
-            
-            
-            //var v = responseTask.Content.ReadAsStringAsync();
-            //Logging.Log(TraceEventType.Information, v.Result);
-
-            //return null;
+         
             return GenericSendAsync<T>(responseTask);
         }
 

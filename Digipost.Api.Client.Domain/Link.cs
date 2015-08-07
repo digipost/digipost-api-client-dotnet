@@ -17,19 +17,30 @@ namespace Digipost.Api.Client.Domain
         [XmlAttribute("uri")]
         public string Uri { get; set; }
 
-        public string SubUri
+        public string MediaType { get; set; }
+        
+        [XmlIgnore]
+        public string LocalPath
         {
             get
             {
-                var splitter = "digipost.no";
-                var v = Regex.Split(Uri, "digipost.no/");
-                return v[1];
+                return new Uri(Uri).LocalPath;
             }
         }
 
         [XmlAttribute("media-type")]
         public string Mediatype { get; set; }
 
-        private Link() { }
+        public Link(string rel, string uri, string mediaType)
+        {
+            Rel = rel;
+            Uri = uri;
+            MediaType = mediaType;
+        }
+
+        private Link()
+        {
+            /* Exists for serialization */    
+        }
     }
 }

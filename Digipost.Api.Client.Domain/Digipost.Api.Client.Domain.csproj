@@ -52,6 +52,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Autocomplete\AutocompleteResult.cs" />
+    <Compile Include="Autocomplete\SuggestionAddress.cs" />
+    <Compile Include="Autocomplete\SuggestionRecipient.cs" />
+    <Compile Include="Autocomplete\PersonDetailsResult.cs" />
     <Compile Include="Autocomplete\Suggestion.cs" />
     <Compile Include="DigipostVersion.cs" />
     <Compile Include="Enums\AuthenticationLevel.cs" />

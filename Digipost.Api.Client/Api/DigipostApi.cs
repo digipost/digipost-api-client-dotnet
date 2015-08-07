@@ -83,19 +83,24 @@ namespace Digipost.Api.Client.Api
 
         public AutocompleteResult Autocomplete(string search)
         {
-            var uri = string.Format("recipients/suggest/{0}", Uri.EscapeUriString(search));
-            return GenericGetAsync<AutocompleteResult>(uri).Result;
+            return AutocompleteAsync(search).Result;
         }
 
-        public IdentificationResult GetPersonDetails(Suggestion suggestion)
+        public Task<AutocompleteResult> AutocompleteAsync(string search)
+        {
+            var uri = string.Format("recipients/suggest/{0}", Uri.EscapeUriString(search));
+            return GenericGetAsync<AutocompleteResult>(uri); 
+        } 
+
+        public PersonDetailsResult GetPersonDetails(Suggestion suggestion)
         {
             return GetPersonDetailsAsync(suggestion).Result;
         }
 
-        public async Task<IdentificationResult> GetPersonDetailsAsync(Suggestion suggestion)
+        public async Task<PersonDetailsResult> GetPersonDetailsAsync(Suggestion suggestion)
         {
             var personDetailsTask =
-                GenericGetAsync<IdentificationResult>(suggestion.Link.LocalPath);
+                GenericGetAsync<PersonDetailsResult>(suggestion.Link.LocalPath);
 
             if (personDetailsTask.IsFaulted)
             {

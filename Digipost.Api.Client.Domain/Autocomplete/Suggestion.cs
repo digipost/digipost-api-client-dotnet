@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Autocomplete
 {
-    [Serializable()]
+    [Serializable]
     [DesignerCategory("code")]
     [XmlType("suggestion", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
@@ -14,6 +14,11 @@ namespace Digipost.Api.Client.Domain.Autocomplete
         {
             SearchString = searchString;
             Link = link;
+        }
+
+        private Suggestion()
+        {
+            /* Exists for serialization */    
         }
 
         [XmlElement("search-string")]

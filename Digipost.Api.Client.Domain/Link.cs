@@ -15,7 +15,12 @@ namespace Digipost.Api.Client.Domain
         public string Rel { get; set; }
 
         [XmlAttribute("uri")]
-        public string Uri { get; set; }
+        public string UriString { get; set; }
+
+        [XmlIgnore]
+        public Uri Uri {
+            get { return new Uri(Uri.EscapeUriString(UriString)); }
+        }
 
         public string MediaType { get; set; }
         
@@ -24,7 +29,7 @@ namespace Digipost.Api.Client.Domain
         {
             get
             {
-                return new Uri(Uri).LocalPath;
+                return Uri.LocalPath.Substring(1);
             }
         }
 
@@ -34,7 +39,7 @@ namespace Digipost.Api.Client.Domain
         public Link(string rel, string uri, string mediaType)
         {
             Rel = rel;
-            Uri = uri;
+            UriString = uri;
             MediaType = mediaType;
         }
 

@@ -17,5 +17,10 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     {
         [XmlElement("suggestion")]
         public List<AutocompleteSuggestion> AutcompleteSuggestions { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("AutcompleteSuggestions: {0}", AutcompleteSuggestions.ToString());
+        }
     }
 }

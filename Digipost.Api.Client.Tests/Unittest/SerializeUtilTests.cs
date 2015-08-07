@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -183,6 +186,58 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 Comparator.LookLikeEachOther(invoice, deserializedInvoice);
             }
+            
+            [TestMethod]
+            public void ReturnsProperDeserializedAutocompleteSuggestionResult()
+            {
+                //Arrange
+                const string autocompletesuggestionResultBlueprint = "<?xml version=\"1.0\" encoding=\"utf-8\"?><autocomplete xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><suggestion><search-string>marit johansen</search-string><link rel=\"https://qa2.api.digipost.no/relations/search\" uri=\"https://qa2.api.digipost.no/recipients/search/marit%20johansen\"><MediaType>application/vnd.digipost-v6+xml</MediaType></link></suggestion></autocomplete>";
+                var autocompleteSuggestionResults = DomainUtility.GetAutocompleteSuggestionResults();
+
+                //Act
+                var deserializedAutocompleteSuggesionResultBlueprint = SerializeUtil.Deserialize<AutocompleteSuggestionResults>(autocompletesuggestionResultBlueprint);
+
+                //Assert
+                Comparator.LookLikeEachOther(autocompleteSuggestionResults, deserializedAutocompleteSuggesionResultBlueprint);
+            }
+
+            [TestMethod]
+            public void ReturnsProperDeserializedPeronDetailsResult()
+            {
+                //Arrange
+                const string personDetailsResultBlueprint =
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><recipients xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename></middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address><link rel=\"https://qa2.api.digipost.no/relations/self\" uri=\"https://qa2.api.digipost.no/recipients/jon.aleksander.aase%239PNU\" media-type=\"application/vnd.digipost-v6+xml\"/></recipient></recipients>";
+                
+                PersonDetailsResult personDetailsResult = new PersonDetailsResult
+                {
+                    PersonDetails = new List<PersonDetails>
+                    {
+                        new PersonDetails
+                        {
+                            DigipostAddress = "aleksander.larsen#XX22DD", 
+                            FirstName = "aleksander",
+                            MiddleName = "",
+                            LastName = "larsen", 
+                            MobileNumber = "45456565",
+                            OrganizationName = "organ-isasjonen",
+                            SuggestionAddress = new PersonDetailsAddress
+                            {
+                                City = "oslo",
+                                Street = "gronerlukkagata",
+                                HouseNumber = "47",
+                                ZipCode = "0475",
+                                AdditionalAddressLine = "ekstrainfo"
+                            }
+                        }
+                    }
+                };
+
+                //Act
+                var deserializedPersonDetailsResultBlueprint = SerializeUtil.Deserialize<PersonDetailsResult>(personDetailsResultBlueprint);
+
+                //Assert
+                Comparator.LookLikeEachOther(personDetailsResult, deserializedPersonDetailsResultBlueprint);
+            }
         }
 
         [TestClass]
@@ -356,6 +411,65 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 Assert.IsNotNull(serializedIdentification);
                 Assert.AreEqual(invoiceBlueprint, serializedIdentification);
+            }
+
+            [TestMethod]
+            public void ReturnsProperSerializedAutocompleteSuggestionResult()
+            {
+                //Arrange
+                const string autocompleteBlueprint = "<?xml version=\"1.0\" encoding=\"utf-8\"?><autocomplete xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><suggestion><search-string>marit johansen</search-string><link rel=\"https://qa2.api.digipost.no/relations/search\" uri=\"https://qa2.api.digipost.no/recipients/search/marit%20johansen\"><MediaType>application/vnd.digipost-v6+xml</MediaType></link></suggestion></autocomplete>";
+
+
+                var autocompleteSuggestionResults = DomainUtility.GetAutocompleteSuggestionResults();
+
+                //Act
+                var deserializedIdentificationBlueprint = SerializeUtil.Serialize(autocompleteSuggestionResults);
+
+                //Assert
+                Assert.IsNotNull(deserializedIdentificationBlueprint);
+                Assert.AreEqual(autocompleteBlueprint, deserializedIdentificationBlueprint);
+            }
+
+            [TestMethod]
+            public void ReturnsProperSeserializedPeronDetailsResult()
+            {
+                //Arrange
+                const string personDetailsResultBlueprint =
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><recipients xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename>mellan</middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address><link rel=\"https://qa2.api.digipost.no/relations/self\" uri=\"https://qa2.api.digipost.no/recipients/jon.aleksander.aase%239PNU\" media-type=\"application/vnd.digipost-v6+xml\"/></recipient></recipients>";
+
+                PersonDetailsResult personDetailsResult = new PersonDetailsResult
+                {
+                    PersonDetails = new List<PersonDetails>
+                    {
+                        new PersonDetails
+                        {
+                            DigipostAddress = "aleksander.larsen#XX22DD", 
+                            FirstName = "aleksander",
+                            MiddleName = "mellan",
+                            LastName = "larsen", 
+                            MobileNumber = "45456565",
+                            OrganizationName = "organ-isasjonen",
+                            SuggestionAddress = new PersonDetailsAddress
+                            {
+                                City = "oslo",
+                                Street = "gronerlukkagata",
+                                HouseNumber = "47",
+                                ZipCode = "0475",
+                                AdditionalAddressLine = "ekstrainfo"
+                            }
+                        }
+                    }
+
+                    
+                };
+
+                
+
+                //Act
+                var serializedPersonDetailsResult = SerializeUtil.Serialize(personDetailsResult);
+
+                //Assert
+                Assert.AreEqual(personDetailsResultBlueprint, serializedPersonDetailsResult);
             }
         }
 

@@ -47,5 +47,10 @@ namespace Digipost.Api.Client.Domain
         {
             /* Exists for serialization */    
         }
+
+        public override string ToString()
+        {
+            return string.Format("Rel: {0}, UriString: {1}, Uri: {2}, MediaType: {3}, LocalPath: {4}, Mediatype: {5}", Rel, UriString, Uri, MediaType, LocalPath, Mediatype);
+        }
     }
 }

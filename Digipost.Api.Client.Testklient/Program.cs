@@ -57,7 +57,7 @@ namespace Digipost.Api.Client.Testklient
             var response = Autocomplete(api);
 
             
-            var res = api.GetPersonDetails(response.AutocompleteResult[0]);
+            var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
             Console.ReadKey();

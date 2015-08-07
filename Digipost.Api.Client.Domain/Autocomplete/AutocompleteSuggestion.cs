@@ -34,5 +34,10 @@ namespace Digipost.Api.Client.Domain.Autocomplete
 
         [XmlElement("link")]
         public Link Link { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("SearchString: {0}, Link: {1}", SearchString, Link);
+        }
     }
 }

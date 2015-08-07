@@ -1,4 +1,7 @@
-﻿using ApiClientShared;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Policy;
+using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
@@ -24,9 +27,20 @@ namespace Digipost.Api.Client.Tests.Integration
             return identification;
         }
 
-        public static AutocompleteSuggestion GetSuggestion()
+        public static AutocompleteSuggestionResults GetAutocompleteSuggestionResults()
         {
-            return new AutocompleteSuggestion("Marit", new Link("https://qa2.api.digipost.no/relations/search", "https://qa2.api.digipost.no/recipients/search/marit%20johansen", "application/vnd.digipost-v6+xml"));
+            
+            var autocompleteSuggestionList = new List<AutocompleteSuggestion>
+            {
+                GetSuggestion("marit johansen")
+            };
+
+            return new AutocompleteSuggestionResults( ){AutcompleteSuggestions = autocompleteSuggestionList};
+        }
+
+        public static AutocompleteSuggestion GetSuggestion(string searchString = "marit", string name = "marit johansen")
+        {
+            return new AutocompleteSuggestion(searchString, new Link("https://qa2.api.digipost.no/relations/search", "https://qa2.api.digipost.no/recipients/search/" + Uri.EscapeUriString(name), "application/vnd.digipost-v6+xml"));
         }
     }
 }

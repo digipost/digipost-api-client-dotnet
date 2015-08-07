@@ -24,9 +24,9 @@ namespace Digipost.Api.Client.Tests.Integration
             return identification;
         }
 
-        public static Suggestion GetSuggestion()
+        public static AutocompleteSuggestion GetSuggestion()
         {
-            return new Suggestion("Marit", new Link("https://qa2.api.digipost.no/relations/search", "https://qa2.api.digipost.no/recipients/search/marit%20johansen", "application/vnd.digipost-v6+xml"));
+            return new AutocompleteSuggestion("Marit", new Link("https://qa2.api.digipost.no/relations/search", "https://qa2.api.digipost.no/recipients/search/marit%20johansen", "application/vnd.digipost-v6+xml"));
         }
     }
 }

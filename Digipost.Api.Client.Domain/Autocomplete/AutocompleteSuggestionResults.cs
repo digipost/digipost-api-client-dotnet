@@ -9,9 +9,9 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     [DesignerCategory("code")]
     [XmlType("autocomplete", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]   
-    public class AutocompleteResult
+    public class AutocompleteSuggestionResults
     {
         [XmlElement("suggestion")]
-        public List<Suggestion> Suggestion { get; set; }
+        public List<AutocompleteSuggestion> AutcompleteSuggestions { get; set; }
     }
 }

@@ -57,16 +57,15 @@ namespace Digipost.Api.Client.Testklient
             var response = Autocomplete(api);
 
             
-            var res = api.GetPersonDetails(response.Suggestion[0]);
+            var res = api.GetPersonDetails(response.AutocompleteResult[0]);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
-            
             
             Console.ReadKey();
         }
 
-        private static AutocompleteResult Autocomplete(DigipostClient api)
+        private static AutocompleteSuggestionResults Autocomplete(DigipostClient api)
         {
-           return  api.Autocomplete("Marit");
+            return api.Autocomplete("Aleksander Aas");
         }
 
         private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)

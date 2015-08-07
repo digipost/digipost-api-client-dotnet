@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     [DesignerCategory("code")]
     [XmlType("recipient", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class SuggestionRecipient
+    public class PersonDetails
     {
         [XmlElement("firstname")]
         public string FirstName { get; set; }
@@ -29,6 +29,6 @@ namespace Digipost.Api.Client.Domain.Autocomplete
         public string OrganizationName { get; set; }
 
         [XmlElement("address")]
-        public SuggestionAddress SuggestionAddress{ get; set; }
+        public PersonDetailsAddress SuggestionAddress{ get; set; }
     }
 }

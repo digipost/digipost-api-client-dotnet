@@ -3,6 +3,7 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Autocomplete;
+using Digipost.Api.Client.Domain.PersonDetails;
 
 namespace Digipost.Api.Client.Api
 {
@@ -42,24 +43,24 @@ namespace Digipost.Api.Client.Api
             return api.SendMessageAsync(message);
         }
 
-        public AutocompleteResult Autocomplete(string query)
+        public AutocompleteSuggestionResults Autocomplete(string query)
         {
             return api.Autocomplete(query);
         }
 
-        public Task<AutocompleteResult> AutocompleteAsync(string query)
+        public Task<AutocompleteSuggestionResults> AutocompleteAsync(string query)
         {
             return api.AutocompleteAsync(query);
         } 
 
-        public PersonDetailsResult GetPersonDetails(Suggestion suggestion)
+        public PersonDetailsResult GetPersonDetails(AutocompleteSuggestion suggestions)
         {
-            return api.GetPersonDetails(suggestion);
+            return api.GetPersonDetails(suggestions);
         }
 
-        public Task<PersonDetailsResult> GetPersonDetailsAsync(Suggestion suggestion)
+        public Task<PersonDetailsResult> GetPersonDetailsAsync(AutocompleteSuggestion suggestions)
         {
-            return api.GetPersonDetailsAsync(suggestion);
+            return api.GetPersonDetailsAsync(suggestions);
         }
     }
 }

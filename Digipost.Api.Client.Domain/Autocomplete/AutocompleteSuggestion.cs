@@ -8,15 +8,15 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     [DesignerCategory("code")]
     [XmlType("suggestion", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Suggestion
+    public class AutocompleteSuggestion
     {
-        public Suggestion(string searchString, Link link)
+        public AutocompleteSuggestion(string searchString, Link link)
         {
             SearchString = searchString;
             Link = link;
         }
 
-        private Suggestion()
+        private AutocompleteSuggestion()
         {
             /* Exists for serialization */    
         }

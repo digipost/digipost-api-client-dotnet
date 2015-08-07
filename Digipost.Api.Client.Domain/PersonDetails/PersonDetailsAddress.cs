@@ -2,13 +2,13 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.Autocomplete
+namespace Digipost.Api.Client.Domain.PersonDetails
 {
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("address", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class SuggestionAddress
+    public class PersonDetailsAddress
     {
         [XmlElement("street")]
         public string Street { get; set; }
@@ -27,6 +27,5 @@ namespace Digipost.Api.Client.Domain.Autocomplete
 
         [XmlElement("city")]
         public string City { get; set; }
-
     }
 }

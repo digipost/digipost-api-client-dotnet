@@ -12,6 +12,6 @@ namespace Digipost.Api.Client.Domain.Autocomplete
     public class PersonDetailsResult
     {
         [XmlElement("recipient")]
-        public List<SuggestionRecipient> Recipients { get; set; } 
+        public List<PersonDetails> Recipients { get; set; } 
     }
 }

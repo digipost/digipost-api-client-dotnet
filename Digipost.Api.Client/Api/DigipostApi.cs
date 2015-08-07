@@ -12,6 +12,7 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
@@ -81,26 +82,26 @@ namespace Digipost.Api.Client.Api
             return await identifyResponse;
         }
 
-        public AutocompleteResult Autocomplete(string search)
+        public AutocompleteSuggestionResults Autocomplete(string search)
         {
             return AutocompleteAsync(search).Result;
         }
 
-        public Task<AutocompleteResult> AutocompleteAsync(string search)
+        public Task<AutocompleteSuggestionResults> AutocompleteAsync(string search)
         {
             var uri = string.Format("recipients/suggest/{0}", Uri.EscapeUriString(search));
-            return GenericGetAsync<AutocompleteResult>(uri); 
+            return GenericGetAsync<AutocompleteSuggestionResults>(uri); 
         } 
 
-        public PersonDetailsResult GetPersonDetails(Suggestion suggestion)
+        public PersonDetailsResult GetPersonDetails(AutocompleteSuggestion suggestions)
         {
-            return GetPersonDetailsAsync(suggestion).Result;
+            return GetPersonDetailsAsync(suggestions).Result;
         }
 
-        public async Task<PersonDetailsResult> GetPersonDetailsAsync(Suggestion suggestion)
+        public async Task<PersonDetailsResult> GetPersonDetailsAsync(AutocompleteSuggestion suggestions)
         {
             var personDetailsTask =
-                GenericGetAsync<PersonDetailsResult>(suggestion.Link.LocalPath);
+                GenericGetAsync<PersonDetailsResult>(suggestions.Link.LocalPath);
 
             if (personDetailsTask.IsFaulted)
             {

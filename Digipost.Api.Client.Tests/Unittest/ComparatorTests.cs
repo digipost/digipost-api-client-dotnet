@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                     message2 = new Message(recipient2, document2);
                 }
                 //Act
-                NewComparator comparator = new NewComparator();
+                Comparator comparator = new Comparator();
                 IEnumerable<IDifference> differences = new List<Difference>();
                 var result = comparator.AreEqual(message1, message2, out differences);
 

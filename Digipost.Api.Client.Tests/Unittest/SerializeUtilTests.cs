@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
@@ -15,7 +14,7 @@ namespace Digipost.Api.Client.Tests.Unittest
     [TestClass]
     public class SerializeUtilTests
     {
-        public IComparator Comparator = new NewComparator();
+        public IComparator Comparator = new Comparator();
 
         [TestClass]
         public class DeserializeMethod : SerializeUtilTests

@@ -8,10 +8,28 @@ using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Digipost.Api.Client.Tests
+namespace Digipost.Api.Client.Tests.CompareObjects
 {
-    public class Comparator
+    public class Comparator : IComparator
     {
+        public bool AreEqual(object expected, object actual)
+        {
+            try
+            {
+                LookLikeEachOther(expected, actual);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }            
+        }
+
+        public bool AreEqual(object expected, object actual, out IEnumerable<IDifference> differences)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void LookLikeEachOther(object expected, object actual)
         {
             var typeExpected = expected != null ? expected.GetType() : null;

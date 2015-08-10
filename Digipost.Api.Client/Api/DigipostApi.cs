@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -9,7 +10,9 @@ using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
@@ -50,55 +53,100 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
+        public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        {
+            const string uri = "messages";
+            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResult>(message, uri);
+
+
+            if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
+                throw messageDeliveryResultTask.Exception.InnerException;
+
+            return await messageDeliveryResultTask;
+        }
+
         public IdentificationResult Identify(Identification identification)
         {
-            var identifyResponse = IdentifyAsync(identification);
+            return IdentifyAsync(identification).Result;
+        }
+
+        public async Task<IdentificationResult> IdentifyAsync(Identification identification)
+        {
+            const string uri = "identification";
+            var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
-            return identifyResponse.Result;
+            return await identifyResponse;
         }
 
-        public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        public AutocompleteSuggestionResults Autocomplete(string search)
         {
-            const string uri = "messages";
-            var result = await GenericSendAsync<MessageDeliveryResult>(message, uri);
-
-            return result;
+            return AutocompleteAsync(search).Result;
         }
 
-        public Task<IdentificationResult> IdentifyAsync(Identification identification)
+        public Task<AutocompleteSuggestionResults> AutocompleteAsync(string search)
         {
-            const string uri = "identification";
-            return GenericSendAsync<IdentificationResult>(identification, uri);
+            var uri = string.Format("recipients/suggest/{0}", Uri.EscapeUriString(search));
+            return GenericGetAsync<AutocompleteSuggestionResults>(uri); 
+        } 
+
+        public PersonDetailsResult GetPersonDetails(AutocompleteSuggestion suggestions)
+        {
+            return GetPersonDetailsAsync(suggestions).Result;
         }
 
-        private async Task<T> GenericSendAsync<T>(RequestContent content, string uri)
+        public async Task<PersonDetailsResult> GetPersonDetailsAsync(AutocompleteSuggestion suggestions)
+        {
+            var personDetailsTask =
+                GenericGetAsync<PersonDetailsResult>(suggestions.Link.LocalPath);
+
+            if (personDetailsTask.IsFaulted)
+            {
+                if (personDetailsTask.Exception != null) throw personDetailsTask.Exception.InnerException;
+            }
+
+            return await personDetailsTask;
+        }
+
+        private Task<T> GenericPostAsync<T>(RequestContent content, string uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
-            
+
             ValidateXml(action.RequestContent);
 
-            using (var responseTask = action.SendAsync(content))
-            {
-                var responseTaskResult = responseTask.Result;
-                var responseContent = await ReadResponse(responseTaskResult);
-                
-                if (!responseTaskResult.IsSuccessStatusCode)
-                {
-                    var emptyResponse = string.IsNullOrEmpty(responseContent);
+            var responseTask = action.PostAsync(content);
+            return GenericSendAsync<T>(responseTask);
+        }
 
-                    if (!emptyResponse)
-                        ThrowNotEmptyResponseError(responseContent);
-                    else
-                    {
-                        ThrowEmptyResponseError(responseTaskResult.StatusCode);
-                    }
+        private Task<T> GenericGetAsync<T>(string uri)
+        {
+            var action = DigipostActionFactory.CreateClass(ClientConfig, BusinessCertificate, uri);
+            Task<HttpResponseMessage> responseTask = action.GetAsync();
+         
+            return GenericSendAsync<T>(responseTask);
+        }
+
+        private async Task<T> GenericSendAsync<T>(Task<HttpResponseMessage> responseTask)
+        {
+            var responseTaskResult = responseTask.Result;
+            var responseContent = await ReadResponse(responseTaskResult);
+
+            if (!responseTaskResult.IsSuccessStatusCode)
+            {
+                var emptyResponse = string.IsNullOrEmpty(responseContent);
+
+                if (!emptyResponse)
+                    ThrowNotEmptyResponseError(responseContent);
+                else
+                {
+                    ThrowEmptyResponseError(responseTaskResult.StatusCode);
                 }
-                return HandleSuccessResponse<T>(responseContent);
             }
+            return HandleSuccessResponse<T>(responseContent);
+
         }
 
         internal static void ValidateXml(XmlDocument document)
@@ -135,5 +183,7 @@ namespace Digipost.Api.Client.Api
         {
             return SerializeUtil.Deserialize<T>(responseContent);
         }
+
+       
     }
 }

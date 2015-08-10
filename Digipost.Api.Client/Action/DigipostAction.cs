@@ -21,12 +21,15 @@ namespace Digipost.Api.Client.Action
         public X509Certificate2 BusinessCertificate { get; set; }
         public XmlDocument RequestContent { get; internal set; }
 
-        /// <summary>
-        /// Start testkode
-        /// </summary>
-        /// 
+        private readonly object _threadLock = new object();
 
-        private readonly object _threadLock = new Object();
+        protected DigipostAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        {
+            InitializeRequestXmlContent(requestContent);
+            _uri = uri;
+            ClientConfig = clientConfig;
+            BusinessCertificate = businessCertificate;
+        }
 
         internal HttpClient ThreadSafeHttpClient
         {
@@ -61,20 +64,25 @@ namespace Digipost.Api.Client.Action
             }
         }
 
-        protected DigipostAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
-        {
-            InitializeRequestXmlContent(requestContent);
-            _uri = uri;
-            ClientConfig = clientConfig;
-            BusinessCertificate = businessCertificate;
-        }
-
-        public Task<HttpResponseMessage> SendAsync(RequestContent requestContent)
+        internal Task<HttpResponseMessage> PostAsync(RequestContent requestContent)
         {
             try
             {
-                Logging.Log(TraceEventType.Information, " - Sending request.");
-                return  ThreadSafeHttpClient.PostAsync(_uri, Content(requestContent));
+                Logging.Log(TraceEventType.Information, " - Sending request (POST).");
+                return ThreadSafeHttpClient.PostAsync(_uri, Content(requestContent));
+            }
+            finally
+            {
+                Logging.Log(TraceEventType.Information, " - Request sent.");
+            }
+        }
+
+        internal Task<HttpResponseMessage> GetAsync()
+        {
+            try
+            {
+                Logging.Log(TraceEventType.Information, " - Sending request (GET).");
+                return ThreadSafeHttpClient.GetAsync(_uri);
             }
             finally
             {
@@ -88,16 +96,11 @@ namespace Digipost.Api.Client.Action
 
         private void InitializeRequestXmlContent(RequestContent requestContent)
         {
+            if (requestContent == null) return;
+
             var document = new XmlDocument();
-
-            if (requestContent == null)
-            {
-                throw new ConfigException("Null or empty Request content" + typeof(RequestContent) + ".  Digipost Action not configured correctly.");
-            }
-
             var serialized = Serialize(requestContent);
             document.LoadXml(serialized);
-
             RequestContent = document;
         }
     }

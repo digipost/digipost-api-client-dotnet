@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.Autocomplete;
+using Digipost.Api.Client.Domain.PersonDetails;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests
@@ -12,8 +14,8 @@ namespace Digipost.Api.Client.Tests
     {
         public static void LookLikeEachOther(object expected, object actual)
         {
-            var typeExpected = expected!=null?expected.GetType():null;
-            var typeActual = actual!=null?actual.GetType():null;
+            var typeExpected = expected != null ? expected.GetType() : null;
+            var typeActual = actual != null ? actual.GetType() : null;
 
             Assert.AreEqual(typeExpected, typeActual, "The types of instances expected and actual are not the same.");
 
@@ -34,47 +36,61 @@ namespace Digipost.Api.Client.Tests
                 var valueA = myPropertyA.GetValue(expected, null);
                 var valueB = myPropertyB.GetValue(actual, null);
 
-                if((valueA == null || valueB == null) && valueA == valueB)
+                if ((valueA == null || valueB == null) && valueA == valueB)
                     continue;
-                
+
                 if (IsList(valueA) && IsList(valueB))
                 {
                     var aType = valueA.GetType();
                     if (aType == typeof(List<Listedtime>))
                     {
-                         CheckList((IEnumerable<Listedtime>)valueA, (IEnumerable<Listedtime>)valueB);     
+                        CheckList((IEnumerable<Listedtime>)valueA, (IEnumerable<Listedtime>)valueB);
                     }
                     else if (aType == typeof(List<int>))
                     {
-                        CheckList((IEnumerable<int>)valueA, (IEnumerable<int>)valueB);     
+                        CheckList((IEnumerable<int>)valueA, (IEnumerable<int>)valueB);
                     }
-                    else if (aType == typeof (List<Document>))
+                    else if (aType == typeof(List<Document>))
                     {
-                         CheckList((IEnumerable<Document>)valueA, (IEnumerable<Document>)valueB);
+                        CheckList((IEnumerable<Document>)valueA, (IEnumerable<Document>)valueB);
+                    }
+                    else if (aType == typeof(List<AutocompleteSuggestion>))
+                    {
+                        CheckList((IEnumerable<AutocompleteSuggestion>)valueA, (IEnumerable<AutocompleteSuggestion>)valueB);
+                    }
+                    else if (aType == typeof(List<PersonDetails>))
+                    {
+                        CheckList((IEnumerable<PersonDetails>)valueA, (IEnumerable<PersonDetails>)valueB);
                     }
                     else
                     {
-                        Assert.Fail("Unkown type in list."); 
+                        Assert.Fail("Unkown type in list." + aType);
                     }
-                   
-                   continue;
+
+                    continue;
                 }
 
                 TestPrimitiveValue(valueA, valueB);
             }
         }
 
-         public static void CheckList<T>(IEnumerable<T> list1, IEnumerable<T> list2)
+        private static T CastExamp1<T>(object input)
         {
-             foreach (var l1 in list1)
-             {
-                 foreach(var l2 in list2){
-                     TestPrimitiveValue(l1, l2);
-                 }
-             }
+            return (T)input;
         }
 
-        
+        public static void CheckList<T>(IEnumerable<T> list1, IEnumerable<T> list2)
+        {
+            foreach (var l1 in list1)
+            {
+                foreach (var l2 in list2)
+                {
+                    TestPrimitiveValue(l1, l2);
+                }
+            }
+        }
+
+
         private static void TestPrimitiveValue(object valueA, object valueB)
         {
             if (valueA != null && !PrimitiveTypes.Test(valueA.GetType()))
@@ -85,7 +101,7 @@ namespace Digipost.Api.Client.Tests
             {
                 Assert.AreEqual(valueA, valueB,
                     string.Format(@"The value {1}  of the property {0} on instance expected is different from 
-            the value {2}  on instance actual.",( valueA == null?"null":valueA.GetType().Name), valueA, valueB));    
+            the value {2}  on instance actual.", (valueA == null ? "null" : valueA.GetType().Name), valueA, valueB));
             }
         }
 

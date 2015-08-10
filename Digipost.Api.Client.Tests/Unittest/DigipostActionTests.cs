@@ -26,20 +26,6 @@ namespace Digipost.Api.Client.Tests.Unittest
             }
 
             [TestMethod]
-            [ExpectedException(typeof(ConfigException), "Should throw exception on empty or null")]
-            public void EmptyOrNullBodyThrowsException()
-            {
-                //Arrange
-                var clientConfig = new ClientConfig("123");
-                var certificate = TestProperties.Certificate();
-                const string uri = "AFakeUri";
-          
-                //Act
-                var action = new MessageAction(null, clientConfig, certificate, uri);
-                var content = action.RequestContent; //Throws exception
-            }
-
-            [TestMethod]
             public void ReturnsCorrectDataForMessage()
             {
                 //Arrange

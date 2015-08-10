@@ -423,20 +423,20 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var autocompleteSuggestionResults = DomainUtility.GetAutocompleteSuggestionResults();
 
                 //Act
-                var deserializedIdentificationBlueprint = SerializeUtil.Serialize(autocompleteSuggestionResults);
+                var serializedAutocompleteSuggestionResults = SerializeUtil.Serialize(autocompleteSuggestionResults);
 
                 //Assert
-                Assert.IsNotNull(deserializedIdentificationBlueprint);
-                Assert.AreEqual(autocompleteBlueprint, deserializedIdentificationBlueprint);
+                Assert.IsNotNull(serializedAutocompleteSuggestionResults);
+                Assert.AreEqual(autocompleteBlueprint, serializedAutocompleteSuggestionResults);
             }
 
             [TestMethod]
-            public void ReturnsProperSeserializedPeronDetailsResult()
+            public void ReturnsProperSerializedPeronDetailsResult()
             {
                 //Arrange
                 const string personDetailsResultBlueprint =
-                    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><recipients xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename>mellan</middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address><link rel=\"https://qa2.api.digipost.no/relations/self\" uri=\"https://qa2.api.digipost.no/recipients/jon.aleksander.aase%239PNU\" media-type=\"application/vnd.digipost-v6+xml\"/></recipient></recipients>";
-
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?><recipients xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename>mellan</middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address></recipient></recipients>";
+                     
                 PersonDetailsResult personDetailsResult = new PersonDetailsResult
                 {
                     PersonDetails = new List<PersonDetails>
@@ -459,11 +459,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             }
                         }
                     }
-
-                    
                 };
-
-                
 
                 //Act
                 var serializedPersonDetailsResult = SerializeUtil.Serialize(personDetailsResult);

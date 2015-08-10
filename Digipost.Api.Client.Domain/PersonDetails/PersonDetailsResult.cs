@@ -8,6 +8,7 @@ namespace Digipost.Api.Client.Domain.PersonDetails
     /// <summary>
     /// A collection of Person Details as a result of a request via the Person Details API. 
     /// </summary>
+    [Serializable]
     [DesignerCategory("code")]
     [XmlType("recipients", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]

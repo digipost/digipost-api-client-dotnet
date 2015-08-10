@@ -2,7 +2,7 @@
 
 namespace Digipost.Api.Client.Tests.CompareObjects
 {
-    interface IComparator
+    public interface IComparator
     {
         bool AreEqual(object expected, object actual);
 

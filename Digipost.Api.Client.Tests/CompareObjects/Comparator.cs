@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Tests.CompareObjects
             throw new NotImplementedException();
         }
 
-        public static void LookLikeEachOther(object expected, object actual)
+        private static void LookLikeEachOther(object expected, object actual)
         {
             var typeExpected = expected != null ? expected.GetType() : null;
             var typeActual = actual != null ? actual.GetType() : null;

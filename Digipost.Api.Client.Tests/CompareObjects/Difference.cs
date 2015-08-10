@@ -2,7 +2,7 @@
 {
     internal class Difference : IDifference
     {
-        public object WhatIsCompared { get; set; }
+        public string WhatIsCompared { get; set; }
 
         public object ExpectedValue { get; set; }
 

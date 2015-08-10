@@ -2,7 +2,7 @@
 {
     public interface IDifference
     {
-        object WhatIsCompared { get; set; }
+        string WhatIsCompared { get; set; }
 
         object ExpectedValue { get; set; }
 

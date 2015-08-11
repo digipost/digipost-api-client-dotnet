@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
@@ -9,6 +11,7 @@ using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Testklient.Properties;
+using KellermanSoftware.CompareNetObjects;
 
 namespace Digipost.Api.Client.Testklient
 {
@@ -23,9 +26,17 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
+            CompareLogic comparelogic = new CompareLogic();
+
+            var v = comparelogic.Compare(new PersonDetails(){DigipostAddress = "Halloen"}, new PersonDetails());
+            List<Difference> diff = v.Differences;
+            var descr = diff.ElementAt(0).GetWhatIsCompared();
+
             //Performance();
             Send();
             Console.ReadKey();
+
+            
 
         }
 

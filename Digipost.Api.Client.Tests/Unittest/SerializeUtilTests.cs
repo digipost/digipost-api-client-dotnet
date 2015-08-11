@@ -4,6 +4,7 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,9 +13,10 @@ namespace Digipost.Api.Client.Tests.Unittest
     [TestClass]
     public class SerializeUtilTests
     {
+        public IComparator Comparator = new Comparator();
 
         [TestClass]
-        public class DeserializeMethod
+        public class DeserializeMethod : SerializeUtilTests
         {
             [TestMethod]
             public void ReturnsProperDeserializedMessageWithInvoice()
@@ -42,7 +44,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 
                 //Assert
                 Assert.IsNull(deserializedMessageBlueprint.DeliveryTime);
-                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+               Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -64,7 +66,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+               Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -82,7 +84,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedMessageWithDeliverytime = SerializeUtil.Deserialize<Message>(messageWithDeliverytimeBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(messageWithDeliverytime, deserializedMessageWithDeliverytime);
+               Comparator.AreEqual(messageWithDeliverytime, deserializedMessageWithDeliverytime);
             }
 
 
@@ -105,7 +107,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                Comparator.LookLikeEachOther(messageTemplate, deserializedMessageBlueprint);
+               Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -121,7 +123,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 document.ContentBytes = null;    //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-                Comparator.LookLikeEachOther(document, deserializedDocumentBlueprint);
+               Comparator.AreEqual(document, deserializedDocumentBlueprint);
             }
 
             [TestMethod]
@@ -138,7 +140,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedRecipientBlueprint = SerializeUtil.Deserialize<Recipient>(recipientBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(recipient, deserializedRecipientBlueprint);
+               Comparator.AreEqual(recipient, deserializedRecipientBlueprint);
 
             }
 
@@ -153,7 +155,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+               Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
             }
             
             [TestMethod]
@@ -167,7 +169,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+               Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
             }
 
             [TestMethod]
@@ -182,9 +184,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedInvoice = SerializeUtil.Deserialize<Invoice>(invoiceBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(invoice, deserializedInvoice);
+               Comparator.AreEqual(invoice, deserializedInvoice);
             }
-           
+            
             [TestMethod]
             public void ReturnsProperDeserializedSearchResult()
             {
@@ -220,12 +222,12 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedPersonDetailsResultBlueprint = SerializeUtil.Deserialize<PersonDetailsResult>(personDetailsResultBlueprint);
 
                 //Assert
-                Comparator.LookLikeEachOther(personDetailsResult, deserializedPersonDetailsResultBlueprint);
+               Comparator.AreEqual(personDetailsResult, deserializedPersonDetailsResultBlueprint);
             }
         }
 
         [TestClass]
-        public class SerializeMethod
+        public class SerializeMethod : SerializeUtilTests
         {
             [TestMethod]
             public void ReturnProperSerializedMessageWithInvoice()
@@ -360,10 +362,11 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var identification = new Identification(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
 
                 //Act
-                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<Identification>(identificationBlueprint);
+                var serializedIdentificationBlueprint = SerializeUtil.Serialize(identification);
 
                 //Assert
-                Comparator.LookLikeEachOther(identification, deserializedIdentificationBlueprint);
+                Assert.IsNotNull(serializedIdentificationBlueprint);
+                Assert.AreEqual(identificationBlueprint, serializedIdentificationBlueprint);
             }
 
             [TestMethod]

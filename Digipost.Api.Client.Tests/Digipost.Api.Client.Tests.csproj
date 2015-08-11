@@ -51,6 +51,10 @@
       <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.2.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CompareNETObjects.3.02.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -73,15 +77,19 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ByteUtility.cs" />
-    <Compile Include="Comparator.cs" />
-    <Compile Include="Fakes\FakeSearchResponseHandler.cs" />
+    <Compile Include="CompareObjects\Difference.cs" />
+    <Compile Include="CompareObjects\IDifference.cs" />
+    <Compile Include="CompareObjects\Comparator.cs" />
     <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
     <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
+    <Compile Include="Fakes\FakeSearchResponseHandler.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
+    <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\DigipostApiIntegration.cs" />
     <Compile Include="TestProperties.cs" />
     <Compile Include="Unittest\AuthenticationHandlerTests.cs" />
+    <Compile Include="Unittest\ComparatorTests.cs" />
     <Compile Include="Unittest\DigipostActionTests.cs" />
     <Compile Include="Unittest\DigipostApiTests.cs" />
   </ItemGroup>

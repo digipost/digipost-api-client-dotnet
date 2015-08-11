@@ -65,7 +65,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static PersonDetailsResult Search(DigipostClient api)
         {
-            return api.Search("Aleksander Aas Oslo");
+            return api.Search("Al");
         }
 
         private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -16,6 +17,8 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private readonly int _minimumSearchLength = 3;
+
         private IDigipostActionFactory _digipostActionFactory;
 
         private ClientConfig ClientConfig { get; set; }
@@ -87,6 +90,16 @@ namespace Digipost.Api.Client.Api
         public Task<PersonDetailsResult> SearchAsync(string search)
         {
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
+
+            if (search.Length < _minimumSearchLength)
+            {
+                var emptyResult = new PersonDetailsResult();
+                emptyResult.PersonDetails = new List<PersonDetails>();
+                
+                var taskSource = new TaskCompletionSource<PersonDetailsResult>();
+                taskSource.SetResult(emptyResult);
+                return taskSource.Task;
+            }
 
             return GenericGetAsync<PersonDetailsResult>(uri); 
         }

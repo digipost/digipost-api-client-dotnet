@@ -1,6 +1,5 @@
 ﻿using System;
-using System.CodeDom;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -10,7 +9,6 @@ using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.XmlValidation;
@@ -19,6 +17,8 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private readonly int _minimumSearchLength = 3;
+
         private IDigipostActionFactory _digipostActionFactory;
 
         private ClientConfig ClientConfig { get; set; }
@@ -82,33 +82,26 @@ namespace Digipost.Api.Client.Api
             return await identifyResponse;
         }
 
-        public AutocompleteSuggestionResults Autocomplete(string search)
+        public PersonDetailsResult Search(string search)
         {
-            return AutocompleteAsync(search).Result;
+            return SearchAsync(search).Result;
         }
 
-        public Task<AutocompleteSuggestionResults> AutocompleteAsync(string search)
+        public Task<PersonDetailsResult> SearchAsync(string search)
         {
-            var uri = string.Format("recipients/suggest/{0}", Uri.EscapeUriString(search));
-            return GenericGetAsync<AutocompleteSuggestionResults>(uri); 
-        } 
+            var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
 
-        public PersonDetailsResult GetPersonDetails(AutocompleteSuggestion suggestions)
-        {
-            return GetPersonDetailsAsync(suggestions).Result;
-        }
-
-        public async Task<PersonDetailsResult> GetPersonDetailsAsync(AutocompleteSuggestion suggestions)
-        {
-            var personDetailsTask =
-                GenericGetAsync<PersonDetailsResult>(suggestions.Link.LocalPath);
-
-            if (personDetailsTask.IsFaulted)
+            if (search.Length < _minimumSearchLength)
             {
-                if (personDetailsTask.Exception != null) throw personDetailsTask.Exception.InnerException;
+                var emptyResult = new PersonDetailsResult();
+                emptyResult.PersonDetails = new List<PersonDetails>();
+                
+                var taskSource = new TaskCompletionSource<PersonDetailsResult>();
+                taskSource.SetResult(emptyResult);
+                return taskSource.Task;
             }
 
-            return await personDetailsTask;
+            return GenericGetAsync<PersonDetailsResult>(uri); 
         }
 
         private Task<T> GenericPostAsync<T>(RequestContent content, string uri)

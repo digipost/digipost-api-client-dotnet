@@ -4,9 +4,9 @@ using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Testklient.Properties;
 
@@ -54,18 +54,18 @@ namespace Digipost.Api.Client.Testklient
 
             //IdentifyPerson(api);
             //SendMessageToPerson(api, true);
-            var response = Autocomplete(api);
+            var response = Search(api);
 
             
-            var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
+            //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
             
             Console.ReadKey();
         }
 
-        private static AutocompleteSuggestionResults Autocomplete(DigipostClient api)
+        private static PersonDetailsResult Search(DigipostClient api)
         {
-            return api.Autocomplete("Aleksander Aas");
+            return api.Search("Al");
         }
 
         private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)

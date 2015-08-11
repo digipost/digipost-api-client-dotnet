@@ -74,10 +74,9 @@
   <ItemGroup>
     <Compile Include="ByteUtility.cs" />
     <Compile Include="Comparator.cs" />
-    <Compile Include="Fakes\FakeAutocompleteResponseHandler.cs" />
+    <Compile Include="Fakes\FakeSearchResponseHandler.cs" />
     <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
     <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
-    <Compile Include="Fakes\FakePersonDetailsResponseHandler.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\DigipostApiIntegration.cs" />

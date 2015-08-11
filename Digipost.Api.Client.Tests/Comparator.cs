@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -53,10 +52,6 @@ namespace Digipost.Api.Client.Tests
                     else if (aType == typeof(List<Document>))
                     {
                         CheckList((IEnumerable<Document>)valueA, (IEnumerable<Document>)valueB);
-                    }
-                    else if (aType == typeof(List<AutocompleteSuggestion>))
-                    {
-                        CheckList((IEnumerable<AutocompleteSuggestion>)valueA, (IEnumerable<AutocompleteSuggestion>)valueB);
                     }
                     else if (aType == typeof(List<PersonDetails>))
                     {

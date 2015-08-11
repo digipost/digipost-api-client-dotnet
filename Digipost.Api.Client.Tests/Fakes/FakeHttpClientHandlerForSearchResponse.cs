@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Digipost.Api.Client.Tests.Fakes
 {
-    internal class FakeSearchResponseHandler : DelegatingHandler
+    internal class FakeHttpClientHandlerForSearchResponse : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Digipost.Api.Client.Tests.Fakes
 {
-    public class FakeMessageResponseHandler : DelegatingHandler
+    public class FakeHttpClientHandlerForMessageResponse : DelegatingHandler
     {
         public HttpStatusCode? ResultCode { get; set; }
         public HttpContent HttpContent { get; set; }

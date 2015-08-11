@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Autocomplete;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
@@ -186,23 +184,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 Comparator.LookLikeEachOther(invoice, deserializedInvoice);
             }
-            
+           
             [TestMethod]
-            public void ReturnsProperDeserializedAutocompleteSuggestionResult()
-            {
-                //Arrange
-                const string autocompletesuggestionResultBlueprint = "<?xml version=\"1.0\" encoding=\"utf-8\"?><autocomplete xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><suggestion><search-string>marit johansen</search-string><link rel=\"https://qa2.api.digipost.no/relations/search\" uri=\"https://qa2.api.digipost.no/recipients/search/marit%20johansen\"><MediaType>application/vnd.digipost-v6+xml</MediaType></link></suggestion></autocomplete>";
-                var autocompleteSuggestionResults = DomainUtility.GetAutocompleteSuggestionResults();
-
-                //Act
-                var deserializedAutocompleteSuggesionResultBlueprint = SerializeUtil.Deserialize<AutocompleteSuggestionResults>(autocompletesuggestionResultBlueprint);
-
-                //Assert
-                Comparator.LookLikeEachOther(autocompleteSuggestionResults, deserializedAutocompleteSuggesionResultBlueprint);
-            }
-
-            [TestMethod]
-            public void ReturnsProperDeserializedPeronDetailsResult()
+            public void ReturnsProperDeserializedSearchResult()
             {
                 //Arrange
                 const string personDetailsResultBlueprint =
@@ -411,23 +395,6 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 Assert.IsNotNull(serializedIdentification);
                 Assert.AreEqual(invoiceBlueprint, serializedIdentification);
-            }
-
-            [TestMethod]
-            public void ReturnsProperSerializedAutocompleteSuggestionResult()
-            {
-                //Arrange
-                const string autocompleteBlueprint = "<?xml version=\"1.0\" encoding=\"utf-8\"?><autocomplete xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><suggestion><search-string>marit johansen</search-string><link rel=\"https://qa2.api.digipost.no/relations/search\" uri=\"https://qa2.api.digipost.no/recipients/search/marit%20johansen\"><MediaType>application/vnd.digipost-v6+xml</MediaType></link></suggestion></autocomplete>";
-
-
-                var autocompleteSuggestionResults = DomainUtility.GetAutocompleteSuggestionResults();
-
-                //Act
-                var serializedAutocompleteSuggestionResults = SerializeUtil.Serialize(autocompleteSuggestionResults);
-
-                //Assert
-                Assert.IsNotNull(serializedAutocompleteSuggestionResults);
-                Assert.AreEqual(autocompleteBlueprint, serializedAutocompleteSuggestionResults);
             }
 
             [TestMethod]

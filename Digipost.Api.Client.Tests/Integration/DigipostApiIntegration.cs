@@ -155,7 +155,7 @@ namespace Digipost.Api.Client.Tests.Integration
         }
 
         [TestClass]
-        public class AutocompleteMethod : DigipostApiIntegrationTests
+        public class SearchMethod : DigipostApiIntegrationTests
         {
             /// <summary>
             ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
@@ -168,7 +168,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 try
                 {
-                    var fakehandler = new FakeAutocompleteResponseHandler();
+                    var fakehandler = new FakeSearchResponseHandler();
                     var loggingHandler = new LoggingHandler(fakehandler);
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
 
@@ -186,7 +186,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                     var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
 
-                    var result = dpApi.Autocomplete(searchString);
+                    var result = dpApi.Search(searchString);
                     Assert.IsNotNull(result);
 
                  
@@ -196,52 +196,6 @@ namespace Digipost.Api.Client.Tests.Integration
                     Assert.Fail(exception.Message);
                 }
             }
-
-        }
-
-        [TestClass]
-        public class GetPersonDetailsMethod : DigipostApiIntegrationTests
-        {
-            /// <summary>
-            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
-            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
-            /// </summary>
-            [TestMethod]
-            public void ProperRequestSent()
-            {
-                var searchString = DomainUtility.GetSuggestion();
-
-                try
-                {
-                    var fakehandler = new FakePersonDetailsResponseHandler();
-                    var loggingHandler = new LoggingHandler(fakehandler);
-                    var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
-
-
-                    //Setup - init mock of ActionFactory to inject fake identification response handler
-                    var mockFacktory = new Mock<DigipostActionFactory>();
-                    mockFacktory.Setup(
-                        f =>
-                            f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                                It.IsAny<string>()))
-                        .Returns(new GetByUriAction(null, ClientConfig, Certificate, Uri)
-                        {
-                            ThreadSafeHttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
-                        });
-
-                    var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
-
-                    var result = dpApi.GetPersonDetails(searchString);
-                    Assert.IsNotNull(result);
-
-
-                }
-                catch (Exception exception)
-                {
-                    Assert.Fail(exception.Message);
-                }
-            }
-
         }
     }
 }

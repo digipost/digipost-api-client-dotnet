@@ -51,11 +51,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Autocomplete\AutocompleteSuggestionResults.cs" />
     <Compile Include="PersonDetails\PersonDetailsAddress.cs" />
     <Compile Include="PersonDetails\PersonDetails.cs" />
     <Compile Include="PersonDetails\PersonDetailsResult.cs" />
-    <Compile Include="Autocomplete\AutocompleteSuggestion.cs" />
     <Compile Include="DigipostVersion.cs" />
     <Compile Include="Enums\AuthenticationLevel.cs" />
     <Compile Include="Document.cs" />

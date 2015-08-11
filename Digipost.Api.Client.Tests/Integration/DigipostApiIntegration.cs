@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 try
                 {
-                    var fakehandler = new FakeMessageResponseHandler();
+                    var fakehandler = new FakeHttpClientHandlerForMessageResponse();
                     var loggingHandler = new LoggingHandler(fakehandler);
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
 
@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 var message = DomainUtility.GetSimpleMessage();
 
-                var fakehandler = new FakeMessageResponseHandler
+                var fakehandler = new FakeHttpClientHandlerForMessageResponse
                 {
                     ResultCode = HttpStatusCode.InternalServerError,
                     HttpContent = new StringContent(string.Empty)
@@ -127,7 +127,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 try
                 {
-                    var fakehandler = new FakeIdentificationResponseHandler();
+                    var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
                     var loggingHandler = new LoggingHandler(fakehandler);
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
 
@@ -168,7 +168,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 try
                 {
-                    var fakehandler = new FakeSearchResponseHandler();
+                    var fakehandler = new FakeHttpClientHandlerForSearchResponse();
                     var loggingHandler = new LoggingHandler(fakehandler);
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
 

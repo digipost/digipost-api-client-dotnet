@@ -80,9 +80,9 @@
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="CompareObjects\Comparator.cs" />
-    <Compile Include="Fakes\FakeIdentificationResponseHandler.cs" />
-    <Compile Include="Fakes\FakeMessageResponseHandler.cs" />
-    <Compile Include="Fakes\FakeSearchResponseHandler.cs" />
+    <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
+    <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
+    <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

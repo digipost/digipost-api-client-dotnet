@@ -2,7 +2,7 @@
 
 namespace Digipost.Api.Client.Extensions
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         /// <summary>
         /// Removes reserved characters and commonly encoded characters as explained in https://en.wikipedia.org/wiki/Percent-encoding

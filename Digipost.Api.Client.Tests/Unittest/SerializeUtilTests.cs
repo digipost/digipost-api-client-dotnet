@@ -206,7 +206,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             LastName = "larsen", 
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
-                            SuggestionAddress = new PersonDetailsAddress
+                            PersonDetailsAddress = new PersonDetailsAddress
                             {
                                 City = "oslo",
                                 Street = "gronerlukkagata",
@@ -419,7 +419,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             LastName = "larsen", 
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
-                            SuggestionAddress = new PersonDetailsAddress
+                            PersonDetailsAddress = new PersonDetailsAddress
                             {
                                 City = "oslo",
                                 Street = "gronerlukkagata",

@@ -32,6 +32,11 @@ namespace Digipost.Api.Client.Domain.PersonDetails
         public string OrganizationName { get; set; }
 
         [XmlElement("address")]
-        public PersonDetailsAddress SuggestionAddress{ get; set; }
+        public PersonDetailsAddress PersonDetailsAddress{ get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("FirstName: {0}, MiddleName: {1}, LastName: {2}, DigipostAddress: {3}, MobileNumber: {4}, OrganizationName: {5}, PersonDetailsAddress: {6}", FirstName, MiddleName, LastName, DigipostAddress, MobileNumber, OrganizationName, PersonDetailsAddress);
+        }
     }
 }

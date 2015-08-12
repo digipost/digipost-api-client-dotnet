@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using ApiClientShared;
@@ -11,6 +12,7 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
@@ -89,6 +91,7 @@ namespace Digipost.Api.Client.Api
 
         public Task<PersonDetailsResult> SearchAsync(string search)
         {
+            search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
 
             if (search.Length < _minimumSearchLength)

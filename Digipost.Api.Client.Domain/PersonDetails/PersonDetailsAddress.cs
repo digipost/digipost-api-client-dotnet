@@ -27,5 +27,10 @@ namespace Digipost.Api.Client.Domain.PersonDetails
 
         [XmlElement("city")]
         public string City { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Street: {0}, HouseNumber: {1}, HouseLetter: {2}, AdditionalAddressLine: {3}, ZipCode: {4}, City: {5}", Street, HouseNumber, HouseLetter, AdditionalAddressLine, ZipCode, City);
+        }
     }
 }

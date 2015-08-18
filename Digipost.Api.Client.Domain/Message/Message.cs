@@ -37,8 +37,8 @@ namespace Digipost.Api.Client.Domain
         /// <param name="recipient">The recipient receiving the message.</param>
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
         /// <param name="senderId">The id of the sender, created by Digipost.  If you are delivering a 
-        /// message on behalf of an organization, and permission to do so is set, this is the parameter to set. </param>
-        public Message(Recipient recipient, Document primaryDocument, long senderId):
+        /// message on behalf of an organization, and permission to do so is set, this is the parameter use. </param>
+        public Message(Recipient recipient, Document primaryDocument, string senderId):
             this(recipient, primaryDocument)
         {
             SenderValue = senderId;
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Domain
         }
         
         [XmlChoiceIdentifier("SenderType")]
-        [XmlElement("sender-id", typeof(long))]
+        [XmlElement("sender-id", typeof(string))]
         [XmlElement("sender-organization", typeof(SenderOrganization))]
         public object SenderValue { get; set; }
 

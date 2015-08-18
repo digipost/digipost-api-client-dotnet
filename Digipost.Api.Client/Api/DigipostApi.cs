@@ -11,6 +11,7 @@ using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identification;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;

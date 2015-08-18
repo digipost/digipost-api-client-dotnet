@@ -8,6 +8,7 @@ using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identification;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Testklient.Properties;
@@ -64,7 +65,7 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             //IdentifyPerson(api);
-            //SendMessageToPerson(api, true);
+            SendMessageToPerson(api, true);
             var response = Search(api);
 
             
@@ -76,7 +77,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static PersonDetailsResult Search(DigipostClient api)
         {
-            return api.Search("Al");
+            return api.Search("Kristian");
         }
 
         private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)
@@ -140,6 +141,8 @@ namespace Digipost.Api.Client.Testklient
 
             var message = new Message(digitalRecipient, primaryDocument);
 
+            message.DeliveryTime = DateTime.Now.AddHours(-3);
+
             return message;
         }
 
@@ -200,6 +203,224 @@ namespace Digipost.Api.Client.Testklient
             Console.ForegroundColor = isError ? ConsoleColor.Red : ConsoleColor.Green;
             Console.WriteLine(message);
             Console.ResetColor();
+        }
+
+        //////////////////////////////////////////////////////////////////////
+        /// TESTEXAMPLES    
+        /// /////////////////////////////////////////////////////////////////
+
+
+        private void Method1()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            var message = new Message(
+                new Recipient(IdentificationChoice.PersonalidentificationNumber, "311084xxxx"),
+                new Document(subject: "Attachment", fileType:"txt", path: @"c:\...\document.txt")
+              );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method2()
+        {
+            //Init Client
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            //Compose Recipient by name and address
+            var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                fullName: "Ola Nordmann",
+                addressLine: "Prinsensveien 123",
+                postalCode: "0460",
+                city: "Oslo"
+               );
+
+            //Compose message
+            var message = new Message(
+                new Recipient(recipientByNameAndAddress),
+                new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf")
+                );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method3()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
+            var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
+            var attachment2 = new Document(subject: "Attachment 2", fileType: "pdf", path: @"c:\...\attachment_02.pdf");
+
+            var message = new Message(
+                new Recipient(IdentificationChoice.PersonalidentificationNumber, id: "241084xxxxx"), primaryDocument
+                ) { Attachments = { attachment1, attachment2 } };
+
+            var result = client.SendMessage(message);
+
+            Logging.Log(TraceEventType.Information, result.Status.ToString());
+        }
+
+        private void Method4()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
+            var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
+            var attachment2 = new Document(subject: "Attachment 2", fileType: "pdf", path: @"c:\...\attachment_02.pdf");
+
+            var message = new Message(
+                new Recipient(IdentificationChoice.PersonalidentificationNumber, id: "241084xxxxx"), primaryDocument
+                ) { Attachments = { attachment1, attachment2 } };
+
+            var result = client.SendMessage(message);
+
+            Logging.Log(TraceEventType.Information, result.Status.ToString());
+        }
+
+        private void Method5()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            //recipientIdentifier for digital mail
+            var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                fullName: "Ola Nordmann",
+                postalCode: "0460",
+                city: "Oslo",
+                addressLine: "Prinsensveien 123");
+
+            //printdetails for fallback to print (physical mail)
+            var printDetails =
+                new PrintDetails(
+                    recipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnAddress: new PrintReturnAddress(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                    );
+
+            //recipient
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
+
+            var message = new Message(
+                new Recipient(recipientByNameAndAddress, printDetails),
+                new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf")
+               );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method6()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            //recipientIdentifier for digital mail
+            var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                fullName: "Ola Nordmann",
+                postalCode: "0460",
+                city: "Oslo",
+                addressLine: "Prinsensveien 123");
+
+            //printdetails for fallback to print (physical mail)
+            var printDetails =
+                new PrintDetails(
+                    recipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnAddress: new PrintReturnAddress(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                    );
+
+            //recipient
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
+
+            var message = new Message(
+                new Recipient(recipientByNameAndAddress, printDetails),
+                new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf")
+               );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method7()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            //recipientIdentifier for digital mail
+            var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                fullName: "Ola Nordmann",
+                postalCode: "0460",
+                city: "Oslo",
+                addressLine: "Prinsensveien 123");
+
+            //printdetails for fallback to print (physical mail)
+            var printDetails =
+                new PrintDetails(
+                    recipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnAddress: new PrintReturnAddress(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                    );
+
+            //recipient
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
+
+            var message = new Message(
+                new Recipient(recipientByNameAndAddress, printDetails),
+                new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf")
+               );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method8()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+            // API URL is different when request is sent from NHN
+            config.ApiUrl = new Uri("https://api.nhn.digipost.no");
+
+            var message = new Message(
+                new Recipient(IdentificationChoice.PersonalidentificationNumber, "311084xxxx"),
+                new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
+              );
+
+            var result = client.SendMessage(message);
+        }
+
+        private void Method9()
+        {
+            var config = new ClientConfig(senderId: "xxxxx");
+            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+            
+            var message = new Message(
+                new Recipient(IdentificationChoice.PersonalidentificationNumber, "211084xxxx"),
+                new Invoice(subject: "Invoice 1", fileType: "pdf", path: @"c:\...\invoice.pdf", amount: new decimal(100.21), account: "2593143xxxx", duedate: DateTime.Parse("01.01.2016"), kid: "123123123")
+                );
+            
+            var result = client.SendMessage(message);
+        }
+
+        private void Method10()
+        {
+
+        }
+
+        private void Method11()
+        {
+
         }
     }
 }

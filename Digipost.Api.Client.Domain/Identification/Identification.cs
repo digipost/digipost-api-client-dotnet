@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.Identification
 {
     /// <summary>
     /// Used to identify users in Digipost, by Digipost address, name and address, 
@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Identification : RequestContent
+    public class Identification : RequestContent, IIdentification
     {
 
         /// <summary>

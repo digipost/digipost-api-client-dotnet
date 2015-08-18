@@ -5,6 +5,7 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identification;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

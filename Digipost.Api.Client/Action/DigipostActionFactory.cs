@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identification;
 
 namespace Digipost.Api.Client.Action
 {

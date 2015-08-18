@@ -51,6 +51,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Identification\IIdentification.cs" />
+    <Compile Include="Identification\IIdentificationResult.cs" />
     <Compile Include="PersonDetails\PersonDetailsAddress.cs" />
     <Compile Include="PersonDetails\PersonDetails.cs" />
     <Compile Include="PersonDetails\PersonDetailsResult.cs" />

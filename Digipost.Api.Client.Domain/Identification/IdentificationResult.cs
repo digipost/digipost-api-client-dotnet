@@ -4,14 +4,14 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.Identification
 {
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification-result", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class IdentificationResult
+    public class IdentificationResult : IIdentificationResult
     {
         [XmlElement("result")]
         public IdentificationResultCode IdentificationResultCode { get; set; }

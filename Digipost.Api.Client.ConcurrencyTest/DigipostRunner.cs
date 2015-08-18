@@ -6,6 +6,7 @@ using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Identification;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {

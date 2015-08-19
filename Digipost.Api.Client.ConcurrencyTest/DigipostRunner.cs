@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
         private readonly ResourceUtility _resourceManager;
         private byte[] _documentBytes;
         private int _failedCalls;
-        private Identification _identification;
+        private IIdentification _identification;
         private int _itemsLeft;
         private Message _message;
         private int _successfulCalls;
@@ -60,7 +60,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             return _message;
         }
 
-        public Identification GetIdentification()
+        public IIdentification GetIdentification()
         {
             lock (_lock)
             {

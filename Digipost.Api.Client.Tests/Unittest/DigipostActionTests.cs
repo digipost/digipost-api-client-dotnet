@@ -58,7 +58,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize(identification);
+                var expected = SerializeUtil.Serialize((IdentificationDto)identification.DataTransferObject);
                 Assert.AreEqual(expected, content.InnerXml);
             }
         }

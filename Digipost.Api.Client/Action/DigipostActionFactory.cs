@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Action
 {
     internal class DigipostActionFactory : IDigipostActionFactory
     {
-        public virtual DigipostAction CreateClass(RequestContent content, ClientConfig clientConfig, 
+        public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig, 
             X509Certificate2 businessCertificate, string uri)
         {
             var type = content.GetType();
@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Action
                 return new MessageAction(content as Message, clientConfig, businessCertificate, uri);
             }
 
-            if (type == typeof(Identification))
+            if (typeof(IIdentification).IsAssignableFrom(type))
             {
                 return new IdentificationAction(content as Identification, clientConfig, businessCertificate, uri);
             }

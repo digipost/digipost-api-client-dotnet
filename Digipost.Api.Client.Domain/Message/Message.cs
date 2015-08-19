@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Message : RequestContent
+    public class Message : IRequestContent
     {
         private Message()
         {
@@ -105,5 +105,7 @@ namespace Digipost.Api.Client.Domain
         /// </summary>
         [XmlElement("attachment")]
         public List<Document> Attachments { get; set; }
+
+        public object DataTransferObject { get; set; }
     }
 }

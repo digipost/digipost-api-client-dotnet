@@ -7,18 +7,18 @@ namespace Digipost.Api.Client
 {
     internal class GetByUriAction : DigipostAction
     {
-        public GetByUriAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public GetByUriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
             : base(requestContent, clientConfig, businessCertificate, uri)
         {
 
         }
 
-        protected override HttpContent Content(RequestContent requestContent)
+        protected override HttpContent Content(IRequestContent requestContent)
         {
             return null;
         }
 
-        protected override string Serialize(RequestContent requestContent)
+        protected override string Serialize(IRequestContent requestContent)
         {
             return null;
         }

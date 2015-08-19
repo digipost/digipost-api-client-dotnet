@@ -10,12 +10,12 @@ namespace Digipost.Api.Client.Action
 {
     internal class IdentificationAction : DigipostAction
     {
-        public IdentificationAction(Identification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public IdentificationAction(IIdentification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
             : base(identification, clientConfig, businessCertificate, uri)
         {
         }
 
-        protected override HttpContent Content(RequestContent requestContent)
+        protected override HttpContent Content(IRequestContent requestContent)
         {
             var xmlMessage = Serialize(requestContent);
             var messageContent = new StringContent(xmlMessage);
@@ -28,9 +28,9 @@ namespace Digipost.Api.Client.Action
             return messageContent;
         }
 
-        protected override string Serialize(RequestContent requestContent)
+        protected override string Serialize(IRequestContent requestContent)
         {
-            return SerializeUtil.Serialize((Identification) requestContent);
+            return SerializeUtil.Serialize((IdentificationDto) requestContent.DataTransferObject);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using ApiClientShared;
@@ -68,12 +67,12 @@ namespace Digipost.Api.Client.Api
             return await messageDeliveryResultTask;
         }
 
-        public IdentificationResult Identify(Identification identification)
+        public IdentificationResult Identify(IIdentification identification)
         {
             return IdentifyAsync(identification).Result;
         }
 
-        public async Task<IdentificationResult> IdentifyAsync(Identification identification)
+        public async Task<IdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
             var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
@@ -108,7 +107,7 @@ namespace Digipost.Api.Client.Api
             return GenericGetAsync<PersonDetailsResult>(uri); 
         }
 
-        private Task<T> GenericPostAsync<T>(RequestContent content, string uri)
+        private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
 

@@ -18,7 +18,7 @@ namespace Digipost.Api.Client.Tests.Integration
             return message;
         }
 
-        public static Identification GetPersonalIdentification()
+        public static IIdentification GetPersonalIdentification()
         {
             var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
             return identification;

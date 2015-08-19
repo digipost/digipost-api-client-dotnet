@@ -22,12 +22,12 @@ namespace Digipost.Api.Client.Api
             Logging.Initialize(clientConfig);
         }
 
-        public IdentificationResult Identify(Identification identification)
+        public IdentificationResult Identify(IIdentification identification)
         {
             return api.Identify(identification);
         }
 
-        public Task<IdentificationResult> IdentifyAsync(Identification identification)
+        public Task<IdentificationResult> IdentifyAsync(IIdentification identification)
         {
             return api.IdentifyAsync(identification);
         }

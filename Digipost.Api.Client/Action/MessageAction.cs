@@ -15,7 +15,7 @@ namespace Digipost.Api.Client
         {
         }
 
-        protected override HttpContent Content(RequestContent requestContent)
+        protected override HttpContent Content(IRequestContent requestContent)
         {
             var message = requestContent as Message;
             var boundary = Guid.NewGuid().ToString();
@@ -33,7 +33,7 @@ namespace Digipost.Api.Client
             return multipartFormDataContent;
         }
 
-        protected override string Serialize(RequestContent requestContent)
+        protected override string Serialize(IRequestContent requestContent)
         {
             return SerializeUtil.Serialize((Message) requestContent);
         }

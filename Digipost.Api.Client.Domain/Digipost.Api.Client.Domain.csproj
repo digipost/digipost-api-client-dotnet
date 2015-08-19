@@ -51,6 +51,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Identification\Identification.cs" />
     <Compile Include="Identification\IIdentification.cs" />
     <Compile Include="Identification\IIdentificationResult.cs" />
     <Compile Include="PersonDetails\PersonDetailsAddress.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Identification\Identification.cs" />
+    <Compile Include="Identification\IdentificationDto.cs" />
     <Compile Include="Identification\IdentificationResult.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Invoice.cs" />

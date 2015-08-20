@@ -13,25 +13,28 @@ namespace Digipost.Api.Client.Domain.Identification
 
         private void SetResultByIdentificationResultType(string result)
         {
-            //Hvis det er en ok, sett resultat
-            if (IdentificationResultType == IdentificationResultType.Digipostaddress ||
-                IdentificationResultType == IdentificationResultType.Personalias)
-            {
-                Result = result;
-            }
+            bool allSuccessfulResultType = IdentificationResultType == IdentificationResultType.Digipostaddress ||
+                                           IdentificationResultType == IdentificationResultType.Personalias;
 
-            //Hvis det er en feilenum, sett 
+            if (allSuccessfulResultType)
+            {
+                Data = result;
+            }
+            else
+            {
+                Error = ParseToIdentificationError(result);
+            }
         }
 
         public IdentificationResultType IdentificationResultType { get; private set; }
         
-        public IdentificationError IdentificationError { get; private set; }
+        public IdentificationError? Error { get; private set; }
 
-        public string Result { get; set; }
+        public string Data { get; set; }
 
-        private IdentificationError ParseToIdentificationError(string identificationError)
+        private static IdentificationError ParseToIdentificationError(string identificationError)
         {
-            throw new NotImplementedException();
+            return (IdentificationError) Enum.Parse(typeof (IdentificationError), identificationError);
         }
 
         //Fjern

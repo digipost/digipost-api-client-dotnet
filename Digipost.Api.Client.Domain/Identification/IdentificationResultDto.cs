@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Domain.Identification
         [XmlElement("invalid-reason", typeof (InvalidReason))]
         [XmlElement("person-alias", typeof (string))]
         [XmlElement("unidentified-reason", typeof (UnidentifiedReason))]
-        [XmlChoiceIdentifier("IdentificationType")]
+        [XmlChoiceIdentifier("IdentificationResultType")]
         public object IdentificationValue { get;  set; }
 
         [XmlIgnore]

@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Domain.Enums
         /// Enum of invalidreason
         /// </summary>
         [XmlEnum("invalid-reason")] 
-        Invalidreason,
+        InvalidReason,
 
         /// <summary>
         /// The subjects personalias.
@@ -29,6 +29,6 @@ namespace Digipost.Api.Client.Domain.Enums
         /// Enum of unidentified reason.
         /// </summary>
         [XmlEnum("unidentified-reason")] 
-        Unidentifiedreason
+        UnidentifiedReason,
     }
 }

@@ -2,9 +2,15 @@
 {
     public enum IdentificationError
     {
-        Jalla,
-        Balla,
-        Zalla
+        Unidentified,
+
+        Invalid,
+
+        InvalidPersonalIdentificationNumber,
+
+        InvalidOrganisationNumber,
+
+        Unknown
     }
 }
 

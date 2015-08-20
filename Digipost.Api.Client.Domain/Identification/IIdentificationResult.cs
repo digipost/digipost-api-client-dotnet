@@ -4,10 +4,10 @@ namespace Digipost.Api.Client.Domain.Identification
 {
     public interface IIdentificationResult
     {
-        IdentificationResultCode IdentificationResultCode { get; set; }
+        IdentificationResultCode IdentificationResultCode { get; }
 
         object IdentificationValue { get; set; }
 
-        IdentificationResultType IdentificationType { get; set; }
+        IdentificationResultType IdentificationResultType { get;}
     }
 }

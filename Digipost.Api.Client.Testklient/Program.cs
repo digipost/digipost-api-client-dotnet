@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            //IdentifyPerson(api);
+            IdentifyPerson(api);
             SendMessageToPerson(api, true);
             var response = Search(api);
 
@@ -113,11 +113,14 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("Identifiserer person:");
             Console.WriteLine("======================================");
 
-            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "31108446911");
+            var identification = new Identification(IdentificationChoice.OrganisationNumber, "994921608");
+            //var identification = new Identification(IdentificationChoice.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
+            //var identification = new Identification(new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "0467", "Oslo", "Digipost Testgate 2A"));
 
             try
             {
                 var identificationResponse = api.Identify(identification);
+               
                 Logging.Log(TraceEventType.Information, "Identification resp: \n" + identificationResponse);
                 WriteToConsoleWithColor("> Personen ble identifisert!", false);
             }
@@ -140,9 +143,7 @@ namespace Digipost.Api.Client.Testklient
             var digitalRecipient = new Recipient(IdentificationChoice.PersonalidentificationNumber, "01013300001");
 
             var message = new Message(digitalRecipient, primaryDocument);
-
-            message.DeliveryTime = DateTime.Now.AddHours(-3);
-
+            
             return message;
         }
 

@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.Identification
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification-result", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class IdentificationResultDto : IIdentificationResult
+    public class IdentificationResultDto
     {
         [XmlElement("result")]
         public IdentificationResultCode IdentificationResultCode { get; set; }

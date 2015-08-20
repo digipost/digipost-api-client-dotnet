@@ -36,12 +36,5 @@ namespace Digipost.Api.Client.Domain.Identification
         {
             return (IdentificationError) Enum.Parse(typeof (IdentificationError), identificationError);
         }
-
-        //Fjern
-        public IdentificationResultCode IdentificationResultCode { get; set; }
-
-        //Fjern
-        public object IdentificationValue { get; set; }
-
     }
 }

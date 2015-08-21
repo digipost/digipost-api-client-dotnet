@@ -4,8 +4,8 @@ namespace Digipost.Api.Client.Domain.Identification
 {
     public interface IIdentification : IRequestContent
     {
-        object IdentificationValue { get; }
+        object Data{ get; }
 
-        IdentificationChoice IdentificationType { get; }
+        IdentificationChoice IdentificationChoice { get; } 
     }
 }

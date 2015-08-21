@@ -6,6 +6,7 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,7 +59,8 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize((IdentificationDto)identification.DataTransferObject);
+                IdentificationDto identificationDto = DtoConverter.ToDataTransferObject(identification);
+                var expected = SerializeUtil.Serialize(identificationDto);
                 Assert.AreEqual(expected, content.InnerXml);
             }
         }

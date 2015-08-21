@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

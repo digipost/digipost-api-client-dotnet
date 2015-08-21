@@ -1,7 +1,7 @@
 ﻿using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 
 namespace Digipost.Api.Client.Tests.Integration
 {

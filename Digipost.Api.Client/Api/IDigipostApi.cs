@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.PersonDetails;
 
 namespace Digipost.Api.Client.Api

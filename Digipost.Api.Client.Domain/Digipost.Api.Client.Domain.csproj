@@ -51,11 +51,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Identification\Identification.cs" />
-    <Compile Include="Identification\IdentificationError.cs" />
-    <Compile Include="Identification\IdentificationResult.cs" />
-    <Compile Include="Identification\IIdentification.cs" />
-    <Compile Include="Identification\IIdentificationResult.cs" />
+    <Compile Include="Identify\Identification.cs" />
+    <Compile Include="Identify\IdentificationError.cs" />
+    <Compile Include="Identify\IdentificationResult.cs" />
+    <Compile Include="Identify\IIdentification.cs" />
+    <Compile Include="Identify\IIdentificationResult.cs" />
     <Compile Include="PersonDetails\PersonDetailsAddress.cs" />
     <Compile Include="PersonDetails\PersonDetails.cs" />
     <Compile Include="PersonDetails\PersonDetailsResult.cs" />
@@ -78,8 +78,8 @@
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Identification\IdentificationDto.cs" />
-    <Compile Include="Identification\IdentificationResultDto.cs" />
+    <Compile Include="DataTransferObject\IdentificationDto.cs" />
+    <Compile Include="DataTransferObject\IdentificationResultDto.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Link.cs" />
@@ -104,9 +104,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataTransferObject\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

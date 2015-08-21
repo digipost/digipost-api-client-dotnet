@@ -5,7 +5,8 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Utilities;
 
 namespace Digipost.Api.Client.Action

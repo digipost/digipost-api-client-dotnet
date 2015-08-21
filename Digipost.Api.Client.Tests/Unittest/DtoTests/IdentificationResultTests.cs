@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests

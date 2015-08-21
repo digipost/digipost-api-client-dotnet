@@ -8,7 +8,7 @@ using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Testklient.Properties;

@@ -1,12 +1,13 @@
 ﻿using System;
+using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Identify;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
     internal class DtoConverter
     {
-        public static IdentificationDto ToDataTransferObject(Identification.Identification identification)
+        public static IdentificationDto ToDataTransferObject(Identify.Identification identification)
         {
             if (identification.IdentificationChoice == IdentificationChoice.NameAndAddress)
             {

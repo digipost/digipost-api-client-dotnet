@@ -1,6 +1,6 @@
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain.Identification
+namespace Digipost.Api.Client.Domain.Identify
 {
     public interface IIdentificationResult
     {

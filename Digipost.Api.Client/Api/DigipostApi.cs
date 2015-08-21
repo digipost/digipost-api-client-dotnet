@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -12,6 +13,7 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identification;
 using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;
 
@@ -75,13 +77,14 @@ namespace Digipost.Api.Client.Api
         public async Task<IdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
-            var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
+            var identifyResponse = GenericPostAsync<IdentificationResultDto>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
-            return await identifyResponse;
+
+            return DtoConverter.FromDataTransferObject(await identifyResponse);
         }
 
         public PersonDetailsResult Search(string search)
@@ -156,7 +159,7 @@ namespace Digipost.Api.Client.Api
             {
                 throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
             }
-        }
+        } 
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
@@ -179,7 +182,5 @@ namespace Digipost.Api.Client.Api
         {
             return SerializeUtil.Deserialize<T>(responseContent);
         }
-
-       
     }
 }

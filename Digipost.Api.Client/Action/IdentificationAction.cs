@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Identification;
+using Digipost.Api.Client.Domain.Utilities;
 
 namespace Digipost.Api.Client.Action
 {
@@ -30,7 +32,8 @@ namespace Digipost.Api.Client.Action
 
         protected override string Serialize(IRequestContent requestContent)
         {
-            return SerializeUtil.Serialize((IdentificationDto) requestContent.DataTransferObject);
+            IdentificationDto identificationDto =  DtoConverter.ToDataTransferObject((Identification) requestContent);
+            return SerializeUtil.Serialize(identificationDto);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IRequestContent
     {
-        object DataTransferObject { get;}
+        
     }
 }

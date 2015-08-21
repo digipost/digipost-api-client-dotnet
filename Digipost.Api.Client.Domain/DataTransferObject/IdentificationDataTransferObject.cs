@@ -15,14 +15,14 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class IdentificationDto
+    public class IdentificationDataTransferObject
     {
 
         /// <summary>
         /// Identify if recipient exists in Digipost by Digipost address, Organization 
         /// Number or Social Security Number.
         /// </summary>
-        public IdentificationDto(IdentificationChoice identificationChoice, string value)
+        public IdentificationDataTransferObject(IdentificationChoice identificationChoice, string value)
         {
             if (identificationChoice == IdentificationChoice.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
         [Obsolete("Deprecated, this constuctor is not necessary as the IdentificationChoice will not change the result. Note! This will be removed in future version.")]
-        public IdentificationDto(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
+        public IdentificationDataTransferObject(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoice.NameAndAddress;
@@ -46,13 +46,13 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         /// <summary>
         /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
-        public IdentificationDto(RecipientByNameAndAddress recipientByNameAndAddress)
+        public IdentificationDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoice.NameAndAddress;
         }
 
-        private IdentificationDto()
+        private IdentificationDataTransferObject()
         {
             /**Must exist for serialization.**/
         }

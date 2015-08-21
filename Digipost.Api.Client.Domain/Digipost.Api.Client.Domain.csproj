@@ -78,8 +78,8 @@
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoice.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="DataTransferObject\IdentificationDto.cs" />
-    <Compile Include="DataTransferObject\IdentificationResultDto.cs" />
+    <Compile Include="DataTransferObject\IdentificationDataTransferObject.cs" />
+    <Compile Include="DataTransferObject\IdentificationResultDataTransferObject.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Link.cs" />

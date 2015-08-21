@@ -60,7 +60,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var content = action.RequestContent;
 
                 //Assert
-                IdentificationDto identificationDto = DtoConverter.ToDataTransferObject(identification);
+                IdentificationDataTransferObject identificationDto = DtoConverter.ToDataTransferObject(identification);
                 var expected = SerializeUtil.Serialize(identificationDto);
                 Assert.AreEqual(expected, content.InnerXml);
             }

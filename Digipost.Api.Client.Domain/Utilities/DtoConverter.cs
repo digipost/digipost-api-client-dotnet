@@ -7,17 +7,17 @@ namespace Digipost.Api.Client.Domain.Utilities
 {
     internal class DtoConverter
     {
-        public static IdentificationDto ToDataTransferObject(Identify.Identification identification)
+        public static IdentificationDataTransferObject ToDataTransferObject(Identify.Identification identification)
         {
             if (identification.IdentificationChoice == IdentificationChoice.NameAndAddress)
             {
-                return new IdentificationDto((RecipientByNameAndAddress) identification.Data);
+                return new IdentificationDataTransferObject((RecipientByNameAndAddress) identification.Data);
             }
             
-            return new IdentificationDto(identification.IdentificationChoice, identification.Data.ToString());
+            return new IdentificationDataTransferObject(identification.IdentificationChoice, identification.Data.ToString());
         }
 
-        public static IdentificationResult FromDataTransferObject(IdentificationResultDto identificationResultDto)
+        public static IdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
         {
             if(identificationResultDto.IdentificationValue == null)
                 return new IdentificationResult(identificationResultDto.IdentificationResultType, "");

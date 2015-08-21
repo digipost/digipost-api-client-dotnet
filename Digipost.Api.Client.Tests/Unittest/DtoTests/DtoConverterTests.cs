@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 Identification source = new Identification(IdentificationChoice.DigipostAddress, "Ola.Nordmann#244BB2");
-                IdentificationDto expectedDto = new IdentificationDto(IdentificationChoice.DigipostAddress, "Ola.Nordmann#244BB2");
+                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "Ola.Nordmann#244BB2");
 
                 //Act
                 var actualDto = DtoConverter.ToDataTransferObject(source);
@@ -41,7 +41,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationResultFromPersonalIdentificationNumber()
             {
                 //Arrange
-                IdentificationResultDto source = new IdentificationResultDto();
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
                 source.IdentificationResultCode = IdentificationResultCode.Digipost;
                 source.IdentificationValue = null;
                 source.IdentificationResultType = IdentificationResultType.DigipostAddress;
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationResultFromPersonByNameAndAddress()
             {
                 //Arrange
-                IdentificationResultDto source = new IdentificationResultDto();
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
                 source.IdentificationResultCode = IdentificationResultCode.Digipost;
                 source.IdentificationValue = "jarand.bjarte.t.k.grindheim#8DVE";
                 source.IdentificationResultType = IdentificationResultType.DigipostAddress;
@@ -81,7 +81,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationResultFromUnknownDigipostAddress()
             {
                 //Arrange
-                IdentificationResultDto source = new IdentificationResultDto();
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
                 source.IdentificationResultCode = IdentificationResultCode.Unidentified;
                 source.IdentificationValue = "NotFound";
                 source.IdentificationResultType = IdentificationResultType.UnidentifiedReason;

@@ -77,7 +77,7 @@ namespace Digipost.Api.Client.Api
         public async Task<IdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
-            var identifyResponse = GenericPostAsync<IdentificationResultDto>(identification, uri);
+            var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {

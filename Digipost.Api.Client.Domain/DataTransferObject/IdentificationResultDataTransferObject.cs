@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
     [DesignerCategory("code")]
     [XmlType(TypeName = "identification-result", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class IdentificationResultDto
+    public class IdentificationResultDataTransferObject
     {
         [XmlElement("result")]
         public IdentificationResultCode IdentificationResultCode { get; set; }
@@ -26,7 +26,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         [XmlIgnore]
         public IdentificationResultType IdentificationResultType { get;  set; }
 
-        internal IdentificationResultDto() { }
+        internal IdentificationResultDataTransferObject() { }
 
         public override string ToString()
         {

@@ -150,10 +150,10 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><name-and-address><fullname>Ola Nordmann</fullname><addressline1>Postgirobygget 16</addressline1><postalcode>0001</postalcode><city>Oslo</city></name-and-address></identification>";
-                var identification = new IdentificationDto(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
+                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
 
                 //Act
-                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDto>(identificationBlueprint);
+                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
 
                 //Assert
                Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
@@ -164,10 +164,10 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><digipost-address>ola.nordmann#123abc</digipost-address></identification>";
-                var identification = new IdentificationDto(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
+                var identification = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
                 
                 //Act
-                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDto>(identificationBlueprint);
+                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
 
                 //Assert
                Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
@@ -360,7 +360,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><name-and-address><fullname>Ola Nordmann</fullname><addressline1>Postgirobygget 16</addressline1><postalcode>0001</postalcode><city>Oslo</city></name-and-address></identification>";
-                var identification = new IdentificationDto(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
+                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
 
                 //Act
                 var serializedIdentificationBlueprint = SerializeUtil.Serialize(identification);
@@ -375,7 +375,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><digipost-address>ola.nordmann#123abc</digipost-address></identification>";
-                var identification = new IdentificationDto(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
+                var identification = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
 
                 //Act
                 var serializedIdentification = SerializeUtil.Serialize(identification);

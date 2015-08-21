@@ -56,6 +56,8 @@
     <Compile Include="Identify\IdentificationResult.cs" />
     <Compile Include="Identify\IIdentification.cs" />
     <Compile Include="Identify\IIdentificationResult.cs" />
+    <Compile Include="SendMessage\IMessage.cs" />
+    <Compile Include="SendMessage\Message.cs" />
     <Compile Include="PersonDetails\PersonDetailsAddress.cs" />
     <Compile Include="PersonDetails\PersonDetails.cs" />
     <Compile Include="PersonDetails\PersonDetailsResult.cs" />
@@ -84,9 +86,9 @@
     <Compile Include="Invoice.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Listedtime.cs" />
-    <Compile Include="Message\Message.cs" />
-    <Compile Include="Message\MessageDeliveryResult.cs" />
-    <Compile Include="Message\SenderOrganization.cs" />
+    <Compile Include="SendMessage\MessageDto.cs" />
+    <Compile Include="SendMessage\MessageDeliveryResult.cs" />
+    <Compile Include="SendMessage\SenderOrganization.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\NorwegianAddress.cs" />
     <Compile Include="Print\PrintAddress.cs" />

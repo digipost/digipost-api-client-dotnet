@@ -5,13 +5,13 @@ namespace Digipost.Api.Client.Domain.Identification
 {
     public class IdentificationResult : IIdentificationResult
     {
-        public IdentificationResult(IdentificationResultType identificationResultType, string result)
+        public IdentificationResult(IdentificationResultType resultType, string result)
         {
-            IdentificationResultType = identificationResultType;
+            ResultType = resultType;
             SetResultByIdentificationResultType(result);
         }
 
-        public IdentificationResultType IdentificationResultType { get; private set; }
+        public IdentificationResultType ResultType { get; private set; }
 
         public IdentificationError? Error { get; private set; }
 
@@ -24,8 +24,8 @@ namespace Digipost.Api.Client.Domain.Identification
 
         private void SetResultByIdentificationResultType(string result)
         {
-            bool allSuccessfulResultType = IdentificationResultType == IdentificationResultType.DigipostAddress ||
-                                           IdentificationResultType == IdentificationResultType.Personalias;
+            bool allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
+                                           ResultType == IdentificationResultType.Personalias;
 
             if (allSuccessfulResultType)
             {

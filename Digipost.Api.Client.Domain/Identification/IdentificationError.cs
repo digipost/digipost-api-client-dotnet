@@ -10,7 +10,11 @@
 
         InvalidOrganisationNumber,
 
-        Unknown
+        Unknown,
+
+        NotFound,
+
+        MultipleMatches
     }
 }
 

@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(identificationResult.IdentificationResultType, IdentificationResultType.DigipostAddress);
+                Assert.AreEqual(identificationResult.ResultType, IdentificationResultType.DigipostAddress);
             }
 
             [TestMethod]
@@ -56,10 +56,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 foreach (var value in enumValues)
                 {
-                    bool SuccessfulIdentificationResultCode = (value == IdentificationResultCode.Digipost ||
+                    bool successfulIdentificationResultCode = (value == IdentificationResultCode.Digipost ||
                                                  value == IdentificationResultCode.Identified);
 
-                    if (!SuccessfulIdentificationResultCode)
+                    if (!successfulIdentificationResultCode)
                     {
                         //Arrange
                         IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());

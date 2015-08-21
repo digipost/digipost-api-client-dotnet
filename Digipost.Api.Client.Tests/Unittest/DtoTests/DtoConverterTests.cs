@@ -37,22 +37,66 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         public class FromDataTransferObjectMethod : DtoConverterTests
         {
             [TestMethod]
-            public void IdentificationResultFromPersonalIdentificationNumberIdentification()
+            public void IdentificationResultFromPersonalIdentificationNumber()
             {
                 //Arrange
                 IdentificationResultDto source = new IdentificationResultDto();
                 source.IdentificationResultCode = IdentificationResultCode.Digipost;
                 source.IdentificationValue = null;
                 source.IdentificationResultType = IdentificationResultType.DigipostAddress;
-                
+
                 IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
-                
+
                 //Act
                 var actual = DtoConverter.FromDataTransferObject(source);
 
                 //Assert
-                _comparator.AreEqual(expected, actual);
+                Assert.AreEqual(source.IdentificationResultType, expected.ResultType);
+                Assert.AreEqual("", actual.Data);
+                Assert.AreEqual(null, actual.Error);
             }
+
+            [TestMethod]
+            public void IdentificationResultFromPersonByNameAndAddress()
+            {
+                //Arrange
+                IdentificationResultDto source = new IdentificationResultDto();
+                source.IdentificationResultCode = IdentificationResultCode.Digipost;
+                source.IdentificationValue = "jarand.bjarte.t.k.grindheim#8DVE";
+                source.IdentificationResultType = IdentificationResultType.DigipostAddress;
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
+
+                //Act
+                IdentificationResult actual = DtoConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(source.IdentificationValue, actual.Data);
+                Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
+                Assert.AreEqual(null, actual.Error);
+            }
+
+            [TestMethod]
+            public void IdentificationResultFromUnknownDigipostAddress()
+            {
+                //Arrange
+                IdentificationResultDto source = new IdentificationResultDto();
+                source.IdentificationResultCode = IdentificationResultCode.Unidentified;
+                source.IdentificationValue = "NotFound";
+                source.IdentificationResultType = IdentificationResultType.UnidentifiedReason;
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, "NotFound");
+
+                //Act
+                var actual = DtoConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
+                Assert.AreEqual(null, actual.Data);
+                Assert.AreEqual(source.IdentificationValue.ToString(),actual.Error.ToString());
+            }
+
+
         }
 
     }

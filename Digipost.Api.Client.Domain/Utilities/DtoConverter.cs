@@ -1,28 +1,29 @@
 ﻿using System;
+using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identification;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
     internal class DtoConverter
     {
-        public static Identification.Identification FromDataTransferObject(IdentificationDto identificationDto)
-        {
-            throw new NotImplementedException();
-        }
-
         public static IdentificationDto ToDataTransferObject(Identification.Identification identification)
         {
-            throw new NotImplementedException();
+            if (identification.IdentificationType == IdentificationChoice.NameAndAddress)
+            {
+                return new IdentificationDto((RecipientByNameAndAddress) identification.IdentificationValue);
+            }
+            else
+            {
+                return new IdentificationDto(identification.IdentificationType, identification.IdentificationValue.ToString());
+            }
         }
 
         public static IdentificationResult FromDataTransferObject(IdentificationResultDto identificationResultDto)
         {
-            throw new NotImplementedException();
-        }
-
-        public static IdentificationResultDto ToDataTransferObject(IdentificationResult identificationResult)
-        {
-            throw new NotImplementedException();
+            if(identificationResultDto.IdentificationValue == null)
+                return new IdentificationResult(identificationResultDto.IdentificationResultType, "");
+                
+            return new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue.ToString());
         }
     }
 }

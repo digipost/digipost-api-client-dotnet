@@ -8,14 +8,12 @@ namespace Digipost.Api.Client.Domain.Utilities
     {
         public static IdentificationDto ToDataTransferObject(Identification.Identification identification)
         {
-            if (identification.IdentificationType == IdentificationChoice.NameAndAddress)
+            if (identification.IdentificationChoice == IdentificationChoice.NameAndAddress)
             {
-                return new IdentificationDto((RecipientByNameAndAddress) identification.IdentificationValue);
+                return new IdentificationDto((RecipientByNameAndAddress) identification.Data);
             }
-            else
-            {
-                return new IdentificationDto(identification.IdentificationType, identification.IdentificationValue.ToString());
-            }
+            
+            return new IdentificationDto(identification.IdentificationChoice, identification.Data.ToString());
         }
 
         public static IdentificationResult FromDataTransferObject(IdentificationResultDto identificationResultDto)

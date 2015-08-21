@@ -6,16 +6,6 @@ namespace Digipost.Api.Client.Domain.Identification
     {
         internal readonly IdentificationDto IdentificationDto;
 
-        public object IdentificationValue
-        {
-            get { return IdentificationDto.IdentificationValue; }
-        }
-
-        public IdentificationChoice IdentificationType
-        {
-            get { return IdentificationDto.IdentificationType; }
-        }
-
         public Identification(IdentificationChoice identificationChoice, string value)
         {
             IdentificationDto = new IdentificationDto(identificationChoice, value);
@@ -24,6 +14,16 @@ namespace Digipost.Api.Client.Domain.Identification
         public Identification(RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationDto = new IdentificationDto(recipientByNameAndAddress);
+        }
+
+        public object IdentificationValue
+        {
+            get { return IdentificationDto.IdentificationValue; }
+        }
+
+        public IdentificationChoice IdentificationType
+        {
+            get { return IdentificationDto.IdentificationType; }
         }
 
         public object DataTransferObject

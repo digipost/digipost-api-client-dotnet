@@ -101,6 +101,7 @@
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
+    <Compile Include="Unittest\DtoTests\DtoConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />

@@ -13,15 +13,40 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         public class ConstructorMethod : IdentificationTests
         {
             [TestMethod]
+            public void SuccessfulIntentificationResultTypeSetsResult()
+            {
+                var enumValues = Enum.GetValues(typeof(IdentificationResultType)).Cast<IdentificationResultType>();
+
+                foreach (var value in enumValues)
+                {
+
+                    bool failedIdentificationResultType = (value == IdentificationResultType.InvalidReason ||
+                                                           value == IdentificationResultType.UnidentifiedReason);
+
+                    if (!failedIdentificationResultType)
+                    {
+                        //Arrange
+                        IdentificationResult identificationResult = new IdentificationResult(value, "ola.nordmann#2433B");
+
+                        //Act
+
+                        //Assert
+                        Assert.AreEqual("ola.nordmann#2433B", identificationResult.Data);
+                        Assert.IsNull(identificationResult.Error);
+                    }
+                }
+            }
+
+            [TestMethod]
             public void SetsIdentificationResultType()
             {
                 //Arrange
-                IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.Digipostaddress, "ola.nordmann#2433B");
+                IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "ola.nordmann#2433B");
 
                 //Act
 
                 //Assert
-                Assert.AreEqual(identificationResult.IdentificationResultType, IdentificationResultType.Digipostaddress);
+                Assert.AreEqual(identificationResult.IdentificationResultType, IdentificationResultType.DigipostAddress);
             }
 
             [TestMethod]
@@ -64,31 +89,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     //Assert
                     Assert.AreEqual(identificationResult.Error.ToString(), value.ToString());
                     Assert.IsNull(identificationResult.Data);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void SuccessfulIntentificationResultTypeSetsResult()
-        {
-            var enumValues = Enum.GetValues(typeof(IdentificationResultType)).Cast<IdentificationResultType>();
-
-            foreach (var value in enumValues)
-            {
-
-                bool failedIdentificationResultType = (value == IdentificationResultType.InvalidReason ||
-                                                           value == IdentificationResultType.UnidentifiedReason);
-
-                if (!failedIdentificationResultType)
-                {
-                    //Arrange
-                    IdentificationResult identificationResult = new IdentificationResult(value, "ola.nordmann#2433B");
-
-                    //Act
-
-                    //Assert
-                    Assert.AreEqual("ola.nordmann#2433B", identificationResult.Data);
-                    Assert.IsNull(identificationResult.Error);
                 }
             }
         }

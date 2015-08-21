@@ -67,15 +67,15 @@ namespace Digipost.Api.Client.Api
             return await messageDeliveryResultTask;
         }
 
-        public IdentificationResultDto Identify(IIdentification identification)
+        public IdentificationResult Identify(IIdentification identification)
         {
             return IdentifyAsync(identification).Result;
         }
 
-        public async Task<IdentificationResultDto> IdentifyAsync(IIdentification identification)
+        public async Task<IdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
-            var identifyResponse = GenericPostAsync<IdentificationResultDto>(identification, uri);
+            var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {

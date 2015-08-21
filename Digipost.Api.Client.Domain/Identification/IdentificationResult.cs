@@ -11,9 +11,20 @@ namespace Digipost.Api.Client.Domain.Identification
             SetResultByIdentificationResultType(result);
         }
 
+        public IdentificationResultType IdentificationResultType { get; private set; }
+
+        public IdentificationError? Error { get; private set; }
+
+        public string Data { get; set; }
+
+        private static IdentificationError ParseToIdentificationError(string identificationError)
+        {
+            return (IdentificationError) Enum.Parse(typeof (IdentificationError), identificationError);
+        }
+
         private void SetResultByIdentificationResultType(string result)
         {
-            bool allSuccessfulResultType = IdentificationResultType == IdentificationResultType.Digipostaddress ||
+            bool allSuccessfulResultType = IdentificationResultType == IdentificationResultType.DigipostAddress ||
                                            IdentificationResultType == IdentificationResultType.Personalias;
 
             if (allSuccessfulResultType)
@@ -24,17 +35,6 @@ namespace Digipost.Api.Client.Domain.Identification
             {
                 Error = ParseToIdentificationError(result);
             }
-        }
-
-        public IdentificationResultType IdentificationResultType { get; private set; }
-        
-        public IdentificationError? Error { get; private set; }
-
-        public string Data { get; set; }
-
-        private static IdentificationError ParseToIdentificationError(string identificationError)
-        {
-            return (IdentificationError) Enum.Parse(typeof (IdentificationError), identificationError);
         }
     }
 }

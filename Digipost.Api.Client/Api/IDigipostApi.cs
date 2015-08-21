@@ -12,9 +12,9 @@ namespace Digipost.Api.Client.Api
 
         Task<MessageDeliveryResult> SendMessageAsync(Message message);
 
-        IdentificationResultDto Identify(IIdentification identification);
+        IdentificationResult Identify(IIdentification identification);
 
-        Task<IdentificationResultDto> IdentifyAsync(IIdentification identification);
+        Task<IdentificationResult> IdentifyAsync(IIdentification identification);
 
         Task<PersonDetailsResult> SearchAsync(string search);
 

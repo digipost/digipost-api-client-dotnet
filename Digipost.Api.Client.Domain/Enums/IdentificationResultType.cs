@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.Enums
         /// The subjects digipost-address
         /// </summary>
         [XmlEnum("digipost-address")] 
-        Digipostaddress,
+        DigipostAddress,
 
         /// <summary>
         /// Enum of invalidreason

@@ -99,6 +99,7 @@
     <Compile Include="Recipient\RecipientByNameAndAddress.cs" />
     <Compile Include="SmsNotification.cs" />
     <Compile Include="RequestContent.cs" />
+    <Compile Include="Utilities\DtoConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

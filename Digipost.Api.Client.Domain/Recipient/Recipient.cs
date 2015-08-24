@@ -25,21 +25,21 @@ namespace Digipost.Api.Client.Domain
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
         {
             IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoice.NameAndAddress;
+            IdentificationType = IdentificationChoiceType.NameAndAddress;
             PrintDetails = printDetails;
         }
 
         /// <summary>
         ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
-        public Recipient(IdentificationChoice identificationChoice, string id, PrintDetails printDetails = null)
+        public Recipient(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
         {
-            if (identificationChoice == IdentificationChoice.NameAndAddress)
+            if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
                                                           "when using string as id",
-                    IdentificationChoice.NameAndAddress));
+                    IdentificationChoiceType.NameAndAddress));
             IdentificationValue = id;
-            IdentificationType = identificationChoice;
+            IdentificationType = identificationChoiceType;
             PrintDetails = printDetails;
         }
 
@@ -63,6 +63,6 @@ namespace Digipost.Api.Client.Domain
 
         [Obsolete("Will be renamed to IdentificationChoiceType. NB. This will be removed in future version.")] //With next breaking change, rename to IdenticicationChoiceType.
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get;  set; }
+        public IdentificationChoiceType IdentificationType { get;  set; }
     }
 }

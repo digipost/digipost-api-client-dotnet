@@ -53,7 +53,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var clientConfig = new ClientConfig("123");
                 var certificate = TestProperties.Certificate();
                 const string uri = "AFakeUri";
-                var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+                var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
 
                 //Act
                 var action = new IdentificationAction(identification, clientConfig, certificate, uri);

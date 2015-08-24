@@ -21,8 +21,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void Identification()
             {
                 //Arrange
-                Identification source = new Identification(IdentificationChoice.DigipostAddress, "Ola.Nordmann#244BB2");
-                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "Ola.Nordmann#244BB2");
+                Identification source = new Identification(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
+                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
 
                 //Act
                 var actualDto = DtoConverter.ToDataTransferObject(source);

@@ -114,7 +114,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
 
             //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
-            var identification = new Identification(IdentificationChoice.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
+            var identification = new Identification(IdentificationChoiceType.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
 
 
             try
@@ -144,7 +144,7 @@ namespace Digipost.Api.Client.Testklient
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
    
-            var digitalRecipient = new Recipient(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+            var digitalRecipient = new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "01013300001");
 
             var message = new Message(digitalRecipient, primaryDocument);
 

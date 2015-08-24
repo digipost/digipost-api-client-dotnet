@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Tests.Integration
         public static Message GetSimpleMessage()
         {
             var message = new Message(
-                new Recipient(IdentificationChoice.PersonalidentificationNumber, "00000000000"),
+                new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "00000000000"),
                 new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"))
                 );
             return message;
@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
         public static IIdentification GetPersonalIdentification()
         {
-            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+            var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
             return identification;
         }
     }

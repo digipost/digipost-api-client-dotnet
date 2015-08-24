@@ -6,6 +6,6 @@ namespace Digipost.Api.Client.Domain.Identify
     {
         object Data{ get; }
 
-        IdentificationChoice IdentificationChoice { get; } 
+        IdentificationChoiceType IdentificationChoiceType { get; } 
     }
 }

@@ -4,11 +4,11 @@ namespace Digipost.Api.Client.Domain.Identify
 {
     public class Identification : IIdentification
     {
-        public IdentificationChoice IdentificationChoice { get; set; }
+        public IdentificationChoiceType IdentificationChoiceType { get; set; }
         
-        public Identification(IdentificationChoice identificationChoice, string value)
+        public Identification(IdentificationChoiceType identificationChoiceType, string value)
         {
-            IdentificationChoice = identificationChoice;
+            IdentificationChoiceType = identificationChoiceType;
             Data = value;
         }
 

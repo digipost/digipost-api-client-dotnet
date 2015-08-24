@@ -164,7 +164,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><digipost-address>ola.nordmann#123abc</digipost-address></identification>";
-                var identification = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
+                var identification = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "ola.nordmann#123abc");
                 
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
@@ -375,7 +375,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><digipost-address>ola.nordmann#123abc</digipost-address></identification>";
-                var identification = new IdentificationDataTransferObject(IdentificationChoice.DigipostAddress, "ola.nordmann#123abc");
+                var identification = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "ola.nordmann#123abc");
 
                 //Act
                 var serializedIdentification = SerializeUtil.Serialize(identification);

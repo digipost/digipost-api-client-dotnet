@@ -22,12 +22,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void InitializeProperlyForStringInitialization()
             {
                 //Arrange
-                Identification identification = new Identification(IdentificationChoice.DigipostAddress, "Ola.nordmann#234HH");
+                Identification identification = new Identification(IdentificationChoiceType.DigipostAddress, "Ola.nordmann#234HH");
                 
                 //Act
                 
                 //Assert
-                Assert.AreEqual(IdentificationChoice.DigipostAddress, identification.IdentificationChoice);
+                Assert.AreEqual(IdentificationChoiceType.DigipostAddress, identification.IdentificationChoiceType);
                 Assert.AreEqual("Ola.nordmann#234HH", (string) identification.Data);
             }
 

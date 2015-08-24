@@ -22,25 +22,25 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         /// Identify if recipient exists in Digipost by Digipost address, Organization 
         /// Number or Social Security Number.
         /// </summary>
-        public IdentificationDataTransferObject(IdentificationChoice identificationChoice, string value)
+        public IdentificationDataTransferObject(IdentificationChoiceType identificationChoiceType, string value)
         {
-            if (identificationChoice == IdentificationChoice.NameAndAddress)
+            if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
                                                           "when using string as id",
-                    IdentificationChoice.NameAndAddress));
+                    IdentificationChoiceType.NameAndAddress));
             
             IdentificationValue = value;
-            IdentificationType = identificationChoice;
+            IdentificationType = identificationChoiceType;
         }
 
         /// <summary>
         /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
         [Obsolete("Deprecated, this constuctor is not necessary as the IdentificationChoice will not change the result. Note! This will be removed in future version.")]
-        public IdentificationDataTransferObject(IdentificationChoice identificationChoice, RecipientByNameAndAddress recipientByNameAndAddress)
+        public IdentificationDataTransferObject(IdentificationChoiceType identificationChoiceType, RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoice.NameAndAddress;
+            IdentificationType = IdentificationChoiceType.NameAndAddress;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         public IdentificationDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress)
         {
             IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoice.NameAndAddress;
+            IdentificationType = IdentificationChoiceType.NameAndAddress;
         }
 
         private IdentificationDataTransferObject()
@@ -65,6 +65,6 @@ namespace Digipost.Api.Client.Domain.DataTransferObject
         public object IdentificationValue { get; set; }
 
         [XmlIgnore]
-        public IdentificationChoice IdentificationType { get; set; }
+        public IdentificationChoiceType IdentificationType { get; set; }
     }
 }

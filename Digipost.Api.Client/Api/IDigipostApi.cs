@@ -3,14 +3,16 @@ using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.SendMessage;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Api
 {
     internal interface IDigipostApi
     {
-        MessageDeliveryResult SendMessage(Message message);
+        MessageDeliveryResult SendMessage(IMessage messageDataTransferObject);
 
-        Task<MessageDeliveryResult> SendMessageAsync(Message message);
+        Task<MessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject);
 
         IdentificationResult Identify(IIdentification identification);
 

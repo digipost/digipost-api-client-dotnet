@@ -45,21 +45,21 @@ namespace Digipost.Api.Client.Domain
         /// recipient's inbox when opening the letter.
         /// </summary>
         [Obsolete("Use PrimaryDocument insted. This is just a rename of field name and has no side effects. NB! This will be removed in future version.")]
-        public Document Primarydocument { get { return PrimaryDocument; } set { PrimaryDocument = value; } }
+        public DocumentDataTransferObject Primarydocument { get { return PrimaryDocumentDataTransferObject; } set { PrimaryDocumentDataTransferObject = value; } }
 
         /// <summary>
         /// The primary document of the delivery. This is the document that will be shown first in the 
         /// recipient's inbox when opening the letter.
         /// </summary>
         [XmlElement("primary-document")]
-        public Document PrimaryDocument { get; set; }
+        public DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }
         
         /// <summary>
         /// Optional. Attachments can be added to the message, and can be of same types as the primary
         /// document.
         /// </summary>
         [XmlElement("attachment")]
-        public List<Document> Attachment { get; set; }
+        public List<DocumentDataTransferObject> Attachment { get; set; }
 
         [XmlElement("link")]
         [Obsolete("This field has no relevant information and will therefore be removed in future version.")]

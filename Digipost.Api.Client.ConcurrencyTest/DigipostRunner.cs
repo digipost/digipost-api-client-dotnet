@@ -7,6 +7,7 @@ using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -43,7 +44,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public abstract void Run(RequestType requestType);
 
-        public Message GetMessage()
+        public IMessage GetMessage()
         {
             lock (_lock)
             {

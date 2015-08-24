@@ -2,6 +2,8 @@
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Tests.Integration
 {
@@ -9,7 +11,7 @@ namespace Digipost.Api.Client.Tests.Integration
     {
         static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
 
-        public static Message GetSimpleMessage()
+        public static IMessage GetSimpleMessage()
         {
             var message = new Message(
                 new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "00000000000"),

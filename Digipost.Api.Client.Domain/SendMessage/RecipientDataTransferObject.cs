@@ -12,27 +12,21 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message-recipient", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("message-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class Recipient
+    public class RecipientDataTransferObject
     {
-        private Recipient()
+        private RecipientDataTransferObject()
         {
             /**Must exist for serialization.**/
         }
 
-        /// <summary>
-        ///     Preferred digital delivery with fallback to physical delivery.
-        /// </summary>
-        public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
+        public RecipientDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
         {
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoiceType.NameAndAddress;
             PrintDetails = printDetails;
         }
 
-        /// <summary>
-        ///     Preferred digital delivery with fallback to physical delivery.
-        /// </summary>
-        public Recipient(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
+        public RecipientDataTransferObject(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
         {
             if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
@@ -42,11 +36,8 @@ namespace Digipost.Api.Client.Domain
             IdentificationType = identificationChoiceType;
             PrintDetails = printDetails;
         }
-
-        /// <summary>
-        ///     Preferred physical delivery. (not Digital)
-        /// </summary>
-        public Recipient(PrintDetails printDetails)
+        
+        public RecipientDataTransferObject(PrintDetails printDetails)
         {
             PrintDetails = printDetails;
         }

@@ -11,6 +11,7 @@ using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Testklient.Properties;
 using KellermanSoftware.CompareNetObjects;
 
@@ -85,7 +86,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
             Console.WriteLine("======================================");
-            Message message;
+            IMessage message;
 
             message = isQaOrLocal ? GetMessageForQaOrLocal() : GetMessage();
             
@@ -139,7 +140,7 @@ namespace Digipost.Api.Client.Testklient
             }
         }
 
-        private static Message GetMessageForQaOrLocal()
+        private static IMessage GetMessageForQaOrLocal()
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
@@ -151,14 +152,14 @@ namespace Digipost.Api.Client.Testklient
             return message;
         }
 
-        private static Message GetMessage()
+        private static IMessage GetMessage()
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
-            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "18941362738", duedate: DateTime.Now, kid: "123123123");
+            var invoice = new InvoiceDataTransferObject(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "18941362738", duedate: DateTime.Now, kid: "123123123");
 
             //attachment
-            var attachment = new Document("Attachment", "txt", GetAttachment());
+            var attachment = new DocumentDataTransferObject("Attachment", "txt", GetAttachment());
 
             //printdetails for fallback to print (physical mail)
             var printDetails =
@@ -179,9 +180,7 @@ namespace Digipost.Api.Client.Testklient
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(
-                recipient: digitalRecipientWithFallbackPrint,
-                primaryDocument: invoice) 
+            var message = new Message(digitalRecipientWithFallbackPrint,invoice) 
                 {};
             
             //message.Deliverytime = DateTime.Now.AddDays(1);

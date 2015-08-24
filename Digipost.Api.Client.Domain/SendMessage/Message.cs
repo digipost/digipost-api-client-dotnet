@@ -13,11 +13,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// </summary>
         /// <param name="recipient">The recipient recieving the message.</param>
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        public Message(Recipient recipient, Document primaryDocument)
+        public Message(Recipient recipient, IDocument primaryDocument)
         {
             Recipient = recipient;
             PrimaryDocument = primaryDocument;
-            Attachments = new List<Document>();
+            Attachments = new List<IDocument>();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
             SenderType = SenderChoiceType.SenderId;
         }
 
-        public object SenderValue
+        internal object SenderValue
         {
             get { return _senderValue; }
             set
@@ -44,16 +44,19 @@ namespace Digipost.Api.Client.Domain.SendMessage
             }
         }
 
-        public SenderChoiceType SenderType { get; set; }
+        internal SenderChoiceType SenderType { get; set; }
         
         public Recipient Recipient { get; set; }
         
         public DateTime? DeliveryTime { get; set; }
+
+        public bool DeliveryTimeSpecified
+        {
+            get { return DeliveryTime != null; }
+        }
+
+        public IDocument PrimaryDocument { get; set; }
         
-        public bool DeliveryTimeSpecified { get; private set; }
-        
-        public Document PrimaryDocument { get; set; }
-        
-        public List<Document> Attachments { get; set; }
+        public List<IDocument> Attachments { get; set; }
     }
 }

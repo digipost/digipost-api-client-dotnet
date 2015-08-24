@@ -2,6 +2,8 @@
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Action
 {
@@ -12,9 +14,9 @@ namespace Digipost.Api.Client.Action
         {
             var type = content.GetType();
 
-            if (type == typeof(Message))
+            if (type == typeof(IMessage))
             {
-                return new MessageAction(content as Message, clientConfig, businessCertificate, uri);
+                return new MessageAction(content as IMessage, clientConfig, businessCertificate, uri);
             }
 
             if (typeof(IIdentification).IsAssignableFrom(type))

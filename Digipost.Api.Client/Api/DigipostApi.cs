@@ -16,6 +16,7 @@ using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Api
 {
@@ -47,7 +48,7 @@ namespace Digipost.Api.Client.Api
             set { _digipostActionFactory = value; }
         }
 
-        public MessageDeliveryResult SendMessage(Message message)
+        public MessageDeliveryResult SendMessage(IMessage message)
         {
             var messageDelivery = SendMessageAsync(message);
 
@@ -57,7 +58,7 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        public async Task<MessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             const string uri = "messages";
             var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResult>(message, uri);

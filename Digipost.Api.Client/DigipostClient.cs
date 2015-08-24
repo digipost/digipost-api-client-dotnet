@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.SendMessage;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Api
 {
@@ -32,14 +34,14 @@ namespace Digipost.Api.Client.Api
             return api.IdentifyAsync(identification);
         }
 
-        public MessageDeliveryResult SendMessage(Message message)
+        public MessageDeliveryResult SendMessage(IMessage messageDataTransferObject)
         {
-            return api.SendMessage(message);
+            return api.SendMessage(messageDataTransferObject);
         }
 
-        public Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        public Task<MessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject)
         {
-            return api.SendMessageAsync(message);
+            return api.SendMessageAsync(messageDataTransferObject);
         }
 
         public PersonDetailsResult Search(string query)

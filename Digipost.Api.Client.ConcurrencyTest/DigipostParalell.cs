@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Digipost.Api.Client;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
-using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace ConcurrencyTester
 {
@@ -26,7 +26,7 @@ namespace ConcurrencyTester
             Stopwatch.Start();
             ServicePointManager.DefaultConnectionLimit = _defaultConnectionLimit;
 
-            var messages = new List<Message>();
+            var messages = new List<IMessage>();
             while (RunsLeft() > 0)
             {
                 messages.Add(GetMessage());

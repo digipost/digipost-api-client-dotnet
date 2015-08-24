@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain
 {
@@ -19,40 +20,20 @@ namespace Digipost.Api.Client.Domain
             /**Must exist for serialization.**/
         }
 
-        /// <summary>
-        /// A message to be delivered to a Recipient. 
-        /// </summary>
-        /// <param name="recipient">The recipient recieving the message.</param>
-        /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        public Message(Recipient recipient, Document primaryDocument)
+       public Message(Recipient recipient, Document primaryDocument)
         {
             Recipient = recipient;
             PrimaryDocument = primaryDocument;
             Attachments = new List<Document>();
         }
 
-        /// <summary>
-        /// A message to be delivered to a Recipient. 
-        /// </summary>
-        /// <param name="recipient">The recipient receiving the message.</param>
-        /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        /// <param name="senderId">The id of the sender, created by Digipost.  If you are delivering a 
-        /// message on behalf of an organization, and permission to do so is set, this is the parameter to set. </param>
-        public Message(Recipient recipient, Document primaryDocument, long senderId):
+       public Message(Recipient recipient, Document primaryDocument, long senderId):
             this(recipient, primaryDocument)
         {
             SenderValue = senderId;
             SenderType = SenderChoiceType.SenderId; 
         }
 
-        /// <summary>
-        /// A message to be delivered to a Recipient. 
-        /// </summary>
-        /// <param name="recipient">The recipient receiving the message.</param>
-        /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        /// <param name="senderOrganization">The organization sending the message. If you are delivering a 
-        /// message on behalf of an organization, and permission to do so is set, this is the parameter to set.
-        /// </param>
         public Message(Recipient recipient, Document primaryDocument, SenderOrganization senderOrganization)
             : this(recipient, primaryDocument)
         {
@@ -68,21 +49,13 @@ namespace Digipost.Api.Client.Domain
         [XmlIgnore]
         public SenderChoiceType SenderType { get; set; }
 
-        /// <summary>
-        /// The recipient receiving the message. 
-        /// </summary>
+       
         [XmlElement("recipient")]
         public Recipient Recipient { get; set; }
 
-        /// <summary>
-        /// Optional. The time when the document will be made visible to the user. 
-        /// </summary>
         [XmlElement("delivery-time")]
         public DateTime? DeliveryTime { get; set; }
         
-        /// <summary>
-        /// True if a delivery time is specified for the message. Otherwise false.
-        /// </summary>
         [XmlIgnoreAttribute()]
         public bool DeliveryTimeSpecified
         {
@@ -92,19 +65,10 @@ namespace Digipost.Api.Client.Domain
             }
         }
         
-        /// <summary>
-        /// The primary document of the delivery. This is the document that will be shown first in the 
-        /// recipient's inbox when opening the letter.
-        /// </summary>
         [XmlElement("primary-document")]
         public Document PrimaryDocument { get; set; }
 
-        /// <summary>
-        /// Optional. Attachments can be added to the message, and can be of same types as the primary
-        /// document.
-        /// </summary>
         [XmlElement("attachment")]
         public List<Document> Attachments { get; set; }
-        
     }
 }

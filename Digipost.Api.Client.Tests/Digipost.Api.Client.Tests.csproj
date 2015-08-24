@@ -104,6 +104,7 @@
     <Compile Include="Unittest\DtoTests\DtoConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
+    <Compile Include="Unittest\DtoTests\MessageTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
   </ItemGroup>

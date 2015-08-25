@@ -6,8 +6,6 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class Message : IMessage
     {
-        private string _senderId;
-
         /// <summary>
         /// A message to be delivered to a Recipient. 
         /// </summary>
@@ -31,21 +29,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
             this(recipient, primaryDocument)
         {
             SenderId = senderId;
-            SenderType = SenderChoiceType.SenderId;
         }
 
-        public string SenderId
-        {
-            get { return _senderId; }
-            set
-            {
-                _senderId = value; 
-                SenderType = SenderChoiceType.SenderId;
-            }
-        }
+        public string SenderId { get; set; }
 
-        internal SenderChoiceType SenderType { get; set; }
-        
         public IRecipient Recipient { get; set; }
         
         public DateTime? DeliveryTime { get; set; }

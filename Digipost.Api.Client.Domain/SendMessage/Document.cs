@@ -8,31 +8,13 @@ namespace Digipost.Api.Client.Domain.SendMessage
     {
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileType">The mime type of the file. e.g pdf,txt..</param>
-        /// <param name="path">The path to the file. e.g c:\docs\file01.txt</param>
-        /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
-        /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
-        public Document(string subject, string fileType, string path,
-            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
-        {
-            Guid = System.Guid.NewGuid().ToString();
-            Subject = subject;
-            FileType = fileType;
-            FileType = fileType;
-            ContentBytes = ReadAllBytes(path);
-            AuthenticationLevel = authenticationLevel;
-            SensitivityLevel = sensitivityLevel;
-        }
-
-        /// <param name="subject">The subject of the document.</param>
-        /// <param name="fileType">The mime type of the file. e.g pdf,txt..</param>
         /// <param name="contentBytes">The content of file in byteArray.</param>
         /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
         /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
         /// <param name="smsNotification">Sets SMS notification setting. Default null.</param>
         public Document(string subject, string fileType, byte[] contentBytes,
             AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null) 
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
@@ -42,7 +24,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
             SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;
         }
-
+ 
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileType">The type of the file. e.g pdf,txt..</param>
         /// <param name="documentStream">Stream of the file.</param>
@@ -51,16 +33,23 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <param name="smsNotification">Sets SMS notification setting. Default null.</param>
         public Document(string subject, string fileType, Stream documentStream,
             AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null) 
+            :this(subject, fileType, new byte[]{}, authenticationLevel, sensitivityLevel, smsNotification)
         {
-            Guid = System.Guid.NewGuid().ToString();
-            Subject = subject;
-            FileType = fileType;
-            FileType = fileType;
-            ContentBytes = File.ReadAllBytes(new StreamReader(documentStream).ReadToEnd());
-            AuthenticationLevel = authenticationLevel;
-            SensitivityLevel = sensitivityLevel;
-            SmsNotification = smsNotification;
+            ContentBytes = ReadAllBytes(documentStream);
+        }
+
+        /// <param name="subject">The subject of the document.</param>
+        /// <param name="fileType">The mime type of the file. e.g pdf,txt..</param>
+        /// <param name="path">The path to the file. e.g c:\docs\file01.txt</param>
+        /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
+        /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
+        public Document(string subject, string fileType, string path,
+            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            : this(subject,fileType, new byte[]{}, authenticationLevel, sensitivityLevel, smsNotification )
+        {
+            ContentBytes = ReadAllBytes(path);
         }
 
         public string Guid { get; set; }
@@ -84,9 +73,14 @@ namespace Digipost.Api.Client.Domain.SendMessage
         
         public byte[] ContentBytes { get; set; }
 
-        private byte[] ReadAllBytes(string pathToDocument)
+        internal virtual byte[] ReadAllBytes(string pathToDocument)
         {
             return File.ReadAllBytes(pathToDocument);
+        }
+
+        internal virtual byte[] ReadAllBytes(Stream documentStream)
+        {
+            return File.ReadAllBytes(new StreamReader(documentStream).ReadToEnd());
         }
     }
 }

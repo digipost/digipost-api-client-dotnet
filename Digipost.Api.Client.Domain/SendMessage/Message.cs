@@ -11,24 +11,14 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// </summary>
         /// <param name="recipient">The recipient recieving the message.</param>
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        public Message(IRecipient recipient, IDocument primaryDocument)
+        /// <param name="senderId">The id of the sender, created by Digipost.  If you are delivering a 
+        /// message on behalf of an organization, and permission to do so is set, this is the parameter to set. </param>
+        public Message(IRecipient recipient, IDocument primaryDocument, string senderId = null)
         {
             Recipient = recipient;
             PrimaryDocument = primaryDocument;
-            Attachments = new List<IDocument>();
-        }
-
-        /// <summary>
-        /// A message to be delivered to a Recipient. 
-        /// </summary>
-        /// <param name="recipient">The recipient receiving the message.</param>
-        /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        /// <param name="senderId">The id of the sender, created by Digipost.  If you are delivering a 
-        /// message on behalf of an organization, and permission to do so is set, this is the parameter to set. </param>
-        public Message(IRecipient recipient, IDocument primaryDocument, string senderId) :
-            this(recipient, primaryDocument)
-        {
             SenderId = senderId;
+            Attachments = new List<IDocument>();
         }
 
         public string SenderId { get; set; }

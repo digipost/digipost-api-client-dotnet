@@ -40,6 +40,6 @@ namespace Digipost.Api.Client.Domain.SendMessage
         
         public PrintDetails PrintDetails { get; set; }
         
-        public IdentificationChoiceType IdentificationType { get; set; }
+        public IdentificationChoiceType? IdentificationType { get; set; }
     }
 }

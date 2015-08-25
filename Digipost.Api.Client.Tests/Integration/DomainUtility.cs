@@ -15,15 +15,25 @@ namespace Digipost.Api.Client.Tests.Integration
         {
             var message = new Message(
                 new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "00000000000"),
-                new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"))
+                GetDocument()
                 );
             return message;
+        }
+
+        public static IDocument GetDocument()
+        {
+            return new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
         }
 
         public static IIdentification GetPersonalIdentification()
         {
             var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
             return identification;
+        }
+
+        public static IRecipient GetRecipientWithDigipostId()
+        {
+            return new Recipient(IdentificationChoiceType.DigipostAddress, "ola.nordmann#246BB");
         }
     }
 }

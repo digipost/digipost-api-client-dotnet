@@ -80,9 +80,11 @@
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="CompareObjects\Comparator.cs" />
+    <Compile Include="Fakes\FakeDocument.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
+    <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,9 +103,11 @@
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
+    <Compile Include="Unittest\DtoTests\DocumentTests.cs" />
     <Compile Include="Unittest\DtoTests\DtoConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
+    <Compile Include="Unittest\DtoTests\InvoiceTests.cs" />
     <Compile Include="Unittest\DtoTests\MessageTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />

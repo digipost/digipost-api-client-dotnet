@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.CompareObjects;
+using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
@@ -32,6 +35,75 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
+
+            [TestMethod]
+            public void RecipientFromNameAndAddress()
+            {
+                //Arrange
+                var recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Osloveien 22");
+                IRecipient source = new Recipient(recipientByNameAndAddress);
+                RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(recipientByNameAndAddress);
+                
+                //Act
+                var actualDto = DtoConverter.ToDataTransferObject(source);
+                
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void RecipientFromPrintDetails()
+            {
+                //Arrange
+                var printDetails = DomainUtility.GetPrintDetails();
+                IRecipient source = new Recipient(printDetails);
+                RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(printDetails);
+                
+                //Act
+                var actualDto = DtoConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void RecipientFromIdentification()
+            {
+                //Arrange
+                IRecipient source = new Recipient(IdentificationChoiceType.DigipostAddress, "ola.nordmann#23FF");
+                RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(IdentificationChoiceType.DigipostAddress, "ola.nordmann#23FF");
+                
+                //Act
+                var actualDto = DtoConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void Document()
+            {
+                //Arrange
+                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                DocumentDataTransferObject expectedDto = new DocumentDataTransferObject("TestSubject","txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                expectedDto.Guid = source.Guid;
+
+                //Act
+                var actualDto = DtoConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+
         }
 
         [TestClass]
@@ -72,6 +144,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 IdentificationResult actual = DtoConverter.FromDataTransferObject(source);
 
                 //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expected, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+
                 Assert.AreEqual(source.IdentificationValue, actual.Data);
                 Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
                 Assert.AreEqual(null, actual.Error);
@@ -92,6 +168,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DtoConverter.FromDataTransferObject(source);
 
                 //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expected, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+
                 Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
                 Assert.AreEqual(null, actual.Data);
                 Assert.AreEqual(source.IdentificationValue.ToString(),actual.Error.ToString());

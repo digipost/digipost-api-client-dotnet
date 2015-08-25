@@ -79,7 +79,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
-                var messageTemplate = new MessageDataTransferObject(recipient, document, 1237732);
+                var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
                 
                 //Act
                 var deserializedMessageBlueprint = SerializeUtil.Deserialize<MessageDataTransferObject>(messageBlueprint);
@@ -245,7 +245,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
 
-                var messageTemplate = new MessageDataTransferObject(recipient, document, 1237732);
+                var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
 
                 //Act
                 var serializedMessage = SerializeUtil.Serialize(messageTemplate);

@@ -25,14 +25,14 @@ namespace Digipost.Api.Client.Domain
             Attachments = new List<DocumentDataTransferObject>();
         }
 
-       public MessageDataTransferObject(RecipientDataTransferObject recipient, DocumentDataTransferObject primaryDocumentDataTransferObject, long senderId):
+       public MessageDataTransferObject(RecipientDataTransferObject recipient, DocumentDataTransferObject primaryDocumentDataTransferObject, string senderId):
             this(recipient, primaryDocumentDataTransferObject)
         {
             SenderId = senderId;
         }
         
         [XmlElement("sender-id")]
-        public object SenderId { get; set; }
+        public string SenderId { get; set; }
 
         [XmlElement("recipient")]
         public RecipientDataTransferObject Recipient { get; set; }

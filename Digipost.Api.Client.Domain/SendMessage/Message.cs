@@ -6,14 +6,14 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class Message : IMessage
     {
-        private object _senderValue;
+        private string _senderId;
 
         /// <summary>
         /// A message to be delivered to a Recipient. 
         /// </summary>
         /// <param name="recipient">The recipient recieving the message.</param>
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        public Message(Recipient recipient, IDocument primaryDocument)
+        public Message(IRecipient recipient, IDocument primaryDocument)
         {
             Recipient = recipient;
             PrimaryDocument = primaryDocument;
@@ -27,26 +27,26 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
         /// <param name="senderId">The id of the sender, created by Digipost.  If you are delivering a 
         /// message on behalf of an organization, and permission to do so is set, this is the parameter to set. </param>
-        public Message(Recipient recipient, Document primaryDocument, long senderId) :
+        public Message(IRecipient recipient, IDocument primaryDocument, string senderId) :
             this(recipient, primaryDocument)
         {
-            SenderValue = senderId;
+            SenderId = senderId;
             SenderType = SenderChoiceType.SenderId;
         }
 
-        internal object SenderValue
+        public string SenderId
         {
-            get { return _senderValue; }
+            get { return _senderId; }
             set
             {
-                _senderValue = value; 
+                _senderId = value; 
                 SenderType = SenderChoiceType.SenderId;
             }
         }
 
         internal SenderChoiceType SenderType { get; set; }
         
-        public Recipient Recipient { get; set; }
+        public IRecipient Recipient { get; set; }
         
         public DateTime? DeliveryTime { get; set; }
 

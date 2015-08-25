@@ -25,23 +25,17 @@ namespace Digipost.Api.Client.Domain.SendMessage
         public Invoice(string subject, string fileType, string path, decimal amount, string account, DateTime duedate, string kid = null,
            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
-            : base(subject, fileType, path, authenticationLevel, sensitivityLevel, smsNotification)
+            : this(subject,fileType, new byte[]{}, amount, account, duedate, kid, authenticationLevel, sensitivityLevel, smsNotification)
         {
-            Kid = kid;
-            Amount = amount;
-            Account = account;
-            Duedate = duedate;
+            
         }
 
         public Invoice(string subject, string fileType, Stream contentStream, decimal amount, string account, DateTime duedate, string kid = null,
            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
-            : base(subject, fileType, contentStream, authenticationLevel, sensitivityLevel, smsNotification)
+            : this(subject, fileType, new byte[] { }, amount, account, duedate, kid, authenticationLevel, sensitivityLevel, smsNotification)
         {
-            Kid = kid;
-            Amount = amount;
-            Account = account;
-            Duedate = duedate;
+
         }
     }
 }

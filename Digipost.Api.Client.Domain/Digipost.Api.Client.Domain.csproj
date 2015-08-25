@@ -77,7 +77,6 @@
     <Compile Include="Enums\NonDeliverableHandling.cs" />
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />
-    <Compile Include="Enums\SenderChoiceType.cs" />
     <Compile Include="Enums\UnidentifiedReason.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="Exceptions\APIException.cs" />

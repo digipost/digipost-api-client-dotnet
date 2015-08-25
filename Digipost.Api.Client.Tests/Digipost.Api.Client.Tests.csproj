@@ -109,6 +109,7 @@
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
     <Compile Include="Unittest\DtoTests\InvoiceTests.cs" />
     <Compile Include="Unittest\DtoTests\MessageTests.cs" />
+    <Compile Include="Unittest\DtoTests\RecipientTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />
   </ItemGroup>

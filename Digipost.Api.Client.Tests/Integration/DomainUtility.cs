@@ -1,7 +1,9 @@
-﻿using ApiClientShared;
+﻿using System;
+using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
@@ -34,6 +36,15 @@ namespace Digipost.Api.Client.Tests.Integration
         public static IRecipient GetRecipientWithDigipostId()
         {
             return new Recipient(IdentificationChoiceType.DigipostAddress, "ola.nordmann#246BB");
+        }
+
+        public static PrintDetails GetPrintDetails()
+        {
+            return 
+                new PrintDetails(
+                    new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo" , "Osloveien 15" )),
+                    new PrintReturnAddress("Returkongen",
+                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
     }
 }

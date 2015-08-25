@@ -1,5 +1,4 @@
-﻿using System;
-using Digipost.Api.Client.Domain.Enums;
+﻿using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain.SendMessage
@@ -10,24 +9,27 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
+            :this(IdentificationChoiceType.NameAndAddress, recipientByNameAndAddress, printDetails)
         {
-            IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoiceType.NameAndAddress;
-            PrintDetails = printDetails;
         }
 
         /// <summary>
         ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
+            :this(identificationChoiceType, (object) id, printDetails)
         {
-            IdentificationValue = id;
+        }
+
+        private Recipient(IdentificationChoiceType identificationChoiceType, object value, PrintDetails printDetails = null)
+        {
             IdentificationType = identificationChoiceType;
+            IdentificationValue = value;
             PrintDetails = printDetails;
         }
 
         /// <summary>
-        ///     Preferred physical delivery. (not Digital)
+        ///     Preferred physical delivery (not Digital).
         /// </summary>
         public Recipient(PrintDetails printDetails)
         {

@@ -1,11 +1,9 @@
-﻿using System;
-using ApiClientShared;
+﻿using ApiClientShared;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
-using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Tests.Integration
 {

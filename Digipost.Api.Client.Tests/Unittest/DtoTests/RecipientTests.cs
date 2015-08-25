@@ -72,6 +72,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 IEnumerable<IDifference> printDifferences;
                 _comparator.AreEqual(printDetails, recipient.PrintDetails, out printDifferences);
                 Assert.AreEqual(0, printDifferences.Count());
+                Assert.IsNull(recipient.IdentificationType);
             }
         }
 

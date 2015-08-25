@@ -23,6 +23,8 @@ namespace Digipost.Api.Client.Domain.Utilities
             RecipientDataTransferObject recipient = ToDataTransferObject(message.Recipient);
             DocumentDataTransferObject primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
             
+            //new Message()
+
             return new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject, message.SenderId);
         }
 

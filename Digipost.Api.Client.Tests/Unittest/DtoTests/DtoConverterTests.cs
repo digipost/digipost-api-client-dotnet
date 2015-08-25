@@ -103,7 +103,34 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual(0, differences.Count());
             }
 
+            [TestMethod]
+            public void Message()
+            {
+                //Arrange
+                Message source = new Message(
+                    new Recipient(
+                        IdentificationChoiceType.DigipostAddress, 
+                        "Ola.Nordmann#34JJ"
+                        ), 
+                    new Document("TestSubject", "txt", new byte[3]), "SenderId");
 
+                MessageDataTransferObject expectedDto = new MessageDataTransferObject(
+                    new RecipientDataTransferObject(
+                        IdentificationChoiceType.DigipostAddress, 
+                        "Ola.Nordmann#34JJ"
+                        ),
+                    new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId");
+                expectedDto.PrimaryDocumentDataTransferObject.Guid = source.PrimaryDocument.Guid;
+
+                //Act
+                var actualDto = DtoConverter.ToDataTransferObject(source);
+
+                //Assert
+                
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
         }
 
         [TestClass]

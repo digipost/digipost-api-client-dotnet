@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    public class Listedtime
+    public class Listedtime : IListedtime
     {
         private Listedtime()
         {
@@ -14,12 +14,8 @@ namespace Digipost.Api.Client.Domain
         {
             Time = time;
         }
-
-        /// <summary>
-        ///     Date and Time when the sms will be sent out
-        /// </summary>
+        
         [XmlAttribute("time")]
         public DateTime Time { get; set; }
-        
     }
 }

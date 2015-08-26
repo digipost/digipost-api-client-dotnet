@@ -14,50 +14,26 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message-delivery", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("message-delivery", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class MessageDeliveryResult
+    public class MessageDeliveryResult : IMessageDeliveryResult
     {
-        /// <summary>
-        /// The type of postage delivery method.
-        /// </summary>
         [XmlElement("delivery-method")]
         public DeliveryMethod Deliverymethod { get; set; }
-
-        /// <summary>
-        /// The current status of the message in Digipost.
-        /// </summary>
+        
         [XmlElement("status")]
         public MessageStatus Status { get; set; }
 
-        /// <summary>
-        /// Optional. The time when the document will be made visible to the user. 
-        /// </summary>
         [Obsolete("Use DeliveryTime insted. This is just a rename of field name and has no side effects. NB! This will be removed in future verion.")]
         public DateTime Deliverytime { get { return DeliveryTime; } set { DeliveryTime = value; } }
 
-        /// <summary>
-        /// Optional. The time when the document will be made visible to the user. 
-        /// </summary>
         [XmlElement("delivery-time")]
         public DateTime DeliveryTime { get; set; }
 
-        /// <summary>
-        /// The primary document of the delivery. This is the document that will be shown first in the 
-        /// recipient's inbox when opening the letter.
-        /// </summary>
         [Obsolete("Use PrimaryDocument insted. This is just a rename of field name and has no side effects. NB! This will be removed in future version.")]
         public DocumentDataTransferObject Primarydocument { get { return PrimaryDocumentDataTransferObject; } set { PrimaryDocumentDataTransferObject = value; } }
 
-        /// <summary>
-        /// The primary document of the delivery. This is the document that will be shown first in the 
-        /// recipient's inbox when opening the letter.
-        /// </summary>
         [XmlElement("primary-document")]
         public DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }
         
-        /// <summary>
-        /// Optional. Attachments can be added to the message, and can be of same types as the primary
-        /// document.
-        /// </summary>
         [XmlElement("attachment")]
         public List<DocumentDataTransferObject> Attachment { get; set; }
 

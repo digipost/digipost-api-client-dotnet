@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObject;
@@ -107,26 +108,48 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void Message()
             {
                 //Arrange
+                var deliverytime = DateTime.Now.AddDays(3);
                 Message source = new Message(
                     new Recipient(
-                        IdentificationChoiceType.DigipostAddress, 
+                        IdentificationChoiceType.DigipostAddress,
                         "Ola.Nordmann#34JJ"
-                        ), 
-                    new Document("TestSubject", "txt", new byte[3]), "SenderId");
+                        ),
+                    new Document("TestSubject", "txt", new byte[3]), "SenderId")
+                {
+                    Attachments = new List<IDocument>()
+                    {
+                        new Document("TestSubject attachment", "txt",  new byte[3])
+                        {
+                            Guid = "attachmentGuid"
+                        }
+                    },
+                    DeliveryTime = deliverytime
+                };
 
                 MessageDataTransferObject expectedDto = new MessageDataTransferObject(
                     new RecipientDataTransferObject(
-                        IdentificationChoiceType.DigipostAddress, 
+                        IdentificationChoiceType.DigipostAddress,
                         "Ola.Nordmann#34JJ"
                         ),
-                    new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId");
-                expectedDto.PrimaryDocumentDataTransferObject.Guid = source.PrimaryDocument.Guid;
+                    new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId")
+                {
+                    Attachments = new List<DocumentDataTransferObject>
+                    {
+                        new DocumentDataTransferObject("TestSubject attachment", "txt", new byte[3])
+                        {
+                            Guid = "attachmentGuid"
+                        }
+                    },
+                    DeliveryTime = deliverytime,
+                    PrimaryDocumentDataTransferObject = { Guid = source.PrimaryDocument.Guid }
+                };
+
 
                 //Act
                 var actualDto = DtoConverter.ToDataTransferObject(source);
 
                 //Assert
-                
+
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());

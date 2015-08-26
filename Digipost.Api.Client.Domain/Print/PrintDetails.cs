@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.Domain.Print
     [DesignerCategory("code")]
     [XmlType(TypeName = "print-details", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("print-details", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class PrintDetails
+    public class PrintDetails : IPrintDetails
     {
         /// <summary>
         ///     Constructor to send physical letter.
@@ -31,28 +31,16 @@ namespace Digipost.Api.Client.Domain.Print
             /**must exist for serializing**/
         }
 
-        /// <summary>
-        ///     The recipient of the physical mail.
-        /// </summary>
         [XmlElement("recipient")]
         public PrintRecipient Recipient { get; set; }
 
-        /// <summary>
-        ///     The return address of the physical mail. (if nondeliverable AND the nondeliverable-handling is set to
-        ///     ReturnToSender)
-        /// </summary>
         [XmlElement("return-address")]
         public PrintReturnAddress PrintReturnAddress { get; set; }
 
-        /// <summary>
-        ///     Defines how fast you want the item delivered. Note: additional charges may apply
-        /// </summary>
         [XmlElement("post-type")]
         public PostType PostType { get; set; }
 
-        /// <summary>
-        ///     Defines if you want the documents printed in black / white or color (Note: additional charges may apply).
-        /// </summary>
+        
         [XmlElement("color")]
         public PrintColors Color { get; set; }
 

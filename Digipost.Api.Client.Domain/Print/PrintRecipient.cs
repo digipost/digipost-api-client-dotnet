@@ -5,10 +5,10 @@
         /// <summary>
         ///     Constructor for foreign(not Norwegian) recipients
         /// </summary>
-        public PrintRecipient(string name, ForeignAddress address)
+        public PrintRecipient(string name, ForeignAddressDataTransferObject addressDataTransferObject)
         {
             Name = name;
-            Address = address;
+            Address = addressDataTransferObject;
         }
 
         /// <summary>

@@ -1,21 +1,18 @@
-﻿using System;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using Digipost.Api.Client.Domain.Enums;
+﻿using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.Print
 {
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "foreign-address", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("foreign-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class ForeignAddress
+    public class ForeignAddress : IForeignAddress
     {
-        private ForeignAddress()
-        {
-            /**must exist for serializing**/
-        }
-
+        /// <summary>
+        /// Foreign address for use when sending a letter abroad.
+        /// </summary>
+        /// <param name="countryIdentifier">Type of identifier used for identifying a country.</param>
+        /// <param name="countryIdentifierValue">The value for country.</param>
+        /// <param name="addressline1">First address line.</param>
+        /// <param name="addressline2">Second address line.</param>
+        /// <param name="addressline3">Third address line.</param>
+        /// <param name="addressline4">Fourth address line.</param>
         public ForeignAddress(CountryIdentifier countryIdentifier, string countryIdentifierValue,
             string addressline1, string addressline2 = null, string addressline3 = null, string addressline4 = null)
         {
@@ -27,30 +24,22 @@ namespace Digipost.Api.Client.Domain.Print
             CountryIdentifierValue = countryIdentifierValue;
         }
 
-        [XmlElement("addressline1")]
         public string Addressline1 { get; set; }
 
-        [XmlElement("addressline2")]
         public string Addressline2 { get; set; }
 
-        [XmlElement("addressline3")]
         public string Addressline3 { get; set; }
 
-        [XmlElement("addressline4")]
         public string Addressline4 { get; set; }
 
         /// <summary>
-        ///     The value of the contryIdentifier. Either Country or Country-code
+        /// Identifier value for country.
         /// </summary>
-        [XmlElement("country", typeof (string))]
-        [XmlElement("country-code", typeof (string))]
-        [XmlChoiceIdentifier("CountryIdentifier")]
         public string CountryIdentifierValue { get; set; }
 
         /// <summary>
-        ///     Choose which how you will identify the country.
+        /// Type of identifier used for identifying a country.
         /// </summary>
-        [XmlIgnore]
         public CountryIdentifier CountryIdentifier { get; set; }
     }
 }

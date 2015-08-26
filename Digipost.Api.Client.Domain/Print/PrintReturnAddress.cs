@@ -5,10 +5,10 @@
         /// <summary>
         ///     Constructor for foreign(not Norwegian) return address
         /// </summary>
-        public PrintReturnAddress(string name, ForeignAddress address)
+        public PrintReturnAddress(string name, ForeignAddressDataTransferObject addressDataTransferObject)
         {
             Name = name;
-            Address = address;
+            Address = addressDataTransferObject;
         }
 
         /// <summary>

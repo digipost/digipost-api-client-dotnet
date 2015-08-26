@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
@@ -37,8 +38,9 @@ namespace Digipost.Api.Client
 
         protected override string Serialize(IRequestContent requestContent)
         {
-            //MessageDataTransferObject messageDataTransferObject = DtoConverter.ToDataTransferObject()
-            return SerializeUtil.Serialize((IMessage) requestContent);
+            MessageDataTransferObject messageDataTransferObject =
+                DtoConverter.ToDataTransferObject((Message) requestContent);
+            return SerializeUtil.Serialize(messageDataTransferObject);
         }
 
         private static void AddBodyToContent(IMessage message, MultipartFormDataContent content)

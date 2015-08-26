@@ -27,19 +27,6 @@ namespace Digipost.Api.Client.Domain
             SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;
         }
-
-         public DocumentDataTransferObject(string subject, string fileType, string path,
-            AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal)
-        {
-            Guid = System.Guid.NewGuid().ToString();
-            Subject = subject;
-            FileType = fileType;
-            FileType = fileType;
-            ContentBytes = ReadAllBytes(path);
-            AuthenticationLevel = authLevel;
-            SensitivityLevel = sensitivityLevel;
-        }
         
         [XmlElement("uuid")]
         public string Guid { get; set; }

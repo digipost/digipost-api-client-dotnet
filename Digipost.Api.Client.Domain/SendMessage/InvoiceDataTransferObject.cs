@@ -21,6 +21,11 @@ namespace Digipost.Api.Client.Domain
             Duedate = duedate;
         }
 
+        internal InvoiceDataTransferObject()
+        {
+            /* Must exist for serialization */
+        }
+
         /// <summary>
         /// Customer identification number. 2 to 25 digits with no spaces or dots. Mandatory by default.  
         /// </summary>

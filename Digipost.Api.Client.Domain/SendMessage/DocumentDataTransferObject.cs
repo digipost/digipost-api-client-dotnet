@@ -27,6 +27,11 @@ namespace Digipost.Api.Client.Domain
             SensitivityLevel = sensitivityLevel;
             SmsNotification = smsNotification;
         }
+
+        internal DocumentDataTransferObject()
+        {
+            /* Must exist for serialization */
+        }
         
         [XmlElement("uuid")]
         public string Guid { get; set; }

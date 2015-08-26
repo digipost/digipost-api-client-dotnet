@@ -39,6 +39,14 @@ namespace Digipost.Api.Client.Domain
 
         [XmlElement("delivery-time")]
         public DateTime? DeliveryTime { get; set; }
+
+        public bool DeliveryTimeSpecified
+        {
+            /* This method must be specified for serialization, and is connected by convention to DeliveryTime,
+                so do not rename.
+            */
+            get { return DeliveryTime != null; }
+        }
         
         [XmlElement("primary-document")]
         public DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }

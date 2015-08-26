@@ -19,6 +19,7 @@ namespace Digipost.Api.Client.Tests.Unittest
         [TestClass]
         public class DeserializeMethod : SerializeUtilTests
         {
+            [Ignore]
             [TestMethod]
             public void ReturnsProperDeserializedMessageWithInvoice()
             {

@@ -46,7 +46,9 @@ namespace Digipost.Api.Client
         private static void AddBodyToContent(IMessage message, MultipartFormDataContent content)
         {
             Logging.Log(TraceEventType.Information, "  - Creating XML-body");
-            var xmlMessage = SerializeUtil.Serialize(message);
+           
+            var messageDataTransferObject = DtoConverter.ToDataTransferObject(message);
+            var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
             Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
             var messageContent = new StringContent(xmlMessage);

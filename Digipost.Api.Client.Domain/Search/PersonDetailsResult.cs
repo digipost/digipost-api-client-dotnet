@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Domain.PersonDetails
     [DesignerCategory("code")]
     [XmlType("recipients", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class PersonDetailsResult
+    public class PersonDetailsResult : IPersonDetailsResult
     {
         [XmlElement("recipient")]
         public List<PersonDetails> PersonDetails { get; set; } 

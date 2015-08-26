@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.PersonDetails
     [DesignerCategory("code")]
     [XmlType("recipient", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class PersonDetails
+    public class PersonDetails : IPersonDetails
     {
         [XmlElement("firstname")]
         public string FirstName { get; set; }

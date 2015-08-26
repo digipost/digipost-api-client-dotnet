@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.PersonDetails
     [DesignerCategory("code")]
     [XmlType("address", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class PersonDetailsAddress
+    public class PersonDetailsAddress : IPersonDetailsAddress
     {
         [XmlElement("street")]
         public string Street { get; set; }

@@ -2,12 +2,9 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.Print
 {
-    public interface IForeignAddress
+    public interface IForeignAddress : IAddress
     {
-        string Addressline1 { get; set; }
-        string Addressline2 { get; set; }
-        string Addressline3 { get; set; }
-        string Addressline4 { get; set; }
+       string Addressline4 { get; set; }
 
         /// <summary>
         ///     The value of the contryIdentifier.

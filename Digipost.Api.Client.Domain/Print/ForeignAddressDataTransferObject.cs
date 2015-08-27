@@ -21,32 +21,32 @@ namespace Digipost.Api.Client.Domain.Print
         /// </summary>
         /// <param name="countryIdentifier">Type of identifier used for identifying a country.</param>
         /// <param name="countryIdentifierValue">The value for country.</param>
-        /// <param name="addressline1">First address line.</param>
-        /// <param name="addressline2">Second address line.</param>
-        /// <param name="addressline3">Third address line.</param>
-        /// <param name="addressline4">Fourth address line.</param>
+        /// <param name="addressLine1">First address line.</param>
+        /// <param name="addressLine2">Second address line.</param>
+        /// <param name="addressLine3">Third address line.</param>
+        /// <param name="addressLine4">Fourth address line.</param>
         public ForeignAddressDataTransferObject(CountryIdentifier countryIdentifier, string countryIdentifierValue,
-            string addressline1, string addressline2 = null, string addressline3 = null, string addressline4 = null)
+            string addressLine1, string addressLine2 = null, string addressLine3 = null, string addressLine4 = null)
         {
-            Addressline1 = addressline1;
-            Addressline2 = addressline2;
-            Addressline3 = addressline3;
-            Addressline4 = addressline4;
+            AddressLine1 = addressLine1;
+            AddressLine2 = addressLine2;
+            AddressLine3 = addressLine3;
+            AddressLine4 = addressLine4;
             CountryIdentifier = countryIdentifier;
             CountryIdentifierValue = countryIdentifierValue;
         }
 
         [XmlElement("addressline1")]
-        public string Addressline1 { get; set; }
+        public string AddressLine1 { get; set; }
 
         [XmlElement("addressline2")]
-        public string Addressline2 { get; set; }
+        public string AddressLine2 { get; set; }
 
         [XmlElement("addressline3")]
-        public string Addressline3 { get; set; }
+        public string AddressLine3 { get; set; }
 
         [XmlElement("addressline4")]
-        public string Addressline4 { get; set; }
+        public string AddressLine4 { get; set; }
 
         [XmlElement("country", typeof (string))]
         [XmlElement("country-code", typeof (string))]

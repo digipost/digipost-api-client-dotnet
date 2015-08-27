@@ -14,10 +14,10 @@
         /// <summary>
         ///     Constructor for Norwegian recipients
         /// </summary>
-        public PrintRecipient(string name, NorwegianAddress address)
+        public PrintRecipient(string name, NorwegianAddressDataTransferObject addressDataTransferObject)
         {
             Name = name;
-            Address = address;
+            Address = addressDataTransferObject;
         }
 
         private PrintRecipient()

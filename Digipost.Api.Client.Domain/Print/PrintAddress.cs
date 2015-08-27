@@ -24,13 +24,13 @@ namespace Digipost.Api.Client.Domain.Print
         ///     NorwegianAddress.
         /// </summary>
         [XmlElement("foreign-address", typeof (ForeignAddressDataTransferObject))]
-        [XmlElement("norwegian-address", typeof (NorwegianAddress))]
+        [XmlElement("norwegian-address", typeof (NorwegianAddressDataTransferObject))]
         public object Address
         {
             get { return _address; }
             set
             {
-                if (!(value is ForeignAddressDataTransferObject) && !(value is NorwegianAddress))
+                if (!(value is ForeignAddressDataTransferObject) && !(value is NorwegianAddressDataTransferObject))
                     throw new ApiException("Invalid type of Address! Valid types are [NorwegianAddress,Foreignaddress]");
 
                 _address = value;

@@ -75,6 +75,9 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static  PrintDetailsDataTransferObject ToDataTransferObject(IPrintDetails printDetails)
         {
+            if (printDetails == null)
+                return null;
+
             var recipient = printDetails.PrintRecipient;
             var ret = printDetails.PrintReturnRecipient;
 

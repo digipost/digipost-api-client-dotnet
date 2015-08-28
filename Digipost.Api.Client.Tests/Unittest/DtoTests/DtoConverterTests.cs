@@ -59,9 +59,21 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void RecipientFromPrintDetails()
             {
                 //Arrange
-                var printDetails = DomainUtility.GetPrintDetails();
-                IRecipient source = new Recipient(printDetails);
-                Recipient expectedDto = new Recipient(printDetails);
+                IRecipient source = new Recipient(
+                    new PrintDetails(
+                     new PrintRecipient("Name",
+                         new NorwegianAddress(
+                            "0001", "Oslo", "Addr1", "Addr2", "Addr3")),
+                         new PrintReturnRecipient("Name", new NorwegianAddress(
+                            "0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret"))));
+                
+                var expectedDto = new RecipientDataTransferObject( 
+                    new PrintDetailsDataTransferObject(
+                     new PrintRecipientDataTransferObject("Name", 
+                         new NorwegianAddressDataTransferObject(
+                            "0001", "Oslo", "Addr1", "Addr2", "Addr3")),  
+                         new PrintReturnRecipientDataTransferObject("Name", new NorwegianAddressDataTransferObject(
+                            "0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret"))));
                 
                 //Act
                 var actualDto = DtoConverter.ToDataTransferObject(source);
@@ -324,13 +336,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Act
                 var actualDto = DtoConverter.ToDataTransferObject(source);
-
+                
                 //Assert
-
-
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
+                Assert.IsNull(DtoConverter.ToDataTransferObject((IPrintDetails) null));
             }
         }
 

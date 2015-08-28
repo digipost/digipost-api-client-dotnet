@@ -5,8 +5,11 @@ using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
+using Digipost.Api.Client.Tests.Unittest.DtoTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest
@@ -262,8 +265,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string messageWithDeliverytimeBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><recipient><personal-identification-number>00000000000</personal-identification-number></recipient><delivery-time>2015-07-27T00:00:00</delivery-time><primary-document><uuid>786711a5-1ed6-4f7c-8eda-a5b762c446cb</uuid><subject>Integrasjonstjest</subject><file-type>txt</file-type><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level></primary-document></message>";
 
-                var messageWithDeliverytime = DomainUtility.GetSimpleMessage();
-                messageWithDeliverytime.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
+                var simpleMessage = DomainUtility.GetSimpleMessage();
+                simpleMessage.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
+                var messageWithDeliverytime = DtoConverter.ToDataTransferObject(simpleMessage);
                 messageWithDeliverytime.DeliveryTime = new DateTime(2015, 07, 27);
 
                 //Act

@@ -66,7 +66,7 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             //IdentifyPerson(api);
-            SendMessageToPerson(api, true);
+            SendMessageToPerson(api, false);
             var response = Search(api);
 
             
@@ -174,7 +174,7 @@ namespace Digipost.Api.Client.Testklient
                 "Oslo", "Collettsgate 68");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);

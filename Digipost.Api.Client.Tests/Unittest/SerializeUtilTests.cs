@@ -179,9 +179,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                 
                 PersonDetailsResult personDetailsResult = new PersonDetailsResult
                 {
-                    PersonDetails = new List<PersonDetails>
+                    PersonDetails = new List<SearchDetails>
                     {
-                        new PersonDetails
+                        new SearchDetails
                         {
                             DigipostAddress = "aleksander.larsen#XX22DD", 
                             FirstName = "aleksander",
@@ -369,9 +369,9 @@ namespace Digipost.Api.Client.Tests.Unittest
                      
                 PersonDetailsResult personDetailsResult = new PersonDetailsResult
                 {
-                    PersonDetails = new List<PersonDetails>
+                    PersonDetails = new List<SearchDetails>
                     {
-                        new PersonDetails
+                        new SearchDetails
                         {
                             DigipostAddress = "aleksander.larsen#XX22DD", 
                             FirstName = "aleksander",

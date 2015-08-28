@@ -4,6 +4,6 @@ namespace Digipost.Api.Client.Domain.PersonDetails
 {
     public interface IPersonDetailsResult
     {
-        List<PersonDetails> PersonDetails { get; set; }
+        List<SearchDetails> PersonDetails { get; set; }
     }
 }

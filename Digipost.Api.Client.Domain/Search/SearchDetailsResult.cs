@@ -15,6 +15,6 @@ namespace Digipost.Api.Client.Domain.PersonDetails
     public class PersonDetailsResult : IPersonDetailsResult
     {
         [XmlElement("recipient")]
-        public List<PersonDetails> PersonDetails { get; set; } 
+        public List<SearchDetails> PersonDetails { get; set; } 
     }
 }

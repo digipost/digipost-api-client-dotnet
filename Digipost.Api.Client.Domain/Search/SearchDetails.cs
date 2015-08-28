@@ -5,13 +5,13 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain.PersonDetails
 {
     /// <summary>
-    /// When requesting person information via the PersonDetails API, this class is the result.
+    /// When requesting person information via the SearchDetails API, this class is the result.
     /// </summary>
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("recipient", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class PersonDetails : IPersonDetails
+    public class SearchDetails : ISearchDetails
     {
         [XmlElement("firstname")]
         public string FirstName { get; set; }

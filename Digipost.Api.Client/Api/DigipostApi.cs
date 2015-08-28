@@ -101,7 +101,7 @@ namespace Digipost.Api.Client.Api
             if (search.Length < _minimumSearchLength)
             {
                 var emptyResult = new PersonDetailsResult();
-                emptyResult.PersonDetails = new List<PersonDetails>();
+                emptyResult.PersonDetails = new List<SearchDetails>();
                 
                 var taskSource = new TaskCompletionSource<PersonDetailsResult>();
                 taskSource.SetResult(emptyResult);

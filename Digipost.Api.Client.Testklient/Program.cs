@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Testklient
         {
             CompareLogic comparelogic = new CompareLogic();
 
-            var v = comparelogic.Compare(new PersonDetails(){DigipostAddress = "Halloen"}, new PersonDetails());
+            var v = comparelogic.Compare(new SearchDetails(){DigipostAddress = "Halloen"}, new SearchDetails());
             List<Difference> diff = v.Differences;
             var descr = diff.ElementAt(0).GetWhatIsCompared();
 

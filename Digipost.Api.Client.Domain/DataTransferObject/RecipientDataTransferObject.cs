@@ -19,14 +19,14 @@ namespace Digipost.Api.Client.Domain
             /**Must exist for serialization.**/
         }
 
-        public RecipientDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
+        public RecipientDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetailsDataTransferObject printDetailsDataTransferObject = null)
         {
             IdentificationValue = recipientByNameAndAddress;
             IdentificationType = IdentificationChoiceType.NameAndAddress;
-            PrintDetails = printDetails;
+            PrintDetailsDataTransferObject = printDetailsDataTransferObject;
         }
 
-        public RecipientDataTransferObject(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
+        public RecipientDataTransferObject(IdentificationChoiceType identificationChoiceType, string id, PrintDetailsDataTransferObject printDetailsDataTransferObject = null)
         {
             if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
                 throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
@@ -34,12 +34,12 @@ namespace Digipost.Api.Client.Domain
                     IdentificationChoiceType.NameAndAddress));
             IdentificationValue = id;
             IdentificationType = identificationChoiceType;
-            PrintDetails = printDetails;
+            PrintDetailsDataTransferObject = printDetailsDataTransferObject;
         }
         
-        public RecipientDataTransferObject(PrintDetails printDetails)
+        public RecipientDataTransferObject(PrintDetailsDataTransferObject printDetailsDataTransferObject)
         {
-            PrintDetails = printDetails;
+            PrintDetailsDataTransferObject = printDetailsDataTransferObject;
         }
 
         [XmlElement("digipost-address", typeof (string))]
@@ -50,7 +50,7 @@ namespace Digipost.Api.Client.Domain
         public object IdentificationValue { get; set; }
 
         [XmlElement("print-details")]
-        public PrintDetails PrintDetails { get; set; }
+        public PrintDetailsDataTransferObject PrintDetailsDataTransferObject { get; set; }
 
         [XmlIgnore]
         public IdentificationChoiceType IdentificationType { get;  set; }

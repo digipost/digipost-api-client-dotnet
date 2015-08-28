@@ -7,13 +7,13 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     The recipient of the physical mail.
         /// </summary>
-        PrintRecipient RecipientDataTransferObject { get; set; }
+        IPrintRecipient PrintRecipient { get; set; }
 
         /// <summary>
         ///     The return address of the physical mail. (if nondeliverable AND the nondeliverable-handling is set to
         ///     ReturnToSender)
         /// </summary>
-        PrintReturnRecipient PrintReturnRecipientDataTransferObject { get; set; }
+        IPrintReturnRecipient PrintReturnRecipient { get; set; }
 
         /// <summary>
         ///     Defines how fast you want the item delivered. Note: additional charges may apply

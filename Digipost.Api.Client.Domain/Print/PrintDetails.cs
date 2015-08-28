@@ -15,10 +15,6 @@ namespace Digipost.Api.Client.Domain.Print
             PrintColors = printColors;
             NondeliverableHandling = NondeliverableHandling.ReturnToSender;
         }
-
-        public PrintRecipient RecipientDataTransferObject { get; set; }
-
-        public PrintReturnRecipient PrintReturnRecipientDataTransferObject { get; set; }
         
         public PostType PostType { get; set; }
         

@@ -43,8 +43,7 @@ namespace Digipost.Api.Client.Domain
         public bool DeliveryTimeSpecified
         {
             /* This method must be specified for serialization, and is connected by convention to DeliveryTime,
-                so do not rename.
-            */
+                so do not rename.            */
             get { return DeliveryTime != null; }
         }
         

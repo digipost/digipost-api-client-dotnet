@@ -9,15 +9,16 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetails printDetails = null)
-            :this(IdentificationChoiceType.NameAndAddress, recipientByNameAndAddress, printDetails)
+            : this(IdentificationChoiceType.NameAndAddress, recipientByNameAndAddress, printDetails)
         {
+
         }
 
         /// <summary>
         ///     Preferred digital delivery with fallback to physical delivery.
         /// </summary>
         public Recipient(IdentificationChoiceType identificationChoiceType, string id, PrintDetails printDetails = null)
-            :this(identificationChoiceType, (object) id, printDetails)
+            : this(identificationChoiceType, (object)id, printDetails)
         {
         }
 
@@ -37,9 +38,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
         }
 
         public object IdentificationValue { get; set; }
-        
+
         public PrintDetails PrintDetails { get; set; }
-        
+
         public IdentificationChoiceType? IdentificationType { get; set; }
     }
 }
+

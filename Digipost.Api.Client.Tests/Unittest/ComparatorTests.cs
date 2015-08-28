@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                 {
                     //Message 1
-                    var printDetails = new PrintDetails(new PrintRecipient("Ola Nordmann", new NorwegianAddress("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnAddress("Ola Digipost", new ForeignAddress(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
+                    var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
 
                     var recipient =
                         new RecipientDataTransferObject(
@@ -42,11 +42,11 @@ namespace Digipost.Api.Client.Tests.Unittest
                 {
                     // Message 2
                     var printDetails2 =
-                        new PrintDetails(
-                            new PrintRecipient("Ola Nordmann",
-                                new NorwegianAddress("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")),
-                            new PrintReturnAddress("Ola Digipost",
-                                new ForeignAddress(CountryIdentifier.Country, "SE", "danskegatan 1", " leil h101",
+                        new PrintDetailsDataTransferObject(
+                            new PrintRecipientDataTransferObject("Ola Nordmann",
+                                new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")),
+                            new PrintReturnRecipientDataTransferObject("Ola Digipost",
+                                new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "danskegatan 1", " leil h101",
                                     "pb 12", "skuff 4")));
 
                     var recipient2 =

@@ -65,8 +65,8 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            IdentifyPerson(api);
-            //SendMessageToPerson(api, true);
+            //IdentifyPerson(api);
+            SendMessageToPerson(api, true);
             var response = Search(api);
 
             
@@ -164,12 +164,10 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68")),
-                    new PrintReturnAddress("Kristian Sæther Enge",
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo","Colletts gate 68")),
+                    new PrintReturnRecipient("Kristian Sæther Enge",
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
-
-
 
             //recipientIdentifier for digital mail
             var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",

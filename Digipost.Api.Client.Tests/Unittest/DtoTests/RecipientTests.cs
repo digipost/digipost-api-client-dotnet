@@ -2,7 +2,6 @@
 using System.Linq;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
@@ -25,18 +24,18 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 var recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann","0001", "Oslo", "Osloveien 22");
                 var printDetails = DomainUtility.GetPrintDetails();
-                Recipient recipient = new Recipient(
+                Recipient recipientDataTransferObject = new Recipient(
                     recipientByNameAndAddress, printDetails);
 
                 //Act
 
                 //Assert
                 IEnumerable<IDifference> recipientDifferences;
-                _comparator.AreEqual(recipientByNameAndAddress, recipient.IdentificationValue, out recipientDifferences);
+                _comparator.AreEqual(recipientByNameAndAddress, recipientDataTransferObject.IdentificationValue, out recipientDifferences);
                 Assert.AreEqual(0,recipientDifferences.Count());
 
                 IEnumerable<IDifference> printDifferences;
-                _comparator.AreEqual(printDetails, recipient.PrintDetails, out printDifferences);
+                _comparator.AreEqual(printDetails, recipientDataTransferObject.PrintDetails, out printDifferences);
                 Assert.AreEqual(0, printDifferences.Count());
             }
 

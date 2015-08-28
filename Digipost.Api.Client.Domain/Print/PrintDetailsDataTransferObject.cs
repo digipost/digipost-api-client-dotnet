@@ -14,13 +14,13 @@ namespace Digipost.Api.Client.Domain.Print
         /// <summary>
         ///     Constructor to send physical letter.
         /// </summary>
-        public PrintDetailsDataTransferObject(PrintRecipientDataTransferObject recipientDataTransferObject, PrintReturnRecipientDataTransferObject printReturnRecipientDataTransferObject,
+        public PrintDetailsDataTransferObject(PrintRecipientDataTransferObject printRecipientDataTransferObject, PrintReturnRecipientDataTransferObject printReturnRecipientDataTransferObject,
             PostType postType = PostType.B,
             PrintColors color = PrintColors.Monochrome,
             NondeliverableHandling nondeliverableHandling = NondeliverableHandling.ReturnToSender)
         {
             PrintReturnRecipientDataTransferObject = printReturnRecipientDataTransferObject;
-            RecipientDataTransferObject = recipientDataTransferObject;
+            PrintRecipientDataTransferObject = printRecipientDataTransferObject;
             Color = color;
             NondeliverableHandling = nondeliverableHandling;
             PostType = postType;
@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Domain.Print
         }
 
         [XmlElement("recipient")]
-        public PrintRecipientDataTransferObject RecipientDataTransferObject { get; set; }
+        public PrintRecipientDataTransferObject PrintRecipientDataTransferObject { get; set; }
 
         [XmlElement("return-address")]
         public PrintReturnRecipientDataTransferObject PrintReturnRecipientDataTransferObject { get; set; }

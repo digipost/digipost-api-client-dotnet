@@ -41,8 +41,34 @@ namespace Digipost.Api.Client.Tests.Integration
             return 
                 new PrintDetails(
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo" , "Osloveien 15" )),
-                    new PrintReturnAddress("Returkongen",
+                    new PrintReturnRecipient("Returkongen",
                         new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
+        }
+
+        public static NorwegianAddress GetNorwegianAddress()
+        {
+            return new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
+        }
+
+        public static ForeignAddress GetForeignAddress()
+        {
+            return new ForeignAddress(
+                    CountryIdentifier.Country, 
+                    "NO",
+                    "Adresselinje1",
+                    "Adresselinje2",
+                    "Adresselinje3",
+                    "Adresselinje4");
+        }
+
+        public static IPrintRecipient GetPrintRecipientWithNorwegianAddress()
+        {
+            return new PrintRecipient("name", GetNorwegianAddress());
+        }
+
+        public static IPrintReturnRecipient GetPrintReturnRecipientWithNorwegianAddress()
+        {
+            return new PrintReturnRecipient("name", GetNorwegianAddress());
         }
     }
 }

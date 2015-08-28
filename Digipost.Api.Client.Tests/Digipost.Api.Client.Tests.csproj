@@ -105,10 +105,15 @@
     </ProjectReference>
     <Compile Include="Unittest\DtoTests\DocumentTests.cs" />
     <Compile Include="Unittest\DtoTests\DtoConverterTests.cs" />
+    <Compile Include="Unittest\DtoTests\ForeignAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
     <Compile Include="Unittest\DtoTests\InvoiceTests.cs" />
     <Compile Include="Unittest\DtoTests\MessageTests.cs" />
+    <Compile Include="Unittest\DtoTests\NorwegianAddressTests.cs" />
+    <Compile Include="Unittest\DtoTests\PrintDetailsTests.cs" />
+    <Compile Include="Unittest\DtoTests\PrintReturnRecipientTests.cs" />
+    <Compile Include="Unittest\DtoTests\PrintRecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\RecipientTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />

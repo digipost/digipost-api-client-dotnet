@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Domain
     {
         object IdentificationValue { get; set; }
 
-        PrintDetails PrintDetails { get; set; }
+        PrintDetails PrintDetails{ get; set; }
 
         IdentificationChoiceType? IdentificationType { get; set; }
     }

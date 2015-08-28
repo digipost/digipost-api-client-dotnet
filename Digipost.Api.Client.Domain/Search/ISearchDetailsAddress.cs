@@ -1,6 +1,6 @@
 namespace Digipost.Api.Client.Domain.Search
 {
-    public interface IPersonDetailsAddress
+    public interface ISearchDetailsAddress
     {
         string Street { get; set; }
 

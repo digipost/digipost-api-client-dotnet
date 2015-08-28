@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     /// <summary>
     ///     Optional SMS notification to Recipient.

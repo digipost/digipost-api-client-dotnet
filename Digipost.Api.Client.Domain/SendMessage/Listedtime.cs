@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class Listedtime : IListedtime
     {

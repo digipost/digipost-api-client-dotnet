@@ -12,11 +12,11 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.Search;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;
-using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client.Api
 {
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Api
             set { _digipostActionFactory = value; }
         }
 
-        public MessageDeliveryResult SendMessage(IMessage message)
+        public MessageDeliveryResultDataTransferObject SendMessage(IMessage message)
         {
             var messageDelivery = SendMessageAsync(message);
 
@@ -58,10 +58,10 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<MessageDeliveryResult> SendMessageAsync(IMessage message)
+        public async Task<MessageDeliveryResultDataTransferObject> SendMessageAsync(IMessage message)
         {
             const string uri = "messages";
-            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResult>(message, uri);
+            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
 
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
@@ -88,27 +88,27 @@ namespace Digipost.Api.Client.Api
             return DtoConverter.FromDataTransferObject(await identifyResponse);
         }
 
-        public PersonDetailsResult Search(string search)
+        public SearchDetailsResult Search(string search)
         {
             return SearchAsync(search).Result;
         }
 
-        public Task<PersonDetailsResult> SearchAsync(string search)
+        public Task<SearchDetailsResult> SearchAsync(string search)
         {
             search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
 
             if (search.Length < _minimumSearchLength)
             {
-                var emptyResult = new PersonDetailsResult();
+                var emptyResult = new SearchDetailsResult();
                 emptyResult.PersonDetails = new List<SearchDetails>();
                 
-                var taskSource = new TaskCompletionSource<PersonDetailsResult>();
+                var taskSource = new TaskCompletionSource<SearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
                 return taskSource.Task;
             }
 
-            return GenericGetAsync<PersonDetailsResult>(uri); 
+            return GenericGetAsync<SearchDetailsResult>(uri); 
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)

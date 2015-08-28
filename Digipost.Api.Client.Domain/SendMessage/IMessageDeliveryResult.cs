@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     public interface IMessageDeliveryResult
     {

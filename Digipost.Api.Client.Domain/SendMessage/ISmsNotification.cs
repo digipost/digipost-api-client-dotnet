@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     public interface ISmsNotification
     {

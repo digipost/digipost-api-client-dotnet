@@ -1,4 +1,4 @@
-namespace Digipost.Api.Client.Domain.PersonDetails
+namespace Digipost.Api.Client.Domain.Search
 {
     public interface ISearchDetails
     {
@@ -14,6 +14,6 @@ namespace Digipost.Api.Client.Domain.PersonDetails
 
         string OrganizationName { get; set; }
 
-        PersonDetailsAddress PersonDetailsAddress { get; set; }
+        SearchDetailsAddress SearchDetailsAddress { get; set; }
     }
 }

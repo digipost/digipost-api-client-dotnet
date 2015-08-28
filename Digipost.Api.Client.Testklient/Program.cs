@@ -9,8 +9,8 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Testklient.Properties;
 using KellermanSoftware.CompareNetObjects;
@@ -76,7 +76,7 @@ namespace Digipost.Api.Client.Testklient
             Console.ReadKey();
         }
 
-        private static PersonDetailsResult Search(DigipostClient api)
+        private static SearchDetailsResult Search(DigipostClient api)
         {
             return api.Search("Al");
         }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObject;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.PersonDetails;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.CompareObjects;
@@ -177,7 +177,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 const string personDetailsResultBlueprint =
                     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><recipients xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename></middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address><link rel=\"https://qa2.api.digipost.no/relations/self\" uri=\"https://qa2.api.digipost.no/recipients/jon.aleksander.aase%239PNU\" media-type=\"application/vnd.digipost-v6+xml\"/></recipient></recipients>";
                 
-                PersonDetailsResult personDetailsResult = new PersonDetailsResult
+                SearchDetailsResult searchDetailsResult = new SearchDetailsResult
                 {
                     PersonDetails = new List<SearchDetails>
                     {
@@ -189,7 +189,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             LastName = "larsen", 
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
-                            PersonDetailsAddress = new PersonDetailsAddress
+                            SearchDetailsAddress = new SearchDetailsAddress
                             {
                                 City = "oslo",
                                 Street = "gronerlukkagata",
@@ -202,10 +202,10 @@ namespace Digipost.Api.Client.Tests.Unittest
                 };
 
                 //Act
-                var deserializedPersonDetailsResultBlueprint = SerializeUtil.Deserialize<PersonDetailsResult>(personDetailsResultBlueprint);
+                var deserializedPersonDetailsResultBlueprint = SerializeUtil.Deserialize<SearchDetailsResult>(personDetailsResultBlueprint);
 
                 //Assert
-               Comparator.AreEqual(personDetailsResult, deserializedPersonDetailsResultBlueprint);
+               Comparator.AreEqual(searchDetailsResult, deserializedPersonDetailsResultBlueprint);
             }
         }
 
@@ -367,7 +367,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 const string personDetailsResultBlueprint =
                     "<?xml version=\"1.0\" encoding=\"utf-8\"?><recipients xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename>mellan</middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address></recipient></recipients>";
                      
-                PersonDetailsResult personDetailsResult = new PersonDetailsResult
+                SearchDetailsResult searchDetailsResult = new SearchDetailsResult
                 {
                     PersonDetails = new List<SearchDetails>
                     {
@@ -379,7 +379,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             LastName = "larsen", 
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
-                            PersonDetailsAddress = new PersonDetailsAddress
+                            SearchDetailsAddress = new SearchDetailsAddress
                             {
                                 City = "oslo",
                                 Street = "gronerlukkagata",
@@ -392,7 +392,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 };
 
                 //Act
-                var serializedPersonDetailsResult = SerializeUtil.Serialize(personDetailsResult);
+                var serializedPersonDetailsResult = SerializeUtil.Serialize(searchDetailsResult);
 
                 //Assert
                 Assert.AreEqual(personDetailsResultBlueprint, serializedPersonDetailsResult);

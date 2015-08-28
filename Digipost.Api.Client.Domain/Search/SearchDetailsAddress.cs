@@ -2,13 +2,13 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.PersonDetails
+namespace Digipost.Api.Client.Domain.Search
 {
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("address", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class PersonDetailsAddress : IPersonDetailsAddress
+    public class SearchDetailsAddress : ISearchDetailsAddress
     {
         [XmlElement("street")]
         public string Street { get; set; }

@@ -5,6 +5,7 @@ using System.Linq;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

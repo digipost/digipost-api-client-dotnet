@@ -1,7 +1,7 @@
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     public interface IRecipient
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.PersonDetails
+namespace Digipost.Api.Client.Domain.Search
 {
     /// <summary>
     /// When requesting person information via the SearchDetails API, this class is the result.
@@ -32,11 +32,11 @@ namespace Digipost.Api.Client.Domain.PersonDetails
         public string OrganizationName { get; set; }
 
         [XmlElement("address")]
-        public PersonDetailsAddress PersonDetailsAddress{ get; set; }
+        public SearchDetailsAddress SearchDetailsAddress{ get; set; }
 
         public override string ToString()
         {
-            return string.Format("FirstName: {0}, MiddleName: {1}, LastName: {2}, DigipostAddress: {3}, MobileNumber: {4}, OrganizationName: {5}, PersonDetailsAddress: {6}", FirstName, MiddleName, LastName, DigipostAddress, MobileNumber, OrganizationName, PersonDetailsAddress);
+            return string.Format("FirstName: {0}, MiddleName: {1}, LastName: {2}, DigipostAddress: {3}, MobileNumber: {4}, OrganizationName: {5}, SearchDetailsAddress: {6}", FirstName, MiddleName, LastName, DigipostAddress, MobileNumber, OrganizationName, SearchDetailsAddress);
         }
     }
 }

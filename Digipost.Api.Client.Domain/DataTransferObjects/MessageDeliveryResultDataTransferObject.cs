@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     /// <summary>
     /// The response object that will be returned for every OK http request(200-299)
@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Domain
     [DesignerCategory("code")]
     [XmlType(TypeName = "message-delivery", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot("message-delivery", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class MessageDeliveryResult : IMessageDeliveryResult
+    public class MessageDeliveryResultDataTransferObject
     {
         [XmlElement("delivery-method")]
         public DeliveryMethod Deliverymethod { get; set; }

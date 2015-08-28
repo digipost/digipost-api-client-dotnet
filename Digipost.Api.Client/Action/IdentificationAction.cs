@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Action
 
         protected override string Serialize(IRequestContent requestContent)
         {
-            IdentificationDataTransferObject identificationDto =  DtoConverter.ToDataTransferObject((Identification) requestContent);
+            IdentificationDataTransferObject identificationDto = DataTransferObjectConverter.ToDataTransferObject((Identification)requestContent);
             return SerializeUtil.Serialize(identificationDto);
         }
     }

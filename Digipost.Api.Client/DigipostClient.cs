@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
@@ -23,22 +24,22 @@ namespace Digipost.Api.Client.Api
             Logging.Initialize(clientConfig);
         }
 
-        public IdentificationResult Identify(IIdentification identification)
+        public IIdentificationResult Identify(IIdentification identification)
         {
             return api.Identify(identification);
         }
 
-        public Task<IdentificationResult> IdentifyAsync(IIdentification identification)
+        public Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
             return api.IdentifyAsync(identification);
         }
 
-        public MessageDeliveryResultDataTransferObject SendMessage(IMessage messageDataTransferObject)
+        public IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject)
         {
             return api.SendMessage(messageDataTransferObject);
         }
 
-        public Task<MessageDeliveryResultDataTransferObject> SendMessageAsync(IMessage messageDataTransferObject)
+        public Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject)
         {
             return api.SendMessageAsync(messageDataTransferObject);
         }

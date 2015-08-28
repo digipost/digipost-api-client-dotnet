@@ -39,7 +39,7 @@ namespace Digipost.Api.Client
         protected override string Serialize(IRequestContent requestContent)
         {
             MessageDataTransferObject messageDataTransferObject =
-                DtoConverter.ToDataTransferObject((Message) requestContent);
+                DataTransferObjectConverter.ToDataTransferObject((Message) requestContent);
             return SerializeUtil.Serialize(messageDataTransferObject);
         }
 
@@ -47,7 +47,7 @@ namespace Digipost.Api.Client
         {
             Logging.Log(TraceEventType.Information, "  - Creating XML-body");
            
-            var messageDataTransferObject = DtoConverter.ToDataTransferObject(message);
+            var messageDataTransferObject = DataTransferObjectConverter.ToDataTransferObject(message);
             var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
             Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));

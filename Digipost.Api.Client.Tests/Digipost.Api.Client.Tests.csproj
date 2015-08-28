@@ -104,7 +104,7 @@
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
     <Compile Include="Unittest\DtoTests\DocumentTests.cs" />
-    <Compile Include="Unittest\DtoTests\DtoConverterTests.cs" />
+    <Compile Include="Unittest\DtoTests\DataTransferObjectConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\ForeignAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />

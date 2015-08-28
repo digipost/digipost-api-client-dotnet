@@ -8,13 +8,13 @@ namespace Digipost.Api.Client.Api
 {
     internal interface IDigipostApi
     {
-        MessageDeliveryResultDataTransferObject SendMessage(IMessage messageDataTransferObject);
+        IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject);
 
-        Task<MessageDeliveryResultDataTransferObject> SendMessageAsync(IMessage messageDataTransferObject);
+        Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject);
 
-        IdentificationResult Identify(IIdentification identification);
+        IIdentificationResult Identify(IIdentification identification);
 
-        Task<IdentificationResult> IdentifyAsync(IIdentification identification);
+        Task<IIdentificationResult> IdentifyAsync(IIdentification identification);
 
         Task<SearchDetailsResult> SearchAsync(string search);
 

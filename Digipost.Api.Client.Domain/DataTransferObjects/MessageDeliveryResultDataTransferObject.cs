@@ -17,25 +17,19 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public class MessageDeliveryResultDataTransferObject
     {
         [XmlElement("delivery-method")]
-        public DeliveryMethod Deliverymethod { get; set; }
+        public DeliveryMethod DeliveryMethod { get; set; }
         
         [XmlElement("status")]
         public MessageStatus Status { get; set; }
 
-        [Obsolete("Use DeliveryTime insted. This is just a rename of field name and has no side effects. NB! This will be removed in future verion.")]
-        public DateTime Deliverytime { get { return DeliveryTime; } set { DeliveryTime = value; } }
-
         [XmlElement("delivery-time")]
         public DateTime DeliveryTime { get; set; }
 
-        [Obsolete("Use PrimaryDocument insted. This is just a rename of field name and has no side effects. NB! This will be removed in future version.")]
-        public DocumentDataTransferObject Primarydocument { get { return PrimaryDocumentDataTransferObject; } set { PrimaryDocumentDataTransferObject = value; } }
-
         [XmlElement("primary-document")]
         public DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }
-        
+
         [XmlElement("attachment")]
-        public List<DocumentDataTransferObject> Attachment { get; set; }
+        public List<DocumentDataTransferObject> AttachmentsDataTransferObject { get; set; }
 
         [XmlElement("link")]
         [Obsolete("This field has no relevant information and will therefore be removed in future version.")]
@@ -43,11 +37,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public override string ToString()
         {
-            var attachments = Attachment.Aggregate(" ", (current, doc) => current + (doc.ToString() ));
+            var attachments = AttachmentsDataTransferObject.Aggregate(" ", (current, doc) => current + (doc.ToString() ));
             return
                 string.Format(
                     "Deliverymethod: {0}, Status: {1}, DeliveryTime: {2}, Primarydocument: {3}, " +
-                    "Attachment: {4}", Deliverymethod, Status, Deliverytime, Primarydocument,
+                    "Attachment: {4}", DeliveryMethod, Status, DeliveryTime, PrimaryDocumentDataTransferObject,
                     attachments);
         }
     }

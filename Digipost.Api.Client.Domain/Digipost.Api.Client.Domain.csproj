@@ -51,6 +51,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DataTransferObjects\MessageDeliveryResult.cs" />
     <Compile Include="Identify\Identification.cs" />
     <Compile Include="Identify\IdentificationError.cs" />
     <Compile Include="Identify\IdentificationResult.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Link.cs" />
     <Compile Include="SendMessage\Listedtime.cs" />
     <Compile Include="DataTransferObjects\MessageDataTransferObject.cs" />
-    <Compile Include="SendMessage\MessageDeliveryResult.cs" />
+    <Compile Include="DataTransferObjects\MessageDeliveryResultDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\ForeignAddressDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\NorwegianAddressDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\PrintDataTransferObject.cs" />
@@ -126,7 +127,7 @@
     <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="RequestContent.cs" />
-    <Compile Include="Utilities\DtoConverter.cs" />
+    <Compile Include="Utilities\DataTransferObjectConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

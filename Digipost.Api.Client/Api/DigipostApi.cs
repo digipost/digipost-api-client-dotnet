@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Api
             set { _digipostActionFactory = value; }
         }
 
-        public MessageDeliveryResultDataTransferObject SendMessage(IMessage message)
+        public IMessageDeliveryResult SendMessage(IMessage message)
         {
             var messageDelivery = SendMessageAsync(message);
 
@@ -58,24 +58,26 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<MessageDeliveryResultDataTransferObject> SendMessageAsync(IMessage message)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             const string uri = "messages";
+
             var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
 
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
-            return await messageDeliveryResultTask;
+            IMessageDeliveryResult fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask);
+            return fromDataTransferObject;
         }
 
-        public IdentificationResult Identify(IIdentification identification)
+        public IIdentificationResult Identify(IIdentification identification)
         {
             return IdentifyAsync(identification).Result;
         }
 
-        public async Task<IdentificationResult> IdentifyAsync(IIdentification identification)
+        public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
             var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
@@ -85,7 +87,7 @@ namespace Digipost.Api.Client.Api
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
 
-            return DtoConverter.FromDataTransferObject(await identifyResponse);
+            return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse);
         }
 
         public SearchDetailsResult Search(string search)

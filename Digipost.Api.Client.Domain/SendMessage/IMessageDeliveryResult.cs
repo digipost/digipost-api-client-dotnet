@@ -9,17 +9,12 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <summary>
         /// The type of postage delivery method.
         /// </summary>
-        DeliveryMethod Deliverymethod { get; set; }
+        DeliveryMethod DeliveryMethod { get; set; }
 
         /// <summary>
         /// The current status of the message in Digipost.
         /// </summary>
         MessageStatus Status { get; set; }
-
-        /// <summary>
-        /// Optional. The time when the document will be made visible to the user. 
-        /// </summary>
-        DateTime Deliverytime { get; set; }
 
         /// <summary>
         /// Optional. The time when the document will be made visible to the user. 
@@ -30,21 +25,12 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// The primary document of the delivery. This is the document that will be shown first in the 
         /// recipient's inbox when opening the letter.
         /// </summary>
-        DocumentDataTransferObject Primarydocument { get; set; }
-
-        /// <summary>
-        /// The primary document of the delivery. This is the document that will be shown first in the 
-        /// recipient's inbox when opening the letter.
-        /// </summary>
-        DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }
+        IDocument PrimaryDocument { get; set; }
 
         /// <summary>
         /// Optional. Attachments can be added to the message, and can be of same types as the primary
         /// document.
         /// </summary>
-        List<DocumentDataTransferObject> Attachment { get; set; }
-
-        List<Link> Link { get; set; }
-        
+        List<IDocument> Attachments { get; set; }
     }
 }

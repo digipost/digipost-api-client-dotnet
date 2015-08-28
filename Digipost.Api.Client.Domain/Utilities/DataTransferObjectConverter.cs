@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
@@ -7,14 +10,13 @@ using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
-    internal class DtoConverter
+    internal class DataTransferObjectConverter
     {
         public static IdentificationDataTransferObject ToDataTransferObject(IIdentification identification)
         {
             if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
             {
                 return new IdentificationDataTransferObject((RecipientByNameAndAddress)identification.Data);
-
             }
 
             return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
@@ -184,7 +186,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         }
 
-        public static IdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
+        public static IIdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
         {
             IdentificationResult identificationResult;
 
@@ -201,5 +203,27 @@ namespace Digipost.Api.Client.Domain.Utilities
         }
 
 
+
+        public static IMessageDeliveryResult FromDataTransferObject(MessageDeliveryResultDataTransferObject messageDeliveryResultDataTransferObject)
+        {
+            IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult()
+            {
+                PrimaryDocument = FromDataTransferObject(messageDeliveryResultDataTransferObject.PrimaryDocumentDataTransferObject), 
+                Attachments = messageDeliveryResultDataTransferObject.AttachmentsDataTransferObject.Select(documentDataTransferObject => FromDataTransferObject(documentDataTransferObject)).ToList(),
+                DeliveryTime = messageDeliveryResultDataTransferObject.DeliveryTime,
+                DeliveryMethod = messageDeliveryResultDataTransferObject.DeliveryMethod,
+                Status = messageDeliveryResultDataTransferObject.Status
+            };
+
+            return messageDeliveryResult;
+        }
+
+        public static IDocument FromDataTransferObject(DocumentDataTransferObject documentDataTransferObject)
+        {
+            return new Document(documentDataTransferObject.Subject, documentDataTransferObject.FileType, documentDataTransferObject.ContentBytes, documentDataTransferObject.AuthenticationLevel, documentDataTransferObject.SensitivityLevel, documentDataTransferObject.SmsNotification)
+            {
+                Guid = documentDataTransferObject.Guid
+            };
+        }
     }
 }

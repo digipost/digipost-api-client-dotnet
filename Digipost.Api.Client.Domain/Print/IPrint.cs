@@ -1,6 +1,6 @@
 ﻿namespace Digipost.Api.Client.Domain.Print
 {
-    public interface IPrintAddress
+    public interface IPrint
     {
         /// <summary>
         ///     Sets the name of the recipient.(Also used for the return address)

@@ -1,6 +1,6 @@
 ﻿namespace Digipost.Api.Client.Domain.Print
 {
-    public abstract class Print : IPrintAddress
+    public abstract class Print : IPrint
     {
         protected Print(string name, Address address)
         {

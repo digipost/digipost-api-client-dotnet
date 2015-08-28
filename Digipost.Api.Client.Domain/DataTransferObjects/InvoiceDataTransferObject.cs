@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain
 {

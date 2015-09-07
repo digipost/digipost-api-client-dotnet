@@ -53,10 +53,11 @@
     </Compile>
     <Compile Include="DataTransferObjects\MessageDeliveryResult.cs" />
     <Compile Include="Identify\Identification.cs" />
-    <Compile Include="Identify\IdentificationError.cs" />
+    <Compile Include="Enums\IdentificationError.cs" />
     <Compile Include="Identify\IdentificationResult.cs" />
     <Compile Include="Identify\IIdentification.cs" />
     <Compile Include="Identify\IIdentificationResult.cs" />
+    <Compile Include="IError.cs" />
     <Compile Include="Print\Address.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\IAddress.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />
     <Compile Include="Enums\UnidentifiedReason.cs" />
-    <Compile Include="ErrorMessage.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Exceptions\APIException.cs" />
     <Compile Include="Exceptions\ClientResponseException.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />

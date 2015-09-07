@@ -94,7 +94,7 @@ namespace Digipost.Api.Client.Api
             return SearchAsync(search).Result;
         }
 
-        public Task<ISearchDetailsResult> SearchAsync(string search)
+        public async Task<ISearchDetailsResult> SearchAsync(string search)
         {
             search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
@@ -106,10 +106,10 @@ namespace Digipost.Api.Client.Api
                 
                 var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
-                return taskSource.Task;
+                return await taskSource.Task;
             }
 
-            return GenericGetAsync<ISearchDetailsResult>(uri); 
+            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri); 
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)

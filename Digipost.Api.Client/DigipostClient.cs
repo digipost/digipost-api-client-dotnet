@@ -44,12 +44,12 @@ namespace Digipost.Api.Client.Api
             return api.SendMessageAsync(messageDataTransferObject);
         }
 
-        public SearchDetailsResult Search(string query)
+        public ISearchDetailsResult Search(string query)
         {
             return api.Search(query);
         }
 
-        public Task<SearchDetailsResult> SearchAsync(string query)
+        public Task<ISearchDetailsResult> SearchAsync(string query)
         {
             return api.SearchAsync(query);
         }

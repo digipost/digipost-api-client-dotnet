@@ -16,9 +16,9 @@ namespace Digipost.Api.Client.Api
 
         Task<IIdentificationResult> IdentifyAsync(IIdentification identification);
 
-        Task<SearchDetailsResult> SearchAsync(string search);
+        Task<ISearchDetailsResult> SearchAsync(string search);
 
-        SearchDetailsResult Search(string search);
+        ISearchDetailsResult Search(string search);
 
         IDigipostActionFactory DigipostActionFactory { get; set; }
     }

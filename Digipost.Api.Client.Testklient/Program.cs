@@ -77,7 +77,7 @@ namespace Digipost.Api.Client.Testklient
             Console.ReadKey();
         }
 
-        private static SearchDetailsResult Search(DigipostClient api)
+        private static ISearchDetailsResult Search(DigipostClient api)
         {
             return api.Search("Al");
         }

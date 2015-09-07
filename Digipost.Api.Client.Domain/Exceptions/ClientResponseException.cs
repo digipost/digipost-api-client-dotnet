@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.Domain.Exceptions
         {
         }
 
-        public ClientResponseException(string message, Error error)
+        public ClientResponseException(string message, IError error)
             : base(message)
         {
             Error = error;
@@ -20,12 +20,12 @@ namespace Digipost.Api.Client.Domain.Exceptions
         {
         }
 
-        public ClientResponseException(string message, Error error, Exception inner)
+        public ClientResponseException(string message, IError error, Exception inner)
             : base(message, inner)
         {
             Error = error;
         }
 
-        public Error Error { get; set; }
+        public IError Error { get; set; }
     }
 }

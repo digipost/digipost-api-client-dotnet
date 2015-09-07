@@ -89,12 +89,12 @@ namespace Digipost.Api.Client.Api
             return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse);
         }
 
-        public SearchDetailsResult Search(string search)
+        public ISearchDetailsResult Search(string search)
         {
             return SearchAsync(search).Result;
         }
 
-        public Task<SearchDetailsResult> SearchAsync(string search)
+        public Task<ISearchDetailsResult> SearchAsync(string search)
         {
             search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
@@ -104,12 +104,12 @@ namespace Digipost.Api.Client.Api
                 var emptyResult = new SearchDetailsResult();
                 emptyResult.PersonDetails = new List<SearchDetails>();
                 
-                var taskSource = new TaskCompletionSource<SearchDetailsResult>();
+                var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
                 return taskSource.Task;
             }
 
-            return GenericGetAsync<SearchDetailsResult>(uri); 
+            return GenericGetAsync<ISearchDetailsResult>(uri); 
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)

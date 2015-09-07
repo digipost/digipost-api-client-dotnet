@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.Domain.Identify
+﻿namespace Digipost.Api.Client.Domain.Enums
 {
     public enum IdentificationError
     {

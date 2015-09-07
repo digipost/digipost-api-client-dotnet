@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;

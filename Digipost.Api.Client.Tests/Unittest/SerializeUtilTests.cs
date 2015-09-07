@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.Search;

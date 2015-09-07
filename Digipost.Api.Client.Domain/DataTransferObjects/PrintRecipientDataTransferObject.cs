@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.Domain.Print
+﻿namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     public class PrintRecipientDataTransferObject : PrintDataTransferObject
     {

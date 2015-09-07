@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Domain.DataTransferObject
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     /// <summary>
     /// Used to identify users in Digipost, by Digipost address, name and address, 

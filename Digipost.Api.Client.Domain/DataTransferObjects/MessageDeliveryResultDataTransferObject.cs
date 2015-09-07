@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 
-namespace Digipost.Api.Client.Domain.SendMessage
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     /// <summary>
     /// The response object that will be returned for every OK http request(200-299)

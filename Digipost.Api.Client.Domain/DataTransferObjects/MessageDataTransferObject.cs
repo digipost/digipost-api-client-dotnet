@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     [Serializable]
     [DebuggerStepThrough]

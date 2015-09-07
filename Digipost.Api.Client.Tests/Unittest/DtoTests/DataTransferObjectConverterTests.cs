@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;

@@ -6,14 +6,14 @@ using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Domain
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
-    [XmlIncludeAttribute(typeof(InvoiceDataTransferObject))]
-    [SerializableAttribute]
+    [XmlInclude(typeof(InvoiceDataTransferObject))]
+    [Serializable]
     [DebuggerStepThrough]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute("document", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRootAttribute(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [DesignerCategory("code")]
+    [XmlType("document", Namespace = "http://api.digipost.no/schema/v6")]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class DocumentDataTransferObject : IDocument
     {
         public DocumentDataTransferObject(string subject, string fileType, byte[] contentBytes,

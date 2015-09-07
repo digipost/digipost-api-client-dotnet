@@ -9,7 +9,7 @@ using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObject;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
@@ -63,8 +63,7 @@ namespace Digipost.Api.Client.Api
             const string uri = "messages";
 
             var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
-
-
+            
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 

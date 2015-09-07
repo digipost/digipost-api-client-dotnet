@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.Print
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     [Serializable]
     [DesignerCategory("code")]

@@ -6,6 +6,7 @@ using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;

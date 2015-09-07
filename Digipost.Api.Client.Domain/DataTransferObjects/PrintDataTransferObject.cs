@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Exceptions;
 
-namespace Digipost.Api.Client.Domain.Print
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     [Serializable]
     [DesignerCategory("code")]

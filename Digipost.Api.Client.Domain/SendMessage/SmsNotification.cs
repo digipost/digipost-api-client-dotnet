@@ -29,6 +29,17 @@ namespace Digipost.Api.Client.Domain.SendMessage
             AfterHours = new List<int>();
         }
 
+
+        /// <summary>
+        /// Sms notification for a message
+        /// </summary>
+        /// <param name="afterHours">List of hours after delivered where the sms notification will be delivered</param>
+        public SmsNotification(params int[] afterHours)
+        {
+            AtTime = new List<DateTime>();
+            AfterHours = afterHours.ToList();
+        }
+
         public SmsNotification()
         {
             /**must exist for serializing**/

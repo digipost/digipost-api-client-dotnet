@@ -51,17 +51,14 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 smsNotification.AddAtTime(secondSmsNotification);
 
                 //Assert
-                Assert.AreEqual(2, smsNotification.AtTime.Count, "Should be 2 occurences of at time");
-
+                Assert.AreEqual(2, smsNotification.AtTime.Count, "Should be 2 occurences of atTime");
+                
                 foreach (var dateTime in smsNotification.AtTime)
                 {
                     Assert.IsTrue(dateTime.Equals(firstSmsNotification) || dateTime.Equals(secondSmsNotification));
                 }
               
             }
-
-          
-
         }
     }
 }

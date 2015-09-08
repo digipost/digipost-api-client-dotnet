@@ -490,18 +490,18 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 var atTime = DateTime.ParseExact("2015-01-01 00:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
 
-                var sourceDTO = new SmsNotificationDataTransferObject(1);
-                sourceDTO.AddAtTime(new Listedtime(atTime));
-                
-                    
-                var expected =  new SmsNotification(1);
-                expected.AddAtTime(atTime);
+                var expected = new SmsNotificationDataTransferObject(1);
+                expected.AddAtTime(new Listedtime(atTime));
 
-                var actual = DataTransferObjectConverter.ToDataTransferObject(expected);
+                var sourceDTO = new SmsNotification(1);
+                sourceDTO.AddAtTime(atTime);
+
+
+                var actual = DataTransferObjectConverter.ToDataTransferObject(sourceDTO);
 
 
                 IEnumerable<IDifference> differences;
-                _comparator.AreEqual(sourceDTO, actual, out differences);
+                _comparator.AreEqual(expected, actual, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
         }

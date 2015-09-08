@@ -1,22 +1,24 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Action
 {
     internal class DigipostActionFactory : IDigipostActionFactory
     {
-        public virtual DigipostAction CreateClass(RequestContent content, ClientConfig clientConfig, 
+        public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig, 
             X509Certificate2 businessCertificate, string uri)
         {
             var type = content.GetType();
 
-            if (type == typeof(Message))
+            if (typeof(IMessage).IsAssignableFrom(type))
             {
-                return new MessageAction(content as Message, clientConfig, businessCertificate, uri);
+                return new MessageAction(content as IMessage, clientConfig, businessCertificate, uri);
             }
 
-            if (type == typeof(Identification))
+            if (typeof(IIdentification).IsAssignableFrom(type))
             {
                 return new IdentificationAction(content as Identification, clientConfig, businessCertificate, uri);
             }

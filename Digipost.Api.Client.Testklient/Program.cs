@@ -6,10 +6,13 @@ using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.Search;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Testklient.Properties;
 using KellermanSoftware.CompareNetObjects;
 
@@ -28,7 +31,7 @@ namespace Digipost.Api.Client.Testklient
         {
             CompareLogic comparelogic = new CompareLogic();
 
-            var v = comparelogic.Compare(new PersonDetails(){DigipostAddress = "Halloen"}, new PersonDetails());
+            var v = comparelogic.Compare(new SearchDetails(){DigipostAddress = "Halloen"}, new SearchDetails());
             List<Difference> diff = v.Differences;
             var descr = diff.ElementAt(0).GetWhatIsCompared();
 
@@ -64,7 +67,7 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             //IdentifyPerson(api);
-            //SendMessageToPerson(api, true);
+            SendMessageToPerson(api, false);
             var response = Search(api);
 
             
@@ -74,7 +77,7 @@ namespace Digipost.Api.Client.Testklient
             Console.ReadKey();
         }
 
-        private static PersonDetailsResult Search(DigipostClient api)
+        private static ISearchDetailsResult Search(DigipostClient api)
         {
             return api.Search("Al");
         }
@@ -84,7 +87,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
             Console.WriteLine("======================================");
-            Message message;
+            IMessage message;
 
             message = isQaOrLocal ? GetMessageForQaOrLocal() : GetMessage();
             
@@ -112,13 +115,20 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("Identifiserer person:");
             Console.WriteLine("======================================");
 
-            var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "31108446911");
+            //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+            var identification = new Identification(IdentificationChoiceType.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
+
 
             try
             {
                 var identificationResponse = api.Identify(identification);
                 Logging.Log(TraceEventType.Information, "Identification resp: \n" + identificationResponse);
                 WriteToConsoleWithColor("> Personen ble identifisert!", false);
+                
+                //Console.WriteLine("IdentificationValue: " + identificationResponse.IdentificationValue);
+                //Console.WriteLine("IdentificationType: " + identificationResponse.IdentificationType)
+                ;
+
             }
             catch (ClientResponseException e)
             {
@@ -131,19 +141,19 @@ namespace Digipost.Api.Client.Testklient
             }
         }
 
-        private static Message GetMessageForQaOrLocal()
+        private static IMessage GetMessageForQaOrLocal()
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
    
-            var digitalRecipient = new Recipient(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+            var digitalRecipient = new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "01013300001");
 
             var message = new Message(digitalRecipient, primaryDocument);
 
             return message;
         }
 
-        private static Message GetMessage()
+        private static IMessage GetMessage()
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
@@ -155,25 +165,21 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress(postalCode: "0460", city: "Oslo", addressline1: "Colletts gate 68")),
-                    new PrintReturnAddress("Kristian Sæther Enge",
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo","Colletts gate 68")),
+                    new PrintReturnRecipient("Kristian Sæther Enge",
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
-
-
 
             //recipientIdentifier for digital mail
             var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68");
 
             //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
+            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(
-                recipient: digitalRecipientWithFallbackPrint,
-                primaryDocument: invoice) 
+            var message = new Message(digitalRecipientWithFallbackPrint,invoice) 
                 {};
             
             //message.Deliverytime = DateTime.Now.AddDays(1);

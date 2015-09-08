@@ -6,6 +6,8 @@ using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -16,7 +18,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
         private readonly ResourceUtility _resourceManager;
         private byte[] _documentBytes;
         private int _failedCalls;
-        private Identification _identification;
+        private IIdentification _identification;
         private int _itemsLeft;
         private Message _message;
         private int _successfulCalls;
@@ -42,7 +44,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public abstract void Run(RequestType requestType);
 
-        public Message GetMessage()
+        public IMessage GetMessage()
         {
             lock (_lock)
             {
@@ -59,12 +61,12 @@ namespace Digipost.Api.Client.ConcurrencyTest
             return _message;
         }
 
-        public Identification GetIdentification()
+        public IIdentification GetIdentification()
         {
             lock (_lock)
             {
                 if (_identification != null) return _identification;
-                _identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
+                _identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "01013300001");
             }
 
             return _identification;

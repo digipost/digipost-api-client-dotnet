@@ -1,28 +1,9 @@
 ﻿namespace Digipost.Api.Client.Domain.Print
 {
-    public class PrintRecipient : PrintAddress
+    public class PrintRecipient : Print, IPrintRecipient
     {
-        /// <summary>
-        ///     Constructor for foreign(not Norwegian) recipients
-        /// </summary>
-        public PrintRecipient(string name, ForeignAddress address)
+        public PrintRecipient(string name, Address address) : base(name,address)
         {
-            Name = name;
-            Address = address;
-        }
-
-        /// <summary>
-        ///     Constructor for Norwegian recipients
-        /// </summary>
-        public PrintRecipient(string name, NorwegianAddress address)
-        {
-            Name = name;
-            Address = address;
-        }
-
-        private PrintRecipient()
-        {
-            /**must exist for serializing**/
         }
     }
 }

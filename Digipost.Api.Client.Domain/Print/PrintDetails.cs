@@ -1,65 +1,25 @@
-﻿using System;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using Digipost.Api.Client.Domain.Enums;
+﻿using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.Print
 {
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "print-details", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("print-details", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class PrintDetails
+    public class PrintDetails : IPrintDetails
     {
-        /// <summary>
-        ///     Constructor to send physical letter.
-        /// </summary>
-        public PrintDetails(PrintRecipient recipient, PrintReturnAddress printReturnAddress,
-            PostType postType = PostType.B,
-            PrintColors color = PrintColors.Monochrome,
-            NondeliverableHandling nondeliverableHandling = NondeliverableHandling.ReturnToSender)
+        public IPrintRecipient PrintRecipient { get; set; }
+        public IPrintReturnRecipient PrintReturnRecipient { get; set; }
+
+        public PrintDetails(IPrintRecipient printRecipient, IPrintReturnRecipient printReturnRecipient, PostType postType = PostType.B, PrintColors printColors = PrintColors.Monochrome)
         {
-            PrintReturnAddress = printReturnAddress;
-            Recipient = recipient;
-            Color = color;
-            NondeliverableHandling = nondeliverableHandling;
+            PrintRecipient = printRecipient;
+            PrintReturnRecipient = printReturnRecipient;
             PostType = postType;
+            PrintColors = printColors;
+            NondeliverableHandling = NondeliverableHandling.ReturnToSender;
         }
-
-        private PrintDetails()
-        {
-            /**must exist for serializing**/
-        }
-
-        /// <summary>
-        ///     The recipient of the physical mail.
-        /// </summary>
-        [XmlElement("recipient")]
-        public PrintRecipient Recipient { get; set; }
-
-        /// <summary>
-        ///     The return address of the physical mail. (if nondeliverable AND the nondeliverable-handling is set to
-        ///     ReturnToSender)
-        /// </summary>
-        [XmlElement("return-address")]
-        public PrintReturnAddress PrintReturnAddress { get; set; }
-
-        /// <summary>
-        ///     Defines how fast you want the item delivered. Note: additional charges may apply
-        /// </summary>
-        [XmlElement("post-type")]
+        
         public PostType PostType { get; set; }
+        
+        public PrintColors PrintColors { get; set; }
 
-        /// <summary>
-        ///     Defines if you want the documents printed in black / white or color (Note: additional charges may apply).
-        /// </summary>
-        [XmlElement("color")]
-        public PrintColors Color { get; set; }
-
-        /// <summary>
-        ///     Determines the exception handling that will occur when the letter can not be delivered.
-        /// </summary>
-        [XmlElement("nondeliverable-handling")]
-        private NondeliverableHandling NondeliverableHandling { get; set; }
+        public NondeliverableHandling NondeliverableHandling { get; internal set; }
     }
 }

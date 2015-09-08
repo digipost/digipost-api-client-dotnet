@@ -3,8 +3,11 @@ using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,7 +42,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize(message);
+                var expected = SerializeUtil.Serialize(DataTransferObjectConverter.ToDataTransferObject(message));
                 Assert.AreEqual(expected, content.InnerXml);
             }
 
@@ -50,14 +53,15 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var clientConfig = new ClientConfig("123");
                 var certificate = TestProperties.Certificate();
                 const string uri = "AFakeUri";
-                var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "00000000000");
+                var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
 
                 //Act
                 var action = new IdentificationAction(identification, clientConfig, certificate, uri);
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize(identification);
+                IdentificationDataTransferObject identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
+                var expected = SerializeUtil.Serialize(identificationDto);
                 Assert.AreEqual(expected, content.InnerXml);
             }
         }

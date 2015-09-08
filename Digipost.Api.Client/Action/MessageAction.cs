@@ -5,19 +5,23 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
+using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Domain.Utilities;
+using IMessage = Digipost.Api.Client.Domain.SendMessage.IMessage;
 
 namespace Digipost.Api.Client
 {
     internal class MessageAction : DigipostAction
     {
-        public MessageAction(Message message, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public MessageAction(IMessage message, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
             : base(message, clientConfig, businessCertificate, uri)
         {
         }
 
-        protected override HttpContent Content(RequestContent requestContent)
+        protected override HttpContent Content(IRequestContent requestContent)
         {
-            var message = requestContent as Message;
+            var message = requestContent as IMessage;
             var boundary = Guid.NewGuid().ToString();
 
             var multipartFormDataContent = new MultipartFormDataContent(boundary);
@@ -33,15 +37,19 @@ namespace Digipost.Api.Client
             return multipartFormDataContent;
         }
 
-        protected override string Serialize(RequestContent requestContent)
+        protected override string Serialize(IRequestContent requestContent)
         {
-            return SerializeUtil.Serialize((Message) requestContent);
+            MessageDataTransferObject messageDataTransferObject =
+                DataTransferObjectConverter.ToDataTransferObject((Message) requestContent);
+            return SerializeUtil.Serialize(messageDataTransferObject);
         }
 
-        private static void AddBodyToContent(Message message, MultipartFormDataContent content)
+        private static void AddBodyToContent(IMessage message, MultipartFormDataContent content)
         {
             Logging.Log(TraceEventType.Information, "  - Creating XML-body");
-            var xmlMessage = SerializeUtil.Serialize(message);
+           
+            var messageDataTransferObject = DataTransferObjectConverter.ToDataTransferObject(message);
+            var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
             Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
             var messageContent = new StringContent(xmlMessage);
@@ -53,7 +61,7 @@ namespace Digipost.Api.Client
             content.Add(messageContent);
         }
 
-        private static void AddPrimaryDocumentToContent(Message message, MultipartFormDataContent content)
+        private static void AddPrimaryDocumentToContent(IMessage message, MultipartFormDataContent content)
         {
             Logging.Log(TraceEventType.Information, "  - Adding primary document");
             var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
@@ -65,7 +73,7 @@ namespace Digipost.Api.Client
             content.Add(documentContent);
         }
 
-        private static void AddAttachmentsToContent(Message message, MultipartFormDataContent content)
+        private static void AddAttachmentsToContent(IMessage message, MultipartFormDataContent content)
         {
             foreach (var attachment in message.Attachments)
             {

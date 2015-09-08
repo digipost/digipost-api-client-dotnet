@@ -1,23 +1,24 @@
 ﻿using System.Threading.Tasks;
 using Digipost.Api.Client.Action;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Search;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Api
 {
     internal interface IDigipostApi
     {
-        MessageDeliveryResult SendMessage(Message message);
+        IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject);
 
-        Task<MessageDeliveryResult> SendMessageAsync(Message message);
+        Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject);
 
-        IdentificationResult Identify(Identification identification);
+        IIdentificationResult Identify(IIdentification identification);
 
-        Task<IdentificationResult> IdentifyAsync(Identification identification);
+        Task<IIdentificationResult> IdentifyAsync(IIdentification identification);
 
-        Task<PersonDetailsResult> SearchAsync(string search);
+        Task<ISearchDetailsResult> SearchAsync(string search);
 
-        PersonDetailsResult Search(string search);
+        ISearchDetailsResult Search(string search);
 
         IDigipostActionFactory DigipostActionFactory { get; set; }
     }

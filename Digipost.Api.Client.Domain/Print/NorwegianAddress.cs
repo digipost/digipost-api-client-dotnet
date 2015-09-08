@@ -1,43 +1,24 @@
-﻿using System;
-using System.ComponentModel;
-using System.Xml.Serialization;
-
-namespace Digipost.Api.Client.Domain.Print
+﻿namespace Digipost.Api.Client.Domain.Print
 {
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "norwegian-address", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("norwegian-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
-    public class NorwegianAddress
+    public class NorwegianAddress : Address, INorwegianAddress
     {
-        private NorwegianAddress()
-        {
-            /**must exist for serializing**/
-        }
-
+        /// <summary>
+        /// Norwegian address for use when sending a letter within Norway.
+        /// </summary>
+        /// <param name="postalCode">Postal code for the address provided.</param>
+        /// <param name="city">City in which the address resides.</param>
+        /// <param name="addressLine1">First address line.</param>
+        /// <param name="addressLine2">Second address line. Optional.</param>
+        /// <param name="addressLine3">Third address line. Optional. </param>
         public NorwegianAddress(string postalCode,
-            string city, string addressline1, string addressline2 = null, string addressline3 = null)
+            string city, string addressLine1, string addressLine2 = null, string addressLine3 = null) : base(addressLine1, addressLine2, addressLine3)
         {
-            Addressline1 = addressline1;
-            Addressline2 = addressline2;
-            Addressline3 = addressline3;
             City = city;
             PostalCode = postalCode;
         }
-
-        [XmlElement("addressline1")]
-        public string Addressline1 { get; set; }
-
-        [XmlElement("addressline2")]
-        public string Addressline2 { get; set; }
-
-        [XmlElement("addressline3")]
-        public string Addressline3 { get; set; }
-
-        [XmlElement("zip-code")]
+        
         public string PostalCode { get; set; }
-
-        [XmlElement("city")]
+        
         public string City { get; set; }
     }
 }

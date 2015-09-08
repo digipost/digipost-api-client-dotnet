@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,45 +22,45 @@ namespace Digipost.Api.Client.Tests.Unittest
             public void GivesErrorOnDeepCompareDifference()
             {
                 //Arrange
-                Message message1;
-                Message message2;
+                MessageDataTransferObject message1;
+                MessageDataTransferObject message2;
 
                 // Three differences: 'skuff 4' insted of 'skuff 3, 'danskegatan' instead of 'svenskegatan' and sms notification after 1 hour instead of 2.
 
                 {
                     //Message 1
-                    var printDetails = new PrintDetails(new PrintRecipient("Ola Nordmann", new NorwegianAddress("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnAddress("Ola Digipost", new ForeignAddress(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
+                    var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
 
                     var recipient =
-                        new Recipient(
+                        new RecipientDataTransferObject(
                             new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
-                    var document = new Document("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                        SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
+                    var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
+                        SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
-                    message1 = new Message(recipient, document);
+                    message1 = new MessageDataTransferObject(recipient, document);
                 }
 
                 {
                     // Message 2
                     var printDetails2 =
-                        new PrintDetails(
-                            new PrintRecipient("Ola Nordmann",
-                                new NorwegianAddress("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")),
-                            new PrintReturnAddress("Ola Digipost",
-                                new ForeignAddress(CountryIdentifier.Country, "SE", "danskegatan 1", " leil h101",
+                        new PrintDetailsDataTransferObject(
+                            new PrintRecipientDataTransferObject("Ola Nordmann",
+                                new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")),
+                            new PrintReturnRecipientDataTransferObject("Ola Digipost",
+                                new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "danskegatan 1", " leil h101",
                                     "pb 12", "skuff 4")));
 
                     var recipient2 =
-                        new Recipient(
+                        new RecipientDataTransferObject(
                             new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"),
                             printDetails2);
 
-                    var document2 = new Document("Subject", "txt", ByteUtility.GetBytes("test"),
+                    var document2 = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),
                         AuthenticationLevel.TwoFactor,
-                        SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotification(3)};
+                        SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(3)};
 
-                    message2 = new Message(recipient2, document2);
+                    message2 = new MessageDataTransferObject(recipient2, document2);
                 }
                 //Act
                 Comparator comparator = new Comparator();

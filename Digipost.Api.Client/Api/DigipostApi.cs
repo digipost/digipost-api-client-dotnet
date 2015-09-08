@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Search;
+using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.XmlValidation;
 
@@ -45,7 +48,7 @@ namespace Digipost.Api.Client.Api
             set { _digipostActionFactory = value; }
         }
 
-        public MessageDeliveryResult SendMessage(Message message)
+        public IMessageDeliveryResult SendMessage(IMessage message)
         {
             var messageDelivery = SendMessageAsync(message);
 
@@ -55,59 +58,61 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             const string uri = "messages";
-            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResult>(message, uri);
 
-
+            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
+            
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
-            return await messageDeliveryResultTask;
+            IMessageDeliveryResult fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask);
+            return fromDataTransferObject;
         }
 
-        public IdentificationResult Identify(Identification identification)
+        public IIdentificationResult Identify(IIdentification identification)
         {
             return IdentifyAsync(identification).Result;
         }
 
-        public async Task<IdentificationResult> IdentifyAsync(Identification identification)
+        public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
             const string uri = "identification";
-            var identifyResponse = GenericPostAsync<IdentificationResult>(identification, uri);
+            var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
-            return await identifyResponse;
+
+            return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse);
         }
 
-        public PersonDetailsResult Search(string search)
+        public ISearchDetailsResult Search(string search)
         {
             return SearchAsync(search).Result;
         }
 
-        public Task<PersonDetailsResult> SearchAsync(string search)
+        public async Task<ISearchDetailsResult> SearchAsync(string search)
         {
             search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
 
             if (search.Length < _minimumSearchLength)
             {
-                var emptyResult = new PersonDetailsResult();
-                emptyResult.PersonDetails = new List<PersonDetails>();
+                var emptyResult = new SearchDetailsResult();
+                emptyResult.PersonDetails = new List<SearchDetails>();
                 
-                var taskSource = new TaskCompletionSource<PersonDetailsResult>();
+                var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
-                return taskSource.Task;
+                return await taskSource.Task;
             }
 
-            return GenericGetAsync<PersonDetailsResult>(uri); 
+            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri); 
         }
 
-        private Task<T> GenericPostAsync<T>(RequestContent content, string uri)
+        private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
 
@@ -156,7 +161,7 @@ namespace Digipost.Api.Client.Api
             {
                 throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
             }
-        }
+        } 
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
@@ -166,7 +171,7 @@ namespace Digipost.Api.Client.Api
 
         private static void ThrowNotEmptyResponseError(string responseContent)
         {
-            var error = SerializeUtil.Deserialize<Error>(responseContent);
+            var error = SerializeUtil.Deserialize<IError>(responseContent);
             throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
         }
 
@@ -179,7 +184,5 @@ namespace Digipost.Api.Client.Api
         {
             return SerializeUtil.Deserialize<T>(responseContent);
         }
-
-       
     }
 }

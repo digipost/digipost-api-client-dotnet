@@ -18,6 +18,6 @@ namespace Digipost.Api.Client.Domain.Enums
         Unidentified,
 
         [XmlEnum("INVALID")] 
-        Invalid
+        Invalid,
     }
 }

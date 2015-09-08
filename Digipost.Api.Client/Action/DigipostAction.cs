@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Handlers;
 
 namespace Digipost.Api.Client.Action
@@ -23,7 +21,7 @@ namespace Digipost.Api.Client.Action
 
         private readonly object _threadLock = new object();
 
-        protected DigipostAction(RequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             InitializeRequestXmlContent(requestContent);
             _uri = uri;
@@ -64,7 +62,7 @@ namespace Digipost.Api.Client.Action
             }
         }
 
-        internal Task<HttpResponseMessage> PostAsync(RequestContent requestContent)
+        internal Task<HttpResponseMessage> PostAsync(IRequestContent requestContent)
         {
             try
             {
@@ -90,11 +88,11 @@ namespace Digipost.Api.Client.Action
             }
         }
 
-        protected abstract HttpContent Content(RequestContent requestContent);
+        protected abstract HttpContent Content(IRequestContent requestContent);
 
-        protected abstract string Serialize(RequestContent requestContent);
+        protected abstract string Serialize(IRequestContent requestContent);
 
-        private void InitializeRequestXmlContent(RequestContent requestContent)
+        private void InitializeRequestXmlContent(IRequestContent requestContent)
         {
             if (requestContent == null) return;
 

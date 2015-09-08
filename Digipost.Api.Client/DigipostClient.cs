@@ -1,7 +1,10 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.PersonDetails;
+using Digipost.Api.Client.Domain.DataTransferObjects;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Search;
+using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Api
 {
@@ -21,32 +24,32 @@ namespace Digipost.Api.Client.Api
             Logging.Initialize(clientConfig);
         }
 
-        public IdentificationResult Identify(Identification identification)
+        public IIdentificationResult Identify(IIdentification identification)
         {
             return api.Identify(identification);
         }
 
-        public Task<IdentificationResult> IdentifyAsync(Identification identification)
+        public Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
             return api.IdentifyAsync(identification);
         }
 
-        public MessageDeliveryResult SendMessage(Message message)
+        public IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject)
         {
-            return api.SendMessage(message);
+            return api.SendMessage(messageDataTransferObject);
         }
 
-        public Task<MessageDeliveryResult> SendMessageAsync(Message message)
+        public Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject)
         {
-            return api.SendMessageAsync(message);
+            return api.SendMessageAsync(messageDataTransferObject);
         }
 
-        public PersonDetailsResult Search(string query)
+        public ISearchDetailsResult Search(string query)
         {
             return api.Search(query);
         }
 
-        public Task<PersonDetailsResult> SearchAsync(string query)
+        public Task<ISearchDetailsResult> SearchAsync(string query)
         {
             return api.SearchAsync(query);
         }

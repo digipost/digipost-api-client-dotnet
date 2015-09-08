@@ -42,12 +42,40 @@ namespace Digipost.Api.Client.Domain.Utilities
         public static DocumentDataTransferObject ToDataTransferObject(IDocument document)
         {
             var documentDataTransferObject = new DocumentDataTransferObject(document.Subject, document.FileType,
-                document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, document.SmsNotification)
+                document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, ToDataTransferObject(document.SmsNotification))
             {
                 Guid = document.Guid
             };
 
             return documentDataTransferObject;
+        }
+
+        public static SmsNotificationDataTransferObject ToDataTransferObject(ISmsNotification smsNotification)
+        {
+            if (smsNotification == null)
+                return null;
+
+            var listedTimeList = smsNotification.AtTime.Select(dateTime => new Listedtime(dateTime)).ToList();
+
+            var smsNotificationDataTransferObject = new SmsNotificationDataTransferObject()
+            {
+                AfterHours = smsNotification.AfterHours,
+                AtTime = listedTimeList
+            };
+
+
+            return smsNotificationDataTransferObject;
+        }
+
+        public static ISmsNotification FromDataTransferObject(SmsNotificationDataTransferObject smsNotificationDataTransferObject)
+        {
+            if (smsNotificationDataTransferObject == null)
+                return null;
+
+            var dateTimes = smsNotificationDataTransferObject.AtTime.Select(listedTime => listedTime.Time).ToList();
+            var smsNotification = new SmsNotification() { AfterHours = smsNotificationDataTransferObject.AfterHours, AtTime = dateTimes };
+
+            return smsNotification;
         }
 
         public static RecipientDataTransferObject ToDataTransferObject(IRecipient recipient)
@@ -219,10 +247,12 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static IDocument FromDataTransferObject(DocumentDataTransferObject documentDataTransferObject)
         {
-            return new Document(documentDataTransferObject.Subject, documentDataTransferObject.FileType, documentDataTransferObject.ContentBytes, documentDataTransferObject.AuthenticationLevel, documentDataTransferObject.SensitivityLevel, documentDataTransferObject.SmsNotification)
+            return new Document(documentDataTransferObject.Subject, documentDataTransferObject.FileType, documentDataTransferObject.ContentBytes, documentDataTransferObject.AuthenticationLevel, documentDataTransferObject.SensitivityLevel, FromDataTransferObject(documentDataTransferObject.SmsNotification))
             {
                 Guid = documentDataTransferObject.Guid
             };
         }
+
+        
     }
 }

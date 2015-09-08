@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public Invoice(string subject, string fileType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid= null,
             AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : base(subject,fileType,contentBytes,authenticationLevel,sensitivityLevel, smsNotification)
         {
             Kid = kid;
@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public Invoice(string subject, string fileType, string path, decimal amount, string account, DateTime duedate, string kid = null,
            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(subject,fileType, new byte[]{}, amount, account, duedate, kid, authenticationLevel, sensitivityLevel, smsNotification)
         {
             
@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public Invoice(string subject, string fileType, Stream contentStream, decimal amount, string account, DateTime duedate, string kid = null,
            AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
-           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+           SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(subject, fileType, new byte[] { }, amount, account, duedate, kid, authenticationLevel, sensitivityLevel, smsNotification)
         {
 

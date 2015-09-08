@@ -14,11 +14,11 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [DesignerCategory("code")]
     [XmlType("document", Namespace = "http://api.digipost.no/schema/v6")]
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
-    public class DocumentDataTransferObject : IDocument
+    public class DocumentDataTransferObject
     {
         public DocumentDataTransferObject(string subject, string fileType, byte[] contentBytes,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotificationDataTransferObject smsNotification = null)
         {
             Guid = System.Guid.NewGuid().ToString();
             Subject = subject;
@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         public string FileType { get; set; }
 
         [XmlElement("sms-notification")]
-        public SmsNotification SmsNotification { get; set; }
+        public SmsNotificationDataTransferObject SmsNotification { get; set; }
 
         [XmlElement("authentication-level")]
         public AuthenticationLevel AuthenticationLevel { get; set; }

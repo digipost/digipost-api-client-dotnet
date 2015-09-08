@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObjects;
@@ -104,7 +105,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                DocumentDataTransferObject expectedDto = new DocumentDataTransferObject("TestSubject","txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                DocumentDataTransferObject expectedDto = new DocumentDataTransferObject("TestSubject","txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
                 expectedDto.Guid = source.Guid;
 
                 //Act
@@ -419,7 +420,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void Document()
             {
                 //Arrange
-                DocumentDataTransferObject source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                DocumentDataTransferObject source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
                 
                 IDocument expectedDto = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
                 expectedDto.Guid = source.Guid;
@@ -481,6 +482,26 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(sourceDto, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void SmsNotification()
+            {
+                var atTime = DateTime.ParseExact("2015-01-01 00:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+                var sourceDTO = new SmsNotificationDataTransferObject(1);
+                sourceDTO.AddAtTime(new Listedtime(atTime));
+                
+                    
+                var expected =  new SmsNotification(1);
+                expected.AddAtTime(atTime);
+
+                var actual = DataTransferObjectConverter.ToDataTransferObject(expected);
+
+
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(sourceDTO, actual, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
         }

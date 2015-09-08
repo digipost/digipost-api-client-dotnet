@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Domain.Enums;
+﻿using Digipost.Api.Client.Domain.DataTransferObjects;
+using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.SendMessage
 {
@@ -24,7 +25,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     Optional SMS notification to Recipient.
         ///     Additional charges apply.
         /// </summary>
-        SmsNotification SmsNotification { get; set; }
+        ISmsNotification SmsNotification { get; set; }
 
         /// <summary>
         ///     The level of authentication for the document.

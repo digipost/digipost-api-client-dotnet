@@ -126,8 +126,9 @@
     <Compile Include="SendMessage\Recipient.cs" />
     <Compile Include="DataTransferObjects\RecipientDataTransferObject.cs" />
     <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
-    <Compile Include="SendMessage\SmsNotification.cs" />
+    <Compile Include="DataTransferObjects\SmsNotificationDataTransferObject.cs" />
     <Compile Include="RequestContent.cs" />
+    <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
   </ItemGroup>
   <ItemGroup>

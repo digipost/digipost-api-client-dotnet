@@ -33,10 +33,10 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 var attachment =  new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document);
@@ -81,7 +81,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
                 
@@ -99,7 +99,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 //Act
                 var deserializedDocumentBlueprint = SerializeUtil.Deserialize<DocumentDataTransferObject>(documentBlueprint);
@@ -161,7 +161,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
                 var invoice = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 //Act
                 var deserializedInvoice = SerializeUtil.Deserialize<InvoiceDataTransferObject>(invoiceBlueprint);
@@ -222,7 +222,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { SmsNotification = new SmsNotification(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635" };
+                    SensitivityLevel.Sensitive) { SmsNotification = new SmsNotificationDataTransferObject(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635" };
                 var attachment = new DocumentDataTransferObject("attachment", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "c75d8cb9-bd47-4ae7-9bd3-92105d12f49a" };
                 var message = new MessageDataTransferObject(recipient, document);
@@ -247,7 +247,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
 
@@ -285,7 +285,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 //Act
                 var serialized = SerializeUtil.Serialize(document);
@@ -350,7 +350,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
                 var invoice = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotification(2) };
+                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                 //Act
                 var serializedIdentification = SerializeUtil.Serialize(invoice);

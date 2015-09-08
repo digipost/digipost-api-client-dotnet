@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
                     var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                        SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotification(2) };
+                        SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
                     message1 = new MessageDataTransferObject(recipient, document);
                 }
@@ -58,7 +58,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                     var document2 = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),
                         AuthenticationLevel.TwoFactor,
-                        SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotification(3)};
+                        SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(3)};
 
                     message2 = new MessageDataTransferObject(recipient2, document2);
                 }

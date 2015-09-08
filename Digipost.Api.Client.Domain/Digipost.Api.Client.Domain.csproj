@@ -76,7 +76,6 @@
     <Compile Include="Search\ISearchDetailsAddress.cs" />
     <Compile Include="Search\ISearchDetailsResult.cs" />
     <Compile Include="Search\SearchDetails.cs" />
-    <Compile Include="SendMessage\IListedtime.cs" />
     <Compile Include="SendMessage\IMessageDeliveryResult.cs" />
     <Compile Include="SendMessage\IRecipient.cs" />
     <Compile Include="SendMessage\Document.cs" />
@@ -112,7 +111,7 @@
     <Compile Include="Enums\IdentificationResultCode.cs" />
     <Compile Include="DataTransferObjects\InvoiceDataTransferObject.cs" />
     <Compile Include="Link.cs" />
-    <Compile Include="SendMessage\Listedtime.cs" />
+    <Compile Include="DataTransferObjects\ListedtimeDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\MessageDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\MessageDeliveryResultDataTransferObject.cs" />
     <Compile Include="DataTransferObjects\ForeignAddressDataTransferObject.cs" />

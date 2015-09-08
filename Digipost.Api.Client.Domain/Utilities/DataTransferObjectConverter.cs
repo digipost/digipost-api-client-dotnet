@@ -50,34 +50,6 @@ namespace Digipost.Api.Client.Domain.Utilities
             return documentDataTransferObject;
         }
 
-        public static SmsNotificationDataTransferObject ToDataTransferObject(ISmsNotification smsNotification)
-        {
-            if (smsNotification == null)
-                return null;
-
-            var listedTimeList = smsNotification.AtTime.Select(dateTime => new Listedtime(dateTime)).ToList();
-
-            var smsNotificationDataTransferObject = new SmsNotificationDataTransferObject()
-            {
-                AfterHours = smsNotification.AfterHours,
-                AtTime = listedTimeList
-            };
-
-
-            return smsNotificationDataTransferObject;
-        }
-
-        public static ISmsNotification FromDataTransferObject(SmsNotificationDataTransferObject smsNotificationDataTransferObject)
-        {
-            if (smsNotificationDataTransferObject == null)
-                return null;
-
-            var dateTimes = smsNotificationDataTransferObject.AtTime.Select(listedTime => listedTime.Time).ToList();
-            var smsNotification = new SmsNotification() { AfterHours = smsNotificationDataTransferObject.AfterHours, AtTime = dateTimes };
-
-            return smsNotification;
-        }
-
         public static RecipientDataTransferObject ToDataTransferObject(IRecipient recipient)
         {
             PrintDetailsDataTransferObject printDetailsDataTransferObject =
@@ -102,7 +74,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             return recipientDataTransferObject;
         }
 
-        public static  PrintDetailsDataTransferObject ToDataTransferObject(IPrintDetails printDetails)
+        public static PrintDetailsDataTransferObject ToDataTransferObject(IPrintDetails printDetails)
         {
             if (printDetails == null)
                 return null;
@@ -213,6 +185,23 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         }
 
+        public static SmsNotificationDataTransferObject ToDataTransferObject(ISmsNotification smsNotification)
+        {
+            if (smsNotification == null)
+                return null;
+
+            var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new ListedTimeDataTransferObject(dateTime)).ToList();
+
+            var smsNotificationDataTransferObject = new SmsNotificationDataTransferObject()
+            {
+                NotifyAfterHours = smsNotification.NotifyAfterHours,
+                NotifyAtTimes = timesAsListedTimes
+            };
+
+
+            return smsNotificationDataTransferObject;
+        }
+
         public static IIdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
         {
             IdentificationResult identificationResult;
@@ -228,8 +217,6 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             return identificationResult;
         }
-
-
 
         public static IMessageDeliveryResult FromDataTransferObject(MessageDeliveryResultDataTransferObject messageDeliveryResultDataTransferObject)
         {
@@ -253,6 +240,22 @@ namespace Digipost.Api.Client.Domain.Utilities
             };
         }
 
-        
+        public static ISmsNotification FromDataTransferObject(SmsNotificationDataTransferObject smsNotificationDataTransferObject)
+        {
+            if (smsNotificationDataTransferObject == null)
+                return null;
+
+            var dateTimes = smsNotificationDataTransferObject.NotifyAtTimes
+                .Select(listedTime => listedTime.Time)
+                .ToList();
+            
+            var smsNotification = new SmsNotification()
+            {
+                NotifyAfterHours = smsNotificationDataTransferObject.NotifyAfterHours, 
+                NotifyAtTimes = dateTimes
+            };
+
+            return smsNotification;
+        }
     }
 }

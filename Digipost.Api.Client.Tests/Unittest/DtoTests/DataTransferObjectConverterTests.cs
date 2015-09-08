@@ -343,6 +343,30 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual(0, differences.Count());
                 Assert.IsNull(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails) null));
             }
+
+            [TestMethod]
+            public void SmsNotification()
+            {
+                //Arrange
+                var atTimes = new List<DateTime>{ DateTime.Now, DateTime.Now.AddHours(3)};
+                var afterHours = new List<int>(){4,5};
+
+                var source = new SmsNotification();
+                source.NotifyAfterHours.AddRange(afterHours);
+                source.NotifyAtTimes.AddRange(atTimes);
+
+                var expectedDto = new SmsNotificationDataTransferObject();
+                expectedDto.NotifyAfterHours.AddRange(afterHours);
+                expectedDto.NotifyAtTimes.AddRange(atTimes.Select(a => new ListedTimeDataTransferObject(a)));
+
+                //Act
+                var actual = DataTransferObjectConverter.ToDataTransferObject(source);
+                
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
         }
 
         [TestClass]
@@ -422,15 +446,15 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 DocumentDataTransferObject source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
                 
-                IDocument expectedDto = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                expectedDto.Guid = source.Guid;
+                IDocument expected = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                expected.Guid = source.Guid;
                 
                 //Act
-                var actualDto = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                _comparator.AreEqual(expected, actual, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
 
@@ -487,24 +511,27 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
             [TestMethod]
             public void SmsNotification()
-            {
-                var atTime = DateTime.ParseExact("2015-01-01 00:00", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            {   
+                //Arrange
+                var atTimes = new List<DateTime> { DateTime.Now, DateTime.Now.AddHours(3) };
+                var afterHours = new List<int>() { 4, 5 };
 
-                var expected = new SmsNotificationDataTransferObject(1);
-                expected.AddAtTime(new Listedtime(atTime));
+                var sourceDto = new SmsNotificationDataTransferObject();
+                sourceDto.NotifyAfterHours.AddRange(afterHours);
+                sourceDto.NotifyAtTimes.AddRange(atTimes.Select(a => new ListedTimeDataTransferObject(a)));
 
-                var sourceDTO = new SmsNotification(1);
-                sourceDTO.AddAtTime(atTime);
+                var expected = new SmsNotification();
+                expected.NotifyAfterHours.AddRange(afterHours);
+                expected.NotifyAtTimes.AddRange(atTimes);
 
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(sourceDto);
 
-                var actual = DataTransferObjectConverter.ToDataTransferObject(sourceDTO);
-
-
+                //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
         }
-
     }
 }

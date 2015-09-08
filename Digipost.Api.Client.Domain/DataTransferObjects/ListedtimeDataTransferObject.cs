@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client.Domain.SendMessage
+namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
-    public class Listedtime : IListedtime
+    public class ListedTimeDataTransferObject 
     {
-        private Listedtime()
+        private ListedTimeDataTransferObject()
         {
             /**Must exist for serialization.**/
         }
 
-        public Listedtime(DateTime time)
+        public ListedTimeDataTransferObject(DateTime time)
         {
             Time = time;
         }

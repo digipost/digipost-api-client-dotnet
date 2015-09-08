@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Domain.Utilities;
+using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
@@ -12,52 +10,47 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
     [TestClass]
     public class SmsNotificationTests
     {
+        Comparator _comparator = new Comparator();
+
         [TestClass]
         public class ConstructorMethod : SmsNotificationTests {
-
+            
             [TestMethod]
-            public void AddAfterHoursUpdatesSmsNotifcations()
-            {
-                //Arrange
-                var firstSmsNotification = 2;
-                var secondSmsNotification = 5;
-
-                ISmsNotification smsNotification = new SmsNotification(firstSmsNotification);
-
-                //Act
-                smsNotification.AddAfterHours(secondSmsNotification);
-
-                //Assert
-                Assert.AreEqual(2, smsNotification.AfterHours.Count, "Should be 2 occurences of hours after");
-
-                var hasFirstNotification = smsNotification.AfterHours.Contains(firstSmsNotification);
-                var hasSecondNotification = smsNotification.AfterHours.Contains(secondSmsNotification);
-                
-                Assert.IsTrue(hasFirstNotification,"first smsNotification is missing");
-                Assert.IsTrue(hasSecondNotification, "second smsNotification is missing");
-
-            }
-
-            [TestMethod]
-            public void AddAtTimeUpdatesSmsNotifications()
+            public void WithSendingTime()
             {
                 //Arrange
                 var firstSmsNotification = DateTime.Today;
                 var secondSmsNotification = DateTime.Today.AddDays(1);
-
-                ISmsNotification smsNotification = new SmsNotification(firstSmsNotification);
+                var expected = new List<DateTime>{firstSmsNotification, secondSmsNotification};
+                ISmsNotification smsNotification = new SmsNotification(expected.ToArray());
 
                 //Act
-                smsNotification.AddAtTime(secondSmsNotification);
+                var actual = smsNotification.NotifyAtTimes;
 
                 //Assert
-                Assert.AreEqual(2, smsNotification.AtTime.Count, "Should be 2 occurences of atTime");
-                
-                foreach (var dateTime in smsNotification.AtTime)
-                {
-                    Assert.IsTrue(dateTime.Equals(firstSmsNotification) || dateTime.Equals(secondSmsNotification));
-                }
-              
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expected, actual, out differences);
+                Assert.AreEqual(0,differences.Count());
+
+            }
+
+            [TestMethod]
+            public void WithAfterHours()
+            {
+                //Arrange
+                var firstSmsNotification = 2;
+                var secondSmsNotification = 5;
+                var expected = new List<int> { firstSmsNotification, secondSmsNotification };
+                ISmsNotification smsNotification = new SmsNotification(expected.ToArray()); 
+               
+                //Act
+                var actual = smsNotification.NotifyAfterHours;
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expected, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+
             }
         }
     }

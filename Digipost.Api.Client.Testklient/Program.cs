@@ -29,52 +29,18 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            
-            uc02();
+            CompareLogic comparelogic = new CompareLogic();
+
+            var v = comparelogic.Compare(new SearchDetails(){DigipostAddress = "Halloen"}, new SearchDetails());
+            List<Difference> diff = v.Differences;
+            var descr = diff.ElementAt(0).GetWhatIsCompared();
+
             //Performance();
-            //Send();
+            Send();
             Console.ReadKey();
 
             
 
-        }
-
-        private static readonly string yourThumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
-        private static readonly string yourSenderId = "106818904";
-        private static readonly string yourPersonalIdentification = "31108446911";
-        private static readonly string filePathString = "E:\\TestDocument.txt";
-        private static readonly string URIToDigipost = "https://qa2.api.digipost.no";
-        public static void uc02()
-        {
-
-            //Init Client
-            var config = new ClientConfig(senderId: yourSenderId) { ApiUrl = new Uri(URIToDigipost) };
-            var client = new DigipostClient(config, thumbprint: yourThumbprint);
-
-            //Compose Recipient by name and address
-            var recipientByNameAndAddress = new RecipientByNameAndAddress(
-                fullName: "Ola Nordmann",
-                addressLine: "Prinsensveien 123",
-                postalCode: "0460",
-                city: "Oslo"
-               );
-
-            //Compose message
-            var message = new Message(
-                new Recipient(recipientByNameAndAddress),
-                new Document(subject: "document subject", fileType: "txt", path: filePathString)
-                );
-
-            try
-            {
-                var result = client.SendMessage(message);
-            }
-            catch (Exception e)
-            {
-                
-                
-            }
-            
         }
 
         private static void Performance()

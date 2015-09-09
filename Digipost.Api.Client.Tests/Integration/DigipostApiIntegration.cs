@@ -111,6 +111,49 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 Assert.AreEqual(1, fakehandler.CalledCount, "The httpClient has been called more than expected.");
             }
+
+            [TestMethod]
+            public void ShouldSerializeErrorMessage()
+            {
+                var message = DomainUtility.GetSimpleMessage();
+
+                try
+                {
+                    var fakehandler = new FakeHttpClientHandlerForMessageResponse
+                    {
+                        ResultCode = HttpStatusCode.NotFound,
+                        HttpContent =
+                            new StringContent(
+                                @"<?xml version=""1.0"" encoding=""UTF - 8"" standalone=""yes""?><error xmlns=""http://api.digipost.no/schema/v6""><error-code>UNKNOWN_RECIPIENT</error-code><error-message>The recipient does not have a Digipost account.</error-message><error-type>CLIENT_DATA</error-type></error>")
+                    };
+
+                    var loggingHandler = new LoggingHandler(fakehandler);
+                    var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
+
+
+                    //Setup - init mock of ActionFactory to inject fake identification response handler
+                    var mockFacktory = new Mock<DigipostActionFactory>();
+                    mockFacktory.Setup(
+                        f =>
+                            f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<string>()))
+                        .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
+                        {
+                            ThreadSafeHttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                        });
+
+                    var dpApi = new DigipostApi(ClientConfig, Certificate) { DigipostActionFactory = mockFacktory.Object };
+
+                    dpApi.SendMessage(message);
+
+                    Assert.AreEqual(1, fakehandler.CalledCount, "The httpClient has been called more than expected.");
+                }
+                catch (ClientResponseException exception)
+                {
+                    Assert.IsNotNull(exception.Error);
+                    
+                }
+            }
         }
 
         [TestClass]

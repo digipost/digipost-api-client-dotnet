@@ -61,8 +61,9 @@ namespace Digipost.Api.Client.Handlers
 
             var signature = ComputeSignature(Method, Url, date, contentHash, senderId, BusinessCertificate);
             request.Headers.Add("X-Digipost-Signature", signature);
-            
 
+
+            Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - End!");
             return await base.SendAsync(request, cancellationToken);
         }
 

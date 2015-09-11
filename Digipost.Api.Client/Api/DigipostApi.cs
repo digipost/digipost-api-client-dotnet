@@ -171,7 +171,7 @@ namespace Digipost.Api.Client.Api
 
         private static void ThrowNotEmptyResponseError(string responseContent)
         {
-            var error = SerializeUtil.Deserialize<IError>(responseContent);
+            var error = SerializeUtil.Deserialize<Error>(responseContent);
             throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
         }
 

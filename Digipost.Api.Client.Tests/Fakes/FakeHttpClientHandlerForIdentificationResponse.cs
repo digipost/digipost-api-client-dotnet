@@ -2,7 +2,7 @@
 
 namespace Digipost.Api.Client.Tests.Fakes
 {
-    public class FakeHttpClientHandlerForIdentificationResponse :  FakeHttpClientHandlerResponse
+    public class FakeHttpClientHandlerForIdentificationResponse : FakeHttpClientHandlerResponse
     {
         public override HttpContent GetContent()
         {

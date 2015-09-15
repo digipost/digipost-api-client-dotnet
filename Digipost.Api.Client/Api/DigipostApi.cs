@@ -132,7 +132,8 @@ namespace Digipost.Api.Client.Api
 
         private async Task<T> GenericSendAsync<T>(Task<HttpResponseMessage> responseTask)
         {
-            var responseTaskResult = responseTask.Result;
+            var responseTaskResult = await responseTask;
+
             var responseContent = await ReadResponse(responseTaskResult);
 
             if (!responseTaskResult.IsSuccessStatusCode)

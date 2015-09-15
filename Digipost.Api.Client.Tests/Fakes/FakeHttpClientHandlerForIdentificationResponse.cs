@@ -1,24 +1,10 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 
-namespace Digipost.Api.Client.Tests.Mocks
+namespace Digipost.Api.Client.Tests.Fakes
 {
-    public class FakeHttpClientHandlerForIdentificationResponse : DelegatingHandler
+    public class FakeHttpClientHandlerForIdentificationResponse :  FakeHttpClientHandlerResponse
     {
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var response = new HttpResponseMessage()
-            {
-                Content = MessageContent(),
-                StatusCode = HttpStatusCode.OK
-            };
-            return await Task.FromResult(response);
-        }
-
-        private static HttpContent MessageContent()
+        public override HttpContent GetContent()
         {
             return new StringContent(
                  "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +

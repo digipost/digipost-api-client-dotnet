@@ -84,7 +84,9 @@
     <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
+    <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
     <Compile Include="Fakes\FakeInvoice.cs" />
+    <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

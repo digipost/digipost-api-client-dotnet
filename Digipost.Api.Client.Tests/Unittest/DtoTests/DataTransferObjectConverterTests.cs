@@ -55,6 +55,34 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
 
             [TestMethod]
+            public void IdentificationByNameAndAddress()
+            {
+                //Arrange
+                var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                    fullName: "Ola Nordmann",
+                    postalCode: "0001",
+                    city: "Oslo",
+                    addressLine: "Osloveien 22"
+                    );
+
+                IdentificationByNameAndAddress source = new IdentificationByNameAndAddress(
+                    recipientByNameAndAddress
+                );
+
+                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(
+                   recipientByNameAndAddress
+               );
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
             public void RecipientFromNameAndAddress()
             {
                 //Arrange

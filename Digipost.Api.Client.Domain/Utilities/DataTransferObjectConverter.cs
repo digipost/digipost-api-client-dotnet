@@ -13,16 +13,49 @@ namespace Digipost.Api.Client.Domain.Utilities
     {
         public static IdentificationDataTransferObject ToDataTransferObject(IIdentification identification)
         {
-            if (typeof (IIdentification).IsAssignableFrom(identification.GetType()))
-            {
-                if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
-                {
-                    return new IdentificationDataTransferObject((RecipientByNameAndAddress)identification.Data);
-                }
+            IdentificationDataTransferObject identificationDataTransferObject = null;
 
-                return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());    
+            if (identification is Identification)
+            {
+                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentification((Identification) identification);
             }
-            return null;
+
+            if (identification is IdentificationById)
+            {
+                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((IdentificationById) identification);
+            }
+
+            if (identification is IdentificationByNameAndAddress)
+            {
+                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((IdentificationByNameAndAddress) identification);
+            }
+
+            return identificationDataTransferObject;
+        }
+
+        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentification(
+            Identification identification)
+        {
+            if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
+            {
+                return new IdentificationDataTransferObject((RecipientByNameAndAddress) identification.Data);
+            }
+
+            return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
+        }
+
+        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(IdentificationById identificationById)
+        {
+            return new  IdentificationDataTransferObject(
+                identificationById.IdentificationChoiceType, 
+                identificationById.Value
+                );
+        }
+
+        private static IdentificationDataTransferObject IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
+            IdentificationByNameAndAddress identificationByNameAndAddress)
+        {
+            return new IdentificationDataTransferObject(identificationByNameAndAddress.RecipientByNameAndAddress);
         }
 
         public static MessageDataTransferObject ToDataTransferObject(IMessage message)

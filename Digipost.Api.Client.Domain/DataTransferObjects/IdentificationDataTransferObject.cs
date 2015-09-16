@@ -25,23 +25,8 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         /// </summary>
         public IdentificationDataTransferObject(IdentificationChoiceType identificationChoiceType, string value)
         {
-            if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
-                throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
-                                                          "when using string as id",
-                    IdentificationChoiceType.NameAndAddress));
-            
             IdentificationValue = value;
             IdentificationType = identificationChoiceType;
-        }
-
-        /// <summary>
-        /// Identify if recipient exists in Digipost by name and address.
-        /// </summary>
-        [Obsolete("Deprecated, this constuctor is not necessary as the IdentificationChoice will not change the result. Note! This will be removed in future version.")]
-        public IdentificationDataTransferObject(IdentificationChoiceType identificationChoiceType, RecipientByNameAndAddress recipientByNameAndAddress)
-        {
-            IdentificationValue = recipientByNameAndAddress;
-            IdentificationType = IdentificationChoiceType.NameAndAddress;
         }
 
         /// <summary>

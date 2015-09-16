@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Domain.Identify
             }
 
             return (IdentificationChoiceType)
-                Enum.Parse(typeof (IdentificationChoiceType), IdentificationType.ToString(), true);
+                Enum.Parse(typeof (IdentificationChoiceType), IdentificationType.ToString(), ignoreCase: true);
         }
 
         public string Value { get; set; }

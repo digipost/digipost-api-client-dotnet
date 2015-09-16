@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual(IdentificationType.DigipostAddress, identificationById.IdentificationType);
                 Assert.AreEqual(IdentificationChoiceType.DigipostAddress, identificationById.IdentificationChoiceType);
                 Assert.AreEqual("Digipost-Address", identificationById.Value);
-                Assert.AreEqual(identificationById.Data, identificationById.IdentificationType);
+                Assert.AreEqual("Digipost-Address", identificationById.Data);
             }
         }
 

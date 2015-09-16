@@ -36,12 +36,19 @@ namespace Digipost.Api.Client.Domain.Utilities
         private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentification(
             Identification identification)
         {
+            IdentificationDataTransferObject identificationDataTransferObject = null;
+
             if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
             {
-                return new IdentificationDataTransferObject((RecipientByNameAndAddress) identification.Data);
+                identificationDataTransferObject =
+                    new IdentificationDataTransferObject((RecipientByNameAndAddress) identification.Data);
+            }
+            else
+            {
+                identificationDataTransferObject = new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
             }
 
-            return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
+            return identificationDataTransferObject;
         }
 
         private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(IdentificationById identificationById)

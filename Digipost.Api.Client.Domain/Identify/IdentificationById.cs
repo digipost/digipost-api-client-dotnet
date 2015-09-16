@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Domain.Identify
 
         public object Data
         {
-            get { return IdentificationType; }
+            get { return Value; }
         }
 
         [Obsolete("Use IdentificationType instead. Will be removed in future versions" )]

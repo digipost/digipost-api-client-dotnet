@@ -31,23 +31,7 @@ namespace Digipost.Api.Client.Action
 
         protected override string Serialize(IRequestContent requestContent)
         {
-            IdentificationDataTransferObject identificationDto = null;
-
-            if (requestContent is Identification)
-            {
-                identificationDto = DataTransferObjectConverter.ToDataTransferObject((Identification) requestContent);
-            }
-            
-            if (requestContent is IdentificationById)
-            {
-                identificationDto = DataTransferObjectConverter.ToDataTransferObject((IdentificationById)requestContent);
-            }
-
-            if (requestContent is IdentificationByNameAndAddress)
-            {
-                identificationDto = DataTransferObjectConverter.ToDataTransferObject((IdentificationByNameAndAddress)requestContent);
-            }
-            
+            var identificationDto = DataTransferObjectConverter.ToDataTransferObject((IIdentification) requestContent);
             return SerializeUtil.Serialize(identificationDto);
         }
     }

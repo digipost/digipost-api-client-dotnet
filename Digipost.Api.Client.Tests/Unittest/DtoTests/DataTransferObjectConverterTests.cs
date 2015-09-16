@@ -28,6 +28,50 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 Identification source = new Identification(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
                 IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
+                
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void IdentificationById()
+            {
+                //Arrange
+                IdentificationById source = new IdentificationById(IdentificationType.OrganizationNumber, "123456789");
+                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber, "123456789");
+                
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
+            public void IdentificationByNameAndAddress()
+            {
+                //Arrange
+                var recipientByNameAndAddress = new RecipientByNameAndAddress(
+                    fullName: "Ola Nordmann",
+                    postalCode: "0001",
+                    city: "Oslo",
+                    addressLine: "Osloveien 22"
+                    );
+
+                IdentificationByNameAndAddress source = new IdentificationByNameAndAddress(
+                    recipientByNameAndAddress
+                );
+
+                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(
+                   recipientByNameAndAddress
+               );
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);

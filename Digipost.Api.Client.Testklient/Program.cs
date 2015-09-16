@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Testklient
     internal class Program
     {
         private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
-        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
+        private static readonly string SenderId = Settings.Default.SenderidDnbLocalhost;
         private static readonly string Url = Settings.Default.Url;
 
         private static readonly ResourceUtility ResourceUtility =
@@ -38,9 +38,6 @@ namespace Digipost.Api.Client.Testklient
             //Performance();
             Send();
             Console.ReadKey();
-
-            
-
         }
 
         private static void Performance()
@@ -66,8 +63,8 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            //IdentifyPerson(api);
-            SendMessageToPerson(api, false);
+            IdentifyPerson(api);
+            //SendMessageToPerson(api, false);
             var response = Search(api);
 
             
@@ -116,8 +113,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
 
             //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
-            var identification = new Identification(IdentificationChoiceType.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
-
+            var identification = new IdentificationById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
 
             try
             {

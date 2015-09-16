@@ -13,12 +13,16 @@ namespace Digipost.Api.Client.Domain.Utilities
     {
         public static IdentificationDataTransferObject ToDataTransferObject(IIdentification identification)
         {
-            if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
+            if (typeof (IIdentification).IsAssignableFrom(identification.GetType()))
             {
-                return new IdentificationDataTransferObject((RecipientByNameAndAddress)identification.Data);
-            }
+                if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
+                {
+                    return new IdentificationDataTransferObject((RecipientByNameAndAddress)identification.Data);
+                }
 
-            return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
+                return new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());    
+            }
+            return null;
         }
 
         public static MessageDataTransferObject ToDataTransferObject(IMessage message)

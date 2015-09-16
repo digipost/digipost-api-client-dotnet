@@ -70,5 +70,15 @@ namespace Digipost.Api.Client.Tests.Integration
         {
             return new PrintReturnRecipient("name", GetNorwegianAddress());
         }
+
+        public static RecipientByNameAndAddress GetRecipientByNameAndAddress()
+        {
+            return new RecipientByNameAndAddress(
+                    fullName: "Ola Nordmann",
+                    postalCode: "0001",
+                    city: "Oslo",
+                    addressLine: "Osloveien 22"
+                    );
+        }
     }
-}
+}   

@@ -33,6 +33,11 @@ namespace Digipost.Api.Client.Action
         {
             IdentificationDataTransferObject identificationDto = null;
 
+            if (requestContent is Identification)
+            {
+                identificationDto = DataTransferObjectConverter.ToDataTransferObject((Identification) requestContent);
+            }
+            
             if (requestContent is IdentificationById)
             {
                 identificationDto = DataTransferObjectConverter.ToDataTransferObject((IdentificationById)requestContent);
@@ -42,7 +47,7 @@ namespace Digipost.Api.Client.Action
             {
                 identificationDto = DataTransferObjectConverter.ToDataTransferObject((IdentificationByNameAndAddress)requestContent);
             }
-
+            
             return SerializeUtil.Serialize(identificationDto);
         }
     }

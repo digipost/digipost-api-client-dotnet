@@ -28,13 +28,24 @@ namespace Digipost.Api.Client.Domain.Identify
 
         internal IdentificationChoiceType ParseIdentificationChoiceToIdentificationChoiceType()
         {
+            IdentificationChoiceType identificationChoiceType;
+
             if (IdentificationType == IdentificationType.OrganizationNumber)
             {
-                return IdentificationChoiceType.OrganisationNumber;
+                identificationChoiceType = OrganizationEnumWithSpellingDifference();
             }
+            else
+            {
+                identificationChoiceType = (IdentificationChoiceType)
+                Enum.Parse(typeof(IdentificationChoiceType), IdentificationType.ToString(), ignoreCase: true);    
+            }
+            
+            return identificationChoiceType;
+        }
 
-            return (IdentificationChoiceType)
-                Enum.Parse(typeof (IdentificationChoiceType), IdentificationType.ToString(), ignoreCase: true);
+        internal IdentificationChoiceType OrganizationEnumWithSpellingDifference()
+        {
+            return IdentificationChoiceType.OrganisationNumber;
         }
 
         public string Value { get; set; }

@@ -28,10 +28,6 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
 
         public RecipientDataTransferObject(IdentificationChoiceType identificationChoiceType, string id, PrintDetailsDataTransferObject printDetailsDataTransferObject = null)
         {
-            if (identificationChoiceType == IdentificationChoiceType.NameAndAddress)
-                throw new ArgumentException(string.Format("Not allowed to set identification choice by {0} " +
-                                                          "when using string as id",
-                    IdentificationChoiceType.NameAndAddress));
             IdentificationValue = id;
             IdentificationType = identificationChoiceType;
             PrintDetailsDataTransferObject = printDetailsDataTransferObject;

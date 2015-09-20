@@ -15,12 +15,12 @@ namespace Digipost.Api.Client.Action
 
             if (typeof(IMessage).IsAssignableFrom(type))
             {
-                return new MessageAction(content as IMessage, clientConfig, businessCertificate, uri);
+                return new MessageAction((IMessage) content, clientConfig, businessCertificate, uri);
             }
 
             if (typeof(IIdentification).IsAssignableFrom(type))
             {
-                return new IdentificationAction(content as Identification, clientConfig, businessCertificate, uri);
+                return new IdentificationAction((IIdentification) content, clientConfig, businessCertificate, uri);
             }
 
             throw new ConfigException(string.Format("Could not create class with type {0}", content.GetType().Name));

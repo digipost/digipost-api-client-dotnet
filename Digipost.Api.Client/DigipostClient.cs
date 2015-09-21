@@ -1,7 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
@@ -11,47 +9,47 @@ namespace Digipost.Api.Client.Api
     public class DigipostClient 
     {
 
-        private DigipostApi api;
+        private readonly DigipostApi _api;
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            api = new DigipostApi(clientConfig,businessCertificate);
+            _api = new DigipostApi(clientConfig,businessCertificate);
             Logging.Initialize(clientConfig);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
         {
-            api = new DigipostApi(clientConfig,thumbprint);
+            _api = new DigipostApi(clientConfig,thumbprint);
             Logging.Initialize(clientConfig);
         }
 
         public IIdentificationResult Identify(IIdentification identification)
         {
-            return api.Identify(identification);
+            return _api.Identify(identification);
         }
 
         public Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
-            return api.IdentifyAsync(identification);
+            return _api.IdentifyAsync(identification);
         }
 
-        public IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject)
+        public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            return api.SendMessage(messageDataTransferObject);
+            return _api.SendMessage(message);
         }
 
-        public Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject)
+        public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            return api.SendMessageAsync(messageDataTransferObject);
+            return _api.SendMessageAsync(message);
         }
 
         public ISearchDetailsResult Search(string query)
         {
-            return api.Search(query);
+            return _api.Search(query);
         }
 
         public Task<ISearchDetailsResult> SearchAsync(string query)
         {
-            return api.SearchAsync(query);
+            return _api.SearchAsync(query);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ApiClientShared;
 using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
@@ -31,6 +32,19 @@ namespace Digipost.Api.Client.Tests.Integration
             return identification;
         }
 
+        public static IIdentification GetPersonalIdentificationById()
+        {
+            var identification = new IdentificationById(IdentificationType.PersonalIdentificationNumber, "00000000000");
+            return identification;
+        }
+
+        public static IIdentification GetPersonalIdentificationByNameAndAddress()
+        {
+            var identification = new IdentificationByNameAndAddress(new RecipientByNameAndAddress("ola nordmann","0000","Oslo","Biskop gunnerius gate 14a"));
+            return identification;
+        }
+
+
         public static IRecipient GetRecipientWithDigipostId()
         {
             return new Recipient(IdentificationChoiceType.DigipostAddress, "ola.nordmann#246BB");
@@ -43,6 +57,15 @@ namespace Digipost.Api.Client.Tests.Integration
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo" , "Osloveien 15" )),
                     new PrintReturnRecipient("Returkongen",
                         new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
+        }
+
+        public static PrintDetailsDataTransferObject GetPrintDetailsDataTransferObject()
+        {
+            return
+                new PrintDetailsDataTransferObject(
+                    new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0115", "Oslo", "Osloveien 15")), 
+                    new PrintReturnRecipientDataTransferObject("Returkongen",
+                        new NorwegianAddressDataTransferObject("5510", "Sophaugen", "Sophauggata 22")));
         }
 
         public static NorwegianAddress GetNorwegianAddress()
@@ -77,7 +100,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     fullName: "Ola Nordmann",
                     postalCode: "0001",
                     city: "Oslo",
-                    addressLine: "Osloveien 22"
+                    addressLine1: "Osloveien 22"
                     );
         }
 
@@ -87,7 +110,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 fullName: "Ola Nordmann", 
                 postalCode: "0001", 
                 city: "Oslo", 
-                addressLine: "Biskop Gunnerus Gate 14"
+                addressLine1: "Biskop Gunnerus Gate 14"
                 );
         }
     }

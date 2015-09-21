@@ -17,10 +17,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
             BirthDate = null;
         }
 
-        public RecipientByNameAndAddress(string fullName, string postalCode, string city, string addressLine)
+        public RecipientByNameAndAddress(string fullName, string postalCode, string city, string addressLine1)
         {
             FullName = fullName;
-            AddressLine1 = addressLine;
+            AddressLine1 = addressLine1;
             PostalCode = postalCode;
             City = city;
         }

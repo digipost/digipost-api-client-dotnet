@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
@@ -96,6 +94,36 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static RecipientDataTransferObject ToDataTransferObject(IRecipient recipient)
         {
+            RecipientDataTransferObject recipientDataTransferObject = null;
+
+            if (recipient is RecipientByNameAndAddressNew)
+            {
+                var recipientByNameAndAddressNew = (RecipientByNameAndAddressNew) recipient;
+                recipientDataTransferObject = new RecipientDataTransferObject(
+                    new RecipientByNameAndAddress(
+                        recipientByNameAndAddressNew.FullName, 
+                        recipientByNameAndAddressNew.PostalCode, 
+                        recipientByNameAndAddressNew.City, 
+                        recipientByNameAndAddressNew.AddressLine1)
+                    {
+                        AddressLine2 = recipientByNameAndAddressNew.AddressLine2,
+                        BirthDate = recipientByNameAndAddressNew.BirthDate,
+                        PhoneNumber = recipientByNameAndAddressNew.PhoneNumber,
+                        Email = recipientByNameAndAddressNew.Email
+                    }, 
+                    ToDataTransferObject(recipientByNameAndAddressNew.PrintDetails));
+            }
+
+            if (recipient is Recipient)
+            {
+                recipientDataTransferObject = RecipientDataTransferObjectFromRecipient(recipient);
+            }
+            
+            return recipientDataTransferObject;
+        }
+
+        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipient(IRecipient recipient)
+        {
             PrintDetailsDataTransferObject printDetailsDataTransferObject =
                 ToDataTransferObject(recipient.PrintDetails);
 
@@ -103,12 +131,15 @@ namespace Digipost.Api.Client.Domain.Utilities
             switch (recipient.IdentificationType)
             {
                 case IdentificationChoiceType.NameAndAddress:
-                    recipientDataTransferObject = new RecipientDataTransferObject((RecipientByNameAndAddress)recipient.IdentificationValue, printDetailsDataTransferObject);
+                    recipientDataTransferObject =
+                        new RecipientDataTransferObject((RecipientByNameAndAddress) recipient.IdentificationValue,
+                            printDetailsDataTransferObject);
                     break;
                 default:
-                    IdentificationChoiceType identificationType = (IdentificationChoiceType)recipient.IdentificationType;
+                    IdentificationChoiceType identificationType = (IdentificationChoiceType) recipient.IdentificationType;
 
-                    recipientDataTransferObject = new RecipientDataTransferObject(identificationType, (string)recipient.IdentificationValue, printDetailsDataTransferObject);
+                    recipientDataTransferObject = new RecipientDataTransferObject(identificationType,
+                        (string) recipient.IdentificationValue, printDetailsDataTransferObject);
                     break;
                 case null:
                     recipientDataTransferObject = new RecipientDataTransferObject(printDetailsDataTransferObject);
@@ -129,27 +160,27 @@ namespace Digipost.Api.Client.Domain.Utilities
             PrintDetailsDataTransferObject printDetailsDataTransferObject = new PrintDetailsDataTransferObject(null, null, printDetails.PostType, printDetails.PrintColors, printDetails.NondeliverableHandling);
             
             SetPrintRecipientOnDataTransferObject(recipient, printDetailsDataTransferObject);
-            SetPrintReturnRecipientOnDataTranferObject(ret, printDetailsDataTransferObject, recipient);
+            SetPrintReturnRecipientOnDataTranferObject(ret, printDetailsDataTransferObject);
 
             return printDetailsDataTransferObject;
         }
 
-        private static void SetPrintReturnRecipientOnDataTranferObject(IPrintReturnRecipient ret,
+        private static void SetPrintReturnRecipientOnDataTranferObject(IPrintReturnRecipient printReturnRecipient,
             PrintDetailsDataTransferObject printDetailsDataTransferObject)
         {
-            if (ret.Address is INorwegianAddress)
+            if (printReturnRecipient.Address is INorwegianAddress)
             {
-                var addr = (INorwegianAddress)ret.Address;
+                var addr = (INorwegianAddress)printReturnRecipient.Address;
                 printDetailsDataTransferObject.PrintReturnRecipientDataTransferObject =
-                    new PrintReturnRecipientDataTransferObject(ret.Name,
+                    new PrintReturnRecipientDataTransferObject(printReturnRecipient.Name,
                         new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
                             addr.AddressLine2, addr.AddressLine3));
             }
             else
             {
-                var addr = (IForeignAddress)ret.Address;
+                var addr = (IForeignAddress)printReturnRecipient.Address;
                 printDetailsDataTransferObject.PrintRecipientDataTransferObject =
-                    new PrintRecipientDataTransferObject(ret.Name,
+                    new PrintRecipientDataTransferObject(printReturnRecipient.Name,
                         new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
                             addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
             }

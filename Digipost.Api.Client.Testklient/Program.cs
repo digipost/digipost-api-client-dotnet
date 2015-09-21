@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Testklient
     internal class Program
     {
         private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
-        private static readonly string SenderId = Settings.Default.SenderidDnbLocalhost;
+        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
         private static readonly string Url = Settings.Default.Url;
 
         private static readonly ResourceUtility ResourceUtility =
@@ -63,8 +63,8 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            IdentifyPerson(api);
-            //SendMessageToPerson(api, false);
+            //IdentifyPerson(api);
+            SendMessageToPerson(api, false);
             var response = Search(api);
 
             
@@ -92,7 +92,7 @@ namespace Digipost.Api.Client.Testklient
             {
                 Console.WriteLine("> Starter å sende melding");
                 var messageDeliveryResult = api.SendMessage(message);
-                Logging.Log(TraceEventType.Information, ""+messageDeliveryResult);
+                WriteToConsoleWithColor("Meldingens status: " + messageDeliveryResult.Status);
                 WriteToConsoleWithColor("> Alt gikk fint!" , false);
             }
             catch (ClientResponseException e)
@@ -170,12 +170,19 @@ namespace Digipost.Api.Client.Testklient
             var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68");
 
+            //Nytt regime for message
+            var recipientByNameAndAddressNew = new RecipientByNameAndAddressNew("Kristian Sæther Enge", "0460",
+                "Oslo", "Collettsgate 68", printDetails);
+
+            
+            //End nytt regime for message
+
             //recipient
             var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(digitalRecipientWithFallbackPrint,invoice) 
+            var message = new Message(recipientByNameAndAddressNew, invoice) 
                 {};
             
             //message.Deliverytime = DateTime.Now.AddDays(1);

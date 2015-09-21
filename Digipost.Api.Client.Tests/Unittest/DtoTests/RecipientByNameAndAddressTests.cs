@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
@@ -28,7 +29,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual("Ola Nordmann", recipientByNameAndAddress.FullName);
                 Assert.AreEqual("0001", recipientByNameAndAddress.PostalCode);
                 Assert.AreEqual("Oslo", recipientByNameAndAddress.City);
-                Assert.AreEqual("Biskop Gunnerus Gate 14", recipientByNameAndAddress.AddressLine);
+                Assert.AreEqual("Biskop Gunnerus Gate 14", recipientByNameAndAddress.AddressLine1);
             }
 
             [TestMethod]

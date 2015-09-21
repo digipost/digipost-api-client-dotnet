@@ -12,6 +12,5 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         IdentificationChoiceType? IdentificationType { get; set; }
 
-        IdentificationType Identificationtype { get; set; }
     }
 }

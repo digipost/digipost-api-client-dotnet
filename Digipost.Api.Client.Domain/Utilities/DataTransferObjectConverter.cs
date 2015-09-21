@@ -98,20 +98,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             if (recipient is RecipientByNameAndAddressNew)
             {
-                var recipientByNameAndAddressNew = (RecipientByNameAndAddressNew) recipient;
-                recipientDataTransferObject = new RecipientDataTransferObject(
-                    new RecipientByNameAndAddress(
-                        recipientByNameAndAddressNew.FullName, 
-                        recipientByNameAndAddressNew.PostalCode, 
-                        recipientByNameAndAddressNew.City, 
-                        recipientByNameAndAddressNew.AddressLine1)
-                    {
-                        AddressLine2 = recipientByNameAndAddressNew.AddressLine2,
-                        BirthDate = recipientByNameAndAddressNew.BirthDate,
-                        PhoneNumber = recipientByNameAndAddressNew.PhoneNumber,
-                        Email = recipientByNameAndAddressNew.Email
-                    }, 
-                    ToDataTransferObject(recipientByNameAndAddressNew.PrintDetails));
+                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress(recipient);
             }
 
             if (recipient is Recipient)
@@ -119,6 +106,29 @@ namespace Digipost.Api.Client.Domain.Utilities
                 recipientDataTransferObject = RecipientDataTransferObjectFromRecipient(recipient);
             }
             
+            return recipientDataTransferObject;
+        }
+
+        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientByNameAndAddress(
+            IRecipient recipient)
+        {
+            RecipientDataTransferObject recipientDataTransferObject;
+
+            var recipientByNameAndAddressNew = (RecipientByNameAndAddressNew) recipient;
+            
+            recipientDataTransferObject = new RecipientDataTransferObject(
+                new RecipientByNameAndAddress(
+                    recipientByNameAndAddressNew.FullName,
+                    recipientByNameAndAddressNew.PostalCode,
+                    recipientByNameAndAddressNew.City,
+                    recipientByNameAndAddressNew.AddressLine1)
+                {
+                    AddressLine2 = recipientByNameAndAddressNew.AddressLine2,
+                    BirthDate = recipientByNameAndAddressNew.BirthDate,
+                    PhoneNumber = recipientByNameAndAddressNew.PhoneNumber,
+                    Email = recipientByNameAndAddressNew.Email
+                },
+                ToDataTransferObject(recipientByNameAndAddressNew.PrintDetails));
             return recipientDataTransferObject;
         }
 

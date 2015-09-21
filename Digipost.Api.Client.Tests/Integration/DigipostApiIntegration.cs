@@ -46,10 +46,6 @@ namespace Digipost.Api.Client.Tests.Integration
         [TestClass]
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
-            /// <summary>
-            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
-            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
-            /// </summary>
             [TestMethod]
             public void ProperRequestSent()
             {
@@ -66,10 +62,6 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.SendMessage(message);
             }
 
-            /// <summary>
-            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
-            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
-            /// </summary>
             [TestMethod]
             public void InternalServerErrorShouldCauseDigipostResponseException()
             {
@@ -155,14 +147,40 @@ namespace Digipost.Api.Client.Tests.Integration
         [TestClass]
         public class SendIdentifyMethod : DigipostApiIntegrationTests
         {
-            /// <summary>
-            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
-            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
-            /// </summary>
             [TestMethod]
             public void ProperRequestSent()
             {
                 var identification = DomainUtility.GetPersonalIdentification();
+
+                var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
+
+                var digipostApi = new DigipostApi(ClientConfig, Certificate);
+                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
+
+                digipostApi.Identify(identification);
+            }
+
+            [TestMethod]
+            public void ProperRequestWithIdSent()
+            {
+                var identification = DomainUtility.GetPersonalIdentificationById();
+
+                var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
+
+                var digipostApi = new DigipostApi(ClientConfig, Certificate);
+                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
+
+                digipostApi.Identify(identification);
+            }
+
+            [TestMethod]
+            public void ProperRequestWithNameAndAddressSent()
+            {
+                var identification = DomainUtility.GetPersonalIdentificationByNameAndAddress();
 
                 var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);

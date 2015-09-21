@@ -31,6 +31,19 @@ namespace Digipost.Api.Client.Tests.Integration
             return identification;
         }
 
+        public static IIdentification GetPersonalIdentificationById()
+        {
+            var identification = new IdentificationById(IdentificationType.PersonalIdentificationNumber, "00000000000");
+            return identification;
+        }
+
+        public static IIdentification GetPersonalIdentificationByNameAndAddress()
+        {
+            var identification = new IdentificationByNameAndAddress(new RecipientByNameAndAddress("ola nordmann","0000","Oslo","Biskop gunnerius gate 14a"));
+            return identification;
+        }
+
+
         public static IRecipient GetRecipientWithDigipostId()
         {
             return new Recipient(IdentificationChoiceType.DigipostAddress, "ola.nordmann#246BB");

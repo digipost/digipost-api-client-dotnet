@@ -128,40 +128,53 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             PrintDetailsDataTransferObject printDetailsDataTransferObject = new PrintDetailsDataTransferObject(null, null, printDetails.PostType, printDetails.PrintColors, printDetails.NondeliverableHandling);
             
-            //Set recipient on pDTO
-            if (recipient.Address is INorwegianAddress)
+            SetPrintRecipientOnDataTransferObject(recipient, printDetailsDataTransferObject);
+            SetPrintReturnRecipientOnDataTranferObject(ret, printDetailsDataTransferObject, recipient);
+
+            return printDetailsDataTransferObject;
+        }
+
+        private static void SetPrintReturnRecipientOnDataTranferObject(IPrintReturnRecipient ret,
+            PrintDetailsDataTransferObject printDetailsDataTransferObject)
+        {
+            if (ret.Address is INorwegianAddress)
             {
-                var addr = (INorwegianAddress) recipient.Address;
-                printDetailsDataTransferObject.PrintRecipientDataTransferObject = new PrintRecipientDataTransferObject(recipient.Name,
-                    new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
-                        addr.AddressLine2, addr.AddressLine3));
+                var addr = (INorwegianAddress)ret.Address;
+                printDetailsDataTransferObject.PrintReturnRecipientDataTransferObject =
+                    new PrintReturnRecipientDataTransferObject(ret.Name,
+                        new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
+                            addr.AddressLine2, addr.AddressLine3));
             }
             else
             {
-                var addr = (IForeignAddress)recipient.Address;
-                printDetailsDataTransferObject.PrintRecipientDataTransferObject = new PrintRecipientDataTransferObject(recipient.Name,
-                    new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue, addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
-            }
-
-            {
-                //Set return recipient on pDTO
-                if (ret.Address is INorwegianAddress)
-                {
-                    var addr = (INorwegianAddress) ret.Address;
-                    printDetailsDataTransferObject.PrintReturnRecipientDataTransferObject = new PrintReturnRecipientDataTransferObject(recipient.Name,
-                        new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
-                            addr.AddressLine2, addr.AddressLine3));
-                }
-                else
-                {
-                    var addr = (IForeignAddress) ret.Address;
-                    printDetailsDataTransferObject.PrintRecipientDataTransferObject = new PrintRecipientDataTransferObject(recipient.Name,
+                var addr = (IForeignAddress)ret.Address;
+                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
+                    new PrintRecipientDataTransferObject(ret.Name,
                         new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
                             addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
-                }
             }
 
-            return printDetailsDataTransferObject;
+        }
+
+        private static void SetPrintRecipientOnDataTransferObject(IPrintRecipient recipient,
+            PrintDetailsDataTransferObject printDetailsDataTransferObject)
+        {
+            if (recipient.Address is INorwegianAddress)
+            {
+                var addr = (INorwegianAddress) recipient.Address;
+                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
+                    new PrintRecipientDataTransferObject(recipient.Name,
+                        new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
+                            addr.AddressLine2, addr.AddressLine3));
+            }
+            else
+            {
+                var addr = (IForeignAddress) recipient.Address;
+                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
+                    new PrintRecipientDataTransferObject(recipient.Name,
+                        new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
+                            addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
+            }
         }
 
         public static ForeignAddressDataTransferObject ToDataTransferObject(IForeignAddress foreignAddress)

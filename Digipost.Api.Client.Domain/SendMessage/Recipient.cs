@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Domain.Enums;
+﻿using System;
+using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain.SendMessage
@@ -39,9 +40,21 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public object IdentificationValue { get; set; }
 
-        public PrintDetails PrintDetails { get; set; }
+        public IPrintDetails PrintDetails { get; set; }
 
+        [Obsolete("Use IdentificationType instead. Will be removed in future version.")] //21.09.2015
         public IdentificationChoiceType? IdentificationType { get; set; }
+        
+        public IdentificationType Identificationtype {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
 

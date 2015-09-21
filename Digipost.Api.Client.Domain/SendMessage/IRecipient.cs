@@ -1,3 +1,4 @@
+using System;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 
@@ -7,8 +8,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
     {
         object IdentificationValue { get; set; }
 
-        PrintDetails PrintDetails{ get; set; }
+        IPrintDetails PrintDetails{ get; set; }
 
         IdentificationChoiceType? IdentificationType { get; set; }
+
+        IdentificationType Identificationtype { get; set; }
     }
 }

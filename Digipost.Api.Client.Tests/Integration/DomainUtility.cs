@@ -80,5 +80,15 @@ namespace Digipost.Api.Client.Tests.Integration
                     addressLine: "Osloveien 22"
                     );
         }
+
+        public static RecipientByNameAndAddressNew GetRecipientByNameAndAddressNew()
+        {
+            return new RecipientByNameAndAddressNew(
+                fullName: "Ola Nordmann", 
+                postalCode: "0001", 
+                city: "Oslo", 
+                addressLine: "Biskop Gunnerus Gate 14"
+                );
+        }
     }
 }   

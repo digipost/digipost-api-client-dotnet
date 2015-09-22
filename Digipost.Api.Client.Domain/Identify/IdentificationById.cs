@@ -1,5 +1,6 @@
 ﻿using System;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Domain.Identify
 {
@@ -22,30 +23,8 @@ namespace Digipost.Api.Client.Domain.Identify
         public IdentificationChoiceType IdentificationChoiceType {
             get
             {
-                return ParseIdentificationChoiceToIdentificationChoiceType();
+                return IdentificationType.ToIdentificationChoiceType();
             } 
-        }
-
-        internal IdentificationChoiceType ParseIdentificationChoiceToIdentificationChoiceType()
-        {
-            IdentificationChoiceType identificationChoiceType;
-
-            if (IdentificationType == IdentificationType.OrganizationNumber)
-            {
-                identificationChoiceType = OrganizationEnumWithSpellingDifference();
-            }
-            else
-            {
-                identificationChoiceType = (IdentificationChoiceType)
-                Enum.Parse(typeof(IdentificationChoiceType), IdentificationType.ToString(), ignoreCase: true);    
-            }
-            
-            return identificationChoiceType;
-        }
-
-        internal IdentificationChoiceType OrganizationEnumWithSpellingDifference()
-        {
-            return IdentificationChoiceType.OrganisationNumber;
         }
 
         public string Value { get; set; }

@@ -4,6 +4,7 @@ using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
@@ -96,9 +97,14 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             RecipientDataTransferObject recipientDataTransferObject = null;
 
+            if (recipient is RecipientById)
+            {
+                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientById((RecipientById)recipient);
+            }
+
             if (recipient is RecipientByNameAndAddressNew)
             {
-                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress(recipient);
+                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddressNew)recipient);
             }
 
             if (recipient is Recipient)
@@ -109,13 +115,19 @@ namespace Digipost.Api.Client.Domain.Utilities
             return recipientDataTransferObject;
         }
 
+        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
+        {
+            return new RecipientDataTransferObject(
+                recipient.Identificationtype.ToIdentificationChoiceType(), 
+                recipient.Id, 
+                ToDataTransferObject(recipient.PrintDetails));
+        }
+
         private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientByNameAndAddress(
-            IRecipient recipient)
+            RecipientByNameAndAddressNew recipientByNameAndAddressNew)
         {
             RecipientDataTransferObject recipientDataTransferObject;
 
-            var recipientByNameAndAddressNew = (RecipientByNameAndAddressNew) recipient;
-            
             recipientDataTransferObject = new RecipientDataTransferObject(
                 new RecipientByNameAndAddress(
                     recipientByNameAndAddressNew.FullName,

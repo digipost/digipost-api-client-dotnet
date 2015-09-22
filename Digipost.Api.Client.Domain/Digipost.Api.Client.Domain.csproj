@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="DataTransferObjects\MessageDeliveryResult.cs" />
     <Compile Include="Enums\IdentificationType.cs" />
+    <Compile Include="Extensions\IdentificationTypeExtensions.cs" />
     <Compile Include="Identify\Identification.cs" />
     <Compile Include="Enums\IdentificationError.cs" />
     <Compile Include="Identify\IdentificationById.cs" />

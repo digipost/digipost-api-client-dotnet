@@ -6,10 +6,15 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class RecipientById : IRecipient
     {
-        public RecipientById()
+        public RecipientById(IdentificationType identificationType, string id, PrintDetails printDetails = null)
         {
-            
+            Identificationtype = identificationType;
+            Id = id;
+            IdentificationValue = id;
+            PrintDetails = printDetails;
         }
+
+        public string Id { get; set; }
         
         public object IdentificationValue { get; set; }
         

@@ -118,6 +118,7 @@
     <Compile Include="Unittest\DtoTests\PrintDetailsTests.cs" />
     <Compile Include="Unittest\DtoTests\PrintReturnRecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\PrintRecipientTests.cs" />
+    <Compile Include="Unittest\DtoTests\RecipientByIdTests.cs" />
     <Compile Include="Unittest\DtoTests\RecipientByNameAndAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\RecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\SmsNotificationTests.cs" />

@@ -79,7 +79,7 @@ namespace Digipost.Api.Client.Testklient
             return api.Search("Al");
         }
 
-        private static void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)
+        private static async void SendMessageToPerson(DigipostClient api, bool isQaOrLocal = false)
         {
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
@@ -87,13 +87,25 @@ namespace Digipost.Api.Client.Testklient
             IMessage message;
 
             message = isQaOrLocal ? GetMessageForQaOrLocal() : GetMessage();
-            
+
             try
             {
+                var messageDeliveryResult = await api.SendMessageAsync(message);
                 Console.WriteLine("> Starter å sende melding");
-                var messageDeliveryResult = api.SendMessage(message);
                 WriteToConsoleWithColor("Meldingens status: " + messageDeliveryResult.Status);
-                WriteToConsoleWithColor("> Alt gikk fint!" , false);
+                WriteToConsoleWithColor("> Alt gikk fint!", false);
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle((x) =>
+                 {
+                     if (x is ClientResponseException)
+                     {
+                         Console.WriteLine("This really failed!");
+                         return true;
+                     }
+                     return false;
+                 });
             }
             catch (ClientResponseException e)
             {
@@ -102,6 +114,7 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (Exception e)
             {
+
                 WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
             }
         }
@@ -174,7 +187,9 @@ namespace Digipost.Api.Client.Testklient
             var recipientByNameAndAddressNew = new RecipientByNameAndAddressNew("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68", printDetails);
 
-            
+
+            var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
+
             //End nytt regime for message
 
             //recipient
@@ -182,8 +197,7 @@ namespace Digipost.Api.Client.Testklient
 
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(recipientByNameAndAddressNew, invoice) 
-                {};
+            var message = new Message(recipientById, invoice);
             
             //message.Deliverytime = DateTime.Now.AddDays(1);
 

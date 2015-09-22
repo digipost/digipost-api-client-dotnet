@@ -190,6 +190,32 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
 
             [TestMethod]
+            public void RecipientById()
+            {
+                //Arrange
+                var printDetails = DomainUtility.GetPrintDetails();
+                var printDetailsDataTransferObject = DomainUtility.GetPrintDetailsDataTransferObject();
+                
+                RecipientById source = new RecipientById(
+                    IdentificationType.DigipostAddress,
+                    "ola.nordmann#2233",
+                    printDetails);
+                
+                RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(
+                    IdentificationChoiceType.DigipostAddress, 
+                    "ola.nordmann#2233", 
+                    printDetailsDataTransferObject);
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+            }
+
+            [TestMethod]
             public void Document()
             {
                 //Arrange

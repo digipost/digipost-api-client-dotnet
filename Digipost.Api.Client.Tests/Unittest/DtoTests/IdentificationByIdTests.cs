@@ -2,6 +2,7 @@
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -45,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationById identificationById = new IdentificationById(identificationType, "DoesNotMatter");
 
                     //Act
-                    identificationById.ParseIdentificationChoiceToIdentificationChoiceType();
+                    identificationById.IdentificationType.ToIdentificationChoiceType();
 
                     //Assert    
                     //Will throw exception in Act if failing.

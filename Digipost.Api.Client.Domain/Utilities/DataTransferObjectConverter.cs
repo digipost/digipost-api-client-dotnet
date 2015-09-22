@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
             {
                 identificationDataTransferObject =
-                    new IdentificationDataTransferObject((RecipientByNameAndAddress) identification.Data);
+                    new IdentificationDataTransferObject((RecipientByNameAndAddressDataTranferObject) identification.Data);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Domain.Utilities
         private static IdentificationDataTransferObject IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
             IdentificationByNameAndAddress identificationByNameAndAddress)
         {
-            return new IdentificationDataTransferObject(identificationByNameAndAddress.RecipientByNameAndAddress);
+            return new IdentificationDataTransferObject(identificationByNameAndAddress.RecipientByNameAndAddressDataTranferObject);
         }
 
         public static MessageDataTransferObject ToDataTransferObject(IMessage message)
@@ -102,14 +102,9 @@ namespace Digipost.Api.Client.Domain.Utilities
                 recipientDataTransferObject = RecipientDataTransferObjectFromRecipientById((RecipientById)recipient);
             }
 
-            if (recipient is RecipientByNameAndAddressNew)
+            if (recipient is RecipientByNameAndAddress)
             {
-                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddressNew)recipient);
-            }
-
-            if (recipient is Recipient)
-            {
-                recipientDataTransferObject = RecipientDataTransferObjectFromRecipient(recipient);
+                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddress)recipient);
             }
             
             return recipientDataTransferObject;
@@ -124,50 +119,23 @@ namespace Digipost.Api.Client.Domain.Utilities
         }
 
         private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientByNameAndAddress(
-            RecipientByNameAndAddressNew recipientByNameAndAddressNew)
+            RecipientByNameAndAddress recipientByNameAndAddress)
         {
             RecipientDataTransferObject recipientDataTransferObject;
 
             recipientDataTransferObject = new RecipientDataTransferObject(
-                new RecipientByNameAndAddress(
-                    recipientByNameAndAddressNew.FullName,
-                    recipientByNameAndAddressNew.PostalCode,
-                    recipientByNameAndAddressNew.City,
-                    recipientByNameAndAddressNew.AddressLine1)
+                new RecipientByNameAndAddressDataTranferObject(
+                    recipientByNameAndAddress.FullName,
+                    recipientByNameAndAddress.PostalCode,
+                    recipientByNameAndAddress.City,
+                    recipientByNameAndAddress.AddressLine1)
                 {
-                    AddressLine2 = recipientByNameAndAddressNew.AddressLine2,
-                    BirthDate = recipientByNameAndAddressNew.BirthDate,
-                    PhoneNumber = recipientByNameAndAddressNew.PhoneNumber,
-                    Email = recipientByNameAndAddressNew.Email
+                    AddressLine2 = recipientByNameAndAddress.AddressLine2,
+                    BirthDate = recipientByNameAndAddress.BirthDate,
+                    PhoneNumber = recipientByNameAndAddress.PhoneNumber,
+                    Email = recipientByNameAndAddress.Email
                 },
-                ToDataTransferObject(recipientByNameAndAddressNew.PrintDetails));
-            return recipientDataTransferObject;
-        }
-
-        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipient(IRecipient recipient)
-        {
-            PrintDetailsDataTransferObject printDetailsDataTransferObject =
-                ToDataTransferObject(recipient.PrintDetails);
-
-            RecipientDataTransferObject recipientDataTransferObject;
-            switch (recipient.IdentificationType)
-            {
-                case IdentificationChoiceType.NameAndAddress:
-                    recipientDataTransferObject =
-                        new RecipientDataTransferObject((RecipientByNameAndAddress) recipient.IdentificationValue,
-                            printDetailsDataTransferObject);
-                    break;
-                default:
-                    IdentificationChoiceType identificationType = (IdentificationChoiceType) recipient.IdentificationType;
-
-                    recipientDataTransferObject = new RecipientDataTransferObject(identificationType,
-                        (string) recipient.IdentificationValue, printDetailsDataTransferObject);
-                    break;
-                case null:
-                    recipientDataTransferObject = new RecipientDataTransferObject(printDetailsDataTransferObject);
-                    break;
-            }
-
+                ToDataTransferObject(recipientByNameAndAddress.PrintDetails));
             return recipientDataTransferObject;
         }
 

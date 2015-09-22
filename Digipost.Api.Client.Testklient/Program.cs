@@ -86,7 +86,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             IMessage message;
 
-            message = isQaOrLocal ? GetMessageForQaOrLocal() : GetMessage();
+            message = isQaOrLocal ? GetMessageWithRecipientByIdForQaOrLocal() : GetMessage();
 
             try
             {
@@ -150,12 +150,12 @@ namespace Digipost.Api.Client.Testklient
             }
         }
 
-        private static IMessage GetMessageForQaOrLocal()
+        private static IMessage GetMessageWithRecipientByIdForQaOrLocal()
         {
             //primary document
             var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
    
-            var digitalRecipient = new Recipient(IdentificationChoiceType.PersonalidentificationNumber, "01013300001");
+            var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001");
 
             var message = new Message(digitalRecipient, primaryDocument);
 
@@ -180,21 +180,18 @@ namespace Digipost.Api.Client.Testklient
                     );
 
             //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
+            var recipientByNameAndAddress = new RecipientByNameAndAddressDataTranferObject("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68");
 
             //Nytt regime for message
-            var recipientByNameAndAddressNew = new RecipientByNameAndAddressNew("Kristian Sæther Enge", "0460",
+            var recipientByNameAndAddressNew = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68", printDetails);
 
 
             var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
 
             //End nytt regime for message
-
-            //recipient
-            var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress, printDetails);
-
+            
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
             var message = new Message(recipientById, invoice);

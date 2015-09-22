@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void InitializeProperlyForRecipientInitialization()
             {
                 //Arrange
-                var recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Gateveien 2");
+                var recipientByNameAndAddress = new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Gateveien 2");
                 Identification identification = new Identification(recipientByNameAndAddress);
 
                 //Act
@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
 
                 IEnumerable<IDifference> differences;
-                Comparator.AreEqual(recipientByNameAndAddress, (RecipientByNameAndAddress) identification.Data, out differences);
+                Comparator.AreEqual(recipientByNameAndAddress, (RecipientByNameAndAddressDataTranferObject) identification.Data, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
         }

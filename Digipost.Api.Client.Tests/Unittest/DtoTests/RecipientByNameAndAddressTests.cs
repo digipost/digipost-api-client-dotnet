@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
-                RecipientByNameAndAddressNew recipientByNameAndAddress = new RecipientByNameAndAddressNew("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14");
+                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14");
 
                 //Act
 
@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 IPrintDetails printDetails = DomainUtility.GetPrintDetails();
-                RecipientByNameAndAddressNew recipientByNameAndAddress = new RecipientByNameAndAddressNew("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14", printDetails);
+                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14", printDetails);
 
                 //Act
 

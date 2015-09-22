@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Tests.Integration
             [TestMethod]
             public void ProperRequestSent()
             {
-                var message = DomainUtility.GetSimpleMessage();
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 var fakehandler = new FakeHttpClientHandlerForMessageResponse();
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 try
                 {
-                    var message = DomainUtility.GetSimpleMessage();
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                     const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
                     var messageContent = new StringContent(string.Empty);
@@ -93,7 +93,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 try
                 {
-                    var message = DomainUtility.GetSimpleMessage();
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                     const HttpStatusCode statusCode = HttpStatusCode.NotFound;
                     var messageContent = new StringContent(

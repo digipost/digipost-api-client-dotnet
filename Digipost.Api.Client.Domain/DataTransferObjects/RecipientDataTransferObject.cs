@@ -19,9 +19,9 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
             /**Must exist for serialization.**/
         }
 
-        public RecipientDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress, PrintDetailsDataTransferObject printDetailsDataTransferObject = null)
+        public RecipientDataTransferObject(RecipientByNameAndAddressDataTranferObject recipientByNameAndAddressDataTranferObject, PrintDetailsDataTransferObject printDetailsDataTransferObject = null)
         {
-            IdentificationValue = recipientByNameAndAddress;
+            IdentificationValue = recipientByNameAndAddressDataTranferObject;
             IdentificationType = IdentificationChoiceType.NameAndAddress;
             PrintDetailsDataTransferObject = printDetailsDataTransferObject;
         }
@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         [XmlElement("digipost-address", typeof (string))]
-        [XmlElement("name-and-address", typeof (RecipientByNameAndAddress))]
+        [XmlElement("name-and-address", typeof (RecipientByNameAndAddressDataTranferObject))]
         [XmlElement("organisation-number", typeof (string))]
         [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]

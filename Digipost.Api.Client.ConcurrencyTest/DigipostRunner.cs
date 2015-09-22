@@ -51,10 +51,8 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 if (_message != null) return _message;
 
                 var primaryDocument = new Document("document subject", "txt", GetDocumentBytes());
-                var recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0460",
+                var digitalRecipientWithFallbackPrint = new RecipientByNameAndAddress("Ola Nordmann", "0460",
                     "Oslo", "Collettsgate 68");
-
-                var digitalRecipientWithFallbackPrint = new Recipient(recipientByNameAndAddress);
                 _message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);
             }
 

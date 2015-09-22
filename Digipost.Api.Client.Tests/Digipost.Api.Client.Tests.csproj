@@ -120,7 +120,6 @@
     <Compile Include="Unittest\DtoTests\PrintRecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\RecipientByIdTests.cs" />
     <Compile Include="Unittest\DtoTests\RecipientByNameAndAddressTests.cs" />
-    <Compile Include="Unittest\DtoTests\RecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\SmsNotificationTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />

@@ -23,9 +23,9 @@ namespace Digipost.Api.Client.Domain.Identify
             Data = value;
         }
 
-        public Identification(RecipientByNameAndAddress recipientByNameAndAddress)
+        public Identification(RecipientByNameAndAddressDataTranferObject recipientByNameAndAddressDataTranferObject)
         {
-            Data = recipientByNameAndAddress;
+            Data = recipientByNameAndAddressDataTranferObject;
         }
         
         public object Data { get; internal set; }

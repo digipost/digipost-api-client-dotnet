@@ -5,12 +5,12 @@ namespace Digipost.Api.Client.Domain.Identify
 {
     public class IdentificationByNameAndAddress : IIdentification
     {
-        public IdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
+        public IdentificationByNameAndAddress(RecipientByNameAndAddressDataTranferObject recipientByNameAndAddressDataTranferObject)
         {
-            RecipientByNameAndAddress = recipientByNameAndAddress;
+            RecipientByNameAndAddressDataTranferObject = recipientByNameAndAddressDataTranferObject;
         }
 
-        public RecipientByNameAndAddress RecipientByNameAndAddress { get; set; }
+        public RecipientByNameAndAddressDataTranferObject RecipientByNameAndAddressDataTranferObject { get; set; }
 
         public IdentificationChoiceType IdentificationChoiceType
         {
@@ -19,7 +19,7 @@ namespace Digipost.Api.Client.Domain.Identify
 
         public object Data
         {
-            get { return RecipientByNameAndAddress; }
+            get { return RecipientByNameAndAddressDataTranferObject; }
         }
     }
 }

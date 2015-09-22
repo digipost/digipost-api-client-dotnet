@@ -126,13 +126,12 @@
     <Compile Include="DataTransferObjects\PrintReturnRecipientDataTransferObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
-    <Compile Include="SendMessage\Recipient.cs" />
     <Compile Include="DataTransferObjects\RecipientDataTransferObject.cs" />
     <Compile Include="SendMessage\RecipientById.cs" />
-    <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
+    <Compile Include="SendMessage\RecipientByNameAndAddressDataTranferObject.cs" />
     <Compile Include="DataTransferObjects\SmsNotificationDataTransferObject.cs" />
     <Compile Include="RequestContent.cs" />
-    <Compile Include="SendMessage\RecipientByNameAndAddressNew.cs" />
+    <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
   </ItemGroup>

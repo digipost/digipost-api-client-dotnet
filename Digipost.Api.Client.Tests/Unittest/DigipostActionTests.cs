@@ -35,7 +35,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var clientConfig = new ClientConfig("123");
                 var certificate = TestProperties.Certificate();
                 const string uri = "AFakeUri";
-                var message = DomainUtility.GetSimpleMessage();
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 //Act
                 var action = new MessageAction(message, clientConfig, certificate, uri);

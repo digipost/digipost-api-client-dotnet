@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.AreEqual(recipientByNameAndAddress, identificationByNameAndAddress.RecipientByNameAndAddress,
+                _comparator.AreEqual(recipientByNameAndAddress, identificationByNameAndAddress.RecipientByNameAndAddressDataTranferObject,
                     out differences);
                 Assert.AreEqual(0, differences.Count());
             }
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreSame(identificationByNameAndAddress.Data, identificationByNameAndAddress.RecipientByNameAndAddress);
+                Assert.AreSame(identificationByNameAndAddress.Data, identificationByNameAndAddress.RecipientByNameAndAddressDataTranferObject);
             } 
         }
 

@@ -14,59 +14,45 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             IdentificationDataTransferObject identificationDataTransferObject = null;
 
-            if (identification is Identification)
+            if (identification.DigipostRecipient is RecipientById)
             {
-                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentification((Identification) identification);
+                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((RecipientById)identification.DigipostRecipient);
             }
 
-            if (identification is IdentificationById)
+            if (identification.DigipostRecipient is RecipientByNameAndAddress )
             {
-                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((IdentificationById) identification);
+                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress)identification.DigipostRecipient);
             }
 
-            if (identification is IdentificationByNameAndAddress)
-            {
-                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((IdentificationByNameAndAddress) identification);
-            }
 
             return identificationDataTransferObject;
         }
 
-        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentification(
-            Identification identification)
-        {
-            IdentificationDataTransferObject identificationDataTransferObject = null;
-
-            if (identification.IdentificationChoiceType == IdentificationChoiceType.NameAndAddress)
-            {
-                identificationDataTransferObject =
-                    new IdentificationDataTransferObject((RecipientByNameAndAddressDataTranferObject) identification.Data);
-            }
-            else
-            {
-                identificationDataTransferObject = new IdentificationDataTransferObject(identification.IdentificationChoiceType, identification.Data.ToString());
-            }
-
-            return identificationDataTransferObject;
-        }
-
-        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(IdentificationById identificationById)
+        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
             return new  IdentificationDataTransferObject(
-                identificationById.IdentificationChoiceType, 
-                identificationById.Value
+                recipientById.IdentificationType.ToIdentificationChoiceType(),
+                recipientById.Id
                 );
         }
 
         private static IdentificationDataTransferObject IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
-            IdentificationByNameAndAddress identificationByNameAndAddress)
+            RecipientByNameAndAddress identification)
         {
-            return new IdentificationDataTransferObject(identificationByNameAndAddress.RecipientByNameAndAddressDataTranferObject);
+            return new IdentificationDataTransferObject(new RecipientByNameAndAddressDataTranferObject(
+                identification.FullName, identification.PostalCode, identification.City, identification.AddressLine1
+                )
+            {
+                AddressLine2 = identification.AddressLine2,
+                BirthDate = identification.BirthDate,
+                PhoneNumber = identification.PhoneNumber,
+                Email = identification.Email
+            });
         }
 
         public static MessageDataTransferObject ToDataTransferObject(IMessage message)
         {
-            RecipientDataTransferObject recipient = ToDataTransferObject(message.Recipient);
+            RecipientDataTransferObject recipient = ToDataTransferObject(message.DigipostRecipient);
             DocumentDataTransferObject primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
 
             var messageDataTransferObject = new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject, message.SenderId);
@@ -93,7 +79,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             return documentDataTransferObject;
         }
 
-        public static RecipientDataTransferObject ToDataTransferObject(IRecipient recipient)
+        public static RecipientDataTransferObject ToDataTransferObject(IDigipostRecipient recipient)
         {
             RecipientDataTransferObject recipientDataTransferObject = null;
 
@@ -113,7 +99,7 @@ namespace Digipost.Api.Client.Domain.Utilities
         private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
         {
             return new RecipientDataTransferObject(
-                recipient.Identificationtype.ToIdentificationChoiceType(), 
+                recipient.IdentificationType.ToIdentificationChoiceType(), 
                 recipient.Id, 
                 ToDataTransferObject(recipient.PrintDetails));
         }

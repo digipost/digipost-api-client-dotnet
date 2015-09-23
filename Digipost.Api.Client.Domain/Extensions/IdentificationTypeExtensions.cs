@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Extensions
 {
     public static class IdentificationTypeExtensions
     {
-        public static IdentificationChoiceType ToIdentificationChoiceType(this IdentificationType identificationType)
+        internal static IdentificationChoiceType ToIdentificationChoiceType(this IdentificationType identificationType)
         {
             var identificationChoiceType = 
                 identificationType == IdentificationType.OrganizationNumber 

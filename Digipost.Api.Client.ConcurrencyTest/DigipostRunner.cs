@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             lock (_lock)
             {
                 if (_identification != null) return _identification;
-                _identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "01013300001");
+                _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001"));
             }
 
             return _identification;

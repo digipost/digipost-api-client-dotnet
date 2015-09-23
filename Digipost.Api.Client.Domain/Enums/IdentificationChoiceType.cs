@@ -3,7 +3,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Enums
 {
-    [Obsolete("Use IdentificationChoice, as this will be hidden in future version.")] //Make enum DataTransferObject, as IdenticficationChoice is exposed out.
     [Serializable]
     [XmlType(Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
     public enum IdentificationChoiceType

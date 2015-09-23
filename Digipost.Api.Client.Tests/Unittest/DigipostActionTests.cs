@@ -7,6 +7,7 @@ using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,7 +54,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var clientConfig = new ClientConfig("123");
                 var certificate = TestProperties.Certificate();
                 const string uri = "AFakeUri";
-                var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
+                var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
 
                 //Act
                 var action = new IdentificationAction(identification, clientConfig, certificate, uri);

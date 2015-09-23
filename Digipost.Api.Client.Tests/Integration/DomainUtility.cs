@@ -20,6 +20,15 @@ namespace Digipost.Api.Client.Tests.Integration
             return message;
         }
 
+        public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
+        {
+            var message = new Message(
+                GetRecipientByNameAndAddress(),
+                GetDocument()
+                );
+            return message;
+        }
+
         public static IDocument GetDocument()
         {
             return new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
@@ -27,24 +36,24 @@ namespace Digipost.Api.Client.Tests.Integration
 
         public static IIdentification GetPersonalIdentification()
         {
-            var identification = new Identification(IdentificationChoiceType.PersonalidentificationNumber, "00000000000");
+            var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
             return identification;
         }
 
         public static IIdentification GetPersonalIdentificationById()
         {
-            var identification = new IdentificationById(IdentificationType.PersonalIdentificationNumber, "00000000000");
+            var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
             return identification;
         }
 
         public static IIdentification GetPersonalIdentificationByNameAndAddress()
         {
-            var identification = new IdentificationByNameAndAddress(new RecipientByNameAndAddressDataTranferObject("ola nordmann","0000","Oslo","Biskop gunnerius gate 14a"));
+            var identification = new Identification(new RecipientByNameAndAddress("ola nordmann","0000","Oslo","Biskop gunnerius gate 14a"));
             return identification;
         }
 
 
-        public static IRecipient GetRecipientWithDigipostId()
+        public static RecipientById GetRecipientWithDigipostId()
         {
             return new RecipientById(IdentificationType.DigipostAddress, "ola.nordmann#246BB");
         }
@@ -93,7 +102,7 @@ namespace Digipost.Api.Client.Tests.Integration
             return new PrintReturnRecipient("name", GetNorwegianAddress());
         }
 
-        public static RecipientByNameAndAddressDataTranferObject GetRecipientByNameAndAddress()
+        public static RecipientByNameAndAddressDataTranferObject GetRecipientByNameAndAddressDataTransferObject()
         {
             return new RecipientByNameAndAddressDataTranferObject(
                     fullName: "Ola Nordmann",
@@ -103,7 +112,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     );
         }
 
-        public static RecipientByNameAndAddress GetRecipientByNameAndAddressNew()
+        public static RecipientByNameAndAddress GetRecipientByNameAndAddress()
         {
             return new RecipientByNameAndAddress(
                 fullName: "Ola Nordmann", 

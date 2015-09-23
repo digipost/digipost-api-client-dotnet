@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <summary>
         /// The recipient receiving the message. 
         /// </summary>
-        IRecipient Recipient { get; set; }
+        IDigipostRecipient DigipostRecipient { get; set; }
 
         /// <summary>
         /// Optional. The time when the document will be made visible to the user. 

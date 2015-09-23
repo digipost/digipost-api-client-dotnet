@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
     public class IdentificationResultTests
     {
         [TestClass]
-        public class ConstructorMethod : IdentificationTests
+        public class ConstructorMethod : IdentificationResultTests
         {
             [TestMethod]
             public void SuccessfulIntentificationResultTypeSetsResult()

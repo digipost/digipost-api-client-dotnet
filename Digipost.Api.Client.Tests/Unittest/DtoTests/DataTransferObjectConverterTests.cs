@@ -23,27 +23,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         [TestClass]
         public class ToDataTransferObjectMethod : DataTransferObjectConverterTests
         {
-            [TestMethod]
-            public void Identification()
-            {
-                //Arrange
-                Identification source = new Identification(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
-                IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "Ola.Nordmann#244BB2");
-                
-                //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
-
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
-            }
 
             [TestMethod]
             public void IdentificationById()
             {
                 //Arrange
-                IdentificationById source = new IdentificationById(IdentificationType.OrganizationNumber, "123456789");
+                Identification source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
                 IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber, "123456789");
                 
                 //Act
@@ -59,19 +44,24 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationByNameAndAddress()
             {
                 //Arrange
-                var recipientByNameAndAddress = new RecipientByNameAndAddressDataTranferObject(
-                    fullName: "Ola Nordmann",
-                    postalCode: "0001",
-                    city: "Oslo",
-                    addressLine1: "Osloveien 22"
-                    );
-
-                IdentificationByNameAndAddress source = new IdentificationByNameAndAddress(
-                    recipientByNameAndAddress
-                );
+                Identification source = new Identification(
+                    new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
+                    {
+                        AddressLine2 = "Adresselinje2",
+                        BirthDate = DateTime.Today,
+                        PhoneNumber = "123456789",
+                        Email = "tull@epost.no"
+                    }
+                  );
 
                 IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(
-                   recipientByNameAndAddress
+                   new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
+                    {
+                        AddressLine2 = "Adresselinje2",
+                        BirthDate = DateTime.Today,
+                        PhoneNumber = "123456789",
+                        Email = "tull@epost.no"
+                    }
                );
 
                 //Act
@@ -180,8 +170,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         IdentificationType.DigipostAddress,
                         "Ola.Nordmann#34JJ"
                         ),
-                    new Document("TestSubject", "txt", new byte[3]), "SenderId")
+                    new Document("TestSubject", "txt", new byte[3]))
                 {
+                    SenderId = "SenderId",
                     Attachments = new List<IDocument>()
                     {
                         new Document("TestSubject attachment", "txt",  new byte[3])
@@ -546,8 +537,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         IdentificationType.DigipostAddress,
                         "Ola.Nordmann#34JJ"
                         ),
-                    new Document("TestSubject", "txt", new byte[3]), "SenderId")
+                    new Document("TestSubject", "txt", new byte[3]))
                 {
+                    SenderId = "SenderId",
                     Attachments = new List<IDocument>()
                     {
                         new Document("TestSubject attachment", "txt",  new byte[3])

@@ -126,7 +126,7 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
 
             //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
-            var identification = new IdentificationById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
+            var identification = new Identification(new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ"));
 
             try
             {

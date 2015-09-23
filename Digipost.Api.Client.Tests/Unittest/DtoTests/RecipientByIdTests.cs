@@ -24,9 +24,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(IdentificationType.DigipostAddress, recipientById.Identificationtype);
+                Assert.AreEqual(IdentificationType.DigipostAddress, recipientById.IdentificationType);
                 Assert.AreEqual("ola.nordmann#2233", recipientById.Id);
-                Assert.AreEqual("ola.nordmann#2233", recipientById.IdentificationValue);
                 Assert.AreEqual(printDetails, recipientById.PrintDetails);
             } 
         }

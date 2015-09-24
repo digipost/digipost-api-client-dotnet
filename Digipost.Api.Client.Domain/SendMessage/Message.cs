@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
             Attachments = new List<IDocument>();
         }
 
-        public IPrintRecipient PrintRecipient { get; set; }
+        public IPrintDetails PrintDetails { get; set; }
 
         /// <summary>
         /// The id of the sender, created by Digipost.  If you are delivering a 

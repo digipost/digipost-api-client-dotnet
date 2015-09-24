@@ -1,4 +1,5 @@
 ﻿using System;
+using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +17,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientWithDigipostId(), 
+                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(), 
                     primaryDocument: DomainUtility.GetDocument()
                     );                
 
@@ -25,6 +26,28 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 Assert.IsNotNull(message.PrimaryDocument);
                 Assert.IsNull(message.SenderId);
+            }
+
+            [TestMethod]
+            public void ConstructWithRecipientByIdAndPrintDetailsMethod()
+            {
+                //Arrange
+                var recipient = DomainUtility.GetRecipientByDigipostId();
+                var document = DomainUtility.GetDocument();
+                var printDetails = DomainUtility.GetPrintDetails();
+                
+                Message message = new Message(
+                    digipostRecipient: recipient, 
+                    primaryDocument: document
+                    );
+                message.PrintDetails = printDetails;
+
+                //Act
+
+                //Assert
+                Assert.AreEqual(recipient, message.DigipostRecipient);
+                Assert.AreEqual(document, message.PrimaryDocument);
+                Assert.AreEqual(printDetails, message.PrintDetails);
             }
         }
 
@@ -36,7 +59,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientWithDigipostId(),
+                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(),
                     primaryDocument: DomainUtility.GetDocument()
                     );               
                 
@@ -51,7 +74,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientWithDigipostId(),
+                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(),
                     primaryDocument: DomainUtility.GetDocument()
                     ) {DeliveryTime = DateTime.Today};
 

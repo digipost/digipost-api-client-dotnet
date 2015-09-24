@@ -185,7 +185,7 @@ namespace Digipost.Api.Client.Testklient
 
             //Nytt regime for message
             var recipientByNameAndAddressNew = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
-                "Oslo", "Collettsgate 68", printDetails);
+                "Oslo", "Collettsgate 68");
 
 
             var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");

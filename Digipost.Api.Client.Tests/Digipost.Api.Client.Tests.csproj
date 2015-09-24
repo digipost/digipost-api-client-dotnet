@@ -108,8 +108,6 @@
     <Compile Include="Unittest\DtoTests\DocumentTests.cs" />
     <Compile Include="Unittest\DtoTests\DataTransferObjectConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\ForeignAddressTests.cs" />
-    <Compile Include="Unittest\DtoTests\IdentificationByIdTests.cs" />
-    <Compile Include="Unittest\DtoTests\IdentificationByNameAndAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
     <Compile Include="Unittest\DtoTests\InvoiceTests.cs" />

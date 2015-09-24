@@ -52,14 +52,18 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static MessageDataTransferObject ToDataTransferObject(IMessage message)
         {
-            RecipientDataTransferObject recipient = ToDataTransferObject(message.DigipostRecipient);
-            DocumentDataTransferObject primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
+            var recipient = ToDataTransferObject(message.DigipostRecipient);
+            var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
+            var printDetailsDataTransferObject = ToDataTransferObject(message.PrintDetails);
 
-            var messageDataTransferObject = new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject, message.SenderId);
-
-            foreach (var attachment in message.Attachments)
+            var messageDataTransferObject = new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject,
+                message.SenderId)
             {
-                var attachmentDataTransferObject = ToDataTransferObject(attachment);
+                RecipientDataTransferObject = {PrintDetailsDataTransferObject = printDetailsDataTransferObject}
+            };
+
+            foreach (var attachmentDataTransferObject in message.Attachments.Select(ToDataTransferObject))
+            {
                 messageDataTransferObject.Attachments.Add(attachmentDataTransferObject);
             }
 
@@ -100,8 +104,8 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             return new RecipientDataTransferObject(
                 recipient.IdentificationType.ToIdentificationChoiceType(), 
-                recipient.Id, 
-                ToDataTransferObject(recipient.PrintDetails));
+                recipient.Id
+                );
         }
 
         private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientByNameAndAddress(
@@ -120,8 +124,8 @@ namespace Digipost.Api.Client.Domain.Utilities
                     BirthDate = recipientByNameAndAddress.BirthDate,
                     PhoneNumber = recipientByNameAndAddress.PhoneNumber,
                     Email = recipientByNameAndAddress.Email
-                },
-                ToDataTransferObject(recipientByNameAndAddress.PrintDetails));
+                }
+              );
             return recipientDataTransferObject;
         }
 

@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
-                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14");
+                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "Biskop Gunnerus Gate 14", "0001", "Oslo");
 
                 //Act
 
@@ -30,21 +30,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual("0001", recipientByNameAndAddress.PostalCode);
                 Assert.AreEqual("Oslo", recipientByNameAndAddress.City);
                 Assert.AreEqual("Biskop Gunnerus Gate 14", recipientByNameAndAddress.AddressLine1);
-            }
-
-            [TestMethod]
-            public void ConstructorWithPrintDetails()
-            {
-                //Arrange
-                IPrintDetails printDetails = DomainUtility.GetPrintDetails();
-                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14", printDetails);
-
-                //Act
-
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.AreEqual(recipientByNameAndAddress.PrintDetails, printDetails, out differences);
-                Assert.AreEqual(0, differences.Count());
             }
         }
     }

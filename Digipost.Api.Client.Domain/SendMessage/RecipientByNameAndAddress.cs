@@ -1,20 +1,16 @@
 ﻿using System;
-using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class RecipientByNameAndAddress : DigipostRecipient, IRecipientByNameAndAddress
     {
-        public RecipientByNameAndAddress(string fullName, string postalCode, string city, string addressLine1, IPrintDetails printDetails = null)
+        public RecipientByNameAndAddress(string fullName, string addressLine1, string postalCode, string city)
         {
             FullName = fullName;
             PostalCode = postalCode;
             City = city;
             AddressLine1 = addressLine1;
-            PrintDetails = printDetails;
         }
-
-        public IPrintDetails PrintDetails { get; set; }
 
         public string FullName { get; set; }
         

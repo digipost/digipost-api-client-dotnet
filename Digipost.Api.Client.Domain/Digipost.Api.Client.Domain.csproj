@@ -40,9 +40,6 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared">
-      <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -135,9 +132,6 @@
     <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

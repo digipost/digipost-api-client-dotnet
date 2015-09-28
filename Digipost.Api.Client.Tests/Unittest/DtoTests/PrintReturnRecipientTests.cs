@@ -19,12 +19,14 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
-                PrintRecipient printRecipient = new PrintRecipient("name", DomainUtility.GetNorwegianAddress());
+                const string name = "name";
+
+                PrintRecipient printRecipient = new PrintRecipient(name, DomainUtility.GetNorwegianAddress());
 
                 //Act
 
                 //Assert
-                Assert.AreEqual("name", printRecipient.Name);
+                Assert.AreEqual(name, printRecipient.Name);
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);

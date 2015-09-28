@@ -21,15 +21,20 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
-                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress("Ola Nordmann", "Biskop Gunnerus Gate 14", "0001", "Oslo");
+                const string fullName = "Ola Nordmann";
+                const string addressLine1 = "Biskop Gunnerus Gate 14";
+                const string postalCode = "0001";
+                const string city = "Oslo";
+
+                RecipientByNameAndAddress recipientByNameAndAddress = new RecipientByNameAndAddress(fullName, addressLine1, postalCode, city);
 
                 //Act
 
                 //Assert
-                Assert.AreEqual("Ola Nordmann", recipientByNameAndAddress.FullName);
-                Assert.AreEqual("0001", recipientByNameAndAddress.PostalCode);
-                Assert.AreEqual("Oslo", recipientByNameAndAddress.City);
-                Assert.AreEqual("Biskop Gunnerus Gate 14", recipientByNameAndAddress.AddressLine1);
+                Assert.AreEqual(fullName, recipientByNameAndAddress.FullName);
+                Assert.AreEqual(postalCode, recipientByNameAndAddress.PostalCode);
+                Assert.AreEqual(city, recipientByNameAndAddress.City);
+                Assert.AreEqual(addressLine1, recipientByNameAndAddress.AddressLine1);
             }
         }
     }

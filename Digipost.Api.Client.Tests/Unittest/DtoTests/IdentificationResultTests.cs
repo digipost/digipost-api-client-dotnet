@@ -26,12 +26,14 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     if (!failedIdentificationResultType)
                     {
                         //Arrange
-                        IdentificationResult identificationResult = new IdentificationResult(value, "ola.nordmann#2433B");
+                        const string digipostAddress = "ola.nordmann#2433B";
+
+                        IdentificationResult identificationResult = new IdentificationResult(value, digipostAddress);
 
                         //Act
 
                         //Assert
-                        Assert.AreEqual("ola.nordmann#2433B", identificationResult.Data);
+                        Assert.AreEqual(digipostAddress, identificationResult.Data);
                         Assert.IsNull(identificationResult.Error);
                     }
                 }
@@ -41,7 +43,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SetsIdentificationResultType()
             {
                 //Arrange
-                IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "ola.nordmann#2433B");
+                const string digipostAddress = "ola.nordmann#2433B";
+                IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
 
                 //Act
 

@@ -15,15 +15,17 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
+                const string testPerson = "ola.nordmann#2233";
+
                 RecipientById recipientById = new RecipientById(
                     IdentificationType.DigipostAddress, 
-                    "ola.nordmann#2233");
+                    testPerson);
 
                 //Act
 
                 //Assert
                 Assert.AreEqual(IdentificationType.DigipostAddress, recipientById.IdentificationType);
-                Assert.AreEqual("ola.nordmann#2233", recipientById.Id);
+                Assert.AreEqual(testPerson, recipientById.Id);
             } 
         }
     }

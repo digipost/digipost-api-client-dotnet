@@ -40,9 +40,6 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared">
-      <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -51,15 +48,17 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DigipostRecipient.cs" />
     <Compile Include="DataTransferObjects\MessageDeliveryResult.cs" />
     <Compile Include="Enums\IdentificationType.cs" />
-    <Compile Include="Identify\Identification.cs" />
+    <Compile Include="Extensions\IdentificationTypeExtensions.cs" />
     <Compile Include="Enums\IdentificationError.cs" />
-    <Compile Include="Identify\IdentificationById.cs" />
-    <Compile Include="Identify\IdentificationByNameAndAddress.cs" />
+    <Compile Include="Identify\Identification.cs" />
     <Compile Include="Identify\IdentificationResult.cs" />
     <Compile Include="Identify\IIdentification.cs" />
+    <Compile Include="Identify\IIdentificationRecipient.cs" />
     <Compile Include="Identify\IIdentificationResult.cs" />
+    <Compile Include="IDigipostRecipient.cs" />
     <Compile Include="IError.cs" />
     <Compile Include="Print\Address.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
@@ -80,12 +79,12 @@
     <Compile Include="Search\ISearchDetailsResult.cs" />
     <Compile Include="Search\SearchDetails.cs" />
     <Compile Include="SendMessage\IMessageDeliveryResult.cs" />
-    <Compile Include="SendMessage\IRecipient.cs" />
     <Compile Include="SendMessage\Document.cs" />
     <Compile Include="SendMessage\IDocument.cs" />
     <Compile Include="SendMessage\IInvoice.cs" />
     <Compile Include="SendMessage\IMessage.cs" />
     <Compile Include="SendMessage\Invoice.cs" />
+    <Compile Include="SendMessage\IRecipientById.cs" />
     <Compile Include="SendMessage\IRecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\ISmsNotification.cs" />
     <Compile Include="SendMessage\Message.cs" />
@@ -125,16 +124,14 @@
     <Compile Include="DataTransferObjects\PrintReturnRecipientDataTransferObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
-    <Compile Include="SendMessage\Recipient.cs" />
     <Compile Include="DataTransferObjects\RecipientDataTransferObject.cs" />
-    <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
+    <Compile Include="SendMessage\RecipientById.cs" />
+    <Compile Include="SendMessage\RecipientByNameAndAddressDataTranferObject.cs" />
     <Compile Include="DataTransferObjects\SmsNotificationDataTransferObject.cs" />
     <Compile Include="RequestContent.cs" />
+    <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

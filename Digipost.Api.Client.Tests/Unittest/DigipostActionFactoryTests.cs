@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 var factory = new DigipostActionFactory();
-                var message = DomainUtility.GetSimpleMessage();
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 //Act
                 var action = factory.CreateClass(message, new ClientConfig(), new X509Certificate2(), "uri");

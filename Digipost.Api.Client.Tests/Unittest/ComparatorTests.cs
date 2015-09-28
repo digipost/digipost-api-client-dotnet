@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                     var recipient =
                         new RecipientDataTransferObject(
-                            new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                            new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
                     var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                         SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
@@ -53,7 +53,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                     var recipient2 =
                         new RecipientDataTransferObject(
-                            new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"),
+                            new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"),
                             printDetails2);
 
                     var document2 = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),

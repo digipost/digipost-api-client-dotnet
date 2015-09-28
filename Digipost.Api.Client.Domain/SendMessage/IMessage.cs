@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain.SendMessage
 {
@@ -8,7 +9,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <summary>
         /// The recipient receiving the message. 
         /// </summary>
-        IRecipient Recipient { get; set; }
+        IDigipostRecipient DigipostRecipient { get; set; }
 
         /// <summary>
         /// Optional. The time when the document will be made visible to the user. 
@@ -37,5 +38,12 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// message on behalf of an organization, and permission to do so is set, this is the parameter to set.
         /// </summary>
         string SenderId { get; set; }
+
+        /// <summary>
+        /// Specifies fallback to print for the current message. If the message is not sent by Digipost, 
+        /// then fallback to print will start.
+        /// </summary>
+        IPrintDetails PrintDetails { get; set; }
+
     }
 }

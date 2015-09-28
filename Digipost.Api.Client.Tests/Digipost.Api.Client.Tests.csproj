@@ -108,8 +108,6 @@
     <Compile Include="Unittest\DtoTests\DocumentTests.cs" />
     <Compile Include="Unittest\DtoTests\DataTransferObjectConverterTests.cs" />
     <Compile Include="Unittest\DtoTests\ForeignAddressTests.cs" />
-    <Compile Include="Unittest\DtoTests\IdentificationByIdTests.cs" />
-    <Compile Include="Unittest\DtoTests\IdentificationByNameAndAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationResultTests.cs" />
     <Compile Include="Unittest\DtoTests\IdentificationTests.cs" />
     <Compile Include="Unittest\DtoTests\InvoiceTests.cs" />
@@ -118,7 +116,8 @@
     <Compile Include="Unittest\DtoTests\PrintDetailsTests.cs" />
     <Compile Include="Unittest\DtoTests\PrintReturnRecipientTests.cs" />
     <Compile Include="Unittest\DtoTests\PrintRecipientTests.cs" />
-    <Compile Include="Unittest\DtoTests\RecipientTests.cs" />
+    <Compile Include="Unittest\DtoTests\RecipientByIdTests.cs" />
+    <Compile Include="Unittest\DtoTests\RecipientByNameAndAddressTests.cs" />
     <Compile Include="Unittest\DtoTests\SmsNotificationTests.cs" />
     <Compile Include="Unittest\SerializeUtilTests.cs" />
     <Compile Include="Unittest\DigipostActionFactoryTests.cs" />

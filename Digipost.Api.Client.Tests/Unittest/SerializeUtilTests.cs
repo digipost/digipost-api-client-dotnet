@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
@@ -54,7 +54,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string messageWithDeliverytimeBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><recipient><personal-identification-number>00000000000</personal-identification-number></recipient><delivery-time>2015-07-27T00:00:00</delivery-time><primary-document><uuid>786711a5-1ed6-4f7c-8eda-a5b762c446cb</uuid><subject>Integrasjonstjest</subject><file-type>txt</file-type><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level></primary-document></message>";
 
-                var messageWithDeliverytime = DomainUtility.GetSimpleMessage();
+                var messageWithDeliverytime = DomainUtility.GetSimpleMessageWithRecipientById();
                 messageWithDeliverytime.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
                 messageWithDeliverytime.DeliveryTime = new DateTime(2015, 07, 27);
                 messageWithDeliverytime.PrimaryDocument.ContentBytes = null;
@@ -75,7 +75,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
@@ -113,7 +113,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
                 //Act
                 var deserializedRecipientBlueprint = SerializeUtil.Deserialize<RecipientDataTransferObject>(recipientBlueprint);
@@ -128,7 +128,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><name-and-address><fullname>Ola Nordmann</fullname><addressline1>Postgirobygget 16</addressline1><postalcode>0001</postalcode><city>Oslo</city></name-and-address></identification>";
-                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
+                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
 
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
@@ -216,7 +216,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { SmsNotification = new SmsNotificationDataTransferObject(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635" };
                 var attachment = new DocumentDataTransferObject("attachment", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
@@ -241,7 +241,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                     SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
 
@@ -261,7 +261,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string messageWithDeliverytimeBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><message xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><recipient><personal-identification-number>00000000000</personal-identification-number></recipient><delivery-time>2015-07-27T00:00:00</delivery-time><primary-document><uuid>786711a5-1ed6-4f7c-8eda-a5b762c446cb</uuid><subject>Integrasjonstjest</subject><file-type>txt</file-type><authentication-level>PASSWORD</authentication-level><sensitivity-level>NORMAL</sensitivity-level></primary-document></message>";
 
-                var simpleMessage = DomainUtility.GetSimpleMessage();
+                var simpleMessage = DomainUtility.GetSimpleMessageWithRecipientById();
                 simpleMessage.PrimaryDocument.Guid = "786711a5-1ed6-4f7c-8eda-a5b762c446cb"; //To ensure that the guid is the same as in the blueprint
                 var messageWithDeliverytime = DataTransferObjectConverter.ToDataTransferObject(simpleMessage);
                 messageWithDeliverytime.DeliveryTime = new DateTime(2015, 07, 27);
@@ -298,7 +298,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var printDetails = new PrintDetailsDataTransferObject(new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0460", "Oslo", "Collettsgate 68", "Leil h401", "dør 2")), new PrintReturnRecipientDataTransferObject("Ola Digipost", new ForeignAddressDataTransferObject(CountryIdentifier.Country, "SE", "svenskegatan 1", " leil h101", "pb 12", "skuff 3")));
                 var recipient =
                     new RecipientDataTransferObject(
-                        new RecipientByNameAndAddress("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
+                        new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
                 //Act
                 var serialized = SerializeUtil.Serialize(recipient);
@@ -314,7 +314,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><name-and-address><fullname>Ola Nordmann</fullname><addressline1>Postgirobygget 16</addressline1><postalcode>0001</postalcode><city>Oslo</city></name-and-address></identification>";
-                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddress("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
+                var identification = new IdentificationDataTransferObject(new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Postgirobygget 16"));
 
                 //Act
                 var serializedIdentificationBlueprint = SerializeUtil.Serialize(identification);

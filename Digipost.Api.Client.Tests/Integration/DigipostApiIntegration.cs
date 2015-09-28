@@ -47,9 +47,25 @@ namespace Digipost.Api.Client.Tests.Integration
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
             [TestMethod]
-            public void ProperRequestSent()
+            public void ProperRequestSentRecipientById()
             {
-                var message = DomainUtility.GetSimpleMessage();
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
+
+                var fakehandler = new FakeHttpClientHandlerForMessageResponse();
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+
+                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
+
+                var digipostApi = new DigipostApi(ClientConfig, Certificate);
+                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
+
+                digipostApi.SendMessage(message);
+            }
+            
+            [TestMethod]
+            public void ProperRequestSentRecipientByNameAndAddress()
+            {
+                var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
 
                 var fakehandler = new FakeHttpClientHandlerForMessageResponse();
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
@@ -67,7 +83,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 try
                 {
-                    var message = DomainUtility.GetSimpleMessage();
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                     const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
                     var messageContent = new StringContent(string.Empty);
@@ -93,7 +109,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 try
                 {
-                    var message = DomainUtility.GetSimpleMessage();
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                     const HttpStatusCode statusCode = HttpStatusCode.NotFound;
                     var messageContent = new StringContent(
@@ -114,8 +130,6 @@ namespace Digipost.Api.Client.Tests.Integration
                     Assert.IsTrue(ex.GetType() == typeof(ClientResponseException));
                 }
             }
-
-            
 
             private static FakeHttpClientHandlerForMessageResponse CreateFakeMessageHttpResponse(HttpStatusCode statusCode,
                 StringContent messageContent)

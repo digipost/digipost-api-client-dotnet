@@ -32,9 +32,9 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         /// <summary>
         /// Identify if recipient exists in Digipost by name and address.
         /// </summary>
-        public IdentificationDataTransferObject(RecipientByNameAndAddress recipientByNameAndAddress)
+        public IdentificationDataTransferObject(RecipientByNameAndAddressDataTranferObject recipientByNameAndAddressDataTranferObject)
         {
-            IdentificationValue = recipientByNameAndAddress;
+            IdentificationValue = recipientByNameAndAddressDataTranferObject;
             IdentificationType = IdentificationChoiceType.NameAndAddress;
         }
 
@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         [XmlElement("digipost-address", typeof (string))]
-        [XmlElement("name-and-address", typeof (RecipientByNameAndAddress))]
+        [XmlElement("name-and-address", typeof (RecipientByNameAndAddressDataTranferObject))]
         [XmlElement("organisation-number", typeof (string))]
         [XmlElement("personal-identification-number", typeof (string))]
         [XmlChoiceIdentifier("IdentificationType")]

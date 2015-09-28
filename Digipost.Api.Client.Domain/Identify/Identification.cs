@@ -1,33 +1,12 @@
-﻿using System;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
-
-namespace Digipost.Api.Client.Domain.Identify
+﻿namespace Digipost.Api.Client.Domain.Identify
 {
-    [Obsolete("Use IdentificationByNameAndAddress or IdentificationById. Will be removed in future version.")]
     public class Identification : IIdentification
     {
-        public IdentificationChoiceType IdentificationChoiceType { get; set; }
+        public DigipostRecipient DigipostRecipient { get; set; }
 
-        public IdentificationType IdentificationType
+        public Identification(DigipostRecipient digipostRecipient)
         {
-            get
-            {
-                throw new NotImplementedException("Use IdentificationByNameAndAddress or IdentificationById class, as this will be removed in future version.");
-            }
+            DigipostRecipient = digipostRecipient;
         }
-
-        public Identification(IdentificationChoiceType identificationChoiceType, string value)
-        {
-            IdentificationChoiceType = identificationChoiceType;
-            Data = value;
-        }
-
-        public Identification(RecipientByNameAndAddress recipientByNameAndAddress)
-        {
-            Data = recipientByNameAndAddress;
-        }
-        
-        public object Data { get; internal set; }
     }
 }

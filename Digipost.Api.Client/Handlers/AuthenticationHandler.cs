@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.Handlers
             request.Headers.Add("Accept", DigipostVersion.V6);
             
             var assemblyVersion = GetAssemblyVersion();
-            request.Headers.Add("UserAgent", assemblyVersion);
+            request.Headers.Add("User-Agent", GetAssemblyVersion());
 
             string contentHash = null;
 
@@ -76,7 +76,7 @@ namespace Digipost.Api.Client.Handlers
 
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-            return string.Format("Digipost-Api/{1} .NET/{0},", netVersion, assemblyVersion);
+            return string.Format("digipost-api-client-dotnet/{0} (.NET/{1})", assemblyVersion, netVersion);
         }
 
         internal static string ComputeHash(byte[] inputBytes)

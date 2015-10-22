@@ -124,9 +124,10 @@ namespace Digipost.Api.Client.Testklient
             //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "31010986802"));
             //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "16014139692"));
             //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448586"));
-            var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448511"));
+            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448511"));
             // var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
-            //var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge", "blåbærveien 1", "0111", "Oslo"));
+            //var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge", "blåbærveien 1", "9999", "Oslo"));
+            var identification = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "896295291"));
 
             try
             {

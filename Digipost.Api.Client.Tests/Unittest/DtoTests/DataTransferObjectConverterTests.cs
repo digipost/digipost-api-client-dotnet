@@ -23,14 +23,15 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         [TestClass]
         public class ToDataTransferObjectMethod : DataTransferObjectConverterTests
         {
+            #region Identification
 
             [TestMethod]
-            public void IdentificationById()
+            public void IdentificationByOrganizationNumber()
             {
                 //Arrange
                 Identification source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
                 IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber, "123456789");
-                
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -39,7 +40,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
-
+            
             [TestMethod]
             public void IdentificationByNameAndAddress()
             {
@@ -56,12 +57,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IdentificationDataTransferObject expectedDto = new IdentificationDataTransferObject(
                    new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
-                    {
-                        AddressLine2 = "Adresselinje2",
-                        BirthDate = DateTime.Today,
-                        PhoneNumber = "123456789",
-                        Email = "tull@epost.no"
-                    }
+                   {
+                       AddressLine2 = "Adresselinje2",
+                       BirthDate = DateTime.Today,
+                       PhoneNumber = "123456789",
+                       Email = "tull@epost.no"
+                   }
                );
 
                 //Act
@@ -72,7 +73,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
-
+            
+            #endregion
+            
             [TestMethod]
             public void RecipientByNameAndAddress()
             {
@@ -80,9 +83,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var birthDate = DateTime.Now;
 
                 var source = new RecipientByNameAndAddress(
-                    fullName: "Ola Nordmann", 
-                    addressLine1: "Biskop Gunnerus Gate 14", 
-                    postalCode: "0001", 
+                    fullName: "Ola Nordmann",
+                    addressLine1: "Biskop Gunnerus Gate 14",
+                    postalCode: "0001",
                     city: "Oslo")
                 {
                     AddressLine2 = "Etasje 15",
@@ -93,10 +96,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(
                     new RecipientByNameAndAddressDataTranferObject(
-                        fullName:"Ola Nordmann", 
-                        postalCode:"0001", 
-                        city:"Oslo", 
-                        addressLine1:"Biskop Gunnerus Gate 14"
+                        fullName: "Ola Nordmann",
+                        postalCode: "0001",
+                        city: "Oslo",
+                        addressLine1: "Biskop Gunnerus Gate 14"
                         )
                     {
                         AddressLine2 = "Etasje 15",
@@ -104,7 +107,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "email@test.no"
                     });
-                
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -122,9 +125,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationType.DigipostAddress,
                     "ola.nordmann#2233"
                     );
-                
+
                 RecipientDataTransferObject expectedDto = new RecipientDataTransferObject(
-                    IdentificationChoiceType.DigipostAddress, 
+                    IdentificationChoiceType.DigipostAddress,
                     "ola.nordmann#2233");
 
                 //Act
@@ -141,7 +144,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                DocumentDataTransferObject expectedDto = new DocumentDataTransferObject("TestSubject","txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
+                DocumentDataTransferObject expectedDto = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
                 expectedDto.Guid = source.Guid;
 
                 //Act
@@ -217,7 +220,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual(0, differences.Count());
             }
 
-
             [TestMethod]
             public void ForeignAddress()
             {
@@ -256,7 +258,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 NorwegianAddress source = new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
 
                 NorwegianAddressDataTransferObject expectedDto = new NorwegianAddressDataTransferObject("0001", "Oslo", "Addr1", "Addr2", "Addr3");
-                
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -291,7 +293,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         ));
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
-                
+
                 //Assert
                 //Assert
                 IEnumerable<IDifference> differences;
@@ -365,7 +367,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
-               //Assert
+                //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
@@ -377,36 +379,36 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 PrintDetails source = new PrintDetails(
                     new PrintRecipient(
-                        "Name", 
+                        "Name",
                         new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
                         new PrintReturnRecipient(
-                            "ReturnName", 
+                            "ReturnName",
                             new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
 
                 var expectedDto = new PrintDetailsDataTransferObject(
                      new PrintRecipientDataTransferObject(
-                         "Name", 
-                         new NorwegianAddressDataTransferObject("0001", "Oslo", "Addr1", "Addr2", "Addr3")),  
+                         "Name",
+                         new NorwegianAddressDataTransferObject("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
                          new PrintReturnRecipientDataTransferObject(
-                             "ReturnName", 
+                             "ReturnName",
                              new NorwegianAddressDataTransferObject("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
-                
+
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.AreEqual(0, differences.Count());
-                Assert.IsNull(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails) null));
+                Assert.IsNull(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails)null));
             }
 
             [TestMethod]
             public void SmsNotification()
             {
                 //Arrange
-                var atTimes = new List<DateTime>{ DateTime.Now, DateTime.Now.AddHours(3)};
-                var afterHours = new List<int>(){4,5};
+                var atTimes = new List<DateTime> { DateTime.Now, DateTime.Now.AddHours(3) };
+                var afterHours = new List<int>() { 4, 5 };
 
                 var source = new SmsNotification();
                 source.NotifyAfterHours.AddRange(afterHours);
@@ -418,7 +420,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Act
                 var actual = DataTransferObjectConverter.ToDataTransferObject(source);
-                
+
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actual, out differences);
@@ -429,83 +431,256 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         [TestClass]
         public class FromDataTransferObjectMethod : DataTransferObjectConverterTests
         {
+            #region Identification
+            #region Personal identification number
+
             [TestMethod]
-            public void IdentificationResultFromPersonalIdentificationNumber()
+            public void IdentificationByPinReturnsDigipostResultWithNoneResultType()
             {
                 //Arrange
-                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
-                source.IdentificationResultCode = IdentificationResultCode.Digipost;
-                source.IdentificationValue = null;
-                source.IdentificationResultType = IdentificationResultType.DigipostAddress;
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Digipost,
+                    IdentificationValue = null,
+                    IdentificationResultType = IdentificationResultType.None
+                };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, string.Empty);
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(source.IdentificationResultType, expected.ResultType);
-                Assert.AreEqual("", actual.Data);
-                Assert.AreEqual(null, actual.Error);
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
             }
 
             [TestMethod]
-            public void IdentificationResultFromPersonByNameAndAddress()
+            public void IdentificationByPinReturnsIdentifiedResultWithNoneResultType()
             {
                 //Arrange
-                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
-                source.IdentificationResultCode = IdentificationResultCode.Digipost;
-                source.IdentificationValue = "jarand.bjarte.t.k.grindheim#8DVE";
-                source.IdentificationResultType = IdentificationResultType.DigipostAddress;
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Identified,
+                    IdentificationValue = null,
+                    IdentificationResultType = IdentificationResultType.None
+                };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, "jarand.bjarte.t.k.grindheim#8DVE");
-
-                //Act
-                IIdentificationResult actual = DataTransferObjectConverter.FromDataTransferObject(source);
-
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
-
-                Assert.AreEqual(source.IdentificationValue, actual.Data);
-                Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
-                Assert.AreEqual(null, actual.Error);
-            }
-
-            [TestMethod]
-            public void IdentificationResultFromUnknownDigipostAddress()
-            {
-                //Arrange
-                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
-                source.IdentificationResultCode = IdentificationResultCode.Unidentified;
-                source.IdentificationValue = "NotFound";
-                source.IdentificationResultType = IdentificationResultType.UnidentifiedReason;
-
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, "NotFound");
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.Personalias, string.Empty);
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
-
-                Assert.AreEqual(source.IdentificationResultType, actual.ResultType);
-                Assert.AreEqual(null, actual.Data);
-                Assert.AreEqual(source.IdentificationValue.ToString(),actual.Error.ToString());
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
             }
+
+            [TestMethod]
+            public void IdentificationByPinReturnsUnidentifiedResultWithUnidentifiedReason()
+            {
+
+                //This case will never happen because Digipost cannot be used to find PINs in use.
+            }
+
+            [TestMethod]
+            public void IdentificationByPinReturnsInvalidResultWithInvalidReason()
+            {
+                //Arrange
+                const string invalidValue = "InvalidPersonalIdentificationNumber";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Invalid,
+                    IdentificationValue = invalidValue,
+                    IdentificationResultType = IdentificationResultType.InvalidReason
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+            #endregion
+
+            #region Address
+            
+            [TestMethod]
+            public void IdentificationByAddressReturnsDigipostResultWithDigipostAddressResultType()
+            {
+                //Arrange
+                const string digipostAddress = "ola.nordmann#1234";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Digipost,
+                    IdentificationValue = digipostAddress,
+                    IdentificationResultType = IdentificationResultType.DigipostAddress
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+            [TestMethod]
+            public void IdentificationByAddressReturnsIdentifiedResultWithPersonalAliasResultType()
+            {
+                //Arrange
+                const string personAlias = "fewoinf23nio3255n32oi5n32oi5n#1234";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Identified,
+                    IdentificationValue = personAlias,
+                    IdentificationResultType = IdentificationResultType.Personalias
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.Personalias, personAlias);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+            [TestMethod]
+            public void IdentificationByAddressReturnsUnidentifiedResultWithUnidentifiedReason()
+            {
+                //Arrange
+                var reason = "NotFound";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Unidentified,
+                    IdentificationValue = reason,
+                    IdentificationResultType = IdentificationResultType.UnidentifiedReason
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+
+            }
+            
+            [TestMethod]
+            public void IdentificationByAddressReturnsInvalidResultWithInvalidReason()
+            {
+                // We validate the request with the XSD, so it will fail before the request is sent.
+            }
+
+            #endregion
+
+            #region Organization number
+
+            [TestMethod]
+            public void IdentificationByOrganizationNumberReturnsDigipostResultWithDigipostAddressResultType()
+            {
+                //Arrange
+                const string digipostAddress = "bedriften#1234";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Digipost,
+                    IdentificationValue = digipostAddress,
+                    IdentificationResultType = IdentificationResultType.DigipostAddress
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+            [TestMethod]
+            public void IdentificationByOrganizationNumberReturnsIdentifiedResultWithPersonAliasResultType()
+            {
+                // Will not happen since we do not have a register of organizations that does not have Digipost
+            }
+
+            [TestMethod]
+            public void IdentificationByOrganizationNumberReturnsUnidentifiedResultWithUnidentifiedReason()
+            {
+                //Arrange
+                var reason = "NotFound";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Unidentified,
+                    IdentificationValue = reason,
+                    IdentificationResultType = IdentificationResultType.UnidentifiedReason
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+            [TestMethod]
+            public void IdentificationByOrganizationNumberReturnsInvalidResultWithInvalidReason()
+            {
+                //Arrange
+                const string invalidValue = "InvalidOrganisationNumber";
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Invalid,
+                    IdentificationValue = invalidValue,
+                    IdentificationResultType = IdentificationResultType.InvalidReason
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue);
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Data, actual.Data);
+                Assert.AreEqual(expected.Error, actual.Error);
+            }
+
+
+            #endregion
+            
+            #endregion
 
             [TestMethod]
             public void Document()
             {
                 //Arrange
                 DocumentDataTransferObject source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
-                
+
                 IDocument expected = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
                 expected.Guid = source.Guid;
-                
+
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
@@ -537,7 +712,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     },
                     DeliveryTime = deliverytime
                 };
-                
+
                 Message expected = new Message(
                     new RecipientById(
                         IdentificationType.DigipostAddress,
@@ -569,7 +744,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
             [TestMethod]
             public void SmsNotification()
-            {   
+            {
                 //Arrange
                 var atTimes = new List<DateTime> { DateTime.Now, DateTime.Now.AddHours(3) };
                 var afterHours = new List<int>() { 4, 5 };

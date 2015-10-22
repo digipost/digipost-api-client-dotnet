@@ -29,14 +29,9 @@ namespace Digipost.Api.Client.Testklient
 
         private static void Main(string[] args)
         {
-            CompareLogic comparelogic = new CompareLogic();
-
-            var v = comparelogic.Compare(new SearchDetails(){DigipostAddress = "Halloen"}, new SearchDetails());
-            List<Difference> diff = v.Differences;
-            var descr = diff.ElementAt(0).GetWhatIsCompared();
-
             //Performance();
-            Send();
+            RunSingle();
+            
             Console.ReadKey();
         }
 
@@ -45,7 +40,7 @@ namespace Digipost.Api.Client.Testklient
             Initializer.Run(); //concurency runner
         }
 
-        private static void Send()
+        private static void RunSingle()
         {
 
             var config = new ClientConfig(SenderId)
@@ -63,9 +58,9 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            //IdentifyPerson(api);
-            SendMessageToPerson(api, false);
-            var response = Search(api);
+            IdentifyPerson(api);
+            //SendMessageToPerson(api, false);
+            //var response = Search(api);
 
             
             //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
@@ -126,17 +121,25 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
 
             //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
-            var identification = new Identification(new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ"));
+            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "31010986802"));
+            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "16014139692"));
+            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448586"));
+            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448511"));
+            // var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
+            //var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge", "blåbærveien 1", "9999", "Oslo"));
+            var identification = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "896295291"));
 
             try
             {
                 var identificationResponse = api.Identify(identification);
                 Logging.Log(TraceEventType.Information, "Identification resp: \n" + identificationResponse);
                 WriteToConsoleWithColor("> Personen ble identifisert!", false);
-                
-                //Console.WriteLine("IdentificationValue: " + identificationResponse.IdentificationValue);
-                //Console.WriteLine("IdentificationType: " + identificationResponse.IdentificationType)
-                ;
+
+                Console.WriteLine("ResultType: " + identificationResponse.ResultType);
+                Console.WriteLine("IdentificationValue: " + identificationResponse.Data);
+                Console.WriteLine("Error: " + identificationResponse.Error);
+
+
 
             }
             catch (ClientResponseException e)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
@@ -19,7 +20,7 @@ namespace Digipost.Api.Client.Domain.Utilities
                 identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((RecipientById)identification.DigipostRecipient);
             }
 
-            if (identification.DigipostRecipient is RecipientByNameAndAddress )
+            if (identification.DigipostRecipient is RecipientByNameAndAddress)
             {
                 identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress)identification.DigipostRecipient);
             }
@@ -30,7 +31,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
-            return new  IdentificationDataTransferObject(
+            return new IdentificationDataTransferObject(
                 recipientById.IdentificationType.ToIdentificationChoiceType(),
                 recipientById.Id
                 );
@@ -59,7 +60,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             var messageDataTransferObject = new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject,
                 message.SenderId)
             {
-                RecipientDataTransferObject = {PrintDetailsDataTransferObject = printDetailsDataTransferObject}
+                RecipientDataTransferObject = { PrintDetailsDataTransferObject = printDetailsDataTransferObject }
             };
 
             foreach (var attachmentDataTransferObject in message.Attachments.Select(ToDataTransferObject))
@@ -96,14 +97,14 @@ namespace Digipost.Api.Client.Domain.Utilities
             {
                 recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddress)recipient);
             }
-            
+
             return recipientDataTransferObject;
         }
 
         private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
         {
             return new RecipientDataTransferObject(
-                recipient.IdentificationType.ToIdentificationChoiceType(), 
+                recipient.IdentificationType.ToIdentificationChoiceType(),
                 recipient.Id
                 );
         }
@@ -138,7 +139,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             var ret = printDetails.PrintReturnRecipient;
 
             PrintDetailsDataTransferObject printDetailsDataTransferObject = new PrintDetailsDataTransferObject(null, null, printDetails.PostType, printDetails.PrintColors, printDetails.NondeliverableHandling);
-            
+
             SetPrintRecipientOnDataTransferObject(recipient, printDetailsDataTransferObject);
             SetPrintReturnRecipientOnDataTranferObject(ret, printDetailsDataTransferObject);
 
@@ -172,7 +173,7 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             if (recipient.Address is INorwegianAddress)
             {
-                var addr = (INorwegianAddress) recipient.Address;
+                var addr = (INorwegianAddress)recipient.Address;
                 printDetailsDataTransferObject.PrintRecipientDataTransferObject =
                     new PrintRecipientDataTransferObject(recipient.Name,
                         new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
@@ -180,7 +181,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             }
             else
             {
-                var addr = (IForeignAddress) recipient.Address;
+                var addr = (IForeignAddress)recipient.Address;
                 printDetailsDataTransferObject.PrintRecipientDataTransferObject =
                     new PrintRecipientDataTransferObject(recipient.Name,
                         new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
@@ -191,18 +192,18 @@ namespace Digipost.Api.Client.Domain.Utilities
         public static ForeignAddressDataTransferObject ToDataTransferObject(IForeignAddress foreignAddress)
         {
             return new ForeignAddressDataTransferObject(
-                foreignAddress.CountryIdentifier, 
-                foreignAddress.CountryIdentifierValue, 
-                foreignAddress.AddressLine1, 
-                foreignAddress.AddressLine2, 
-                foreignAddress.AddressLine3, 
+                foreignAddress.CountryIdentifier,
+                foreignAddress.CountryIdentifierValue,
+                foreignAddress.AddressLine1,
+                foreignAddress.AddressLine2,
+                foreignAddress.AddressLine3,
                 foreignAddress.Addressline4
                 );
         }
 
         public static NorwegianAddressDataTransferObject ToDataTransferObject(INorwegianAddress norwegianAddress)
         {
-            return new NorwegianAddressDataTransferObject(norwegianAddress.PostalCode, norwegianAddress.City,norwegianAddress.AddressLine1,norwegianAddress.AddressLine2, norwegianAddress.AddressLine3);
+            return new NorwegianAddressDataTransferObject(norwegianAddress.PostalCode, norwegianAddress.City, norwegianAddress.AddressLine1, norwegianAddress.AddressLine2, norwegianAddress.AddressLine3);
         }
 
         public static PrintRecipientDataTransferObject ToDataTransferObject(PrintRecipient printRecipient)
@@ -210,7 +211,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             PrintRecipientDataTransferObject printDataTransferObject;
 
             var addressType = printRecipient.Address.GetType();
-            if (typeof (INorwegianAddress).IsAssignableFrom(addressType))
+            if (typeof(INorwegianAddress).IsAssignableFrom(addressType))
             {
                 var address = printRecipient.Address as NorwegianAddress;
 
@@ -221,7 +222,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             {
                 var address = printRecipient.Address as ForeignAddress;
 
-                printDataTransferObject = new PrintRecipientDataTransferObject(printRecipient.Name, 
+                printDataTransferObject = new PrintRecipientDataTransferObject(printRecipient.Name,
                     new ForeignAddressDataTransferObject(address.CountryIdentifier, address.CountryIdentifierValue, address.AddressLine1, address.AddressLine2, address.AddressLine3, address.Addressline4));
             }
 
@@ -274,15 +275,30 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             IdentificationResult identificationResult;
 
-            if (identificationResultDto.IdentificationValue == null)
+            if (identificationResultDto.IdentificationResultType == IdentificationResultType.None)
             {
-                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, "");
+                identificationResult = SetResultTypeForIdentificationResultTypeNone(identificationResultDto);
             }
             else
             {
-                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue.ToString());
+                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue as string);
             }
 
+            return identificationResult;
+        }
+
+        private static IdentificationResult SetResultTypeForIdentificationResultTypeNone(IdentificationResultDataTransferObject identificationResultDto)
+        {
+            IdentificationResult identificationResult = null;
+            switch (identificationResultDto.IdentificationResultCode)
+            {
+                case IdentificationResultCode.Digipost:
+                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
+                    break;
+                case IdentificationResultCode.Identified:
+                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias, "");
+                    break;
+            }
             return identificationResult;
         }
 
@@ -290,7 +306,7 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult()
             {
-                PrimaryDocument = FromDataTransferObject(messageDeliveryResultDataTransferObject.PrimaryDocumentDataTransferObject), 
+                PrimaryDocument = FromDataTransferObject(messageDeliveryResultDataTransferObject.PrimaryDocumentDataTransferObject),
                 Attachments = messageDeliveryResultDataTransferObject.AttachmentsDataTransferObject.Select(documentDataTransferObject => FromDataTransferObject(documentDataTransferObject)).ToList(),
                 DeliveryTime = messageDeliveryResultDataTransferObject.DeliveryTime,
                 DeliveryMethod = messageDeliveryResultDataTransferObject.DeliveryMethod,
@@ -316,10 +332,10 @@ namespace Digipost.Api.Client.Domain.Utilities
             var dateTimes = smsNotificationDataTransferObject.NotifyAtTimes
                 .Select(listedTime => listedTime.Time)
                 .ToList();
-            
+
             var smsNotification = new SmsNotification()
             {
-                NotifyAfterHours = smsNotificationDataTransferObject.NotifyAfterHours, 
+                NotifyAfterHours = smsNotificationDataTransferObject.NotifyAfterHours,
                 NotifyAtTimes = dateTimes
             };
 

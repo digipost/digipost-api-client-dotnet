@@ -433,10 +433,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationResultFromPersonalIdentificationNumber()
             {
                 //Arrange
-                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject();
-                source.IdentificationResultCode = IdentificationResultCode.Digipost;
-                source.IdentificationValue = null;
-                source.IdentificationResultType = IdentificationResultType.DigipostAddress;
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Digipost,
+                    IdentificationValue = null,
+                    IdentificationResultType = IdentificationResultType.DigipostAddress
+                };
 
                 IdentificationResult expected = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
 
@@ -445,7 +447,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Assert
                 Assert.AreEqual(source.IdentificationResultType, expected.ResultType);
-                Assert.AreEqual("", actual.Data);
+                Assert.AreEqual(null, actual.Data);
                 Assert.AreEqual(null, actual.Error);
             }
 
@@ -496,6 +498,33 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual(null, actual.Data);
                 Assert.AreEqual(source.IdentificationValue.ToString(),actual.Error.ToString());
             }
+
+            [TestMethod]
+            public void IdentificationResultFromIdentified()
+            {
+                //Arrange
+                IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
+                {
+                    IdentificationResultCode = IdentificationResultCode.Identified,
+                    IdentificationValue = "",
+                    IdentificationResultType = IdentificationResultType.None
+                };
+
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.Personalias, "");
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expected, actual, out differences);
+                Assert.AreEqual(0, differences.Count());
+
+                Assert.AreEqual(expected.ResultType, actual.ResultType);
+                Assert.AreEqual(expected.Error.ToString(), actual.Error.ToString());
+            }
+
+
 
             [TestMethod]
             public void Document()

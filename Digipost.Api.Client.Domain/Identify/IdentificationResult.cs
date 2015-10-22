@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Identify
 {
     public class IdentificationResult : IIdentificationResult
     {
-        public IdentificationResult(IdentificationResultType resultType, string result)
+        public IdentificationResult(IdentificationResultType resultType, string result = "")
         {
             ResultType = resultType;
             SetResultByIdentificationResultType(result);
@@ -20,7 +20,10 @@ namespace Digipost.Api.Client.Domain.Identify
         private void SetResultByIdentificationResultType(string result)
         {
             bool allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
-                                           ResultType == IdentificationResultType.Personalias;
+                                           ResultType == IdentificationResultType.Personalias ||
+                                           ResultType == IdentificationResultType.None;
+
+            
 
             if (allSuccessfulResultType)
             {

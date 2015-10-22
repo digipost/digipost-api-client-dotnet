@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Search;
@@ -150,6 +151,65 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
             }
+
+            [TestMethod]
+            public void ReturnsProperDeserializedIdentificationResultByPIN_WherePersonIsIdentifiedButNotDigipostUser()
+            {
+                //Arrange
+                const string identificationBlueprint = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><identification-result xmlns=\"http://api.digipost.no/schema/v6\"><result>IDENTIFIED</result></identification-result>";
+                var identificationResult = new IdentificationResultDataTransferObject();
+                identificationResult.IdentificationResultCode = IdentificationResultCode.Identified;
+                identificationResult.IdentificationValue = null;
+                
+
+                //Act
+                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
+
+                //Assert
+                Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint);
+            }
+
+            [TestMethod]
+            public void ReturnsProperDeserializedIdentificationResultByPIN()
+            {
+                //Arrange
+                const string identificationBlueprint = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><identification-result xmlns=\"http://api.digipost.no/schema/v6\"><result>DIGIPOST</result></identification-result>";
+                var identificationResult = new IdentificationResultDataTransferObject();
+                identificationResult.IdentificationResultCode = IdentificationResultCode.Digipost;
+                identificationResult.IdentificationValue = null;
+
+
+                //Act
+                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
+
+                //Assert
+                Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint);
+            }
+
+
+            [TestMethod]
+            public void ReturnsProperDeserializedIdentificationResultByPIN_InvalidPIN()
+            {
+                //Arrange
+                const string identificationBlueprint =
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><identification-result xmlns=\"http://api.digipost.no/schema/v6\"><result>INVALID</result><invalid-reason>INVALID_PERSONAL_IDENTIFICATION_NUMBER</invalid-reason></identification-result>";
+                var identificationResult = new IdentificationResultDataTransferObject();
+                identificationResult.IdentificationResultCode = IdentificationResultCode.Invalid;
+                identificationResult.IdentificationResultType = IdentificationResultType.InvalidReason;
+                
+                identificationResult.IdentificationValue = InvalidReason.InvalidPersonalIdentificationNumber;
+
+
+                //Act
+                var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
+
+                //Assert
+                IEnumerable<IDifference> difference;
+                Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint,out difference );
+
+                Assert.AreEqual(0,difference.Count());
+            }
+            
 
             [TestMethod]
             public void ReturnsProperDeserializedInvoice()

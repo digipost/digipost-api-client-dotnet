@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         public class ConstructorMethod : IdentificationResultTests
         {
             [TestMethod]
-            public void SuccessfulIntentificationResultTypeSetsResult()
+            public void SuccessfulIdentificationResultTypeSetsResult()
             {
                 var enumValues = Enum.GetValues(typeof(IdentificationResultType)).Cast<IdentificationResultType>();
 
@@ -26,14 +26,14 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     if (!failedIdentificationResultType)
                     {
                         //Arrange
-                        const string digipostAddress = "ola.nordmann#2433B";
+                        const string result = "Digipost-address, personalias or empty";
 
-                        IdentificationResult identificationResult = new IdentificationResult(value, digipostAddress);
+                        IdentificationResult identificationResult = new IdentificationResult(value, result);
 
                         //Act
 
                         //Assert
-                        Assert.AreEqual(digipostAddress, identificationResult.Data);
+                        Assert.AreEqual(result, identificationResult.Data);
                         Assert.IsNull(identificationResult.Error);
                     }
                 }

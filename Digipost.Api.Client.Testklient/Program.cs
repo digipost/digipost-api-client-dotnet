@@ -20,9 +20,9 @@ namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private static readonly string Thumbprint = "d6 5e 6c 4c 77 fc 0e 0d c5 f5 ac 32 bc 43 70 1f a8 b0 3d 21";
-        private static readonly string SenderId = "779052";
-        private static readonly string Url = "https://api.digipost.no";
+        private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
+        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
+        private static readonly string Url = Settings.Default.Url;
 
         private static readonly ResourceUtility ResourceUtility =
             new ResourceUtility("Digipost.Api.Client.Testklient.Resources");

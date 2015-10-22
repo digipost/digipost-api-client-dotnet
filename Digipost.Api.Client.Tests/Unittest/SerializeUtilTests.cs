@@ -153,7 +153,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             }
 
             [TestMethod]
-            public void ReturnsProperDeserializedIdentificationResultByPIN_WherePersonIsIdentifiedButNotDigipostUser()
+            public void ReturnsProperDeserializedIdentificationResultByPinWherePersonIsIdentifiedButNotDigipostUser()
             {
                 //Arrange
                 const string identificationBlueprint = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><identification-result xmlns=\"http://api.digipost.no/schema/v6\"><result>IDENTIFIED</result></identification-result>";
@@ -170,7 +170,7 @@ namespace Digipost.Api.Client.Tests.Unittest
             }
 
             [TestMethod]
-            public void ReturnsProperDeserializedIdentificationResultByPIN()
+            public void ReturnsProperDeserializedIdentificationResultByPin()
             {
                 //Arrange
                 const string identificationBlueprint = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><identification-result xmlns=\"http://api.digipost.no/schema/v6\"><result>DIGIPOST</result></identification-result>";
@@ -188,7 +188,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
 
             [TestMethod]
-            public void ReturnsProperDeserializedIdentificationResultByPIN_InvalidPIN()
+            public void ReturnsProperDeserializedIdentificationResultByPinInvalidPin()
             {
                 //Arrange
                 const string identificationBlueprint =

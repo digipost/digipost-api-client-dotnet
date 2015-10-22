@@ -489,7 +489,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationByPinReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                const string invalidValue = "InvalidPersonalIdentificationNumber";
+                object invalidValue = InvalidReason.InvalidPersonalIdentificationNumber;
                 IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
                 {
                     IdentificationResultCode = IdentificationResultCode.Invalid,
@@ -497,7 +497,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue);
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
@@ -562,7 +562,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationByAddressReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
-                var reason = "NotFound";
+                var reason = UnidentifiedReason.NotFound;
                 IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
                 {
                     IdentificationResultCode = IdentificationResultCode.Unidentified,
@@ -570,7 +570,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason);
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
@@ -625,7 +625,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationByOrganizationNumberReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
-                var reason = "NotFound";
+                var reason = UnidentifiedReason.NotFound;
                 IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
                 {
                     IdentificationResultCode = IdentificationResultCode.Unidentified,
@@ -633,7 +633,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason);
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
@@ -648,7 +648,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void IdentificationByOrganizationNumberReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                const string invalidValue = "InvalidOrganisationNumber";
+                object invalidValue = InvalidReason.InvalidOrganisationNumber;
                 IdentificationResultDataTransferObject source = new IdentificationResultDataTransferObject
                 {
                     IdentificationResultCode = IdentificationResultCode.Invalid,
@@ -656,7 +656,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
-                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue);
+                IdentificationResult expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);

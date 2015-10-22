@@ -281,7 +281,7 @@ namespace Digipost.Api.Client.Domain.Utilities
             }
             else
             {
-                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue as string);
+                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue.ToString());
             }
 
             return identificationResult;

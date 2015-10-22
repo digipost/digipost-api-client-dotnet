@@ -273,7 +273,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static IIdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
         {
-            IdentificationResult identificationResult = null;
+            IdentificationResult identificationResult;
 
             if (identificationResultDto.IdentificationResultType == IdentificationResultType.None)
             {
@@ -293,10 +293,10 @@ namespace Digipost.Api.Client.Domain.Utilities
             switch (identificationResultDto.IdentificationResultCode)
             {
                 case IdentificationResultCode.Digipost:
-                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress,"");
+                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
                     break;
                 case IdentificationResultCode.Identified:
-                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias,"");
+                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias, "");
                     break;
             }
             return identificationResult;

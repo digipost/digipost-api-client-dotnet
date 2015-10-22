@@ -593,7 +593,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             #region Organization number
 
             [TestMethod]
-            public void IdentificationByOrganizationNumberReturnsDigipostResultWithNoneResultType()
+            public void IdentificationByOrganizationNumberReturnsDigipostResultWithDigipostAddressResultType()
             {
                 //Arrange
                 const string digipostAddress = "bedriften#1234";
@@ -616,7 +616,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
 
             [TestMethod]
-            public void IdentificationByOrganizationNumberReturnsIdentifiedResultWithNoneResultType()
+            public void IdentificationByOrganizationNumberReturnsIdentifiedResultWithPersonAliasResultType()
             {
                 // Will not happen since we do not have a register of organizations that does not have Digipost
             }

@@ -24,7 +24,7 @@ namespace Digipost.Api.Client
         {
             if (_logAction == null) 
             { 
-                _logAction = ConsoleLogger();
+                return;
             }
 
             if (callerMember == null) 

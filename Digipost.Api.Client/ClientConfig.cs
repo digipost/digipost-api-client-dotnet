@@ -49,7 +49,6 @@ namespace Digipost.Api.Client
             if (!string.IsNullOrEmpty(senderId))
                 _senderId = senderId;
 
-            Logger = Logging.ConsoleLogger();
             LogToFile = SetFromAppConfig("DP:LogToFile", Settings.Default.LogToFile);
             LogPath = SetFromAppConfig("DP:LogPath",
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digipost", "Rest",

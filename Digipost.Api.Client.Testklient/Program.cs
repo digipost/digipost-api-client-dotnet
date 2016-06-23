@@ -20,8 +20,8 @@ namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
-        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
+        private static readonly string Thumbprint = Settings.Default.Thumbprint;
+        private static readonly string SenderId = Settings.Default.SenderId;
         private static readonly string Url = Settings.Default.Url;
 
         private static readonly ResourceUtility ResourceUtility =
@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.Testklient
 
             var config = new ClientConfig(SenderId)
             {
-                ApiUrl = new Uri(Url),
+                
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
                     Console.WriteLine("{0}",
@@ -58,8 +58,8 @@ namespace Digipost.Api.Client.Testklient
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
-            IdentifyPerson(api);
-            //SendMessageToPerson(api, false);
+            //IdentifyPerson(api);
+            SendMessageToPerson(api, false);
             //var response = Search(api);
 
             
@@ -110,7 +110,7 @@ namespace Digipost.Api.Client.Testklient
             catch (Exception e)
             {
 
-                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
+                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException?.Message, true);
             }
         }
 
@@ -182,22 +182,13 @@ namespace Digipost.Api.Client.Testklient
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
 
-            //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddressDataTranferObject("Kristian Sæther Enge", "0460",
-                "Oslo", "Collettsgate 68");
-
-            //Nytt regime for message
+            
             var recipientByNameAndAddressNew = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68");
-
-
-            var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
-
-            //End nytt regime for message
             
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(recipientById, invoice);
+            var message = new Message(recipientByNameAndAddressNew, invoice);
             
             //message.Deliverytime = DateTime.Now.AddDays(1);
 

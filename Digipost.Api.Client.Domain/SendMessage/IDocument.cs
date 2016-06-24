@@ -1,5 +1,4 @@
-﻿using Digipost.Api.Client.Domain.DataTransferObjects;
-using Digipost.Api.Client.Domain.Enums;
+﻿using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.SendMessage
 {
@@ -15,7 +14,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     The subject of the message
         /// </summary>
         string Subject { get; set; }
-        
+
         /// <summary>
         ///     The file type of the document, indicated by file-type.
         /// </summary>
@@ -41,6 +40,5 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     The document encoded as a byte array.
         /// </summary>
         byte[] ContentBytes { get; set; }
-
     }
 }

@@ -18,19 +18,20 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
             /**Must exist for serialization.**/
         }
 
-       public MessageDataTransferObject(RecipientDataTransferObject recipientDataTransferObject, DocumentDataTransferObject primaryDocumentDataTransferObject)
+        public MessageDataTransferObject(RecipientDataTransferObject recipientDataTransferObject, DocumentDataTransferObject primaryDocumentDataTransferObject)
         {
             RecipientDataTransferObject = recipientDataTransferObject;
             PrimaryDocumentDataTransferObject = primaryDocumentDataTransferObject;
             Attachments = new List<DocumentDataTransferObject>();
         }
 
-       public MessageDataTransferObject(RecipientDataTransferObject recipientDataTransferObject, DocumentDataTransferObject primaryDocumentDataTransferObject, string senderId):
-            this(recipientDataTransferObject, primaryDocumentDataTransferObject)
+        public MessageDataTransferObject(RecipientDataTransferObject recipientDataTransferObject, DocumentDataTransferObject primaryDocumentDataTransferObject, string senderId)
+            :
+                this(recipientDataTransferObject, primaryDocumentDataTransferObject)
         {
             SenderId = senderId;
         }
-        
+
         [XmlElement("sender-id")]
         public string SenderId { get; set; }
 
@@ -46,7 +47,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
                 so do not rename.            */
             get { return DeliveryTime != null; }
         }
-        
+
         [XmlElement("primary-document")]
         public DocumentDataTransferObject PrimaryDocumentDataTransferObject { get; set; }
 

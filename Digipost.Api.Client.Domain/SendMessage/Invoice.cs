@@ -39,8 +39,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
         }
 
         public string Kid { get; set; }
+
         public decimal Amount { get; set; }
+
         public string Account { get; set; }
+
         public DateTime Duedate { get; set; }
 
         private static byte[] ExtractBytesFromPath(string path)

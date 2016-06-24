@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,7 +32,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                             new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
 
                     var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                        SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                        SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                     message1 = new MessageDataTransferObject(recipient, document);
                 }
@@ -63,15 +59,13 @@ namespace Digipost.Api.Client.Tests.Unittest
                     message2 = new MessageDataTransferObject(recipient2, document2);
                 }
                 //Act
-                Comparator comparator = new Comparator();
+                var comparator = new Comparator();
                 IEnumerable<IDifference> differences = new List<Difference>();
                 var result = comparator.AreEqual(message1, message2, out differences);
 
                 //Assert
                 Assert.AreEqual(3, differences.Count());
             }
-
         }
-
     }
 }

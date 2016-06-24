@@ -8,17 +8,17 @@ namespace Digipost.Api.Client.Action
 {
     internal class DigipostActionFactory : IDigipostActionFactory
     {
-        public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig, 
+        public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig,
             X509Certificate2 businessCertificate, string uri)
         {
             var type = content.GetType();
 
-            if (typeof(IMessage).IsAssignableFrom(type))
+            if (typeof (IMessage).IsAssignableFrom(type))
             {
                 return new MessageAction((IMessage) content, clientConfig, businessCertificate, uri);
             }
 
-            if (typeof(IIdentification).IsAssignableFrom(type))
+            if (typeof (IIdentification).IsAssignableFrom(type))
             {
                 return new IdentificationAction((IIdentification) content, clientConfig, businessCertificate, uri);
             }

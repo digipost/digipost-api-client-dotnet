@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         [TestClass]
         public class ConstructorMethod : PrintRecipientTests
         {
-            readonly Comparator _comparator = new Comparator();
+            private readonly Comparator _comparator = new Comparator();
 
             [TestMethod]
             public void SimpleConstructor()
@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 const string name = "name";
 
-                PrintRecipient printRecipient = new PrintRecipient(name, DomainUtility.GetNorwegianAddress());
+                var printRecipient = new PrintRecipient(name, DomainUtility.GetNorwegianAddress());
 
                 //Act
 
@@ -30,11 +30,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);
-                
+
                 Assert.AreEqual(0, differences.Count());
             }
- 
-
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Digipost.Api.Client
     {
         private readonly string _senderId = string.Empty;
 
-
         /// <summary>
         ///     Client configuration used for setting up the client with settings.
         /// </summary>
@@ -26,7 +25,7 @@ namespace Digipost.Api.Client
         /// <param name="timeoutInMilliseconds">Timeout intervall for requests made to Digipost, default 30000</param>
         /// <param name="logToFile">Log to file, default false</param>
         /// <param name="logPath">Path to where the logfile wil be placed. Default blank</param>
-        public ClientConfig(string senderId, string apiUrl = "https://api.digipost.no/", int timeoutInMilliseconds= 30000, bool logToFile= false, string logPath = "")
+        public ClientConfig(string senderId, string apiUrl = "https://api.digipost.no/", int timeoutInMilliseconds = 30000, bool logToFile = false, string logPath = "")
         {
             ApiUrl = new Uri(apiUrl);
             TimeoutMilliseconds = timeoutInMilliseconds;

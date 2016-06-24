@@ -7,21 +7,14 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlType("ItemChoiceType", Namespace = "http://api.digipost.no/schema/v6", IncludeInSchema = false)]
     public enum IdentificationResultType
     {
+        [XmlEnum("")] None,
 
-        [XmlEnum("")]
-        None,
+        [XmlEnum("digipost-address")] DigipostAddress,
 
-        [XmlEnum("digipost-address")] 
-        DigipostAddress,
+        [XmlEnum("invalid-reason")] InvalidReason,
 
-        [XmlEnum("invalid-reason")] 
-        InvalidReason,
+        [XmlEnum("person-alias")] Personalias,
 
-        [XmlEnum("person-alias")] 
-        Personalias,
-
-        [XmlEnum("unidentified-reason")] 
-        UnidentifiedReason
-
+        [XmlEnum("unidentified-reason")] UnidentifiedReason
     }
 }

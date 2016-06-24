@@ -1,5 +1,4 @@
 ﻿using System;
-using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,10 +15,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void ConstructWithRecipientAndPrimaryDocument()
             {
                 //Arrange
-                Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(), 
-                    primaryDocument: DomainUtility.GetDocument()
-                    );                
+                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                    );
 
                 //Act
 
@@ -35,10 +32,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var recipient = DomainUtility.GetRecipientByDigipostId();
                 var document = DomainUtility.GetDocument();
                 var printDetails = DomainUtility.GetPrintDetails();
-                
-                Message message = new Message(
-                    digipostRecipient: recipient, 
-                    primaryDocument: document
+
+                var message = new Message(recipient, document
                     );
                 message.PrintDetails = printDetails;
 
@@ -58,11 +53,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void DeliveryTimeNotSpecifiedGivesFalse()
             {
                 //Arrange
-                Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(),
-                    primaryDocument: DomainUtility.GetDocument()
-                    );               
-                
+                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                    );
+
                 //Act
 
                 //Assert
@@ -73,9 +66,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void DeliveryTimeSpecifiedGivesTrue()
             {
                 //Arrange
-                Message message = new Message(
-                    digipostRecipient: DomainUtility.GetRecipientByDigipostId(),
-                    primaryDocument: DomainUtility.GetDocument()
+                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                     ) {DeliveryTime = DateTime.Today};
 
                 //Act
@@ -83,7 +74,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 Assert.IsTrue(message.DeliveryTimeSpecified);
             }
-
         }
     }
 }

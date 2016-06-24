@@ -1,11 +1,6 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
+﻿using ApiClientShared;
 using Digipost.Api.Client.Action;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
@@ -17,7 +12,6 @@ namespace Digipost.Api.Client.Tests.Unittest
     [TestClass]
     public class DigipostActionTests
     {
-
         [TestClass]
         public class RequestContentBody
         {
@@ -61,7 +55,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var content = action.RequestContent;
 
                 //Assert
-                IdentificationDataTransferObject identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
+                var identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
                 var expected = SerializeUtil.Serialize(identificationDto);
                 Assert.AreEqual(expected, content.InnerXml);
             }

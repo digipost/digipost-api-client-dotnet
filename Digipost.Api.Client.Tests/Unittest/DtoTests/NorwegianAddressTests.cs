@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void WhatYouAreTestingOnMethod()
             {
                 //Arrange
-                NorwegianAddress norwegianAddress = new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
+                var norwegianAddress = new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
 
                 //Act
 
@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual("Addr1", norwegianAddress.AddressLine1);
                 Assert.AreEqual("Addr2", norwegianAddress.AddressLine2);
                 Assert.AreEqual("Addr3", norwegianAddress.AddressLine3);
-            } 
+            }
         }
     }
 }

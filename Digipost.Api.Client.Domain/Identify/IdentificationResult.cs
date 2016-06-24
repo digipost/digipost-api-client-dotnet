@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.Identify
             SetResultByIdentificationResultType(result);
         }
 
-        public IdentificationResultType ResultType { get; private set; }
+        public IdentificationResultType ResultType { get; }
 
         public IdentificationError? Error { get; private set; }
 
@@ -19,11 +19,9 @@ namespace Digipost.Api.Client.Domain.Identify
 
         private void SetResultByIdentificationResultType(string result)
         {
-            bool allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
-                                           ResultType == IdentificationResultType.Personalias ||
-                                           ResultType == IdentificationResultType.None;
-
-            
+            var allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
+                                          ResultType == IdentificationResultType.Personalias ||
+                                          ResultType == IdentificationResultType.None;
 
             if (allSuccessfulResultType)
             {

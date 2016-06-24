@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Domain;
-using System.Reflection;
-using System.Linq;
-using System.Net;
-
 
 namespace Digipost.Api.Client.Handlers
 {
     internal class AuthenticationHandler : DelegatingHandler
     {
-        private ClientConfig ClientConfig { get; set; }
-        private string Url { get; set; }
-        private X509Certificate2 BusinessCertificate { get; set; }
-        private string Method { get; set; }
-
         public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, string url,
             HttpMessageHandler innerHandler)
             : base(innerHandler)
@@ -32,20 +25,28 @@ namespace Digipost.Api.Client.Handlers
             Method = WebRequestMethods.Http.Get;
         }
 
+        private ClientConfig ClientConfig { get; }
+
+        private string Url { get; }
+
+        private X509Certificate2 BusinessCertificate { get; }
+
+        private string Method { get; set; }
+
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
             Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - Start!");
-           
+
             var date = DateTime.UtcNow.ToString("R");
             var senderId = ClientConfig.SenderId;
 
             //Logging.Log(TraceEventType.Information, " - Hashing byteStream of body content");
-            
+
             request.Headers.Add("X-Digipost-UserId", senderId);
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", DigipostVersion.V6);
-            
+
             var assemblyVersion = GetAssemblyVersion();
             request.Headers.Add("User-Agent", GetAssemblyVersion());
 
@@ -62,17 +63,15 @@ namespace Digipost.Api.Client.Handlers
             var signature = ComputeSignature(Method, Url, date, contentHash, senderId, BusinessCertificate);
             request.Headers.Add("X-Digipost-Signature", signature);
 
-
             Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - End!");
             return await base.SendAsync(request, cancellationToken);
         }
 
         private static string GetAssemblyVersion()
         {
-            
             var netVersion = Assembly
-                    .GetExecutingAssembly()
-                    .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
+                .GetExecutingAssembly()
+                .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
 
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -114,11 +113,9 @@ namespace Digipost.Api.Client.Handlers
                                 "x-digipost-userid: " + userId + "\n" +
                                 parameters + "\n";
             }
-        
 
             Logging.Log(TraceEventType.Information, messageHeader);
             Logging.Log(TraceEventType.Information, "=== SIGNATURE DATA END ===");
-
 
             var rsa2 = RsaCryptoServiceProvider(businessCertificate);
 

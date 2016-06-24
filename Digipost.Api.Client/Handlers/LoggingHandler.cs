@@ -16,8 +16,8 @@ namespace Digipost.Api.Client.Handlers
             CancellationToken cancellationToken)
         {
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - Start!");
-            Logging.Log(TraceEventType.Information, " LoggingHandler > Request:"+ request);
-            
+            Logging.Log(TraceEventType.Information, " LoggingHandler > Request:" + request);
+
             if (request.Content != null)
             {
                 Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await request.Content.ReadAsStringAsync());
@@ -26,10 +26,10 @@ namespace Digipost.Api.Client.Handlers
             var response = await base.SendAsync(request, cancellationToken);
 
             Logging.Log(TraceEventType.Information, " LoggingHandler >  Response:" + response);
-            
+
             if (response.Content != null)
             {
-                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await response.Content.ReadAsStringAsync());    
+                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await response.Content.ReadAsStringAsync());
             }
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - End!");
             return response;

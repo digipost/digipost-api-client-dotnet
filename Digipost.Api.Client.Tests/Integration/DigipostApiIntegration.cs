@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Tests.Integration
         protected string Uri;
 
         internal AuthenticationHandler CreateHandlerChain(
-                FakeHttpClientHandlerResponse fakehandler)
+            FakeHttpClientHandlerResponse fakehandler)
         {
             var loggingHandler = new LoggingHandler(fakehandler);
             var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 digipostApi.SendMessage(message);
             }
-            
+
             [TestMethod]
             public void ProperRequestSentRecipientByNameAndAddress()
             {
@@ -100,10 +100,10 @@ namespace Digipost.Api.Client.Tests.Integration
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.IsTrue(ex.GetType() == typeof(ClientResponseException));
+                    Assert.IsTrue(ex.GetType() == typeof (ClientResponseException));
                 }
             }
-            
+
             [TestMethod]
             public void ShouldSerializeErrorMessage()
             {
@@ -114,7 +114,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     const HttpStatusCode statusCode = HttpStatusCode.NotFound;
                     var messageContent = new StringContent(
                         @"<?xml version=""1.0"" encoding=""UTF - 8"" standalone=""yes""?><error xmlns=""http://api.digipost.no/schema/v6""><error-code>UNKNOWN_RECIPIENT</error-code><error-message>The recipient does not have a Digipost account.</error-message><error-type>CLIENT_DATA</error-type></error>");
-                    
+
                     var fakehandler = CreateFakeMessageHttpResponse(statusCode, messageContent);
                     var fakeHandlerChain = CreateHandlerChain(fakehandler);
                     var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
@@ -127,7 +127,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.IsTrue(ex.GetType() == typeof(ClientResponseException));
+                    Assert.IsTrue(ex.GetType() == typeof (ClientResponseException));
                 }
             }
 
@@ -141,7 +141,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 };
                 return fakehandler;
             }
-            
+
             private Mock<DigipostActionFactory> CreateMockFactoryReturningMessage(IMessage message, AuthenticationHandler authenticationHandler)
             {
                 var mockFacktory = new Mock<DigipostActionFactory>();
@@ -152,7 +152,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                     {
                         ThreadSafeHttpClient =
-                            new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFacktory;
             }
@@ -237,15 +237,14 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 var fakehandler = new FakeHttpClientHandlerForSearchResponse();
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                
+
                 var mockFacktory = CreateMockFactoryReturningSearch(fakeHandlerChain);
 
                 var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi,mockFacktory);
+                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
 
                 var result = digipostApi.Search(searchString);
                 Assert.IsNotNull(result);
-
             }
 
             private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)

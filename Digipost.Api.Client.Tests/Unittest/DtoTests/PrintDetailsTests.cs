@@ -14,12 +14,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
         [TestClass]
         public class ConstructorMethod : PrintDetailsTests
         {
-            Comparator _comparator = new Comparator();
+            private readonly Comparator _comparator = new Comparator();
+
             [TestMethod]
             public void SimpleConstructor()
             {
                 //Arrange
-                PrintDetails printDetails = new PrintDetails(DomainUtility.GetPrintRecipientWithNorwegianAddress(),
+                var printDetails = new PrintDetails(DomainUtility.GetPrintRecipientWithNorwegianAddress(),
                     DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PostType.A, PrintColors.Colors);
 
                 //Act
@@ -33,12 +34,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
                 Assert.AreEqual(0, printReturnDifference.Count());
 
-                Assert.AreEqual(PostType.A,printDetails.PostType);
+                Assert.AreEqual(PostType.A, printDetails.PostType);
                 Assert.AreEqual(PrintColors.Colors, printDetails.PrintColors);
                 Assert.AreEqual(NondeliverableHandling.ReturnToSender, printDetails.NondeliverableHandling);
-
-
-            } 
+            }
         }
     }
 }

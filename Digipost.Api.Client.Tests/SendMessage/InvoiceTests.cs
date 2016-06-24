@@ -92,7 +92,7 @@ namespace Digipost.Api.Client.Tests.SendMessage
                 Assert.AreEqual(AuthenticationLevel, invoice.AuthenticationLevel);
                 Assert.AreEqual(_smsNotification, invoice.SmsNotification);
 
-                CollectionAssert.AreEqual(fileBytes,invoice.ContentBytes);
+                CollectionAssert.AreEqual(fileBytes, invoice.ContentBytes);
             }
 
             private static string CreateTempFile()

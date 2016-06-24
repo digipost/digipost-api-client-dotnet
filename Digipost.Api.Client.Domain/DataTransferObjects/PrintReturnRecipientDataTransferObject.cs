@@ -5,14 +5,16 @@
         /// <summary>
         ///     Constructor for foreign(not Norwegian) return address
         /// </summary>
-        public PrintReturnRecipientDataTransferObject(string name, ForeignAddressDataTransferObject foreignAddressDataTransferObject) : base(name,foreignAddressDataTransferObject)
+        public PrintReturnRecipientDataTransferObject(string name, ForeignAddressDataTransferObject foreignAddressDataTransferObject)
+            : base(name, foreignAddressDataTransferObject)
         {
         }
 
         /// <summary>
         ///     Constructor for Norwegian return address
         /// </summary>
-        public PrintReturnRecipientDataTransferObject(string name, NorwegianAddressDataTransferObject norwegianAddressDataTransferObject) : base(name,norwegianAddressDataTransferObject)
+        public PrintReturnRecipientDataTransferObject(string name, NorwegianAddressDataTransferObject norwegianAddressDataTransferObject)
+            : base(name, norwegianAddressDataTransferObject)
         {
         }
 

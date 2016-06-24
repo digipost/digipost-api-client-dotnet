@@ -11,15 +11,9 @@ namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
+        private readonly object _threadLock = new object();
         private readonly string _uri;
         private HttpClient _httpClient;
-
-        public ClientConfig ClientConfig { get; set; }
-
-        public X509Certificate2 BusinessCertificate { get; set; }
-        public XmlDocument RequestContent { get; internal set; }
-
-        private readonly object _threadLock = new object();
 
         protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
@@ -28,6 +22,12 @@ namespace Digipost.Api.Client.Action
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
+
+        public ClientConfig ClientConfig { get; set; }
+
+        public X509Certificate2 BusinessCertificate { get; set; }
+
+        public XmlDocument RequestContent { get; internal set; }
 
         internal HttpClient ThreadSafeHttpClient
         {
@@ -38,10 +38,10 @@ namespace Digipost.Api.Client.Action
                     if (_httpClient != null) return _httpClient;
 
                     Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-                    
+
                     var loggingHandler = new LoggingHandler(new HttpClientHandler());
                     var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri,
-                    loggingHandler);
+                        loggingHandler);
 
                     _httpClient = new HttpClient(authenticationHandler)
                     {

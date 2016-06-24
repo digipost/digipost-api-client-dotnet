@@ -15,20 +15,19 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             [TestMethod]
             public void SuccessfulIdentificationResultTypeSetsResult()
             {
-                var enumValues = Enum.GetValues(typeof(IdentificationResultType)).Cast<IdentificationResultType>();
+                var enumValues = Enum.GetValues(typeof (IdentificationResultType)).Cast<IdentificationResultType>();
 
                 foreach (var value in enumValues)
                 {
-
-                    bool failedIdentificationResultType = (value == IdentificationResultType.InvalidReason ||
-                                                           value == IdentificationResultType.UnidentifiedReason);
+                    var failedIdentificationResultType = (value == IdentificationResultType.InvalidReason ||
+                                                          value == IdentificationResultType.UnidentifiedReason);
 
                     if (!failedIdentificationResultType)
                     {
                         //Arrange
                         const string result = "Digipost-address, personalias or empty";
 
-                        IdentificationResult identificationResult = new IdentificationResult(value, result);
+                        var identificationResult = new IdentificationResult(value, result);
 
                         //Act
 
@@ -44,7 +43,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 const string digipostAddress = "ola.nordmann#2433B";
-                IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
+                var identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
 
                 //Act
 
@@ -55,24 +54,23 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             [TestMethod]
             public void IdentificationResultCodeErrorSetsIdentificationErrorNotResult()
             {
-                var enumValues = Enum.GetValues(typeof(IdentificationResultCode)).Cast<IdentificationResultCode>();
+                var enumValues = Enum.GetValues(typeof (IdentificationResultCode)).Cast<IdentificationResultCode>();
 
                 foreach (var value in enumValues)
                 {
-                    bool successfulIdentificationResultCode = (value == IdentificationResultCode.Digipost ||
-                                                 value == IdentificationResultCode.Identified);
+                    var successfulIdentificationResultCode = (value == IdentificationResultCode.Digipost ||
+                                                              value == IdentificationResultCode.Identified);
 
                     if (!successfulIdentificationResultCode)
                     {
                         //Arrange
-                        IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
+                        var identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
 
                         //Act
 
                         //Assert
                         Assert.AreEqual(identificationResult.Error.ToString(), value.ToString());
                         Assert.IsNull(identificationResult.Data);
-
                     }
                 }
             }
@@ -80,12 +78,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             [TestMethod]
             public void InvalidReasonErrorSetsIdentificationErrorNotResult()
             {
-                var enumValues = Enum.GetValues(typeof(InvalidReason)).Cast<InvalidReason>();
+                var enumValues = Enum.GetValues(typeof (InvalidReason)).Cast<InvalidReason>();
 
                 foreach (var value in enumValues)
                 {
                     //Arrange
-                    IdentificationResult identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
+                    var identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
 
                     //Act
 
@@ -95,6 +93,5 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 }
             }
         }
-
     }
 }

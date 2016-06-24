@@ -11,6 +11,8 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [XmlRoot("print-recipient", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public abstract class PrintDataTransferObject
     {
+        private object _address;
+
         protected PrintDataTransferObject(string name,
             ForeignAddressDataTransferObject foreignAddressDataTransferObject)
         {
@@ -32,8 +34,6 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
 
         [XmlElement("name")]
         public string Name { get; set; }
-
-        private object _address;
 
         [XmlElement("foreign-address", typeof (ForeignAddressDataTransferObject))]
         [XmlElement("norwegian-address", typeof (NorwegianAddressDataTransferObject))]

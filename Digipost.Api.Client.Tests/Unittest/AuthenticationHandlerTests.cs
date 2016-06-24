@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using ApiClientShared;
 using Digipost.Api.Client.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,7 +9,6 @@ namespace Digipost.Api.Client.Tests.Unittest
     [TestClass]
     public class AuthenticationHandlerTests
     {
-
         [TestClass]
         public class ComputeSignatureMethod
         {
@@ -26,7 +23,6 @@ namespace Digipost.Api.Client.Tests.Unittest
                 const string expectedSignature = "tE/WjL2wot+DB42kiuCnDNm0WgBT/UPFoVGCewomssiKKfILqVu0MDjRo3qwjFRnW3jVqppGnJL5Nq2cl3APCo9nlnizGSd/YXr26XijHPmcgEr48hfnSypQ54TQ6q6swW1Eigq8xcoU3c6R7IkEE5R+rN4f3qpFvc252NHEWgn9QEJGHOE5782PGXggBDPaW/rf1v2i/AtXU1gi0VGg+TagFwLcvF4qNFZB5sg1slGEFV1C9hKpDWrB+uxrRXGiOW60sYEQ+HpxgnHcg5IlKrgUwlbSH/wnKSVnrJ81UzA4zX+oqmtjYdww98E6JFebrS7FBVhG67wqbVDlxY/KVw==";
                 var certificate = TestProperties.Certificate();
                 var dateTime = new DateTime(2014, 07, 07, 12, 00, 02).ToString("R");
-
 
                 //Act
                 var computedSignature = AuthenticationHandler.ComputeSignature(method, uri, dateTime, sha256Hash, senderId,
@@ -55,7 +51,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var expectedCspCryptoServiceProvider = new RSACryptoServiceProvider();
                 expectedCspCryptoServiceProvider.ImportCspBlob(Convert.FromBase64String(expectedCspBlob));
                 Assert.AreEqual(expectedCspBlob, actualCspBlob);
-            }    
+            }
         }
 
         [TestClass]
@@ -73,9 +69,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 var expectedHash = "gvXOB75lBGBY6LVTAVVpapZkBOv531VUE0EHrP2rryE=";
                 Assert.AreEqual(expectedHash, computedHash);
-
             }
         }
-
     }
 }

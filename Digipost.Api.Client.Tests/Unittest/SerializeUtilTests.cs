@@ -30,25 +30,24 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
-                var attachment =  new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
-
+                var attachment = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
+                    SensitivityLevel.Sensitive) {Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document);
                 messageTemplate.Attachments.Add(attachment);
 
                 //Act
                 var deserializedMessageBlueprint = SerializeUtil.Deserialize<MessageDataTransferObject>(messageBlueprint);
-                document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
+                document.ContentBytes = null; //Bytes are not included as a part of XML (XmlIgnore)
                 attachment.ContentBytes = null; //Bytes are not included as a part of XML (XmlIgnore)
-                
+
                 //Assert
                 Assert.IsNull(deserializedMessageBlueprint.DeliveryTime);
                 Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
             }
-            
+
             [TestMethod]
             public void ReturnProperDeserializedMessageWithDeliveryTime()
             {
@@ -64,9 +63,8 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedMessageWithDeliverytime = SerializeUtil.Deserialize<MessageDataTransferObject>(messageWithDeliverytimeBlueprint);
 
                 //Assert
-               Comparator.AreEqual(messageWithDeliverytime, deserializedMessageWithDeliverytime);
+                Comparator.AreEqual(messageWithDeliverytime, deserializedMessageWithDeliverytime);
             }
-
 
             [TestMethod]
             public void ReturnsProperDeserializedMessageWithSenderOrganizationId()
@@ -78,16 +76,16 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
-                
+
                 //Act
                 var deserializedMessageBlueprint = SerializeUtil.Deserialize<MessageDataTransferObject>(messageBlueprint);
-                document.ContentBytes = null;   //Bytes are not included as a part of XML (XmlIgnore)
+                document.ContentBytes = null; //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-               Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
+                Comparator.AreEqual(messageTemplate, deserializedMessageBlueprint);
             }
 
             [TestMethod]
@@ -96,14 +94,14 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 //Act
                 var deserializedDocumentBlueprint = SerializeUtil.Deserialize<DocumentDataTransferObject>(documentBlueprint);
-                document.ContentBytes = null;    //Bytes are not included as a part of XML (XmlIgnore)
+                document.ContentBytes = null; //Bytes are not included as a part of XML (XmlIgnore)
 
                 //Assert
-               Comparator.AreEqual(document, deserializedDocumentBlueprint);
+                Comparator.AreEqual(document, deserializedDocumentBlueprint);
             }
 
             [TestMethod]
@@ -120,8 +118,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedRecipientBlueprint = SerializeUtil.Deserialize<RecipientDataTransferObject>(recipientBlueprint);
 
                 //Assert
-               Comparator.AreEqual(recipient, deserializedRecipientBlueprint);
-
+                Comparator.AreEqual(recipient, deserializedRecipientBlueprint);
             }
 
             [TestMethod]
@@ -135,21 +132,21 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
 
                 //Assert
-               Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
+                Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
             }
-            
+
             [TestMethod]
             public void ReturnsProperDeserializedIdentificationByDigipostAddress()
             {
                 //Arrange
                 const string identificationBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><identification xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><digipost-address>ola.nordmann#123abc</digipost-address></identification>";
                 var identification = new IdentificationDataTransferObject(IdentificationChoiceType.DigipostAddress, "ola.nordmann#123abc");
-                
+
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationDataTransferObject>(identificationBlueprint);
 
                 //Assert
-               Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
+                Comparator.AreEqual(identification, deserializedIdentificationBlueprint);
             }
 
             [TestMethod]
@@ -160,7 +157,6 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var identificationResult = new IdentificationResultDataTransferObject();
                 identificationResult.IdentificationResultCode = IdentificationResultCode.Identified;
                 identificationResult.IdentificationValue = null;
-                
 
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
@@ -178,14 +174,12 @@ namespace Digipost.Api.Client.Tests.Unittest
                 identificationResult.IdentificationResultCode = IdentificationResultCode.Digipost;
                 identificationResult.IdentificationValue = null;
 
-
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
 
                 //Assert
                 Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint);
             }
-
 
             [TestMethod]
             public void ReturnsProperDeserializedIdentificationResultByPinInvalidPin()
@@ -196,20 +190,18 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var identificationResult = new IdentificationResultDataTransferObject();
                 identificationResult.IdentificationResultCode = IdentificationResultCode.Invalid;
                 identificationResult.IdentificationResultType = IdentificationResultType.InvalidReason;
-                
-                identificationResult.IdentificationValue = InvalidReason.InvalidPersonalIdentificationNumber;
 
+                identificationResult.IdentificationValue = InvalidReason.InvalidPersonalIdentificationNumber;
 
                 //Act
                 var deserializedIdentificationBlueprint = SerializeUtil.Deserialize<IdentificationResultDataTransferObject>(identificationBlueprint);
 
                 //Assert
                 IEnumerable<IDifference> difference;
-                Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint,out difference );
+                Comparator.AreEqual(identificationResult, deserializedIdentificationBlueprint, out difference);
 
-                Assert.AreEqual(0,difference.Count());
+                Assert.AreEqual(0, difference.Count());
             }
-            
 
             [TestMethod]
             public void ReturnsProperDeserializedInvoice()
@@ -217,32 +209,32 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
                 var invoice = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 //Act
                 var deserializedInvoice = SerializeUtil.Deserialize<InvoiceDataTransferObject>(invoiceBlueprint);
 
                 //Assert
-               Comparator.AreEqual(invoice, deserializedInvoice);
+                Comparator.AreEqual(invoice, deserializedInvoice);
             }
-            
+
             [TestMethod]
             public void ReturnsProperDeserializedSearchResult()
             {
                 //Arrange
                 const string personDetailsResultBlueprint =
                     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><recipients xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename></middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address><link rel=\"https://qa2.api.digipost.no/relations/self\" uri=\"https://qa2.api.digipost.no/recipients/jon.aleksander.aase%239PNU\" media-type=\"application/vnd.digipost-v6+xml\"/></recipient></recipients>";
-                
-                SearchDetailsResult searchDetailsResult = new SearchDetailsResult
+
+                var searchDetailsResult = new SearchDetailsResult
                 {
                     PersonDetails = new List<SearchDetails>
                     {
                         new SearchDetails
                         {
-                            DigipostAddress = "aleksander.larsen#XX22DD", 
+                            DigipostAddress = "aleksander.larsen#XX22DD",
                             FirstName = "aleksander",
                             MiddleName = "",
-                            LastName = "larsen", 
+                            LastName = "larsen",
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
                             SearchDetailsAddress = new SearchDetailsAddress
@@ -261,7 +253,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var deserializedPersonDetailsResultBlueprint = SerializeUtil.Deserialize<SearchDetailsResult>(personDetailsResultBlueprint);
 
                 //Assert
-               Comparator.AreEqual(searchDetailsResult, deserializedPersonDetailsResultBlueprint);
+                Comparator.AreEqual(searchDetailsResult, deserializedPersonDetailsResultBlueprint);
             }
         }
 
@@ -278,21 +270,20 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { SmsNotification = new SmsNotificationDataTransferObject(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635" };
+                    SensitivityLevel.Sensitive) {SmsNotification = new SmsNotificationDataTransferObject(2), Guid = "03fdf738-5c7e-420d-91e2-2b95e025d635"};
                 var attachment = new DocumentDataTransferObject("attachment", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "c75d8cb9-bd47-4ae7-9bd3-92105d12f49a" };
+                    SensitivityLevel.Sensitive) {Guid = "c75d8cb9-bd47-4ae7-9bd3-92105d12f49a"};
                 var message = new MessageDataTransferObject(recipient, document);
                 message.Attachments.Add(attachment);
 
                 //Act
                 var serialized = SerializeUtil.Serialize(message);
-                
+
                 //Assert
                 Assert.IsNotNull(serialized);
                 Assert.AreEqual(messageBlueprint, serialized);
-
             }
-            
+
             [TestMethod]
             public void ReturnsProperSerializedMessageWithSenderOrganizationId()
             {
@@ -303,13 +294,13 @@ namespace Digipost.Api.Client.Tests.Unittest
                     new RecipientDataTransferObject(
                         new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0460", "Oslo", "Colletts gate 68"), printDetails);
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 var messageTemplate = new MessageDataTransferObject(recipient, document, "1237732");
 
                 //Act
                 var serializedMessage = SerializeUtil.Serialize(messageTemplate);
-          
+
                 //Assert
                 Assert.IsNotNull(serializedMessage);
                 Assert.AreEqual(messageBlueprint, serializedMessage);
@@ -333,14 +324,14 @@ namespace Digipost.Api.Client.Tests.Unittest
                 Assert.IsNotNull(serializedMessageWithDeliverytime);
                 Assert.AreEqual(messageWithDeliverytimeBlueprint, serializedMessageWithDeliverytime);
             }
-            
+
             [TestMethod]
             public void ReturnProperSerializedDocument()
             {
                 //Arrange
                 const string documentBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><document xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level></document>";
                 var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    SensitivityLevel.Sensitive) {Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 //Act
                 var serialized = SerializeUtil.Serialize(document);
@@ -362,11 +353,10 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                 //Act
                 var serialized = SerializeUtil.Serialize(recipient);
-                
+
                 //Assert
                 Assert.IsNotNull(serialized);
                 Assert.AreEqual(recipientBlueprint, serialized);
-
             }
 
             [TestMethod]
@@ -404,8 +394,8 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 const string invoiceBlueprint = @"<?xml version=""1.0"" encoding=""utf-8""?><invoice xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://api.digipost.no/schema/v6""><uuid>123456</uuid><subject>Subject</subject><file-type>txt</file-type><sms-notification><after-hours>2</after-hours></sms-notification><authentication-level>TWO_FACTOR</authentication-level><sensitivity-level>SENSITIVE</sensitivity-level><kid>123123123123</kid><amount>100</amount><account>18941362738</account><due-date>2018-01-01</due-date></invoice>";
-                var invoice = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),100,"18941362738",DateTime.Parse("2018-01-01"),"123123123123", AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive) { Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                var invoice = new InvoiceDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), 100, "18941362738", DateTime.Parse("2018-01-01"), "123123123123", AuthenticationLevel.TwoFactor,
+                    SensitivityLevel.Sensitive) {Guid = "123456", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                 //Act
                 var serializedIdentification = SerializeUtil.Serialize(invoice);
@@ -421,17 +411,17 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Arrange
                 const string personDetailsResultBlueprint =
                     "<?xml version=\"1.0\" encoding=\"utf-8\"?><recipients xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/v6\"><recipient><firstname>aleksander</firstname><middlename>mellan</middlename><lastname>larsen</lastname><digipost-address>aleksander.larsen#XX22DD</digipost-address><mobile-number>45456565</mobile-number><organisation-name>organ-isasjonen</organisation-name><address><street>gronerlukkagata</street><house-number>47</house-number><additional-addressline>ekstrainfo</additional-addressline><zip-code>0475</zip-code><city>oslo</city></address></recipient></recipients>";
-                     
-                SearchDetailsResult searchDetailsResult = new SearchDetailsResult
+
+                var searchDetailsResult = new SearchDetailsResult
                 {
                     PersonDetails = new List<SearchDetails>
                     {
                         new SearchDetails
                         {
-                            DigipostAddress = "aleksander.larsen#XX22DD", 
+                            DigipostAddress = "aleksander.larsen#XX22DD",
                             FirstName = "aleksander",
                             MiddleName = "mellan",
-                            LastName = "larsen", 
+                            LastName = "larsen",
                             MobileNumber = "45456565",
                             OrganizationName = "organ-isasjonen",
                             SearchDetailsAddress = new SearchDetailsAddress
@@ -453,6 +443,5 @@ namespace Digipost.Api.Client.Tests.Unittest
                 Assert.AreEqual(personDetailsResultBlueprint, serializedPersonDetailsResult);
             }
         }
-
     }
 }

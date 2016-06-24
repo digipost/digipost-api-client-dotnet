@@ -6,19 +6,19 @@ using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Api
 {
-    public class DigipostClient 
+    public class DigipostClient
     {
-
         private readonly DigipostApi _api;
+
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            _api = new DigipostApi(clientConfig,businessCertificate);
+            _api = new DigipostApi(clientConfig, businessCertificate);
             Logging.Initialize(clientConfig);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
         {
-            _api = new DigipostApi(clientConfig,thumbprint);
+            _api = new DigipostApi(clientConfig, thumbprint);
             Logging.Initialize(clientConfig);
         }
 

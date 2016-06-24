@@ -14,8 +14,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
-                ForeignAddress foreignAddress = new ForeignAddress(
-                    CountryIdentifier.Country, 
+                var foreignAddress = new ForeignAddress(
+                    CountryIdentifier.Country,
                     "NO",
                     "Adresselinje1",
                     "Adresselinje2",
@@ -31,9 +31,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.AreEqual("Adresselinje2", foreignAddress.AddressLine2);
                 Assert.AreEqual("Adresselinje3", foreignAddress.AddressLine3);
                 Assert.AreEqual("Adresselinje4", foreignAddress.Addressline4);
-            } 
+            }
         }
-
-
     }
 }

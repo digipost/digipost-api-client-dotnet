@@ -4,11 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
-    [XmlInclude(typeof(InvoiceDataTransferObject))]
+    [XmlInclude(typeof (InvoiceDataTransferObject))]
     [Serializable]
     [DebuggerStepThrough]
     [DesignerCategory("code")]
@@ -33,7 +32,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         {
             /* Must exist for serialization */
         }
-        
+
         [XmlElement("uuid")]
         public string Guid { get; set; }
 
@@ -48,10 +47,10 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
 
         [XmlElement("authentication-level")]
         public AuthenticationLevel AuthenticationLevel { get; set; }
-        
+
         [XmlElement("sensitivity-level")]
         public SensitivityLevel SensitivityLevel { get; set; }
-        
+
         [XmlIgnore]
         public byte[] ContentBytes { get; set; }
 

@@ -16,7 +16,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         /// <summary>
-        /// Norwegian address for use when sending a letter within Norway.
+        ///     Norwegian address for use when sending a letter within Norway.
         /// </summary>
         /// <param name="postalCode">Postal code for the address provided.</param>
         /// <param name="city">City in which the address resides.</param>

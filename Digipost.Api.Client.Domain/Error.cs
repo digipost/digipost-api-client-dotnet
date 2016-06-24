@@ -16,9 +16,6 @@ namespace Digipost.Api.Client.Domain
             /**must exist for serializing**/
         }
 
-        [XmlElement("error-code")]
-        public string Errorcode { get; set; }
-
         [XmlElement("error-message")]
         public string Errormessage { get; set; }
 
@@ -27,6 +24,9 @@ namespace Digipost.Api.Client.Domain
 
         [XmlElement("link")]
         public List<Link> Link { get; set; }
+
+        [XmlElement("error-code")]
+        public string Errorcode { get; set; }
 
         public override string ToString()
         {

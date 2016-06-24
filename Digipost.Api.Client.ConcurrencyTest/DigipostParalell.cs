@@ -14,7 +14,8 @@ namespace ConcurrencyTester
         private readonly int _degreeOfParallelism;
 
         public DigipostParalell(int numberOfRequests, int defaultConnectionLimit, int degreeOfParallelism,
-            ClientConfig clientConfig, string thumbprint) :
+            ClientConfig clientConfig, string thumbprint)
+            :
                 base(clientConfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;

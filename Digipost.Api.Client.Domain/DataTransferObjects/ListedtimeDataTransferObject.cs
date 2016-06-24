@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
-    public class ListedTimeDataTransferObject 
+    public class ListedTimeDataTransferObject
     {
         private ListedTimeDataTransferObject()
         {
@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         {
             Time = time;
         }
-        
+
         [XmlAttribute("time")]
         public DateTime Time { get; set; }
     }

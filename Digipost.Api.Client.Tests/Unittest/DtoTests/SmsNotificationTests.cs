@@ -10,18 +10,18 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
     [TestClass]
     public class SmsNotificationTests
     {
-        Comparator _comparator = new Comparator();
+        private readonly Comparator _comparator = new Comparator();
 
         [TestClass]
-        public class ConstructorMethod : SmsNotificationTests {
-            
+        public class ConstructorMethod : SmsNotificationTests
+        {
             [TestMethod]
             public void WithSendingTime()
             {
                 //Arrange
                 var firstSmsNotification = DateTime.Today;
                 var secondSmsNotification = DateTime.Today.AddDays(1);
-                var expected = new List<DateTime>{firstSmsNotification, secondSmsNotification};
+                var expected = new List<DateTime> {firstSmsNotification, secondSmsNotification};
                 ISmsNotification smsNotification = new SmsNotification(expected.ToArray());
 
                 //Act
@@ -30,8 +30,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0,differences.Count());
-
+                Assert.AreEqual(0, differences.Count());
             }
 
             [TestMethod]
@@ -40,9 +39,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 var firstSmsNotification = 2;
                 var secondSmsNotification = 5;
-                var expected = new List<int> { firstSmsNotification, secondSmsNotification };
-                ISmsNotification smsNotification = new SmsNotification(expected.ToArray()); 
-               
+                var expected = new List<int> {firstSmsNotification, secondSmsNotification};
+                ISmsNotification smsNotification = new SmsNotification(expected.ToArray());
+
                 //Act
                 var actual = smsNotification.NotifyAfterHours;
 
@@ -50,7 +49,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
                 Assert.AreEqual(0, differences.Count());
-
             }
         }
     }

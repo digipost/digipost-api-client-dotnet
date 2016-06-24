@@ -40,10 +40,9 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         [XmlElement("post-type")]
         public PostType PostType { get; set; }
 
-        
         [XmlElement("color")]
         public PrintColors Color { get; set; }
-        
+
         /// <summary>
         ///     Determines the exception handling that will occur when the letter can not be delivered.
         /// </summary>

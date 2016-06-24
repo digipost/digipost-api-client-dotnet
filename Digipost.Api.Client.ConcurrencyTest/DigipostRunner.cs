@@ -4,7 +4,6 @@ using System.Threading;
 using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
-using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;

@@ -4,9 +4,6 @@ namespace Digipost.Api.Client.Domain.Print
 {
     public class PrintDetails : IPrintDetails
     {
-        public IPrintRecipient PrintRecipient { get; set; }
-        public IPrintReturnRecipient PrintReturnRecipient { get; set; }
-
         public PrintDetails(IPrintRecipient printRecipient, IPrintReturnRecipient printReturnRecipient, PostType postType = PostType.B, PrintColors printColors = PrintColors.Monochrome)
         {
             PrintRecipient = printRecipient;
@@ -15,9 +12,13 @@ namespace Digipost.Api.Client.Domain.Print
             PrintColors = printColors;
             NondeliverableHandling = NondeliverableHandling.ReturnToSender;
         }
-        
+
+        public IPrintRecipient PrintRecipient { get; set; }
+
+        public IPrintReturnRecipient PrintReturnRecipient { get; set; }
+
         public PostType PostType { get; set; }
-        
+
         public PrintColors PrintColors { get; set; }
 
         public NondeliverableHandling NondeliverableHandling { get; internal set; }

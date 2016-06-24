@@ -157,6 +157,39 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
 
             [TestMethod]
+            public void Invoice()
+            {
+                //Arrange
+                const string subject = "subject";
+                const string fileType = "txt";
+                const int amount = 2;
+                var contentBytes = new byte[] {0xb2};
+                const string account = "1234";
+                var duedate = DateTime.Now;
+                const string kid = "123123123";
+                const AuthenticationLevel authenticationLevel = AuthenticationLevel.TwoFactor;
+                const SensitivityLevel sensitivityLevel = SensitivityLevel.Sensitive;
+                var smsNotification = new SmsNotification(DateTime.Now);
+                var smsNotificationDto = DataTransferObjectConverter.ToDataTransferObject(smsNotification);
+
+                var sourceInvoice = new Invoice(subject, fileType, contentBytes, amount, account, duedate, kid, authenticationLevel, sensitivityLevel,smsNotification);
+                var expectedDto = new InvoiceDataTransferObject(subject, fileType, contentBytes, amount, account,
+                    duedate, kid, authenticationLevel, sensitivityLevel, smsNotificationDto)
+                {
+                    Guid = sourceInvoice.Guid
+                };
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(sourceInvoice);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.AreEqual(0, differences.Count());
+
+            }
+
+            [TestMethod]
             public void Message()
             {
                 //Arrange

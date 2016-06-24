@@ -75,15 +75,30 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static DocumentDataTransferObject ToDataTransferObject(IDocument document)
         {
-            var documentDataTransferObject = new DocumentDataTransferObject(document.Subject, document.FileType,
-                document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, ToDataTransferObject(document.SmsNotification))
+            if (document is Invoice)
             {
-                Guid = document.Guid
-            };
+                var invoice = (Invoice) document;
+                var smsNotificationDto = ToDataTransferObject(invoice.SmsNotification);
+                var invoiceDataTransferObject = new InvoiceDataTransferObject(invoice.Subject, invoice.FileType,invoice.ContentBytes, invoice.Amount, invoice.Account, invoice.Duedate, invoice.Kid,invoice.AuthenticationLevel, invoice.SensitivityLevel, smsNotificationDto)
+                {
+                    Guid = document.Guid
+                };
 
-            return documentDataTransferObject;
+                return invoiceDataTransferObject;
+            }
+            else if (document is Document)
+            {
+                var documentDataTransferObject = new DocumentDataTransferObject(document.Subject, document.FileType,
+                document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, ToDataTransferObject(document.SmsNotification))
+                {
+                    Guid = document.Guid
+                };
+                return documentDataTransferObject;
+            }
+
+            throw new ArgumentException($"{document.GetType()} is not a known document type. Expected types are {typeof (Invoice)} or {typeof (Document)}.");
         }
-
+        
         public static RecipientDataTransferObject ToDataTransferObject(IDigipostRecipient recipient)
         {
             RecipientDataTransferObject recipientDataTransferObject = null;

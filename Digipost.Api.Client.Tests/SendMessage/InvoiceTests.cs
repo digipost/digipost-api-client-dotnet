@@ -21,7 +21,6 @@ namespace Digipost.Api.Client.Tests.SendMessage
             private const AuthenticationLevel AuthenticationLevel = Domain.Enums.AuthenticationLevel.Password;
             private const SensitivityLevel SensitivityLevel = Domain.Enums.SensitivityLevel.Normal;
             private readonly DateTime _duedate = DateTime.Now;
-
             private readonly ISmsNotification _smsNotification = new SmsNotification(1);
 
             [TestMethod]
@@ -54,16 +53,7 @@ namespace Digipost.Api.Client.Tests.SendMessage
             public void ConstructorPathTest()
             {
                 //Arrange
-                var tempFile = Path.GetTempFileName();
-                using (var fileStream = new FileStream(tempFile, FileMode.Append))
-                {
-                    using (var writer = new StreamWriter(fileStream))
-                    {
-                        writer.WriteLine("testulf testesen");
-                        writer.Flush();
-                        writer.Close();
-                    }
-                }
+                var tempFile = CreateTempFile();
 
                 //Act
                 var invoice = new Invoice(Subject, FileType, tempFile, Amount, Account, _duedate, Kid,
@@ -81,6 +71,43 @@ namespace Digipost.Api.Client.Tests.SendMessage
                 var expectedBytes = BytesFromFileStream(new FileStream(tempFile, FileMode.Open));
                 var sutBytes = invoice.ContentBytes;
                 CollectionAssert.AreEqual(expectedBytes, sutBytes);
+            }
+
+            [TestMethod]
+            public void ConstructorBytesTest()
+            {
+                //Arrange
+                var fileBytes = GetBytesFromEmbeddedResource();
+
+                //Act
+                var invoice = new Invoice(Subject, FileType, fileBytes, Amount, Account, _duedate, Kid,
+                    AuthenticationLevel, SensitivityLevel, _smsNotification);
+                //Assert
+                Assert.AreEqual(Subject, invoice.Subject);
+                Assert.AreEqual(FileType, invoice.FileType);
+                Assert.AreEqual(Amount, invoice.Amount);
+                Assert.AreEqual(Account, invoice.Account);
+                Assert.AreEqual(_duedate, invoice.Duedate);
+                Assert.AreEqual(Kid, invoice.Kid);
+                Assert.AreEqual(AuthenticationLevel, invoice.AuthenticationLevel);
+                Assert.AreEqual(_smsNotification, invoice.SmsNotification);
+
+                CollectionAssert.AreEqual(fileBytes,invoice.ContentBytes);
+            }
+
+            private static string CreateTempFile()
+            {
+                var tempFile = Path.GetTempFileName();
+                using (var fileStream = new FileStream(tempFile, FileMode.Append))
+                {
+                    using (var writer = new StreamWriter(fileStream))
+                    {
+                        writer.WriteLine("testulf testesen");
+                        writer.Flush();
+                        writer.Close();
+                    }
+                }
+                return tempFile;
             }
 
             private static byte[] GetBytesFromEmbeddedResource()

@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 var dueDate = DateTime.Now.AddDays(20);
-                var invoice = new FakeInvoice("An invoice", "txt", "c://imaginary/file", 125, "13452564677", dueDate, "1234567890kid");
+                var invoice = new FakeInvoice("An invoice", "txt", Path.GetTempPath(), 125, "13452564677", dueDate, "1234567890kid");
 
                 //Act
 

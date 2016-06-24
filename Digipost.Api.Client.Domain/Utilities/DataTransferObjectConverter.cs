@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
                 return invoiceDataTransferObject;
             }
-            if (document is Document)
+            else if (document is Document)
             {
                 var documentDataTransferObject = new DocumentDataTransferObject(document.Subject, document.FileType,
                     document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, ToDataTransferObject(document.SmsNotification))

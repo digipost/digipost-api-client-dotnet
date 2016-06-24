@@ -25,7 +25,7 @@ namespace Digipost.Api.Client.Testklient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("d6 5e 6c 4c 77 fc 0e 0d c5 f5 ac 32 bc 43 70 1f a8 b0 3d 21")]
+        [global::System.Configuration.DefaultSettingValueAttribute("19 f6 af 36 98 b1 3a c5 67 93 34 fb c3 f5 5b b0 8d 89 e5 2f")]
         public string Thumbprint {
             get {
                 return ((string)(this["Thumbprint"]));
@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Testklient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://qa2.api.digipost.no")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.digipost.no")]
         public string Url {
             get {
                 return ((string)(this["Url"]));

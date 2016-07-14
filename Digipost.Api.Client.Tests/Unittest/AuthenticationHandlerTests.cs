@@ -5,12 +5,19 @@ using System.Text;
 using ApiClientShared;
 using Digipost.Api.Client.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Digipost.Api.Client.Tests.Unittest
 {
     [TestClass]
     public class AuthenticationHandlerTests
     {
+        [Fact]
+        public void TestSomethingXunit()
+        {
+            Xunit.Assert.Equal(2, 2);
+        }
 
         [TestClass]
         public class ComputeSignatureMethod

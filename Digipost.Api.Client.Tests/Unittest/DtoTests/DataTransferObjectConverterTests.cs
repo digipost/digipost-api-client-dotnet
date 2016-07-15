@@ -534,8 +534,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(expected.ResultType, actual.ResultType);
                 Assert.Equal(expected.Data, actual.Data);
                 Assert.Equal(expected.Error, actual.Error);
-
-                Assert.False(true);
             }
 
             [Fact]

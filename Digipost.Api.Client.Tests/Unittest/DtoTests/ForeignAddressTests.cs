@@ -1,16 +1,16 @@
 ﻿using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class ForeignAddressTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : ForeignAddressTests
         {
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -25,12 +25,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(CountryIdentifier.Country, foreignAddress.CountryIdentifier);
-                Assert.AreEqual("NO", foreignAddress.CountryIdentifierValue);
-                Assert.AreEqual("Adresselinje1", foreignAddress.AddressLine1);
-                Assert.AreEqual("Adresselinje2", foreignAddress.AddressLine2);
-                Assert.AreEqual("Adresselinje3", foreignAddress.AddressLine3);
-                Assert.AreEqual("Adresselinje4", foreignAddress.Addressline4);
+                Assert.Equal(CountryIdentifier.Country, foreignAddress.CountryIdentifier);
+                Assert.Equal("NO", foreignAddress.CountryIdentifierValue);
+                Assert.Equal("Adresselinje1", foreignAddress.AddressLine1);
+                Assert.Equal("Adresselinje2", foreignAddress.AddressLine2);
+                Assert.Equal("Adresselinje3", foreignAddress.AddressLine3);
+                Assert.Equal("Adresselinje4", foreignAddress.Addressline4);
             } 
         }
 

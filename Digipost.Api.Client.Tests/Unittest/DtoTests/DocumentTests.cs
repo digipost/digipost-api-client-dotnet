@@ -4,17 +4,18 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Fakes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class DocumentTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : DocumentTests
         {
-            [TestMethod]
+            [Fact]
             public void DocumentFromBytes()
             {
                 //Arrange
@@ -23,16 +24,16 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsNotNull(document.Guid);
-                Assert.AreEqual("Subject", document.Subject);
-                Assert.AreEqual("txt", document.FileType);
-                Assert.IsTrue(document.ContentBytes.SequenceEqual(new byte[] { 1, 2, 3}));
-                Assert.AreEqual(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
-                Assert.AreEqual(SensitivityLevel.Sensitive, document.SensitivityLevel);
-                //Assert.AreEqual(new SmsNotification(2), document.SmsNotification.);
+                Assert.NotNull(document.Guid);
+                Assert.Equal("Subject", document.Subject);
+                Assert.Equal("txt", document.FileType);
+                Assert.True(document.ContentBytes.SequenceEqual(new byte[] { 1, 2, 3}));
+                Assert.Equal(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
+                Assert.Equal(SensitivityLevel.Sensitive, document.SensitivityLevel);
+                //Assert.Equal(new SmsNotification(2), document.SmsNotification.);
             }
 
-            [TestMethod]
+            [Fact]
             public void DocumentFromFile()
             {
                 //Arrange
@@ -41,16 +42,16 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsNotNull(document.Guid);
-                Assert.AreEqual("Subject", document.Subject);
-                Assert.AreEqual("txt", document.FileType);
-                Assert.IsTrue(document.ContentBytes.SequenceEqual(new byte[]{1,2,3,4}));
-                Assert.AreEqual(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
-                Assert.AreEqual(SensitivityLevel.Sensitive, document.SensitivityLevel);
-                //Assert.AreEqual(new SmsNotification(2), document.SmsNotification);
+                Assert.NotNull(document.Guid);
+                Assert.Equal("Subject", document.Subject);
+                Assert.Equal("txt", document.FileType);
+                Assert.True(document.ContentBytes.SequenceEqual(new byte[]{1,2,3,4}));
+                Assert.Equal(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
+                Assert.Equal(SensitivityLevel.Sensitive, document.SensitivityLevel);
+                //Assert.Equal(new SmsNotification(2), document.SmsNotification);
             }
 
-            [TestMethod]
+            [Fact]
             public void DocumentFromStream()
             {
                 //Arrange
@@ -61,13 +62,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsNotNull(document.Guid);
-                Assert.AreEqual("Subject", document.Subject);
-                Assert.AreEqual("txt", document.FileType);
-                Assert.IsTrue(document.ContentBytes.SequenceEqual(new byte[] { 1, 2, 3 }));
-                Assert.AreEqual(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
-                Assert.AreEqual(SensitivityLevel.Sensitive, document.SensitivityLevel);
-                //Assert.AreEqual(new SmsNotification(2), document.SmsNotification);
+                Assert.NotNull(document.Guid);
+                Assert.Equal("Subject", document.Subject);
+                Assert.Equal("txt", document.FileType);
+                Assert.True(document.ContentBytes.SequenceEqual(new byte[] { 1, 2, 3 }));
+                Assert.Equal(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
+                Assert.Equal(SensitivityLevel.Sensitive, document.SensitivityLevel);
+                //Assert.Equal(new SmsNotification(2), document.SmsNotification);
             } 
 
 

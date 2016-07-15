@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Testklient
 
             try
             {
-                var messageDeliveryResult = await api.SendMessageAsync(message);
+                var messageDeliveryResult = await api.SendMessageAsync(message).ConfigureAwait(false);
                 Console.WriteLine("> Starter å sende melding");
                 WriteToConsoleWithColor("Meldingens status: " + messageDeliveryResult.Status);
                 WriteToConsoleWithColor("> Alt gikk fint!", false);

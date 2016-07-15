@@ -5,19 +5,19 @@ using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class RecipientByNameAndAddressTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : RecipientByNameAndAddressTests
         {
             Comparator _comparator = new Comparator();
 
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -31,10 +31,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(fullName, recipientByNameAndAddress.FullName);
-                Assert.AreEqual(postalCode, recipientByNameAndAddress.PostalCode);
-                Assert.AreEqual(city, recipientByNameAndAddress.City);
-                Assert.AreEqual(addressLine1, recipientByNameAndAddress.AddressLine1);
+                Assert.Equal(fullName, recipientByNameAndAddress.FullName);
+                Assert.Equal(postalCode, recipientByNameAndAddress.PostalCode);
+                Assert.Equal(city, recipientByNameAndAddress.City);
+                Assert.Equal(addressLine1, recipientByNameAndAddress.AddressLine1);
             }
         }
     }

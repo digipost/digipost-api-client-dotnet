@@ -2,17 +2,18 @@
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class IdentificationResultTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : IdentificationResultTests
         {
-            [TestMethod]
+            [Fact]
             public void SuccessfulIdentificationResultTypeSetsResult()
             {
                 var enumValues = Enum.GetValues(typeof(IdentificationResultType)).Cast<IdentificationResultType>();
@@ -33,13 +34,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         //Act
 
                         //Assert
-                        Assert.AreEqual(result, identificationResult.Data);
-                        Assert.IsNull(identificationResult.Error);
+                        Assert.Equal(result, identificationResult.Data);
+                        Assert.Null(identificationResult.Error);
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void SetsIdentificationResultType()
             {
                 //Arrange
@@ -49,10 +50,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(identificationResult.ResultType, IdentificationResultType.DigipostAddress);
+                Assert.Equal(identificationResult.ResultType, IdentificationResultType.DigipostAddress);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationResultCodeErrorSetsIdentificationErrorNotResult()
             {
                 var enumValues = Enum.GetValues(typeof(IdentificationResultCode)).Cast<IdentificationResultCode>();
@@ -70,14 +71,14 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         //Act
 
                         //Assert
-                        Assert.AreEqual(identificationResult.Error.ToString(), value.ToString());
-                        Assert.IsNull(identificationResult.Data);
+                        Assert.Equal(identificationResult.Error.ToString(), value.ToString());
+                        Assert.Null(identificationResult.Data);
 
                     }
                 }
             }
 
-            [TestMethod]
+            [Fact]
             public void InvalidReasonErrorSetsIdentificationErrorNotResult()
             {
                 var enumValues = Enum.GetValues(typeof(InvalidReason)).Cast<InvalidReason>();
@@ -90,8 +91,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     //Act
 
                     //Assert
-                    Assert.AreEqual(identificationResult.Error.ToString(), value.ToString());
-                    Assert.IsNull(identificationResult.Data);
+                    Assert.Equal(identificationResult.Error.ToString(), value.ToString());
+                    Assert.Null(identificationResult.Data);
                 }
             }
         }

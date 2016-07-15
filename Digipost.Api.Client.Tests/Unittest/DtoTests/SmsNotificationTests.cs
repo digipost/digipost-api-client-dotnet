@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class SmsNotificationTests
     {
         Comparator _comparator = new Comparator();
 
-        [TestClass]
+        
         public class ConstructorMethod : SmsNotificationTests {
             
-            [TestMethod]
+            [Fact]
             public void WithSendingTime()
             {
                 //Arrange
@@ -30,11 +31,11 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0,differences.Count());
+                Assert.Equal(0,differences.Count());
 
             }
 
-            [TestMethod]
+            [Fact]
             public void WithAfterHours()
             {
                 //Arrange
@@ -49,7 +50,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
 
             }
         }

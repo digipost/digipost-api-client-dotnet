@@ -20,16 +20,16 @@ namespace Digipost.Api.Client.Handlers
             
             if (request.Content != null)
             {
-                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await request.Content.ReadAsStringAsync());
+                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await request.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
 
-            var response = await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
             Logging.Log(TraceEventType.Information, " LoggingHandler >  Response:" + response);
             
             if (response.Content != null)
             {
-                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await response.Content.ReadAsStringAsync());    
+                Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));    
             }
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - End!");
             return response;

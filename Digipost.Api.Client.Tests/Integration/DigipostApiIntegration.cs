@@ -10,13 +10,15 @@ using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Handlers;
 using Digipost.Api.Client.Tests.Fakes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Moq;
+using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Digipost.Api.Client.Tests.Integration
 {
-    [TestClass]
-    public class DigipostApiIntegrationTests
+    
+   public class DigipostApiIntegrationTests
     {
         protected X509Certificate2 Certificate;
         protected ClientConfig ClientConfig;
@@ -35,18 +37,16 @@ namespace Digipost.Api.Client.Tests.Integration
             dpApi.DigipostActionFactory = mockFacktory.Object;
         }
 
-        [TestInitialize]
-        public void Init()
+        public DigipostApiIntegrationTests()
         {
             ClientConfig = new ClientConfig("1337");
             Uri = "identification";
             Certificate = TestProperties.Certificate();
         }
 
-        [TestClass]
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
-            [TestMethod]
+            [Fact]
             public void ProperRequestSentRecipientById()
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientById();
@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.SendMessage(message);
             }
             
-            [TestMethod]
+            [Fact]
             public void ProperRequestSentRecipientByNameAndAddress()
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
@@ -78,7 +78,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.SendMessage(message);
             }
 
-            [TestMethod]
+            [Fact]
             public void InternalServerErrorShouldCauseDigipostResponseException()
             {
                 try
@@ -100,11 +100,11 @@ namespace Digipost.Api.Client.Tests.Integration
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.IsTrue(ex.GetType() == typeof(ClientResponseException));
+                    Assert.True(ex.GetType() == typeof(ClientResponseException));
                 }
             }
             
-            [TestMethod]
+            [Fact]
             public void ShouldSerializeErrorMessage()
             {
                 try
@@ -119,15 +119,15 @@ namespace Digipost.Api.Client.Tests.Integration
                     var fakeHandlerChain = CreateHandlerChain(fakehandler);
                     var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
 
-                    var dpApi = new DigipostApi(ClientConfig, Certificate);
-                    SetMockFactoryForDigipostApi(dpApi, mockFacktory);
+                    var digipostApi = new DigipostApi(ClientConfig, Certificate);
+                    SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
 
-                    dpApi.SendMessage(message);
+                    digipostApi.SendMessage(message);
                 }
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.IsTrue(ex.GetType() == typeof(ClientResponseException));
+                    Assert.True(ex.GetType() == typeof(ClientResponseException));
                 }
             }
 
@@ -158,16 +158,17 @@ namespace Digipost.Api.Client.Tests.Integration
             }
         }
 
-        [TestClass]
+
         public class SendIdentifyMethod : DigipostApiIntegrationTests
         {
-            [TestMethod]
+            [Fact]
             public void ProperRequestSent()
             {
                 var identification = DomainUtility.GetPersonalIdentification();
 
                 var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
+
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
                 var digipostApi = new DigipostApi(ClientConfig, Certificate);
@@ -176,7 +177,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.Identify(identification);
             }
 
-            [TestMethod]
+            [Fact]
             public void ProperRequestWithIdSent()
             {
                 var identification = DomainUtility.GetPersonalIdentificationById();
@@ -191,7 +192,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.Identify(identification);
             }
 
-            [TestMethod]
+            [Fact]
             public void ProperRequestWithNameAndAddressSent()
             {
                 var identification = DomainUtility.GetPersonalIdentificationByNameAndAddress();
@@ -207,7 +208,7 @@ namespace Digipost.Api.Client.Tests.Integration
             }
 
             private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification,
-                AuthenticationHandler fakeHandlerChain)
+                AuthenticationHandler authenticationHandler)
             {
                 var mockFactory = new Mock<DigipostActionFactory>();
                 mockFactory.Setup(
@@ -217,20 +218,20 @@ namespace Digipost.Api.Client.Tests.Integration
                     .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                     {
                         ThreadSafeHttpClient =
-                            new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}
+                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFactory;
             }
         }
 
-        [TestClass]
+        
         public class SearchMethod : DigipostApiIntegrationTests
         {
             /// <summary>
             ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
             ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
             /// </summary>
-            [TestMethod]
+            [Fact]
             public void ProperRequestSent()
             {
                 var searchString = "marit";
@@ -244,7 +245,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 SetMockFactoryForDigipostApi(digipostApi,mockFacktory);
 
                 var result = digipostApi.Search(searchString);
-                Assert.IsNotNull(result);
+                Assert.NotNull(result);
 
             }
 

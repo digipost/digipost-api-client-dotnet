@@ -11,21 +11,21 @@ using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class DataTransferObjectConverterTests
     {
         readonly Comparator _comparator = new Comparator();
 
-        [TestClass]
+        
         public class ToDataTransferObjectMethod : DataTransferObjectConverterTests
         {
             #region Identification
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByOrganizationNumber()
             {
                 //Arrange
@@ -38,10 +38,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
             
-            [TestMethod]
+            [Fact]
             public void IdentificationByNameAndAddress()
             {
                 //Arrange
@@ -71,12 +71,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
             
             #endregion
             
-            [TestMethod]
+            [Fact]
             public void RecipientByNameAndAddress()
             {
                 //Arrange
@@ -114,10 +114,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void RecipientById()
             {
                 //Arrange
@@ -136,10 +136,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void Document()
             {
                 //Arrange
@@ -153,10 +153,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void Message()
             {
                 //Arrange
@@ -172,10 +172,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void MessageWithPrintDetailsAndRecipientById()
             {
                 //Arrange
@@ -195,10 +195,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void MessageWithPrintDetailsAndRecipientByNameAndAddress()
             {
                 //Arrange
@@ -217,10 +217,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void ForeignAddress()
             {
                 //Arrange
@@ -248,10 +248,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void NorwegianAddress()
             {
                 //Arrange
@@ -265,10 +265,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void PrintRecipientFromForeignAddress()
             {
                 //Arrange
@@ -298,10 +298,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void PrintRecipientFromNorwegianAddress()
             {
                 //Arrange
@@ -318,10 +318,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void PrintReturnRecipientFromForeignAddress()
             {
                 //Arrange
@@ -351,10 +351,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void PrintReturnRecipientFromNorwegianAddress()
             {
                 //Arrange
@@ -370,10 +370,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void PrintDetails()
             {
                 //Arrange
@@ -399,11 +399,11 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
-                Assert.AreEqual(0, differences.Count());
-                Assert.IsNull(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails)null));
+                Assert.Equal(0, differences.Count());
+                Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails)null));
             }
 
-            [TestMethod]
+            [Fact]
             public void SmsNotification()
             {
                 //Arrange
@@ -424,17 +424,17 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
         }
 
-        [TestClass]
+        
         public class FromDataTransferObjectMethod : DataTransferObjectConverterTests
         {
             #region Identification
             #region Personal identification number
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByPinReturnsDigipostResultWithNoneResultType()
             {
                 //Arrange
@@ -451,12 +451,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByPinReturnsIdentifiedResultWithNoneResultType()
             {
                 //Arrange
@@ -473,19 +473,19 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByPinReturnsUnidentifiedResultWithUnidentifiedReason()
             {
 
                 //This case will never happen because Digipost cannot be used to find PINs in use.
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByPinReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
@@ -503,16 +503,16 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
             #endregion
 
             #region Address
             
-            [TestMethod]
+            [Fact]
             public void IdentificationByAddressReturnsDigipostResultWithDigipostAddressResultType()
             {
                 //Arrange
@@ -530,12 +530,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByAddressReturnsIdentifiedResultWithPersonalAliasResultType()
             {
                 //Arrange
@@ -553,12 +553,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByAddressReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
@@ -576,13 +576,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
 
             }
             
-            [TestMethod]
+            [Fact]
             public void IdentificationByAddressReturnsInvalidResultWithInvalidReason()
             {
                 // We validate the request with the XSD, so it will fail before the request is sent.
@@ -592,7 +592,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
             #region Organization number
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByOrganizationNumberReturnsDigipostResultWithDigipostAddressResultType()
             {
                 //Arrange
@@ -610,18 +610,18 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByOrganizationNumberReturnsIdentifiedResultWithPersonAliasResultType()
             {
                 // Will not happen since we do not have a register of organizations that does not have Digipost
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByOrganizationNumberReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
@@ -639,12 +639,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
-            [TestMethod]
+            [Fact]
             public void IdentificationByOrganizationNumberReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
@@ -662,9 +662,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.AreEqual(expected.ResultType, actual.ResultType);
-                Assert.AreEqual(expected.Data, actual.Data);
-                Assert.AreEqual(expected.Error, actual.Error);
+                Assert.Equal(expected.ResultType, actual.ResultType);
+                Assert.Equal(expected.Data, actual.Data);
+                Assert.Equal(expected.Error, actual.Error);
             }
 
 
@@ -672,7 +672,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             
             #endregion
 
-            [TestMethod]
+            [Fact]
             public void Document()
             {
                 //Arrange
@@ -687,10 +687,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void Message()
             {
                 //Arrange
@@ -739,10 +739,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(sourceDto, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void SmsNotification()
             {
                 //Arrange
@@ -763,7 +763,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
         }
     }

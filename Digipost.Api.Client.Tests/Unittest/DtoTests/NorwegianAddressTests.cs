@@ -1,15 +1,15 @@
 ﻿using Digipost.Api.Client.Domain.Print;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class NorwegianAddressTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : NorwegianAddressTests
         {
-            [TestMethod]
+            [Fact]
             public void WhatYouAreTestingOnMethod()
             {
                 //Arrange
@@ -18,11 +18,11 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual("0001", norwegianAddress.PostalCode);
-                Assert.AreEqual("Oslo", norwegianAddress.City);
-                Assert.AreEqual("Addr1", norwegianAddress.AddressLine1);
-                Assert.AreEqual("Addr2", norwegianAddress.AddressLine2);
-                Assert.AreEqual("Addr3", norwegianAddress.AddressLine3);
+                Assert.Equal("0001", norwegianAddress.PostalCode);
+                Assert.Equal("Oslo", norwegianAddress.City);
+                Assert.Equal("Addr1", norwegianAddress.AddressLine1);
+                Assert.Equal("Addr2", norwegianAddress.AddressLine2);
+                Assert.Equal("Addr3", norwegianAddress.AddressLine3);
             } 
         }
     }

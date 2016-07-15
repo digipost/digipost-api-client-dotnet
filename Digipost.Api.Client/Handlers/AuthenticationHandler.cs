@@ -54,7 +54,7 @@ namespace Digipost.Api.Client.Handlers
             if (request.Content != null)
             {
                 Method = WebRequestMethods.Http.Post;
-                var contentBytes = await request.Content.ReadAsByteArrayAsync();
+                var contentBytes = await request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                 contentHash = ComputeHash(contentBytes);
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Handlers
 
 
             Logging.Log(TraceEventType.Information, " AuthenticationHandler > sendAsync() - End!");
-            return await base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
 
         private static string GetAssemblyVersion()

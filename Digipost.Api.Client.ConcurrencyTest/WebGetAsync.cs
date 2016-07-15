@@ -69,7 +69,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 const string url = "http://10.16.0.125:3000/";
                 //Console.WriteLine("AsyncGet to " + URL);
                 var getTask = httpClient.GetAsync(url);
-                httpResponse = await getTask;
+                httpResponse = await getTask.ConfigureAwait(false);
 
                 Interlocked.Increment(ref _successfulCalls);
                 //Console.WriteLine("Success");

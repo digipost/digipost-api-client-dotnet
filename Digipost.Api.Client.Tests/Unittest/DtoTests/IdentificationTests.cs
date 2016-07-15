@@ -1,17 +1,17 @@
 ﻿using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class IdentificationTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : IdentificationTests
         {
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(recipientByNameAndAddress, identification.DigipostRecipient);
+                Assert.Equal(recipientByNameAndAddress, identification.DigipostRecipient);
             }
         }
 

@@ -3,19 +3,19 @@ using System.Linq;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class PrintRecipientTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : PrintRecipientTests
         {
             readonly Comparator _comparator = new Comparator();
 
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -26,12 +26,12 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(name, printRecipient.Name);
+                Assert.Equal(name, printRecipient.Name);
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);
                 
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
  
 

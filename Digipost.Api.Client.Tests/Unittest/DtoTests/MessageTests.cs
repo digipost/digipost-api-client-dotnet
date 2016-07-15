@@ -2,17 +2,17 @@
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
+    
     public class MessageTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : MessageTests
         {
-            [TestMethod]
+            [Fact]
             public void ConstructWithRecipientAndPrimaryDocument()
             {
                 //Arrange
@@ -24,11 +24,11 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsNotNull(message.PrimaryDocument);
-                Assert.IsNull(message.SenderId);
+                Assert.NotNull(message.PrimaryDocument);
+                Assert.Null(message.SenderId);
             }
 
-            [TestMethod]
+            [Fact]
             public void ConstructWithRecipientByIdAndPrintDetailsMethod()
             {
                 //Arrange
@@ -45,16 +45,16 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(recipient, message.DigipostRecipient);
-                Assert.AreEqual(document, message.PrimaryDocument);
-                Assert.AreEqual(printDetails, message.PrintDetails);
+                Assert.Equal(recipient, message.DigipostRecipient);
+                Assert.Equal(document, message.PrimaryDocument);
+                Assert.Equal(printDetails, message.PrintDetails);
             }
         }
 
-        [TestClass]
+        
         public class DeliveryTimeSpecifiedMethod : MessageTests
         {
-            [TestMethod]
+            [Fact]
             public void DeliveryTimeNotSpecifiedGivesFalse()
             {
                 //Arrange
@@ -66,10 +66,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsFalse(message.DeliveryTimeSpecified);
+                Assert.False(message.DeliveryTimeSpecified);
             }
 
-            [TestMethod]
+            [Fact]
             public void DeliveryTimeSpecifiedGivesTrue()
             {
                 //Arrange
@@ -81,7 +81,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.IsTrue(message.DeliveryTimeSpecified);
+                Assert.True(message.DeliveryTimeSpecified);
             }
 
         }

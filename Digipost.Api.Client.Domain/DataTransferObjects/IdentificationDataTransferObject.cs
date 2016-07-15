@@ -8,8 +8,8 @@ using Digipost.Api.Client.Domain.SendMessage;
 namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
     /// <summary>
-    /// Used to identify users in Digipost, by Digipost address, name and address, 
-    /// Organization Number or Social Security Number.
+    ///     Used to identify users in Digipost, by Digipost address, name and address,
+    ///     Organization Number or Social Security Number.
     /// </summary>
     [Serializable]
     [DebuggerStepThrough]
@@ -18,10 +18,9 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class IdentificationDataTransferObject
     {
-
         /// <summary>
-        /// Identify if recipient exists in Digipost by Digipost address, Organization 
-        /// Number or Social Security Number.
+        ///     Identify if recipient exists in Digipost by Digipost address, Organization
+        ///     Number or Social Security Number.
         /// </summary>
         public IdentificationDataTransferObject(IdentificationChoiceType identificationChoiceType, string value)
         {
@@ -30,7 +29,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         /// <summary>
-        /// Identify if recipient exists in Digipost by name and address.
+        ///     Identify if recipient exists in Digipost by name and address.
         /// </summary>
         public IdentificationDataTransferObject(RecipientByNameAndAddressDataTranferObject recipientByNameAndAddressDataTranferObject)
         {

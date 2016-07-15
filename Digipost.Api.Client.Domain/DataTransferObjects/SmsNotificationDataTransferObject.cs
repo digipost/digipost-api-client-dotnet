@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
-using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
@@ -20,13 +19,13 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         public SmsNotificationDataTransferObject(int afterHours)
-            :this()
+            : this()
         {
             NotifyAfterHours.Add(afterHours);
         }
 
         public SmsNotificationDataTransferObject(DateTime sendingTime)
-            :this()
+            : this()
         {
             NotifyAtTimes.Add(new ListedTimeDataTransferObject(sendingTime));
         }

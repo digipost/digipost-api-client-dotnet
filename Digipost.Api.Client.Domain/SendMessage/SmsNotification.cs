@@ -13,27 +13,27 @@ namespace Digipost.Api.Client.Domain.SendMessage
         }
 
         /// <summary>
-        /// Sms notification for a message
+        ///     Sms notification for a message
         /// </summary>
         /// <param name="sendingTime">The date and time an SMS will be sent out</param>
         public SmsNotification(params DateTime[] sendingTime)
-            :this()
+            : this()
         {
             NotifyAtTimes = sendingTime.ToList();
         }
 
         /// <summary>
-        /// Sms notification for a message
+        ///     Sms notification for a message
         /// </summary>
         /// <param name="afterHours">List of hours after delivered where the sms notification will be delivered</param>
         public SmsNotification(params int[] afterHours)
-            :this()
+            : this()
         {
             NotifyAfterHours = afterHours.ToList();
         }
 
         public List<DateTime> NotifyAtTimes { get; set; }
-        
+
         public List<int> NotifyAfterHours { get; set; }
     }
 }

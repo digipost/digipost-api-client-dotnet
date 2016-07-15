@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using ConcurrencyTester;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 
@@ -16,7 +15,6 @@ namespace Digipost.Api.Client.ConcurrencyTest
         private const int NumberOfRequests = 100;
         private const int ThreadsActive = 4;
 
-        
         public static void Run()
         {
             Console.WriteLine("Starting program ...");
@@ -31,10 +29,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             var clientConfig = new ClientConfig(SenderId)
             {
                 ApiUrl = new Uri(HttpsQa2ApiDigipostNo),
-                Logger = (severity, konversasjonsId, metode, melding) =>
-                {
-                    
-                }
+                Logger = (severity, konversasjonsId, metode, melding) => { }
             };
 
             switch (processingType)

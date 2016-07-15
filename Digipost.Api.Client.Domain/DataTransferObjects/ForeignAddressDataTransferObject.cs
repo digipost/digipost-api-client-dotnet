@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         }
 
         /// <summary>
-        /// Foreign address for use when sending a letter abroad.
+        ///     Foreign address for use when sending a letter abroad.
         /// </summary>
         /// <param name="countryIdentifier">Type of identifier used for identifying a country.</param>
         /// <param name="countryIdentifierValue">The value for country.</param>

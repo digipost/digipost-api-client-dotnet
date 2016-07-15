@@ -8,7 +8,8 @@ namespace Digipost.Api.Client.ConcurrencyTest
         private readonly int _defaultConnectionLimit;
 
         public DigipostAsync(int numberOfRequests, int defaultConnectionLimit, ClientConfig clientconfig,
-            string thumbprint) :
+            string thumbprint)
+            :
                 base(clientconfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;

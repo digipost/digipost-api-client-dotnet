@@ -13,6 +13,10 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class IdentificationResultDataTransferObject
     {
+        internal IdentificationResultDataTransferObject()
+        {
+        }
+
         [XmlElement("result")]
         public IdentificationResultCode IdentificationResultCode { get; set; }
 
@@ -21,12 +25,10 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         [XmlElement("person-alias", typeof (string))]
         [XmlElement("unidentified-reason", typeof (UnidentifiedReason))]
         [XmlChoiceIdentifier("IdentificationResultType")]
-        public object IdentificationValue { get;  set; }
+        public object IdentificationValue { get; set; }
 
         [XmlIgnore]
-        public IdentificationResultType IdentificationResultType { get;  set; }
-
-        internal IdentificationResultDataTransferObject() { }
+        public IdentificationResultType IdentificationResultType { get; set; }
 
         public override string ToString()
         {

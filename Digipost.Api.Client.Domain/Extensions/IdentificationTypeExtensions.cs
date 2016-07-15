@@ -7,23 +7,22 @@ namespace Digipost.Api.Client.Domain.Extensions
     {
         internal static IdentificationChoiceType ToIdentificationChoiceType(this IdentificationType identificationType)
         {
-            var identificationChoiceType = 
-                identificationType == IdentificationType.OrganizationNumber 
-                ? OrganizationEnumWithSpellingDifference() 
-                : ParseEnumIgnoreCasing(identificationType);
+            var identificationChoiceType =
+                identificationType == IdentificationType.OrganizationNumber
+                    ? OrganizationEnumWithSpellingDifference()
+                    : ParseEnumIgnoreCasing(identificationType);
 
             return identificationChoiceType;
         }
 
         private static IdentificationChoiceType ParseEnumIgnoreCasing(IdentificationType identificationType)
         {
-            return (IdentificationChoiceType) Enum.Parse(typeof(IdentificationChoiceType), identificationType.ToString(), ignoreCase: true);
+            return (IdentificationChoiceType) Enum.Parse(typeof (IdentificationChoiceType), identificationType.ToString(), true);
         }
 
         internal static IdentificationChoiceType OrganizationEnumWithSpellingDifference()
         {
             return IdentificationChoiceType.OrganisationNumber;
         }
-
     }
 }

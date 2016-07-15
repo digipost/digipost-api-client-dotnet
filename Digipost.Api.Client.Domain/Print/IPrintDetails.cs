@@ -29,6 +29,5 @@ namespace Digipost.Api.Client.Domain.Print
         ///     Determines the exception handling that will occur when the letter can not be delivered.
         /// </summary>
         NondeliverableHandling NondeliverableHandling { get; }
-
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using ApiClientShared;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
@@ -14,7 +10,6 @@ using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Testklient.Properties;
-using KellermanSoftware.CompareNetObjects;
 
 namespace Digipost.Api.Client.Testklient
 {
@@ -31,7 +26,7 @@ namespace Digipost.Api.Client.Testklient
         {
             //Performance();
             RunSingle();
-            
+
             Console.ReadKey();
         }
 
@@ -42,7 +37,6 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-
             var config = new ClientConfig(SenderId)
             {
                 ApiUrl = new Uri(Url),
@@ -50,10 +44,9 @@ namespace Digipost.Api.Client.Testklient
                 {
                     Console.WriteLine("{0}",
                         melding
-                    );
+                        );
                 }
             };
-
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
@@ -62,10 +55,9 @@ namespace Digipost.Api.Client.Testklient
             //SendMessageToPerson(api, false);
             //var response = Search(api);
 
-            
             //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
             //ConcurrencyTest.Initializer.Run(); //concurency runner
-            
+
             Console.ReadKey();
         }
 
@@ -92,15 +84,15 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (AggregateException ae)
             {
-                ae.Handle((x) =>
-                 {
-                     if (x is ClientResponseException)
-                     {
-                         Console.WriteLine("This really failed!");
-                         return true;
-                     }
-                     return false;
-                 });
+                ae.Handle(x =>
+                {
+                    if (x is ClientResponseException)
+                    {
+                        Console.WriteLine("This really failed!");
+                        return true;
+                    }
+                    return false;
+                });
             }
             catch (ClientResponseException e)
             {
@@ -109,7 +101,6 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (Exception e)
             {
-
                 WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
             }
         }
@@ -138,9 +129,6 @@ namespace Digipost.Api.Client.Testklient
                 Console.WriteLine("ResultType: " + identificationResponse.ResultType);
                 Console.WriteLine("IdentificationValue: " + identificationResponse.Data);
                 Console.WriteLine("Error: " + identificationResponse.Error);
-
-
-
             }
             catch (ClientResponseException e)
             {
@@ -156,8 +144,8 @@ namespace Digipost.Api.Client.Testklient
         private static IMessage GetMessageWithRecipientByIdForQaOrLocal()
         {
             //primary document
-            var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
-   
+            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
+
             var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001");
 
             var message = new Message(digitalRecipient, primaryDocument);
@@ -168,8 +156,8 @@ namespace Digipost.Api.Client.Testklient
         private static IMessage GetMessage()
         {
             //primary document
-            var primaryDocument = new Document(subject: "Primary document", fileType: "txt", contentBytes: GetPrimaryDocument());
-            var invoice = new Invoice(subject: "Invoice 1", fileType: "txt", contentBytes: GetPrimaryDocument(), amount: 1, account: "18941362738", duedate: DateTime.Now, kid: "123123123");
+            var primaryDocument = new Document("Primary document", "txt", GetPrimaryDocument());
+            var invoice = new Invoice("Invoice 1", "txt", GetPrimaryDocument(), 1, "18941362738", DateTime.Now, "123123123");
 
             //attachment
             var attachment = new Document("Attachment", "txt", GetAttachment());
@@ -177,7 +165,7 @@ namespace Digipost.Api.Client.Testklient
             //printdetails for fallback to print (physical mail)
             var printDetails =
                 new PrintDetails(
-                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo","Colletts gate 68")),
+                    new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo", "Colletts gate 68")),
                     new PrintReturnRecipient("Kristian Sæther Enge",
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
@@ -190,21 +178,20 @@ namespace Digipost.Api.Client.Testklient
             var recipientByNameAndAddressNew = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
                 "Oslo", "Collettsgate 68");
 
-
             var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
 
             //End nytt regime for message
-            
+
             //message
             //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
             var message = new Message(recipientById, invoice);
-            
+
             //message.Deliverytime = DateTime.Now.AddDays(1);
 
             message.Attachments.Add(attachment);
             //message.SenderOrganization = new SenderOrganization(){OrganizationNumber = "123Sammahvilkenid", unitId = "Partid"};
             //message.SenderId = 12333;
-            
+
             return message;
         }
 

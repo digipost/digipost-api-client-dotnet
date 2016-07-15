@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain.Search
 {
     /// <summary>
-    /// A collection of Person Details as a result of a request via the Person Details API. 
+    ///     A collection of Person Details as a result of a request via the Person Details API.
     /// </summary>
     [Serializable]
     [DesignerCategory("code")]
@@ -15,6 +15,6 @@ namespace Digipost.Api.Client.Domain.Search
     public class SearchDetailsResult : ISearchDetailsResult
     {
         [XmlElement("recipient")]
-        public List<SearchDetails> PersonDetails { get; set; } 
+        public List<SearchDetails> PersonDetails { get; set; }
     }
 }

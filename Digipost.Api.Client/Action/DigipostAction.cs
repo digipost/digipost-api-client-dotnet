@@ -11,14 +11,6 @@ namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
-        private string Uri { get; }
-
-        public ClientConfig ClientConfig { get; set; }
-
-        public X509Certificate2 BusinessCertificate { get; set; }
-
-        public XmlDocument RequestContent { get; internal set; }
-
         protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             InitializeRequestXmlContent(requestContent);
@@ -28,11 +20,21 @@ namespace Digipost.Api.Client.Action
             ThreadSafeHttpClient = HttpClient();
         }
 
+        private string Uri { get; }
+
+        public ClientConfig ClientConfig { get; set; }
+
+        public X509Certificate2 BusinessCertificate { get; set; }
+
+        public XmlDocument RequestContent { get; internal set; }
+
+        internal HttpClient ThreadSafeHttpClient { get; set; }
+
         private HttpClient HttpClient()
         {
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
             var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
-            loggingHandler);
+                loggingHandler);
 
             var httpClient = new HttpClient(authenticationHandler)
             {
@@ -42,8 +44,6 @@ namespace Digipost.Api.Client.Action
 
             return httpClient;
         }
-
-        internal HttpClient ThreadSafeHttpClient { get; set; }
 
         internal Task<HttpResponseMessage> PostAsync(IRequestContent requestContent)
         {

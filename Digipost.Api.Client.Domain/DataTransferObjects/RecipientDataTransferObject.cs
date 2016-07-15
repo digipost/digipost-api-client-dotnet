@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
             IdentificationType = identificationChoiceType;
             PrintDetailsDataTransferObject = printDetailsDataTransferObject;
         }
-        
+
         public RecipientDataTransferObject(PrintDetailsDataTransferObject printDetailsDataTransferObject)
         {
             PrintDetailsDataTransferObject = printDetailsDataTransferObject;
@@ -49,6 +49,6 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
         public PrintDetailsDataTransferObject PrintDetailsDataTransferObject { get; set; }
 
         [XmlIgnore]
-        public IdentificationChoiceType IdentificationType { get;  set; }
+        public IdentificationChoiceType IdentificationType { get; set; }
     }
 }

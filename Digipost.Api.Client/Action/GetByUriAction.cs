@@ -10,7 +10,6 @@ namespace Digipost.Api.Client
         public GetByUriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
             : base(requestContent, clientConfig, businessCertificate, uri)
         {
-
         }
 
         protected override HttpContent Content(IRequestContent requestContent)

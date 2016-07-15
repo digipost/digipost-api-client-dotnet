@@ -2,11 +2,11 @@
 {
     public class Identification : IIdentification
     {
-        public DigipostRecipient DigipostRecipient { get; set; }
-
         public Identification(DigipostRecipient digipostRecipient)
         {
             DigipostRecipient = digipostRecipient;
         }
+
+        public DigipostRecipient DigipostRecipient { get; set; }
     }
 }

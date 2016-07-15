@@ -26,10 +26,6 @@ namespace Digipost.Api.Client.Api
 
         private IDigipostActionFactory _digipostActionFactory;
 
-        private ClientConfig ClientConfig { get; set; }
-        
-        private X509Certificate2 BusinessCertificate { get; set; }
-
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
@@ -42,6 +38,10 @@ namespace Digipost.Api.Client.Api
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
+        private ClientConfig ClientConfig { get; }
+
+        private X509Certificate2 BusinessCertificate { get; }
+
         public IDigipostActionFactory DigipostActionFactory
         {
             get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
@@ -52,9 +52,9 @@ namespace Digipost.Api.Client.Api
         {
             var messageDelivery = SendMessageAsync(message);
 
-            if (messageDelivery.IsFaulted && messageDelivery.Exception != null) 
-                    throw messageDelivery.Exception.InnerException;
-            
+            if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
+                throw messageDelivery.Exception.InnerException;
+
             return messageDelivery.Result;
         }
 
@@ -62,12 +62,12 @@ namespace Digipost.Api.Client.Api
         {
             const string uri = "messages";
 
-            var messageDeliveryResultTask =  GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
-            
+            var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
+
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
-            IMessageDeliveryResult fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
+            var fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
             return fromDataTransferObject;
         }
 
@@ -103,13 +103,13 @@ namespace Digipost.Api.Client.Api
             {
                 var emptyResult = new SearchDetailsResult();
                 emptyResult.PersonDetails = new List<SearchDetails>();
-                
+
                 var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false); 
+            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
@@ -125,8 +125,8 @@ namespace Digipost.Api.Client.Api
         private Task<T> GenericGetAsync<T>(string uri)
         {
             var action = DigipostActionFactory.CreateClass(ClientConfig, BusinessCertificate, uri);
-            Task<HttpResponseMessage> responseTask = action.GetAsync();
-         
+            var responseTask = action.GetAsync();
+
             return GenericSendAsync<T>(responseTask);
         }
 
@@ -148,12 +148,14 @@ namespace Digipost.Api.Client.Api
                 }
             }
             return HandleSuccessResponse<T>(responseContent);
-
         }
 
         internal static void ValidateXml(XmlDocument document)
         {
-            if (document.InnerXml.Length == 0) { return; }
+            if (document.InnerXml.Length == 0)
+            {
+                return;
+            }
 
             var xmlValidator = new ApiClientXmlValidator();
             var isValidXml = xmlValidator.ValiderDokumentMotXsd(document.InnerXml);
@@ -162,7 +164,7 @@ namespace Digipost.Api.Client.Api
             {
                 throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
             }
-        } 
+        }
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
@@ -178,7 +180,7 @@ namespace Digipost.Api.Client.Api
 
         private static void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
         {
-            throw new ClientResponseException((int)httpStatusCode + ": " + httpStatusCode);
+            throw new ClientResponseException((int) httpStatusCode + ": " + httpStatusCode);
         }
 
         private static T HandleSuccessResponse<T>(string responseContent)

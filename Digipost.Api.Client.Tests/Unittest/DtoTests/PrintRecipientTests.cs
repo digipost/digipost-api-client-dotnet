@@ -7,19 +7,17 @@ using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    
     public class PrintReturnRecipientTests
     {
-        
         public class ConstructorMethod : PrintReturnRecipientTests
         {
-            readonly Comparator _comparator = new Comparator();
+            private readonly Comparator _comparator = new Comparator();
 
             [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
-                PrintReturnRecipient printRecipient = new PrintReturnRecipient("name", DomainUtility.GetNorwegianAddress());
+                var printRecipient = new PrintReturnRecipient("name", DomainUtility.GetNorwegianAddress());
 
                 //Act
 
@@ -28,7 +26,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);
-                
+
                 Assert.Equal(0, differences.Count());
             }
         }

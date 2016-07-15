@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Action

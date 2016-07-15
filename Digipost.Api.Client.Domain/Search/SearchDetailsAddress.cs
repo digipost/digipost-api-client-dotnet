@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Domain.Search
         public string AdditionalAddressLine { get; set; }
 
         [XmlElement("zip-code")]
-        public string  ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         [XmlElement("city")]
         public string City { get; set; }

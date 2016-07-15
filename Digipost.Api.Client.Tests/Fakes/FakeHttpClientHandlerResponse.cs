@@ -12,9 +12,9 @@ namespace Digipost.Api.Client.Tests.Fakes
         public HttpContent HttpContent { get; set; }
 
         protected override async Task<HttpResponseMessage> SendAsync(
-           HttpRequestMessage request, CancellationToken cancellationToken)
+            HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var response = new HttpResponseMessage()
+            var response = new HttpResponseMessage
             {
                 Content = HttpContent ?? GetContent(),
                 StatusCode = ResultCode ?? HttpStatusCode.OK

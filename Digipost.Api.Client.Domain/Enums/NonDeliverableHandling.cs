@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     If mail is undeliverable the mail will be returned to the return address.
         /// </summary>
-        [XmlEnum("RETURN_TO_SENDER")] 
+        [XmlEnum("RETURN_TO_SENDER")]
         ReturnToSender
     }
 }

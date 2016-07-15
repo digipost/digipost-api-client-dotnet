@@ -8,16 +8,16 @@ namespace Digipost.Api.Client.Domain.Enums
     [XmlRoot("identification-result-code", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum IdentificationResultCode
     {
-        [XmlEnum("DIGIPOST")] 
+        [XmlEnum("DIGIPOST")]
         Digipost,
 
-        [XmlEnum("IDENTIFIED")] 
+        [XmlEnum("IDENTIFIED")]
         Identified,
 
-        [XmlEnum("UNIDENTIFIED")] 
+        [XmlEnum("UNIDENTIFIED")]
         Unidentified,
 
-        [XmlEnum("INVALID")] 
+        [XmlEnum("INVALID")]
         Invalid
     }
 }

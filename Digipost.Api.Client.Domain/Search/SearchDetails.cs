@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace Digipost.Api.Client.Domain.Search
 {
     /// <summary>
-    /// When requesting person information via the SearchDetails API, this class is the result.
+    ///     When requesting person information via the SearchDetails API, this class is the result.
     /// </summary>
     [Serializable]
     [DesignerCategory("code")]
@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Domain.Search
         public string OrganizationName { get; set; }
 
         [XmlElement("address")]
-        public SearchDetailsAddress SearchDetailsAddress{ get; set; }
+        public SearchDetailsAddress SearchDetailsAddress { get; set; }
 
         public override string ToString()
         {

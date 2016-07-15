@@ -1,14 +1,11 @@
 ﻿using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Integration;
 using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    
     public class IdentificationTests
     {
-        
         public class ConstructorMethod : IdentificationTests
         {
             [Fact]
@@ -16,7 +13,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 var recipientByNameAndAddress = DomainUtility.GetRecipientByNameAndAddress();
-                Identification identification = new Identification(recipientByNameAndAddress);
+                var identification = new Identification(recipientByNameAndAddress);
 
                 //Act
 
@@ -24,6 +21,5 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(recipientByNameAndAddress, identification.DigipostRecipient);
             }
         }
-
     }
 }

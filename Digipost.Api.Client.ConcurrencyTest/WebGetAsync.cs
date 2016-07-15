@@ -28,12 +28,11 @@ namespace Digipost.Api.Client.ConcurrencyTest
         {
             _stopwatch.Stop();
 
-
             Console.WriteLine("Success:" + _successfulCalls + " , Failed:" + _failedCalls + ", Duration:" +
                               _stopwatch.ElapsedMilliseconds + " Avg:" +
                               (_stopwatch.Elapsed.Seconds == 0
                                   ? _successfulCalls
-                                  : (_successfulCalls/_stopwatch.Elapsed.Seconds)) + " req/sec");
+                                  : _successfulCalls/_stopwatch.Elapsed.Seconds) + " req/sec");
         }
 
         public void TestParallel()
@@ -51,7 +50,6 @@ namespace Digipost.Api.Client.ConcurrencyTest
         {
             ServicePointManager.DefaultConnectionLimit = _defaultConnectionLimit;
             var httpClient = new HttpClient();
-
 
             for (var i = 0; i < _numberOfRequests; i++)
             {
@@ -83,7 +81,6 @@ namespace Digipost.Api.Client.ConcurrencyTest
             {
                 if (httpResponse != null) httpResponse.Dispose();
             }
-
 
             lock (_syncLock)
             {

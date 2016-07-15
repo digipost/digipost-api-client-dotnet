@@ -8,6 +8,8 @@ namespace Digipost.Api.Client.Api
 {
     internal interface IDigipostApi
     {
+        IDigipostActionFactory DigipostActionFactory { get; set; }
+
         IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject);
 
         Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject);
@@ -19,7 +21,5 @@ namespace Digipost.Api.Client.Api
         Task<ISearchDetailsResult> SearchAsync(string search);
 
         ISearchDetailsResult Search(string search);
-
-        IDigipostActionFactory DigipostActionFactory { get; set; }
     }
 }

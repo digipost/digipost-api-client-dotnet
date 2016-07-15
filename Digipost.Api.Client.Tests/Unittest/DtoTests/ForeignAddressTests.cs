@@ -4,18 +4,16 @@ using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    
     public class ForeignAddressTests
     {
-        
         public class ConstructorMethod : ForeignAddressTests
         {
             [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
-                ForeignAddress foreignAddress = new ForeignAddress(
-                    CountryIdentifier.Country, 
+                var foreignAddress = new ForeignAddress(
+                    CountryIdentifier.Country,
                     "NO",
                     "Adresselinje1",
                     "Adresselinje2",
@@ -31,9 +29,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal("Adresselinje2", foreignAddress.AddressLine2);
                 Assert.Equal("Adresselinje3", foreignAddress.AddressLine3);
                 Assert.Equal("Adresselinje4", foreignAddress.Addressline4);
-            } 
+            }
         }
-
-
     }
 }

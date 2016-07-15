@@ -3,7 +3,7 @@
     public interface IPrintRecipient
     {
         string Name { get; set; }
-        
+
         Address Address { get; set; }
     }
 }

@@ -11,28 +11,26 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     The message resource is not complete. Consult the provided links to see what options are availiable.
         /// </summary>
-        [XmlEnum("NOT_COMPLETE")] 
+        [XmlEnum("NOT_COMPLETE")]
         NotComplete,
-
 
         /// <summary>
         ///     The message resource is complete, and can be sent. Note that you can also tweak the message before sending it.
         ///     Consult the provided links to see what options are availiable.
         /// </summary>
-        [XmlEnum("COMPLETE")] 
+        [XmlEnum("COMPLETE")]
         Complete,
-
 
         /// <summary>
         ///     The message is delivered. Consult the provided links to see what options are availiable.
         /// </summary>
-        [XmlEnum("DELIVERED")] 
+        [XmlEnum("DELIVERED")]
         Delivered,
 
         /// <summary>
         ///     The message is delivered to print. Consult the provided links to see what options are availiable.
         /// </summary>
-        [XmlEnum("DELIVERED_TO_PRINT")] 
+        [XmlEnum("DELIVERED_TO_PRINT")]
         DeliveredToPrint
     }
 }

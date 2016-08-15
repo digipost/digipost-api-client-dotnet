@@ -4,19 +4,17 @@ using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
     public class PrintDetailsTests
     {
-        [TestClass]
         public class ConstructorMethod : PrintDetailsTests
         {
             private readonly Comparator _comparator = new Comparator();
 
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -28,15 +26,15 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> printDifference;
                 _comparator.AreEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient, out printDifference);
-                Assert.AreEqual(0, printDifference.Count());
+                Assert.Equal(0, printDifference.Count());
 
                 IEnumerable<IDifference> printReturnDifference;
                 _comparator.AreEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
-                Assert.AreEqual(0, printReturnDifference.Count());
+                Assert.Equal(0, printReturnDifference.Count());
 
-                Assert.AreEqual(PostType.A, printDetails.PostType);
-                Assert.AreEqual(PrintColors.Colors, printDetails.PrintColors);
-                Assert.AreEqual(NondeliverableHandling.ReturnToSender, printDetails.NondeliverableHandling);
+                Assert.Equal(PostType.A, printDetails.PostType);
+                Assert.Equal(PrintColors.Colors, printDetails.PrintColors);
+                Assert.Equal(NondeliverableHandling.ReturnToSender, printDetails.NondeliverableHandling);
             }
         }
     }

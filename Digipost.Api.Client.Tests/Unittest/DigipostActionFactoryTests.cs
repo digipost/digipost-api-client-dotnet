@@ -2,25 +2,22 @@
 using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest
 {
-    [TestClass]
     public class DigipostActionFactoryTests
     {
-        [TestClass]
         public class CreateClassMethod
         {
             internal ResourceUtility ResourceUtility;
 
-            [TestInitialize]
-            public void TestInit()
+            public CreateClassMethod()
             {
                 ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
             }
 
-            [TestMethod]
+            [Fact]
             public void ReturnsProperMessageAction()
             {
                 //Arrange
@@ -31,10 +28,10 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var action = factory.CreateClass(message, new ClientConfig(), new X509Certificate2(), "uri");
                 //Assert
 
-                Assert.AreEqual(typeof (MessageAction), action.GetType());
+                Assert.Equal(typeof (MessageAction), action.GetType());
             }
 
-            [TestMethod]
+            [Fact]
             public void ReturnsProperIdentificationAction()
             {
                 //Arrange
@@ -45,7 +42,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var action = factory.CreateClass(identification, new ClientConfig(), new X509Certificate2(), "uri");
 
                 //Assert
-                Assert.AreEqual(typeof (IdentificationAction), action.GetType());
+                Assert.Equal(typeof (IdentificationAction), action.GetType());
             }
         }
     }

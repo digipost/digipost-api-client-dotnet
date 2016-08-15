@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Api
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
-            var fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask);
+            var fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
             return fromDataTransferObject;
         }
 
@@ -86,7 +86,7 @@ namespace Digipost.Api.Client.Api
                 if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
             }
 
-            return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse);
+            return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse.ConfigureAwait(false));
         }
 
         public ISearchDetailsResult Search(string search)
@@ -106,10 +106,10 @@ namespace Digipost.Api.Client.Api
 
                 var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
-                return await taskSource.Task;
+                return await taskSource.Task.ConfigureAwait(false);
             }
 
-            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri);
+            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
@@ -132,9 +132,9 @@ namespace Digipost.Api.Client.Api
 
         private async Task<T> GenericSendAsync<T>(Task<HttpResponseMessage> responseTask)
         {
-            var responseTaskResult = await responseTask;
+            var responseTaskResult = await responseTask.ConfigureAwait(false);
 
-            var responseContent = await ReadResponse(responseTaskResult);
+            var responseContent = await ReadResponse(responseTaskResult).ConfigureAwait(false);
 
             if (!responseTaskResult.IsSuccessStatusCode)
             {
@@ -168,7 +168,7 @@ namespace Digipost.Api.Client.Api
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
         {
-            var contentResult = await requestResult.Content.ReadAsStringAsync();
+            var contentResult = await requestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
             return contentResult;
         }
 

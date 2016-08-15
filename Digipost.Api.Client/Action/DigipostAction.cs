@@ -11,17 +11,16 @@ namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
-        private readonly object _threadLock = new object();
-        private readonly string _uri;
-        private HttpClient _httpClient;
-
         protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
         {
             InitializeRequestXmlContent(requestContent);
-            _uri = uri;
+            Uri = uri;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
+            HttpClient = GetHttpClient();
         }
+
+        private string Uri { get; }
 
         public ClientConfig ClientConfig { get; set; }
 
@@ -29,37 +28,21 @@ namespace Digipost.Api.Client.Action
 
         public XmlDocument RequestContent { get; internal set; }
 
-        internal HttpClient ThreadSafeHttpClient
+        internal HttpClient HttpClient { get; set; }
+
+        private HttpClient GetHttpClient()
         {
-            get
+            var loggingHandler = new LoggingHandler(new HttpClientHandler());
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
+                loggingHandler);
+
+            var httpClient = new HttpClient(authenticationHandler)
             {
-                lock (_threadLock)
-                {
-                    if (_httpClient != null) return _httpClient;
+                Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
+                BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
+            };
 
-                    Logging.Log(TraceEventType.Information, " - Initializing HttpClient");
-
-                    var loggingHandler = new LoggingHandler(new HttpClientHandler());
-                    var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, _uri,
-                        loggingHandler);
-
-                    _httpClient = new HttpClient(authenticationHandler)
-                    {
-                        Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
-                        BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
-                    };
-
-                    return _httpClient;
-                }
-            }
-
-            set
-            {
-                lock (_threadLock)
-                {
-                    _httpClient = value;
-                }
-            }
+            return httpClient;
         }
 
         internal Task<HttpResponseMessage> PostAsync(IRequestContent requestContent)
@@ -67,7 +50,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request (POST).");
-                return ThreadSafeHttpClient.PostAsync(_uri, Content(requestContent));
+                return HttpClient.PostAsync(Uri, Content(requestContent));
             }
             finally
             {
@@ -80,7 +63,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request (GET).");
-                return ThreadSafeHttpClient.GetAsync(_uri);
+                return HttpClient.GetAsync(Uri);
             }
             finally
             {

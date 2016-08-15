@@ -5,25 +5,22 @@ using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Tests.Integration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest
 {
-    [TestClass]
     public class DigipostActionTests
     {
-        [TestClass]
         public class RequestContentBody
         {
             internal ResourceUtility ResourceUtility;
 
-            [TestInitialize]
-            public void TestInit()
+            public RequestContentBody()
             {
                 ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
             }
 
-            [TestMethod]
+            [Fact]
             public void ReturnsCorrectDataForMessage()
             {
                 //Arrange
@@ -38,10 +35,10 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                 //Assert
                 var expected = SerializeUtil.Serialize(DataTransferObjectConverter.ToDataTransferObject(message));
-                Assert.AreEqual(expected, content.InnerXml);
+                Assert.Equal(expected, content.InnerXml);
             }
 
-            [TestMethod]
+            [Fact]
             public void ReturnsCorrectDataForIdentification()
             {
                 //Arrange
@@ -57,7 +54,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 var identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
                 var expected = SerializeUtil.Serialize(identificationDto);
-                Assert.AreEqual(expected, content.InnerXml);
+                Assert.Equal(expected, content.InnerXml);
             }
         }
     }

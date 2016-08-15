@@ -1,16 +1,14 @@
 ﻿using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
     public class RecipientByIdTests
     {
-        [TestClass]
         public class ConstructorMethod : RecipientByIdTests
         {
-            [TestMethod]
+            [Fact]
             public void SimpleConstructor()
             {
                 //Arrange
@@ -23,8 +21,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual(IdentificationType.DigipostAddress, recipientById.IdentificationType);
-                Assert.AreEqual(testPerson, recipientById.Id);
+                Assert.Equal(IdentificationType.DigipostAddress, recipientById.IdentificationType);
+                Assert.Equal(testPerson, recipientById.Id);
             }
         }
     }

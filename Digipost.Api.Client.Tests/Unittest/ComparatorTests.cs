@@ -4,17 +4,15 @@ using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.CompareObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest
 {
-    [TestClass]
     public class ComparatorTests
     {
-        [TestClass]
         public class AreEqualMethod
         {
-            [TestMethod]
+            [Fact]
             public void GivesErrorOnDeepCompareDifference()
             {
                 //Arrange
@@ -64,7 +62,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 var result = comparator.AreEqual(message1, message2, out differences);
 
                 //Assert
-                Assert.AreEqual(3, differences.Count());
+                Assert.Equal(3, differences.Count());
             }
         }
     }

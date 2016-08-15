@@ -82,10 +82,10 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 switch (requestType)
                 {
                     case RequestType.Message:
-                        await digipostClient.SendMessageAsync(GetMessage());
+                        await digipostClient.SendMessageAsync(GetMessage()).ConfigureAwait(false);
                         break;
                     case RequestType.Identify:
-                        await digipostClient.IdentifyAsync(GetIdentification());
+                        await digipostClient.IdentifyAsync(GetIdentification()).ConfigureAwait(false);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("requestType", requestType, null);

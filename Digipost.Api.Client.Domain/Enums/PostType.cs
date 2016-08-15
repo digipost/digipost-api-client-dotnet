@@ -11,11 +11,13 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Increased delivery priority. Note: additional charges may apply.
         /// </summary>
-        [XmlEnum("A")] A,
+        [XmlEnum("A")]
+        A,
 
         /// <summary>
         ///     Normal delivery priority.
         /// </summary>
-        [XmlEnum("B")] B
+        [XmlEnum("B")]
+        B
     }
 }

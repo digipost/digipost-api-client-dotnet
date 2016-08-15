@@ -6,8 +6,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class Invoice : Document, IInvoice
     {
-        public Invoice(string subject, string fileType, byte[] contentBytes, decimal amount, string account,
-            DateTime duedate, string kid = null,
+        public Invoice(string subject, string fileType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid = null,
             AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : base(subject, fileType, contentBytes, authenticationLevel, sensitivityLevel, smsNotification)
@@ -18,8 +17,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
             Duedate = duedate;
         }
 
-        public Invoice(string subject, string fileType, string path, decimal amount, string account, DateTime duedate,
-            string kid = null,
+        public Invoice(string subject, string fileType, string path, decimal amount, string account, DateTime duedate, string kid = null,
             AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(

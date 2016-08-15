@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
 
         public override string ToString()
         {
-            var attachments = AttachmentsDataTransferObject.Aggregate(" ", (current, doc) => current + (doc.ToString()));
+            var attachments = AttachmentsDataTransferObject.Aggregate(" ", (current, doc) => current + doc.ToString());
             return
                 string.Format(
                     "Deliverymethod: {0}, Status: {1}, DeliveryTime: {2}, Primarydocument: {3}, " +

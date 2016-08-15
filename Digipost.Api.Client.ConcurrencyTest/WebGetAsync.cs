@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                               _stopwatch.ElapsedMilliseconds + " Avg:" +
                               (_stopwatch.Elapsed.Seconds == 0
                                   ? _successfulCalls
-                                  : (_successfulCalls/_stopwatch.Elapsed.Seconds)) + " req/sec");
+                                  : _successfulCalls/_stopwatch.Elapsed.Seconds) + " req/sec");
         }
 
         public void TestParallel()
@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 const string url = "http://10.16.0.125:3000/";
                 //Console.WriteLine("AsyncGet to " + URL);
                 var getTask = httpClient.GetAsync(url);
-                httpResponse = await getTask;
+                httpResponse = await getTask.ConfigureAwait(false);
 
                 Interlocked.Increment(ref _successfulCalls);
                 //Console.WriteLine("Success");

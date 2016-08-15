@@ -2,17 +2,15 @@
 using System.IO;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Tests.Fakes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
-    [TestClass]
     public class InvoiceTests
     {
-        [TestClass]
         public class ConstructorMethod : InvoiceTests
         {
-            [TestMethod]
+            [Fact]
             public void CreateFromContentBytes()
             {
                 //Arrange
@@ -22,13 +20,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual("13452564677", invoice.Account);
-                Assert.AreEqual(125, invoice.Amount);
-                Assert.AreEqual(dueDate, invoice.Duedate);
-                Assert.AreEqual("1234567890kid", invoice.Kid);
+                Assert.Equal("13452564677", invoice.Account);
+                Assert.Equal(125, invoice.Amount);
+                Assert.Equal(dueDate, invoice.Duedate);
+                Assert.Equal("1234567890kid", invoice.Kid);
             }
 
-            [TestMethod]
+            [Fact]
             public void CreateFromPath()
             {
                 //Arrange
@@ -38,13 +36,13 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual("13452564677", invoice.Account);
-                Assert.AreEqual(125, invoice.Amount);
-                Assert.AreEqual(dueDate, invoice.Duedate);
-                Assert.AreEqual("1234567890kid", invoice.Kid);
+                Assert.Equal("13452564677", invoice.Account);
+                Assert.Equal(125, invoice.Amount);
+                Assert.Equal(dueDate, invoice.Duedate);
+                Assert.Equal("1234567890kid", invoice.Kid);
             }
 
-            [TestMethod]
+            [Fact]
             public void CreateFromStream()
             {
                 //Arrange
@@ -54,10 +52,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
 
                 //Assert
-                Assert.AreEqual("13452564677", invoice.Account);
-                Assert.AreEqual(125, invoice.Amount);
-                Assert.AreEqual(dueDate, invoice.Duedate);
-                Assert.AreEqual("1234567890kid", invoice.Kid);
+                Assert.Equal("13452564677", invoice.Account);
+                Assert.Equal(125, invoice.Amount);
+                Assert.Equal(dueDate, invoice.Duedate);
+                Assert.Equal("1234567890kid", invoice.Kid);
             }
         }
     }

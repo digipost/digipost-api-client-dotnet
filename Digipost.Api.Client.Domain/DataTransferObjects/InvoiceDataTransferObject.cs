@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain.DataTransferObjects
 {
@@ -14,8 +13,8 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     {
         public InvoiceDataTransferObject(string subject, string fileType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid = null,
             AuthenticationLevel authLevel = AuthenticationLevel.Password,
-            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotification smsNotification = null)
-            : base(subject, fileType, contentBytes, authLevel, sensitivityLevel)
+            SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, SmsNotificationDataTransferObject smsNotification = null)
+            : base(subject, fileType, contentBytes, authLevel, sensitivityLevel, smsNotification)
         {
             Kid = kid;
             Amount = amount;

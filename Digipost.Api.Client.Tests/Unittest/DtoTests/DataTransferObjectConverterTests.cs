@@ -80,10 +80,44 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
                 var expectedDto = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
+
                 expectedDto.Guid = source.Guid;
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.AreEqual(expectedDto, actualDto, out differences);
+                Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void Invoice()
+            {
+                //Arrange
+                const string subject = "subject";
+                const string fileType = "txt";
+                const int amount = 2;
+                var contentBytes = new byte[] {0xb2};
+                const string account = "1234";
+                var duedate = DateTime.Now;
+                const string kid = "123123123";
+                const AuthenticationLevel authenticationLevel = AuthenticationLevel.TwoFactor;
+                const SensitivityLevel sensitivityLevel = SensitivityLevel.Sensitive;
+                var smsNotification = new SmsNotification(DateTime.Now);
+                var smsNotificationDto = DataTransferObjectConverter.ToDataTransferObject(smsNotification);
+
+                var sourceInvoice = new Invoice(subject, fileType, contentBytes, amount, account, duedate, kid,
+                    authenticationLevel, sensitivityLevel, smsNotification);
+                var expectedDto = new InvoiceDataTransferObject(subject, fileType, contentBytes, amount, account,
+                    duedate, kid, authenticationLevel, sensitivityLevel, smsNotificationDto)
+                {
+                    Guid = sourceInvoice.Guid
+                };
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(sourceInvoice);
 
                 //Assert
                 IEnumerable<IDifference> differences;
@@ -139,7 +173,8 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var source = DomainUtility.GetMessageWithBytesAndStaticGuidRecipientByNameAndAddress();
                 source.PrintDetails = printDetails;
 
-                var expectedDto = DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientNameAndAddress();
+                var expectedDto =
+                    DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientNameAndAddress();
                 expectedDto.RecipientDataTransferObject.PrintDetailsDataTransferObject =
                     DomainUtility.GetPrintDetailsDataTransferObject();
 
@@ -277,6 +312,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     "Adresselinje3",
                     "Adresselinje4"
                     ));
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -297,6 +333,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 var expectedDto = new PrintReturnRecipientDataTransferObject("Name", new NorwegianAddressDataTransferObject(
                     "0001", "Oslo", "Addr1", "Addr2", "Addr3"));
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -332,6 +369,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
+
                 Assert.Equal(0, differences.Count());
                 Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails) null));
             }
@@ -359,8 +397,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(expectedDto, actual, out differences);
                 Assert.Equal(0, differences.Count());
             }
-
-            #region Identification
 
             [Fact]
             public void IdentificationByOrganizationNumber()
@@ -390,7 +426,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
-                    );
+
+                );
+
 
                 var expectedDto = new IdentificationDataTransferObject(
                     new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
@@ -400,7 +438,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
-                    );
+
+                );
+
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -410,8 +450,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 _comparator.AreEqual(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
-
-            #endregion
         }
 
         public class FromDataTransferObjectMethod : DataTransferObjectConverterTests
@@ -431,6 +469,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
+
                 Assert.Equal(0, differences.Count());
             }
 
@@ -483,6 +522,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(sourceDto, actual, out differences);
+
                 Assert.Equal(0, differences.Count());
             }
 
@@ -507,12 +547,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
+
                 Assert.Equal(0, differences.Count());
             }
-
-            #region Identification
-
-            #region Personal identification number
 
             [Fact]
             public void IdentificationByPinReturnsDigipostResultWithNoneResultType()
@@ -587,10 +624,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(expected.Error, actual.Error);
             }
 
-            #endregion
-
-            #region Address
-
             [Fact]
             public void IdentificationByAddressReturnsDigipostResultWithDigipostAddressResultType()
             {
@@ -655,7 +688,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                Assert.Equal(expected.ResultType, actual.ResultType);
                 Assert.Equal(expected.Data, actual.Data);
                 Assert.Equal(expected.Error, actual.Error);
             }
@@ -665,10 +697,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 // We validate the request with the XSD, so it will fail before the request is sent.
             }
-
-            #endregion
-
-            #region Organization number
 
             [Fact]
             public void IdentificationByOrganizationNumberReturnsDigipostResultWithDigipostAddressResultType()
@@ -744,10 +772,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(expected.Data, actual.Data);
                 Assert.Equal(expected.Error, actual.Error);
             }
-
-            #endregion
-
-            #endregion
         }
     }
 }

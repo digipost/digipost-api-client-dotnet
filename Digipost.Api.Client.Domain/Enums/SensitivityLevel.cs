@@ -24,5 +24,6 @@ namespace Digipost.Api.Client.Domain.Enums
         /// </summary>
         [XmlEnum("SENSITIVE")]
         Sensitive
+
     }
 }

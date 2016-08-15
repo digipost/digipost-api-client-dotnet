@@ -28,6 +28,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
+
                 Assert.Equal(0, differences.Count());
             }
 
@@ -46,6 +47,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.AreEqual(expected, actual, out differences);
+
                 Assert.Equal(0, differences.Count());
             }
         }

@@ -31,6 +31,7 @@ namespace Digipost.Api.Client.Handlers
             {
                 Logging.Log(TraceEventType.Information, " LoggingHandler >  content:" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
+
             Logging.Log(TraceEventType.Information, " LoggingHandler > sendAsync() - End!");
             return response;
         }

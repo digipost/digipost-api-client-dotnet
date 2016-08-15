@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Action
             Uri = uri;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
-            ThreadSafeHttpClient = HttpClient();
+            HttpClient = GetHttpClient();
         }
 
         private string Uri { get; }
@@ -28,9 +28,9 @@ namespace Digipost.Api.Client.Action
 
         public XmlDocument RequestContent { get; internal set; }
 
-        internal HttpClient ThreadSafeHttpClient { get; set; }
+        internal HttpClient HttpClient { get; set; }
 
-        private HttpClient HttpClient()
+        private HttpClient GetHttpClient()
         {
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
             var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
@@ -50,7 +50,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request (POST).");
-                return ThreadSafeHttpClient.PostAsync(Uri, Content(requestContent));
+                return HttpClient.PostAsync(Uri, Content(requestContent));
             }
             finally
             {
@@ -63,7 +63,7 @@ namespace Digipost.Api.Client.Action
             try
             {
                 Logging.Log(TraceEventType.Information, " - Sending request (GET).");
-                return ThreadSafeHttpClient.GetAsync(Uri);
+                return HttpClient.GetAsync(Uri);
             }
             finally
             {

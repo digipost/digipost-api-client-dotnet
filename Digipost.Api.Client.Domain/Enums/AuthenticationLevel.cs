@@ -19,6 +19,7 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Two factor authentication will be required to open the letter.
         /// </summary>
+
         [XmlEnum("TWO_FACTOR")]
         TwoFactor
     }

@@ -9,15 +9,13 @@ using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Testklient.Properties;
 
 namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
-        private static readonly string Thumbprint = Settings.Default.ThumbprintDnBLocalQa;
-        private static readonly string SenderId = Settings.Default.SenderIdDnbQa2;
-        private static readonly string Url = Settings.Default.Url;
+        private static readonly string Thumbprint = "19 f6 af 36 98 b1 3a c5 67 93 34 fb c3 f5 5b b0 8d 89 e5 2f";
+        private static readonly string SenderId = "779052";
 
         private static readonly ResourceUtility ResourceUtility =
             new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
@@ -39,7 +37,6 @@ namespace Digipost.Api.Client.Testklient
         {
             var config = new ClientConfig(SenderId)
             {
-                ApiUrl = new Uri(Url),
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
                     Console.WriteLine("{0}",
@@ -47,16 +44,6 @@ namespace Digipost.Api.Client.Testklient
                         );
                 }
             };
-
-            //Logging.Initialize(config);
-            var api = new DigipostClient(config, Thumbprint);
-
-            IdentifyPerson(api);
-            //SendMessageToPerson(api, false);
-            //var response = Search(api);
-
-            //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
-            //ConcurrencyTest.Initializer.Run(); //concurency runner
 
             Console.ReadKey();
         }
@@ -101,7 +88,7 @@ namespace Digipost.Api.Client.Testklient
             }
             catch (Exception e)
             {
-                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException.Message, true);
+                WriteToConsoleWithColor("> Oh snap... " + e.Message + e.InnerException?.Message, true);
             }
         }
 
@@ -110,14 +97,6 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             Console.WriteLine("Identifiserer person:");
             Console.WriteLine("======================================");
-
-            //var identification = new Identification(IdentificationChoice.PersonalidentificationNumber, "01013300001");
-            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "31010986802"));
-            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "16014139692"));
-            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448586"));
-            //var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01108448511"));
-            // var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge","Collettsgate 68","0460","Oslo"));
-            //var identification = new Identification(new RecipientByNameAndAddress("Kristian Sæther Enge", "blåbærveien 1", "9999", "Oslo"));
             var identification = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "896295291"));
 
             try
@@ -170,27 +149,10 @@ namespace Digipost.Api.Client.Testklient
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
                     );
 
-            //recipientIdentifier for digital mail
-            var recipientByNameAndAddress = new RecipientByNameAndAddressDataTranferObject("Kristian Sæther Enge", "0460",
-                "Oslo", "Collettsgate 68");
-
-            //Nytt regime for message
-            var recipientByNameAndAddressNew = new RecipientByNameAndAddress("Kristian Sæther Enge", "0460",
-                "Oslo", "Collettsgate 68");
-
-            var recipientById = new RecipientById(IdentificationType.DigipostAddress, "jarand.bjarte.t.k.grindheim#71WZ");
-
-            //End nytt regime for message
-
             //message
-            //var message = new Message(digitalRecipientWithFallbackPrint, invoice);
-            var message = new Message(recipientById, invoice);
-
-            //message.Deliverytime = DateTime.Now.AddDays(1);
+            var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "XX"), invoice);
 
             message.Attachments.Add(attachment);
-            //message.SenderOrganization = new SenderOrganization(){OrganizationNumber = "123Sammahvilkenid", unitId = "Partid"};
-            //message.SenderId = 12333;
 
             return message;
         }

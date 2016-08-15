@@ -33,9 +33,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void DocumentFromFile()
             {
                 //Arrange
-                var document = new FakeDocument("Subject", "txt", "c://imaginary/file", AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
 
                 //Act
+                var document = new FakeDocument("Subject", "txt", "c://imaginary/file", AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
+
 
                 //Assert
                 Assert.NotNull(document.Guid);
@@ -53,10 +54,10 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Arrange
                 byte[] myByteArray = {1, 2, 3};
                 var stream = new MemoryStream(myByteArray);
-                Document document = new FakeDocument("Subject", "txt", stream, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
 
                 //Act
-
+                Document document = new FakeDocument("Subject", "txt", stream, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
+                
                 //Assert
                 Assert.NotNull(document.Guid);
                 Assert.Equal("Subject", document.Subject);

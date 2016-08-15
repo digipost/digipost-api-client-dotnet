@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 identificationXmlDocument.LoadXml(ValidIdentificationBlueprint);
                 DigipostApi.ValidateXml(identificationXmlDocument);
             }
-
+            
             [Fact]
             public void InvalidIdentificationXmlThrowsException()
             {

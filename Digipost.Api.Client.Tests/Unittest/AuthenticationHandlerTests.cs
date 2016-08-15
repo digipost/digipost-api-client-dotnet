@@ -50,6 +50,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Assert
                 var expectedCspCryptoServiceProvider = new RSACryptoServiceProvider();
                 expectedCspCryptoServiceProvider.ImportCspBlob(Convert.FromBase64String(expectedCspBlob));
+
                 Assert.Equal(expectedCspBlob, actualCspBlob);
             }
         }
@@ -67,6 +68,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                 //Assert
                 var expectedHash = "gvXOB75lBGBY6LVTAVVpapZkBOv531VUE0EHrP2rryE=";
+
                 Assert.Equal(expectedHash, computedHash);
             }
         }

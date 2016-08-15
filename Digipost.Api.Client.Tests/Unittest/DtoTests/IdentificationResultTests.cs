@@ -68,7 +68,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         //Assert
                         Assert.Equal(identificationResult.Error.ToString(), value.ToString());
                         Assert.Null(identificationResult.Data);
-
                     }
                 }
             }

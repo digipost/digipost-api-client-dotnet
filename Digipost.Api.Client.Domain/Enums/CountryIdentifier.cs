@@ -16,7 +16,6 @@ namespace Digipost.Api.Client.Domain.Enums
         /// <summary>
         ///     Country code according to the ISO 3166-1 alpha-2 standard.
         /// </summary>
-
         [XmlEnum("country-code")]
         Countrycode
     }

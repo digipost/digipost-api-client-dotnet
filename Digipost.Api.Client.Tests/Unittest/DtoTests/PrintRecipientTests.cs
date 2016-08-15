@@ -7,9 +7,11 @@ using Xunit;
 
 namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 {
+
     public class PrintRecipientTests
     {
         public class ConstructorMethod : PrintRecipientTests
+
         {
             private readonly Comparator _comparator = new Comparator();
 
@@ -20,6 +22,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 const string name = "name";
 
                 var printRecipient = new PrintRecipient(name, DomainUtility.GetNorwegianAddress());
+
 
                 //Act
 
@@ -33,5 +36,4 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
         }
     }
-
 }

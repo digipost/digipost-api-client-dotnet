@@ -34,8 +34,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 };
 
                 var expectedDto = new RecipientDataTransferObject(
-                    new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo",
-                        "Biskop Gunnerus Gate 14"
+                    new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14"
                         )
                     {
                         AddressLine2 = "Etasje 15",
@@ -79,10 +78,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void Document()
             {
                 //Arrange
-                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password,
-                    SensitivityLevel.Sensitive, new SmsNotification(3));
-                var expectedDto = new DocumentDataTransferObject("TestSubject", "txt", new byte[2],
-                    AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
+                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                var expectedDto = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
+
                 expectedDto.Guid = source.Guid;
 
                 //Act
@@ -306,15 +304,15 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         "Adresselinje4"
                         ));
 
-                var expectedDto = new PrintReturnRecipientDataTransferObject("Name",
-                    new ForeignAddressDataTransferObject(
-                        CountryIdentifier.Country,
-                        "NO",
-                        "Adresselinje1",
-                        "Adresselinje2",
-                        "Adresselinje3",
-                        "Adresselinje4"
-                        ));
+                var expectedDto = new PrintReturnRecipientDataTransferObject("Name", new ForeignAddressDataTransferObject(
+                    CountryIdentifier.Country,
+                    "NO",
+                    "Adresselinje1",
+                    "Adresselinje2",
+                    "Adresselinje3",
+                    "Adresselinje4"
+                    ));
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -333,9 +331,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new PrintReturnRecipientDataTransferObject("Name",
-                    new NorwegianAddressDataTransferObject(
-                        "0001", "Oslo", "Addr1", "Addr2", "Addr3"));
+                var expectedDto = new PrintReturnRecipientDataTransferObject("Name", new NorwegianAddressDataTransferObject(
+                    "0001", "Oslo", "Addr1", "Addr2", "Addr3"));
+
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -405,8 +403,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             {
                 //Arrange
                 var source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
-                var expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber,
-                    "123456789");
+                var expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber, "123456789");
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -429,7 +426,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
+
                 );
+
 
                 var expectedDto = new IdentificationDataTransferObject(
                     new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
@@ -439,7 +438,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
+
                 );
+
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -457,11 +458,9 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void Document()
             {
                 //Arrange
-                var source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2],
-                    AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
+                var source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
 
-                IDocument expected = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password,
-                    SensitivityLevel.Sensitive, new SmsNotification(3));
+                IDocument expected = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
                 expected.Guid = source.Guid;
 
                 //Act

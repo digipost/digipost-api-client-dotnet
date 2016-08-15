@@ -17,6 +17,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             public void SimpleConstructor()
             {
                 //Arrange
+                const string name = "name";
 
                 //Act
                 var printRecipient = new PrintReturnRecipient("name", DomainUtility.GetNorwegianAddress());
@@ -31,5 +32,4 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
             }
         }
     }
-
 }

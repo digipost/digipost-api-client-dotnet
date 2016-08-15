@@ -149,8 +149,7 @@ namespace Digipost.Api.Client.Tests.Integration
                             It.IsAny<string>()))
                     .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                     {
-                        HttpClient =
-                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
+                        HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFacktory;
             }

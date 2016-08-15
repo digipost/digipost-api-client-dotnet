@@ -66,7 +66,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(AuthenticationLevel.TwoFactor, document.AuthenticationLevel);
                 Assert.Equal(SensitivityLevel.Sensitive, document.SensitivityLevel);
                 //Assert.Equal(new SmsNotification(2), document.SmsNotification);
-
             }
         }
     }

@@ -13,6 +13,11 @@ namespace Digipost.Api.Client.Tests.Integration
     {
         private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
 
+        public static ClientConfig GetClientConfig()
+        {
+            return new ClientConfig("senderId");
+        }
+
         public static IMessage GetSimpleMessageWithRecipientById()
         {
             var message = new Message(

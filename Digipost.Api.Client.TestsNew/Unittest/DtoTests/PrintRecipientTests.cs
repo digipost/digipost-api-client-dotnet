@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 Assert.Equal(name, printRecipient.Name);
 
                 IEnumerable<IDifference> differences;
-                _comparator.AreEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);
+                _comparator.Equal(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);
 
                 Assert.Equal(0, differences.Count());
             }

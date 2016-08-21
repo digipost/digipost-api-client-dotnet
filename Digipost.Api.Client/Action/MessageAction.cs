@@ -44,12 +44,9 @@ namespace Digipost.Api.Client
 
         private static void AddBodyToContent(IMessage message, MultipartFormDataContent content)
         {
-            Logging.Log(TraceEventType.Information, "  - Creating XML-body");
-
             var messageDataTransferObject = DataTransferObjectConverter.ToDataTransferObject(message);
             var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
-            Logging.Log(TraceEventType.Information, string.Format("   -  XML-body \n [{0}]", xmlMessage));
             var messageContent = new StringContent(xmlMessage);
             messageContent.Headers.ContentType = new MediaTypeHeaderValue(DigipostVersion.V6);
             messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -61,7 +58,6 @@ namespace Digipost.Api.Client
 
         private static void AddPrimaryDocumentToContent(IMessage message, MultipartFormDataContent content)
         {
-            Logging.Log(TraceEventType.Information, "  - Adding primary document");
             var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
             documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
             documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -75,7 +71,6 @@ namespace Digipost.Api.Client
         {
             foreach (var attachment in message.Attachments)
             {
-                Logging.Log(TraceEventType.Information, "  - Adding attachment");
                 var attachmentContent = new ByteArrayContent(attachment.ContentBytes);
                 attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
                 attachmentContent.Headers.ContentDisposition =

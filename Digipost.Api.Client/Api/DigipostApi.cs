@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Common.Logging;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObjects;
@@ -25,6 +27,9 @@ namespace Digipost.Api.Client.Api
         private readonly int _minimumSearchLength = 3;
 
         private IDigipostActionFactory _digipostActionFactory;
+
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
 
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
@@ -60,6 +65,8 @@ namespace Digipost.Api.Client.Api
 
         public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
+            Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
+
             const string uri = "messages";
 
             var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);

@@ -25,11 +25,11 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Assert
                 IEnumerable<IDifference> printDifference;
-                _comparator.AreEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient, out printDifference);
+                _comparator.Equal(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient, out printDifference);
                 Assert.Equal(0, printDifference.Count());
 
                 IEnumerable<IDifference> printReturnDifference;
-                _comparator.AreEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
+                _comparator.Equal(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
                 Assert.Equal(0, printReturnDifference.Count());
 
                 Assert.Equal(PostType.A, printDetails.PostType);

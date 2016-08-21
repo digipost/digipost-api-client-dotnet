@@ -27,5 +27,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
+
+        public override string ToString()
+        {
+            return $"FullName: {FullName}, AddressLine1: {AddressLine1}, AddressLine2: {AddressLine2}, PostalCode: {PostalCode}, City: {City}, BirthDate: {BirthDate}, PhoneNumber: {PhoneNumber}, Email: {Email}";
+        }
     }
 }

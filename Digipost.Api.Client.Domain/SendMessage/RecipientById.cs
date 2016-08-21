@@ -13,5 +13,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
         public string Id { get; set; }
 
         public IdentificationType IdentificationType { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, IdentificationType: {IdentificationType}";
+        }
     }
 }

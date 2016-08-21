@@ -64,5 +64,10 @@ namespace Digipost.Api.Client
         /// </summary>
         public string LogPath { get; set; }
 
+        /// <summary>
+        /// If set to true, all requests and responses are logged with log level DEBUG.
+        /// </summary>
+        public bool LogRequestAndResponse { get; set; }
+
     }
 }

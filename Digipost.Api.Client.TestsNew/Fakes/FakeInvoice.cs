@@ -22,12 +22,12 @@ namespace Digipost.Api.Client.Tests.Fakes
         {
         }
 
-        internal override byte[] ReadAllBytes(Stream documentStream)
+        internal  byte[] ReadAllBytes(Stream documentStream)
         {
             return new byte[] {1, 2, 3};
         }
 
-        internal override byte[] ReadAllBytes(string pathToDocument)
+        internal byte[] ReadAllBytes(string pathToDocument)
         {
             return new byte[] {1, 2, 3, 4};
         }

@@ -13,13 +13,11 @@ namespace Digipost.Api.Client.Api
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _api = new DigipostApi(clientConfig, businessCertificate);
-            Logging.Initialize(clientConfig);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
         {
             _api = new DigipostApi(clientConfig, thumbprint);
-            Logging.Initialize(clientConfig);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

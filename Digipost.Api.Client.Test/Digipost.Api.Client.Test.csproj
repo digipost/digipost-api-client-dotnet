@@ -7,8 +7,8 @@
     <ProjectGuid>{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.TestsNew</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.TestsNew</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.Test</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

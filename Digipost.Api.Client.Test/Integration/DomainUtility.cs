@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Tests.Integration
 {
     public class DomainUtility
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Test.Resources");
 
         public static ClientConfig GetClientConfig()
         {

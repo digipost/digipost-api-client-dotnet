@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
             public RequestContentBody()
             {
-                ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
+                ResourceUtility = new ResourceUtility("Digipost.Api.Client.Test.Resources");
             }
 
             [Fact]

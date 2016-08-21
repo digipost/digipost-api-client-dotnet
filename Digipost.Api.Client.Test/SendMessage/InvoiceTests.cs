@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Tests.SendMessage
                 //Arrange
                 var contentStream =
                     Assembly.GetExecutingAssembly()
-                        .GetManifestResourceStream("Digipost.Api.Client.Tests.Resources.Hoveddokument.pdf");
+                        .GetManifestResourceStream("Digipost.Api.Client.Test.Resources.Hoveddokument.pdf");
                 //Act
                 var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid,
                     AuthenticationLevel, SensitivityLevel, _smsNotification);
@@ -116,7 +116,7 @@ namespace Digipost.Api.Client.Tests.SendMessage
                 using (
                     var fileStream =
                         Assembly.GetExecutingAssembly()
-                            .GetManifestResourceStream("Digipost.Api.Client.Tests.Resources.Hoveddokument.pdf"))
+                            .GetManifestResourceStream("Digipost.Api.Client.Test.Resources.Hoveddokument.pdf"))
                 {
                     return BytesFromFileStream(fileStream);
                 }

@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.Tests
 
         public static X509Certificate2 Certificate()
         {
-            var resourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
+            var resourceUtility = new ResourceUtility("Digipost.Api.Client.Test.Resources");
             var certificate = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DigipostCert.p12"), string.Empty, X509KeyStorageFlags.Exportable);
 
             return certificate;

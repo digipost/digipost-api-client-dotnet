@@ -89,9 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="C:\Keys\digipost.pfx">
-      <Link>digipost.pfx</Link>
-    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\Xsd\api_v6.xsd">
       <SubType>Designer</SubType>

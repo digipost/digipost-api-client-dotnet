@@ -115,8 +115,8 @@
     <Compile Include="Utilities\ByteUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Keys\digipost.pfx">
-      <Link>digipost.pfx</Link>
+    <None Include="..\App.config">
+      <Link>App.config</Link>
     </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />

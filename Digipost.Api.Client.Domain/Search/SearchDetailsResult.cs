@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain.Search
@@ -16,5 +17,10 @@ namespace Digipost.Api.Client.Domain.Search
     {
         [XmlElement("recipient")]
         public List<SearchDetails> PersonDetails { get; set; }
+
+        public override string ToString()
+        {
+            return $"PersonDetails: {string.Join(",", PersonDetails.Select(p => p.ToString()))}";
+        }
     }
 }

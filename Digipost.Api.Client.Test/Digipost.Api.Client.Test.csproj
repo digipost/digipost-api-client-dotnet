@@ -88,7 +88,7 @@
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
     <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
-    <Compile Include="Integration\DigipostApiIntegration.cs" />
+    <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
     <Compile Include="Integration\DomainUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendMessage\InvoiceTests.cs" />

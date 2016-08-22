@@ -26,7 +26,8 @@ namespace Digipost.Api.Client.Tests.Unittest
                 //Act
                 var computedSignature = AuthenticationHandler.ComputeSignature(method, uri, dateTime, sha256Hash,
                     senderId,
-                    certificate);
+                    certificate,
+                    false);
 
                 //Assert
                 Assert.Equal(expectedSignature, computedSignature);

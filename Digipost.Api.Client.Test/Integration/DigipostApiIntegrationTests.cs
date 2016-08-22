@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,7 +24,11 @@ namespace Digipost.Api.Client.Tests.Integration
 
         public DigipostApiIntegrationTests()
         {
-            ClientConfig = new ClientConfig("1337");
+            ClientConfig = new ClientConfig("1337")
+            {
+                LogRequestAndResponse = false,
+                TimeoutMilliseconds = 300000000
+            };
             Uri = "identification";
             Certificate = TestProperties.Certificate();
         }
@@ -56,7 +61,11 @@ namespace Digipost.Api.Client.Tests.Integration
                 var digipostApi = new DigipostApi(ClientConfig, Certificate);
                 SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
 
+                Path.GetTempFileName();
+               
+
                 digipostApi.SendMessage(message);
+                Assert.False(true);
             }
 
             [Fact]
@@ -168,7 +177,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
                 var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
+               SetMockFactoryForDigipostApi(digipostApi, mockFactory);
 
                 digipostApi.Identify(identification);
             }
@@ -203,8 +212,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 digipostApi.Identify(identification);
             }
 
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification,
-                AuthenticationHandler authenticationHandler)
+            private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification, AuthenticationHandler authenticationHandler)
             {
                 var mockFactory = new Mock<DigipostActionFactory>();
                 mockFactory.Setup(

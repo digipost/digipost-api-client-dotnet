@@ -22,23 +22,23 @@ namespace Digipost.Api.Client.Handlers
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            await LogRequest(request);
+            await LogRequest(request).ConfigureAwait(false);
 
             var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
-            await LogResponse(response);
+            await LogResponse(response).ConfigureAwait(false);
 
             return response;
         }
 
         private async Task LogRequest(HttpRequestMessage request)
         {
-            await LogContent(request.Content, isRequest: true);
+            await LogContent(request.Content, isRequest: true).ConfigureAwait(false);
         }
 
         private async Task LogResponse(HttpResponseMessage response)
         {
-            await LogContent(response.Content, isRequest: false);
+            await LogContent(response.Content, isRequest: false).ConfigureAwait(false);
         }
 
         private async Task LogContent(HttpContent httpContent, bool isRequest)
@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.Handlers
 
             if (Log.IsDebugEnabled && ClientConfig.LogRequestAndResponse && httpContent != null)
             {
-                var data = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
+                var data = httpContent.ReadAsStringAsync().ConfigureAwait(false);
                 Log.Debug($"{logPrefix} {data}");
             }
         }

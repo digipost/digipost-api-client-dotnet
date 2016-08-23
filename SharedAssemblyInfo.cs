@@ -6,8 +6,8 @@
 [assembly: AssemblyProduct("Digipost API Client")]
 [assembly: AssemblyDescription("Digipost Client library for API integration.")]
 
-[assembly: AssemblyVersion("5.3.*")]
-[assembly: AssemblyFileVersion("5.3.*")]
+[assembly: AssemblyVersion("6.0.*")]
+[assembly: AssemblyFileVersion("6.0.*")]
 [assembly: AssemblyCulture("")]
 
 [assembly: AssemblyCopyright("© 2015-2016 Digipost AS")]

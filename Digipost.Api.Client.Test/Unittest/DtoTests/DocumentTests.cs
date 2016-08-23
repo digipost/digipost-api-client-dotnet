@@ -2,10 +2,10 @@
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Tests.Fakes;
+using Digipost.Api.Client.Test.Fakes;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class DocumentTests
     {

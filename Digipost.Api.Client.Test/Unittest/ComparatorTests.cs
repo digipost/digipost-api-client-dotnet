@@ -3,11 +3,11 @@ using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Tests.CompareObjects;
-using Digipost.Api.Client.TestsNew.Utilities;
+using Digipost.Api.Client.Test.CompareObjects;
+using Digipost.Api.Client.Test.Utilities;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest
+namespace Digipost.Api.Client.Test.Unittest
 {
     public class ComparatorTests
     {

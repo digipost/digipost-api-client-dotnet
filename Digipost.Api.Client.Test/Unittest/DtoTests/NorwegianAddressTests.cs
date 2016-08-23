@@ -1,7 +1,7 @@
 ﻿using Digipost.Api.Client.Domain.Print;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class NorwegianAddressTests
     {

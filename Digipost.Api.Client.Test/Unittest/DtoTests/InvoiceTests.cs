@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Tests.Fakes;
+using Digipost.Api.Client.Test.Fakes;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class InvoiceTests
     {

@@ -10,11 +10,11 @@ using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Handlers;
-using Digipost.Api.Client.Tests.Fakes;
+using Digipost.Api.Client.Test.Fakes;
 using Moq;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Integration
+namespace Digipost.Api.Client.Test.Integration
 {
     public class DigipostApiIntegrationTests
     {

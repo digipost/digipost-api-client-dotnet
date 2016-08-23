@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Digipost.Api.Client.Action;
+using Digipost.Api.Client.Test.Integration;
 using Xunit;
-using static Digipost.Api.Client.Tests.Integration.DomainUtility;
 
-namespace Digipost.Api.Client.Tests.Unittest
+namespace Digipost.Api.Client.Test.Unittest
 {
     public class DigipostActionFactoryTests
     {
@@ -22,10 +22,10 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 var factory = new DigipostActionFactory();
-                var message = GetSimpleMessageWithRecipientById();
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 //Act
-                var action = factory.CreateClass(message, GetClientConfig(), new X509Certificate2(), "uri");
+                var action = factory.CreateClass(message, DomainUtility.GetClientConfig(), new X509Certificate2(), "uri");
                 //Assert
 
                 Assert.Equal(typeof (MessageAction), action.GetType());
@@ -36,10 +36,10 @@ namespace Digipost.Api.Client.Tests.Unittest
             {
                 //Arrange
                 var factory = new DigipostActionFactory();
-                var identification = GetPersonalIdentification();
+                var identification = DomainUtility.GetPersonalIdentification();
 
                 //Act
-                var action = factory.CreateClass(identification, GetClientConfig(), new X509Certificate2(), "uri");
+                var action = factory.CreateClass(identification, DomainUtility.GetClientConfig(), new X509Certificate2(), "uri");
 
                 //Assert
                 Assert.Equal(typeof (IdentificationAction), action.GetType());

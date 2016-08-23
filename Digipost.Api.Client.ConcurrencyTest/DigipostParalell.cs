@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Digipost.Api.Client;
-using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace ConcurrencyTester
+namespace Digipost.Api.Client.ConcurrencyTest
 {
     internal class DigipostParalell : DigipostRunner
     {

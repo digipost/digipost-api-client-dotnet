@@ -2,12 +2,11 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Action
 {
     internal class MessageAction : DigipostAction
     {

@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.Tests.CompareObjects
+﻿namespace Digipost.Api.Client.Test.CompareObjects
 {
     public interface IDifference
     {

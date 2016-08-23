@@ -7,11 +7,11 @@ using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
-using Digipost.Api.Client.Tests.CompareObjects;
-using Digipost.Api.Client.Tests.Integration;
+using Digipost.Api.Client.Test.CompareObjects;
+using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class DataTransferObjectConverterTests
     {

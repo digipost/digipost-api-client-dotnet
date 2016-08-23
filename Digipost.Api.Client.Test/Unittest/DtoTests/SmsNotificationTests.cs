@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Tests.CompareObjects;
+using Digipost.Api.Client.Test.CompareObjects;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class SmsNotificationTests
     {

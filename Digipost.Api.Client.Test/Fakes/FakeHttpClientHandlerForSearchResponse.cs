@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Digipost.Api.Client.Tests.Fakes
+namespace Digipost.Api.Client.Test.Fakes
 {
     internal class FakeHttpClientHandlerForSearchResponse : FakeHttpClientHandlerResponse
     {

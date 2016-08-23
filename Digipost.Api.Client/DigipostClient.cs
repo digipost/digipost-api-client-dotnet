@@ -1,10 +1,11 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Api
+namespace Digipost.Api.Client
 {
     public class DigipostClient
     {

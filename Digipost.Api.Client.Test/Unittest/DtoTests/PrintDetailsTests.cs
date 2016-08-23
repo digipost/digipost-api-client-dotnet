@@ -2,11 +2,11 @@
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Print;
-using Digipost.Api.Client.Tests.CompareObjects;
-using Digipost.Api.Client.Tests.Integration;
+using Digipost.Api.Client.Test.CompareObjects;
+using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.Unittest.DtoTests
 {
     public class PrintDetailsTests
     {

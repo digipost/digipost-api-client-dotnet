@@ -5,7 +5,7 @@ using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.SendMessage
+namespace Digipost.Api.Client.Test.SendMessage
 {
     public class InvoiceTests
     {

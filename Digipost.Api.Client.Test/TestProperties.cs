@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 
-namespace Digipost.Api.Client.Tests
+namespace Digipost.Api.Client.Test
 {
     public static class TestProperties
     {

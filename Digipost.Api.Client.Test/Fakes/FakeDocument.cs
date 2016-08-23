@@ -2,7 +2,7 @@
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Tests.Fakes
+namespace Digipost.Api.Client.Test.Fakes
 {
     internal class FakeDocument : Document
     {

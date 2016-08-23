@@ -7,7 +7,7 @@ using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Tests.Integration
+namespace Digipost.Api.Client.Test.Integration
 {
     public class DomainUtility
     {

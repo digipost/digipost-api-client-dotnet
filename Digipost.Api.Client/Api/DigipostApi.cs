@@ -187,11 +187,12 @@ namespace Digipost.Api.Client.Api
             }
 
             var xmlValidator = new ApiClientXmlValidator();
-            var isValidXml = xmlValidator.ValiderDokumentMotXsd(document.InnerXml);
+            string validationMessages;
+            var isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
 
             if (!isValidXml)
             {
-                throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
+                throw new XmlException($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
             }
         }
 

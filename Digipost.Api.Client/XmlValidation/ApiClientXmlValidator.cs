@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.XmlValidation
 
         public ApiClientXmlValidator()
         {
-            LeggTilXsdRessurs(Navnerom.DigipostApiInformasjon, XsdResource("api_v6.xsd"));
+            AddXsd(Navnerom.DigipostApiInformasjon, XsdResource("api_v6.xsd"));
         }
 
         private XmlReader XsdResource(string path)

@@ -63,9 +63,7 @@ namespace Digipost.Api.Client.Tests.Integration
 
                 Path.GetTempFileName();
                
-
                 digipostApi.SendMessage(message);
-                Assert.False(true);
             }
 
             [Fact]

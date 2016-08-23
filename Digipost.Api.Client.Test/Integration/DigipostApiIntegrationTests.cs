@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
 
                 Path.GetTempFileName();
-               
+
                 digipostApi.SendMessage(message);
             }
 
@@ -104,7 +104,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.True(ex.GetType() == typeof(ClientResponseException));
+                    Assert.True(ex.GetType() == typeof (ClientResponseException));
                 }
             }
 
@@ -132,7 +132,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
 
-                    Assert.True(ex.GetType() == typeof(ClientResponseException));
+                    Assert.True(ex.GetType() == typeof (ClientResponseException));
                 }
             }
 
@@ -156,7 +156,7 @@ namespace Digipost.Api.Client.Tests.Integration
                             It.IsAny<string>()))
                     .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                     {
-                        HttpClient = new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                        HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFacktory;
             }
@@ -175,7 +175,7 @@ namespace Digipost.Api.Client.Tests.Integration
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
                 var digipostApi = new DigipostApi(ClientConfig, Certificate);
-               SetMockFactoryForDigipostApi(digipostApi, mockFactory);
+                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
 
                 digipostApi.Identify(identification);
             }
@@ -220,7 +220,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                     {
                         HttpClient =
-                            new HttpClient(authenticationHandler) { BaseAddress = new Uri("http://tull") }
+                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFactory;
             }
@@ -260,7 +260,7 @@ namespace Digipost.Api.Client.Tests.Integration
                     .Returns(new GetByUriAction(null, ClientConfig, Certificate, Uri)
                     {
                         HttpClient =
-                            new HttpClient(fakeHandlerChain) { BaseAddress = new Uri("http://tull") }
+                            new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}
                     });
                 return mockFacktory;
             }

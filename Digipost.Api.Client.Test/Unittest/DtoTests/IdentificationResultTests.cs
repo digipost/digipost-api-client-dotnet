@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 foreach (var value in enumValues)
                 {
-                    var failedIdentificationResultType = value == IdentificationResultType.InvalidReason ||value == IdentificationResultType.UnidentifiedReason;
+                    var failedIdentificationResultType = value == IdentificationResultType.InvalidReason || value == IdentificationResultType.UnidentifiedReason;
 
                     if (!failedIdentificationResultType)
                     {

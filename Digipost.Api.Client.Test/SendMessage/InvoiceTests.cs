@@ -1,17 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Net.Security;
 using System.Reflection;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 using Xunit;
-using AuthenticationLevel = Digipost.Api.Client.Domain.Enums.AuthenticationLevel;
 
 namespace Digipost.Api.Client.Tests.SendMessage
 {
     public class InvoiceTests
     {
-        
         public class ConstructorMethod : InvoiceTests
         {
             private const string Subject = "subjcet";

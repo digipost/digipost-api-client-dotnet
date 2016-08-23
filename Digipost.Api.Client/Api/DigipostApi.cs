@@ -24,12 +24,10 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly int _minimumSearchLength = 3;
 
         private IDigipostActionFactory _digipostActionFactory;
-
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
 
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
@@ -89,7 +87,7 @@ namespace Digipost.Api.Client.Api
         public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
             Log.Debug($"Outgoing identification request: {identification}");
-            
+
             const string uri = "identification";
 
             var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);

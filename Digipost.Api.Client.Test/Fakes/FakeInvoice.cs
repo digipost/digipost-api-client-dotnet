@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Tests.Fakes
         {
         }
 
-        internal  byte[] ReadAllBytes(Stream documentStream)
+        internal byte[] ReadAllBytes(Stream documentStream)
         {
             return new byte[] {1, 2, 3};
         }

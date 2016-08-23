@@ -37,7 +37,6 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                 //Act
                 var document = new FakeDocument("Subject", "txt", "c://imaginary/file", AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
 
-
                 //Assert
                 Assert.NotNull(document.Guid);
                 Assert.Equal("Subject", document.Subject);
@@ -57,7 +56,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
 
                 //Act
                 Document document = new FakeDocument("Subject", "txt", stream, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive, new SmsNotification(2));
-                
+
                 //Assert
                 Assert.NotNull(document.Guid);
                 Assert.Equal("Subject", document.Subject);

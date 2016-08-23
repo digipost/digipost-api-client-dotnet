@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Tests.CompareObjects
 
         public bool Equal(object expected, object actual, out IEnumerable<IDifference> differences)
         {
-            var compareLogic = new CompareLogic(new ComparisonConfig { MaxDifferences = 5 });
+            var compareLogic = new CompareLogic(new ComparisonConfig {MaxDifferences = 5});
             var compareResult = compareLogic.Compare(expected, actual);
 
             differences = compareResult.Differences.Select(d => new Difference

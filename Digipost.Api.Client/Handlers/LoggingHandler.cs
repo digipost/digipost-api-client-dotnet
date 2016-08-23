@@ -8,16 +8,15 @@ namespace Digipost.Api.Client.Handlers
 {
     internal class LoggingHandler : DelegatingHandler
     {
-        private ClientConfig ClientConfig { get; set; }
-
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
 
         public LoggingHandler(HttpMessageHandler innerHandler, ClientConfig clientConfig)
             : base(innerHandler)
         {
             ClientConfig = clientConfig;
         }
+
+        private ClientConfig ClientConfig { get; }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
@@ -33,12 +32,12 @@ namespace Digipost.Api.Client.Handlers
 
         private async Task LogRequest(HttpRequestMessage request)
         {
-            await LogContent(request.Content, isRequest: true).ConfigureAwait(false);
+            await LogContent(request.Content, true).ConfigureAwait(false);
         }
 
         private async Task LogResponse(HttpResponseMessage response)
         {
-            await LogContent(response.Content, isRequest: false).ConfigureAwait(false);
+            await LogContent(response.Content, false).ConfigureAwait(false);
         }
 
         private async Task LogContent(HttpContent httpContent, bool isRequest)

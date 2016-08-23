@@ -426,9 +426,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
-
-                );
-
+                    );
 
                 var expectedDto = new IdentificationDataTransferObject(
                     new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
@@ -438,9 +436,7 @@ namespace Digipost.Api.Client.Tests.Unittest.DtoTests
                         PhoneNumber = "123456789",
                         Email = "tull@epost.no"
                     }
-
-                );
-
+                    );
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);

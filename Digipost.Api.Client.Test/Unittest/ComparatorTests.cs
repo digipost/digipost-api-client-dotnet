@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Tests.Unittest
 
                     var document = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"), AuthenticationLevel.TwoFactor,
                         SensitivityLevel.Sensitive)
-                    { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2) };
+                    {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(2)};
 
                     message1 = new MessageDataTransferObject(recipient, document);
                 }
@@ -55,7 +55,7 @@ namespace Digipost.Api.Client.Tests.Unittest
                     var document2 = new DocumentDataTransferObject("Subject", "txt", ByteUtility.GetBytes("test"),
                         AuthenticationLevel.TwoFactor,
                         SensitivityLevel.Sensitive)
-                    { Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(3) };
+                    {Guid = "1222222", SmsNotification = new SmsNotificationDataTransferObject(3)};
 
                     message2 = new MessageDataTransferObject(recipient2, document2);
                 }

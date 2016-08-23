@@ -1,9 +1,8 @@
 ﻿using System;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.DataTransferObjects
 {
     public class MessageTests
     {

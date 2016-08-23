@@ -8,10 +8,9 @@ using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Test.CompareObjects;
-using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest.DtoTests
+namespace Digipost.Api.Client.Test.DataTransferObjects
 {
     public class DataTransferObjectConverterTests
     {

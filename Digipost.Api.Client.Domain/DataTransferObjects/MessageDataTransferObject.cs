@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [DebuggerStepThrough]
     [DesignerCategory("code")]
     [XmlType(TypeName = "message", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public class MessageDataTransferObject
     {
         private MessageDataTransferObject()

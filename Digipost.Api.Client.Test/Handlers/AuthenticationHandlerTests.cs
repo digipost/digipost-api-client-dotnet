@@ -4,7 +4,7 @@ using System.Text;
 using Digipost.Api.Client.Handlers;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest
+namespace Digipost.Api.Client.Test.Handlers
 {
     public class AuthenticationHandlerTests
     {

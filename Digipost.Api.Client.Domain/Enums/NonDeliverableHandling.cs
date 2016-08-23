@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "nondeliverable-handling", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("nondeliverable-handling", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("nondeliverable-handling", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public enum NondeliverableHandling
     {
         /// <summary>

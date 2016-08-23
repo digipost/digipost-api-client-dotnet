@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(TypeName = "print-details", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("print-details", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
+    [XmlRoot("print-details", Namespace = "http://api.digipost.no/schema/v6",IsNullable = true)]
     public class PrintDetailsDataTransferObject
     {
         /// <summary>

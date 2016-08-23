@@ -2,7 +2,7 @@
 using Digipost.Api.Client.Api;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest
+namespace Digipost.Api.Client.Test.Api
 {
     public class DigipostApiTests
     {

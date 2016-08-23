@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "identification-result-code", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("identification-result-code", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("identification-result-code", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public enum IdentificationResultCode
     {
         [XmlEnum("DIGIPOST")]

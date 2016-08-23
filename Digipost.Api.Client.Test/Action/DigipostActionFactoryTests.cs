@@ -1,10 +1,9 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Digipost.Api.Client.Action;
-using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest
+namespace Digipost.Api.Client.Test.Action
 {
     public class DigipostActionFactoryTests
     {

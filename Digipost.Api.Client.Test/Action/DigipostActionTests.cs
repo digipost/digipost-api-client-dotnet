@@ -4,10 +4,9 @@ using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
-using Digipost.Api.Client.Test.Integration;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Unittest
+namespace Digipost.Api.Client.Test.Action
 {
     public class DigipostActionTests
     {

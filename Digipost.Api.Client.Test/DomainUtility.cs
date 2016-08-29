@@ -127,7 +127,12 @@ namespace Digipost.Api.Client.Test
 
         public static IDocument GetDocument()
         {
-            return new Document("Integrasjonstjest", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
+            return new Document("simple-document-dotnet", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
+        }
+
+        public static IDocument GetInvoice()
+        {
+            return new Invoice("simple-invoice-dotnet", "pdf", ResourceUtility.ReadAllBytes(true, "Hoveddokument.pdf"), 1005, "45278968788", DateTime.Now.AddDays(4));
         }
 
         public static IIdentification GetPersonalIdentification()

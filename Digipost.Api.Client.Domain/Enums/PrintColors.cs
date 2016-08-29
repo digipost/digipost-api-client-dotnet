@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "print-colors", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("print-colors", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("print-colors", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public enum PrintColors
     {
         /// <summary>

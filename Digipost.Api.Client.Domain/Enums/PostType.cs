@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "post-type", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("post-type", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("post-type", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public enum PostType
     {
         /// <summary>

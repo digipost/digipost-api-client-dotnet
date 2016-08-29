@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-
-[assembly: AssemblyVersion("6.2.*")]
-[assembly: AssemblyFileVersion("6.2.*")]
+[assembly: AssemblyCompany("Digipost AS")]
+[assembly: AssemblyTrademark("Digipost AS")]
+[assembly: AssemblyProduct("Digipost API Client")]
+[assembly: AssemblyDescription("Digipost Client library for API integration.")]
+[assembly: AssemblyVersion("6.0.*")]
+[assembly: AssemblyFileVersion("6.0.*")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyCopyright("© 2015-2016 Digipost AS")]

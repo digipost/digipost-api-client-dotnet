@@ -1,10 +1,11 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Api
+namespace Digipost.Api.Client
 {
     public class DigipostClient
     {
@@ -13,13 +14,11 @@ namespace Digipost.Api.Client.Api
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _api = new DigipostApi(clientConfig, businessCertificate);
-            Logging.Initialize(clientConfig);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
         {
             _api = new DigipostApi(clientConfig, thumbprint);
-            Logging.Initialize(clientConfig);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

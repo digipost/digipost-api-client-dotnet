@@ -1,9 +1,8 @@
 ﻿using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Action
 {
     internal class GetByUriAction : DigipostAction
     {

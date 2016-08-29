@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(TypeName = "message-delivery", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("message-delivery", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("message-delivery", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public class MessageDeliveryResultDataTransferObject
     {
         [XmlElement("delivery-method")]

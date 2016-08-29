@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Common.Logging;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObjects;
@@ -22,6 +24,7 @@ namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly int _minimumSearchLength = 3;
 
         private IDigipostActionFactory _digipostActionFactory;
@@ -60,6 +63,8 @@ namespace Digipost.Api.Client.Api
 
         public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
+            Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
+
             const string uri = "messages";
 
             var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
@@ -67,8 +72,11 @@ namespace Digipost.Api.Client.Api
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
-            var fromDataTransferObject = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
-            return fromDataTransferObject;
+            var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
+
+            Log.Debug($"Response received for message to recipient, {message.DigipostRecipient}: '{messageDeliveryResult.Status}'. Will be available to Recipient at {messageDeliveryResult.DeliveryTime}.");
+
+            return messageDeliveryResult;
         }
 
         public IIdentificationResult Identify(IIdentification identification)
@@ -78,15 +86,28 @@ namespace Digipost.Api.Client.Api
 
         public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
+            Log.Debug($"Outgoing identification request: {identification}");
+
             const string uri = "identification";
+
             var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
-                if (identifyResponse.Exception != null) throw identifyResponse.Exception.InnerException;
+                var exception = identifyResponse.Exception.InnerException;
+
+                Log.Warn($"Identification failed, {exception}");
+
+                if (identifyResponse.Exception != null)
+                    throw identifyResponse.Exception.InnerException;
             }
 
-            return DataTransferObjectConverter.FromDataTransferObject(await identifyResponse.ConfigureAwait(false));
+            var identificationResultDataTransferObject = await identifyResponse.ConfigureAwait(false);
+            var identificationResult = DataTransferObjectConverter.FromDataTransferObject(identificationResultDataTransferObject);
+
+            Log.Debug($"Response received for identification to recipient, ResultType '{identificationResult.ResultType}', Data '{identificationResult.Data}'.");
+
+            return identificationResult;
         }
 
         public ISearchDetailsResult Search(string search)
@@ -96,6 +117,8 @@ namespace Digipost.Api.Client.Api
 
         public async Task<ISearchDetailsResult> SearchAsync(string search)
         {
+            Log.Debug($"Outgoing search request, term: '{search}'.");
+
             search = search.RemoveReservedUriCharacters();
             var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
 
@@ -109,7 +132,11 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            return (ISearchDetailsResult) await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
+            var searchDetailsResult = await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
+
+            Log.Debug($"Response received for search with term '{search}' retrieved: '{searchDetailsResult.PersonDetails.Count}' entries.");
+
+            return searchDetailsResult;
         }
 
         private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
@@ -158,11 +185,12 @@ namespace Digipost.Api.Client.Api
             }
 
             var xmlValidator = new ApiClientXmlValidator();
-            var isValidXml = xmlValidator.ValiderDokumentMotXsd(document.InnerXml);
+            string validationMessages;
+            var isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
 
             if (!isValidXml)
             {
-                throw new XmlException("Xml was invalid. Stopped sending message. Feilmelding:" + xmlValidator.ValideringsVarsler);
+                throw new XmlException($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
             }
         }
 

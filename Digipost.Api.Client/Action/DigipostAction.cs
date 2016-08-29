@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -32,7 +31,7 @@ namespace Digipost.Api.Client.Action
 
         private HttpClient GetHttpClient()
         {
-            var loggingHandler = new LoggingHandler(new HttpClientHandler());
+            var loggingHandler = new LoggingHandler(new HttpClientHandler(), ClientConfig);
             var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
                 loggingHandler);
 
@@ -47,28 +46,12 @@ namespace Digipost.Api.Client.Action
 
         internal Task<HttpResponseMessage> PostAsync(IRequestContent requestContent)
         {
-            try
-            {
-                Logging.Log(TraceEventType.Information, " - Sending request (POST).");
-                return HttpClient.PostAsync(Uri, Content(requestContent));
-            }
-            finally
-            {
-                Logging.Log(TraceEventType.Information, " - Request sent.");
-            }
+            return HttpClient.PostAsync(Uri, Content(requestContent));
         }
 
         internal Task<HttpResponseMessage> GetAsync()
         {
-            try
-            {
-                Logging.Log(TraceEventType.Information, " - Sending request (GET).");
-                return HttpClient.GetAsync(Uri);
-            }
-            finally
-            {
-                Logging.Log(TraceEventType.Information, " - Request sent.");
-            }
+            return HttpClient.GetAsync(Uri);
         }
 
         protected abstract HttpContent Content(IRequestContent requestContent);

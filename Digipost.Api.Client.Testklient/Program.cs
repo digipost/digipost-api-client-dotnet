@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Reflection;
 using ApiClientShared;
+using Common.Logging;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain.Enums;
@@ -14,29 +15,27 @@ namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private static readonly string Thumbprint = "19 f6 af 36 98 b1 3a c5 67 93 34 fb c3 f5 5b b0 8d 89 e5 2f";
         private static readonly string SenderId = "779052";
+        private static readonly string Url = "https://qa.api.digipost.no/";
 
         private static readonly ResourceUtility ResourceUtility =
             new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
-            //Performance();
+            Log.Debug("Starting console application ...");
             RunSingle();
-
             Console.ReadKey();
-        }
-
-        private static void Performance()
-        {
-            Initializer.Run(); //concurency runner
         }
 
         private static void RunSingle()
         {
             var config = new ClientConfig(SenderId)
             {
+                ApiUrl = new Uri(Url),
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
                     Console.WriteLine("{0}",
@@ -45,7 +44,22 @@ namespace Digipost.Api.Client.Testklient
                 }
             };
 
+            //Logging.Initialize(config);
+            var api = new DigipostClient(config, Thumbprint);
+
+            IdentifyPerson(api);
+            //SendMessageToPerson(api, false);
+            //var response = Search(api);
+
+            //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
+            //ConcurrencyTest.Initializer.Run(); //concurency runner
+
             Console.ReadKey();
+        }
+
+        private static void Performance()
+        {
+            Initializer.Run(); //concurency runner
         }
 
         private static ISearchDetailsResult Search(DigipostClient api)
@@ -102,7 +116,7 @@ namespace Digipost.Api.Client.Testklient
             try
             {
                 var identificationResponse = api.Identify(identification);
-                Logging.Log(TraceEventType.Information, "Identification resp: \n" + identificationResponse);
+                Log.Debug("Identification resp: \n" + identificationResponse);
                 WriteToConsoleWithColor("> Personen ble identifisert!", false);
 
                 Console.WriteLine("ResultType: " + identificationResponse.ResultType);

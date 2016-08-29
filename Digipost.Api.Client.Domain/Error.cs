@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("error", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
+    [XmlRoot("error", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
     public class Error : IError
     {
         private Error()

@@ -47,7 +47,8 @@ namespace Digipost.Api.Client
 
         /// <summary>
         ///     Exposes logging where you can integrate your own logger or third party logger (i.e. log4net). For use, set an
-        ///     anonymous function with the following parameters: conversationId, method, message. As a default, trace logging is enabled with
+        ///     anonymous function with the following parameters: conversationId, method, message. As a default, trace logging is
+        ///     enabled with
         ///     'Digipost.Api.Client', which can be
         ///     activated in App.config.
         /// </summary>
@@ -64,5 +65,9 @@ namespace Digipost.Api.Client
         /// </summary>
         public string LogPath { get; set; }
 
+        /// <summary>
+        ///     If set to true, all requests and responses are logged with log level DEBUG.
+        /// </summary>
+        public bool LogRequestAndResponse { get; set; }
     }
 }

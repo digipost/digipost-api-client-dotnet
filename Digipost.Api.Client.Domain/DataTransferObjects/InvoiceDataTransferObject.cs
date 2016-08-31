@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("invoice", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class InvoiceDataTransferObject : DocumentDataTransferObject
     {
         public InvoiceDataTransferObject(string subject, string fileType, byte[] contentBytes, decimal amount, string account, DateTime duedate, string kid = null,

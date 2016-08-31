@@ -116,6 +116,7 @@
     <Compile Include="DataTransferObjects\RecipientByNameAndAddressTests.cs" />
     <Compile Include="DataTransferObjects\SmsNotificationTests.cs" />
     <Compile Include="Utilities\ByteUtility.cs" />
+    <Compile Include="Utilities\SenderUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\App.config">

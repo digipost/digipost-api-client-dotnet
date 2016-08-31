@@ -2,7 +2,6 @@
 using System.Reflection;
 using ApiClientShared;
 using Common.Logging;
-using Digipost.Api.Client.Api;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
@@ -17,12 +16,11 @@ namespace Digipost.Api.Client.Testklient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly string Thumbprint = "19 f6 af 36 98 b1 3a c5 67 93 34 fb c3 f5 5b b0 8d 89 e5 2f";
-        private static readonly string SenderId = "779052";
+        private static readonly string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
+        private static readonly string SenderId = "779051";
         private static readonly string Url = "https://qa.api.digipost.no/";
 
-        private static readonly ResourceUtility ResourceUtility =
-            new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Testklient.Resources");
 
         private static void Main(string[] args)
         {
@@ -48,7 +46,7 @@ namespace Digipost.Api.Client.Testklient
             var api = new DigipostClient(config, Thumbprint);
 
             IdentifyPerson(api);
-            //SendMessageToPerson(api, false);
+            SendMessageToPerson(api, false);
             //var response = Search(api);
 
             //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
@@ -164,7 +162,7 @@ namespace Digipost.Api.Client.Testklient
                     );
 
             //message
-            var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "XX"), invoice);
+            var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);
 
             message.Attachments.Add(attachment);
 

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
-using ApiClientShared.Enums;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Test.Utilities;
 using Xunit;
+using Environment = System.Environment;
 
 namespace Digipost.Api.Client.Test.Smoke
 {
@@ -16,9 +15,6 @@ namespace Digipost.Api.Client.Test.Smoke
     {
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
-        private readonly X509Certificate2 _digipostTestCertificate = new X509Certificate2(CertificateUtility.SenderCertificate("d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd", Language.English));
-        private readonly string _digipostTestkonto = "779051";
-        private readonly string _environment = "https://qa.api.digipost.no/";
 
         //Gradually built state, identification
         private Identification _identification;
@@ -32,9 +28,25 @@ namespace Digipost.Api.Client.Test.Smoke
         //Gradually built state, search
         private ISearchDetailsResult _searchResult;
 
-        public TestHelper()
+        public TestHelper(Sender sender)
         {
-            _digipostClient = new DigipostClient(new ClientConfig(_digipostTestkonto, _environment), _digipostTestCertificate);
+            var actualSender = OverrideSenderIfOnBuildServer(sender);
+
+            _digipostClient = new DigipostClient(new ClientConfig(actualSender.Id, actualSender.Environment), actualSender.Certificate);
+        }
+
+        private Sender OverrideSenderIfOnBuildServer(Sender sender)
+        {
+            const string buildServerUser = "administrator";
+            var currentUser = Environment.UserName.ToLower();
+            var isCurrentUserBuildServer = currentUser.Contains(buildServerUser);
+
+            if (isCurrentUserBuildServer)
+            {
+                return SenderUtility.GetSender(Utilities.Environment.DifiTest);
+            }
+
+            return sender;
         }
 
         public TestHelper Create_message_with_primary_document()
@@ -62,7 +74,7 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             Assert_state(_primary);
 
-            _recipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001");
+            _recipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "04036125433");
 
             return this;
         }
@@ -97,7 +109,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper Create_identification_request()
         {
-            _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001"));
+            _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "04036125433"));
 
             return this;
         }

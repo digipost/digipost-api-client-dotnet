@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DigipostAsync.cs" />
     <Compile Include="DigipostParalell.cs" />
     <Compile Include="DigipostRunner.cs" />
@@ -67,9 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Hoveddokument.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">

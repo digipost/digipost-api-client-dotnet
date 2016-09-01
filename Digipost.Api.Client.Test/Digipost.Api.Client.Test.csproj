@@ -83,6 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CompareObjects\Comparator.cs" />
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />

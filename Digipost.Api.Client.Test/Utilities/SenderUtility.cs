@@ -19,8 +19,8 @@ namespace Digipost.Api.Client.Test.Utilities
                         );
                 case Environment.Qa:
                     return new Sender(
-                        "779051",
-                        "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd", //DNB
+                        "2121714811",
+                        "‎2d 7f 30 dd 05 d3 b7 fc 7a e5 97 3a 73 f8 49 08 3b 20 40 ed", 
                         "https://qa.api.digipost.no/"
                         );
                 default:

@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "message-status", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("message-status", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
+    [XmlRoot("message-status", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum MessageStatus
     {
         /// <summary>

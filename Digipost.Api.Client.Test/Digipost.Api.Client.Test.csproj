@@ -52,6 +52,10 @@
       <HintPath>..\packages\Moq.4.5.21\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -116,15 +120,16 @@
     <Compile Include="DataTransferObjects\RecipientByNameAndAddressTests.cs" />
     <Compile Include="DataTransferObjects\SmsNotificationTests.cs" />
     <Compile Include="Utilities\ByteUtility.cs" />
+    <Compile Include="Utilities\SenderUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
-    <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DigipostCert.p12" />
     <EmbeddedResource Include="Resources\Hoveddokument.pdf" />
     <EmbeddedResource Include="Resources\Vedlegg.pdf" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">

@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Domain
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(TypeName = "link", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("link", Namespace = "http://api.digipost.no/schema/v6",IsNullable = true)]
+    [XmlRoot("link", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class Link
     {
         public Link(string rel, string uri, string mediaType)

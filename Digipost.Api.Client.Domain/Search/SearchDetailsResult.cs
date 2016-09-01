@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Domain.Search
     [Serializable]
     [DesignerCategory("code")]
     [XmlType("recipients", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
+    [XmlRoot(Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public class SearchDetailsResult : ISearchDetailsResult
     {
         [XmlElement("recipient")]

@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     [Serializable]
     [XmlType(TypeName = "invalid-reason", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("invalid-reason", Namespace = "http://api.digipost.no/schema/v6",IsNullable = false)]
+    [XmlRoot("invalid-reason", Namespace = "http://api.digipost.no/schema/v6", IsNullable = false)]
     public enum InvalidReason
     {
         /// <summary>

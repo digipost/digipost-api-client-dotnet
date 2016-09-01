@@ -1,16 +1,17 @@
 ﻿using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Test.Utilities;
 using Xunit;
 
 namespace Digipost.Api.Client.Test.Smoke
 {
     public class ClientSmokeTests
     {
-        private static DigipostClient _digipostClient;
         private static TestHelper _t;
 
         public ClientSmokeTests()
         {
-            _t = new TestHelper();
+            var sender = SenderUtility.GetSender(Environment.DifiTest);
+            _t = new TestHelper(sender);
         }
 
         [Fact]

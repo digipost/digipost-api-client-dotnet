@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Domain.DataTransferObjects
     [Serializable]
     [DesignerCategory("code")]
     [XmlType(TypeName = "norwegian-address", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("norwegian-address", Namespace = "http://api.digipost.no/schema/v6",IsNullable = true)]
+    [XmlRoot("norwegian-address", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class NorwegianAddressDataTransferObject
     {
         private NorwegianAddressDataTransferObject()

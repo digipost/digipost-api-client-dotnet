@@ -20,16 +20,16 @@ namespace Digipost.Api.Client.Test.Integration
     {
         protected X509Certificate2 Certificate;
         protected ClientConfig ClientConfig;
-        protected string Uri;
+        protected Uri Uri;
 
         public DigipostApiIntegrationTests()
         {
-            ClientConfig = new ClientConfig("1337")
+            ClientConfig = new ClientConfig("1337", Environment.Qa)
             {
                 LogRequestAndResponse = false,
                 TimeoutMilliseconds = 300000000
             };
-            Uri = "identification";
+            Uri = new Uri("/identification", UriKind.Relative);
             Certificate = TestProperties.Certificate();
         }
 
@@ -153,7 +153,7 @@ namespace Digipost.Api.Client.Test.Integration
                 mockFacktory.Setup(
                     f =>
                         f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<string>()))
+                            It.IsAny<Uri>()))
                     .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
                     {
                         HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
@@ -216,7 +216,7 @@ namespace Digipost.Api.Client.Test.Integration
                 mockFactory.Setup(
                     f =>
                         f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<string>()))
+                            It.IsAny<Uri>()))
                     .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
                     {
                         HttpClient =
@@ -256,7 +256,7 @@ namespace Digipost.Api.Client.Test.Integration
                 mockFacktory.Setup(
                     f =>
                         f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<string>()))
+                            It.IsAny<Uri>()))
                     .Returns(new GetByUriAction(null, ClientConfig, Certificate, Uri)
                     {
                         HttpClient =

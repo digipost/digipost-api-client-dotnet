@@ -31,9 +31,8 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-            var config = new ClientConfig(SenderId)
+            var config = new ClientConfig(SenderId, Environment.Qa)
             {
-                ApiUrl = new Uri(Url),
                 Logger = (severity, konversasjonsId, metode, melding) =>
                 {
                     Console.WriteLine("{0}",

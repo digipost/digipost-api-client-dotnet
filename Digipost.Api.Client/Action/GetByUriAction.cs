@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 
@@ -6,7 +7,7 @@ namespace Digipost.Api.Client.Action
 {
     internal class GetByUriAction : DigipostAction
     {
-        public GetByUriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public GetByUriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
             : base(requestContent, clientConfig, businessCertificate, uri)
         {
         }

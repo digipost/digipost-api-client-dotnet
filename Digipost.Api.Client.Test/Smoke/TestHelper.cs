@@ -7,7 +7,6 @@ using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Test.Utilities;
 using Xunit;
-using Environment = System.Environment;
 
 namespace Digipost.Api.Client.Test.Smoke
 {
@@ -38,12 +37,12 @@ namespace Digipost.Api.Client.Test.Smoke
         private Sender OverrideSenderIfOnBuildServer(Sender sender)
         {
             const string buildServerUser = "administrator";
-            var currentUser = Environment.UserName.ToLower();
+            var currentUser = System.Environment.UserName.ToLower();
             var isCurrentUserBuildServer = currentUser.Contains(buildServerUser);
 
             if (isCurrentUserBuildServer)
             {
-                return SenderUtility.GetSender(Utilities.Environment.DifiTest);
+                return SenderUtility.GetSender(Utilities.TestEnvironment.DifiTest);
             }
 
             return sender;

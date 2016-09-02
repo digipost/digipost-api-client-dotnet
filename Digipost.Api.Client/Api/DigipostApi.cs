@@ -65,7 +65,7 @@ namespace Digipost.Api.Client.Api
         {
             Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
-            const string uri = "messages";
+            var uri = new Uri("messages", UriKind.Relative);
 
             var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
 
@@ -88,7 +88,7 @@ namespace Digipost.Api.Client.Api
         {
             Log.Debug($"Outgoing identification request: {identification}");
 
-            const string uri = "identification";
+            var uri = new Uri("identification", UriKind.Relative);
 
             var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
 
@@ -120,7 +120,7 @@ namespace Digipost.Api.Client.Api
             Log.Debug($"Outgoing search request, term: '{search}'.");
 
             search = search.RemoveReservedUriCharacters();
-            var uri = string.Format("recipients/search/{0}", Uri.EscapeUriString(search));
+            var uri = new Uri($"recipients/search/{Uri.EscapeUriString(search)}", UriKind.Relative);
 
             if (search.Length < _minimumSearchLength)
             {
@@ -139,7 +139,7 @@ namespace Digipost.Api.Client.Api
             return searchDetailsResult;
         }
 
-        private Task<T> GenericPostAsync<T>(IRequestContent content, string uri)
+        private Task<T> GenericPostAsync<T>(IRequestContent content, Uri uri)
         {
             var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
 
@@ -149,7 +149,7 @@ namespace Digipost.Api.Client.Api
             return GenericSendAsync<T>(responseTask);
         }
 
-        private Task<T> GenericGetAsync<T>(string uri)
+        private Task<T> GenericGetAsync<T>(Uri uri)
         {
             var action = DigipostActionFactory.CreateClass(ClientConfig, BusinessCertificate, uri);
             var responseTask = action.GetAsync();

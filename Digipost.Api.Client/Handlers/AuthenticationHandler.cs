@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Handlers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, string url,
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri url,
             HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Handlers
 
         private ClientConfig ClientConfig { get; }
 
-        private string Url { get; }
+        private Uri Url { get; }
 
         private X509Certificate2 BusinessCertificate { get; }
 
@@ -56,7 +56,7 @@ namespace Digipost.Api.Client.Handlers
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
 
-            var signature = ComputeSignature(Method, Url, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
+            var signature = ComputeSignature(Method, Url.ToString(), date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

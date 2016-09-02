@@ -87,6 +87,7 @@
     <Compile Include="Action\IDigipostActionFactory.cs" />
     <Compile Include="DigipostClient.cs" />
     <Compile Include="Api\IDigipostApi.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="ClientConfig.cs" />

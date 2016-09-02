@@ -16,13 +16,11 @@ namespace Digipost.Api.Client
         /// <param name="timeoutInMilliseconds">Timeout intervall for requests made to Digipost, default 30000</param>
         /// <param name="logToFile">Log to file, default false</param>
         /// <param name="logPath">Path to where the logfile wil be placed. Default blank</param>
-        public ClientConfig(string senderId, string apiUrl = "https://api.digipost.no/", int timeoutInMilliseconds = 30000, bool logToFile = false, string logPath = "")
+        public ClientConfig(string senderId, Environment environment, int timeoutInMilliseconds = 30000)
         {
-            ApiUrl = new Uri(apiUrl);
+            Environment = environment;
             TimeoutMilliseconds = timeoutInMilliseconds;
             SenderId = senderId;
-            LogToFile = logToFile;
-            LogPath = logPath;
         }
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace Digipost.Api.Client
         /// <remarks>
         ///     Url for QA is 'https://qa.api.digipost.no/'.
         /// </remarks>
-        public Uri ApiUrl { get; set; }
+        public Environment Environment { get; set; }
 
         /// <summary>
         ///     Defines the timeout for communication with Digipost API. Default is 30 seconds.

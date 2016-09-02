@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Action
 {
     public abstract class DigipostAction
     {
-        protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        protected DigipostAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
         {
             InitializeRequestXmlContent(requestContent);
             Uri = uri;
@@ -19,7 +19,7 @@ namespace Digipost.Api.Client.Action
             HttpClient = GetHttpClient();
         }
 
-        private string Uri { get; }
+        private Uri Uri { get; }
 
         public ClientConfig ClientConfig { get; set; }
 
@@ -38,7 +38,7 @@ namespace Digipost.Api.Client.Action
             var httpClient = new HttpClient(authenticationHandler)
             {
                 Timeout = TimeSpan.FromMilliseconds(ClientConfig.TimeoutMilliseconds),
-                BaseAddress = new Uri(ClientConfig.ApiUrl.AbsoluteUri)
+                BaseAddress = new Uri(ClientConfig.Environment.Url.AbsoluteUri)
             };
 
             return httpClient;
@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Action
 
         internal Task<HttpResponseMessage> GetAsync()
         {
-            return HttpClient.GetAsync(Uri);
+            return HttpClient.GetAsync(Uri.ToString());
         }
 
         protected abstract HttpContent Content(IRequestContent requestContent);

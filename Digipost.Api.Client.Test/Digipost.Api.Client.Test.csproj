@@ -90,6 +90,7 @@
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
+    <Compile Include="EnvironmentTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />

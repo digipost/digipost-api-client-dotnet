@@ -1,4 +1,5 @@
-﻿using ApiClientShared;
+﻿using System;
+using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
@@ -23,9 +24,9 @@ namespace Digipost.Api.Client.Test.Action
             public void ReturnsCorrectDataForMessage()
             {
                 //Arrange
-                var clientConfig = new ClientConfig("123");
+                var clientConfig = new ClientConfig("123", Environment.Qa);
                 var certificate = TestProperties.Certificate();
-                const string uri = "AFakeUri";
+                Uri uri = new Uri("http://fakeuri.no");
                 var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 //Act
@@ -41,9 +42,9 @@ namespace Digipost.Api.Client.Test.Action
             public void ReturnsCorrectDataForIdentification()
             {
                 //Arrange
-                var clientConfig = new ClientConfig("123");
+                var clientConfig = new ClientConfig("123", Environment.Qa);
                 var certificate = TestProperties.Certificate();
-                const string uri = "AFakeUri";
+                Uri uri = new Uri("http://fakeuri.no");
                 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
 
                 //Act

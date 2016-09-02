@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
@@ -9,7 +10,7 @@ namespace Digipost.Api.Client.Action
     internal class DigipostActionFactory : IDigipostActionFactory
     {
         public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig,
-            X509Certificate2 businessCertificate, string uri)
+            X509Certificate2 businessCertificate, Uri uri)
         {
             var type = content.GetType();
 
@@ -27,7 +28,7 @@ namespace Digipost.Api.Client.Action
         }
 
         public virtual DigipostAction CreateClass(ClientConfig clientConfig, X509Certificate2 businessCertificate,
-            string uri)
+            Uri uri)
         {
             return new GetByUriAction(null, clientConfig, businessCertificate, uri);
         }

@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Action
 {
     internal class IdentificationAction : DigipostAction
     {
-        public IdentificationAction(IIdentification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, string uri)
+        public IdentificationAction(IIdentification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
             : base(identification, clientConfig, businessCertificate, uri)
         {
         }

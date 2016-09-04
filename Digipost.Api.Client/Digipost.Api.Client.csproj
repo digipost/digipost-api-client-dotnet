@@ -101,15 +101,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Resources\Xsd\api_v6.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
+      <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
+      <Name>Digipost.Api.Client.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

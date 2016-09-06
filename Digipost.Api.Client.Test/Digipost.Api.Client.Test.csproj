@@ -11,6 +11,7 @@
     <AssemblyName>Digipost.Api.Client.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -91,6 +92,7 @@
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="EnvironmentTests.cs" />
+    <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="Smoke\TestHelper.cs" />
     <Compile Include="TestProperties.cs" />
     <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
-    <Compile Include="CompareObjects\ComparatorTests.cs" />
     <Compile Include="Action\DigipostActionFactoryTests.cs" />
     <Compile Include="Action\DigipostActionTests.cs" />
     <Compile Include="Api\DigipostApiTests.cs" />
@@ -140,6 +141,10 @@
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622E975-31E3-45DB-8156-FB593FC872F4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Scripts.csproj">
+      <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
+      <Name>Digipost.Api.Client.Scripts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>

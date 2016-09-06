@@ -6,6 +6,8 @@
 
         PersonalIdentificationNumber,
 
-        OrganizationNumber
+        OrganizationNumber,
+        
+        NameAndAddress
     }
 }

@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
+            var messageDeliveryResultTask = GenericPostAsync<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
@@ -90,7 +90,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
+            var identifyResponse = GenericPostAsync<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {

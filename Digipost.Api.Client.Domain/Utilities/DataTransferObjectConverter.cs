@@ -6,346 +6,354 @@ using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
     internal class DataTransferObjectConverter
     {
-        public static IdentificationDataTransferObject ToDataTransferObject(IIdentification identification)
+        public static identification ToDataTransferObject(IIdentification identification)
         {
-            IdentificationDataTransferObject identificationDataTransferObject = null;
+            identification identificationDataTransferObject = null;
 
             if (identification.DigipostRecipient is RecipientById)
             {
-                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((RecipientById) identification.DigipostRecipient);
+                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((RecipientById)identification.DigipostRecipient);
             }
 
             if (identification.DigipostRecipient is RecipientByNameAndAddress)
             {
-                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress) identification.DigipostRecipient);
+                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress)identification.DigipostRecipient);
             }
 
             return identificationDataTransferObject;
         }
 
-        private static IdentificationDataTransferObject IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        private static identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
-            return new IdentificationDataTransferObject(
-                recipientById.IdentificationType.ToIdentificationChoiceType(),
-                recipientById.Id
-                );
-        }
-
-        private static IdentificationDataTransferObject IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
-            RecipientByNameAndAddress identification)
-        {
-            return new IdentificationDataTransferObject(new RecipientByNameAndAddressDataTranferObject(
-                identification.FullName, identification.PostalCode, identification.City, identification.AddressLine1
-                )
+            return new identification
             {
-                AddressLine2 = identification.AddressLine2,
-                BirthDate = identification.BirthDate,
-                PhoneNumber = identification.PhoneNumber,
-                Email = identification.Email
-            });
+                ItemElementName = recipientById.IdentificationType.ToItemChoiceType(),
+                includepersonaliasfordigipostuser = true, //TODO: must expose
+                Item = recipientById.Id
+            };
         }
 
-        public static MessageDataTransferObject ToDataTransferObject(IMessage message)
+        private static identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
+            RecipientByNameAndAddress recipientByNameAndAddress)
+        {
+            var identification = new identification
+            {
+                Item = ToDataTransferObject(recipientByNameAndAddress),
+                ItemElementName = ItemChoiceType.nameandaddress,
+                includepersonaliasfordigipostuser = true //Todo: Should be watwat?
+            };
+
+            return identification;
+        }
+
+        public static message ToDataTransferObject(IMessage message)
         {
             var recipient = ToDataTransferObject(message.DigipostRecipient);
             var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
-            var printDetailsDataTransferObject = ToDataTransferObject(message.PrintDetails);
 
-            var messageDataTransferObject = new MessageDataTransferObject(recipient, primaryDocumentDataTransferObject,
-                message.SenderId)
+            var messageDataTransferObject = new message
             {
-                RecipientDataTransferObject = {PrintDetailsDataTransferObject = printDetailsDataTransferObject}
+                Item = message.SenderId,
+                primarydocument = primaryDocumentDataTransferObject,
+                messageid = "NULL", //Todo: where from?
+                recipient = new messagerecipient
+                {
+                    printdetails = ToDataTransferObject(message.PrintDetails),
+                },
             };
 
-            foreach (var attachmentDataTransferObject in message.Attachments.Select(ToDataTransferObject))
+            messageDataTransferObject.recipient = ToDataTransferObject(message.DigipostRecipient);
+
+            if (message.DigipostRecipient is RecipientById)
             {
-                messageDataTransferObject.Attachments.Add(attachmentDataTransferObject);
+                var identificationType = ((RecipientById)message.DigipostRecipient).IdentificationType;
+                messageDataTransferObject.recipient.ItemElementName = identificationType.ToItemChoiceType1();
+            }
+            else if (message.DigipostRecipient is RecipientByNameAndAddress)
+            {
+                messageDataTransferObject.recipient.ItemElementName = ItemChoiceType1.nameandaddress;
             }
 
-            messageDataTransferObject.DeliveryTime = message.DeliveryTime;
+            messageDataTransferObject.attachment = message.Attachments.Select(ToDataTransferObject).ToArray();
+
+            if (message.DeliveryTimeSpecified)
+            {
+                messageDataTransferObject.deliverytime = message.DeliveryTime.Value;
+                messageDataTransferObject.deliverytimeSpecified = true;
+            }
 
             return messageDataTransferObject;
         }
 
-        public static DocumentDataTransferObject ToDataTransferObject(IDocument document)
+        public static document ToDataTransferObject(IDocument document)
         {
+            var documentDataTransferObject = new document()
+            {
+                subject = document.Subject,
+                filetype = document.FileType,
+               /* contenthash = new contenthash { hashalgorithm = "ALRGORITHM", Value = "VALUE" },*/ //Todo: Hash the content bytes and add here
+                Item = document.ContentBytes,
+                authenticationlevel = document.AuthenticationLevel.ToAuthenticationLevel(),
+                authenticationlevelSpecified = true,
+                sensitivitylevel = document.SensitivityLevel.ToSensitivityLevel(),
+                sensitivitylevelSpecified = true,
+                smsnotification = ToDataTransferObject(document.SmsNotification),
+                uuid = document.Guid
+            };
+
             if (document is Invoice)
             {
-                var invoice = (Invoice) document;
-                var smsNotificationDto = ToDataTransferObject(invoice.SmsNotification);
-                var invoiceDataTransferObject = new InvoiceDataTransferObject(invoice.Subject, invoice.FileType, invoice.ContentBytes, invoice.Amount, invoice.Account, invoice.Duedate, invoice.Kid, invoice.AuthenticationLevel, invoice.SensitivityLevel, smsNotificationDto)
-                {
-                    Guid = document.Guid
-                };
-
-                return invoiceDataTransferObject;
-            }
-            if (document is Document)
-            {
-                var documentDataTransferObject = new DocumentDataTransferObject(document.Subject, document.FileType,
-                    document.ContentBytes, document.AuthenticationLevel, document.SensitivityLevel, ToDataTransferObject(document.SmsNotification))
-                {
-                    Guid = document.Guid
-                };
-                return documentDataTransferObject;
+                return AddInvoiceData((Invoice)document, documentDataTransferObject);
             }
 
-            throw new ArgumentException($"{document.GetType()} is not a known document type. Expected types are {typeof (Invoice)} or {typeof (Document)}.");
+            return documentDataTransferObject;
         }
 
-        public static RecipientDataTransferObject ToDataTransferObject(IDigipostRecipient recipient)
+        private static invoice AddInvoiceData(Invoice invoice, document baseDocument)
         {
-            RecipientDataTransferObject recipientDataTransferObject = null;
+            var invoiceDto = (invoice)baseDocument;
+
+            invoiceDto.amount = invoice.Amount;
+            invoiceDto.duedate = invoice.Duedate;
+            invoiceDto.kid = invoice.Kid;
+            invoiceDto.account = invoice.Account;
+
+            return invoiceDto;
+        }
+
+        public static messagerecipient ToDataTransferObject(IDigipostRecipient recipient)
+        {
+            messagerecipient messageRecipientDto = null;
 
             if (recipient is RecipientById)
             {
-                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientById((RecipientById) recipient);
+                messageRecipientDto = RecipientDataTransferObjectFromRecipientById((RecipientById)recipient);
             }
 
             if (recipient is RecipientByNameAndAddress)
             {
-                recipientDataTransferObject = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddress) recipient);
+                messageRecipientDto = RecipientDataTransferObjectFromRecipientByNameAndAddress((RecipientByNameAndAddress)recipient);
             }
 
-            return recipientDataTransferObject;
+            return messageRecipientDto;
         }
 
-        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
+        private static messagerecipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
         {
-            return new RecipientDataTransferObject(
-                recipient.IdentificationType.ToIdentificationChoiceType(),
-                recipient.Id
-                );
+            return new messagerecipient()
+            {
+                ItemElementName = recipient.IdentificationType.ToItemChoiceType1(),
+                Item = recipient.Id
+            };
         }
 
-        private static RecipientDataTransferObject RecipientDataTransferObjectFromRecipientByNameAndAddress(
-            RecipientByNameAndAddress recipientByNameAndAddress)
+        private static messagerecipient RecipientDataTransferObjectFromRecipientByNameAndAddress(
+            IRecipientByNameAndAddress recipientByNameAndAddress)
         {
-            RecipientDataTransferObject recipientDataTransferObject;
+            var nameAndAddressDto = new nameandaddress()
+            {
+                fullname = recipientByNameAndAddress.FullName,
+                addressline1 = recipientByNameAndAddress.AddressLine1,
+                addressline2 = recipientByNameAndAddress.AddressLine2,
+                postalcode = recipientByNameAndAddress.PostalCode,
+                city = recipientByNameAndAddress.City,
+                emailaddress = recipientByNameAndAddress.Email,
+                phonenumber = recipientByNameAndAddress.PhoneNumber
+            };
 
-            recipientDataTransferObject = new RecipientDataTransferObject(
-                new RecipientByNameAndAddressDataTranferObject(
-                    recipientByNameAndAddress.FullName,
-                    recipientByNameAndAddress.PostalCode,
-                    recipientByNameAndAddress.City,
-                    recipientByNameAndAddress.AddressLine1)
-                {
-                    AddressLine2 = recipientByNameAndAddress.AddressLine2,
-                    BirthDate = recipientByNameAndAddress.BirthDate,
-                    PhoneNumber = recipientByNameAndAddress.PhoneNumber,
-                    Email = recipientByNameAndAddress.Email
-                }
-                );
-            return recipientDataTransferObject;
+            if (recipientByNameAndAddress.BirthDate != null)
+            {
+                nameAndAddressDto.birthdate = recipientByNameAndAddress.BirthDate.Value;
+                nameAndAddressDto.birthdateSpecified = true;
+            }
+
+            return new messagerecipient
+            {
+                ItemElementName = ItemChoiceType1.nameandaddress,
+                Item = nameAndAddressDto
+            };
         }
 
-        public static PrintDetailsDataTransferObject ToDataTransferObject(IPrintDetails printDetails)
+        public static printdetails ToDataTransferObject(IPrintDetails printDetails)
         {
             if (printDetails == null)
                 return null;
 
-            var recipient = printDetails.PrintRecipient;
-            var ret = printDetails.PrintReturnRecipient;
-
-            var printDetailsDataTransferObject = new PrintDetailsDataTransferObject(null, null, printDetails.PostType, printDetails.PrintColors, printDetails.NondeliverableHandling);
-
-            SetPrintRecipientOnDataTransferObject(recipient, printDetailsDataTransferObject);
-            SetPrintReturnRecipientOnDataTranferObject(ret, printDetailsDataTransferObject);
+            var printDetailsDataTransferObject = new printdetails
+            {
+                recipient = ToDataTransferObject((IPrint)printDetails.PrintRecipient),
+                returnaddress = ToDataTransferObject((IPrint)printDetails.PrintReturnRecipient),
+                posttype = printDetails.PostType.ToPostType(),
+                color = printDetails.PrintColors.ToPrintColors(),
+                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling(),
+            };
 
             return printDetailsDataTransferObject;
         }
 
-        private static void SetPrintReturnRecipientOnDataTranferObject(IPrintReturnRecipient printReturnRecipient,
-            PrintDetailsDataTransferObject printDetailsDataTransferObject)
+        private static printrecipient ToDataTransferObject(IPrint recipient)
         {
-            if (printReturnRecipient.Address is INorwegianAddress)
+            var printRecipientDto = new printrecipient()
             {
-                var addr = (INorwegianAddress) printReturnRecipient.Address;
-                printDetailsDataTransferObject.PrintReturnRecipientDataTransferObject =
-                    new PrintReturnRecipientDataTransferObject(printReturnRecipient.Name,
-                        new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
-                            addr.AddressLine2, addr.AddressLine3));
-            }
-            else
-            {
-                var addr = (IForeignAddress) printReturnRecipient.Address;
-                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
-                    new PrintRecipientDataTransferObject(printReturnRecipient.Name,
-                        new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
-                            addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
-            }
-        }
+                name = recipient.Name
+            };
 
-        private static void SetPrintRecipientOnDataTransferObject(IPrintRecipient recipient,
-            PrintDetailsDataTransferObject printDetailsDataTransferObject)
-        {
             if (recipient.Address is INorwegianAddress)
             {
-                var addr = (INorwegianAddress) recipient.Address;
-                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
-                    new PrintRecipientDataTransferObject(recipient.Name,
-                        new NorwegianAddressDataTransferObject(addr.PostalCode, addr.City, addr.AddressLine1,
-                            addr.AddressLine2, addr.AddressLine3));
+                printRecipientDto.Item = ToDataTransferObject((INorwegianAddress)recipient.Address);
             }
             else
             {
-                var addr = (IForeignAddress) recipient.Address;
-                printDetailsDataTransferObject.PrintRecipientDataTransferObject =
-                    new PrintRecipientDataTransferObject(recipient.Name,
-                        new ForeignAddressDataTransferObject(addr.CountryIdentifier, addr.CountryIdentifierValue,
-                            addr.AddressLine1, addr.AddressLine2, addr.AddressLine3, addr.Addressline4));
+                printRecipientDto.Item = ToDataTransferObject((IForeignAddress)recipient.Address);
             }
+
+            return printRecipientDto;
         }
 
-        public static ForeignAddressDataTransferObject ToDataTransferObject(IForeignAddress foreignAddress)
+        public static norwegianaddress ToDataTransferObject(INorwegianAddress norwegianAddress)
         {
-            return new ForeignAddressDataTransferObject(
-                foreignAddress.CountryIdentifier,
-                foreignAddress.CountryIdentifierValue,
-                foreignAddress.AddressLine1,
-                foreignAddress.AddressLine2,
-                foreignAddress.AddressLine3,
-                foreignAddress.Addressline4
-                );
-        }
-
-        public static NorwegianAddressDataTransferObject ToDataTransferObject(INorwegianAddress norwegianAddress)
-        {
-            return new NorwegianAddressDataTransferObject(norwegianAddress.PostalCode, norwegianAddress.City, norwegianAddress.AddressLine1, norwegianAddress.AddressLine2, norwegianAddress.AddressLine3);
-        }
-
-        public static PrintRecipientDataTransferObject ToDataTransferObject(PrintRecipient printRecipient)
-        {
-            PrintRecipientDataTransferObject printDataTransferObject;
-
-            var addressType = printRecipient.Address.GetType();
-            if (typeof (INorwegianAddress).IsAssignableFrom(addressType))
+            return new norwegianaddress
             {
-                var address = printRecipient.Address as NorwegianAddress;
+                addressline1 = norwegianAddress.AddressLine1,
+                addressline2 = norwegianAddress.AddressLine2,
+                addressline3 = norwegianAddress.AddressLine3,
+                zipcode = norwegianAddress.PostalCode,
+                city = norwegianAddress.City
+            };
+        }
 
-                printDataTransferObject = new PrintRecipientDataTransferObject(printRecipient.Name,
-                    new NorwegianAddressDataTransferObject(address.PostalCode, address.City, address.AddressLine1, address.AddressLine2, address.AddressLine3));
+        public static foreignaddress ToDataTransferObject(IForeignAddress foreignAddress)
+        {
+            return new foreignaddress()
+            {
+                addressline1 = foreignAddress.AddressLine1,
+                addressline2 = foreignAddress.AddressLine2,
+                addressline3 = foreignAddress.AddressLine3,
+                addressline4 = foreignAddress.Addressline4,
+                ItemElementName = foreignAddress.CountryIdentifier.ToCountryIdentifier(),
+                Item = foreignAddress.CountryIdentifierValue
+            };
+        }
+
+        public static printrecipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
+        {
+            printrecipient printRecipientDataTransferObject = new printrecipient
+            {
+                name = printOrPrintReturnRecipient.Name
+            };
+
+            var addressType = printOrPrintReturnRecipient.Address.GetType();
+
+            if (typeof(INorwegianAddress).IsAssignableFrom(addressType))
+            {
+                var address = printOrPrintReturnRecipient.Address as NorwegianAddress;
+                printRecipientDataTransferObject.Item = ToDataTransferObject(address);
             }
             else
             {
-                var address = printRecipient.Address as ForeignAddress;
+                var address = printOrPrintReturnRecipient.Address as ForeignAddress;
+                printRecipientDataTransferObject.Item = ToDataTransferObject(address);
+            };
 
-                printDataTransferObject = new PrintRecipientDataTransferObject(printRecipient.Name,
-                    new ForeignAddressDataTransferObject(address.CountryIdentifier, address.CountryIdentifierValue, address.AddressLine1, address.AddressLine2, address.AddressLine3, address.Addressline4));
-            }
+            return printRecipientDataTransferObject;
 
-            return printDataTransferObject;
         }
 
-        public static PrintReturnRecipientDataTransferObject ToDataTransferObject(PrintReturnRecipient printRecipient)
-        {
-            PrintReturnRecipientDataTransferObject printDataTransferObject;
-
-            var addressType = printRecipient.Address.GetType();
-            if (typeof (INorwegianAddress).IsAssignableFrom(addressType))
-            {
-                var address = printRecipient.Address as NorwegianAddress;
-
-                printDataTransferObject = new PrintReturnRecipientDataTransferObject(printRecipient.Name,
-                    new NorwegianAddressDataTransferObject(address.PostalCode, address.City, address.AddressLine1, address.AddressLine2, address.AddressLine3));
-            }
-            else
-            {
-                var address = printRecipient.Address as ForeignAddress;
-
-                printDataTransferObject = new PrintReturnRecipientDataTransferObject(printRecipient.Name,
-                    new ForeignAddressDataTransferObject(address.CountryIdentifier, address.CountryIdentifierValue, address.AddressLine1, address.AddressLine2, address.AddressLine3, address.Addressline4));
-            }
-
-            return printDataTransferObject;
-        }
-
-        public static SmsNotificationDataTransferObject ToDataTransferObject(ISmsNotification smsNotification)
+        public static smsnotification ToDataTransferObject(ISmsNotification smsNotification)
         {
             if (smsNotification == null)
                 return null;
 
-            var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new ListedTimeDataTransferObject(dateTime)).ToList();
+            var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new listedtime { time = dateTime, timeSpecified = true });
 
-            var smsNotificationDataTransferObject = new SmsNotificationDataTransferObject
+            var smsNotificationDataTransferObject = new smsnotification
             {
-                NotifyAfterHours = smsNotification.NotifyAfterHours,
-                NotifyAtTimes = timesAsListedTimes
+                afterhours = smsNotification.NotifyAfterHours.ToArray(),
+                at = timesAsListedTimes.ToArray()
             };
 
             return smsNotificationDataTransferObject;
         }
 
-        public static IIdentificationResult FromDataTransferObject(IdentificationResultDataTransferObject identificationResultDto)
+        public static IIdentificationResult FromDataTransferObject(identificationresult identificationResultDto)
         {
             IdentificationResult identificationResult;
 
-            if (identificationResultDto.IdentificationResultType == IdentificationResultType.None)
+            if (identificationResultDto.ItemsElementName.Length == 0) //IDENTIFICATION.NONE
             {
                 identificationResult = SetResultTypeForIdentificationResultTypeNone(identificationResultDto);
             }
             else
             {
-                identificationResult = new IdentificationResult(identificationResultDto.IdentificationResultType, identificationResultDto.IdentificationValue.ToString());
+                ItemsChoiceType itemsChoiceType = identificationResultDto.ItemsElementName.ElementAt(0);
+
+
+                identificationResult = new IdentificationResult(itemsChoiceType.ToIdentificationResultType() , identificationResultDto.Items.ElementAt(0).ToString());
             }
 
             return identificationResult;
+
         }
 
-        private static IdentificationResult SetResultTypeForIdentificationResultTypeNone(IdentificationResultDataTransferObject identificationResultDto)
+        private static IdentificationResult SetResultTypeForIdentificationResultTypeNone(identificationresult identificationResultDto)
         {
             IdentificationResult identificationResult = null;
-            switch (identificationResultDto.IdentificationResultCode)
+            switch (identificationResultDto.result)
             {
-                case IdentificationResultCode.Digipost:
+                case identificationresultcode.DIGIPOST:
                     identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
                     break;
-                case IdentificationResultCode.Identified:
+                case identificationresultcode.IDENTIFIED:
                     identificationResult = new IdentificationResult(IdentificationResultType.Personalias, "");
                     break;
             }
             return identificationResult;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(MessageDeliveryResultDataTransferObject messageDeliveryResultDataTransferObject)
+        public static IMessageDeliveryResult FromDataTransferObject(messagedelivery messageDeliveryDataTransferObject)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
-                PrimaryDocument = FromDataTransferObject(messageDeliveryResultDataTransferObject.PrimaryDocumentDataTransferObject),
-                Attachments = messageDeliveryResultDataTransferObject.AttachmentsDataTransferObject.Select(documentDataTransferObject => FromDataTransferObject(documentDataTransferObject)).ToList(),
-                DeliveryTime = messageDeliveryResultDataTransferObject.DeliveryTime,
-                DeliveryMethod = messageDeliveryResultDataTransferObject.DeliveryMethod,
-                Status = messageDeliveryResultDataTransferObject.Status
+                PrimaryDocument = FromDataTransferObject(messageDeliveryDataTransferObject.primarydocument),
+                Attachments = messageDeliveryDataTransferObject.attachment.Select(FromDataTransferObject).ToList(),
+                DeliveryTime = messageDeliveryDataTransferObject.deliverytime,
+                DeliveryMethod = messageDeliveryDataTransferObject.deliverymethod.ToDeliveryMethod(),
+                Status = messageDeliveryDataTransferObject.status.ToMessageStatus()
             };
 
             return messageDeliveryResult;
         }
 
-        public static IDocument FromDataTransferObject(DocumentDataTransferObject documentDataTransferObject)
+        public static IDocument FromDataTransferObject(document documentDto)
         {
-            return new Document(documentDataTransferObject.Subject, documentDataTransferObject.FileType, documentDataTransferObject.ContentBytes, documentDataTransferObject.AuthenticationLevel, documentDataTransferObject.SensitivityLevel, FromDataTransferObject(documentDataTransferObject.SmsNotification))
-            {
-                Guid = documentDataTransferObject.Guid
-            };
+            return new Document(
+                documentDto.subject, 
+                documentDto.filetype, 
+                new byte[] {}, 
+                documentDto.authenticationlevel.ToAuthenticationLevel(), 
+                documentDto.sensitivitylevel.ToSensitivityLevel(), 
+                FromDataTransferObject(documentDto.smsnotification))
+                    {
+                        Guid = documentDto.uuid
+                    }; 
         }
 
-        public static ISmsNotification FromDataTransferObject(SmsNotificationDataTransferObject smsNotificationDataTransferObject)
+        public static ISmsNotification FromDataTransferObject(smsnotification smsNotificationDataTransferObject)
         {
             if (smsNotificationDataTransferObject == null)
                 return null;
 
-            var dateTimes = smsNotificationDataTransferObject.NotifyAtTimes
-                .Select(listedTime => listedTime.Time)
-                .ToList();
+            var dateTimes = smsNotificationDataTransferObject.at.Select(listedTime => listedTime.time).ToList();
 
             var smsNotification = new SmsNotification
             {
-                NotifyAfterHours = smsNotificationDataTransferObject.NotifyAfterHours,
+                NotifyAfterHours = smsNotificationDataTransferObject.afterhours.ToList(),
                 NotifyAtTimes = dateTimes
             };
 

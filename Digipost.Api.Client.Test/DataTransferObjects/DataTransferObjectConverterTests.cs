@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
@@ -32,16 +33,18 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     Email = "email@test.no"
                 };
 
-                var expectedDto = new RecipientDataTransferObject(
-                    new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14"
-                        )
-                    {
-                        AddressLine2 = "Etasje 15",
-                        BirthDate = birthDate,
-                        PhoneNumber = "123456789",
-                        Email = "email@test.no"
-                    });
-
+                var expectedDto = new nameandaddress
+                {
+                    fullname = source.FullName,
+                    addressline1 = source.AddressLine1,
+                    addressline2 = source.AddressLine2,
+                    postalcode = source.PostalCode,
+                    city = source.City,
+                    birthdate = birthDate,
+                    phonenumber = source.PhoneNumber,
+                    emailaddress = source.Email
+                };
+                  
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -60,9 +63,11 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     "ola.nordmann#2233"
                     );
 
-                var expectedDto = new RecipientDataTransferObject(
-                    IdentificationChoiceType.DigipostAddress,
-                    "ola.nordmann#2233");
+                var expectedDto = new identification()
+                {
+                    ItemElementName = ItemChoiceType.digipostaddress,
+                    Item = "ola.nordmann#2233"
+                };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -78,10 +83,16 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                var expectedDto = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
-
-                expectedDto.Guid = source.Guid;
-
+                var expectedDto = new document()
+                {
+                    subject = source.Subject,
+                    filetype = source.FileType,
+                    authenticationlevel = source.AuthenticationLevel.ToAuthenticationLevel(),
+                    sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
+                    smsnotification = new smsnotification() {afterhours = source.SmsNotification.NotifyAfterHours.ToArray()},
+                    uuid = source.Guid
+                };
+                
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -95,28 +106,37 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void Invoice()
             {
                 //Arrange
-                const string subject = "subject";
-                const string fileType = "txt";
-                const int amount = 2;
                 var contentBytes = new byte[] {0xb2};
-                const string account = "1234";
-                var duedate = DateTime.Now;
-                const string kid = "123123123";
-                const AuthenticationLevel authenticationLevel = AuthenticationLevel.TwoFactor;
-                const SensitivityLevel sensitivityLevel = SensitivityLevel.Sensitive;
                 var smsNotification = new SmsNotification(DateTime.Now);
-                var smsNotificationDto = DataTransferObjectConverter.ToDataTransferObject(smsNotification);
 
-                var sourceInvoice = new Invoice(subject, fileType, contentBytes, amount, account, duedate, kid,
-                    authenticationLevel, sensitivityLevel, smsNotification);
-                var expectedDto = new InvoiceDataTransferObject(subject, fileType, contentBytes, amount, account,
-                    duedate, kid, authenticationLevel, sensitivityLevel, smsNotificationDto)
+                var source = new Invoice(
+                    "subject", 
+                    "txt", 
+                    contentBytes, 
+                    100,
+                    "8902438456", 
+                    DateTime.Today, 
+                    "123123123",
+                    AuthenticationLevel.TwoFactor, 
+                    SensitivityLevel.Sensitive, 
+                    smsNotification);
+
+                var expectedDto = new
+                    invoice()
                 {
-                    Guid = sourceInvoice.Guid
+                    subject = source.Subject,
+                    filetype = source.FileType,
+                    authenticationlevel = source.AuthenticationLevel.ToAuthenticationLevel(),
+                    sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
+                    smsnotification = new smsnotification() { afterhours = source.SmsNotification.NotifyAfterHours.ToArray() },
+                    uuid = source.Guid,
+                    amount = source.Amount,
+                    account = source.Account,
+                    duedate = source.Duedate
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(sourceInvoice);
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
                 IEnumerable<IDifference> differences;
@@ -151,7 +171,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 source.PrintDetails = printDetails;
 
                 var expectedDto = DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById();
-                expectedDto.RecipientDataTransferObject.PrintDetailsDataTransferObject =
+                expectedDto.recipient.printdetails =
                     DomainUtility.GetPrintDetailsDataTransferObject();
 
                 //Act
@@ -169,13 +189,51 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var printDetails = DomainUtility.GetPrintDetails();
-                var source = DomainUtility.GetMessageWithBytesAndStaticGuidRecipientByNameAndAddress();
+                var source = new Message(
+                    DomainUtility.GetRecipientByNameAndAddress(),
+                    new Document("TestSubject", "txt", new byte[3])
+                    )
+                {
+                    SenderId = "SenderId",
+                    Attachments = new List<IDocument>
+                    {
+                        new Document("TestSubject attachment", "txt", new byte[3])
+                        {
+                            Guid = "attachmentGuid"
+                        }
+                    },
+                    DeliveryTime = DateTime.Today.AddDays(3),
+                    PrimaryDocument = { Guid = "attachmentGuidPrimary" }
+                };
                 source.PrintDetails = printDetails;
 
                 var expectedDto =
-                    DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientNameAndAddress();
-                expectedDto.RecipientDataTransferObject.PrintDetailsDataTransferObject =
-                    DomainUtility.GetPrintDetailsDataTransferObject();
+                    new message
+                    {
+                        recipient = new messagerecipient
+                        {
+                            Item = new nameandaddress
+                            {
+                                fullname = "Ola Nordmann",
+                                postalcode = "0001",
+                                city = "Oslo",
+                                addressline1 = "Biskop Gunnerus Gate 14"
+                            },
+                            ItemElementName = ItemChoiceType1.nameandaddress,
+                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                        },
+                        primarydocument = new document { subject = "PrimaryDocument", filetype = "txt", uuid = "primaryDocumentGuid" },
+                        attachment = new[]
+                        {
+                            new document
+                            {
+                                subject = "testSubject",
+                                filetype = "txt",
+                                uuid = "attachmentGuid"
+                            }
+                        },
+                        deliverytime = DateTime.Today.AddDays(3)
+                    };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -185,6 +243,10 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
+
+
+
+
             }
 
             [Fact]
@@ -192,23 +254,24 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var source = new ForeignAddress(
-                    CountryIdentifier.Country,
-                    "NO",
+                    CountryIdentifier.Countrycode,
+                    "SE",
                     "Adresselinje1",
                     "Adresselinje2",
                     "Adresselinje3",
                     "Adresselinje4"
                     );
 
-                var expectedDto = new ForeignAddressDataTransferObject(
-                    CountryIdentifier.Country,
-                    "NO",
-                    "Adresselinje1",
-                    "Adresselinje2",
-                    "Adresselinje3",
-                    "Adresselinje4"
-                    );
-
+                var expectedDto = new foreignaddress
+                {
+                    ItemElementName = ItemChoiceType2.countrycode,
+                    Item = "SE",
+                    addressline1 = source.AddressLine1,
+                    addressline2 = source.AddressLine2,
+                    addressline3 = source.AddressLine3,
+                    addressline4 = source.Addressline4,
+                };
+                    
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -224,44 +287,18 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 //Arrange
                 var source = new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
 
-                var expectedDto = new NorwegianAddressDataTransferObject("0001", "Oslo", "Addr1", "Addr2", "Addr3");
+                var expectedDto = new norwegianaddress()
+                {
+                    zipcode = source.PostalCode,
+                    city = source.City,
+                    addressline1 = source.AddressLine1,
+                    addressline2 = source.AddressLine2,
+                    addressline3 = source.AddressLine3
+                };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
-            }
-
-            [Fact]
-            public void PrintRecipientFromForeignAddress()
-            {
-                //Arrange
-                var source = new PrintRecipient(
-                    "Name",
-                    new ForeignAddress(
-                        CountryIdentifier.Country,
-                        "NO",
-                        "Adresselinje1",
-                        "Adresselinje2",
-                        "Adresselinje3",
-                        "Adresselinje4"
-                        ));
-
-                var expectedDto = new PrintRecipientDataTransferObject("Name", new ForeignAddressDataTransferObject(
-                    CountryIdentifier.Country,
-                    "NO",
-                    "Adresselinje1",
-                    "Adresselinje2",
-                    "Adresselinje3",
-                    "Adresselinje4"
-                    ));
-                //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
-
-                //Assert
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(expectedDto, actualDto, out differences);
@@ -276,8 +313,19 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new PrintRecipientDataTransferObject("Name", new NorwegianAddressDataTransferObject(
-                    "0001", "Oslo", "Addr1", "Addr2", "Addr3"));
+               var expectedDto = new printrecipient()
+                {
+                    name = source.Name,
+                    Item = new norwegianaddress
+                    {
+                        zipcode = ((NorwegianAddress)source.Address).PostalCode,
+                        city = ((NorwegianAddress)source.Address).City,
+                        addressline1 = source.Address.AddressLine1,
+                        addressline2 = source.Address.AddressLine2,
+                        addressline3 = source.Address.AddressLine3,
+                    }
+                };
+                    
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -289,29 +337,34 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             }
 
             [Fact]
-            public void PrintReturnRecipientFromForeignAddress()
+            public void PrintRecipientFromForeignAddress()
             {
                 //Arrange
-                var source = new PrintReturnRecipient(
+                var source = new PrintRecipient(
                     "Name",
                     new ForeignAddress(
                         CountryIdentifier.Country,
-                        "NO",
+                        "NORGE",
                         "Adresselinje1",
                         "Adresselinje2",
                         "Adresselinje3",
                         "Adresselinje4"
                         ));
 
-                var expectedDto = new PrintReturnRecipientDataTransferObject("Name", new ForeignAddressDataTransferObject(
-                    CountryIdentifier.Country,
-                    "NO",
-                    "Adresselinje1",
-                    "Adresselinje2",
-                    "Adresselinje3",
-                    "Adresselinje4"
-                    ));
-
+                var expectedDto = new printrecipient()
+                {
+                    name = source.Name,
+                    Item = new foreignaddress
+                    {
+                        ItemElementName = ItemChoiceType2.country,
+                        Item = "NORGE",
+                        addressline1 = source.Address.AddressLine1,
+                        addressline2 = source.Address.AddressLine2,
+                        addressline3 = source.Address.AddressLine3,
+                        addressline4 = ((ForeignAddress)source.Address).Addressline4,
+                    }
+                };
+                    
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -330,12 +383,61 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new PrintReturnRecipientDataTransferObject("Name", new NorwegianAddressDataTransferObject(
-                    "0001", "Oslo", "Addr1", "Addr2", "Addr3"));
+                var expectedDto = new printrecipient()
+                {
+                    name = source.Name,
+                    Item = new norwegianaddress
+                    {
+                        zipcode = ((NorwegianAddress)source.Address).PostalCode,
+                        city = ((NorwegianAddress)source.Address).City,
+                        addressline1 = source.Address.AddressLine1,
+                        addressline2 = source.Address.AddressLine2,
+                        addressline3 = source.Address.AddressLine3,
+                    }
+                };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.Equal(expectedDto, actualDto, out differences);
+                Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void PrintReturnRecipientFromForeignAddress()
+            {
+                //Arrange
+                var source = new PrintReturnRecipient(
+                    "Name",
+                    new ForeignAddress(
+                        CountryIdentifier.Country,
+                        "NORGE",
+                        "Adresselinje1",
+                        "Adresselinje2",
+                        "Adresselinje3",
+                        "Adresselinje4"
+                        ));
+
+                var expectedDto = new printrecipient()
+                {
+                    name = source.Name,
+                    Item = new foreignaddress
+                    {
+                        ItemElementName = ItemChoiceType2.country,
+                        Item = ((ForeignAddress)source.Address).CountryIdentifierValue,
+                        addressline1 = source.Address.AddressLine1,
+                        addressline2 = source.Address.AddressLine2,
+                        addressline3 = source.Address.AddressLine3,
+                        addressline4 = ((ForeignAddress)source.Address).Addressline4,
+                    }
+                };
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
                 //Assert
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(expectedDto, actualDto, out differences);
@@ -354,13 +456,36 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                         "ReturnName",
                         new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
 
-                var expectedDto = new PrintDetailsDataTransferObject(
-                    new PrintRecipientDataTransferObject(
-                        "Name",
-                        new NorwegianAddressDataTransferObject("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
-                    new PrintReturnRecipientDataTransferObject(
-                        "ReturnName",
-                        new NorwegianAddressDataTransferObject("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
+                var sourceAddress = source.PrintRecipient.Address;
+                var returnAddress = source.PrintReturnRecipient.Address;
+
+                var expectedDto = new printdetails()
+                {
+                    recipient = new printrecipient()
+                    {
+                        name = source.PrintRecipient.Name,
+                        Item = new norwegianaddress
+                        {
+                            zipcode = ((NorwegianAddress) sourceAddress).PostalCode,
+                            city = ((NorwegianAddress) sourceAddress).City,
+                            addressline1 = sourceAddress.AddressLine1,
+                            addressline2 = sourceAddress.AddressLine2,
+                            addressline3 = sourceAddress.AddressLine3,
+                        }
+                    },
+                    returnaddress = new printrecipient()
+                    {
+                        name = source.PrintRecipient.Name,
+                        Item = new norwegianaddress
+                        {
+                            zipcode = ((NorwegianAddress) returnAddress).PostalCode,
+                            city = ((NorwegianAddress) returnAddress).City,
+                            addressline1 = returnAddress.AddressLine1,
+                            addressline2 = returnAddress.AddressLine2,
+                            addressline3 = returnAddress.AddressLine3,
+                        }
+                    }
+                };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -384,10 +509,12 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 source.NotifyAfterHours.AddRange(afterHours);
                 source.NotifyAtTimes.AddRange(atTimes);
 
-                var expectedDto = new SmsNotificationDataTransferObject();
-                expectedDto.NotifyAfterHours.AddRange(afterHours);
-                expectedDto.NotifyAtTimes.AddRange(atTimes.Select(a => new ListedTimeDataTransferObject(a)));
-
+                var expectedDto = new smsnotification()
+                {
+                    afterhours = afterHours.ToArray(),
+                    at = atTimes.Select(a => new listedtime { timeSpecified = true, time = a }).ToArray()
+                };
+                
                 //Act
                 var actual = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -402,7 +529,11 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
-                var expectedDto = new IdentificationDataTransferObject(IdentificationChoiceType.OrganisationNumber, "123456789");
+                var expectedDto = new identification()
+                {
+                    ItemElementName = ItemChoiceType.organisationnumber,
+                    Item = ((RecipientById)source.DigipostRecipient).Id
+                };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -427,16 +558,21 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     }
                     );
 
-                var expectedDto = new IdentificationDataTransferObject(
-                    new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22")
+                var sourceRecipient = ((RecipientByNameAndAddress)source.DigipostRecipient);
+                var expectedDto = new identification()
+                {
+                    ItemElementName = ItemChoiceType.nameandaddress,
+                    Item = new nameandaddress()
                     {
-                        AddressLine2 = "Adresselinje2",
-                        BirthDate = DateTime.Today,
-                        PhoneNumber = "123456789",
-                        Email = "tull@epost.no"
+                        fullname = sourceRecipient.FullName,
+                        addressline1 = sourceRecipient.AddressLine1,
+                        addressline2 = sourceRecipient.AddressLine2,
+                        birthdate = sourceRecipient.BirthDate.Value,
+                        phonenumber = sourceRecipient.PhoneNumber,
+                        emailaddress = sourceRecipient.Email,
                     }
-                    );
-
+                };
+                
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
@@ -444,6 +580,12 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void IdentificationByNameAndAddressAcceptsNoBirthDate()
+            {
+                Assert.False(true);
             }
         }
 
@@ -453,10 +595,17 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void Document()
             {
                 //Arrange
-                var source = new DocumentDataTransferObject("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotificationDataTransferObject(3));
-
-                IDocument expected = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                expected.Guid = source.Guid;
+                var source = new document()
+                {
+                    subject = "testSubject",
+                    filetype = "txt",
+                    authenticationlevel = authenticationlevel.PASSWORD,
+                    sensitivitylevel = sensitivitylevel.SENSITIVE,
+                    smsnotification = new smsnotification() { afterhours = new []{3}}
+                };
+                    
+                IDocument expected = new Document(source.subject, source.filetype, AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                expected.Guid = source.uuid;
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
@@ -474,27 +623,35 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 //Arrange
                 var deliverytime = DateTime.Now.AddDays(3);
 
-                var sourceDto = new MessageDataTransferObject(
-                    new RecipientDataTransferObject(
-                        IdentificationChoiceType.DigipostAddress,
-                        "Ola.Nordmann#34JJ"
-                        ),
-                    new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId")
+                var source = new message()
                 {
-                    Attachments = new List<DocumentDataTransferObject>
+                    recipient = new messagerecipient()
                     {
-                        new DocumentDataTransferObject("TestSubject attachment", "txt", new byte[3])
-                        {
-                            Guid = "attachmentGuid"
-                        }
+                        ItemElementName = ItemChoiceType1.digipostaddress,
+                        Item = "Ola.Nordmann#34JJ"
                     },
-                    DeliveryTime = deliverytime
-                };
+                    primarydocument = new document()
+                    {
+                        subject = "TestSubject",
+                        filetype = "txt",
+                    },
+                    attachment = new document[]
+                    {
+                        new document()
+                        {
+                            subject = "TestSubject Attachment",
+                            filetype = "txt",
+                            uuid = "attachmentGuid"
 
+                        }
+                    }
+                    //Todo: Missing "SenderId". Wassup?? Where to put?
+                };
+                
                 var expected = new Message(
                     new RecipientById(
-                        IdentificationType.DigipostAddress,
-                        "Ola.Nordmann#34JJ"
+                        IdentificationType.DigipostAddress, 
+                        (string)source.recipient.Item
                         ),
                     new Document("TestSubject", "txt", new byte[3]))
                 {
@@ -507,7 +664,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                         }
                     },
                     DeliveryTime = deliverytime,
-                    PrimaryDocument = {Guid = sourceDto.PrimaryDocumentDataTransferObject.Guid}
+                    PrimaryDocument = {Guid = source.primarydocument.uuid}
                 };
 
                 //Act
@@ -516,7 +673,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 //Assert
 
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(sourceDto, actual, out differences);
+                _comparator.Equal(source, actual, out differences);
 
                 Assert.Equal(0, differences.Count());
             }
@@ -528,9 +685,11 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 var atTimes = new List<DateTime> {DateTime.Now, DateTime.Now.AddHours(3)};
                 var afterHours = new List<int> {4, 5};
 
-                var sourceDto = new SmsNotificationDataTransferObject();
-                sourceDto.NotifyAfterHours.AddRange(afterHours);
-                sourceDto.NotifyAtTimes.AddRange(atTimes.Select(a => new ListedTimeDataTransferObject(a)));
+                var sourceDto = new smsnotification()
+                {
+                    afterhours = afterHours.ToArray(),
+                    at = atTimes.Select(a => new listedtime { timeSpecified = true, time = a }).ToArray()
+                };
 
                 var expected = new SmsNotification();
                 expected.NotifyAfterHours.AddRange(afterHours);
@@ -550,11 +709,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void IdentificationByPinReturnsDigipostResultWithNoneResultType()
             {
                 //Arrange
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult()
                 {
-                    IdentificationResultCode = IdentificationResultCode.Digipost,
-                    IdentificationValue = null,
-                    IdentificationResultType = IdentificationResultType.None
+                    result = identificationresultcode.DIGIPOST,
+                    Items = new object[] {null},
+                    //ItemsElementName = new [] { },
+                    
+                    //IdentificationResultCode = IdentificationResultCode.Digipost,
+                    //IdentificationValue = null,
+                    //IdentificationResultType = IdentificationResultType.None
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, string.Empty);
@@ -572,11 +735,18 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void IdentificationByPinReturnsIdentifiedResultWithNoneResultType()
             {
                 //Arrange
-                var source = new IdentificationResultDataTransferObject
+
+
+
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Identified,
-                    IdentificationValue = null,
-                    IdentificationResultType = IdentificationResultType.None
+                    result = identificationresultcode.IDENTIFIED,
+                    Items = new object[] { null },
+                    //ItemsElementName = new [] { },
+
+                    //IdentificationResultCode = IdentificationResultCode.Identified,
+                    //IdentificationValue = null,
+                    //IdentificationResultType = IdentificationResultType.None
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.Personalias, string.Empty);
@@ -601,11 +771,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 object invalidValue = InvalidReason.InvalidPersonalIdentificationNumber;
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Invalid,
-                    IdentificationValue = invalidValue,
-                    IdentificationResultType = IdentificationResultType.InvalidReason
+                    result = identificationresultcode.INVALID,
+                    Items = new object[] { invalidreason.INVALID_PERSONAL_IDENTIFICATION_NUMBER },
+                    ItemsElementName = new[] { ItemsChoiceType.invalidreason, },
+
+                    //IdentificationResultCode = IdentificationResultCode.Invalid,
+                    //IdentificationValue = invalidValue,
+                    //IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
@@ -624,11 +798,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 const string digipostAddress = "ola.nordmann#1234";
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult()
                 {
-                    IdentificationResultCode = IdentificationResultCode.Digipost,
-                    IdentificationValue = digipostAddress,
-                    IdentificationResultType = IdentificationResultType.DigipostAddress
+                    result = identificationresultcode.DIGIPOST,
+                    Items = new object[] { digipostAddress },
+                    ItemsElementName = new[] { ItemsChoiceType.digipostaddress, },
+                    
+                    //IdentificationResultCode = IdentificationResultCode.Digipost,
+                    //IdentificationValue = digipostAddress,
+                    //IdentificationResultType = IdentificationResultType.DigipostAddress
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
@@ -647,11 +825,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 const string personAlias = "fewoinf23nio3255n32oi5n32oi5n#1234";
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult()
                 {
-                    IdentificationResultCode = IdentificationResultCode.Identified,
-                    IdentificationValue = personAlias,
-                    IdentificationResultType = IdentificationResultType.Personalias
+                    result = identificationresultcode.IDENTIFIED,
+                    Items = new object[] { personAlias },
+                    ItemsElementName = new[] { ItemsChoiceType.personalias, },
+
+                    //IdentificationResultCode = IdentificationResultCode.Identified,
+                    //IdentificationValue = personAlias,
+                    //IdentificationResultType = IdentificationResultType.Personalias
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.Personalias, personAlias);
@@ -670,11 +852,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var reason = UnidentifiedReason.NotFound;
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Unidentified,
-                    IdentificationValue = reason,
-                    IdentificationResultType = IdentificationResultType.UnidentifiedReason
+                    result = identificationresultcode.UNIDENTIFIED,
+                    Items = new object[] { unidentifiedreason.NOT_FOUND},
+                    ItemsElementName = new[] { ItemsChoiceType.unidentifiedreason, },
+
+                    //IdentificationResultCode = IdentificationResultCode.Unidentified,
+                    //IdentificationValue = reason,
+                    //IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
@@ -698,13 +884,17 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 const string digipostAddress = "bedriften#1234";
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Digipost,
-                    IdentificationValue = digipostAddress,
-                    IdentificationResultType = IdentificationResultType.DigipostAddress
-                };
+                    result = identificationresultcode.DIGIPOST,
+                    Items = new object[] { digipostAddress},
+                    ItemsElementName = new[] { ItemsChoiceType.digipostaddress, },
 
+                    //IdentificationResultCode = IdentificationResultCode.Digipost,
+                    //IdentificationValue = digipostAddress,
+                    //IdentificationResultType = IdentificationResultType.DigipostAddress
+                };
+                
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
 
                 //Act
@@ -727,11 +917,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var reason = UnidentifiedReason.NotFound;
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Unidentified,
-                    IdentificationValue = reason,
-                    IdentificationResultType = IdentificationResultType.UnidentifiedReason
+                    result = identificationresultcode.UNIDENTIFIED,
+                    Items = new object[] { unidentifiedreason.NOT_FOUND },
+                    ItemsElementName = new[] { ItemsChoiceType.unidentifiedreason},
+
+                    //IdentificationResultCode = IdentificationResultCode.Unidentified,
+                    //IdentificationValue = reason,
+                    //IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
@@ -750,11 +944,15 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 object invalidValue = InvalidReason.InvalidOrganisationNumber;
-                var source = new IdentificationResultDataTransferObject
+                var source = new identificationresult
                 {
-                    IdentificationResultCode = IdentificationResultCode.Invalid,
-                    IdentificationValue = invalidValue,
-                    IdentificationResultType = IdentificationResultType.InvalidReason
+                    result = identificationresultcode.INVALID,
+                    Items = new object[] { invalidreason.INVALID_ORGANISATION_NUMBER },
+                    ItemsElementName = new[] { ItemsChoiceType.invalidreason, },
+                    
+                    //IdentificationResultCode = IdentificationResultCode.Invalid,
+                    //IdentificationValue = invalidValue,
+                    //IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
                 var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());

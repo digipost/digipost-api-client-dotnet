@@ -43,7 +43,7 @@ namespace Digipost.Api.Client.Handlers
 
             request.Headers.Add("X-Digipost-UserId", senderId);
             request.Headers.Add("Date", date);
-            request.Headers.Add("Accept", DigipostVersion.V6);
+            request.Headers.Add("Accept", DigipostVersion.V7);
             request.Headers.Add("User-Agent", GetAssemblyVersion());
 
             string contentHash = null;

@@ -4,10 +4,6 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Domain
 {
-    [Serializable]
-    [DesignerCategory("code")]
-    [XmlType(TypeName = "link", Namespace = "http://api.digipost.no/schema/v6")]
-    [XmlRoot("link", Namespace = "http://api.digipost.no/schema/v6", IsNullable = true)]
     public class Link
     {
         public Link(string rel, string uri, string mediaType)
@@ -17,32 +13,16 @@ namespace Digipost.Api.Client.Domain
             MediaType = mediaType;
         }
 
-        private Link()
-        {
-            /* Exists for serialization */
-        }
-
-        [XmlAttribute("rel")]
         public string Rel { get; set; }
 
-        [XmlAttribute("uri")]
         public string UriString { get; set; }
 
-        [XmlIgnore]
-        public Uri Uri
-        {
-            get { return new Uri(Uri.EscapeUriString(UriString)); }
-        }
+        public Uri Uri => new Uri(Uri.EscapeUriString(UriString));
 
         public string MediaType { get; set; }
 
-        [XmlIgnore]
-        public string LocalPath
-        {
-            get { return Uri.LocalPath.Substring(1); }
-        }
+        public string LocalPath => Uri.LocalPath.Substring(1);
 
-        [XmlAttribute("media-type")]
         public string Mediatype { get; set; }
 
         public override string ToString()

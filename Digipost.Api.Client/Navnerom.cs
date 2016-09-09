@@ -5,6 +5,12 @@
         /// <summary>
         ///     http://api.digipost.no/schema/v6
         /// </summary>
-        public const string DigipostApiInformasjon = "http://api.digipost.no/schema/v6";
+        //public const string DigipostApiV6 = "http://api.digipost.no/schema/v6";
+
+        /// <summary>
+        ///     http://api.digipost.no/schema/v7
+        /// </summary>
+        public const string DigipostApiV7 = "http://api.digipost.no/schema/v7";
+
     }
 }

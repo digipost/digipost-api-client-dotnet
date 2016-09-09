@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Action
             var messageContent = new StringContent(xmlMessage);
 
             var boundary = Guid.NewGuid().ToString();
-            var mediaTypeHeaderValue = new MediaTypeHeaderValue(DigipostVersion.V6);
+            var mediaTypeHeaderValue = new MediaTypeHeaderValue(DigipostVersion.V7);
             mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
             messageContent.Headers.ContentType = mediaTypeHeaderValue;
 

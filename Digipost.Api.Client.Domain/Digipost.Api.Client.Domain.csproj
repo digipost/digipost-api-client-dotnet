@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="DigipostRecipient.cs" />
     <Compile Include="Enums\IdentificationType.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\IdentificationError.cs" />
     <Compile Include="Identify\Identification.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Identify\IIdentificationResult.cs" />
     <Compile Include="IDigipostRecipient.cs" />
     <Compile Include="IError.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Print\Address.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\IAddress.cs" />
@@ -100,14 +102,12 @@
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />
     <Compile Include="Enums\UnidentifiedReason.cs" />
-    <Compile Include="Error.cs" />
     <Compile Include="Exceptions\APIException.cs" />
     <Compile Include="Exceptions\ClientResponseException.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoiceType.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
-    <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
     <Compile Include="SendMessage\MessageDeliveryResult.cs" />

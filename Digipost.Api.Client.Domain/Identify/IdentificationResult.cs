@@ -5,10 +5,10 @@ namespace Digipost.Api.Client.Domain.Identify
 {
     public class IdentificationResult : IIdentificationResult
     {
-        public IdentificationResult(IdentificationResultType resultType, string result = "")
+        public IdentificationResult(IdentificationResultType resultType, string resultCode = "")
         {
             ResultType = resultType;
-            SetResultByIdentificationResultType(result);
+            SetResultByIdentificationResultType(resultCode);
         }
 
         public IdentificationResultType ResultType { get; }
@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Domain.Identify
 
         public string Data { get; set; }
 
-        private void SetResultByIdentificationResultType(string result)
+        private void SetResultByIdentificationResultType(string resultCode)
         {
             var allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
                                           ResultType == IdentificationResultType.Personalias ||
@@ -25,17 +25,35 @@ namespace Digipost.Api.Client.Domain.Identify
 
             if (allSuccessfulResultType)
             {
-                Data = result;
+                Data = resultCode;
             }
             else
             {
-                Error = ParseToIdentificationError(result);
+                Error = ParseToIdentificationError(resultCode);
             }
         }
 
         private static IdentificationError ParseToIdentificationError(string identificationError)
         {
-            return (IdentificationError) Enum.Parse(typeof (IdentificationError), identificationError);
+            switch (identificationError)
+            {
+                case "UNIDENTIFIED":
+                    return IdentificationError.Unidentified;
+                case "INVALID":
+                    return IdentificationError.Invalid;
+                case "INVALID_PERSONAL_IDENTIFICATION_NUMBER":
+                    return IdentificationError.InvalidPersonalIdentificationNumber;
+                case "INVALID_ORGANISATION_NUMBER":
+                    return IdentificationError.InvalidOrganisationNumber;
+                case "UNKNOWN":
+                    return IdentificationError.Unknown;
+                case "MULTIPLE_MATCHES":
+                    return IdentificationError.MultipleMatches;
+                case "NOT_FOUND":
+                    return IdentificationError.Unknown;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(sensitivitylevel), identificationError, null);
+            }
         }
     }
 }

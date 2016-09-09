@@ -7,6 +7,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public interface IMessage : IRequestContent
     {
         /// <summary>
+        /// Todo: Proper description of what the meaning of this is
+        /// </summary>
+        string Id { get; set; }
+
+        /// <summary>
         ///     The recipient receiving the message.
         /// </summary>
         IDigipostRecipient DigipostRecipient { get; set; }

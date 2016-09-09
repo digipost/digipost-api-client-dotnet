@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Action
 
             var multipartFormDataContent = new MultipartFormDataContent(boundary);
 
-            var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/mixed");
+            var mediaTypeHeaderValue = new MediaTypeHeaderValue("multipart/vnd.digipost-v7+xml");
             mediaTypeHeaderValue.Parameters.Add(new NameValueWithParametersHeaderValue("boundary", boundary));
             multipartFormDataContent.Headers.ContentType = mediaTypeHeaderValue;
 
@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Action
             var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
             var messageContent = new StringContent(xmlMessage);
-            messageContent.Headers.ContentType = new MediaTypeHeaderValue(DigipostVersion.V6);
+            messageContent.Headers.ContentType = new MediaTypeHeaderValue(DigipostVersion.V7);
             messageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = "\"message\""

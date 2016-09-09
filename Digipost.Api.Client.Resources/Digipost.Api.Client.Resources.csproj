@@ -60,7 +60,7 @@
     <Folder Include="Xml\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Xsd\Data\api_v6.xsd">
+    <EmbeddedResource Include="Xsd\Data\api_v7.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

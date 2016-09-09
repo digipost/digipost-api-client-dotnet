@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
@@ -6,7 +7,6 @@ using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Domain.Utilities
 {
@@ -14,19 +14,19 @@ namespace Digipost.Api.Client.Domain.Utilities
     {
         public static identification ToDataTransferObject(IIdentification identification)
         {
-            identification identificationDataTransferObject = null;
+            identification identificationDto = null;
 
             if (identification.DigipostRecipient is RecipientById)
             {
-                identificationDataTransferObject = IdentificationDataTransferObjectFromIdentificationById((RecipientById)identification.DigipostRecipient);
+                identificationDto = IdentificationDataTransferObjectFromIdentificationById((RecipientById)identification.DigipostRecipient);
             }
 
             if (identification.DigipostRecipient is RecipientByNameAndAddress)
             {
-                identificationDataTransferObject = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress)identification.DigipostRecipient);
+                identificationDto = IdentificationDataTranferObjectFromIdentificationByNameAndAddress((RecipientByNameAndAddress)identification.DigipostRecipient);
             }
 
-            return identificationDataTransferObject;
+            return identificationDto;
         }
 
         private static identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
@@ -39,94 +39,104 @@ namespace Digipost.Api.Client.Domain.Utilities
             };
         }
 
-        private static identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(
-            RecipientByNameAndAddress recipientByNameAndAddress)
+        private static identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
         {
             var identification = new identification
             {
-                Item = ToDataTransferObject(recipientByNameAndAddress),
                 ItemElementName = ItemChoiceType.nameandaddress,
+                Item = new nameandaddress()
+                {
+                    fullname = recipientByNameAndAddress.FullName,
+                    addressline1 = recipientByNameAndAddress.AddressLine1,
+                    addressline2 = recipientByNameAndAddress.AddressLine2,
+                    postalcode = recipientByNameAndAddress.PostalCode,
+                    city = recipientByNameAndAddress.City,
+                    emailaddress = recipientByNameAndAddress.Email,
+                    phonenumber = recipientByNameAndAddress.PhoneNumber,
+                },
                 includepersonaliasfordigipostuser = true //Todo: Should be watwat?
             };
+
+            if (recipientByNameAndAddress.BirthDate.HasValue)
+            {
+                var nameandaddress = ((nameandaddress)identification.Item);
+                nameandaddress.birthdate = recipientByNameAndAddress.BirthDate.Value;
+                nameandaddress.birthdateSpecified = true;
+            }
 
             return identification;
         }
 
         public static message ToDataTransferObject(IMessage message)
         {
-            var recipient = ToDataTransferObject(message.DigipostRecipient);
             var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
 
-            var messageDataTransferObject = new message
+            var messageDto = new message
             {
                 Item = message.SenderId,
                 primarydocument = primaryDocumentDataTransferObject,
-                messageid = "NULL", //Todo: where from?
-                recipient = new messagerecipient
-                {
-                    printdetails = ToDataTransferObject(message.PrintDetails),
-                },
+                messageid = message.Id, 
+                recipient = ToDataTransferObject(message.DigipostRecipient)
             };
 
-            messageDataTransferObject.recipient = ToDataTransferObject(message.DigipostRecipient);
-
+            messageDto.recipient.printdetails = ToDataTransferObject(message.PrintDetails);
+            
             if (message.DigipostRecipient is RecipientById)
             {
                 var identificationType = ((RecipientById)message.DigipostRecipient).IdentificationType;
-                messageDataTransferObject.recipient.ItemElementName = identificationType.ToItemChoiceType1();
+                messageDto.recipient.ItemElementName = identificationType.ToItemChoiceType1();
             }
             else if (message.DigipostRecipient is RecipientByNameAndAddress)
             {
-                messageDataTransferObject.recipient.ItemElementName = ItemChoiceType1.nameandaddress;
+                messageDto.recipient.ItemElementName = ItemChoiceType1.nameandaddress;
             }
 
-            messageDataTransferObject.attachment = message.Attachments.Select(ToDataTransferObject).ToArray();
+            messageDto.attachment = message.Attachments.Select(ToDataTransferObject).ToArray();
 
             if (message.DeliveryTimeSpecified)
             {
-                messageDataTransferObject.deliverytime = message.DeliveryTime.Value;
-                messageDataTransferObject.deliverytimeSpecified = true;
+                messageDto.deliverytime = message.DeliveryTime.Value;
+                messageDto.deliverytimeSpecified = true;
             }
 
-            return messageDataTransferObject;
+            return messageDto;
         }
 
         public static document ToDataTransferObject(IDocument document)
         {
-            var documentDataTransferObject = new document()
-            {
-                subject = document.Subject,
-                filetype = document.FileType,
-               /* contenthash = new contenthash { hashalgorithm = "ALRGORITHM", Value = "VALUE" },*/ //Todo: Hash the content bytes and add here
-                Item = document.ContentBytes,
-                authenticationlevel = document.AuthenticationLevel.ToAuthenticationLevel(),
-                authenticationlevelSpecified = true,
-                sensitivitylevel = document.SensitivityLevel.ToSensitivityLevel(),
-                sensitivitylevelSpecified = true,
-                smsnotification = ToDataTransferObject(document.SmsNotification),
-                uuid = document.Guid
-            };
+            document documentDto;
 
             if (document is Invoice)
             {
-                return AddInvoiceData((Invoice)document, documentDataTransferObject);
+                var invoice = (Invoice) document;
+
+                var invoiceDto = new invoice();
+                invoiceDto.amount = invoice.Amount;
+                invoiceDto.duedate = invoice.Duedate;
+                invoiceDto.kid = invoice.Kid;
+                invoiceDto.account = invoice.Account;
+
+                documentDto = invoiceDto;
+            }
+            else
+            {
+                documentDto = new document();
             }
 
-            return documentDataTransferObject;
+            documentDto.subject = document.Subject;
+            documentDto.filetype = document.FileType;
+                // contenthash = new contenthash { hashalgorithm = "ALRGORITHM", Value = "VALUE" } //Todo: Hash the content bytes and add here
+                //Item = document.ContentBytes, //Content bytes sendes gjennom en annen kanal
+            documentDto.authenticationlevel = document.AuthenticationLevel.ToAuthenticationLevel();
+            documentDto.authenticationlevelSpecified = true;
+            documentDto.sensitivitylevel = document.SensitivityLevel.ToSensitivityLevel();
+            documentDto.sensitivitylevelSpecified = true;
+            documentDto.smsnotification = ToDataTransferObject(document.SmsNotification);
+            documentDto.uuid = document.Guid;
+
+            return documentDto;
         }
-
-        private static invoice AddInvoiceData(Invoice invoice, document baseDocument)
-        {
-            var invoiceDto = (invoice)baseDocument;
-
-            invoiceDto.amount = invoice.Amount;
-            invoiceDto.duedate = invoice.Duedate;
-            invoiceDto.kid = invoice.Kid;
-            invoiceDto.account = invoice.Account;
-
-            return invoiceDto;
-        }
-
+       
         public static messagerecipient ToDataTransferObject(IDigipostRecipient recipient)
         {
             messagerecipient messageRecipientDto = null;
@@ -270,40 +280,48 @@ namespace Digipost.Api.Client.Domain.Utilities
             if (smsNotification == null)
                 return null;
 
-            var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new listedtime { time = dateTime, timeSpecified = true });
+            var smsNotificationDto = new smsnotification();
 
-            var smsNotificationDataTransferObject = new smsnotification
+            if (smsNotification.NotifyAtTimes.Count > 0)
             {
-                afterhours = smsNotification.NotifyAfterHours.ToArray(),
-                at = timesAsListedTimes.ToArray()
+                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new listedtime { time = dateTime, timeSpecified = true });
+                smsNotificationDto.at = timesAsListedTimes.ToArray();
+            }
+
+            if(smsNotification.NotifyAfterHours.Count > 0)
+            {
+                smsNotificationDto.afterhours = smsNotification.NotifyAfterHours.ToArray();
             };
 
-            return smsNotificationDataTransferObject;
+            return smsNotificationDto;
         }
 
         public static IIdentificationResult FromDataTransferObject(identificationresult identificationResultDto)
         {
             IdentificationResult identificationResult;
 
-            if (identificationResultDto.ItemsElementName.Length == 0) //IDENTIFICATION.NONE
+            var itemsChoiceType = identificationResultDto.ItemsElementName?.FirstOrDefault();
+            var identifiedByDigipostOrPin = itemsChoiceType == null;
+
+            if (identifiedByDigipostOrPin)
             {
-                identificationResult = SetResultTypeForIdentificationResultTypeNone(identificationResultDto);
+                return IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationResultDto);
             }
             else
             {
-                ItemsChoiceType itemsChoiceType = identificationResultDto.ItemsElementName.ElementAt(0);
-
-
-                identificationResult = new IdentificationResult(itemsChoiceType.ToIdentificationResultType() , identificationResultDto.Items.ElementAt(0).ToString());
+                identificationResult = new IdentificationResult(itemsChoiceType.Value.ToIdentificationResultType() , identificationResultDto.Items.ElementAt(0).ToString());
             }
 
             return identificationResult;
 
         }
 
-        private static IdentificationResult SetResultTypeForIdentificationResultTypeNone(identificationresult identificationResultDto)
+        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationresult identificationResultDto)
         {
             IdentificationResult identificationResult = null;
+
+            
+
             switch (identificationResultDto.result)
             {
                 case identificationresultcode.DIGIPOST:
@@ -312,19 +330,21 @@ namespace Digipost.Api.Client.Domain.Utilities
                 case identificationresultcode.IDENTIFIED:
                     identificationResult = new IdentificationResult(IdentificationResultType.Personalias, "");
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             return identificationResult;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(messagedelivery messageDeliveryDataTransferObject)
+        public static IMessageDeliveryResult FromDataTransferObject(messagedelivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
-                PrimaryDocument = FromDataTransferObject(messageDeliveryDataTransferObject.primarydocument),
-                Attachments = messageDeliveryDataTransferObject.attachment.Select(FromDataTransferObject).ToList(),
-                DeliveryTime = messageDeliveryDataTransferObject.deliverytime,
-                DeliveryMethod = messageDeliveryDataTransferObject.deliverymethod.ToDeliveryMethod(),
-                Status = messageDeliveryDataTransferObject.status.ToMessageStatus()
+                PrimaryDocument = FromDataTransferObject(messageDeliveryDto.primarydocument),
+                Attachments = messageDeliveryDto.attachment?.Select(FromDataTransferObject).ToList(),
+                DeliveryTime = messageDeliveryDto.deliverytime,
+                DeliveryMethod = messageDeliveryDto.deliverymethod.ToDeliveryMethod(),
+                Status = messageDeliveryDto.status.ToMessageStatus()
             };
 
             return messageDeliveryResult;
@@ -332,29 +352,20 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static IDocument FromDataTransferObject(document documentDto)
         {
-            return new Document(
-                documentDto.subject, 
-                documentDto.filetype, 
-                new byte[] {}, 
-                documentDto.authenticationlevel.ToAuthenticationLevel(), 
-                documentDto.sensitivitylevel.ToSensitivityLevel(), 
-                FromDataTransferObject(documentDto.smsnotification))
-                    {
-                        Guid = documentDto.uuid
-                    }; 
+            return new Document(documentDto.subject, documentDto.filetype, new byte[] {}, documentDto.authenticationlevel.ToAuthenticationLevel(), documentDto.sensitivitylevel.ToSensitivityLevel(), FromDataTransferObject(documentDto.smsnotification))
+            {
+                Guid = documentDto.uuid
+            };
         }
 
-        public static ISmsNotification FromDataTransferObject(smsnotification smsNotificationDataTransferObject)
+        public static ISmsNotification FromDataTransferObject(smsnotification smsNotificationDto)
         {
-            if (smsNotificationDataTransferObject == null)
+            if (smsNotificationDto == null)
                 return null;
-
-            var dateTimes = smsNotificationDataTransferObject.at.Select(listedTime => listedTime.time).ToList();
 
             var smsNotification = new SmsNotification
             {
-                NotifyAfterHours = smsNotificationDataTransferObject.afterhours.ToList(),
-                NotifyAtTimes = dateTimes
+                NotifyAfterHours = smsNotificationDto.afterhours?.ToList() ?? new List<int>(), NotifyAtTimes = smsNotificationDto.at?.Select(listedTime => listedTime.time).ToList() ?? new List<DateTime>()
             };
 
             return smsNotification;

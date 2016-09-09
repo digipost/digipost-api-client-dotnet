@@ -1,94 +1,151 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Xunit;
+using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Test.DataTransferObjects
 {
     public class IdentificationResultTests
     {
-        public class ConstructorMethod : IdentificationResultTests
+        public class ConstructorMethod_first_parameter_triggers_data_or_error : IdentificationResultTests
         {
+
             [Fact]
-            public void SuccessfulIdentificationResultTypeSetsResult()
+            public void Successful_IdentificationResultType_sets_data_not_error()
             {
-                var enumValues = Enum.GetValues(typeof (IdentificationResultType)).Cast<IdentificationResultType>();
-
-                foreach (var value in enumValues)
+                //Arrange
+                var actualEnumValues = Enum.GetValues(typeof(ItemsChoiceType)).Cast<ItemsChoiceType>().ToArray();
+                var expectedEnumValues = new[]
                 {
-                    var failedIdentificationResultType = value == IdentificationResultType.InvalidReason || value == IdentificationResultType.UnidentifiedReason;
+                    ItemsChoiceType.digipostaddress,
+                    ItemsChoiceType.invalidreason,
+                    ItemsChoiceType.personalias,
+                    ItemsChoiceType.unidentifiedreason,
+                };
 
-                    if (!failedIdentificationResultType)
+                Assert.NotStrictEqual(expectedEnumValues, actualEnumValues);
+
+                foreach (var enumValue in actualEnumValues)
+                {
+                    var isSuccessfulItemsChoiceType = enumValue == ItemsChoiceType.digipostaddress || enumValue == ItemsChoiceType.personalias;
+
+                    //Act
+                    var resultCode = isSuccessfulItemsChoiceType ? "Digipost-address, personalias or empty" : "UNIDENTIFIED";
+                    var identificationResult = new IdentificationResult(enumValue.ToIdentificationResultType(), resultCode);
+
+                    if (isSuccessfulItemsChoiceType)
                     {
-                        //Arrange
-                        const string result = "Digipost-address, personalias or empty";
-
-                        var identificationResult = new IdentificationResult(value, result);
-
-                        //Act
-
                         //Assert
-                        Assert.Equal(result, identificationResult.Data);
+                        Assert.Equal(resultCode, identificationResult.Data);
                         Assert.Null(identificationResult.Error);
+                        Assert.NotEqual(IdentificationResultType.None, identificationResult.ResultType); //Check that set to other than default
+                    }
+                    else
+                    {
+                        //Assert
+                        Assert.NotNull(identificationResult.Error);
+                        Assert.Null(identificationResult.Data);
                     }
                 }
             }
 
-            [Fact]
-            public void SetsIdentificationResultType()
-            {
-                //Arrange
-                const string digipostAddress = "ola.nordmann#2433B";
-                var identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
+        }
 
-                //Act
-
-                //Assert
-                Assert.Equal(identificationResult.ResultType, IdentificationResultType.DigipostAddress);
-            }
+        public class ConstructorMethod_second_parameter_can_handle_all_identification_error
+        {
 
             [Fact]
-            public void IdentificationResultCodeErrorSetsIdentificationErrorNotResult()
+            public void Handles_identificationresultcode()
             {
-                var enumValues = Enum.GetValues(typeof (IdentificationResultCode)).Cast<IdentificationResultCode>();
-
-                foreach (var value in enumValues)
+                var actualidentificationresultcodes = Enum.GetValues(typeof(identificationresultcode)).Cast<identificationresultcode>().ToArray();
+                var expectedidentificationresultcodes = new[]
                 {
-                    var successfulIdentificationResultCode = value == IdentificationResultCode.Digipost ||
-                                                             value == IdentificationResultCode.Identified;
+                    identificationresultcode.DIGIPOST,
+                    identificationresultcode.IDENTIFIED,
+                    identificationresultcode.INVALID,
+                    identificationresultcode.UNIDENTIFIED
+                };
 
-                    if (!successfulIdentificationResultCode)
+                Assert.NotStrictEqual(expectedidentificationresultcodes, actualidentificationresultcodes);
+
+                foreach (var resultcode in actualidentificationresultcodes)
+                {
+                    var isFailedIdentificationresultcodes = resultcode == identificationresultcode.INVALID || resultcode == identificationresultcode.UNIDENTIFIED;
+
+                    //Arrange
+                    var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
+
+                    if (isFailedIdentificationresultcodes)
                     {
-                        //Arrange
-                        var identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
-
                         //Act
+                        var identificationResult = new IdentificationResult(nonEssentialFirstParameter, resultcode.ToString());
 
                         //Assert
-                        Assert.Equal(identificationResult.Error.ToString(), value.ToString());
+                        Assert.NotNull(identificationResult.Error.ToString());
                         Assert.Null(identificationResult.Data);
                     }
                 }
             }
 
             [Fact]
-            public void InvalidReasonErrorSetsIdentificationErrorNotResult()
+            public void Handles_invalidreason()
             {
-                var enumValues = Enum.GetValues(typeof (InvalidReason)).Cast<InvalidReason>();
-
-                foreach (var value in enumValues)
+                var actualInvalidreasons = Enum.GetValues(typeof(invalidreason)).Cast<invalidreason>().ToArray();
+                var expectedInvalidreasons = new[]
                 {
+                    invalidreason.INVALID_ORGANISATION_NUMBER,
+                    invalidreason.INVALID_PERSONAL_IDENTIFICATION_NUMBER,
+                    invalidreason.UNKNOWN,
+                };
+
+                Assert.NotStrictEqual(expectedInvalidreasons, actualInvalidreasons);
+
+                foreach (var reason in actualInvalidreasons)
+                {
+
                     //Arrange
-                    var identificationResult = new IdentificationResult(IdentificationResultType.InvalidReason, value.ToString());
+                    var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
 
                     //Act
+                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToString());
 
                     //Assert
-                    Assert.Equal(identificationResult.Error.ToString(), value.ToString());
+                    Assert.NotNull(identificationResult.Error.ToString());
                     Assert.Null(identificationResult.Data);
                 }
             }
+
+            [Fact]
+            public void Handles_unidentifiedreason()
+            {
+                var actualUnidentifiedreasons = Enum.GetValues(typeof(unidentifiedreason)).Cast<unidentifiedreason>().ToArray();
+                var expectedUnidentifiedreasons = new[]
+                {
+                    unidentifiedreason.MULTIPLE_MATCHES, 
+                    unidentifiedreason.NOT_FOUND, 
+                };
+
+                Assert.NotStrictEqual(expectedUnidentifiedreasons, actualUnidentifiedreasons);
+
+                foreach (var reason in actualUnidentifiedreasons)
+                {
+
+                    //Arrange
+                    var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
+
+                    //Act
+                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToString());
+
+                    //Assert
+                    Assert.NotNull(identificationResult.Error.ToString());
+                    Assert.Null(identificationResult.Data);
+                }
+            }
+
         }
+
     }
 }

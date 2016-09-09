@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml;
 using ApiClientShared;
 
@@ -19,9 +14,9 @@ namespace Digipost.Api.Client.Resources.Xsd
             return XmlReader.Create(new MemoryStream(bytes));
         }
 
-        public static XmlReader GetApiV6Xsd()
+        public static XmlReader GetApiV7Xsd()
         {
-            return GetResource("api_v6.xsd");
+            return GetResource("api_v7.xsd");
         }
     }
 }

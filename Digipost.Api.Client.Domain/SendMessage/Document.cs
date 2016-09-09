@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(subject, fileType, new byte[] { }, authenticationLevel, sensitivityLevel, smsNotification)
         {
-            throw new NotImplementedException("USe this when creating from dto as has no data, but verify that this is correct"); //TOdo: this ctor is a result of refactoring of domain model.
+            //TOdo: this ctor is a result of refactoring of domain model. "USe this when creating from dto as has no data, but verify that this is correct"
         }
 
         public string Guid { get; set; }

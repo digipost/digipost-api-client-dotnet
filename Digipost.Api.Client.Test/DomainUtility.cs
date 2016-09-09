@@ -32,11 +32,9 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(
-                recipientById,
-                new Document("TestSubject", "txt", new byte[3])
-                )
+            return new Message(recipientById,new Document("TestSubject", "txt", new byte[3]))
             {
+                Id = "ThatMessageId",
                 SenderId = "SenderId",
                 Attachments = new List<IDocument>
                 {
@@ -48,29 +46,44 @@ namespace Digipost.Api.Client.Test
                 DeliveryTime = deliverytime,
                 PrimaryDocument = {Guid = "attachmentGuidPrimary"}
             };
+
+            
         }
 
         public static message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
         {
             return new message
             {
-                attachment = new document[]
+                Item = "SenderId",
+                messageid = "ThatMessageId",
+                primarydocument = new document()
+                {
+                    subject = "TestSubject",
+                    filetype = "txt",
+                    uuid = "attachmentGuidPrimary",
+                    authenticationlevelSpecified = true,
+                    sensitivitylevelSpecified = true
+                    
+                },
+                attachment = new[]
                 {
                     new document
                     {
                         subject = "TestSubject attachment",
                         filetype = "txt",
-                        uuid = "attachmentGuid"
+                        uuid = "attachmentGuid",
+                        authenticationlevelSpecified = true,
+                        sensitivitylevelSpecified = true
                     }
                 },
                 deliverytime = DateTime.Today.AddDays(3),
-                primarydocument = new document()
+                deliverytimeSpecified = true,
+                recipient = new messagerecipient()
                 {
-                    subject = "TestSubject",
-                    filetype = "txt",
-                    uuid = "attachmentGuidPrimary"
+                    ItemElementName = ItemChoiceType1.digipostaddress,
+                    Item = "ola.nordmann#246BB"
                 }
-            };
+        };
         }
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
@@ -136,7 +149,7 @@ namespace Digipost.Api.Client.Test
                 new PrintDetails(
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo", "Osloveien 15")),
                     new PrintReturnRecipient("Returkongen",
-                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
+                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")), PostType.A);
         }
 
         public static printdetails GetPrintDetailsDataTransferObject()
@@ -160,7 +173,7 @@ namespace Digipost.Api.Client.Test
                     {
                         addressline1 = "Sophauggata 22",
                         city = "Sophaugen",
-                        zipcode = "5110"
+                        zipcode = "5510"
                     }
                 }
             };

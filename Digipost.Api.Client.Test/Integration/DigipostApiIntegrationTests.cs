@@ -9,6 +9,7 @@ using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Test.Fakes;
 using Moq;
@@ -30,7 +31,7 @@ namespace Digipost.Api.Client.Test.Integration
                 TimeoutMilliseconds = 300000000
             };
             Uri = new Uri("/identification", UriKind.Relative);
-            Certificate = TestProperties.Certificate();
+            Certificate = CertificateResource.Certificate();
         }
 
         internal AuthenticationHandler CreateHandlerChain(

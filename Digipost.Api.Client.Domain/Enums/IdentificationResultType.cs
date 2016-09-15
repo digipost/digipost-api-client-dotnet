@@ -5,8 +5,6 @@ namespace Digipost.Api.Client.Domain.Enums
 {
     public enum IdentificationResultType
     {
-        None,
-
         DigipostAddress,
 
         InvalidReason,

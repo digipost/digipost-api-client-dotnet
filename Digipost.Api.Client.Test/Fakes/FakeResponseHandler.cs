@@ -1,12 +1,27 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Digipost.Api.Client.Test.Fakes
 {
-    class FakeResponseHandler : FakeHttpClientHandlerResponse
+    public class FakeResponseHandler : DelegatingHandler, IFakeHttpClientHandlerResponse
     {
-        public override HttpContent GetContent()
+        public HttpStatusCode? ResultCode { get; set; }
+
+        public HttpContent HttpContent { get; set; }
+
+        protected override async Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException("Content must always be set! This is a temporary class to discard pattern of wrapping all exceptions in its own class.");
+            var response = new HttpResponseMessage
+            {
+                Content = HttpContent ?? HttpContent,
+                StatusCode = ResultCode ?? HttpStatusCode.OK
+            };
+            return await Task.FromResult(response).ConfigureAwait(false);
         }
+
+       
     }
 }

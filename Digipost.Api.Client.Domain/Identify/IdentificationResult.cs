@@ -20,8 +20,8 @@ namespace Digipost.Api.Client.Domain.Identify
         private void SetResultByIdentificationResultType(string resultCode)
         {
             var allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
-                                          ResultType == IdentificationResultType.Personalias ||
-                                          ResultType == IdentificationResultType.None;
+                                          ResultType == IdentificationResultType.Personalias;
+                                         
 
             if (allSuccessfulResultType)
             {

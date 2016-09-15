@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Test.Integration
         }
 
         internal AuthenticationHandler CreateHandlerChain(
-            FakeHttpClientHandlerResponse fakehandler)
+            FakeResponseHandler fakehandler)
         {
             var loggingHandler = new LoggingHandler(fakehandler, ClientConfig);
             var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
@@ -185,9 +185,9 @@ namespace Digipost.Api.Client.Test.Integration
             [Fact]
             public void ProperRequestSent()
             {
-                var searchString = "marit";
+                var searchString = "jarand";
 
-                var fakehandler = new FakeHttpClientHandlerForSearchResponse();
+                var fakehandler = new FakeResponseHandler() { ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
 
                 var mockFacktory = CreateMockFactoryReturningSearch(fakeHandlerChain);

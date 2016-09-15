@@ -8,8 +8,6 @@ namespace Digipost.Api.Client.Domain
 
         public string Errortype { get; set; }
 
-        public List<Link> Link { get; set; }
-
         public string Errorcode { get; set; }
 
         public override string ToString()

@@ -1,0 +1,40 @@
+﻿using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Xml;
+using ApiClientShared;
+
+namespace Digipost.Api.Client.Resources.Xml
+{
+    internal static class XmlResource
+    {
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Resources.Xml.Data");
+
+        private static StringContent GetResource(params string[] path)
+        {
+            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            return new StringContent(XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes)).OuterXml);
+        }
+
+        internal static class SendMessage
+        {
+            public static StringContent GetError()
+            {
+                return GetResource("SendMessageErrorUnknownRecipient.xml");
+            }
+
+            public static StringContent GetMessageDelivery()
+            {
+                return GetResource("SendMessageMessageDelivery.xml");
+            }
+        }
+
+        internal static class Identification
+        {
+            public static StringContent GetResult ()
+            {
+                return GetResource("IdentificationResult.xml");
+            }
+        }
+    }
+}

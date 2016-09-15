@@ -370,5 +370,15 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             return smsNotification;
         }
+
+        public static Error FromDataTransferObject(error error)
+        {
+            return new Error
+            {
+                Errorcode = error.errorcode,
+                Errormessage = error.errormessage,
+                Errortype = error.errortype
+            };
+        }
     }
 }

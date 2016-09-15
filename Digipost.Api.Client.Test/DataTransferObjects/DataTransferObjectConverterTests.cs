@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Extensions;
@@ -771,6 +772,34 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(expected, actual, out differences);
                 Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void Error()
+            {
+                //Arrange
+                var source = new error
+                {
+                    errorcode = "UNKNOWN_RECIPIENT",
+                    errormessage = "The recipient does not have a Digipost account.",
+                    errortype = "CLIENT_DATA"
+                };
+
+                var expected = new Error
+                {
+                    Errorcode = source.errorcode,
+                    Errormessage = source.errormessage,
+                    Errortype = source.errortype
+                };
+
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.Equal(expected, actual, out differences);
+                Assert.Equal(0, differences.Count());
+
             }
 
             [Fact]

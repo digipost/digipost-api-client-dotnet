@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<message-delivery xmlns="http://api.digipost.no/schema/v7">
+	<delivery-method>DIGIPOST</delivery-method>
+	<sender-id>2121714811</sender-id>
+	<status>DELIVERED</status>
+	<delivery-time>2016-09-14T14:06:53.958+02:00</delivery-time>
+	<primary-document>
+		<uuid>763ee844-e081-4136-a7f7-c2e5c03fe5d6</uuid>
+		<subject>simple-document-dotnet</subject>
+		<file-type>txt</file-type>
+		<authentication-level>PASSWORD</authentication-level>
+		<sensitivity-level>NORMAL</sensitivity-level>
+		<content-hash hash-algorithm="SHA256">5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc=</content-hash>
+	</primary-document>
+</message-delivery>

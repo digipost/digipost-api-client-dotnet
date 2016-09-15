@@ -94,11 +94,10 @@
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
     <Compile Include="Fakes\FakeInvoice.cs" />
+    <Compile Include="Fakes\FakeResponseHandler.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
     <Compile Include="DomainUtility.cs" />
@@ -141,6 +140,10 @@
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622E975-31E3-45DB-8156-FB593FC872F4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
+      <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
+      <Name>Digipost.Api.Client.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Scripts.csproj">
       <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>

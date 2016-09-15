@@ -6,6 +6,7 @@ using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
+using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Domain.Utilities
@@ -378,6 +379,33 @@ namespace Digipost.Api.Client.Domain.Utilities
                 Errorcode = error.errorcode,
                 Errormessage = error.errormessage,
                 Errortype = error.errortype
+            };
+        }
+
+        public static SearchDetailsResult FromDataTransferObject(recipients recipients)
+        {
+            return new SearchDetailsResult
+            {
+                PersonDetails = recipients.recipient?.Select(
+                    r => new SearchDetails
+                    {
+                        FirstName = r.firstname,
+                        MiddleName = r.middlename,
+                        LastName = r.lastname,
+                        DigipostAddress = r.digipostaddress,
+                        MobileNumber = r.mobilenumber,
+                        OrganizationName = r.organisationname,
+                        OrganizationNumber = r.organisationnumber,
+                        SearchDetailsAddress = r.address?.Select(a => new SearchDetailsAddress
+                        {
+                            Street = a.street,
+                            HouseNumber = a.housenumber,
+                            HouseLetter = a.houseletter,
+                            AdditionalAddressLine = a.additionaladdressline,
+                            ZipCode = a.zipcode,
+                            City = a.city
+                        })
+                    })
             };
         }
     }

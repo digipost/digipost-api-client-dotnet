@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace Digipost.Api.Client.Domain.Search
 {
@@ -21,7 +19,9 @@ namespace Digipost.Api.Client.Domain.Search
 
         public string OrganizationName { get; set; }
 
-        public SearchDetailsAddress SearchDetailsAddress { get; set; }
+        public string OrganizationNumber { get; set; }
+
+        public IEnumerable<SearchDetailsAddress> SearchDetailsAddress { get; set; }
 
         public override string ToString()
         {

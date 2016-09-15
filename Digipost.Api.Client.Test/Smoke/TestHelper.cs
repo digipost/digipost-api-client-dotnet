@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
@@ -141,7 +142,7 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             Assert_state(_searchResult);
 
-            Assert.InRange(_searchResult.PersonDetails.Count, 1, 11);
+            Assert.InRange(_searchResult.PersonDetails.ToList().Count, 1, 11);
         }
     }
 }

@@ -132,9 +132,11 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResult = await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await GenericGetAsync<recipients>(uri).ConfigureAwait(false);
 
-            Log.Debug($"Response received for search with term '{search}' retrieved: '{searchDetailsResult.PersonDetails.Count}' entries.");
+            var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
+
+            Log.Debug($"Response received for search with term '{search}' retrieved.");
 
             return searchDetailsResult;
         }

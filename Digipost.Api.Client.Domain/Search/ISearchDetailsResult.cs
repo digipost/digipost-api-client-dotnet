@@ -4,6 +4,6 @@ namespace Digipost.Api.Client.Domain.Search
 {
     public interface ISearchDetailsResult
     {
-        List<SearchDetails> PersonDetails { get; set; }
+        IEnumerable<SearchDetails> PersonDetails { get; set; }
     }
 }

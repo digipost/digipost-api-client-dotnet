@@ -36,5 +36,13 @@ namespace Digipost.Api.Client.Resources.Xml
                 return GetResource("IdentificationResult.xml");
             }
         }
+
+        internal static class Search
+        {
+            public static StringContent GetResult()
+            {
+                return GetResource("SearchResult.xml");
+            }
+        }
     }
 }

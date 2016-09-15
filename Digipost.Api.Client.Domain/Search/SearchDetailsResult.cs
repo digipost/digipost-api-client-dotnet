@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.Search
     /// </summary>
    public class SearchDetailsResult : ISearchDetailsResult
     {
-        public List<SearchDetails> PersonDetails { get; set; }
+        public IEnumerable<SearchDetails> PersonDetails { get; set; }
 
         public override string ToString()
         {

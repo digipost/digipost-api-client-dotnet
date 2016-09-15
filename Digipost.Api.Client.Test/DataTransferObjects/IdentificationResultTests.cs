@@ -41,7 +41,6 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                         //Assert
                         Assert.Equal(resultCode, identificationResult.Data);
                         Assert.Null(identificationResult.Error);
-                        Assert.NotEqual(IdentificationResultType.None, identificationResult.ResultType); //Check that set to other than default
                     }
                     else
                     {

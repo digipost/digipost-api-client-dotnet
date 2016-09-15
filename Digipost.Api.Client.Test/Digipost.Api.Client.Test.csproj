@@ -88,16 +88,15 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompareObjects\Comparator.cs" />
+    <Compile Include="CompareObjects\ComparisonConfiguration.cs" />
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="EnvironmentTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
-    <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Fakes\FakeResponseHandler.cs" />
+    <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
     <Compile Include="DomainUtility.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
     <Compile Include="Action\DigipostActionFactoryTests.cs" />
     <Compile Include="Action\DigipostActionTests.cs" />
-    <Compile Include="Api\DigipostApiTests.cs" />
     <Compile Include="DataTransferObjects\DataTransferObjectConverterTests.cs" />
     <Compile Include="DataTransferObjects\DocumentTests.cs" />
     <Compile Include="DataTransferObjects\ForeignAddressTests.cs" />

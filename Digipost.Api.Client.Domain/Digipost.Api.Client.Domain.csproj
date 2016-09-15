@@ -79,6 +79,7 @@
     <Compile Include="Search\ISearchDetailsAddress.cs" />
     <Compile Include="Search\ISearchDetailsResult.cs" />
     <Compile Include="Search\SearchDetails.cs" />
+    <Compile Include="SendMessage\ContentHash.cs" />
     <Compile Include="SendMessage\IMessageDeliveryResult.cs" />
     <Compile Include="SendMessage\Document.cs" />
     <Compile Include="SendMessage\IDocument.cs" />

@@ -70,6 +70,8 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public string FileType { get; set; }
 
+        public ContentHash ContentHash { get; internal set; }
+
         public ISmsNotification SmsNotification { get; set; }
 
         public AuthenticationLevel AuthenticationLevel { get; set; }

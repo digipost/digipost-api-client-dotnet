@@ -19,7 +19,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <summary>
         ///     Optional. The time when the document will be made visible to the user.
         /// </summary>
-        DateTime DeliveryTime { get; set; }
+        DateTime? DeliveryTime { get; set; }
 
         /// <summary>
         ///     The primary document of the delivery. This is the document that will be shown first in the
@@ -31,6 +31,6 @@ namespace Digipost.Api.Client.Domain.SendMessage
         ///     Optional. Attachments can be added to the message, and can be of same types as the primary
         ///     document.
         /// </summary>
-        List<IDocument> Attachments { get; set; }
+        IEnumerable<IDocument> Attachments { get; set; }
     }
 }

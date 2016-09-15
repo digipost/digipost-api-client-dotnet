@@ -11,7 +11,6 @@ using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;

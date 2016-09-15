@@ -28,10 +28,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         public DateTime? DeliveryTime { get; set; }
 
-        public bool DeliveryTimeSpecified
-        {
-            get { return DeliveryTime != null; }
-        }
+        public bool DeliveryTimeSpecified => DeliveryTime != null;
 
         public IDocument PrimaryDocument { get; set; }
 

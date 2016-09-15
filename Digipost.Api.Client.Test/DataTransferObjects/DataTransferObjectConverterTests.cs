@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
@@ -670,11 +669,16 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     filetype = "txt",
                     authenticationlevel = authenticationlevel.PASSWORD,
                     sensitivitylevel = sensitivitylevel.SENSITIVE,
-                    smsnotification = new smsnotification() { afterhours = new[] { 3 } }
+                    smsnotification = new smsnotification() { afterhours = new[] { 3 } },
+                    uuid = "uuid",
+                    contenthash = new contenthash() { hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc=" }
                 };
 
-                IDocument expected = new Document(source.subject, source.filetype, AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                expected.Guid = source.uuid;
+                IDocument expected = new Document(source.subject, source.filetype, AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3))
+                {
+                    ContentHash = new ContentHash() { HashAlgoritm = source.contenthash.hashalgorithm, Value = source.contenthash.Value},
+                    Guid = source.uuid
+                };
 
                 //Act
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
@@ -686,68 +690,72 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 Assert.Equal(0, differences.Count());
             }
 
-            //[Fact]
-            //public void Message()
-            //{
-            //    //Arrange
-            //    var deliverytime = DateTime.Now.AddDays(3);
+            [Fact]
+            public void Message()
+            {
+                //Arrange
+                var deliverytime = DateTime.Now.AddDays(3);
 
-            //    var source = new message()
-            //    {
-            //        recipient = new messagerecipient()
-            //        {
-            //            ItemElementName = ItemChoiceType1.digipostaddress,
-            //            Item = "Ola.Nordmann#34JJ"
-            //        },
-            //        primarydocument = new document()
-            //        {
-            //            subject = "TestSubject",
-            //            filetype = "txt",
-            //        },
-            //        attachment = new[]
-            //        {
-            //            new document
-            //            {
-            //                subject = "TestSubject Attachment",
-            //                filetype = "txt",
-            //                uuid = "attachmentGuid"
+                var source = new messagedelivery()
+                {
+                    primarydocument = new document()
+                    {
+                        subject = "TestSubject",
+                        filetype = "txt",
+                        authenticationlevel = authenticationlevel.TWO_FACTOR,
+                        sensitivitylevel = sensitivitylevel.SENSITIVE,
+                        uuid = "uuid",
+                        contenthash = new contenthash() { hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc=" }
+                    },
+                    attachment = new[]
+                    {
+                        new document
+                        {
+                            subject = "TestSubject Attachment",
+                            filetype = "txt",
+                            authenticationlevel = authenticationlevel.TWO_FACTOR,
+                            sensitivitylevel = sensitivitylevel.SENSITIVE,
+                            uuid = "attachmentGuid",
+                            contenthash = new contenthash() { hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
+                        }
+                    },
+                    deliverytime = deliverytime,
+                    deliverymethod = channel.DIGIPOST,
+                    deliverytimeSpecified = true,
+                    status = messagestatus.DELIVERED,
+                    senderid = 123456
+                };
+                
+                var expected = new MessageDeliveryResult()
+                {
+                    PrimaryDocument = new Document(source.primarydocument.subject, source.primarydocument.filetype, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
+                    {
+                        Guid = source.primarydocument.uuid,
+                        ContentHash = new ContentHash() { HashAlgoritm = source.primarydocument.contenthash.hashalgorithm, Value = source.primarydocument.contenthash.Value }
+                    },
+                    Attachments = new List<Document>()
+                    {
+                        new Document(source.attachment[0].subject, source.attachment[0].filetype, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
+                        {
+                            Guid = source.attachment[0].uuid,
+                            ContentHash = new ContentHash() {HashAlgoritm = source.attachment[0].contenthash.hashalgorithm, Value = source.attachment[0].contenthash.Value}
+                        }
+                    },
+                    DeliveryTime = source.deliverytime,
+                    DeliveryMethod = DeliveryMethod.Digipost,
+                    Status = MessageStatus.Delivered,
+                    SenderId = source.senderid,
+                };
 
-            //            }
-            //        },
-            //        Item = "SenderId",
-            //        deliverytime = deliverytime,
-            //        deliverytimeSpecified = true
-            //    };
+                //Act
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
-            //    var expected = new Message(
-            //        new RecipientById(
-            //            IdentificationType.DigipostAddress,
-            //            (string)source.recipient.Item
-            //            ),
-            //        new Document("TestSubject", "txt", new byte[3]))
-            //    {
-            //        SenderId = "SenderId",
-            //        Attachments = new List<IDocument>
-            //        {
-            //            new Document("TestSubject attachment", "txt", new byte[3])
-            //            {
-            //                Guid = "attachmentGuid"
-            //            }
-            //        },
-            //        DeliveryTime = deliverytime,
-            //        PrimaryDocument = { Guid = source.primarydocument.uuid }
-            //    };
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.Equal(expected, actual, out differences);
 
-            //    //Act
-            //    message actual = DataTransferObjectConverter.FromDataTransferObject(source);
-
-            //    //Assert
-
-            //    IEnumerable<IDifference> differences;
-            //    _comparator.Equal(expected, actual, out differences);
-
-            //    Assert.Equal(0, differences.Count());
-            //}
+                Assert.Equal(0, differences.Count());
+            }
 
             [Fact]
             public void SmsNotification()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
@@ -111,11 +110,13 @@ namespace Digipost.Api.Client.Domain.Utilities
             {
                 var invoice = (Invoice) document;
 
-                var invoiceDto = new invoice();
-                invoiceDto.amount = invoice.Amount;
-                invoiceDto.duedate = invoice.Duedate;
-                invoiceDto.kid = invoice.Kid;
-                invoiceDto.account = invoice.Account;
+                var invoiceDto = new invoice
+                {
+                    amount = invoice.Amount,
+                    duedate = invoice.Duedate,
+                    kid = invoice.Kid,
+                    account = invoice.Account
+                };
 
                 documentDto = invoiceDto;
             }
@@ -126,8 +127,6 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             documentDto.subject = document.Subject;
             documentDto.filetype = document.FileType;
-                // contenthash = new contenthash { hashalgorithm = "ALRGORITHM", Value = "VALUE" } //Todo: Hash the content bytes and add here
-                //Item = document.ContentBytes, //Content bytes sendes gjennom en annen kanal
             documentDto.authenticationlevel = document.AuthenticationLevel.ToAuthenticationLevel();
             documentDto.authenticationlevelSpecified = true;
             documentDto.sensitivitylevel = document.SensitivityLevel.ToSensitivityLevel();
@@ -345,7 +344,8 @@ namespace Digipost.Api.Client.Domain.Utilities
                 Attachments = messageDeliveryDto.attachment?.Select(FromDataTransferObject).ToList(),
                 DeliveryTime = messageDeliveryDto.deliverytime,
                 DeliveryMethod = messageDeliveryDto.deliverymethod.ToDeliveryMethod(),
-                Status = messageDeliveryDto.status.ToMessageStatus()
+                Status = messageDeliveryDto.status.ToMessageStatus(),
+                SenderId = messageDeliveryDto.senderid
             };
 
             return messageDeliveryResult;
@@ -353,9 +353,10 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         public static IDocument FromDataTransferObject(document documentDto)
         {
-            return new Document(documentDto.subject, documentDto.filetype, new byte[] {}, documentDto.authenticationlevel.ToAuthenticationLevel(), documentDto.sensitivitylevel.ToSensitivityLevel(), FromDataTransferObject(documentDto.smsnotification))
+            return new Document(documentDto.subject, documentDto.filetype, documentDto.authenticationlevel.ToAuthenticationLevel(), documentDto.sensitivitylevel.ToSensitivityLevel(), FromDataTransferObject(documentDto.smsnotification))
             {
-                Guid = documentDto.uuid
+                Guid = documentDto.uuid,
+                ContentHash = new ContentHash() { HashAlgoritm = documentDto.contenthash.hashalgorithm, Value = documentDto.contenthash.Value}
             };
         }
 

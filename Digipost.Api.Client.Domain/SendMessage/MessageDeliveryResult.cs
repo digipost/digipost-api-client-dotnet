@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Domain.DataTransferObjects
+namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class MessageDeliveryResult : IMessageDeliveryResult
     {
-        public DateTime Deliverytime { get; set; }
+        public MessageStatus Status { get; set; }
 
-        public List<Link> Link { get; set; }
+        public DateTime? DeliveryTime { get; set; }
 
         public DeliveryMethod DeliveryMethod { get; set; }
 
-        public MessageStatus Status { get; set; }
-
-        public DateTime DeliveryTime { get; set; }
+        public long SenderId { get; set; }
 
         public IDocument PrimaryDocument { get; set; }
 
-        public List<IDocument> Attachments { get; set; }
+        public IEnumerable<IDocument> Attachments { get; set; }
     }
 }

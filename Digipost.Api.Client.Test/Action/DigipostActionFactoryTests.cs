@@ -10,13 +10,6 @@ namespace Digipost.Api.Client.Test.Action
     {
         public class CreateClassMethod
         {
-            internal ResourceUtility ResourceUtility;
-
-            public CreateClassMethod()
-            {
-                ResourceUtility = new ResourceUtility("Digipost.Api.Client.Tests.Resources");
-            }
-
             [Fact]
             public void ReturnsProperMessageAction()
             {

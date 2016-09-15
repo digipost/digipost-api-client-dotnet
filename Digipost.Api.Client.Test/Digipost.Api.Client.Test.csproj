@@ -104,7 +104,6 @@
     <Compile Include="SendMessage\InvoiceTests.cs" />
     <Compile Include="Smoke\ClientSmokeTests.cs" />
     <Compile Include="Smoke\TestHelper.cs" />
-    <Compile Include="TestProperties.cs" />
     <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
     <Compile Include="Action\DigipostActionFactoryTests.cs" />
     <Compile Include="Action\DigipostActionTests.cs" />
@@ -129,9 +128,6 @@
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
-    <EmbeddedResource Include="Resources\DigipostCert.p12" />
-    <EmbeddedResource Include="Resources\Hoveddokument.pdf" />
-    <EmbeddedResource Include="Resources\Vedlegg.pdf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -151,12 +147,6 @@
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Hoveddokument.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Vedlegg.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApiClientShared;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Resources.Content;
 
 namespace Digipost.Api.Client.Test
 {
     public class DomainUtility
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Test.Resources");
-
         public static ClientConfig GetClientConfig()
         {
             return new ClientConfig("senderId", Environment.Qa);
@@ -46,8 +43,6 @@ namespace Digipost.Api.Client.Test
                 DeliveryTime = deliverytime,
                 PrimaryDocument = {Guid = "attachmentGuidPrimary"}
             };
-
-            
         }
 
         public static message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
@@ -97,12 +92,12 @@ namespace Digipost.Api.Client.Test
 
         public static IDocument GetDocument()
         {
-            return new Document("simple-document-dotnet", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
+            return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText());
         }
 
         public static IDocument GetInvoice()
         {
-            return new Invoice("simple-invoice-dotnet", "pdf", ResourceUtility.ReadAllBytes(true, "Hoveddokument.pdf"), 1005, "45278968788", DateTime.Now.AddDays(4));
+            return new Invoice("simple-invoice-dotnet", "pdf", ContentResource.Hoveddokument.Pdf(), 1005, "45278968788", DateTime.Now.AddDays(4));
         }
 
         public static IIdentification GetPersonalIdentification()

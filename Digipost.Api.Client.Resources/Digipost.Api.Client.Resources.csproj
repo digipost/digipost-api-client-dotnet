@@ -53,6 +53,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Certificate\CertificateResource.cs" />
+    <Compile Include="Content\ContentResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XmlResource.cs" />
     <Compile Include="Xml\XmlUtility.cs" />
@@ -74,6 +76,22 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xml\Data\SearchResult.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Data\Hoveddokument.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Data\Hoveddokument.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Data\Vedlegg.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Data\Vedlegg.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Certificate\Data\DigipostTestCert.p12" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

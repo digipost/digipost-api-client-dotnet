@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Domain.Extensions;
 using Digipost.Api.Client.Domain.Identify;
 using Xunit;
-using Digipost.Api.Client.Domain.Extensions;
 
 namespace Digipost.Api.Client.Test.DataTransferObjects
 {
@@ -12,18 +11,17 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
     {
         public class ConstructorMethod_first_parameter_triggers_data_or_error : IdentificationResultTests
         {
-
             [Fact]
             public void Successful_IdentificationResultType_sets_data_not_error()
             {
                 //Arrange
-                var actualEnumValues = Enum.GetValues(typeof(ItemsChoiceType)).Cast<ItemsChoiceType>().ToArray();
+                var actualEnumValues = Enum.GetValues(typeof (ItemsChoiceType)).Cast<ItemsChoiceType>().ToArray();
                 var expectedEnumValues = new[]
                 {
                     ItemsChoiceType.digipostaddress,
                     ItemsChoiceType.invalidreason,
                     ItemsChoiceType.personalias,
-                    ItemsChoiceType.unidentifiedreason,
+                    ItemsChoiceType.unidentifiedreason
                 };
 
                 Assert.NotStrictEqual(expectedEnumValues, actualEnumValues);
@@ -50,16 +48,14 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     }
                 }
             }
-
         }
 
         public class ConstructorMethod_second_parameter_can_handle_all_identification_error
         {
-
             [Fact]
             public void Handles_identificationresultcode()
             {
-                var actualidentificationresultcodes = Enum.GetValues(typeof(identificationresultcode)).Cast<identificationresultcode>().ToArray();
+                var actualidentificationresultcodes = Enum.GetValues(typeof (identificationresultcode)).Cast<identificationresultcode>().ToArray();
                 var expectedidentificationresultcodes = new[]
                 {
                     identificationresultcode.DIGIPOST,
@@ -92,19 +88,18 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             [Fact]
             public void Handles_invalidreason()
             {
-                var actualInvalidreasons = Enum.GetValues(typeof(invalidreason)).Cast<invalidreason>().ToArray();
+                var actualInvalidreasons = Enum.GetValues(typeof (invalidreason)).Cast<invalidreason>().ToArray();
                 var expectedInvalidreasons = new[]
                 {
                     invalidreason.INVALID_ORGANISATION_NUMBER,
                     invalidreason.INVALID_PERSONAL_IDENTIFICATION_NUMBER,
-                    invalidreason.UNKNOWN,
+                    invalidreason.UNKNOWN
                 };
 
                 Assert.NotStrictEqual(expectedInvalidreasons, actualInvalidreasons);
 
                 foreach (var reason in actualInvalidreasons)
                 {
-
                     //Arrange
                     var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
 
@@ -120,18 +115,17 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             [Fact]
             public void Handles_unidentifiedreason()
             {
-                var actualUnidentifiedreasons = Enum.GetValues(typeof(unidentifiedreason)).Cast<unidentifiedreason>().ToArray();
+                var actualUnidentifiedreasons = Enum.GetValues(typeof (unidentifiedreason)).Cast<unidentifiedreason>().ToArray();
                 var expectedUnidentifiedreasons = new[]
                 {
-                    unidentifiedreason.MULTIPLE_MATCHES, 
-                    unidentifiedreason.NOT_FOUND, 
+                    unidentifiedreason.MULTIPLE_MATCHES,
+                    unidentifiedreason.NOT_FOUND
                 };
 
                 Assert.NotStrictEqual(expectedUnidentifiedreasons, actualUnidentifiedreasons);
 
                 foreach (var reason in actualUnidentifiedreasons)
                 {
-
                     //Arrange
                     var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
 
@@ -143,8 +137,6 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     Assert.Null(identificationResult.Data);
                 }
             }
-
         }
-
     }
 }

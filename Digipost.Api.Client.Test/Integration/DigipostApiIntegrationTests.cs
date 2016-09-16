@@ -53,7 +53,7 @@ namespace Digipost.Api.Client.Test.Integration
             public void ProperRequestSentRecipientById()
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientById();
-                SendMessage(message, new FakeResponseHandler() { ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
             }
 
             [Fact]
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
 
-                SendMessage(message, new FakeResponseHandler() { ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
             }
 
             [Fact]
@@ -73,7 +73,7 @@ namespace Digipost.Api.Client.Test.Integration
                     const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
                     var messageContent = new StringContent(string.Empty);
 
-                    SendMessage(message, new FakeResponseHandler() {ResultCode = statusCode, HttpContent = messageContent});
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
                 }
                 catch (AggregateException e)
                 {
@@ -91,7 +91,7 @@ namespace Digipost.Api.Client.Test.Integration
                     const HttpStatusCode statusCode = HttpStatusCode.NotFound;
                     var messageContent = XmlResource.SendMessage.GetError();
 
-                    SendMessage(message, new FakeResponseHandler() { ResultCode = statusCode, HttpContent = messageContent });
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
                 }
                 catch (AggregateException e)
                 {
@@ -134,9 +134,8 @@ namespace Digipost.Api.Client.Test.Integration
             [Fact]
             public void ProperRequestSent()
             {
-               var identification = DomainUtility.GetPersonalIdentification();
-               Identify(identification);
-
+                var identification = DomainUtility.GetPersonalIdentification();
+                Identify(identification);
             }
 
             [Fact]
@@ -155,7 +154,7 @@ namespace Digipost.Api.Client.Test.Integration
 
             private void Identify(IIdentification identification)
             {
-                var fakehandler = new FakeResponseHandler() {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
@@ -188,7 +187,7 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var searchString = "jarand";
 
-                var fakehandler = new FakeResponseHandler() { ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
 
                 var mockFacktory = CreateMockFactoryReturningSearch(fakeHandlerChain);

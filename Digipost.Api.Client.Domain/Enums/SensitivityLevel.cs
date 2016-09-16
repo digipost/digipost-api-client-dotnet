@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
-
-namespace Digipost.Api.Client.Domain.Enums
+﻿namespace Digipost.Api.Client.Domain.Enums
 {
     /// <summary>
     ///     Defines if the message is sensitive or not.

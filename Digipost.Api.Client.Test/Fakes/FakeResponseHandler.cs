@@ -21,7 +21,5 @@ namespace Digipost.Api.Client.Test.Fakes
             };
             return await Task.FromResult(response).ConfigureAwait(false);
         }
-
-       
     }
 }

@@ -21,7 +21,6 @@ namespace Digipost.Api.Client.Domain.Identify
         {
             var allSuccessfulResultType = ResultType == IdentificationResultType.DigipostAddress ||
                                           ResultType == IdentificationResultType.Personalias;
-                                         
 
             if (allSuccessfulResultType)
             {

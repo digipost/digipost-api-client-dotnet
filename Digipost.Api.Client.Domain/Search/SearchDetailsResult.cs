@@ -6,7 +6,7 @@ namespace Digipost.Api.Client.Domain.Search
     /// <summary>
     ///     A collection of Person Details as a result of a request via the Person Details API.
     /// </summary>
-   public class SearchDetailsResult : ISearchDetailsResult
+    public class SearchDetailsResult : ISearchDetailsResult
     {
         public IEnumerable<SearchDetails> PersonDetails { get; set; }
 

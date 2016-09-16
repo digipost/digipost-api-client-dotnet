@@ -1,7 +1,5 @@
-﻿using System.IO;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
-using System.Xml;
 using ApiClientShared;
 
 namespace Digipost.Api.Client.Resources.Xml
@@ -31,7 +29,7 @@ namespace Digipost.Api.Client.Resources.Xml
 
         internal static class Identification
         {
-            public static StringContent GetResult ()
+            public static StringContent GetResult()
             {
                 return GetResource("IdentificationResult.xml");
             }

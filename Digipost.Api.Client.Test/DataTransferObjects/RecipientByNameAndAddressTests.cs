@@ -8,8 +8,6 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
     {
         public class ConstructorMethod : RecipientByNameAndAddressTests
         {
-            private Comparator _comparator = new Comparator();
-
             [Fact]
             public void SimpleConstructor()
             {

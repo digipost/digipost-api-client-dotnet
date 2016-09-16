@@ -72,14 +72,14 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 Interlocked.Increment(ref _successfulCalls);
                 //Console.WriteLine("Success");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Interlocked.Increment(ref _failedCalls);
                 //Console.WriteLine("Failed");
             }
             finally
             {
-                if (httpResponse != null) httpResponse.Dispose();
+                httpResponse?.Dispose();
             }
 
             lock (_syncLock)

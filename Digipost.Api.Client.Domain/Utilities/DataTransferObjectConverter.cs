@@ -313,15 +313,15 @@ namespace Digipost.Api.Client.Domain.Utilities
 
         private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationresult identificationResultDto)
         {
-            IdentificationResult identificationResult = null;
+            IdentificationResult identificationResult;
 
             switch (identificationResultDto.result)
             {
                 case identificationresultcode.DIGIPOST:
-                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, "");
+                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress);
                     break;
                 case identificationresultcode.IDENTIFIED:
-                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias, "");
+                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

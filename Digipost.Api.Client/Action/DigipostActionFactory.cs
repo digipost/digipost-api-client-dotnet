@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Action
                 return new IdentificationAction((IIdentification) content, clientConfig, businessCertificate, uri);
             }
 
-            throw new ConfigException(string.Format("Could not create class with type {0}", content.GetType().Name));
+            throw new ConfigException($"Could not create class with type {content.GetType().Name}");
         }
 
         public virtual DigipostAction CreateClass(ClientConfig clientConfig, X509Certificate2 businessCertificate,

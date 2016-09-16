@@ -60,7 +60,6 @@
     <Compile Include="Identify\IIdentificationResult.cs" />
     <Compile Include="IDigipostRecipient.cs" />
     <Compile Include="IError.cs" />
-    <Compile Include="Link.cs" />
     <Compile Include="Print\Address.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\IAddress.cs" />
@@ -113,7 +112,6 @@
     <Compile Include="Enums\SensitivityLevel.cs" />
     <Compile Include="SendMessage\MessageDeliveryResult.cs" />
     <Compile Include="SendMessage\RecipientById.cs" />
-    <Compile Include="SendMessage\RecipientByNameAndAddressDataTranferObject.cs" />
     <Compile Include="RequestContent.cs" />
     <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />

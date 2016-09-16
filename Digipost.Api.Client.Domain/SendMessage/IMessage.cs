@@ -44,8 +44,8 @@ namespace Digipost.Api.Client.Domain.SendMessage
         List<IDocument> Attachments { get; set; }
 
         /// <summary>
-        ///     The id of the sender, created by Digipost.  If you are delivering a
-        ///     message on behalf of an organization, and permission to do so is set, this is the parameter to set.
+        ///     The id of the sender, created by Digipost. If you are delivering a message on behalf of an organization
+        ///     with id 5555, set this property to 5555.    
         /// </summary>
         string SenderId { get; set; }
 

@@ -132,13 +132,7 @@ namespace Digipost.Api.Client.Test
                 );
         }
 
-        public static RecipientByNameAndAddressDataTranferObject GetRecipientByNameAndAddressDataTransferObject()
-        {
-            return new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22"
-                );
-        }
-
-        public static PrintDetails GetPrintDetails()
+       public static PrintDetails GetPrintDetails()
         {
             return
                 new PrintDetails(

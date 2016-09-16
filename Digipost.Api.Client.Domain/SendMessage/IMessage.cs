@@ -7,7 +7,9 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public interface IMessage : IRequestContent
     {
         /// <summary>
-        /// Todo: Proper description of what the meaning of this is
+        ///   The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
+        ///   on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
+        ///   on its behalf.
         /// </summary>
         string Id { get; set; }
 
@@ -17,8 +19,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
         IDigipostRecipient DigipostRecipient { get; set; }
 
         /// <summary>
-        ///     Optional. The time when the document will be made visible to the user.
+        ///     Optional. The delivery time of the message as it appears in the receiver's inbox.
+        ///     The use of this field is limited to those with explicit permission. If set in the future, the 
+        ///     message will not appear until the set time. Historical delivery time is not allowed.
         /// </summary>
+
         DateTime? DeliveryTime { get; set; }
 
         /// <summary>

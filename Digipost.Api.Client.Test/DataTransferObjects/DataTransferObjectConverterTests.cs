@@ -31,7 +31,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                     AddressLine2 = "Etasje 15",
                     BirthDate = birthDate,
                     PhoneNumber = "123456789",
-                    Email = "email@test.no"
+                    Email = "email@test.no",
                 };
 
                 var expectedDto = new messagerecipient
@@ -184,8 +184,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 source.PrintDetails = printDetails;
 
                 var expectedDto = DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById();
-                expectedDto.recipient.printdetails =
-                    DomainUtility.GetPrintDetailsDataTransferObject();
+                expectedDto.recipient.printdetails = DomainUtility.GetPrintDetailsDataTransferObject();
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -891,7 +890,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                                 HouseNumber = recipient0.address[0].housenumber,
                                 HouseLetter = recipient0.address[0].houseletter,
                                 AdditionalAddressLine = recipient0.address[0].additionaladdressline,
-                                ZipCode = recipient0.address[0].zipcode,
+                                PostalCode = recipient0.address[0].zipcode,
                                 City = recipient0.address[0].city
                             },
                             new SearchDetailsAddress()
@@ -900,7 +899,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                                 HouseNumber = recipient0.address[1].housenumber,
                                 HouseLetter = recipient0.address[1].houseletter,
                                 AdditionalAddressLine = recipient0.address[1].additionaladdressline,
-                                ZipCode = recipient0.address[1].zipcode,
+                                PostalCode = recipient0.address[1].zipcode,
                                 City = recipient0.address[1].city
                             },
 
@@ -923,7 +922,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                                 HouseNumber = recipient1.address[0].housenumber,
                                 HouseLetter = recipient1.address[0].houseletter,
                                 AdditionalAddressLine = recipient1.address[0].additionaladdressline,
-                                ZipCode = recipient1.address[0].zipcode,
+                                PostalCode = recipient1.address[0].zipcode,
                                 City = recipient1.address[0].city
                             },
                         }

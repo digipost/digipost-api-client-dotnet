@@ -6,13 +6,13 @@ namespace Digipost.Api.Client.Test.CompareObjects
 {
     internal class Comparator : IComparator
     {
+        public ComparisonConfiguration ComparisonConfiguration { get; set; } = new ComparisonConfiguration();
+
         public bool Equal(object expected, object actual)
         {
             IEnumerable<IDifference> differences;
             return Equal(expected, actual, out differences);
         }
-
-        public ComparisonConfiguration ComparisonConfiguration { get; set; } = new ComparisonConfiguration();
 
         public bool Equal(object expected, object actual, out IEnumerable<IDifference> differences)
         {
@@ -22,7 +22,6 @@ namespace Digipost.Api.Client.Test.CompareObjects
                     MaxDifferences = 5,
                     IgnoreObjectTypes = true
                 });
-            
 
             var compareResult = compareLogic.Compare(expected, actual);
 

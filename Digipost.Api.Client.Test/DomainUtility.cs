@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(recipientById,new Document("TestSubject", "txt", new byte[3]))
+            return new Message(recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
                 Id = "ThatMessageId",
                 SenderId = "SenderId",
@@ -51,14 +51,13 @@ namespace Digipost.Api.Client.Test
             {
                 Item = "SenderId",
                 messageid = "ThatMessageId",
-                primarydocument = new document()
+                primarydocument = new document
                 {
                     subject = "TestSubject",
                     filetype = "txt",
                     uuid = "attachmentGuidPrimary",
                     authenticationlevelSpecified = true,
                     sensitivitylevelSpecified = true
-                    
                 },
                 attachment = new[]
                 {
@@ -73,12 +72,12 @@ namespace Digipost.Api.Client.Test
                 },
                 deliverytime = DateTime.Today.AddDays(3),
                 deliverytimeSpecified = true,
-                recipient = new messagerecipient()
+                recipient = new messagerecipient
                 {
                     ItemElementName = ItemChoiceType1.digipostaddress,
                     Item = "ola.nordmann#246BB"
                 }
-        };
+            };
         }
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
@@ -132,7 +131,7 @@ namespace Digipost.Api.Client.Test
                 );
         }
 
-       public static PrintDetails GetPrintDetails()
+        public static PrintDetails GetPrintDetails()
         {
             return
                 new PrintDetails(
@@ -143,22 +142,22 @@ namespace Digipost.Api.Client.Test
 
         public static printdetails GetPrintDetailsDataTransferObject()
         {
-            return new printdetails()
+            return new printdetails
             {
-                recipient = new printrecipient()
+                recipient = new printrecipient
                 {
                     name = "Ola Nordmann",
-                    Item = new norwegianaddress()
+                    Item = new norwegianaddress
                     {
                         addressline1 = "Osloveien 15",
                         city = "Oslo",
                         zipcode = "0115"
                     }
                 },
-                returnaddress = new printrecipient()
+                returnaddress = new printrecipient
                 {
                     name = "Returkongen",
-                    Item = new norwegianaddress()
+                    Item = new norwegianaddress
                     {
                         addressline1 = "Sophauggata 22",
                         city = "Sophaugen",

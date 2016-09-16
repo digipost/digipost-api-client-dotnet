@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Content;
@@ -27,7 +26,7 @@ namespace Digipost.Api.Client.Test.SendMessage
             {
                 //Arrange
                 var contentStream = new MemoryStream(ContentResource.Hoveddokument.Pdf());
-                    
+
                 //Act
                 var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
 
@@ -50,7 +49,7 @@ namespace Digipost.Api.Client.Test.SendMessage
                 var tempFile = CreateTempFile();
 
                 //Act
-                var invoice = new Invoice(Subject, FileType, tempFile, Amount, Account, _duedate, Kid,AuthenticationLevel, SensitivityLevel, _smsNotification);
+                var invoice = new Invoice(Subject, FileType, tempFile, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
                 //Assert
                 Assert.Equal(Subject, invoice.Subject);
                 Assert.Equal(FileType, invoice.FileType);

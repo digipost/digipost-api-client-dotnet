@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
 using Digipost.Api.Client.Action;
 using Xunit;
 

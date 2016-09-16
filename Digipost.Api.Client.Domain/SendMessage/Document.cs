@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.SendMessage
@@ -52,24 +51,23 @@ namespace Digipost.Api.Client.Domain.SendMessage
             ContentBytes = ReadAllBytes(path);
         }
 
-
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileType">The mime type of the file. e.g pdf,txt..</param>
         /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
         /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
         internal Document(string subject, string fileType, AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
-            : this(subject, fileType, new byte[] { }, authenticationLevel, sensitivityLevel, smsNotification)
+            : this(subject, fileType, new byte[] {}, authenticationLevel, sensitivityLevel, smsNotification)
         {
         }
+
+        public ContentHash ContentHash { get; internal set; }
 
         public string Guid { get; set; }
 
         public string Subject { get; set; }
 
         public string FileType { get; set; }
-
-        public ContentHash ContentHash { get; internal set; }
 
         public ISmsNotification SmsNotification { get; set; }
 

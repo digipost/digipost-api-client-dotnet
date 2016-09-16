@@ -33,7 +33,6 @@ namespace Digipost.Api.Client.Test.Smoke
             var actualSender = OverrideSenderIfOnBuildServer(sender);
 
             _digipostClient = new DigipostClient(new ClientConfig(actualSender.Id, actualSender.Environment) {TimeoutMilliseconds = 900000000}, actualSender.Certificate);
-            
         }
 
         private Sender OverrideSenderIfOnBuildServer(Sender sender)
@@ -44,7 +43,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
             if (isCurrentUserBuildServer)
             {
-                return SenderUtility.GetSender(Utilities.TestEnvironment.DifiTest);
+                return SenderUtility.GetSender(TestEnvironment.DifiTest);
             }
 
             return sender;

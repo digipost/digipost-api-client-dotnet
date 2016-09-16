@@ -7,7 +7,7 @@
         PersonalIdentificationNumber,
 
         OrganizationNumber,
-        
+
         NameAndAddress
     }
 }

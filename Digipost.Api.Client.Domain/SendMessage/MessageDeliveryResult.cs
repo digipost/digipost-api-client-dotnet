@@ -6,13 +6,13 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class MessageDeliveryResult : IMessageDeliveryResult
     {
+        public long SenderId { get; set; }
+
         public MessageStatus Status { get; set; }
 
         public DateTime? DeliveryTime { get; set; }
 
         public DeliveryMethod DeliveryMethod { get; set; }
-
-        public long SenderId { get; set; }
 
         public IDocument PrimaryDocument { get; set; }
 

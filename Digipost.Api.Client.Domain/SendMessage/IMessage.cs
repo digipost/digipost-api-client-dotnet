@@ -7,9 +7,9 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public interface IMessage : IRequestContent
     {
         /// <summary>
-        ///   The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
-        ///   on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
-        ///   on its behalf.
+        ///     The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
+        ///     on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
+        ///     on its behalf.
         /// </summary>
         string Id { get; set; }
 
@@ -20,10 +20,9 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         /// <summary>
         ///     Optional. The delivery time of the message as it appears in the receiver's inbox.
-        ///     The use of this field is limited to those with explicit permission. If set in the future, the 
+        ///     The use of this field is limited to those with explicit permission. If set in the future, the
         ///     message will not appear until the set time. Historical delivery time is not allowed.
         /// </summary>
-
         DateTime? DeliveryTime { get; set; }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
 
         /// <summary>
         ///     The id of the sender, created by Digipost. If you are delivering a message on behalf of an organization
-        ///     with id 5555, set this property to 5555.    
+        ///     with id 5555, set this property to 5555.
         /// </summary>
         string SenderId { get; set; }
 

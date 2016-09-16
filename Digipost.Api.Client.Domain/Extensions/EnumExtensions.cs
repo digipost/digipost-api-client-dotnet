@@ -1,6 +1,5 @@
 ﻿using System;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Print;
 
 namespace Digipost.Api.Client.Domain.Extensions
 {
@@ -188,7 +187,5 @@ namespace Digipost.Api.Client.Domain.Extensions
                     throw new ArgumentOutOfRangeException(nameof(sensitivitylevel), sensitivitylevel, null);
             }
         }
-
-        
     }
 }

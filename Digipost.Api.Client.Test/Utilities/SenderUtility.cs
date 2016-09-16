@@ -16,13 +16,13 @@ namespace Digipost.Api.Client.Test.Utilities
                 case TestEnvironment.DifiTest:
                     return new Sender(
                         "497013",
-                        digipostTestintegrasjonforDigitalPostThumbprint, 
+                        digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.Preprod
                         );
                 case TestEnvironment.Qa:
                     return new Sender(
                         "2121714811",
-                        digipostTestintegrasjonforDigitalPostThumbprint, 
+                        digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.Qa
                         );
                 default:

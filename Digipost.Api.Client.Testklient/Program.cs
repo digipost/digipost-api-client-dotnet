@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using ApiClientShared;
 using Common.Logging;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain.Enums;

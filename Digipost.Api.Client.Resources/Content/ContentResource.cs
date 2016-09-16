@@ -1,7 +1,4 @@
-﻿using System.Net.Http;
-using System.Text;
-using ApiClientShared;
-using Digipost.Api.Client.Resources.Xml;
+﻿using ApiClientShared;
 
 namespace Digipost.Api.Client.Resources.Content
 {
@@ -25,7 +22,6 @@ namespace Digipost.Api.Client.Resources.Content
             {
                 return GetResource("Hoveddokument.pdf");
             }
-
         }
 
         internal static class Vedlegg
@@ -40,6 +36,5 @@ namespace Digipost.Api.Client.Resources.Content
                 return GetResource("Vedlegg.pdf");
             }
         }
-
     }
 }

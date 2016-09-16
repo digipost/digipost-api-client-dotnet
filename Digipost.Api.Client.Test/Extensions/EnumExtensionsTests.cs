@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Test.Extensions
                 var enumValues = Enum.GetValues(typeof (IdentificationType));
                 var enumValuesDto = Enum.GetValues(typeof (ItemChoiceType));
 
-                Assert.Equal(enumValues.Length,enumValuesDto.Length);
+                Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {
@@ -31,15 +31,15 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(AuthenticationLevel));
-                var enumValuesDto = Enum.GetValues(typeof(authenticationlevel));
+                var enumValues = Enum.GetValues(typeof (AuthenticationLevel));
+                var enumValuesDto = Enum.GetValues(typeof (authenticationlevel));
 
                 var ignoredIdPortenAlternativesNotAvailableForPrivateSendersCount = 2;
-                Assert.Equal(enumValues.Length, enumValuesDto.Length - ignoredIdPortenAlternativesNotAvailableForPrivateSendersCount); 
+                Assert.Equal(enumValues.Length, enumValuesDto.Length - ignoredIdPortenAlternativesNotAvailableForPrivateSendersCount);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (AuthenticationLevel)enumValue;
+                    var currentEnum = (AuthenticationLevel) enumValue;
                     currentEnum.ToAuthenticationLevel();
                 }
             }
@@ -50,14 +50,14 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(SensitivityLevel));
-                var enumValuesDto = Enum.GetValues(typeof(sensitivitylevel));
+                var enumValues = Enum.GetValues(typeof (SensitivityLevel));
+                var enumValuesDto = Enum.GetValues(typeof (sensitivitylevel));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (SensitivityLevel)enumValue;
+                    var currentEnum = (SensitivityLevel) enumValue;
                     currentEnum.ToSensitivityLevel();
                 }
             }
@@ -68,32 +68,32 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(PostType));
+                var enumValues = Enum.GetValues(typeof (PostType));
                 var enumValuesDto = Enum.GetValues(typeof (posttype));
-                
+
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (PostType)enumValue;
+                    var currentEnum = (PostType) enumValue;
                     currentEnum.ToPostType();
                 }
             }
         }
 
-        public class ToPrintColors  
+        public class ToPrintColors
         {
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(PrintColors));
-                var enumValuesDto = Enum.GetValues(typeof(printcolors));
+                var enumValues = Enum.GetValues(typeof (PrintColors));
+                var enumValuesDto = Enum.GetValues(typeof (printcolors));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (PrintColors)enumValue;
+                    var currentEnum = (PrintColors) enumValue;
                     currentEnum.ToPrintColors();
                 }
             }
@@ -104,15 +104,15 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(NondeliverableHandling));
-                var enumValuesDto = Enum.GetValues(typeof(nondeliverablehandling));
+                var enumValues = Enum.GetValues(typeof (NondeliverableHandling));
+                var enumValuesDto = Enum.GetValues(typeof (nondeliverablehandling));
 
                 var ignoredNondeliverableHandlingNotAvailableForPrivateSendersCount = 1;
-                Assert.Equal(enumValues.Length, enumValuesDto.Length -ignoredNondeliverableHandlingNotAvailableForPrivateSendersCount);
+                Assert.Equal(enumValues.Length, enumValuesDto.Length - ignoredNondeliverableHandlingNotAvailableForPrivateSendersCount);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (NondeliverableHandling)enumValue;
+                    var currentEnum = (NondeliverableHandling) enumValue;
                     currentEnum.ToNondeliverablehandling();
                 }
             }
@@ -123,33 +123,32 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValues = Enum.GetValues(typeof(CountryIdentifier));
-                var enumValuesDto = Enum.GetValues(typeof(ItemChoiceType2));
+                var enumValues = Enum.GetValues(typeof (CountryIdentifier));
+                var enumValuesDto = Enum.GetValues(typeof (ItemChoiceType2));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {
-                    var currentEnum = (CountryIdentifier)enumValue;
+                    var currentEnum = (CountryIdentifier) enumValue;
                     currentEnum.ToCountryIdentifier();
                 }
             }
         }
-
 
         public class ToIdentificationResultType
         {
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValuesDto = Enum.GetValues(typeof(ItemsChoiceType));
-                var enumValues = Enum.GetValues(typeof(IdentificationResultType));
+                var enumValuesDto = Enum.GetValues(typeof (ItemsChoiceType));
+                var enumValues = Enum.GetValues(typeof (IdentificationResultType));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValueDto in enumValuesDto)
                 {
-                    var currentEnum = (ItemsChoiceType)enumValueDto;
+                    var currentEnum = (ItemsChoiceType) enumValueDto;
                     currentEnum.ToIdentificationResultType();
                 }
             }
@@ -160,14 +159,14 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValuesDto = Enum.GetValues(typeof(channel));
-                var enumValues = Enum.GetValues(typeof(DeliveryMethod));
+                var enumValuesDto = Enum.GetValues(typeof (channel));
+                var enumValues = Enum.GetValues(typeof (DeliveryMethod));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValueDto in enumValuesDto)
                 {
-                    var currentEnum = (channel)enumValueDto;
+                    var currentEnum = (channel) enumValueDto;
                     currentEnum.ToDeliveryMethod();
                 }
             }
@@ -178,14 +177,14 @@ namespace Digipost.Api.Client.Test.Extensions
             [Fact]
             public void Converts_All_Enum_Values()
             {
-                var enumValuesDto = Enum.GetValues(typeof(messagestatus));
-                var enumValues = Enum.GetValues(typeof(MessageStatus));
+                var enumValuesDto = Enum.GetValues(typeof (messagestatus));
+                var enumValues = Enum.GetValues(typeof (MessageStatus));
 
                 Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValueDto in enumValuesDto)
                 {
-                    var currentEnum = (messagestatus)enumValueDto;
+                    var currentEnum = (messagestatus) enumValueDto;
                     currentEnum.ToMessageStatus();
                 }
             }

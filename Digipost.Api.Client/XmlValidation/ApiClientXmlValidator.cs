@@ -1,4 +1,5 @@
 ﻿using Difi.Felles.Utility;
+using Digipost.Api.Client.Resources.Xsd;
 
 namespace Digipost.Api.Client.XmlValidation
 {
@@ -6,7 +7,7 @@ namespace Digipost.Api.Client.XmlValidation
     {
         public ApiClientXmlValidator()
         {
-            AddXsd(Navnerom.DigipostApiV7, Resources.Xsd.XsdResource.GetApiV7Xsd());
+            AddXsd(Navnerom.DigipostApiV7, XsdResource.GetApiV7Xsd());
         }
     }
 }

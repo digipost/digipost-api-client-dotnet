@@ -93,7 +93,7 @@ namespace Digipost.Api.Client.Api
 
             if (identifyResponse.IsFaulted)
             {
-                var exception = identifyResponse.Exception.InnerException;
+                var exception = identifyResponse.Exception?.InnerException;
 
                 Log.Warn($"Identification failed, {exception}");
 
@@ -123,8 +123,7 @@ namespace Digipost.Api.Client.Api
 
             if (search.Length < _minimumSearchLength)
             {
-                var emptyResult = new SearchDetailsResult();
-                emptyResult.PersonDetails = new List<SearchDetails>();
+                var emptyResult = new SearchDetailsResult {PersonDetails = new List<SearchDetails>()};
 
                 var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);

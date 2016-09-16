@@ -603,9 +603,9 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                         }
                     },
                     DeliveryTime = DateTime.Today.AddDays(3),
-                    PrimaryDocument = {Guid = "primaryDocumentGuid"}
+                    PrimaryDocument = {Guid = "primaryDocumentGuid"},
+                    PrintDetails = printDetails
                 };
-                source.PrintDetails = printDetails;
 
                 var expectedDto =
                     new message

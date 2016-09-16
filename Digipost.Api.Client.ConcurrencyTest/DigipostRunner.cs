@@ -28,10 +28,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             _itemsLeft = numOfRuns + 1; //Fordi vi decrementer teller før return
         }
 
-        public DigipostClient Client
-        {
-            get { return _client.Value; }
-        }
+        public DigipostClient Client => _client.Value;
 
         public int RunsLeft()
         {
@@ -84,7 +81,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                         await digipostClient.IdentifyAsync(GetIdentification()).ConfigureAwait(false);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException("requestType", requestType, null);
+                        throw new ArgumentOutOfRangeException(nameof(requestType), requestType, null);
                 }
 
                 Interlocked.Increment(ref _successfulCalls);

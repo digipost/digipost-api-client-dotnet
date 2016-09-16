@@ -24,10 +24,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             Console.WriteLine("Starting to send digipost: {0}, with requests: {1}, poolcount: {2}", processingType,
                 numberOfRequests, connectionLimit);
 
-            var clientConfig = new ClientConfig(SenderId, Environment.Qa)
-            {
-                Logger = (severity, konversasjonsId, metode, melding) => { }
-            };
+            var clientConfig = new ClientConfig(SenderId, Environment.Qa);
 
             switch (processingType)
             {

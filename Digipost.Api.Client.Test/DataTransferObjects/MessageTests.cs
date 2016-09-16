@@ -30,9 +30,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 var document = DomainUtility.GetDocument();
                 var printDetails = DomainUtility.GetPrintDetails();
 
-                var message = new Message(recipient, document
-                    );
-                message.PrintDetails = printDetails;
+                var message = new Message(recipient, document) {PrintDetails = printDetails};
 
                 //Act
 

@@ -18,7 +18,6 @@ namespace Digipost.Api.Client.Testklient
 
         private static readonly string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
         private static readonly string SenderId = "779051";
-        private static readonly string Url = "https://qa.api.digipost.no/";
 
         private static void Main(string[] args)
         {
@@ -29,21 +28,13 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-            var config = new ClientConfig(SenderId, Environment.Qa)
-            {
-                Logger = (severity, konversasjonsId, metode, melding) =>
-                {
-                    Console.WriteLine("{0}",
-                        melding
-                        );
-                }
-            };
+            var config = new ClientConfig(SenderId, Environment.Qa);
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
 
             IdentifyPerson(api);
-            SendMessageToPerson(api, false);
+            SendMessageToPerson(api);
             //var response = Search(api);
 
             //var res = api.GetPersonDetails(response.AutcompleteSuggestions[0]);
@@ -76,7 +67,7 @@ namespace Digipost.Api.Client.Testklient
                 var messageDeliveryResult = await api.SendMessageAsync(message).ConfigureAwait(false);
                 Console.WriteLine("> Starter å sende melding");
                 WriteToConsoleWithColor("Meldingens status: " + messageDeliveryResult.Status);
-                WriteToConsoleWithColor("> Alt gikk fint!", false);
+                WriteToConsoleWithColor("> Alt gikk fint!");
             }
             catch (AggregateException ae)
             {
@@ -112,7 +103,7 @@ namespace Digipost.Api.Client.Testklient
             {
                 var identificationResponse = api.Identify(identification);
                 Log.Debug("Identification resp: \n" + identificationResponse);
-                WriteToConsoleWithColor("> Personen ble identifisert!", false);
+                WriteToConsoleWithColor("> Personen ble identifisert!");
 
                 Console.WriteLine("ResultType: " + identificationResponse.ResultType);
                 Console.WriteLine("IdentificationValue: " + identificationResponse.Data);

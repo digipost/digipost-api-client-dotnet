@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Domain.Search
 
         string AdditionalAddressLine { get; set; }
 
-        string ZipCode { get; set; }
+        string PostalCode { get; set; }
 
         string City { get; set; }
     }

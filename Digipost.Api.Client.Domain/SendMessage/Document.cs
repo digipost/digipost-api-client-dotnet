@@ -57,11 +57,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <param name="fileType">The mime type of the file. e.g pdf,txt..</param>
         /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
         /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
-        public Document(string subject, string fileType, AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
+        internal Document(string subject, string fileType, AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(subject, fileType, new byte[] { }, authenticationLevel, sensitivityLevel, smsNotification)
         {
-            //TOdo: this ctor is a result of refactoring of domain model. "USe this when creating from dto as has no data, but verify that this is correct"
         }
 
         public string Guid { get; set; }

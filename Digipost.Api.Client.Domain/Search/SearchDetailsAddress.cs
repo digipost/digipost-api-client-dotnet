@@ -10,13 +10,13 @@
 
         public string AdditionalAddressLine { get; set; }
 
-        public string ZipCode { get; set; }
+        public string PostalCode { get; set; }
 
         public string City { get; set; }
 
         public override string ToString()
         {
-            return $"Street: {Street}, HouseNumber: {HouseNumber}, HouseLetter: {HouseLetter}, AdditionalAddressLine: {AdditionalAddressLine}, ZipCode: {ZipCode}, City: {City}";
+            return $"Street: {Street}, HouseNumber: {HouseNumber}, HouseLetter: {HouseLetter}, AdditionalAddressLine: {AdditionalAddressLine}, PostalCode: {PostalCode}, City: {City}";
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Digipost.Api.Client.Domain.Utilities
             return new identification
             {
                 ItemElementName = recipientById.IdentificationType.ToItemChoiceType(),
-                includepersonaliasfordigipostuser = true, //TODO: must expose
                 Item = recipientById.Id
             };
         }
@@ -53,8 +52,7 @@ namespace Digipost.Api.Client.Domain.Utilities
                     city = recipientByNameAndAddress.City,
                     emailaddress = recipientByNameAndAddress.Email,
                     phonenumber = recipientByNameAndAddress.PhoneNumber,
-                },
-                includepersonaliasfordigipostuser = true //Todo: Should be watwat?
+                }
             };
 
             if (recipientByNameAndAddress.BirthDate.HasValue)
@@ -403,7 +401,7 @@ namespace Digipost.Api.Client.Domain.Utilities
                             HouseNumber = a.housenumber,
                             HouseLetter = a.houseletter,
                             AdditionalAddressLine = a.additionaladdressline,
-                            ZipCode = a.zipcode,
+                            PostalCode = a.zipcode,
                             City = a.city
                         })
                     })

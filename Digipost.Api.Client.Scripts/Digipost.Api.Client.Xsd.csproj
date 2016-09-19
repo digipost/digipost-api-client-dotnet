@@ -7,8 +7,8 @@
     <ProjectGuid>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.Scripts</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.Scripts</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.Scripts.Xsd</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.Xsd</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -53,9 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XsdToCode\Code\api_v7.cs" />
     <None Include="XsdToCode\GenerateClassesFromXs.ps1" />
-    <None Include="XsdToCode\Xsd\api_v7.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

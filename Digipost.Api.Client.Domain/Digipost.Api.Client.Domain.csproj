@@ -118,9 +118,9 @@
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Scripts.csproj">
+    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
-      <Name>Digipost.Api.Client.Scripts</Name>
+      <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

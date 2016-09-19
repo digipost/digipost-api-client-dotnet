@@ -19,18 +19,28 @@ function GenerateCode($XsdPath, $OutDir)
     Set-Location $CurrentDirectory
 }
 
-function Get-ScriptDirectory
+function Get-CodeDirectory
 {
   $Invocation = (Get-Variable MyInvocation -Scope 1).Value
-  Split-Path $Invocation.MyCommand.Path
+  $ScriptDir = Split-Path $Invocation.MyCommand.Path
+
+  $ScriptDir+"\Code"
 }
 
-$CurrentScriptDir = Get-ScriptDirectory
+function Get-Xsd($XsdPathRelativeToSourceDir)
+{
+  $FullScriptPath = (Get-Variable MyInvocation -Scope 1).Value
+  $FullScriptDir =  Split-Path $FullScriptPath.MyCommand.Path
+  $SourceDir = (Get-Item $FullScriptDir).Parent.Parent.FullName
+  $XsdPath = "$SourceDir$XsdPathRelativeToSourceDir"
+  
+  $XsdPath
+}
 
-$Xsd1 = "\Xsd\api_v7.xsd"
-$XsdPath = "$CurrentScriptDir$Xsd1"
 
-$XsdToCodeDir = (Get-Item $CurrentScriptDir)
-$CodeDir =  "$XsdToCodeDir\Code"
+$CodeDir = Get-CodeDirectory
+
+$XsdRelattivePath= "\Digipost.Api.Client.Resources\Xsd\Data\api_v7.xsd"
+$XsdPath = Get-Xsd($XsdRelativePath)
 
 GenerateCode $XsdPath "$CodeDir"

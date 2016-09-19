@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client", "Digipost.Api.Client\Digipost.Api.Client.csproj", "{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Testkli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Resources", "Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj", "{5548C4BB-7811-4A22-A8F6-751F3AB8CE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Scripts", "Digipost.Api.Client.Scripts\Digipost.Api.Client.Scripts.csproj", "{9E8E7C47-894D-441C-956A-2F6EAC2215E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Xsd", "Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj", "{9E8E7C47-894D-441C-956A-2F6EAC2215E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A51D45AE-BFB1-4836-9347-ABC54CC6B649}"
 	ProjectSection(SolutionItems) = preProject

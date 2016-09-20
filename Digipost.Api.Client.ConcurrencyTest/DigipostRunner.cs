@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using ApiClientShared;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Resources.Content;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -13,7 +13,6 @@ namespace Digipost.Api.Client.ConcurrencyTest
     {
         private readonly Lazy<DigipostClient> _client;
         private readonly object _lock = new object();
-        private readonly ResourceUtility _resourceManager;
         private byte[] _documentBytes;
         private int _failedCalls;
         private IIdentification _identification;
@@ -25,15 +24,11 @@ namespace Digipost.Api.Client.ConcurrencyTest
         protected DigipostRunner(ClientConfig clientConfig, string thumbprint, int numOfRuns)
         {
             _client = new Lazy<DigipostClient>(() => new DigipostClient(clientConfig, thumbprint));
-            _resourceManager = new ResourceUtility("Digipost.Api.Client.ConcurrencyTest.Resources");
             Stopwatch = new Stopwatch();
             _itemsLeft = numOfRuns + 1; //Fordi vi decrementer teller før return
         }
 
-        public DigipostClient Client
-        {
-            get { return _client.Value; }
-        }
+        public DigipostClient Client => _client.Value;
 
         public int RunsLeft()
         {
@@ -70,8 +65,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         private byte[] GetDocumentBytes()
         {
-            return _documentBytes
-                   ?? (_documentBytes = _resourceManager.ReadAllBytes(true, "Hoveddokument.txt"));
+            return _documentBytes ?? (_documentBytes = ContentResource.Hoveddokument.PlainText());
         }
 
         public async void Send(DigipostClient digipostClient, RequestType requestType)
@@ -87,7 +81,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                         await digipostClient.IdentifyAsync(GetIdentification()).ConfigureAwait(false);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException("requestType", requestType, null);
+                        throw new ArgumentOutOfRangeException(nameof(requestType), requestType, null);
                 }
 
                 Interlocked.Increment(ref _successfulCalls);

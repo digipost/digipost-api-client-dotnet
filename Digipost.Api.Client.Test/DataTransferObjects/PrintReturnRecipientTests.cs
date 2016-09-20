@@ -19,10 +19,10 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 const string name = "name";
 
                 //Act
-                var printRecipient = new PrintReturnRecipient("name", DomainUtility.GetNorwegianAddress());
+                var printRecipient = new PrintReturnRecipient(name, DomainUtility.GetNorwegianAddress());
 
                 //Assert
-                Assert.Equal("name", printRecipient.Name);
+                Assert.Equal(name, printRecipient.Name);
 
                 IEnumerable<IDifference> differences;
                 _comparator.Equal(DomainUtility.GetNorwegianAddress(), printRecipient.Address, out differences);

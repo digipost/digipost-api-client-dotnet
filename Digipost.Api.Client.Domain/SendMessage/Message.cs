@@ -18,22 +18,17 @@ namespace Digipost.Api.Client.Domain.SendMessage
             Attachments = new List<IDocument>();
         }
 
+        public string Id { get; set; }
+
         public IDigipostRecipient DigipostRecipient { get; set; }
 
         public IPrintDetails PrintDetails { get; set; }
 
-        /// <summary>
-        ///     The id of the sender, created by Digipost.  If you are delivering a
-        ///     message on behalf of an organization, and permission to do so is set, this is the parameter to set.
-        /// </summary>
         public string SenderId { get; set; }
 
         public DateTime? DeliveryTime { get; set; }
 
-        public bool DeliveryTimeSpecified
-        {
-            get { return DeliveryTime != null; }
-        }
+        public bool DeliveryTimeSpecified => DeliveryTime != null;
 
         public IDocument PrimaryDocument { get; set; }
 

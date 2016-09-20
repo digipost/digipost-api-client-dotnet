@@ -49,9 +49,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DigipostRecipient.cs" />
-    <Compile Include="DataTransferObjects\MessageDeliveryResult.cs" />
     <Compile Include="Enums\IdentificationType.cs" />
-    <Compile Include="Extensions\IdentificationTypeExtensions.cs" />
+    <Compile Include="Error.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\IdentificationError.cs" />
     <Compile Include="Identify\Identification.cs" />
     <Compile Include="Identify\IdentificationResult.cs" />
@@ -78,6 +78,7 @@
     <Compile Include="Search\ISearchDetailsAddress.cs" />
     <Compile Include="Search\ISearchDetailsResult.cs" />
     <Compile Include="Search\SearchDetails.cs" />
+    <Compile Include="SendMessage\ContentHash.cs" />
     <Compile Include="SendMessage\IMessageDeliveryResult.cs" />
     <Compile Include="SendMessage\Document.cs" />
     <Compile Include="SendMessage\IDocument.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Search\SearchDetailsResult.cs" />
     <Compile Include="DigipostVersion.cs" />
     <Compile Include="Enums\AuthenticationLevel.cs" />
-    <Compile Include="DataTransferObjects\DocumentDataTransferObject.cs" />
     <Compile Include="Enums\CountryIdentifier.cs" />
     <Compile Include="Enums\DeliveryMethod.cs" />
     <Compile Include="Enums\IdentificationResultType.cs" />
@@ -102,36 +102,26 @@
     <Compile Include="Enums\PostType.cs" />
     <Compile Include="Enums\PrintColors.cs" />
     <Compile Include="Enums\UnidentifiedReason.cs" />
-    <Compile Include="Error.cs" />
     <Compile Include="Exceptions\APIException.cs" />
     <Compile Include="Exceptions\ClientResponseException.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Enums\IdentificationChoiceType.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="DataTransferObjects\IdentificationDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\IdentificationResultDataTransferObject.cs" />
     <Compile Include="Enums\IdentificationResultCode.cs" />
-    <Compile Include="DataTransferObjects\InvoiceDataTransferObject.cs" />
-    <Compile Include="Link.cs" />
-    <Compile Include="DataTransferObjects\ListedtimeDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\MessageDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\MessageDeliveryResultDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\ForeignAddressDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\NorwegianAddressDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\PrintDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\PrintDetailsDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\PrintRecipientDataTransferObject.cs" />
-    <Compile Include="DataTransferObjects\PrintReturnRecipientDataTransferObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\SensitivityLevel.cs" />
-    <Compile Include="DataTransferObjects\RecipientDataTransferObject.cs" />
+    <Compile Include="SendMessage\MessageDeliveryResult.cs" />
     <Compile Include="SendMessage\RecipientById.cs" />
-    <Compile Include="SendMessage\RecipientByNameAndAddressDataTranferObject.cs" />
-    <Compile Include="DataTransferObjects\SmsNotificationDataTransferObject.cs" />
     <Compile Include="RequestContent.cs" />
     <Compile Include="SendMessage\RecipientByNameAndAddress.cs" />
     <Compile Include="SendMessage\SmsNotification.cs" />
     <Compile Include="Utilities\DataTransferObjectConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
+      <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
+      <Name>Digipost.Api.Client.Xsd</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

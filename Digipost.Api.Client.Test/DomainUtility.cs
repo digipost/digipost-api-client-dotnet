@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApiClientShared;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Resources.Content;
 
 namespace Digipost.Api.Client.Test
 {
     public class DomainUtility
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Test.Resources");
-
         public static ClientConfig GetClientConfig()
         {
             return new ClientConfig("senderId", Environment.Qa);
@@ -32,11 +29,9 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(
-                recipientById,
-                new Document("TestSubject", "txt", new byte[3])
-                )
+            return new Message(recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
+                Id = "ThatMessageId",
                 SenderId = "SenderId",
                 Attachments = new List<IDocument>
                 {
@@ -50,69 +45,38 @@ namespace Digipost.Api.Client.Test
             };
         }
 
-        public static MessageDataTransferObject GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
+        public static message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
         {
-            var deliverytime = DateTime.Today.AddDays(3);
-            var recipientDataTransferObject = GetRecipientByDigipostIdDataTransferObject();
-
-            return new MessageDataTransferObject(
-                recipientDataTransferObject,
-                new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId")
+            return new message
             {
-                Attachments = new List<DocumentDataTransferObject>
+                Item = "SenderId",
+                messageid = "ThatMessageId",
+                primarydocument = new document
                 {
-                    new DocumentDataTransferObject("TestSubject attachment", "txt", new byte[3])
+                    subject = "TestSubject",
+                    filetype = "txt",
+                    uuid = "attachmentGuidPrimary",
+                    authenticationlevelSpecified = true,
+                    sensitivitylevelSpecified = true
+                },
+                attachment = new[]
+                {
+                    new document
                     {
-                        Guid = "attachmentGuid"
+                        subject = "TestSubject attachment",
+                        filetype = "txt",
+                        uuid = "attachmentGuid",
+                        authenticationlevelSpecified = true,
+                        sensitivitylevelSpecified = true
                     }
                 },
-                DeliveryTime = deliverytime,
-                PrimaryDocumentDataTransferObject = {Guid = "attachmentGuidPrimary"}
-            };
-        }
-
-        public static IMessage GetMessageWithBytesAndStaticGuidRecipientByNameAndAddress()
-        {
-            var deliverytime = DateTime.Today.AddDays(3);
-            var recipientById = GetRecipientByNameAndAddress();
-
-            return new Message(
-                recipientById,
-                new Document("TestSubject", "txt", new byte[3])
-                )
-            {
-                SenderId = "SenderId",
-                Attachments = new List<IDocument>
+                deliverytime = DateTime.Today.AddDays(3),
+                deliverytimeSpecified = true,
+                recipient = new messagerecipient
                 {
-                    new Document("TestSubject attachment", "txt", new byte[3])
-                    {
-                        Guid = "attachmentGuid"
-                    }
-                },
-                DeliveryTime = deliverytime,
-                PrimaryDocument = {Guid = "attachmentGuidPrimary"}
-            };
-        }
-
-        public static MessageDataTransferObject GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientNameAndAddress()
-        {
-            var deliverytime = DateTime.Today.AddDays(3);
-            var recipientDataTransferObject = GetRecipientByNameAndAndAddressDataTransferObject();
-
-            return new MessageDataTransferObject(
-                recipientDataTransferObject,
-                new DocumentDataTransferObject("TestSubject", "txt", new byte[3]), "SenderId"
-                )
-            {
-                Attachments = new List<DocumentDataTransferObject>
-                {
-                    new DocumentDataTransferObject("TestSubject attachment", "txt", new byte[3])
-                    {
-                        Guid = "attachmentGuid"
-                    }
-                },
-                DeliveryTime = deliverytime,
-                PrimaryDocumentDataTransferObject = {Guid = "attachmentGuidPrimary"}
+                    ItemElementName = ItemChoiceType1.digipostaddress,
+                    Item = "ola.nordmann#246BB"
+                }
             };
         }
 
@@ -127,12 +91,12 @@ namespace Digipost.Api.Client.Test
 
         public static IDocument GetDocument()
         {
-            return new Document("simple-document-dotnet", "txt", ResourceUtility.ReadAllBytes(true, "Hoveddokument.txt"));
+            return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText());
         }
 
         public static IDocument GetInvoice()
         {
-            return new Invoice("simple-invoice-dotnet", "pdf", ResourceUtility.ReadAllBytes(true, "Hoveddokument.pdf"), 1005, "45278968788", DateTime.Now.AddDays(4));
+            return new Invoice("simple-invoice-dotnet", "pdf", ContentResource.Hoveddokument.Pdf(), 1005, "45278968788", DateTime.Now.AddDays(4));
         }
 
         public static IIdentification GetPersonalIdentification()
@@ -158,18 +122,6 @@ namespace Digipost.Api.Client.Test
             return new RecipientById(IdentificationType.DigipostAddress, "ola.nordmann#246BB");
         }
 
-        public static RecipientDataTransferObject GetRecipientByDigipostIdDataTransferObject()
-        {
-            return new RecipientDataTransferObject(IdentificationChoiceType.DigipostAddress, "ola.nordmann#246BB");
-        }
-
-        public static RecipientDataTransferObject GetRecipientByNameAndAndAddressDataTransferObject()
-        {
-            return new RecipientDataTransferObject(new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Biskop Gunnerus Gate 14"
-                )
-                );
-        }
-
         public static RecipientByNameAndAddress GetRecipientByNameAndAddress()
         {
             return new RecipientByNameAndAddress("Ola Nordmann",
@@ -179,28 +131,40 @@ namespace Digipost.Api.Client.Test
                 );
         }
 
-        public static RecipientByNameAndAddressDataTranferObject GetRecipientByNameAndAddressDataTransferObject()
-        {
-            return new RecipientByNameAndAddressDataTranferObject("Ola Nordmann", "0001", "Oslo", "Osloveien 22"
-                );
-        }
-
         public static PrintDetails GetPrintDetails()
         {
             return
                 new PrintDetails(
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo", "Osloveien 15")),
                     new PrintReturnRecipient("Returkongen",
-                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
+                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")), PostType.A);
         }
 
-        public static PrintDetailsDataTransferObject GetPrintDetailsDataTransferObject()
+        public static printdetails GetPrintDetailsDataTransferObject()
         {
-            return
-                new PrintDetailsDataTransferObject(
-                    new PrintRecipientDataTransferObject("Ola Nordmann", new NorwegianAddressDataTransferObject("0115", "Oslo", "Osloveien 15")),
-                    new PrintReturnRecipientDataTransferObject("Returkongen",
-                        new NorwegianAddressDataTransferObject("5510", "Sophaugen", "Sophauggata 22")));
+            return new printdetails
+            {
+                recipient = new printrecipient
+                {
+                    name = "Ola Nordmann",
+                    Item = new norwegianaddress
+                    {
+                        addressline1 = "Osloveien 15",
+                        city = "Oslo",
+                        zipcode = "0115"
+                    }
+                },
+                returnaddress = new printrecipient
+                {
+                    name = "Returkongen",
+                    Item = new norwegianaddress
+                    {
+                        addressline1 = "Sophauggata 22",
+                        city = "Sophaugen",
+                        zipcode = "5510"
+                    }
+                }
+            };
         }
 
         public static NorwegianAddress GetNorwegianAddress()

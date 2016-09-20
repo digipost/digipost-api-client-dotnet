@@ -11,7 +11,6 @@ using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.DataTransferObjects;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
@@ -67,7 +66,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = GenericPostAsync<MessageDeliveryResultDataTransferObject>(message, uri);
+            var messageDeliveryResultTask = GenericPostAsync<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
@@ -90,11 +89,11 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = GenericPostAsync<IdentificationResultDataTransferObject>(identification, uri);
+            var identifyResponse = GenericPostAsync<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
-                var exception = identifyResponse.Exception.InnerException;
+                var exception = identifyResponse.Exception?.InnerException;
 
                 Log.Warn($"Identification failed, {exception}");
 
@@ -124,17 +123,18 @@ namespace Digipost.Api.Client.Api
 
             if (search.Length < _minimumSearchLength)
             {
-                var emptyResult = new SearchDetailsResult();
-                emptyResult.PersonDetails = new List<SearchDetails>();
+                var emptyResult = new SearchDetailsResult {PersonDetails = new List<SearchDetails>()};
 
                 var taskSource = new TaskCompletionSource<ISearchDetailsResult>();
                 taskSource.SetResult(emptyResult);
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResult = await GenericGetAsync<SearchDetailsResult>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await GenericGetAsync<recipients>(uri).ConfigureAwait(false);
 
-            Log.Debug($"Response received for search with term '{search}' retrieved: '{searchDetailsResult.PersonDetails.Count}' entries.");
+            var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
+
+            Log.Debug($"Response received for search with term '{search}' retrieved.");
 
             return searchDetailsResult;
         }
@@ -202,7 +202,9 @@ namespace Digipost.Api.Client.Api
 
         private static void ThrowNotEmptyResponseError(string responseContent)
         {
-            var error = SerializeUtil.Deserialize<Error>(responseContent);
+            var errorDataTransferObject = SerializeUtil.Deserialize<error>(responseContent);
+            var error = DataTransferObjectConverter.FromDataTransferObject(errorDataTransferObject);
+
             throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
         }
 

@@ -11,6 +11,7 @@
     <AssemblyName>Digipost.Api.Client.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -87,15 +88,14 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompareObjects\Comparator.cs" />
+    <Compile Include="CompareObjects\ComparisonConfiguration.cs" />
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="EnvironmentTests.cs" />
+    <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForIdentificationResponse.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForMessageResponse.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerForSearchResponse.cs" />
-    <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
+    <Compile Include="Fakes\FakeResponseHandler.cs" />
     <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
@@ -104,12 +104,9 @@
     <Compile Include="SendMessage\InvoiceTests.cs" />
     <Compile Include="Smoke\ClientSmokeTests.cs" />
     <Compile Include="Smoke\TestHelper.cs" />
-    <Compile Include="TestProperties.cs" />
     <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
-    <Compile Include="CompareObjects\ComparatorTests.cs" />
     <Compile Include="Action\DigipostActionFactoryTests.cs" />
     <Compile Include="Action\DigipostActionTests.cs" />
-    <Compile Include="Api\DigipostApiTests.cs" />
     <Compile Include="DataTransferObjects\DataTransferObjectConverterTests.cs" />
     <Compile Include="DataTransferObjects\DocumentTests.cs" />
     <Compile Include="DataTransferObjects\ForeignAddressTests.cs" />
@@ -131,9 +128,6 @@
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
-    <EmbeddedResource Include="Resources\DigipostCert.p12" />
-    <EmbeddedResource Include="Resources\Hoveddokument.pdf" />
-    <EmbeddedResource Include="Resources\Vedlegg.pdf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -141,16 +135,18 @@
       <Project>{6622E975-31E3-45DB-8156-FB593FC872F4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
+      <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
+      <Name>Digipost.Api.Client.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
+      <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
+      <Name>Digipost.Api.Client.Xsd</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Hoveddokument.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Vedlegg.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

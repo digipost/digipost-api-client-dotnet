@@ -2,6 +2,6 @@
 {
     internal class DigipostVersion
     {
-        public static string V6 = "application/vnd.digipost-v6+xml";
+        public static string V7 = "application/vnd.digipost-v7+xml";
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Resources.Content;
 using Xunit;
 
 namespace Digipost.Api.Client.Test.SendMessage
@@ -25,12 +25,10 @@ namespace Digipost.Api.Client.Test.SendMessage
             public void ConstuctorStreamTest()
             {
                 //Arrange
-                var contentStream =
-                    Assembly.GetExecutingAssembly()
-                        .GetManifestResourceStream("Digipost.Api.Client.Test.Resources.Hoveddokument.pdf");
+                var contentStream = new MemoryStream(ContentResource.Hoveddokument.Pdf());
+
                 //Act
-                var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid,
-                    AuthenticationLevel, SensitivityLevel, _smsNotification);
+                var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
 
                 //Assert
                 Assert.Equal(Subject, invoice.Subject);
@@ -41,10 +39,7 @@ namespace Digipost.Api.Client.Test.SendMessage
                 Assert.Equal(Kid, invoice.Kid);
                 Assert.Equal(AuthenticationLevel, invoice.AuthenticationLevel);
                 Assert.Equal(_smsNotification, invoice.SmsNotification);
-
-                var expectedBytes = GetBytesFromEmbeddedResource();
-                var sutBytes = invoice.ContentBytes;
-                Assert.Equal(expectedBytes, sutBytes);
+                Assert.NotNull(invoice.ContentBytes);
             }
 
             [Fact]
@@ -54,8 +49,7 @@ namespace Digipost.Api.Client.Test.SendMessage
                 var tempFile = CreateTempFile();
 
                 //Act
-                var invoice = new Invoice(Subject, FileType, tempFile, Amount, Account, _duedate, Kid,
-                    AuthenticationLevel, SensitivityLevel, _smsNotification);
+                var invoice = new Invoice(Subject, FileType, tempFile, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
                 //Assert
                 Assert.Equal(Subject, invoice.Subject);
                 Assert.Equal(FileType, invoice.FileType);
@@ -67,15 +61,14 @@ namespace Digipost.Api.Client.Test.SendMessage
                 Assert.Equal(_smsNotification, invoice.SmsNotification);
 
                 var expectedBytes = BytesFromFileStream(new FileStream(tempFile, FileMode.Open));
-                var sutBytes = invoice.ContentBytes;
-                Assert.Equal(expectedBytes, sutBytes);
+                Assert.Equal(expectedBytes, invoice.ContentBytes);
             }
 
             [Fact]
             public void ConstructorBytesTest()
             {
                 //Arrange
-                var fileBytes = GetBytesFromEmbeddedResource();
+                var fileBytes = ContentResource.Hoveddokument.Pdf();
 
                 //Act
                 var invoice = new Invoice(Subject, FileType, fileBytes, Amount, Account, _duedate, Kid,
@@ -106,17 +99,6 @@ namespace Digipost.Api.Client.Test.SendMessage
                     }
                 }
                 return tempFile;
-            }
-
-            private static byte[] GetBytesFromEmbeddedResource()
-            {
-                using (
-                    var fileStream =
-                        Assembly.GetExecutingAssembly()
-                            .GetManifestResourceStream("Digipost.Api.Client.Test.Resources.Hoveddokument.pdf"))
-                {
-                    return BytesFromFileStream(fileStream);
-                }
             }
 
             private static byte[] BytesFromFileStream(Stream fileStream)

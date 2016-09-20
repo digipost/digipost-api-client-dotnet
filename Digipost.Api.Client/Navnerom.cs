@@ -3,8 +3,8 @@
     internal class Navnerom
     {
         /// <summary>
-        ///     http://api.digipost.no/schema/v6
+        ///     http://api.digipost.no/schema/v7
         /// </summary>
-        public const string DigipostApiInformasjon = "http://api.digipost.no/schema/v6";
+        public const string DigipostApiV7 = "http://api.digipost.no/schema/v7";
     }
 }

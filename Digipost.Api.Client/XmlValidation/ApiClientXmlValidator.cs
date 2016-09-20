@@ -1,24 +1,13 @@
-﻿using System.IO;
-using System.Xml;
-using ApiClientShared;
-using Difi.Felles.Utility;
+﻿using Difi.Felles.Utility;
+using Digipost.Api.Client.Resources.Xsd;
 
 namespace Digipost.Api.Client.XmlValidation
 {
     internal class ApiClientXmlValidator : XmlValidator
     {
-        private static readonly ResourceUtility ResourceUtility =
-            new ResourceUtility("Digipost.Api.Client.Resources.Xsd");
-
         public ApiClientXmlValidator()
         {
-            AddXsd(Navnerom.DigipostApiInformasjon, XsdResource("api_v6.xsd"));
-        }
-
-        private XmlReader XsdResource(string path)
-        {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
-            return XmlReader.Create(new MemoryStream(bytes));
+            AddXsd(Navnerom.DigipostApiV7, XsdResource.GetApiV7Xsd());
         }
     }
 }

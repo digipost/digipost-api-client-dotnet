@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,6 +9,8 @@ using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Resources.Certificate;
+using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Test.Fakes;
 using Moq;
 using Xunit;
@@ -30,11 +31,11 @@ namespace Digipost.Api.Client.Test.Integration
                 TimeoutMilliseconds = 300000000
             };
             Uri = new Uri("/identification", UriKind.Relative);
-            Certificate = TestProperties.Certificate();
+            Certificate = CertificateResource.Certificate();
         }
 
         internal AuthenticationHandler CreateHandlerChain(
-            FakeHttpClientHandlerResponse fakehandler)
+            FakeResponseHandler fakehandler)
         {
             var loggingHandler = new LoggingHandler(fakehandler, ClientConfig);
             var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
@@ -52,18 +53,7 @@ namespace Digipost.Api.Client.Test.Integration
             public void ProperRequestSentRecipientById()
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientById();
-
-                var fakehandler = new FakeHttpClientHandlerForMessageResponse();
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-
-                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
-
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
-
-                Path.GetTempFileName();
-
-                digipostApi.SendMessage(message);
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
             }
 
             [Fact]
@@ -71,15 +61,7 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
 
-                var fakehandler = new FakeHttpClientHandlerForMessageResponse();
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-
-                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
-
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
-
-                digipostApi.SendMessage(message);
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
             }
 
             [Fact]
@@ -88,18 +70,10 @@ namespace Digipost.Api.Client.Test.Integration
                 try
                 {
                     var message = DomainUtility.GetSimpleMessageWithRecipientById();
-
                     const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
                     var messageContent = new StringContent(string.Empty);
 
-                    var fakehandler = CreateFakeMessageHttpResponse(statusCode, messageContent);
-                    var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                    var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
-
-                    var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                    SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
-
-                    digipostApi.SendMessage(message);
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
                 }
                 catch (AggregateException e)
                 {
@@ -114,19 +88,10 @@ namespace Digipost.Api.Client.Test.Integration
                 try
                 {
                     var message = DomainUtility.GetSimpleMessageWithRecipientById();
-
                     const HttpStatusCode statusCode = HttpStatusCode.NotFound;
-                    var messageContent = new StringContent(
-                        @"<?xml version=""1.0"" encoding=""UTF - 8"" standalone=""yes""?><error xmlns=""http://api.digipost.no/schema/v6""><error-code>UNKNOWN_RECIPIENT</error-code><error-message>The recipient does not have a Digipost account.</error-message><error-type>CLIENT_DATA</error-type></error>");
+                    var messageContent = XmlResource.SendMessage.GetError();
 
-                    var fakehandler = CreateFakeMessageHttpResponse(statusCode, messageContent);
-                    var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                    var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
-
-                    var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                    SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
-
-                    digipostApi.SendMessage(message);
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
                 }
                 catch (AggregateException e)
                 {
@@ -136,15 +101,17 @@ namespace Digipost.Api.Client.Test.Integration
                 }
             }
 
-            private static FakeHttpClientHandlerForMessageResponse CreateFakeMessageHttpResponse(HttpStatusCode statusCode,
-                StringContent messageContent)
+            private void SendMessage(IMessage message, FakeResponseHandler fakeResponseHandler)
             {
-                var fakehandler = new FakeHttpClientHandlerForMessageResponse
-                {
-                    ResultCode = statusCode,
-                    HttpContent = messageContent
-                };
-                return fakehandler;
+                var fakehandler = fakeResponseHandler;
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+
+                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
+
+                var digipostApi = new DigipostApi(ClientConfig, Certificate);
+                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
+
+                digipostApi.SendMessage(message);
             }
 
             private Mock<DigipostActionFactory> CreateMockFactoryReturningMessage(IMessage message, AuthenticationHandler authenticationHandler)
@@ -168,39 +135,26 @@ namespace Digipost.Api.Client.Test.Integration
             public void ProperRequestSent()
             {
                 var identification = DomainUtility.GetPersonalIdentification();
-
-                var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-
-                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
-
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
-
-                digipostApi.Identify(identification);
+                Identify(identification);
             }
 
             [Fact]
             public void ProperRequestWithIdSent()
             {
                 var identification = DomainUtility.GetPersonalIdentificationById();
-
-                var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
-
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
-
-                digipostApi.Identify(identification);
+                Identify(identification);
             }
 
             [Fact]
             public void ProperRequestWithNameAndAddressSent()
             {
                 var identification = DomainUtility.GetPersonalIdentificationByNameAndAddress();
+                Identify(identification);
+            }
 
-                var fakehandler = new FakeHttpClientHandlerForIdentificationResponse();
+            private void Identify(IIdentification identification)
+            {
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
@@ -228,16 +182,12 @@ namespace Digipost.Api.Client.Test.Integration
 
         public class SearchMethod : DigipostApiIntegrationTests
         {
-            /// <summary>
-            ///     This integration test assures that the connection between handlers is correct and that a message is built and sent.
-            ///     The ActionFactory is mocked to prevent actual HTTP-request to Digipost.
-            /// </summary>
             [Fact]
             public void ProperRequestSent()
             {
-                var searchString = "marit";
+                var searchString = "jarand";
 
-                var fakehandler = new FakeHttpClientHandlerForSearchResponse();
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
 
                 var mockFacktory = CreateMockFactoryReturningSearch(fakeHandlerChain);

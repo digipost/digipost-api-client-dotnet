@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Digipost.Api.Client.Domain.Search
 {
     public interface ISearchDetails
@@ -14,6 +16,8 @@ namespace Digipost.Api.Client.Domain.Search
 
         string OrganizationName { get; set; }
 
-        SearchDetailsAddress SearchDetailsAddress { get; set; }
+        string OrganizationNumber { get; set; }
+
+        IEnumerable<SearchDetailsAddress> SearchDetailsAddress { get; set; }
     }
 }

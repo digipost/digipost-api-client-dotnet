@@ -7,7 +7,7 @@ using Digipost.Api.Client.Domain.SendMessage;
 
 namespace Digipost.Api.Client.Action
 {
-    internal class DigipostActionFactory : IDigipostActionFactory
+    public class DigipostActionFactory : IDigipostActionFactory
     {
         public virtual DigipostAction CreateClass(IRequestContent content, ClientConfig clientConfig,
             X509Certificate2 businessCertificate, Uri uri)

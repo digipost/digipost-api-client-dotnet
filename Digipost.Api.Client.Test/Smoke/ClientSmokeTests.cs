@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public ClientSmokeTests()
         {
-            var sender = SenderUtility.GetSender(TestEnvironment.Qa);
+            var sender = SenderUtility.GetSender(TestEnvironment.DifiTest);
             _t = new TestHelper(sender);
         }
 

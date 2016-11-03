@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>digipost-api-client</id>
-        <version>0.0.0.0</version>
+        <version>$version$</version>
         <title>digipost-api-client</title>
         <authors>Digipost AS</authors>
         <owners>Posten Norge AS</owners>

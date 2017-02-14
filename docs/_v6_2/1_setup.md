@@ -9,7 +9,7 @@ The client library is available as a nuget package. The client library (and asso
 To install the nuget package, follow these steps in Visual Studio:
 
 1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
-2. Search for "_digipost-api-client-dotnet_."
+2. Search for "_digipost-api-client_"
 * If you would like pre-releases og this package, make sure it says _Include Prerelease_ in the drop-down menu above the search results (where it by default says _Stable Only_).
 3. Select _digipost-api-client-dotnet_ and click _Install_.
 

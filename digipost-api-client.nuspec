@@ -21,18 +21,13 @@
         </group>
     </dependencies>
     </metadata>
-
     <files>
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.pdb" target="lib\net45\" />     
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.xml" target="lib\net45\" />
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.pdb" target="lib\net45\" />     
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.dll" target="lib\net45\" />        
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.xml" target="lib\net45\" />
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.pdb" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\" />        
     </files>
 </package>

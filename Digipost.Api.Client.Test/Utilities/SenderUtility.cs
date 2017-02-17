@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Test.Utilities
                     return new Sender(
                         "2121714811",
                         digipostTestintegrasjonforDigitalPostThumbprint,
-                        Environment.Qa
+                        Environment.Production
                         );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);

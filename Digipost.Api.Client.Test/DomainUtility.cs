@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Test
     {
         public static ClientConfig GetClientConfig()
         {
-            return new ClientConfig("senderId", Environment.Qa);
+            return new ClientConfig("senderId", Environment.Production);
         }
 
         public static IMessage GetSimpleMessageWithRecipientById()

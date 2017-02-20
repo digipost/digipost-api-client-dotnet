@@ -8,7 +8,7 @@ layout: default
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var message = new Message( 
@@ -25,7 +25,7 @@ var result = client.SendMessage(message);
 {% highlight csharp %}
 
 //Init Client
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 //Compose Recipient by name and address and create document
@@ -48,7 +48,7 @@ var result = client.SendMessage(message);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
@@ -67,7 +67,7 @@ var result = client.SendMessage(message);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
@@ -88,7 +88,7 @@ In cases where the recipient is not a Digipost user, it is also possible to use 
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var recipient = new RecipientByNameAndAddress(
@@ -122,7 +122,7 @@ var result = client.SendMessage(messageWithFallbackToPrint);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
@@ -191,7 +191,7 @@ Following is a example that uses personal identification number as identificatio
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxxx"));
@@ -240,7 +240,7 @@ It is possible to send invoice-metadata with a document. Documents with invoice-
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var message = new Message(
@@ -265,7 +265,7 @@ A central part of a user interface in the application that is integrating with D
 It is important to note that the search results returned do not necessarily include the receiver to which you actually wish to send. The search results returned are strictly based on the search query you have sent in. This equally applies when only one search result is returned. This means that the actual person to which you wish to send must be confirmed by a human being before the actual document i sent (typically in the senders application). If the goal is to create a 100% automated workflow then the identify recipient endpoint should be used (see Identify recipient use case).
 
 {% highlight csharp %}
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var response = client.Search("Ola Nordmann Bellsund Longyearbyen");
@@ -308,7 +308,7 @@ A message can be sent with a delivery time. This means that a message can be sen
 
 {% highlight csharp%}
 
-var config = new ClientConfig("xxxxx", Environment.Qa);
+var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var message = new Message(

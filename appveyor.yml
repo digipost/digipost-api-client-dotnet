@@ -12,7 +12,7 @@
   configuration: Release 
   environment:
     strong_name_key_secret:
-      secure: bcmLk9o07UTrGB+wphBFsGMO49JBy8WGntBdzJECZKk=
+      secure: VSZ1Kr4gUF9jb1KqVwHPPhiHEFuCwkQshQrK6X6v5bU=
     virksomhetssertifikat_pass:
       secure: zm1La2fMObjEN9S2bcX6r7JNuKjV4vVxErRARdSgDH4=
     virksomhetssertifikat_encryption_key:
@@ -62,7 +62,7 @@
   configuration: Release 
   environment:
     strong_name_key_secret:
-      secure: bcmLk9o07UTrGB+wphBFsGMO49JBy8WGntBdzJECZKk=
+      secure: VSZ1Kr4gUF9jb1KqVwHPPhiHEFuCwkQshQrK6X6v5bU=
     virksomhetssertifikat_pass:
       secure: zm1La2fMObjEN9S2bcX6r7JNuKjV4vVxErRARdSgDH4=
     virksomhetssertifikat_encryption_key:

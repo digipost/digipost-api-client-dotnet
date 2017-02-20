@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-            var config = new ClientConfig(SenderId, Environment.Qa);
+            var config = new ClientConfig(SenderId, Environment.Production);
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);

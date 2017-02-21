@@ -11,11 +11,13 @@ The client is using Common Logging API for .NET as an abstraction for logging. I
 
 Enabling logging on level `DEBUG` will output results of requests, `WARN` only failed requests or worse. These loggers will be under the `Digipost.Api.Client` namespace. 
 
-<h3 id="log4net">Implementing Log4Net</h3>
-1. Install Nuget-package `Common.Logging.Log4Net`. This will install the dependencies `Common.Logging.Core` and `Common.Logging`. Note that the versioning of Log4Net is a bit odd, but Nuget Gallery will reveal that Log4Net 2.0.3 has _Log4net [1.2.13] 2.0.3_ as package name. This means that `Common.Logging.Log4Net1213` is the correct logging adapter.
-2. In some cases the adapter may install the wrong version of Log4Net. If installing the adapter for 2.0.3, the version must be upped to this version too.
+<h3 id="log4net">Example with Log4Net</h3>
 
-Complete App.config with the Log4Net adapter installed and a `RollingFileAppender`:
+1. Let's assume that [log4net [1.2.13] 2.0.3](https://www.nuget.org/packages/log4net/2.0.3) is installed in project.
+1. Since _log4net_ has version _[1.2.13]_, `Common.Logging.Log4Net1213` is the correct logging adapter. Install this package.
+1. In some cases the adapter may install or update Log4Net to a incorrect version. If installing the adapter for _log4net 2.0.3_, _Common.Logging.Log4Net1213_ must be the installed version.
+1. Following is a complete App.config with the Log4Net adapter containing a `RollingFileAppender`. Note the version of the adapter specified in the `<factoryAdapter/>` node:
+
 {% highlight xml %}
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>

@@ -9,9 +9,9 @@ licenseUrl: http://opensource.org/licenses/MIT
 
 baseurl: "/digipost-api-client-dotnet"
 
-currentCollecion: "v7_0"
-currentVersion: "7.0"
-versions: ["7.0", "6.2", "6.1", "6.0"]
+currentCollecion: "v7"
+currentVersion: "7"
+versions: ["7", "6.2", "6.1", "6.0"]
 
 collections:
   v6_0:  
@@ -23,9 +23,9 @@ collections:
   v6_2:
     output: true
     permalink: /v6.2/
-  v7_0:  
+  v7:  
     output: true
-    permalink: /v7.0/    
+    permalink: /v7/    
 
 # list of additional links on the right of the top menu
 headerLinks:

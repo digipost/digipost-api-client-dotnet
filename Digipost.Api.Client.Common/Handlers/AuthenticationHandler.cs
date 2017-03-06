@@ -56,7 +56,7 @@ namespace Digipost.Api.Client.Common.Handlers
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
 
-            var signature = ComputeSignature(Method, Url.ToString(), date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
+            var signature = ComputeSignature(Method, Url.OriginalString, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

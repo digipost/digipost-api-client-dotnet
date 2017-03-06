@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.Mailbox;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 
@@ -49,6 +50,11 @@ namespace Digipost.Api.Client
         public Task<ISearchDetailsResult> SearchAsync(string query)
         {
             return _api.SearchAsync(query);
+        }
+
+        public Mailbox Mailbox(string senderId)
+        {
+            return new Mailbox(senderId);
         }
     }
 }

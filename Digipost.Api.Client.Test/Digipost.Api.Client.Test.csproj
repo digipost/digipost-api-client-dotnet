@@ -135,6 +135,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
+      <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
+      <Name>Digipost.Api.Client.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622E975-31E3-45DB-8156-FB593FC872F4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>

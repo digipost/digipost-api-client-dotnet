@@ -20,7 +20,6 @@ namespace Digipost.Api.Client
 
         public static Environment DifiTest => new Environment(new Uri("https://api.difitest.digipost.no/"));
 
-
         public override string ToString()
         {
             return $"Url: {Url}";

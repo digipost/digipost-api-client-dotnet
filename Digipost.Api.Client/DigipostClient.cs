@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Mailbox;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 
@@ -11,11 +10,12 @@ namespace Digipost.Api.Client
     public class DigipostClient
     {
         private readonly DigipostApi _api;
+        private readonly RequestHelper _requestHelper;
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            var requestHelper = new RequestHelper(clientConfig, businessCertificate);
-            _api = new DigipostApi(clientConfig, businessCertificate, requestHelper);
+            _requestHelper = new RequestHelper(clientConfig, businessCertificate);
+            _api = new DigipostApi(clientConfig, businessCertificate, _requestHelper);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
@@ -53,9 +53,9 @@ namespace Digipost.Api.Client
             return _api.SearchAsync(query);
         }
 
-        public Mailbox Mailbox(string senderId)
+        public Mailbox.Mailbox Mailbox(string senderId)
         {
-            return new Mailbox(senderId);
+            return new Mailbox.Mailbox(senderId, _requestHelper);
         }
     }
 }

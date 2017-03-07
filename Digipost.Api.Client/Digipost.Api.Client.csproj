@@ -55,47 +55,18 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=1.2.0.0, Culture=neutral, PublicKeyToken=6e6972f540d5419a, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.1.2.0\lib\net45\Difi.Felles.Utility.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Action\GetByUriAction.cs" />
-    <Compile Include="Action\DigipostAction.cs" />
-    <Compile Include="Action\DigipostActionFactory.cs" />
-    <Compile Include="Action\IdentificationAction.cs" />
-    <Compile Include="Action\IDigipostActionFactory.cs" />
-    <Compile Include="Api\RequestHelper.cs" />
     <Compile Include="DigipostClient.cs" />
     <Compile Include="Api\IDigipostApi.cs" />
-    <Compile Include="Environment.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Handlers\AuthenticationHandler.cs" />
-    <Compile Include="ClientConfig.cs" />
     <Compile Include="Api\DigipostApi.cs" />
-    <Compile Include="Handlers\LoggingHandler.cs" />
-    <Compile Include="Action\MessageAction.cs" />
-    <Compile Include="Navnerom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializeUtil.cs" />
-    <Compile Include="XmlValidation\ApiClientXmlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -105,19 +76,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
+      <Project>{baa33e63-9cdf-4b8a-ba06-b107995585d0}</Project>
+      <Name>Digipost.Api.Client.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
-      <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
-      <Name>Digipost.Api.Client.Resources</Name>
+    <ProjectReference Include="..\Digipost.Api.Client.Mailbox\Digipost.Api.Client.Mailbox.csproj">
+      <Project>{11e46c69-8cd6-412d-9d25-1562770660a9}</Project>
+      <Name>Digipost.Api.Client.Mailbox</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
       <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Action\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
@@ -14,12 +15,12 @@ namespace Digipost.Api.Client.Action
         {
             var type = content.GetType();
 
-            if (typeof (IMessage).IsAssignableFrom(type))
+            if (typeof(IMessage).IsAssignableFrom(type))
             {
                 return new MessageAction((IMessage) content, clientConfig, businessCertificate, uri);
             }
 
-            if (typeof (IIdentification).IsAssignableFrom(type))
+            if (typeof(IIdentification).IsAssignableFrom(type))
             {
                 return new IdentificationAction((IIdentification) content, clientConfig, businessCertificate, uri);
             }

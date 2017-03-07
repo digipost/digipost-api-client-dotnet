@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using Digipost.Api.Client.Api;
+using Digipost.Api.Client.Domain.Mailbox;
 
-namespace Digipost.Api.Client.Domain.Mailbox
+namespace Digipost.Api.Client.Mailbox
 {
     public class Mailbox : IMailboxSpecification
     {
-        public Mailbox(string senderId)
+        public Mailbox(string senderId, RequestHelper requestHelper)
         {
             SenderId = senderId;
         }

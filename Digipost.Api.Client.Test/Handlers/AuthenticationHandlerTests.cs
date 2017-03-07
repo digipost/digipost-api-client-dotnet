@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Digipost.Api.Client.Handlers;
+using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Resources.Certificate;
 using Xunit;
 

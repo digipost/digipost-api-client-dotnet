@@ -12,11 +12,11 @@ using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
 {
-    internal class RequestHelper
+    public class RequestHelper
     {
-        private IDigipostActionFactory _digipostActionFactory;
-        private readonly ClientConfig _clientConfig;
         private readonly X509Certificate2 _businessCertificate;
+        private readonly ClientConfig _clientConfig;
+        private IDigipostActionFactory _digipostActionFactory;
 
         public RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
@@ -24,12 +24,11 @@ namespace Digipost.Api.Client.Api
             _businessCertificate = businessCertificate;
         }
 
-        public IDigipostActionFactory DigipostActionFactory
+        internal IDigipostActionFactory DigipostActionFactory
         {
             get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
             set { _digipostActionFactory = value; }
         }
-
 
         internal Task<T> GenericPostAsync<T>(IRequestContent content, Uri uri)
         {
@@ -102,7 +101,7 @@ namespace Digipost.Api.Client.Api
 
         private static void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
         {
-            throw new ClientResponseException((int)httpStatusCode + ": " + httpStatusCode);
+            throw new ClientResponseException((int) httpStatusCode + ": " + httpStatusCode);
         }
 
         private static T HandleSuccessResponse<T>(string responseContent)

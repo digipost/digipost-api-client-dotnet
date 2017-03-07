@@ -3,10 +3,11 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
+using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Handlers;
 
-namespace Digipost.Api.Client.Action
+namespace Digipost.Api.Client.Common
 {
     public abstract class DigipostAction
     {

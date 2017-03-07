@@ -61,10 +61,6 @@
     <Compile Include="Identify\IIdentificationResult.cs" />
     <Compile Include="IDigipostRecipient.cs" />
     <Compile Include="IError.cs" />
-    <Compile Include="Mailbox\Inbox.cs" />
-    <Compile Include="Mailbox\InboxDocument.cs" />
-    <Compile Include="Mailbox\Mailbox.cs" />
-    <Compile Include="Mailbox\IMailboxSpecification.cs" />
     <Compile Include="Print\Address.cs" />
     <Compile Include="Print\ForeignAddress.cs" />
     <Compile Include="Print\IAddress.cs" />

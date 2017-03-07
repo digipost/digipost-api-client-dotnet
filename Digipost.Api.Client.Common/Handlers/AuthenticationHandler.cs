@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Common.Logging;
 using Digipost.Api.Client.Domain;
 
-namespace Digipost.Api.Client.Handlers
+namespace Digipost.Api.Client.Common.Handlers
 {
     internal class AuthenticationHandler : DelegatingHandler
     {

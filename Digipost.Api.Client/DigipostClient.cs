@@ -14,7 +14,8 @@ namespace Digipost.Api.Client
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
-            _api = new DigipostApi(clientConfig, businessCertificate);
+            var requestHelper = new RequestHelper(clientConfig, businessCertificate);
+            _api = new DigipostApi(clientConfig, businessCertificate, requestHelper);
         }
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)

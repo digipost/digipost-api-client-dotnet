@@ -1,35 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Action;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
-using Digipost.Api.Client.XmlValidation;
 
 namespace Digipost.Api.Client.Api
 {
     internal class DigipostApi : IDigipostApi
     {
+        private const int MinimumSearchLength = 3;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly int _minimumSearchLength = 3;
+        private readonly RequestHelper _requestHelper;
 
-        private IDigipostActionFactory _digipostActionFactory;
-
-        public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate)
+        public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate, RequestHelper requestHelper)
         {
+            _requestHelper = requestHelper;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
@@ -44,17 +38,18 @@ namespace Digipost.Api.Client.Api
 
         private X509Certificate2 BusinessCertificate { get; }
 
+        [Obsolete("Not in use, set factory on RequestHelper instead.")]
         public IDigipostActionFactory DigipostActionFactory
         {
-            get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
-            set { _digipostActionFactory = value; }
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
         }
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
             var messageDelivery = SendMessageAsync(message);
 
-            if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
+            if (messageDelivery.IsFaulted && (messageDelivery.Exception != null))
                 throw messageDelivery.Exception.InnerException;
 
             return messageDelivery.Result;
@@ -66,9 +61,9 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = GenericPostAsync<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = _requestHelper.GenericPostAsync<messagedelivery>(message, uri);
 
-            if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
+            if (messageDeliveryResultTask.IsFaulted && (messageDeliveryResultTask.Exception != null))
                 throw messageDeliveryResultTask.Exception.InnerException;
 
             var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
@@ -89,7 +84,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = GenericPostAsync<identificationresult>(identification, uri);
+            var identifyResponse = _requestHelper.GenericPostAsync<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
@@ -121,7 +116,7 @@ namespace Digipost.Api.Client.Api
             search = search.RemoveReservedUriCharacters();
             var uri = new Uri($"recipients/search/{Uri.EscapeUriString(search)}", UriKind.Relative);
 
-            if (search.Length < _minimumSearchLength)
+            if (search.Length < MinimumSearchLength)
             {
                 var emptyResult = new SearchDetailsResult {PersonDetails = new List<SearchDetails>()};
 
@@ -130,92 +125,13 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResultDataTransferObject = await GenericGetAsync<recipients>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await _requestHelper.GenericGetAsync<recipients>(uri).ConfigureAwait(false);
 
             var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
 
             Log.Debug($"Response received for search with term '{search}' retrieved.");
 
             return searchDetailsResult;
-        }
-
-        private Task<T> GenericPostAsync<T>(IRequestContent content, Uri uri)
-        {
-            var action = DigipostActionFactory.CreateClass(content, ClientConfig, BusinessCertificate, uri);
-
-            ValidateXml(action.RequestContent);
-
-            var responseTask = action.PostAsync(content);
-            return GenericSendAsync<T>(responseTask);
-        }
-
-        private Task<T> GenericGetAsync<T>(Uri uri)
-        {
-            var action = DigipostActionFactory.CreateClass(ClientConfig, BusinessCertificate, uri);
-            var responseTask = action.GetAsync();
-
-            return GenericSendAsync<T>(responseTask);
-        }
-
-        private async Task<T> GenericSendAsync<T>(Task<HttpResponseMessage> responseTask)
-        {
-            var responseTaskResult = await responseTask.ConfigureAwait(false);
-
-            var responseContent = await ReadResponse(responseTaskResult).ConfigureAwait(false);
-
-            if (!responseTaskResult.IsSuccessStatusCode)
-            {
-                var emptyResponse = string.IsNullOrEmpty(responseContent);
-
-                if (!emptyResponse)
-                    ThrowNotEmptyResponseError(responseContent);
-                else
-                {
-                    ThrowEmptyResponseError(responseTaskResult.StatusCode);
-                }
-            }
-            return HandleSuccessResponse<T>(responseContent);
-        }
-
-        internal static void ValidateXml(XmlDocument document)
-        {
-            if (document.InnerXml.Length == 0)
-            {
-                return;
-            }
-
-            var xmlValidator = new ApiClientXmlValidator();
-            string validationMessages;
-            var isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
-
-            if (!isValidXml)
-            {
-                throw new XmlException($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
-            }
-        }
-
-        private static async Task<string> ReadResponse(HttpResponseMessage requestResult)
-        {
-            var contentResult = await requestResult.Content.ReadAsStringAsync().ConfigureAwait(false);
-            return contentResult;
-        }
-
-        private static void ThrowNotEmptyResponseError(string responseContent)
-        {
-            var errorDataTransferObject = SerializeUtil.Deserialize<error>(responseContent);
-            var error = DataTransferObjectConverter.FromDataTransferObject(errorDataTransferObject);
-
-            throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
-        }
-
-        private static void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
-        {
-            throw new ClientResponseException((int) httpStatusCode + ": " + httpStatusCode);
-        }
-
-        private static T HandleSuccessResponse<T>(string responseContent)
-        {
-            return SerializeUtil.Deserialize<T>(responseContent);
         }
     }
 }

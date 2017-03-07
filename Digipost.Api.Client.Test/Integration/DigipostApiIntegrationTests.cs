@@ -41,12 +41,7 @@ namespace Digipost.Api.Client.Test.Integration
             var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
             return authenticationHandler;
         }
-
-        internal static void SetMockFactoryForDigipostApi(DigipostApi dpApi, Mock<DigipostActionFactory> mockFacktory)
-        {
-            dpApi.DigipostActionFactory = mockFacktory.Object;
-        }
-
+        
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
             [Fact]
@@ -105,12 +100,11 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var fakehandler = fakeResponseHandler;
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-
                 var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
 
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
-
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFacktory.Object};
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+                
                 digipostApi.SendMessage(message);
             }
 
@@ -158,8 +152,8 @@ namespace Digipost.Api.Client.Test.Integration
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
                 var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFactory);
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 digipostApi.Identify(identification);
             }
@@ -185,18 +179,16 @@ namespace Digipost.Api.Client.Test.Integration
             [Fact]
             public void ProperRequestSent()
             {
-                var searchString = "jarand";
+                const string searchString = "jarand";
 
                 var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFactory = CreateMockFactoryReturningSearch(fakeHandlerChain);
 
-                var mockFacktory = CreateMockFactoryReturningSearch(fakeHandlerChain);
-
-                var digipostApi = new DigipostApi(ClientConfig, Certificate);
-                SetMockFactoryForDigipostApi(digipostApi, mockFacktory);
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 var result = digipostApi.Search(searchString);
-
                 Assert.NotNull(result);
             }
 

@@ -4,7 +4,7 @@ using Digipost.Api.Client.Domain.Enums;
 
 namespace Digipost.Api.Client.Domain.Mailbox
 {
-    internal class InboxDocument
+    public class InboxDocument
     {
         public long Id { get; set; }
 

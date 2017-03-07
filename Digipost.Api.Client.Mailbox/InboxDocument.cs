@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Domain.Mailbox
 
         public DateTime DeliveryTime { get; set; }
 
-        public DateTime FirstAccessed { get; set; }
+        public DateTime? FirstAccessed { get; set; }
 
         public AuthenticationLevel AuthenticationLevel { get; set; }
 
@@ -24,6 +24,6 @@ namespace Digipost.Api.Client.Domain.Mailbox
 
         public Uri Delete { get; set; }
 
-        public IEnumerable<InboxDocument> Attachments { get; set; }
+        public IEnumerable<InboxDocument> Attachments { get; set; } = new List<InboxDocument>();
     }
 }

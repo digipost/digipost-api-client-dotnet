@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Action;
+using Digipost.Api.Client.Common.Actions;
 using Xunit;
 
 namespace Digipost.Api.Client.Test.Action

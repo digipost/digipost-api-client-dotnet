@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Common.Logging;
 
-namespace Digipost.Api.Client.Handlers
+namespace Digipost.Api.Client.Common.Handlers
 {
     internal class LoggingHandler : DelegatingHandler
     {

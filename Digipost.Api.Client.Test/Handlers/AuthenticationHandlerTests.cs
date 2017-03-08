@@ -25,7 +25,7 @@ namespace Digipost.Api.Client.Test.Handlers
                 var dateTime = new DateTime(2014, 07, 07, 12, 00, 02).ToString("R");
 
                 //Act
-                var computedSignature = AuthenticationHandler.ComputeSignature(method, uri, dateTime, sha256Hash,
+                var computedSignature = AuthenticationHandler.ComputeSignature(method, new Uri(uri, UriKind.Relative), dateTime, sha256Hash,
                     senderId,
                     certificate,
                     false);

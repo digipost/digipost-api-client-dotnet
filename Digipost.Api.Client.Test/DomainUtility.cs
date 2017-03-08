@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Content;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Test
 {

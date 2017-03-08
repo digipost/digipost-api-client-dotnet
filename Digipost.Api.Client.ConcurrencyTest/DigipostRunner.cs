@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;

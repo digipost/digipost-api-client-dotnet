@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
 
-namespace Digipost.Api.Client.Action
+namespace Digipost.Api.Client.Common.Actions
 {
     internal interface IDigipostActionFactory
     {

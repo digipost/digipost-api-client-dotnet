@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Common
 {
     internal class SerializeUtil
     {

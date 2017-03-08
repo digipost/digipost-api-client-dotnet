@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Identify;

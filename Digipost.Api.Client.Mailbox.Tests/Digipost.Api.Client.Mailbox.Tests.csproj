@@ -77,7 +77,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DataTransferObjectConverterTests.cs" />
+    <Compile Include="Smoke\MailboxSmokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Smoke\MailboxSmokeTestsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -87,6 +89,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
+      <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
+      <Name>Digipost.Api.Client.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
       <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
@@ -102,6 +108,10 @@
     <ProjectReference Include="..\Digipost.Api.Client.Test\Digipost.Api.Client.Test.csproj">
       <Project>{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}</Project>
       <Name>Digipost.Api.Client.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
+      <Project>{309fbb5e-248f-42ec-81cc-4d4f4578cbfd}</Project>
+      <Name>Digipost.Api.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

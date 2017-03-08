@@ -1,16 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
-using Digipost.Api.Client.Action;
+using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Utilities;
-using Digipost.Api.Client.XmlValidation;
 
-namespace Digipost.Api.Client.Api
+namespace Digipost.Api.Client.Common
 {
     public class RequestHelper
     {
@@ -66,6 +66,16 @@ namespace Digipost.Api.Client.Api
                 }
             }
             return HandleSuccessResponse<T>(responseContent);
+        }
+
+        internal async Task<Stream> GetStream(Uri uri)
+        {
+            var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
+            var responseTask = action.GetAsync();
+
+            var documentStream = await (await responseTask.ConfigureAwait(false)).Content.ReadAsStreamAsync();
+
+            return documentStream;
         }
 
         internal static void ValidateXml(XmlDocument document)

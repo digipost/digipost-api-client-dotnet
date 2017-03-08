@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client
+﻿namespace Digipost.Api.Client.Common
 {
     /// <summary>
     ///     Contains configuration for sending digital post.
@@ -21,7 +21,7 @@
         /// <summary>
         ///     Defines the timeout for communication with Digipost API. Default is 30 seconds.
         /// </summary>
-        public int TimeoutMilliseconds { get; set; } = 30000;
+        public int TimeoutMilliseconds { get; set; } = 30000000;
 
         /// <summary>
         ///     The identification of the technical sender of messages to Digipost. This value is obtained during registration of

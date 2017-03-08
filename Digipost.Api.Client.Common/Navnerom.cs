@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client
+﻿namespace Digipost.Api.Client.Common
 {
     internal class Navnerom
     {

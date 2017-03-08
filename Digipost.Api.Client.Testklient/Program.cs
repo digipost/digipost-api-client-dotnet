@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Common.Logging;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest;
 using Digipost.Api.Client.Domain.Enums;
 using Digipost.Api.Client.Domain.Exceptions;
@@ -9,6 +10,7 @@ using Digipost.Api.Client.Domain.Print;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Content;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Testklient
 {

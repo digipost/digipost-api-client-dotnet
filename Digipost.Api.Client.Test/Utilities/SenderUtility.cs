@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Test.Utilities
 {
@@ -17,13 +18,13 @@ namespace Digipost.Api.Client.Test.Utilities
                     return new Sender(
                         "497013",
                         digipostTestintegrasjonforDigitalPostThumbprint,
-                        Environment.Preprod
+                        Environment.DifiTest
                         );
                 case TestEnvironment.Qa:
                     return new Sender(
-                        "2121714811",
+                        "1010",
                         digipostTestintegrasjonforDigitalPostThumbprint,
-                        Environment.Production
+                        Environment.Qa
                         );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);

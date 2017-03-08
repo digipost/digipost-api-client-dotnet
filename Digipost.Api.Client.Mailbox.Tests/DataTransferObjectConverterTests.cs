@@ -13,6 +13,20 @@ namespace Digipost.Api.Client.Mailbox.Tests
         public class FromDataTransferObject : DataTransferObjectConverterTests
         {
             [Fact]
+            public void InboxWithEmptyListOnNullResult()
+            {
+                var source = new inbox();
+                var expected = new Inbox { Documents = new List<InboxDocument>()};
+
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                IEnumerable<IDifference> differences;
+                var comparator = new Comparator { ComparisonConfiguration = new ComparisonConfiguration { IgnoreObjectTypes = true } };
+                comparator.Equal(expected, actual, out differences);
+                Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
             public void InboxDocument()
             {
                 const string contentType = "txt";

@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Test
 {

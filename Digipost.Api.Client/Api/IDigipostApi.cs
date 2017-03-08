@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Digipost.Api.Client.Action;
+using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;

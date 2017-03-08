@@ -8,7 +8,7 @@ namespace Digipost.Api.Client.Domain.Mailbox
     {
         Task<Inbox> FetchInbox(int offset = 0, int limit = 100);
 
-        Stream FetchDocument(InboxDocument document);
+        Task<Stream> FetchDocument(InboxDocument document);
 
         Stream DeleteDocument(InboxDocument document);
     }

@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Handlers;
 
-namespace Digipost.Api.Client.Common
+namespace Digipost.Api.Client.Common.Actions
 {
     public abstract class DigipostAction
     {
@@ -32,7 +32,10 @@ namespace Digipost.Api.Client.Common
 
         private HttpClient GetHttpClient()
         {
-            var loggingHandler = new LoggingHandler(new HttpClientHandler(), ClientConfig);
+            var loggingHandler = new LoggingHandler(new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            }, ClientConfig);
             var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
                 loggingHandler);
 

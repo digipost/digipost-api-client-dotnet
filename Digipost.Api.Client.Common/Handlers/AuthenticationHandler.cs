@@ -56,7 +56,7 @@ namespace Digipost.Api.Client.Common.Handlers
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
 
-            var signature = ComputeSignature(Method, Url.OriginalString, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
+            var signature = ComputeSignature(Method, Url, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
@@ -81,10 +81,17 @@ namespace Digipost.Api.Client.Common.Handlers
             return Convert.ToBase64String(hashedBytes);
         }
 
-        internal static string ComputeSignature(string method, string uri, string date, string contentSha256Hash,
+        internal static string ComputeSignature(string method, Uri uri, string date, string contentSha256Hash,
             string userId, X509Certificate2 businessCertificate, bool logRequestAndResponse)
         {
-            const string parameters = "";
+            var uriParts = uri.OriginalString.Split('?');
+            var path = uriParts.ElementAt(0).ToLower();
+            var parameters = string.Empty;
+
+            if (uriParts.Length == 2)
+            {
+                parameters = uri.OriginalString.Split('?').ElementAt(1) ?? "";
+            }
 
             if (logRequestAndResponse)
             {
@@ -97,7 +104,7 @@ namespace Digipost.Api.Client.Common.Handlers
             if (contentSha256Hash != null)
             {
                 messageHeader = method.ToUpper() + "\n" +
-                                "/" + uri.ToLower() + "\n" +
+                                "/" + path + "\n" +
                                 "date: " + date + "\n" +
                                 "x-content-sha256: " + contentSha256Hash + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
@@ -106,7 +113,7 @@ namespace Digipost.Api.Client.Common.Handlers
             else
             {
                 messageHeader = method.ToUpper() + "\n" +
-                                "/" + uri.ToLower() + "\n" +
+                                "/" + path + "\n" +
                                 "date: " + date + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
                                 parameters + "\n";

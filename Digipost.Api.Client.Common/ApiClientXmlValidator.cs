@@ -1,7 +1,7 @@
 ﻿using Difi.Felles.Utility;
 using Digipost.Api.Client.Resources.Xsd;
 
-namespace Digipost.Api.Client.XmlValidation
+namespace Digipost.Api.Client.Common
 {
     internal class ApiClientXmlValidator : XmlValidator
     {

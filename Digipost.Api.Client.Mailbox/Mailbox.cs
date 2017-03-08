@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Api;
+using System.Web;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain.Mailbox;
 
 namespace Digipost.Api.Client.Mailbox
@@ -9,27 +10,31 @@ namespace Digipost.Api.Client.Mailbox
     public class Mailbox : IMailboxSpecification
     {
         private readonly RequestHelper _requestHelper;
+        private readonly string _inboxRoot;
 
         public Mailbox(string senderId, RequestHelper requestHelper)
         {
-            _requestHelper = requestHelper;
             SenderId = senderId;
+            _inboxRoot = $"{SenderId}/inbox";
+            _requestHelper = requestHelper;
         }
 
         public string SenderId { get; set; }
-
+    
         public async Task<Inbox> FetchInbox(int offset = 0, int limit = 100)
         {
-            var inboxPath = new Uri($"{SenderId}/inbox?offset={offset}&maxResults=100", UriKind.Relative);
-
-            var result =_requestHelper.GenericGetAsync<inbox>(inboxPath);
-
-            return DataTransferObjectConverter.FromDataTransferObject(await result);
+            var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
+            
+            var result = await _requestHelper.GenericGetAsync<inbox>(inboxPath).ConfigureAwait(false);
+            
+            return DataTransferObjectConverter.FromDataTransferObject(result);
         }
 
-        public Stream FetchDocument(InboxDocument document)
+        public async Task<Stream> FetchDocument(InboxDocument document)
         {
-            throw new NotImplementedException();
+            var documentDataUri = new Uri($"{_inboxRoot}/{document.Id}/content", UriKind.Relative);
+
+            return await _requestHelper.GetStream(documentDataUri);
         }
 
         public Stream DeleteDocument(InboxDocument document)

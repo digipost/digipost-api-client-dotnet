@@ -3,18 +3,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Action;
 using Digipost.Api.Client.Api;
+using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Handlers;
 using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Test.Fakes;
 using Moq;
 using Xunit;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Test.Integration
 {

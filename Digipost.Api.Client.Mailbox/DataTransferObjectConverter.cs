@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Digipost.Api.Client.Domain.Mailbox;
 using Digipost.Api.Client.Domain.Extensions;
+using Digipost.Api.Client.Domain.Mailbox;
 
 namespace Digipost.Api.Client.Mailbox
 {
@@ -11,7 +12,7 @@ namespace Digipost.Api.Client.Mailbox
         {
             return new Inbox
             {
-                Documents = inbox.document.Select(FromDataTransferObject)
+                Documents = inbox.document?.Select(FromDataTransferObject)?? new List<InboxDocument>()
             };
         }
 
@@ -19,7 +20,7 @@ namespace Digipost.Api.Client.Mailbox
         {
             return new InboxDocument
             {
-                Attachments = inboxdocument.attachment.Select(FromDataTransferObject),
+                Attachments = inboxdocument.attachment?.Select(FromDataTransferObject) ?? new List<InboxDocument>(),
                 AuthenticationLevel = inboxdocument.authenticationlevel.ToAuthenticationLevel(),
                 Content = new Uri(inboxdocument.contenturi),
                 ContentType = inboxdocument.contenttype,

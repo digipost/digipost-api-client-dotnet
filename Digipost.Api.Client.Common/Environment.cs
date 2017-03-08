@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Digipost.Api.Client
+namespace Digipost.Api.Client.Common
 {
     public class Environment
     {
@@ -21,7 +21,7 @@ namespace Digipost.Api.Client
         public static Environment DifiTest => new Environment(new Uri("https://api.difitest.digipost.no/"));
 
         public static Environment Qa => new Environment(new Uri("https://api.qa.digipost.no/"));
-        
+
         public override string ToString()
         {
             return $"Url: {Url}";

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;
 
-namespace Digipost.Api.Client.Action
+namespace Digipost.Api.Client.Common.Actions
 {
     public class DigipostActionFactory : IDigipostActionFactory
     {

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 
 namespace Digipost.Api.Client.ConcurrencyTest

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Mailbox;
+using Digipost.Api.Client.Domain.Mailbox;
 
-namespace Digipost.Api.Client.Domain.Mailbox
+namespace Digipost.Api.Client.Mailbox
 {
     interface IMailboxSpecification
     {
@@ -10,6 +10,6 @@ namespace Digipost.Api.Client.Domain.Mailbox
 
         Task<Stream> FetchDocument(InboxDocument document);
 
-        Stream DeleteDocument(InboxDocument document);
+        Task DeleteDocument(InboxDocument document);
     }
 }

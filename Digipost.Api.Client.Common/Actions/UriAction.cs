@@ -5,9 +5,9 @@ using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Common.Actions
 {
-    internal class GetByUriAction : DigipostAction
+    internal class UriAction : DigipostAction
     {
-        public GetByUriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
+        public UriAction(IRequestContent requestContent, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
             : base(requestContent, clientConfig, businessCertificate, uri)
         {
         }

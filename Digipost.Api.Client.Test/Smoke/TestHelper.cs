@@ -31,25 +31,9 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper(Sender sender)
         {
-            var actualSender = OverrideSenderIfOnBuildServer(sender);
-
-            _digipostClient = new DigipostClient(new ClientConfig(actualSender.Id, actualSender.Environment) {TimeoutMilliseconds = 900000000}, actualSender.Certificate);
+            _digipostClient = new DigipostClient(new ClientConfig(sender.Id, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
         }
-
-        private Sender OverrideSenderIfOnBuildServer(Sender sender)
-        {
-            const string buildServerUser = "administrator";
-            var currentUser = System.Environment.UserName.ToLower();
-            var isCurrentUserBuildServer = currentUser.Contains(buildServerUser);
-
-            if (isCurrentUserBuildServer)
-            {
-                return SenderUtility.GetSender(TestEnvironment.DifiTest);
-            }
-
-            return sender;
-        }
-
+        
         public TestHelper Create_message_with_primary_document()
         {
             _primary = DomainUtility.GetDocument();
@@ -75,7 +59,7 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             Assert_state(_primary);
 
-            _recipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "04036125433");
+            _recipient = new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VTGM");
 
             return this;
         }
@@ -110,7 +94,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper Create_identification_request()
         {
-            _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "04036125433"));
+            _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001"));
 
             return this;
         }

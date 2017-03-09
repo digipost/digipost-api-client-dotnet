@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain.Mailbox;
 
@@ -12,12 +11,14 @@ namespace Digipost.Api.Client.Mailbox
         private readonly RequestHelper _requestHelper;
         private readonly string _inboxRoot;
 
-        public Mailbox(string senderId, RequestHelper requestHelper)
+        internal Mailbox(string senderId, RequestHelper requestHelper)
         {
             SenderId = senderId;
             _inboxRoot = $"{SenderId}/inbox";
             _requestHelper = requestHelper;
         }
+
+        internal RequestHelper RequestHelper { get; set; }
 
         public string SenderId { get; set; }
     
@@ -25,7 +26,7 @@ namespace Digipost.Api.Client.Mailbox
         {
             var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
             
-            var result = await _requestHelper.GenericGetAsync<inbox>(inboxPath).ConfigureAwait(false);
+            var result = await _requestHelper.Get<inbox>(inboxPath).ConfigureAwait(false);
             
             return DataTransferObjectConverter.FromDataTransferObject(result);
         }
@@ -37,9 +38,9 @@ namespace Digipost.Api.Client.Mailbox
             return await _requestHelper.GetStream(documentDataUri);
         }
 
-        public Stream DeleteDocument(InboxDocument document)
+        public async Task DeleteDocument(InboxDocument document)
         {
-            throw new NotImplementedException();
+             await _requestHelper.Delete(document.Delete).ConfigureAwait(false);
         }
     }
 }

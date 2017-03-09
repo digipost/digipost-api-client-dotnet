@@ -18,7 +18,8 @@ namespace Digipost.Api.Client.Mailbox.Tests.Smoke
             _t
                 .Get_inbox()
                 .Expect_inbox_to_have_documents()
-                .Fetch_document_data();
+                .Fetch_document_data()
+                .Delete_document();
         }
     }
 }

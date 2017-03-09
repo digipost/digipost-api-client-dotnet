@@ -12,13 +12,13 @@ using Digipost.Api.Client.Domain.Utilities;
 
 namespace Digipost.Api.Client.Common
 {
-    public class RequestHelper
+    internal class RequestHelper
     {
         private readonly X509Certificate2 _businessCertificate;
         private readonly ClientConfig _clientConfig;
         private IDigipostActionFactory _digipostActionFactory;
 
-        public RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
+        internal RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _clientConfig = clientConfig;
             _businessCertificate = businessCertificate;
@@ -30,42 +30,30 @@ namespace Digipost.Api.Client.Common
             set { _digipostActionFactory = value; }
         }
 
-        internal Task<T> GenericPostAsync<T>(IRequestContent content, Uri uri)
+        internal Task<T> Post<T>(IRequestContent content, Uri uri)
         {
             var action = DigipostActionFactory.CreateClass(content, _clientConfig, _businessCertificate, uri);
 
             ValidateXml(action.RequestContent);
 
             var responseTask = action.PostAsync(content);
-            return GenericSendAsync<T>(responseTask);
+            return Send<T>(responseTask);
         }
 
-        internal Task<T> GenericGetAsync<T>(Uri uri)
+        internal Task<T> Get<T>(Uri uri)
         {
             var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
             var responseTask = action.GetAsync();
 
-            return GenericSendAsync<T>(responseTask);
+            return Send<T>(responseTask);
         }
 
-        public async Task<T> GenericSendAsync<T>(Task<HttpResponseMessage> responseTask)
+        internal Task<string> Delete(Uri uri)
         {
-            var responseTaskResult = await responseTask.ConfigureAwait(false);
+            var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
+            var responseTask = action.DeleteAsync();
 
-            var responseContent = await ReadResponse(responseTaskResult).ConfigureAwait(false);
-
-            if (!responseTaskResult.IsSuccessStatusCode)
-            {
-                var emptyResponse = string.IsNullOrEmpty(responseContent);
-
-                if (!emptyResponse)
-                    ThrowNotEmptyResponseError(responseContent);
-                else
-                {
-                    ThrowEmptyResponseError(responseTaskResult.StatusCode);
-                }
-            }
-            return HandleSuccessResponse<T>(responseContent);
+            return Send<string>(responseTask);
         }
 
         internal async Task<Stream> GetStream(Uri uri)
@@ -78,7 +66,27 @@ namespace Digipost.Api.Client.Common
             return documentStream;
         }
 
-        internal static void ValidateXml(XmlDocument document)
+        private static async Task<T> Send<T>(Task<HttpResponseMessage> responseTask)
+        {
+            var responseTaskResult = await responseTask.ConfigureAwait(false);
+
+            var responseContent = await ReadResponse(responseTaskResult).ConfigureAwait(false);
+
+            if (responseTaskResult.IsSuccessStatusCode)
+                return HandleSuccessResponse<T>(responseContent);
+
+            var emptyResponse = string.IsNullOrEmpty(responseContent);
+
+            if (!emptyResponse)
+                ThrowNotEmptyResponseError(responseContent);
+            else
+            {
+                ThrowEmptyResponseError(responseTaskResult.StatusCode);
+            }
+            return HandleSuccessResponse<T>(responseContent);
+        }
+
+        private static void ValidateXml(XmlDocument document)
         {
             if (document.InnerXml.Length == 0)
             {

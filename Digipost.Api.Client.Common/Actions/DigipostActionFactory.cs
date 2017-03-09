@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Common.Actions
         public virtual DigipostAction CreateClass(ClientConfig clientConfig, X509Certificate2 businessCertificate,
             Uri uri)
         {
-            return new GetByUriAction(null, clientConfig, businessCertificate, uri);
+            return new UriAction(null, clientConfig, businessCertificate, uri);
         }
     }
 }

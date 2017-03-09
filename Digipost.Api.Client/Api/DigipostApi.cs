@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = _requestHelper.GenericPostAsync<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = _requestHelper.Post<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && (messageDeliveryResultTask.Exception != null))
                 throw messageDeliveryResultTask.Exception.InnerException;
@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = _requestHelper.GenericPostAsync<identificationresult>(identification, uri);
+            var identifyResponse = _requestHelper.Post<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
@@ -126,7 +126,7 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResultDataTransferObject = await _requestHelper.GenericGetAsync<recipients>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await _requestHelper.Get<recipients>(uri).ConfigureAwait(false);
 
             var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
 

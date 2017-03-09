@@ -201,7 +201,7 @@ namespace Digipost.Api.Client.Test.Integration
                     f =>
                         f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
                             It.IsAny<Uri>()))
-                    .Returns(new GetByUriAction(null, ClientConfig, Certificate, Uri)
+                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
                     {
                         HttpClient =
                             new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}

@@ -57,6 +57,15 @@ namespace Digipost.Api.Client.Mailbox.Tests.Smoke
             return this;
         }
 
+        public MailboxSmokeTestsHelper Delete_document()
+        {
+            Assert_state(_inboxDocument);
+
+            var deleted = _mailbox.DeleteDocument(_inboxDocument);
+
+            return this;
+        }
+
         private static void Assert_state(object obj)
         {
             if (obj == null)

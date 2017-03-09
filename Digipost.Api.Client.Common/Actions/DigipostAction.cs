@@ -32,12 +32,12 @@ namespace Digipost.Api.Client.Common.Actions
 
         private HttpClient GetHttpClient()
         {
-            var loggingHandler = new LoggingHandler(new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-            }, ClientConfig);
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,
-                loggingHandler);
+            var loggingHandler = new LoggingHandler(
+                new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate}, 
+                ClientConfig
+            );
+
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,loggingHandler);
 
             var httpClient = new HttpClient(authenticationHandler)
             {
@@ -55,7 +55,12 @@ namespace Digipost.Api.Client.Common.Actions
 
         internal Task<HttpResponseMessage> GetAsync()
         {
-            return HttpClient.GetAsync(Uri.ToString());
+            return HttpClient.GetAsync(Uri);
+        }
+
+        internal Task<HttpResponseMessage> DeleteAsync()
+        {
+            return HttpClient.DeleteAsync(Uri.ToString());
         }
 
         protected abstract HttpContent Content(IRequestContent requestContent);

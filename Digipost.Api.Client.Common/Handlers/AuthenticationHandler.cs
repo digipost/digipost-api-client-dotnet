@@ -45,12 +45,12 @@ namespace Digipost.Api.Client.Common.Handlers
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", DigipostVersion.V7);
             request.Headers.Add("User-Agent", GetAssemblyVersion());
+            Method = request.Method.ToString();
 
             string contentHash = null;
 
             if (request.Content != null)
             {
-                Method = WebRequestMethods.Http.Post;
                 var contentBytes = await request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                 contentHash = ComputeHash(contentBytes);
                 request.Headers.Add("X-Content-SHA256", contentHash);
@@ -81,17 +81,25 @@ namespace Digipost.Api.Client.Common.Handlers
             return Convert.ToBase64String(hashedBytes);
         }
 
+        private class UriParts
+        {
+            public UriParts(Uri uri)
+            {
+                var datUri = uri.IsAbsoluteUri ? uri.AbsolutePath : "/"+ uri.OriginalString;
+                var uriParts = datUri.Split('?');
+                AbsoluteUri = uriParts.First().ToLower();
+                Parameters = uriParts.ElementAtOrDefault(1) ?? "";
+            }
+
+            public string AbsoluteUri { get; }
+
+            public string Parameters { get; }
+        }
+
         internal static string ComputeSignature(string method, Uri uri, string date, string contentSha256Hash,
             string userId, X509Certificate2 businessCertificate, bool logRequestAndResponse)
         {
-            var uriParts = uri.OriginalString.Split('?');
-            var path = uriParts.ElementAt(0).ToLower();
-            var parameters = string.Empty;
-
-            if (uriParts.Length == 2)
-            {
-                parameters = uri.OriginalString.Split('?').ElementAt(1) ?? "";
-            }
+            UriParts uriParts = new UriParts(uri);
 
             if (logRequestAndResponse)
             {
@@ -104,19 +112,19 @@ namespace Digipost.Api.Client.Common.Handlers
             if (contentSha256Hash != null)
             {
                 messageHeader = method.ToUpper() + "\n" +
-                                "/" + path + "\n" +
+                                uriParts.AbsoluteUri + "\n" +
                                 "date: " + date + "\n" +
                                 "x-content-sha256: " + contentSha256Hash + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
-                                parameters + "\n";
+                                uriParts.Parameters + "\n";
             }
             else
             {
                 messageHeader = method.ToUpper() + "\n" +
-                                "/" + path + "\n" +
+                                uriParts.AbsoluteUri + "\n" +
                                 "date: " + date + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
-                                parameters + "\n";
+                                uriParts.Parameters + "\n";
             }
 
             if (logRequestAndResponse)

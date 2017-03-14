@@ -6,8 +6,8 @@
     <ProjectGuid>{083830A0-28DD-4334-8DEE-161E2DFC3463}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.Mailbox.Tests</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.Mailbox.Tests</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.Inbox.Tests</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.Inbox.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -77,9 +77,9 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DataTransferObjectConverterTests.cs" />
-    <Compile Include="Smoke\MailboxSmokeTests.cs" />
+    <Compile Include="Smoke\InboxSmokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Smoke\MailboxSmokeTestsHelper.cs" />
+    <Compile Include="Smoke\InboxSmokeTestsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -97,9 +97,9 @@
       <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Mailbox\Digipost.Api.Client.Mailbox.csproj">
+    <ProjectReference Include="..\Digipost.Api.Client.Mailbox\Digipost.Api.Client.Inbox.csproj">
       <Project>{11e46c69-8cd6-412d-9d25-1562770660a9}</Project>
-      <Name>Digipost.Api.Client.Mailbox</Name>
+      <Name>Digipost.Api.Client.Inbox</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>

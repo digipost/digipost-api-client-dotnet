@@ -84,9 +84,9 @@
       <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
       <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Mailbox\Digipost.Api.Client.Mailbox.csproj">
+    <ProjectReference Include="..\Digipost.Api.Client.Mailbox\Digipost.Api.Client.Inbox.csproj">
       <Project>{11e46c69-8cd6-412d-9d25-1562770660a9}</Project>
-      <Name>Digipost.Api.Client.Mailbox</Name>
+      <Name>Digipost.Api.Client.Inbox</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>

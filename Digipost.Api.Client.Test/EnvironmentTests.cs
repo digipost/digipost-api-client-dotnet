@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.Test
         [Fact]
         public void Can_Change_Url()
         {
-            var env = Environment.Preprod;
+            var env = Environment.DifiTest;
             env.Url = new Uri("http://api.newenvironment.digipost.no");
         }
     }

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Mailbox;
 using Digipost.Api.Client.Test.CompareObjects;
 using Xunit;
 
-namespace Digipost.Api.Client.Mailbox.Tests
+namespace Digipost.Api.Client.Inbox.Tests
 {
     public class DataTransferObjectConverterTests
     {
@@ -16,7 +15,7 @@ namespace Digipost.Api.Client.Mailbox.Tests
             public void InboxWithEmptyListOnNullResult()
             {
                 var source = new inbox();
-                var expected = new Inbox { Documents = new List<InboxDocument>()};
+                var expected = new List<InboxDocument>();
 
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 

@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Common.Handlers
 
             if (Log.IsDebugEnabled && ClientConfig.LogRequestAndResponse && (httpContent != null))
             {
-                var data = httpContent.ReadAsStringAsync().ConfigureAwait(false);
+                var data = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
                 Log.Debug($"{logPrefix} {data}");
             }
         }

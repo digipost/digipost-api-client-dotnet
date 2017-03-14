@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client", "Digipost.Api.Client\Digipost.Api.Client.csproj", "{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}"
 EndProject
@@ -22,11 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		C:\Keys\signingkey.snk = C:\Keys\signingkey.snk
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Mailbox", "Digipost.Api.Client.Mailbox\Digipost.Api.Client.Mailbox.csproj", "{11E46C69-8CD6-412D-9D25-1562770660A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox", "Digipost.Api.Client.Mailbox\Digipost.Api.Client.Inbox.csproj", "{11E46C69-8CD6-412D-9D25-1562770660A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common", "Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj", "{BAA33E63-9CDF-4B8A-BA06-B107995585D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Mailbox.Tests", "Digipost.Api.Client.Mailbox.Tests\Digipost.Api.Client.Mailbox.Tests.csproj", "{083830A0-28DD-4334-8DEE-161E2DFC3463}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox.Tests", "Digipost.Api.Client.Mailbox.Tests\Digipost.Api.Client.Inbox.Tests.csproj", "{083830A0-28DD-4334-8DEE-161E2DFC3463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

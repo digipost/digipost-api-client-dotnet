@@ -1,3 +1,3 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("Digipost.Api.Client.Mailbox.Tests")]
+[assembly: AssemblyTitle("Digipost.Api.Client.Inbox.Tests")]

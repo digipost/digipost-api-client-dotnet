@@ -54,9 +54,9 @@ namespace Digipost.Api.Client
             return _api.SearchAsync(query);
         }
 
-        public Mailbox.Mailbox Mailbox(string senderId)
+        public Inbox.Inbox Inbox(string senderId)
         {
-            return new Mailbox.Mailbox(senderId, _requestHelper);
+            return new Inbox.Inbox(senderId, _requestHelper);
         }
     }
 }

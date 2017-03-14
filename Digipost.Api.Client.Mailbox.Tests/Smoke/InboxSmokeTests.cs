@@ -1,15 +1,15 @@
 ﻿using Digipost.Api.Client.Test.Utilities;
 using Xunit;
 
-namespace Digipost.Api.Client.Mailbox.Tests.Smoke
+namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
-    public class MailboxSmokeTests
+    public class InboxSmokeTests
     {
-        private MailboxSmokeTestsHelper _t;
+        private readonly InboxSmokeTestsHelper _t;
 
-        public MailboxSmokeTests()
+        public InboxSmokeTests()
         {
-            _t = new MailboxSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
+            _t = new InboxSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
         }
 
         [Fact]

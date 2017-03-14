@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Domain.Extensions;
-using Digipost.Api.Client.Domain.Mailbox;
 
-namespace Digipost.Api.Client.Mailbox
+namespace Digipost.Api.Client.Inbox
 {
     internal class DataTransferObjectConverter
     {
-        internal static Inbox FromDataTransferObject(inbox inbox)
+        internal static IEnumerable<InboxDocument> FromDataTransferObject(inbox inbox)
         {
-            return new Inbox
-            {
-                Documents = inbox.document?.Select(FromDataTransferObject)?? new List<InboxDocument>()
-            };
+            return inbox.document?.Select(FromDataTransferObject) ?? new List<InboxDocument>();
         }
 
         internal static InboxDocument FromDataTransferObject(inboxdocument inboxdocument)

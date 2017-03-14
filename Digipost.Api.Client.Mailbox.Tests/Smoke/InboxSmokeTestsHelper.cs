@@ -1,23 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Domain.Mailbox;
 using Digipost.Api.Client.Test.Utilities;
 using Xunit;
 
-namespace Digipost.Api.Client.Mailbox.Tests.Smoke
+namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
-    public class MailboxSmokeTestsHelper
+    public class InboxSmokeTestsHelper
     {
         private readonly string _senderId;
         private readonly DigipostClient _client;
 
         //Stepwise built state
+        private IEnumerable<InboxDocument> _inboxDocuments;
         private Inbox _inbox;
-        private Mailbox _mailbox;
         private InboxDocument _inboxDocument;
 
-        internal MailboxSmokeTestsHelper(Sender sender)
+        internal InboxSmokeTestsHelper(Sender sender)
         {
             _senderId = sender.Id;
             _client = new DigipostClient(
@@ -26,30 +26,30 @@ namespace Digipost.Api.Client.Mailbox.Tests.Smoke
             );
         }
 
-        public MailboxSmokeTestsHelper Get_inbox()
+        public InboxSmokeTestsHelper Get_inbox()
         {
-            _mailbox = _client.Mailbox(_senderId);
-            _inbox = _mailbox.FetchInbox().Result;
+            _inbox = _client.Inbox(_senderId);
+            _inboxDocuments = _inbox.FetchInbox().Result;
 
             return this;
         }
 
-        public MailboxSmokeTestsHelper Expect_inbox_to_have_documents()
+        public InboxSmokeTestsHelper Expect_inbox_to_have_documents()
         {
-            Assert_state(_inbox);
+            Assert_state(_inboxDocuments);
 
-            Assert.True(_inbox.Documents.Any());
+            Assert.True(_inboxDocuments.Any());
 
-            _inboxDocument = _inbox.Documents.First();
+            _inboxDocument = _inboxDocuments.First();
 
             return this;
         }
 
-        public MailboxSmokeTestsHelper Fetch_document_data()
+        public InboxSmokeTestsHelper Fetch_document_data()
         {
             Assert_state(_inboxDocument);
 
-            var documentStream = _mailbox.FetchDocument(_inboxDocument).Result;
+            var documentStream = _inbox.FetchDocument(_inboxDocument).Result;
 
             Assert.Equal(true, documentStream.CanRead);
             Assert.True(documentStream.Length > 500);
@@ -57,11 +57,11 @@ namespace Digipost.Api.Client.Mailbox.Tests.Smoke
             return this;
         }
 
-        public MailboxSmokeTestsHelper Delete_document()
+        public InboxSmokeTestsHelper Delete_document()
         {
             Assert_state(_inboxDocument);
 
-            var deleted = _mailbox.DeleteDocument(_inboxDocument);
+            var deleted = _inbox.DeleteDocument(_inboxDocument);
 
             return this;
         }

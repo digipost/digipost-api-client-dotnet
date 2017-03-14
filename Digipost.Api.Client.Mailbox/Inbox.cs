@@ -1,10 +1,46 @@
-﻿using System.Collections.Generic;
-using Digipost.Api.Client.Domain.Mailbox;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Digipost.Api.Client.Common;
 
-namespace Digipost.Api.Client.Mailbox
+namespace Digipost.Api.Client.Inbox
 {
-    public class Inbox
+    public class Inbox : IInbox
     {
-        public IEnumerable<InboxDocument> Documents { get; set; }
+        private readonly RequestHelper _requestHelper;
+        private readonly string _inboxRoot;
+
+        internal Inbox(string senderId, RequestHelper requestHelper)
+        {
+            SenderId = senderId;
+            _inboxRoot = $"{SenderId}/inbox";
+            _requestHelper = requestHelper;
+        }
+
+        internal RequestHelper RequestHelper { get; set; }
+
+        public string SenderId { get; set; }
+    
+        public async Task<IEnumerable<InboxDocument>> FetchInbox(int offset = 0, int limit = 100)
+        {
+            var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
+            
+            var result = await _requestHelper.Get<inbox>(inboxPath).ConfigureAwait(false);
+            
+            return DataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
+        public async Task<Stream> FetchDocument(InboxDocument document)
+        {
+            var documentDataUri = new Uri($"{_inboxRoot}/{document.Id}/content", UriKind.Relative);
+
+            return await _requestHelper.GetStream(documentDataUri);
+        }
+
+        public async Task DeleteDocument(InboxDocument document)
+        {
+             await _requestHelper.Delete(document.Delete).ConfigureAwait(false);
+        }
     }
 }

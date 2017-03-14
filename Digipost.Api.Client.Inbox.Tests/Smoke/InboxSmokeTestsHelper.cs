@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Test.Utilities;
 using Xunit;
@@ -21,15 +22,15 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         {
             _senderId = sender.Id;
             _client = new DigipostClient(
-                new ClientConfig(sender.Id, sender.Environment), 
+                new ClientConfig(sender.Id, sender.Environment),
                 sender.Certificate
             );
         }
 
         public InboxSmokeTestsHelper Get_inbox()
         {
-            _inbox = _client.Inbox(_senderId);
-            _inboxDocuments = _inbox.FetchInbox().Result;
+            _inbox = _client.Inbox;
+            _inboxDocuments = _inbox.Fetch().Result;
 
             return this;
         }
@@ -73,7 +74,5 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
                 throw new InvalidOperationException("Requires gradually built state. Make sure you use functions in the correct order.");
             }
         }
-
-
     }
 }

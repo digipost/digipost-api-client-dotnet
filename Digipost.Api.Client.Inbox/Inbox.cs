@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Inbox
 
         public string SenderId { get; set; }
     
-        public async Task<IEnumerable<InboxDocument>> FetchInbox(int offset = 0, int limit = 100)
+        public async Task<IEnumerable<InboxDocument>> Fetch(int offset = 0, int limit = 100)
         {
             var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
             

@@ -11,10 +11,12 @@ namespace Digipost.Api.Client
     public class DigipostClient
     {
         private readonly DigipostApi _api;
+        private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
+            _clientConfig = clientConfig;
             _requestHelper = new RequestHelper(clientConfig, businessCertificate);
             _api = new DigipostApi(clientConfig, businessCertificate, _requestHelper);
         }
@@ -23,6 +25,8 @@ namespace Digipost.Api.Client
         {
             _api = new DigipostApi(clientConfig, thumbprint);
         }
+
+        public Inbox.Inbox Inbox => new Inbox.Inbox(_clientConfig.SenderId, _requestHelper);
 
         public IIdentificationResult Identify(IIdentification identification)
         {
@@ -52,11 +56,6 @@ namespace Digipost.Api.Client
         public Task<ISearchDetailsResult> SearchAsync(string query)
         {
             return _api.SearchAsync(query);
-        }
-
-        public Inbox.Inbox Inbox(string senderId)
-        {
-            return new Inbox.Inbox(senderId, _requestHelper);
         }
     }
 }

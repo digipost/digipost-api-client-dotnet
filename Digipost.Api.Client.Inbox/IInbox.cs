@@ -6,7 +6,7 @@ namespace Digipost.Api.Client.Inbox
 {
     internal interface IInbox
     {
-        Task<IEnumerable<InboxDocument>> FetchInbox(int offset = 0, int limit = 100);
+        Task<IEnumerable<InboxDocument>> Fetch(int offset = 0, int limit = 100);
 
         Task<Stream> FetchDocument(InboxDocument document);
 

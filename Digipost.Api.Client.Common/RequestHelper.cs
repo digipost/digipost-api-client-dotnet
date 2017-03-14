@@ -94,7 +94,8 @@ namespace Digipost.Api.Client.Common
             }
 
             var xmlValidator = new ApiClientXmlValidator();
-            var isValidXml = xmlValidator.Validate(document.InnerXml, out string validationMessages);
+            string validationMessages;
+            var isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
 
             if (!isValidXml)
             {

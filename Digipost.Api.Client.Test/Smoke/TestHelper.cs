@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
@@ -117,7 +118,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper Create_search_request()
         {
-            _searchResult = _digipostClient.Search("Jarand");
+            _searchResult = _digipostClient.Search("Børre");
 
             return this;
         }

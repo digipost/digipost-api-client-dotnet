@@ -35,8 +35,7 @@ namespace Digipost.Api.Client.Common.Handlers
 
         private string Method { get; set; }
 
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var date = DateTime.UtcNow.ToString("R");
             var senderId = ClientConfig.SenderId;

@@ -105,9 +105,9 @@
       <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
       <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Test\Digipost.Api.Client.Test.csproj">
+    <ProjectReference Include="..\Digipost.Api.Client.Test\Digipost.Api.Client.Tests.csproj">
       <Project>{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}</Project>
-      <Name>Digipost.Api.Client.Test</Name>
+      <Name>Digipost.Api.Client.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309fbb5e-248f-42ec-81cc-4d4f4578cbfd}</Project>

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Concurr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Domain", "Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj", "{6622E975-31E3-45DB-8156-FB593FC872F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Test", "Digipost.Api.Client.Test\Digipost.Api.Client.Test.csproj", "{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Tests", "Digipost.Api.Client.Test\Digipost.Api.Client.Tests.csproj", "{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Testklient", "Digipost.Api.Client.Testklient\Digipost.Api.Client.Testklient.csproj", "{613AAD5C-1505-4548-9883-93A058630FB0}"
 EndProject

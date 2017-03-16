@@ -26,7 +26,10 @@ namespace Digipost.Api.Client
             _api = new DigipostApi(clientConfig, thumbprint);
         }
 
-        public Inbox.Inbox Inbox => new Inbox.Inbox(_clientConfig.SenderId, _requestHelper);
+        public Inbox.Inbox GetInbox(string senderId)
+        {
+            return new Inbox.Inbox(_clientConfig.SenderId, _requestHelper);
+        }
 
         public IIdentificationResult Identify(IIdentification identification)
         {

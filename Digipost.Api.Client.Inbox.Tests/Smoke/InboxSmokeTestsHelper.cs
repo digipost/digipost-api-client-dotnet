@@ -10,21 +10,23 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
     public class InboxSmokeTestsHelper
     {
         private readonly DigipostClient _client;
+        private readonly string _senderId;
         private Inbox _inbox;
         private InboxDocument _inboxDocument;
         private IEnumerable<InboxDocument> _inboxDocuments;
 
         internal InboxSmokeTestsHelper(Sender sender)
         {
+            _senderId = sender.Id;
             _client = new DigipostClient(
-                new ClientConfig(sender.Id, sender.Environment),
+                new ClientConfig(_senderId, sender.Environment),
                 sender.Certificate
             );
         }
 
         public InboxSmokeTestsHelper Get_inbox()
         {
-            _inbox = _client.Inbox;
+            _inbox = _client.GetInbox(_senderId);
             _inboxDocuments = _inbox.Fetch().Result;
 
             return this;
@@ -57,7 +59,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         {
             Assert_state(_inboxDocument);
 
-            _inbox.DeleteDocument(_inboxDocument).RunSynchronously();
+            _inbox.DeleteDocument(_inboxDocument).Wait();
 
             return this;
         }

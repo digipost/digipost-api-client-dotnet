@@ -14,6 +14,7 @@ namespace Digipost.Api.Client.Test.Smoke
 {
     internal class TestHelper
     {
+        private readonly Sender _sender;
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
 
@@ -31,6 +32,7 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper(Sender sender)
         {
+            _sender = sender;
             _digipostClient = new DigipostClient(new ClientConfig(sender.Id, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
         }
 
@@ -58,7 +60,7 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             Assert_state(_primary);
 
-            _recipient = new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VTGM");
+            _recipient = _sender.Recipient;
 
             return this;
         }

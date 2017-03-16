@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Inbox
         {
             var documentDataUri = new Uri($"{_inboxRoot}/{document.Id}/content", UriKind.Relative);
 
-            return await _requestHelper.GetStream(documentDataUri);
+            return await _requestHelper.GetStream(documentDataUri).ConfigureAwait(false);
         }
 
         public async Task DeleteDocument(InboxDocument document)

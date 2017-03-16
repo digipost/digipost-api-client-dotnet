@@ -1,6 +1,6 @@
 ﻿namespace Digipost.Api.Client.Common
 {
-    internal class Navnerom
+    internal class Namespace
     {
         /// <summary>
         ///     http://api.digipost.no/schema/v7

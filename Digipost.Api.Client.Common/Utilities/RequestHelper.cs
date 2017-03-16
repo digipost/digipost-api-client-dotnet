@@ -10,7 +10,7 @@ using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Utilities;
 
-namespace Digipost.Api.Client.Common
+namespace Digipost.Api.Client.Common.Utilities
 {
     internal class RequestHelper
     {

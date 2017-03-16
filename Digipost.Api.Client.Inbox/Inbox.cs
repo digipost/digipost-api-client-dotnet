@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Inbox
 {

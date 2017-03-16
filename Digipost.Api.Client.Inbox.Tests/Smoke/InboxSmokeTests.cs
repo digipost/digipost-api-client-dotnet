@@ -5,12 +5,12 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
     public class InboxSmokeTests
     {
-        private readonly InboxSmokeTestsHelper _t;
-
         public InboxSmokeTests()
         {
             _t = new InboxSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
         }
+
+        private readonly InboxSmokeTestsHelper _t;
 
         [Fact]
         public void Get_inbox_and_read_document()

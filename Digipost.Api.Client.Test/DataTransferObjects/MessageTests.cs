@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
-                    );
+                );
 
                 //Act
 
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
-                    );
+                );
 
                 //Act
 
@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
-                    ) {DeliveryTime = DateTime.Today};
+                ) {DeliveryTime = DateTime.Today};
 
                 //Act
 

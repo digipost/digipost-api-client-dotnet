@@ -149,7 +149,7 @@ namespace Digipost.Api.Client.Testklient
                     new PrintRecipient("Kristian Sæther Enge", new NorwegianAddress("0460", "Oslo", "Colletts gate 68")),
                     new PrintReturnRecipient("Kristian Sæther Enge",
                         new NorwegianAddress("0460", "Oslo", "Colletts gate 68"))
-                    );
+                );
 
             //message
             var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);

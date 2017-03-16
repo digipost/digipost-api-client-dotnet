@@ -8,8 +8,8 @@ namespace Digipost.Api.Client.Inbox
 {
     public class Inbox : IInbox
     {
-        private readonly RequestHelper _requestHelper;
         private readonly string _inboxRoot;
+        private readonly RequestHelper _requestHelper;
 
         internal Inbox(string senderId, RequestHelper requestHelper)
         {
@@ -21,13 +21,13 @@ namespace Digipost.Api.Client.Inbox
         internal RequestHelper RequestHelper { get; set; }
 
         public string SenderId { get; set; }
-    
+
         public async Task<IEnumerable<InboxDocument>> Fetch(int offset = 0, int limit = 100)
         {
             var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
-            
+
             var result = await _requestHelper.Get<inbox>(inboxPath).ConfigureAwait(false);
-            
+
             return DataTransferObjectConverter.FromDataTransferObject(result);
         }
 
@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Inbox
 
         public async Task DeleteDocument(InboxDocument document)
         {
-             await _requestHelper.Delete(document.Delete).ConfigureAwait(false);
+            await _requestHelper.Delete(document.Delete).ConfigureAwait(false);
         }
     }
 }

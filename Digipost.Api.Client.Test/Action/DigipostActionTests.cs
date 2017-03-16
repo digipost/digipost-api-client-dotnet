@@ -16,24 +16,6 @@ namespace Digipost.Api.Client.Test.Action
         public class RequestContentBody
         {
             [Fact]
-            public void ReturnsCorrectDataForMessage()
-            {
-                //Arrange
-                var clientConfig = new ClientConfig("123", Environment.Production);
-                var certificate = CertificateResource.Certificate();
-                var uri = new Uri("http://fakeuri.no");
-                var message = DomainUtility.GetSimpleMessageWithRecipientById();
-
-                //Act
-                var action = new MessageAction(message, clientConfig, certificate, uri);
-                var content = action.RequestContent;
-
-                //Assert
-                var expected = SerializeUtil.Serialize(DataTransferObjectConverter.ToDataTransferObject(message));
-                Assert.Equal(expected, content.InnerXml);
-            }
-
-            [Fact]
             public void ReturnsCorrectDataForIdentification()
             {
                 //Arrange
@@ -49,6 +31,24 @@ namespace Digipost.Api.Client.Test.Action
                 //Assert
                 var identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
                 var expected = SerializeUtil.Serialize(identificationDto);
+                Assert.Equal(expected, content.InnerXml);
+            }
+
+            [Fact]
+            public void ReturnsCorrectDataForMessage()
+            {
+                //Arrange
+                var clientConfig = new ClientConfig("123", Environment.Production);
+                var certificate = CertificateResource.Certificate();
+                var uri = new Uri("http://fakeuri.no");
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
+
+                //Act
+                var action = new MessageAction(message, clientConfig, certificate, uri);
+                var content = action.RequestContent;
+
+                //Assert
+                var expected = SerializeUtil.Serialize(DataTransferObjectConverter.ToDataTransferObject(message));
                 Assert.Equal(expected, content.InnerXml);
             }
         }

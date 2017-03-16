@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Domain;
@@ -34,11 +33,10 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             _digipostClient = new DigipostClient(new ClientConfig(sender.Id, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
         }
-        
+
         public TestHelper Create_message_with_primary_document()
         {
             _primary = DomainUtility.GetDocument();
-
             return this;
         }
 
@@ -72,7 +70,8 @@ namespace Digipost.Api.Client.Test.Smoke
             _messageDeliveryResult = _digipostClient.SendMessage(
                 new Message(_recipient, _primary)
                 {
-                    Attachments = _attachments
+                    Attachments = _attachments,
+                    //SenderId = "1010"
                 });
 
             return this;

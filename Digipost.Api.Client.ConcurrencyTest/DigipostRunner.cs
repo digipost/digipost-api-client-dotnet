@@ -100,7 +100,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         protected void DisplayTestResults()
         {
-            var performanceAllWork = _successfulCalls/(Stopwatch.ElapsedMilliseconds/1000d);
+            var performanceAllWork = _successfulCalls / (Stopwatch.ElapsedMilliseconds / 1000d);
 
             Console.WriteLine();
             Console.WriteLine(

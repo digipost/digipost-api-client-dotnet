@@ -80,25 +80,10 @@ namespace Digipost.Api.Client.Common.Handlers
             return Convert.ToBase64String(hashedBytes);
         }
 
-        private class UriParts
-        {
-            public UriParts(Uri uri)
-            {
-                var datUri = uri.IsAbsoluteUri ? uri.AbsolutePath : "/"+ uri.OriginalString;
-                var uriParts = datUri.Split('?');
-                AbsoluteUri = uriParts.First().ToLower();
-                Parameters = uriParts.ElementAtOrDefault(1) ?? "";
-            }
-
-            public string AbsoluteUri { get; }
-
-            public string Parameters { get; }
-        }
-
         internal static string ComputeSignature(string method, Uri uri, string date, string contentSha256Hash,
             string userId, X509Certificate2 businessCertificate, bool logRequestAndResponse)
         {
-            UriParts uriParts = new UriParts(uri);
+            var uriParts = new UriParts(uri);
 
             if (logRequestAndResponse)
             {
@@ -159,6 +144,21 @@ namespace Digipost.Api.Client.Common.Handlers
                     "Exception while exporting CspBlob. Check if certificate is exportable.");
             }
             return rsa2;
+        }
+
+        private class UriParts
+        {
+            public UriParts(Uri uri)
+            {
+                var datUri = uri.IsAbsoluteUri ? uri.AbsolutePath : "/" + uri.OriginalString;
+                var uriParts = datUri.Split('?');
+                AbsoluteUri = uriParts.First().ToLower();
+                Parameters = uriParts.ElementAtOrDefault(1) ?? "";
+            }
+
+            public string AbsoluteUri { get; }
+
+            public string Parameters { get; }
         }
     }
 }

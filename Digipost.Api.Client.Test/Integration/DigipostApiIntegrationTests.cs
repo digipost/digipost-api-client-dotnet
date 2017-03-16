@@ -43,22 +43,33 @@ namespace Digipost.Api.Client.Test.Integration
             var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
             return authenticationHandler;
         }
-        
+
         public class SendMessageMethod : DigipostApiIntegrationTests
         {
-            [Fact]
-            public void ProperRequestSentRecipientById()
+            private void SendMessage(IMessage message, FakeResponseHandler fakeResponseHandler)
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientById();
-                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
+                var fakehandler = fakeResponseHandler;
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
+
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFacktory.Object};
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+
+                digipostApi.SendMessage(message);
             }
 
-            [Fact]
-            public void ProperRequestSentRecipientByNameAndAddress()
+            private Mock<DigipostActionFactory> CreateMockFactoryReturningMessage(IMessage message, AuthenticationHandler authenticationHandler)
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
-
-                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
+                var mockFacktory = new Mock<DigipostActionFactory>();
+                mockFacktory.Setup(
+                        f =>
+                            f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<Uri>()))
+                    .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
+                    {
+                        HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
+                    });
+                return mockFacktory;
             }
 
             [Fact]
@@ -75,8 +86,23 @@ namespace Digipost.Api.Client.Test.Integration
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
-                    Assert.True(ex.GetType() == typeof (ClientResponseException));
+                    Assert.True(ex.GetType() == typeof(ClientResponseException));
                 }
+            }
+
+            [Fact]
+            public void ProperRequestSentRecipientById()
+            {
+                var message = DomainUtility.GetSimpleMessageWithRecipientById();
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
+            }
+
+            [Fact]
+            public void ProperRequestSentRecipientByNameAndAddress()
+            {
+                var message = DomainUtility.GetSimpleMessageWithRecipientByNameAndAddress();
+
+                SendMessage(message, new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.SendMessage.GetMessageDelivery()});
             }
 
             [Fact]
@@ -94,39 +120,40 @@ namespace Digipost.Api.Client.Test.Integration
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
 
-                    Assert.True(ex.GetType() == typeof (ClientResponseException));
+                    Assert.True(ex.GetType() == typeof(ClientResponseException));
                 }
-            }
-
-            private void SendMessage(IMessage message, FakeResponseHandler fakeResponseHandler)
-            {
-                var fakehandler = fakeResponseHandler;
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
-
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFacktory.Object};
-                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
-                
-                digipostApi.SendMessage(message);
-            }
-
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningMessage(IMessage message, AuthenticationHandler authenticationHandler)
-            {
-                var mockFacktory = new Mock<DigipostActionFactory>();
-                mockFacktory.Setup(
-                    f =>
-                        f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<Uri>()))
-                    .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFacktory;
             }
         }
 
         public class SendIdentifyMethod : DigipostApiIntegrationTests
         {
+            private void Identify(IIdentification identification)
+            {
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
+
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+
+                digipostApi.Identify(identification);
+            }
+
+            private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification, AuthenticationHandler authenticationHandler)
+            {
+                var mockFactory = new Mock<DigipostActionFactory>();
+                mockFactory.Setup(
+                        f =>
+                            f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<Uri>()))
+                    .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
+                    {
+                        HttpClient =
+                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
+                    });
+                return mockFactory;
+            }
+
             [Fact]
             public void ProperRequestSent()
             {
@@ -147,37 +174,25 @@ namespace Digipost.Api.Client.Test.Integration
                 var identification = DomainUtility.GetPersonalIdentificationByNameAndAddress();
                 Identify(identification);
             }
-
-            private void Identify(IIdentification identification)
-            {
-                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
-                var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
-
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
-                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
-
-                digipostApi.Identify(identification);
-            }
-
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification, AuthenticationHandler authenticationHandler)
-            {
-                var mockFactory = new Mock<DigipostActionFactory>();
-                mockFactory.Setup(
-                    f =>
-                        f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<Uri>()))
-                    .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient =
-                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFactory;
-            }
         }
 
         public class SearchMethod : DigipostApiIntegrationTests
         {
+            private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)
+            {
+                var mockFacktory = new Mock<DigipostActionFactory>();
+                mockFacktory.Setup(
+                        f =>
+                            f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<Uri>()))
+                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
+                    {
+                        HttpClient =
+                            new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}
+                    });
+                return mockFacktory;
+            }
+
             [Fact]
             public void ProperRequestSent()
             {
@@ -192,21 +207,6 @@ namespace Digipost.Api.Client.Test.Integration
 
                 var result = digipostApi.Search(searchString);
                 Assert.NotNull(result);
-            }
-
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)
-            {
-                var mockFacktory = new Mock<DigipostActionFactory>();
-                mockFacktory.Setup(
-                    f =>
-                        f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                            It.IsAny<Uri>()))
-                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient =
-                            new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFacktory;
             }
         }
     }

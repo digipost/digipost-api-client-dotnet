@@ -50,7 +50,7 @@ namespace Digipost.Api.Client.Api
         {
             var messageDelivery = SendMessageAsync(message);
 
-            if (messageDelivery.IsFaulted && (messageDelivery.Exception != null))
+            if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
                 throw messageDelivery.Exception.InnerException;
 
             return messageDelivery.Result;
@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Api
 
             var messageDeliveryResultTask = _requestHelper.Post<messagedelivery>(message, uri);
 
-            if (messageDeliveryResultTask.IsFaulted && (messageDeliveryResultTask.Exception != null))
+            if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception.InnerException;
 
             var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));

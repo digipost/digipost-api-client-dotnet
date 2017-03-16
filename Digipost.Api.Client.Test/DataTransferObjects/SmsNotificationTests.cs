@@ -14,25 +14,6 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
         public class ConstructorMethod : SmsNotificationTests
         {
             [Fact]
-            public void WithSendingTime()
-            {
-                //Arrange
-                var firstSmsNotification = DateTime.Today;
-                var secondSmsNotification = DateTime.Today.AddDays(1);
-                var expected = new List<DateTime> {firstSmsNotification, secondSmsNotification};
-                ISmsNotification smsNotification = new SmsNotification(expected.ToArray());
-
-                //Act
-                var actual = smsNotification.NotifyAtTimes;
-
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-
-                Assert.Equal(0, differences.Count());
-            }
-
-            [Fact]
             public void WithAfterHours()
             {
                 //Arrange
@@ -43,6 +24,25 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
 
                 //Act
                 var actual = smsNotification.NotifyAfterHours;
+
+                //Assert
+                IEnumerable<IDifference> differences;
+                _comparator.Equal(expected, actual, out differences);
+
+                Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void WithSendingTime()
+            {
+                //Arrange
+                var firstSmsNotification = DateTime.Today;
+                var secondSmsNotification = DateTime.Today.AddDays(1);
+                var expected = new List<DateTime> {firstSmsNotification, secondSmsNotification};
+                ISmsNotification smsNotification = new SmsNotification(expected.ToArray());
+
+                //Act
+                var actual = smsNotification.NotifyAtTimes;
 
                 //Assert
                 IEnumerable<IDifference> differences;

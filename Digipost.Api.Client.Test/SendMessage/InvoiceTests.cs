@@ -21,15 +21,38 @@ namespace Digipost.Api.Client.Test.SendMessage
             private readonly DateTime _duedate = DateTime.Now;
             private readonly ISmsNotification _smsNotification = new SmsNotification(1);
 
+            private static string CreateTempFile()
+            {
+                var tempFile = Path.GetTempFileName();
+                using (var fileStream = new FileStream(tempFile, FileMode.Append))
+                {
+                    using (var writer = new StreamWriter(fileStream))
+                    {
+                        writer.WriteLine("testulf testesen");
+                        writer.Flush();
+                        writer.Close();
+                    }
+                }
+                return tempFile;
+            }
+
+            private static byte[] BytesFromFileStream(Stream fileStream)
+            {
+                if (fileStream == null) return null;
+                var bytes = new byte[fileStream.Length];
+                fileStream.Read(bytes, 0, bytes.Length);
+                return bytes;
+            }
+
             [Fact]
-            public void ConstuctorStreamTest()
+            public void ConstructorBytesTest()
             {
                 //Arrange
-                var contentStream = new MemoryStream(ContentResource.Hoveddokument.Pdf());
+                var fileBytes = ContentResource.Hoveddokument.Pdf();
 
                 //Act
-                var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
-
+                var invoice = new Invoice(Subject, FileType, fileBytes, Amount, Account, _duedate, Kid,
+                    AuthenticationLevel, SensitivityLevel, _smsNotification);
                 //Assert
                 Assert.Equal(Subject, invoice.Subject);
                 Assert.Equal(FileType, invoice.FileType);
@@ -39,7 +62,8 @@ namespace Digipost.Api.Client.Test.SendMessage
                 Assert.Equal(Kid, invoice.Kid);
                 Assert.Equal(AuthenticationLevel, invoice.AuthenticationLevel);
                 Assert.Equal(_smsNotification, invoice.SmsNotification);
-                Assert.NotNull(invoice.ContentBytes);
+
+                Assert.Equal(fileBytes, invoice.ContentBytes);
             }
 
             [Fact]
@@ -65,14 +89,14 @@ namespace Digipost.Api.Client.Test.SendMessage
             }
 
             [Fact]
-            public void ConstructorBytesTest()
+            public void ConstuctorStreamTest()
             {
                 //Arrange
-                var fileBytes = ContentResource.Hoveddokument.Pdf();
+                var contentStream = new MemoryStream(ContentResource.Hoveddokument.Pdf());
 
                 //Act
-                var invoice = new Invoice(Subject, FileType, fileBytes, Amount, Account, _duedate, Kid,
-                    AuthenticationLevel, SensitivityLevel, _smsNotification);
+                var invoice = new Invoice(Subject, FileType, contentStream, Amount, Account, _duedate, Kid, AuthenticationLevel, SensitivityLevel, _smsNotification);
+
                 //Assert
                 Assert.Equal(Subject, invoice.Subject);
                 Assert.Equal(FileType, invoice.FileType);
@@ -82,31 +106,7 @@ namespace Digipost.Api.Client.Test.SendMessage
                 Assert.Equal(Kid, invoice.Kid);
                 Assert.Equal(AuthenticationLevel, invoice.AuthenticationLevel);
                 Assert.Equal(_smsNotification, invoice.SmsNotification);
-
-                Assert.Equal(fileBytes, invoice.ContentBytes);
-            }
-
-            private static string CreateTempFile()
-            {
-                var tempFile = Path.GetTempFileName();
-                using (var fileStream = new FileStream(tempFile, FileMode.Append))
-                {
-                    using (var writer = new StreamWriter(fileStream))
-                    {
-                        writer.WriteLine("testulf testesen");
-                        writer.Flush();
-                        writer.Close();
-                    }
-                }
-                return tempFile;
-            }
-
-            private static byte[] BytesFromFileStream(Stream fileStream)
-            {
-                if (fileStream == null) return null;
-                var bytes = new byte[fileStream.Length];
-                fileStream.Read(bytes, 0, bytes.Length);
-                return bytes;
+                Assert.NotNull(invoice.ContentBytes);
             }
         }
     }

@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.Common.Handlers
         {
             var logPrefix = isRequest ? "Outgoing" : "Incoming";
 
-            if (Log.IsDebugEnabled && ClientConfig.LogRequestAndResponse && (httpContent != null))
+            if (Log.IsDebugEnabled && ClientConfig.LogRequestAndResponse && httpContent != null)
             {
                 var data = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
                 Log.Debug($"{logPrefix} {data}");

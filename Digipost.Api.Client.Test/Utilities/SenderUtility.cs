@@ -19,13 +19,13 @@ namespace Digipost.Api.Client.Test.Utilities
                         "497013",
                         digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.DifiTest
-                        );
+                    );
                 case TestEnvironment.Qa:
                     return new Sender(
                         "1010",
                         digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.Qa
-                        );
+                    );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);
             }

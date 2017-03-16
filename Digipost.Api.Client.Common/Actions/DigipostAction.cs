@@ -33,11 +33,11 @@ namespace Digipost.Api.Client.Common.Actions
         private HttpClient GetHttpClient()
         {
             var loggingHandler = new LoggingHandler(
-                new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate}, 
+                new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate},
                 ClientConfig
             );
 
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri,loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri, loggingHandler);
 
             var httpClient = new HttpClient(authenticationHandler)
             {

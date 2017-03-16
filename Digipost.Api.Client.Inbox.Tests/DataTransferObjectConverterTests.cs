@@ -12,20 +12,6 @@ namespace Digipost.Api.Client.Inbox.Tests
         public class FromDataTransferObject : DataTransferObjectConverterTests
         {
             [Fact]
-            public void InboxWithEmptyListOnNullResult()
-            {
-                var source = new inbox();
-                var expected = new List<InboxDocument>();
-
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
-
-                IEnumerable<IDifference> differences;
-                var comparator = new Comparator { ComparisonConfiguration = new ComparisonConfiguration { IgnoreObjectTypes = true } };
-                comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
-            }
-
-            [Fact]
             public void InboxDocument()
             {
                 const string contentType = "txt";
@@ -61,6 +47,20 @@ namespace Digipost.Api.Client.Inbox.Tests
                     Id = id,
                     Sender = sender
                 };
+
+                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+
+                IEnumerable<IDifference> differences;
+                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
+                comparator.Equal(expected, actual, out differences);
+                Assert.Equal(0, differences.Count());
+            }
+
+            [Fact]
+            public void InboxWithEmptyListOnNullResult()
+            {
+                var source = new inbox();
+                var expected = new List<InboxDocument>();
 
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 

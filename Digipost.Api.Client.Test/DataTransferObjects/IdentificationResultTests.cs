@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void Successful_IdentificationResultType_sets_data_not_error()
             {
                 //Arrange
-                var actualEnumValues = Enum.GetValues(typeof (ItemsChoiceType)).Cast<ItemsChoiceType>().ToArray();
+                var actualEnumValues = Enum.GetValues(typeof(ItemsChoiceType)).Cast<ItemsChoiceType>().ToArray();
                 var expectedEnumValues = new[]
                 {
                     ItemsChoiceType.digipostaddress,
@@ -55,7 +55,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             [Fact]
             public void Handles_identificationresultcode()
             {
-                var actualidentificationresultcodes = Enum.GetValues(typeof (identificationresultcode)).Cast<identificationresultcode>().ToArray();
+                var actualidentificationresultcodes = Enum.GetValues(typeof(identificationresultcode)).Cast<identificationresultcode>().ToArray();
                 var expectedidentificationresultcodes = new[]
                 {
                     identificationresultcode.DIGIPOST,
@@ -88,7 +88,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             [Fact]
             public void Handles_invalidreason()
             {
-                var actualInvalidreasons = Enum.GetValues(typeof (invalidreason)).Cast<invalidreason>().ToArray();
+                var actualInvalidreasons = Enum.GetValues(typeof(invalidreason)).Cast<invalidreason>().ToArray();
                 var expectedInvalidreasons = new[]
                 {
                     invalidreason.INVALID_ORGANISATION_NUMBER,
@@ -115,7 +115,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             [Fact]
             public void Handles_unidentifiedreason()
             {
-                var actualUnidentifiedreasons = Enum.GetValues(typeof (unidentifiedreason)).Cast<unidentifiedreason>().ToArray();
+                var actualUnidentifiedreasons = Enum.GetValues(typeof(unidentifiedreason)).Cast<unidentifiedreason>().ToArray();
                 var expectedUnidentifiedreasons = new[]
                 {
                     unidentifiedreason.MULTIPLE_MATCHES,

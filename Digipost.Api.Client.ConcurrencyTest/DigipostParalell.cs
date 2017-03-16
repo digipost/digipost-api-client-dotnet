@@ -14,8 +14,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public DigipostParalell(int numberOfRequests, int defaultConnectionLimit, int degreeOfParallelism,
             ClientConfig clientConfig, string thumbprint)
-            :
-                base(clientConfig, thumbprint, numberOfRequests)
+            : base(clientConfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;
             _degreeOfParallelism = degreeOfParallelism;

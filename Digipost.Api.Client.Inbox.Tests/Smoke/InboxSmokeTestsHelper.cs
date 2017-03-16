@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Test.Utilities;
 using Xunit;
@@ -10,17 +9,13 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
     public class InboxSmokeTestsHelper
     {
-        private readonly string _senderId;
         private readonly DigipostClient _client;
-
-        //Stepwise built state
-        private IEnumerable<InboxDocument> _inboxDocuments;
         private Inbox _inbox;
         private InboxDocument _inboxDocument;
+        private IEnumerable<InboxDocument> _inboxDocuments;
 
         internal InboxSmokeTestsHelper(Sender sender)
         {
-            _senderId = sender.Id;
             _client = new DigipostClient(
                 new ClientConfig(sender.Id, sender.Environment),
                 sender.Certificate
@@ -62,7 +57,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         {
             Assert_state(_inboxDocument);
 
-            var deleted = _inbox.DeleteDocument(_inboxDocument);
+            _inbox.DeleteDocument(_inboxDocument).RunSynchronously();
 
             return this;
         }

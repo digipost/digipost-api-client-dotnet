@@ -22,7 +22,7 @@ namespace Digipost.Api.Client.Test
             var message = new Message(
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
                 GetDocument()
-                );
+            );
             return message;
         }
 
@@ -87,7 +87,7 @@ namespace Digipost.Api.Client.Test
             var message = new Message(
                 GetRecipientByNameAndAddress(),
                 GetDocument()
-                );
+            );
             return message;
         }
 
@@ -130,7 +130,7 @@ namespace Digipost.Api.Client.Test
                 postalCode: "0001",
                 city: "Oslo",
                 addressLine1: "Biskop Gunnerus Gate 14"
-                );
+            );
         }
 
         public static PrintDetails GetPrintDetails()

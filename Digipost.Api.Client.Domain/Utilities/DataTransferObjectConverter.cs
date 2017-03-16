@@ -258,7 +258,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             var addressType = printOrPrintReturnRecipient.Address.GetType();
 
-            if (typeof (INorwegianAddress).IsAssignableFrom(addressType))
+            if (typeof(INorwegianAddress).IsAssignableFrom(addressType))
             {
                 var address = printOrPrintReturnRecipient.Address as NorwegianAddress;
                 printRecipientDataTransferObject.Item = ToDataTransferObject(address);

@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <param name="authenticationLevel">Required authentication level of the document. Default password.</param>
         /// <param name="sensitivityLevel">Sensitivity level of the document. Default normal.</param>
         /// <param name="smsNotification">Optional notification to receiver of message via SMS. </param>
-        public Document(string subject, string fileType, string path, AuthenticationLevel authenticationLevel = AuthenticationLevel.Password,SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
+        public Document(string subject, string fileType, string path, AuthenticationLevel authenticationLevel = AuthenticationLevel.Password, SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null)
             : this(subject, fileType, new byte[] {}, authenticationLevel, sensitivityLevel, smsNotification)
         {
             ContentBytes = ReadAllBytes(path);

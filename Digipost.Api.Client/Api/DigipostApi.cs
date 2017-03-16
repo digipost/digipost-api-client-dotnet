@@ -8,6 +8,7 @@ using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.Search;
 using Digipost.Api.Client.Domain.SendMessage;

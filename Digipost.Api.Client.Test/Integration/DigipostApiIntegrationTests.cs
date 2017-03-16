@@ -7,6 +7,7 @@ using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Handlers;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Domain.Identify;
 using Digipost.Api.Client.Domain.SendMessage;

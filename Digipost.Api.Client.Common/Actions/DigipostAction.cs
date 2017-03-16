@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Common.Actions
                 ClientConfig
             );
 
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, Uri, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, BusinessCertificate, loggingHandler);
 
             var httpClient = new HttpClient(authenticationHandler)
             {

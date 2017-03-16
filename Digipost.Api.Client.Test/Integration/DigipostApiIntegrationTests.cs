@@ -41,7 +41,7 @@ namespace Digipost.Api.Client.Test.Integration
             FakeResponseHandler fakehandler)
         {
             var loggingHandler = new LoggingHandler(fakehandler, ClientConfig);
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, Uri, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, loggingHandler);
             return authenticationHandler;
         }
 

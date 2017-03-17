@@ -21,7 +21,7 @@
         /// <summary>
         ///     Defines the timeout for communication with Digipost API. Default is 30 seconds.
         /// </summary>
-        public int TimeoutMilliseconds { get; set; } = 30000000;
+        public int TimeoutMilliseconds { get; set; } = 30000;
 
         /// <summary>
         ///     The technical sender of messages to Digipost, known as the broker. This value is obtained during registration of

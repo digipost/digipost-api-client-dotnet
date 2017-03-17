@@ -210,5 +210,40 @@ namespace Digipost.Api.Client.Test.Integration
                 Assert.NotNull(result);
             }
         }
+
+        public class GetStreamMethod : DigipostApiIntegrationTests
+        {
+            private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)
+            {
+                var mockFacktory = new Mock<DigipostActionFactory>();
+                mockFacktory.Setup(
+                        f =>
+                            f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
+                                It.IsAny<Uri>()))
+                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
+                    {
+                        HttpClient =
+                            new HttpClient(fakeHandlerChain) { BaseAddress = new Uri("http://tull") }
+                    });
+                return mockFacktory;
+            }
+
+            [Fact]
+            public void ProperRequestSent() //Todo: Fix test when factory mocking is removed
+            {
+                const string searchString = "jarand";
+
+                var fakehandler = new FakeResponseHandler { ResultCode = HttpStatusCode.NotFound, HttpContent = XmlResource.Inbox.GetError()};
+                var fakeHandlerChain = CreateHandlerChain(fakehandler);
+                var mockFactory = CreateMockFactoryReturningSearch(fakeHandlerChain);
+
+                var requestHelper = new RequestHelper(ClientConfig, Certificate) { DigipostActionFactory = mockFactory.Object };
+                var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+
+                var result = digipostApi.Search(searchString);
+                Assert.NotNull(result);
+            }
+
+        }
     }
 }

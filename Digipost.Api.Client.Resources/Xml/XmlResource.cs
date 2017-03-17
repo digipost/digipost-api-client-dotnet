@@ -42,5 +42,13 @@ namespace Digipost.Api.Client.Resources.Xml
                 return GetResource("SearchResult.xml");
             }
         }
+
+        internal static class Inbox
+        {
+            public static StringContent GetError()
+            {
+                return GetResource("InboxDocumentNotExisting.xml");
+            }
+        }
     }
 }

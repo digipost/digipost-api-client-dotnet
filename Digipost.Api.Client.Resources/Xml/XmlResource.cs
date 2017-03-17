@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
 using ApiClientShared;
 
@@ -11,6 +14,12 @@ namespace Digipost.Api.Client.Resources.Xml
         private static StringContent GetResource(params string[] path)
         {
             var bytes = ResourceUtility.ReadAllBytes(true, path);
+
+            if (bytes == null)
+            {
+                throw new FileLoadException($"Unable to load file at { string.Join("/", path)}. Remember to add file as Resource. Open Properties on file in Solution Explorer (Alt + Enter), and set Build Action to Embedded resource.");
+            }
+
             return new StringContent(XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes)).OuterXml);
         }
 

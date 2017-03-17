@@ -8,12 +8,12 @@
         /// <summary>
         ///     Client configuration used for setting up the client with settings.
         /// </summary>
-        /// <param name="senderId">Defines the id of the sender. If you do not set it here, use App.config. </param>
+        /// <param name="brokerId">Defines the id of the sender. If you do not set it here, use App.config. </param>
         /// <param name="environment">Environment to connect to for sending.</param>
-        public ClientConfig(string senderId, Environment environment)
+        public ClientConfig(string brokerId, Environment environment)
         {
             Environment = environment;
-            SenderId = senderId;
+            BrokerId = brokerId;
         }
 
         public Environment Environment { get; set; }
@@ -24,10 +24,10 @@
         public int TimeoutMilliseconds { get; set; } = 30000000;
 
         /// <summary>
-        ///     The identification of the technical sender of messages to Digipost. This value is obtained during registration of
-        ///     sender.
+        ///     The technical sender of messages to Digipost, known as the broker. This value is obtained during registration of
+        ///     the broker. If the broker and the sender of the letter are the same organization, this is also the id of the sender.
         /// </summary>
-        public string SenderId { get; set; }
+        public string BrokerId { get; set; }
 
         /// <summary>
         ///     If set to true, all requests and responses are logged with log level DEBUG.

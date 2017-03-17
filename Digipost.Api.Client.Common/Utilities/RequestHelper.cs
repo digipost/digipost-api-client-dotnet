@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Common.Utilities
             var messageAction = new MessageAction(message);
             var httpContent = messageAction.Content(message);
 
-            return NewPost<T>(httpContent, messageAction.RequestContent, uri);
+            return Post<T>(httpContent, messageAction.RequestContent, uri);
         }
 
         internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
@@ -59,10 +59,10 @@ namespace Digipost.Api.Client.Common.Utilities
             var messageAction = new IdentificationAction(identification, _clientConfig, _businessCertificate);
             var httpContent = messageAction.Content(identification);
 
-            return NewPost<T>(httpContent, messageAction.RequestContent, uri);
+            return Post<T>(httpContent, messageAction.RequestContent, uri);
         }
 
-        internal Task<T> NewPost<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
+        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
         {
             ValidateXml(messageActionRequestContent);
 

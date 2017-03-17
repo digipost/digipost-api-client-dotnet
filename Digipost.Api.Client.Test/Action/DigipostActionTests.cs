@@ -26,7 +26,7 @@ namespace Digipost.Api.Client.Test.Action
                 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
 
                 //Act
-                var action = new IdentificationAction(identification, clientConfig, certificate, uri);
+                var action = new IdentificationAction(identification, clientConfig, certificate);
                 var content = action.RequestContent;
 
                 //Assert
@@ -39,13 +39,10 @@ namespace Digipost.Api.Client.Test.Action
             public void ReturnsCorrectDataForMessage()
             {
                 //Arrange
-                var clientConfig = new ClientConfig("123", Environment.Production);
-                var certificate = CertificateResource.Certificate();
-                var uri = new Uri("http://fakeuri.no");
                 var message = DomainUtility.GetSimpleMessageWithRecipientById();
 
                 //Act
-                var action = new MessageAction(message, clientConfig, certificate, uri);
+                var action = new MessageAction(message);
                 var content = action.RequestContent;
 
                 //Assert

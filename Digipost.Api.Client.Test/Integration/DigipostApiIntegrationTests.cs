@@ -51,26 +51,12 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var fakehandler = fakeResponseHandler;
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFacktory = CreateMockFactoryReturningMessage(message, fakeHandlerChain);
+                Mock<IDigipostActionFactory> mockFacktory = null; //CreateMockFactoryReturningMessage(message, fakeHandlerChain);
 
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFacktory.Object};
+                var requestHelper = new RequestHelper(ClientConfig, Certificate);
                 var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 digipostApi.SendMessage(message);
-            }
-
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningMessage(IMessage message, AuthenticationHandler authenticationHandler)
-            {
-                var mockFacktory = new Mock<DigipostActionFactory>();
-                mockFacktory.Setup(
-                        f =>
-                            f.CreateClass(message, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                                It.IsAny<Uri>()))
-                    .Returns(new MessageAction(message, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient = new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFacktory;
             }
 
             [Fact]
@@ -132,27 +118,12 @@ namespace Digipost.Api.Client.Test.Integration
             {
                 var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFactory = CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
+                Mock<IDigipostActionFactory> mockFactory = null; //CreateMockFactoryReturningIdentification(identification, fakeHandlerChain);
 
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
+                var requestHelper = new RequestHelper(ClientConfig, Certificate);
                 var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 digipostApi.Identify(identification);
-            }
-
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningIdentification(IIdentification identification, AuthenticationHandler authenticationHandler)
-            {
-                var mockFactory = new Mock<DigipostActionFactory>();
-                mockFactory.Setup(
-                        f =>
-                            f.CreateClass(identification, It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                                It.IsAny<Uri>()))
-                    .Returns(new IdentificationAction(identification, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient =
-                            new HttpClient(authenticationHandler) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFactory;
             }
 
             [Fact]
@@ -179,21 +150,6 @@ namespace Digipost.Api.Client.Test.Integration
 
         public class SearchMethod : DigipostApiIntegrationTests
         {
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)
-            {
-                var mockFacktory = new Mock<DigipostActionFactory>();
-                mockFacktory.Setup(
-                        f =>
-                            f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                                It.IsAny<Uri>()))
-                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient =
-                            new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://tull")}
-                    });
-                return mockFacktory;
-            }
-
             [Fact]
             public void ProperRequestSent()
             {
@@ -201,9 +157,9 @@ namespace Digipost.Api.Client.Test.Integration
 
                 var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFactory = CreateMockFactoryReturningSearch(fakeHandlerChain);
+                Mock<IDigipostActionFactory> mockFactory = null; //CreateMockFactoryReturningSearch(fakeHandlerChain);
 
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) {DigipostActionFactory = mockFactory.Object};
+                var requestHelper = new RequestHelper(ClientConfig, Certificate);
                 var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 var result = digipostApi.Search(searchString);
@@ -213,37 +169,21 @@ namespace Digipost.Api.Client.Test.Integration
 
         public class GetStreamMethod : DigipostApiIntegrationTests
         {
-            private Mock<DigipostActionFactory> CreateMockFactoryReturningSearch(AuthenticationHandler fakeHandlerChain)
-            {
-                var mockFacktory = new Mock<DigipostActionFactory>();
-                mockFacktory.Setup(
-                        f =>
-                            f.CreateClass(It.IsAny<ClientConfig>(), It.IsAny<X509Certificate2>(),
-                                It.IsAny<Uri>()))
-                    .Returns(new UriAction(null, ClientConfig, Certificate, Uri)
-                    {
-                        HttpClient =
-                            new HttpClient(fakeHandlerChain) { BaseAddress = new Uri("http://tull") }
-                    });
-                return mockFacktory;
-            }
-
             [Fact]
             public void ProperRequestSent() //Todo: Fix test when factory mocking is removed
             {
                 const string searchString = "jarand";
 
-                var fakehandler = new FakeResponseHandler { ResultCode = HttpStatusCode.NotFound, HttpContent = XmlResource.Inbox.GetError()};
+                var fakehandler = new FakeResponseHandler {ResultCode = HttpStatusCode.NotFound, HttpContent = XmlResource.Inbox.GetError()};
                 var fakeHandlerChain = CreateHandlerChain(fakehandler);
-                var mockFactory = CreateMockFactoryReturningSearch(fakeHandlerChain);
+                Mock<IDigipostActionFactory> mockFactory = null; // CreateMockFactoryReturningSearch(fakeHandlerChain);
 
-                var requestHelper = new RequestHelper(ClientConfig, Certificate) { DigipostActionFactory = mockFactory.Object };
+                var requestHelper = new RequestHelper(ClientConfig, Certificate);
                 var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
 
                 var result = digipostApi.Search(searchString);
                 Assert.NotNull(result);
             }
-
         }
     }
 }

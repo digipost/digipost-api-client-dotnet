@@ -10,7 +10,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public DigipostAsync(int numberOfRequests, int defaultConnectionLimit, ClientConfig clientconfig,
             string thumbprint)
-            :base(clientconfig, thumbprint, numberOfRequests)
+            : base(clientconfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;
         }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Handlers;
-using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 
 namespace Digipost.Api.Client.Common.Utilities
@@ -17,7 +18,6 @@ namespace Digipost.Api.Client.Common.Utilities
     {
         private readonly X509Certificate2 _businessCertificate;
         private readonly ClientConfig _clientConfig;
-        private IDigipostActionFactory _digipostActionFactory;
 
         internal RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
@@ -31,7 +31,7 @@ namespace Digipost.Api.Client.Common.Utilities
         private HttpClient GetHttpClient()
         {
             var loggingHandler = new LoggingHandler(
-                new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate },
+                new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate},
                 _clientConfig
             );
 
@@ -46,36 +46,29 @@ namespace Digipost.Api.Client.Common.Utilities
             return httpClient;
         }
 
-        internal Task<HttpResponseMessage> PostAsync(IRequestContent requestContent, Uri uri)
+        internal Task<T> PostMessage<T>(IMessage message, Uri uri)
         {
-            return null;
-            //return HttpClient.PostAsync(uri, Content(requestContent));
+            var messageAction = new MessageAction(message);
+            var httpContent = messageAction.Content(message);
+
+            return NewPost<T>(httpContent, messageAction.RequestContent, uri);
         }
 
-        internal Task<HttpResponseMessage> GetAsync(Uri uri)
+        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
         {
-            return HttpClient.GetAsync(uri); //Todo: ToString()?
+            var messageAction = new IdentificationAction(identification, _clientConfig, _businessCertificate);
+            var httpContent = messageAction.Content(identification);
+
+            return NewPost<T>(httpContent, messageAction.RequestContent, uri);
         }
 
-        internal Task<HttpResponseMessage> DeleteAsync(Uri uri)
+        internal Task<T> NewPost<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
         {
-            return HttpClient.DeleteAsync(uri); //Todo: ToString()?
-        }
+            ValidateXml(messageActionRequestContent);
 
-        internal IDigipostActionFactory DigipostActionFactory
-        {
-            get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
-            set { _digipostActionFactory = value; }
-        }
+            var postAsync = HttpClient.PostAsync(uri, httpContent);
 
-        internal Task<T> Post<T>(IRequestContent content, Uri uri)
-        {
-            var action = DigipostActionFactory.CreateClass(content, _clientConfig, _businessCertificate, uri);
-
-            ValidateXml(action.RequestContent);
-
-            var responseTask = action.PostAsync(content);
-            return Send<T>(responseTask);
+            return Send<T>(postAsync);
         }
 
         internal Task<T> Get<T>(Uri uri)

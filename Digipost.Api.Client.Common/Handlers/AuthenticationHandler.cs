@@ -148,7 +148,7 @@ namespace Digipost.Api.Client.Common.Handlers
             public UriParts(Uri uri)
             {
                 var datUri = uri.IsAbsoluteUri ? uri.AbsolutePath : "/" + uri.OriginalString;
-                AbsoluteUri =  datUri.ToLower();
+                AbsoluteUri = datUri.ToLower();
                 Parameters = uri.Query.Length > 0 ? uri.Query.Substring(1) : "";
             }
 

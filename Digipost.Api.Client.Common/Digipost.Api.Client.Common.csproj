@@ -59,13 +59,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Actions\UriAction.cs" />
     <Compile Include="Actions\IdentificationAction.cs" />
     <Compile Include="Actions\MessageAction.cs" />
     <Compile Include="ApiClientXmlValidator.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="Actions\DigipostAction.cs" />
-    <Compile Include="Actions\DigipostActionFactory.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />

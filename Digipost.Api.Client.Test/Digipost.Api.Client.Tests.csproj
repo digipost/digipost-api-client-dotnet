@@ -105,7 +105,6 @@
     <Compile Include="Smoke\ClientSmokeTests.cs" />
     <Compile Include="Smoke\TestHelper.cs" />
     <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
-    <Compile Include="Action\DigipostActionFactoryTests.cs" />
     <Compile Include="Action\DigipostActionTests.cs" />
     <Compile Include="DataTransferObjects\DataTransferObjectConverterTests.cs" />
     <Compile Include="DataTransferObjects\DocumentTests.cs" />

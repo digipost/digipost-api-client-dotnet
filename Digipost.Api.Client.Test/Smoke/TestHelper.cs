@@ -14,9 +14,9 @@ namespace Digipost.Api.Client.Test.Smoke
 {
     internal class TestHelper
     {
-        private readonly Sender _sender;
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
+        private readonly Sender _sender;
 
         //Gradually built state, identification
         private Identification _identification;
@@ -72,7 +72,7 @@ namespace Digipost.Api.Client.Test.Smoke
             _messageDeliveryResult = _digipostClient.SendMessage(
                 new Message(_recipient, _primary)
                 {
-                    Attachments = _attachments,
+                    Attachments = _attachments
                     //SenderId = "1010"
                 });
 

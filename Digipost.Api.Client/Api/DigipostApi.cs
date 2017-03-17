@@ -63,10 +63,10 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = _requestHelper.Post<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = _requestHelper.PostMessage<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
-                throw messageDeliveryResultTask.Exception.InnerException;
+                throw messageDeliveryResultTask.Exception?.InnerException;
 
             var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
 
@@ -86,7 +86,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = _requestHelper.Post<identificationresult>(identification, uri);
+            var identifyResponse = _requestHelper.PostIdentification<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {

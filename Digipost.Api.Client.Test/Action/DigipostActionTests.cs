@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Test.Action
             public void ReturnsCorrectDataForIdentification()
             {
                 //Arrange
-                var clientConfig = new ClientConfig("123", Environment.Production);
+                var clientConfig = new ClientConfig(new Broker(123), Environment.Production);
                 var certificate = CertificateResource.Certificate();
                 var uri = new Uri("http://fakeuri.no");
                 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));

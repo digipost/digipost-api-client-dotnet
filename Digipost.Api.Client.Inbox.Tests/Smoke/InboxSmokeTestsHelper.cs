@@ -18,8 +18,10 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         internal InboxSmokeTestsHelper(Sender sender)
         {
             _senderId = sender.Id;
+            var broker = new Broker(long.Parse(sender.Id));
+
             _client = new DigipostClient(
-                new ClientConfig(_senderId, sender.Environment),
+                new ClientConfig(broker, sender.Environment),
                 sender.Certificate
             );
         }

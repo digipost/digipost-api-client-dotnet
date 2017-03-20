@@ -29,7 +29,7 @@ namespace Digipost.Api.Client
 
         public Inbox.Inbox GetInbox(string senderId)
         {
-            return new Inbox.Inbox(_clientConfig.BrokerId, _requestHelper);
+            return new Inbox.Inbox(senderId, _requestHelper);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

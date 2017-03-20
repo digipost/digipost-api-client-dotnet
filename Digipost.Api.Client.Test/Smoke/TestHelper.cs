@@ -32,8 +32,9 @@ namespace Digipost.Api.Client.Test.Smoke
 
         public TestHelper(Sender sender)
         {
+            var broker = new Broker(long.Parse(sender.Id));
             _sender = sender;
-            _digipostClient = new DigipostClient(new ClientConfig(sender.Id, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
+            _digipostClient = new DigipostClient(new ClientConfig(broker, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
         }
 
         public TestHelper Create_message_with_primary_document()

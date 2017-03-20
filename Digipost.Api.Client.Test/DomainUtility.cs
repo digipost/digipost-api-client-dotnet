@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Test
     {
         public static ClientConfig GetClientConfig()
         {
-            return new ClientConfig("1010", Environment.Production);
+            return new ClientConfig(new Broker(1010), Environment.Production);
         }
 
         public static IMessage GetSimpleMessageWithRecipientById()

@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Test.Integration
 
         public DigipostApiIntegrationTests()
         {
-            ClientConfig = new ClientConfig("1337", Environment.Production)
+            ClientConfig = new ClientConfig(new Broker(1337), Environment.Production)
             {
                 LogRequestAndResponse = false,
                 TimeoutMilliseconds = 300000000

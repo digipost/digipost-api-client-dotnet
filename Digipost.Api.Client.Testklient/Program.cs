@@ -18,8 +18,8 @@ namespace Digipost.Api.Client.Testklient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
-        private static readonly string SenderId = "779051";
+        private const string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
+        private const long SenderId = 779051;
 
         private static void Main(string[] args)
         {
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-            var config = new ClientConfig(SenderId, Environment.Production);
+            var config = new ClientConfig(new Broker(SenderId), Environment.Production);
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);

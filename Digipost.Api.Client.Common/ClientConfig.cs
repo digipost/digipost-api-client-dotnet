@@ -8,12 +8,12 @@
         /// <summary>
         ///     Client configuration used for setting up the client with settings.
         /// </summary>
-        /// <param name="brokerId">Defines the id of the sender. If you do not set it here, use App.config. </param>
+        /// <param name="broker">The broker is the actual sender of the message.</param>
         /// <param name="environment">Environment to connect to for sending.</param>
-        public ClientConfig(string brokerId, Environment environment)
+        public ClientConfig(Broker broker, Environment environment)
         {
             Environment = environment;
-            BrokerId = brokerId;
+            Broker = broker;
         }
 
         public Environment Environment { get; set; }
@@ -27,7 +27,7 @@
         ///     The technical sender of messages to Digipost, known as the broker. This value is obtained during registration of
         ///     the broker. If the broker and the sender of the letter are the same organization, this is also the id of the sender.
         /// </summary>
-        public string BrokerId { get; set; }
+        public Broker Broker { get; set; }
 
         /// <summary>
         ///     If set to true, all requests and responses are logged with log level DEBUG.

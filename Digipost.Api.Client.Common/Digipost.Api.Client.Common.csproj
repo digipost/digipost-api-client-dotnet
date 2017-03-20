@@ -62,6 +62,7 @@
     <Compile Include="Actions\IdentificationAction.cs" />
     <Compile Include="Actions\MessageAction.cs" />
     <Compile Include="ApiClientXmlValidator.cs" />
+    <Compile Include="Broker.cs" />
     <Compile Include="ClientConfig.cs" />
     <Compile Include="Actions\DigipostAction.cs" />
     <Compile Include="Environment.cs" />

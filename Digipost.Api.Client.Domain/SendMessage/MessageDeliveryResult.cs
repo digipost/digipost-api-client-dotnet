@@ -6,6 +6,8 @@ namespace Digipost.Api.Client.Domain.SendMessage
 {
     public class MessageDeliveryResult : IMessageDeliveryResult
     {
+        public string MessageId { get; set; }
+
         public long SenderId { get; set; }
 
         public MessageStatus Status { get; set; }

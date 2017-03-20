@@ -14,12 +14,13 @@ namespace Digipost.Api.Client.Test
     {
         public static ClientConfig GetClientConfig()
         {
-            return new ClientConfig("senderId", Environment.Production);
+            return new ClientConfig("1010", Environment.Production);
         }
 
         public static IMessage GetSimpleMessageWithRecipientById()
         {
             var message = new Message(
+                "1010", 
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
                 GetDocument()
             );
@@ -31,10 +32,9 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(recipientById, new Document("TestSubject", "txt", new byte[3]))
+            return new Message("1010", recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
                 Id = "ThatMessageId",
-                SenderId = "SenderId",
                 Attachments = new List<IDocument>
                 {
                     new Document("TestSubject attachment", "txt", new byte[3])
@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Test
         {
             return new message
             {
-                Item = "SenderId",
+                Item = long.Parse("1010"),
                 messageid = "ThatMessageId",
                 primarydocument = new document
                 {
@@ -84,11 +84,7 @@ namespace Digipost.Api.Client.Test
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
         {
-            var message = new Message(
-                GetRecipientByNameAndAddress(),
-                GetDocument()
-            );
-            return message;
+            return new Message("1010", GetRecipientByNameAndAddress(), GetDocument());
         }
 
         public static IDocument GetDocument()

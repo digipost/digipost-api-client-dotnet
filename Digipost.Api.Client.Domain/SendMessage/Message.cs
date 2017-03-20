@@ -9,10 +9,12 @@ namespace Digipost.Api.Client.Domain.SendMessage
         /// <summary>
         ///     A message to be delivered to a Recipient.
         /// </summary>
+        /// <param name="senderId"></param>
         /// <param name="digipostRecipient">The recipient recieving the message.</param>
         /// <param name="primaryDocument">The primary document sent to the recipient.</param>
-        public Message(IDigipostRecipient digipostRecipient, IDocument primaryDocument)
+        public Message(string senderId, IDigipostRecipient digipostRecipient, IDocument primaryDocument)
         {
+            SenderId = senderId;
             DigipostRecipient = digipostRecipient;
             PrimaryDocument = primaryDocument;
             Attachments = new List<IDocument>();

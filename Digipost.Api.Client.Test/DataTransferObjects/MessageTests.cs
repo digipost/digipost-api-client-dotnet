@@ -12,14 +12,13 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void ConstructWithRecipientAndPrimaryDocument()
             {
                 //Arrange
-                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
 
                 //Assert
                 Assert.NotNull(message.PrimaryDocument);
-                Assert.Null(message.SenderId);
             }
 
             [Fact]
@@ -30,7 +29,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 var document = DomainUtility.GetDocument();
                 var printDetails = DomainUtility.GetPrintDetails();
 
-                var message = new Message(recipient, document) {PrintDetails = printDetails};
+                var message = new Message("1010", recipient, document) {PrintDetails = printDetails};
 
                 //Act
 
@@ -47,7 +46,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void DeliveryTimeNotSpecifiedGivesFalse()
             {
                 //Arrange
-                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
@@ -60,7 +59,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void DeliveryTimeSpecifiedGivesTrue()
             {
                 //Arrange
-                var message = new Message(DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 ) {DeliveryTime = DateTime.Today};
 
                 //Act

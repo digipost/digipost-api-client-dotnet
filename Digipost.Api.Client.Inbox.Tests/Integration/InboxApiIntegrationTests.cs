@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
                 { BaseAddress = new Uri("http://www.fakeBaseAddress.no") }
             };
 
-            var inbox = new Inbox("senderId", requestHelper);
+            var inbox = new Inbox("1010", requestHelper);
             return inbox;
         }
 

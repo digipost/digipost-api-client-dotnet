@@ -7,9 +7,8 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public interface IMessage : IRequestContent
     {
         /// <summary>
-        ///     The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
-        ///     on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
-        ///     on its behalf.
+        ///     An id that can be used for internal identification of a message. The id will exist in the returned
+        ///     <see cref="MessageDeliveryResult" />.
         /// </summary>
         string Id { get; set; }
 
@@ -43,8 +42,10 @@ namespace Digipost.Api.Client.Domain.SendMessage
         List<IDocument> Attachments { get; set; }
 
         /// <summary>
-        ///     The id of the sender, created by Digipost. If you are delivering a message on behalf of an organization
-        ///     with id 5555, set this property to 5555.
+        ///     The sender of the message, i.e. what the receiver of the message sees as the sender of the message.
+        ///     If you are delivering a message on behalf of an organization with id 5555, set this property
+        ///     to 5555. If you are delivering on behalf of yourself, set this to your organization`s sender id.
+        ///     The id is created by Digipost.
         /// </summary>
         string SenderId { get; set; }
 

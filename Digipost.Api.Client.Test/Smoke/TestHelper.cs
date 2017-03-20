@@ -70,10 +70,10 @@ namespace Digipost.Api.Client.Test.Smoke
             Assert_state(_recipient);
 
             _messageDeliveryResult = _digipostClient.SendMessage(
-                new Message(_recipient, _primary)
+                new Message(_sender.Id,_recipient, _primary)
                 {
-                    Attachments = _attachments
-                    //SenderId = "1010"
+                    Id = "Hestpeis",
+                    Attachments = _attachments,
                 });
 
             return this;

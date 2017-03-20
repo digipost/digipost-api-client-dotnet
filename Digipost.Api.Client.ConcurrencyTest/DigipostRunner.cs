@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 var primaryDocument = new Document("document subject", "txt", GetDocumentBytes());
                 var digitalRecipientWithFallbackPrint = new RecipientByNameAndAddress("Ola Nordmann", "0460",
                     "Oslo", "Collettsgate 68");
-                _message = new Message(digitalRecipientWithFallbackPrint, primaryDocument);
+                _message = new Message("1010", digitalRecipientWithFallbackPrint, primaryDocument);
             }
 
             return _message;

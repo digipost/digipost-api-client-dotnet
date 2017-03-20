@@ -129,7 +129,7 @@ namespace Digipost.Api.Client.Testklient
 
             var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001");
 
-            var message = new Message(digitalRecipient, primaryDocument);
+            var message = new Message("1010", digitalRecipient, primaryDocument);
 
             return message;
         }
@@ -152,7 +152,7 @@ namespace Digipost.Api.Client.Testklient
                 );
 
             //message
-            var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);
+            var message = new Message("1010", new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);
 
             message.Attachments.Add(attachment);
 

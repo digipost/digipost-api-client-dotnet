@@ -71,7 +71,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             var messageDto = new message
             {
-                Item = message.SenderId,
+                Item = long.Parse(message.SenderId),
                 primarydocument = primaryDocumentDataTransferObject,
                 messageid = message.Id,
                 recipient = ToDataTransferObject(message.DigipostRecipient)
@@ -81,7 +81,7 @@ namespace Digipost.Api.Client.Domain.Utilities
 
             if (message.DigipostRecipient is RecipientById)
             {
-                var identificationType = ((RecipientById) message.DigipostRecipient).IdentificationType;
+                var identificationType = ((RecipientById)message.DigipostRecipient).IdentificationType;
                 messageDto.recipient.ItemElementName = identificationType.ToItemChoiceType1();
             }
             else if (message.DigipostRecipient is RecipientByNameAndAddress)
@@ -333,6 +333,7 @@ namespace Digipost.Api.Client.Domain.Utilities
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
+                MessageId = messageDeliveryDto.messageid,
                 PrimaryDocument = FromDataTransferObject(messageDeliveryDto.primarydocument),
                 Attachments = messageDeliveryDto.attachment?.Select(FromDataTransferObject).ToList(),
                 DeliveryTime = messageDeliveryDto.deliverytime,

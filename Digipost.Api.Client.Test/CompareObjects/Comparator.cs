@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KellermanSoftware.CompareNetObjects;
 
@@ -20,7 +21,7 @@ namespace Digipost.Api.Client.Test.CompareObjects
                 new ComparisonConfig
                 {
                     MaxDifferences = 5,
-                    IgnoreObjectTypes = true
+                    IgnoreObjectTypes = true,
                 });
 
             var compareResult = compareLogic.Compare(expected, actual);

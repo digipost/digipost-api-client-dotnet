@@ -40,10 +40,10 @@ namespace Digipost.Api.Client.Testklient.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("779052")]
         public string SenderId {
             get {
-                return ((string)(this["SenderId"]));
+                return ((string)(this["1010"]));
             }
             set {
-                this["SenderId"] = value;
+                this["1010"] = value;
             }
         }
         

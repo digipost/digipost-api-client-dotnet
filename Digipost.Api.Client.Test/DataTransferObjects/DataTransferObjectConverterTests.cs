@@ -269,12 +269,14 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             {
                 //Arrange
                 var printDetails = DomainUtility.GetPrintDetails();
+                var senderId = "1010";
                 var source = new Message(
+                    senderId,
                     DomainUtility.GetRecipientByNameAndAddress(),
                     new Document("PrimaryDocument subject", "txt", new byte[3])
                 )
                 {
-                    SenderId = "SenderId",
+                    SenderId = senderId,
                     Attachments = new List<IDocument>
                     {
                         new Document("TestSubject attachment subject", "txt", new byte[3])
@@ -290,7 +292,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 var expectedDto =
                     new message
                     {
-                        Item = "SenderId",
+                        Item = long.Parse(senderId),
                         recipient = new messagerecipient
                         {
                             Item = new nameandaddress

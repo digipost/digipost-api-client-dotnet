@@ -7,6 +7,11 @@ namespace Digipost.Api.Client.Domain.SendMessage
     public interface IMessageDeliveryResult
     {
         /// <summary>
+        ///     The id of the message that produced this delivery result.
+        /// </summary>
+        string MessageId { get; set; }
+
+        /// <summary>
         ///     The type of postage delivery method.
         /// </summary>
         DeliveryMethod DeliveryMethod { get; set; }

@@ -1,18 +1,21 @@
 ﻿using System;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Send;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.DataTransferObjects
+namespace Digipost.Api.Client.Tests.DataTransferObjects
 {
     public class MessageTests
     {
+        internal readonly Sender _sender = new Sender(1010);
+
         public class ConstructorMethod : MessageTests
         {
             [Fact]
             public void ConstructWithRecipientAndPrimaryDocument()
             {
                 //Arrange
-                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
@@ -29,7 +32,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
                 var document = DomainUtility.GetDocument();
                 var printDetails = DomainUtility.GetPrintDetails();
 
-                var message = new Message("1010", recipient, document) {PrintDetails = printDetails};
+                var message = new Message(_sender, recipient, document) {PrintDetails = printDetails};
 
                 //Act
 
@@ -46,7 +49,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void DeliveryTimeNotSpecifiedGivesFalse()
             {
                 //Arrange
-                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
@@ -59,7 +62,7 @@ namespace Digipost.Api.Client.Test.DataTransferObjects
             public void DeliveryTimeSpecifiedGivesTrue()
             {
                 //Arrange
-                var message = new Message("1010", DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 ) {DeliveryTime = DateTime.Today};
 
                 //Act

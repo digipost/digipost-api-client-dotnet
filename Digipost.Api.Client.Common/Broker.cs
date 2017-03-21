@@ -1,7 +1,8 @@
 ﻿namespace Digipost.Api.Client.Common
 {
     /// <summary>
-    /// The actual sender of the message. The broker is the owner of the organization certificate used in the client library.
+    ///     The actual sender of the message. The broker is the owner of the organization certificate used in the client
+    ///     library.
     /// </summary>
     public class Broker
     {

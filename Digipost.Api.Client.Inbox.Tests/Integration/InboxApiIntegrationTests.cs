@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Domain.Exceptions;
 using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
-using Digipost.Api.Client.Test;
-using Digipost.Api.Client.Test.Fakes;
+using Digipost.Api.Client.Tests;
+using Digipost.Api.Client.Tests.Fakes;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests.Integration
@@ -18,13 +18,15 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
 
         private static Inbox GetInbox()
         {
-            var requestHelper = new RequestHelper(DomainUtility.GetClientConfig(), CertificateResource.Certificate())
+            var httpClient = new HttpClient(
+                new FakeResponseHandler {ResultCode = HttpStatusCode.NotFound, HttpContent = XmlResource.Inbox.GetError()}
+            )
             {
-                HttpClient = new HttpClient(new FakeResponseHandler { ResultCode = HttpStatusCode.NotFound, HttpContent = XmlResource.Inbox.GetError() })
-                { BaseAddress = new Uri("http://www.fakeBaseAddress.no") }
+                BaseAddress = new Uri("http://www.fakeBaseAddress.no")
             };
+            var requestHelper = new RequestHelper(httpClient, DomainUtility.GetClientConfig(), CertificateResource.Certificate());
 
-            var inbox = new Inbox("1010", requestHelper);
+            var inbox = new Inbox(DomainUtility.GetSender(), requestHelper);
             return inbox;
         }
 
@@ -33,7 +35,6 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             [Fact]
             public void ErrorShouldCauseDigipostResponseException()
             {
-
                 Exception exception = null;
                 try
                 {
@@ -53,7 +54,6 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             [Fact]
             public void ErrorShouldCauseDigipostResponseException()
             {
-
                 Exception exception = null;
                 try
                 {
@@ -66,7 +66,6 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
 
                 Assert.True(exception?.GetType() == typeof(ClientResponseException));
             }
-
         }
 
         public class DeleteDocumentMethod : InboxApiIntegrationTests
@@ -74,7 +73,6 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             [Fact]
             public void ErrorShouldCauseDigipostResponseException()
             {
-
                 Exception exception = null;
                 try
                 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Test.CompareObjects;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests
@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.Inbox.Tests
                     Sender = sender
                 };
 
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
                 IEnumerable<IDifference> differences;
                 var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Inbox.Tests
                 var source = new inbox();
                 var expected = new List<InboxDocument>();
 
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
                 IEnumerable<IDifference> differences;
                 var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};

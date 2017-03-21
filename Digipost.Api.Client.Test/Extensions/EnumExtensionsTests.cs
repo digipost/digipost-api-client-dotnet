@@ -1,9 +1,9 @@
 ﻿using System;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Extensions;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Extensions;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Extensions
+namespace Digipost.Api.Client.Tests.Extensions
 {
     public class EnumExtensionsTests
     {

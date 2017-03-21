@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Test.Fakes;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Send;
+using Digipost.Api.Client.Tests.Fakes;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.DataTransferObjects
+namespace Digipost.Api.Client.Tests.DataTransferObjects
 {
     public class DocumentTests
     {

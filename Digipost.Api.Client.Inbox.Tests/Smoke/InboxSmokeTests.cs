@@ -1,4 +1,4 @@
-﻿using Digipost.Api.Client.Test.Utilities;
+﻿using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests.Smoke

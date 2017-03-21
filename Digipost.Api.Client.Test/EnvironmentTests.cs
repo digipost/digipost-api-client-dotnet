@@ -2,7 +2,7 @@
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Test
+namespace Digipost.Api.Client.Tests
 {
     public class EnvironmentTests
     {

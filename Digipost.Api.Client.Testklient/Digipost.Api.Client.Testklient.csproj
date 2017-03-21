@@ -79,13 +79,13 @@
       <Project>{5f13d547-b7fa-4723-a617-112d14239620}</Project>
       <Name>Digipost.Api.Client.ConcurrencyTest</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
-      <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
-      <Name>Digipost.Api.Client.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
       <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
       <Name>Digipost.Api.Client.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
+      <Project>{28138693-B5B5-40DA-B9FA-E75F28EC9E90}</Project>
+      <Name>Digipost.Api.Client.Send</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309fbb5e-248f-42ec-81cc-4d4f4578cbfd}</Project>

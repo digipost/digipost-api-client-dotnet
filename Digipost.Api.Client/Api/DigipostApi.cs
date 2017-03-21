@@ -7,13 +7,11 @@ using ApiClientShared;
 using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Common.Actions;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Search;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Extensions;
+using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.Api
 {
@@ -41,9 +39,9 @@ namespace Digipost.Api.Client.Api
 
         private X509Certificate2 BusinessCertificate { get; }
 
-        public IMessageDeliveryResult SendMessage(IMessage message)
+        public IMessageDeliveryResult SendMessage(SendRequestHelper sendRequestHelper, IMessage message)
         {
-            var messageDelivery = SendMessageAsync(message);
+            var messageDelivery = SendMessageAsync(sendRequestHelper, message);
 
             if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
                 throw messageDelivery.Exception.InnerException;
@@ -51,18 +49,18 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(SendRequestHelper sendRequestHelper, IMessage message)
         {
             Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = sendRequestHelper.PostMessage<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;
 
-            var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
+            var messageDeliveryResult = SendDataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
 
             Log.Debug($"Response received for message to recipient, {message.DigipostRecipient}: '{messageDeliveryResult.Status}'. Will be available to Recipient at {messageDeliveryResult.DeliveryTime}.");
 

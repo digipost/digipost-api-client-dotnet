@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using System.Threading;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Content;
+using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -47,7 +48,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                 var primaryDocument = new Document("document subject", "txt", GetDocumentBytes());
                 var digitalRecipientWithFallbackPrint = new RecipientByNameAndAddress("Ola Nordmann", "0460",
                     "Oslo", "Collettsgate 68");
-                _message = new Message("1010", digitalRecipientWithFallbackPrint, primaryDocument);
+                _message = new Message(new Sender(1010), digitalRecipientWithFallbackPrint, primaryDocument);
             }
 
             return _message;

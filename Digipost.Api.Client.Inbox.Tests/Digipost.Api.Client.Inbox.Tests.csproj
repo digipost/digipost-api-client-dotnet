@@ -95,10 +95,6 @@
       <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
       <Name>Digipost.Api.Client.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
-      <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
-      <Name>Digipost.Api.Client.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj">
       <Project>{11e46c69-8cd6-412d-9d25-1562770660a9}</Project>
       <Name>Digipost.Api.Client.Inbox</Name>

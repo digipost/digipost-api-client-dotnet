@@ -25,7 +25,8 @@
 
         /// <summary>
         ///     The technical sender of messages to Digipost, known as the broker. This value is obtained during registration of
-        ///     the broker. If the broker and the sender of the letter are the same organization, this is also the id of the sender.
+        ///     the broker. If the broker and the sender of the letter are the same organization, this is also the id of the
+        ///     sender.
         /// </summary>
         public Broker Broker { get; set; }
 

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Resources.Content;
+using Digipost.Api.Client.Send;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.SendMessage
+namespace Digipost.Api.Client.Tests.SendMessage
 {
     public class InvoiceTests
     {
@@ -16,8 +16,8 @@ namespace Digipost.Api.Client.Test.SendMessage
             private const decimal Amount = 10;
             private const string Account = "123123";
             private const string Kid = "123123123";
-            private const AuthenticationLevel AuthenticationLevel = Domain.Enums.AuthenticationLevel.Password;
-            private const SensitivityLevel SensitivityLevel = Domain.Enums.SensitivityLevel.Normal;
+            private const AuthenticationLevel AuthenticationLevel = Common.Enums.AuthenticationLevel.Password;
+            private const SensitivityLevel SensitivityLevel = Common.Enums.SensitivityLevel.Normal;
             private readonly DateTime _duedate = DateTime.Now;
             private readonly ISmsNotification _smsNotification = new SmsNotification(1);
 

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using KellermanSoftware.CompareNetObjects;
 
-namespace Digipost.Api.Client.Test.CompareObjects
+namespace Digipost.Api.Client.Tests.CompareObjects
 {
     internal class Comparator : IComparator
     {
@@ -21,7 +20,7 @@ namespace Digipost.Api.Client.Test.CompareObjects
                 new ComparisonConfig
                 {
                     MaxDifferences = 5,
-                    IgnoreObjectTypes = true,
+                    IgnoreObjectTypes = true
                 });
 
             var compareResult = compareLogic.Compare(expected, actual);

@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Send;
 
-namespace Digipost.Api.Client.Test.Fakes
+namespace Digipost.Api.Client.Tests.Fakes
 {
     internal class FakeDocument : Document
     {

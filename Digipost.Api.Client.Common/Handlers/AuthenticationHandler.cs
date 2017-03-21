@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Common.Logging;
-using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Common.Handlers
 {

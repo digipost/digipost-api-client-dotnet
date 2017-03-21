@@ -1,16 +1,16 @@
 ﻿using System;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Domain.Utilities;
 using Digipost.Api.Client.Resources.Certificate;
+using Digipost.Api.Client.Send;
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Test.Action
+namespace Digipost.Api.Client.Tests.Action
 {
     public class DigipostActionTests
     {
@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Test.Action
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize(DataTransferObjectConverter.ToDataTransferObject(message));
+                var expected = SerializeUtil.Serialize(SendDataTransferObjectConverter.ToDataTransferObject(message));
                 Assert.Equal(expected, content.InnerXml);
             }
         }

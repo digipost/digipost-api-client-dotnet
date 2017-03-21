@@ -1,15 +1,15 @@
 ﻿using System.Threading.Tasks;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Search;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.Api
 {
     internal interface IDigipostApi
     {
-        IMessageDeliveryResult SendMessage(IMessage messageDataTransferObject);
+        IMessageDeliveryResult SendMessage(SendRequestHelper sendRequestHelper, IMessage messageDataTransferObject);
 
-        Task<IMessageDeliveryResult> SendMessageAsync(IMessage messageDataTransferObject);
+        Task<IMessageDeliveryResult> SendMessageAsync(SendRequestHelper sendRequestHelper, IMessage messageDataTransferObject);
 
         IIdentificationResult Identify(IIdentification identification);
 

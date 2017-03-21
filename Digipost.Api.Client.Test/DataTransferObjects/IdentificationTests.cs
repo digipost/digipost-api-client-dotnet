@@ -1,7 +1,7 @@
-﻿using Digipost.Api.Client.Domain.Identify;
+﻿using Digipost.Api.Client.Common.Identify;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.DataTransferObjects
+namespace Digipost.Api.Client.Tests.DataTransferObjects
 {
     public class IdentificationTests
     {

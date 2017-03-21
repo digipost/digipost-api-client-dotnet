@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Test.CompareObjects;
+using Digipost.Api.Client.Send;
+using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.DataTransferObjects
+namespace Digipost.Api.Client.Tests.DataTransferObjects
 {
     public class SmsNotificationTests
     {

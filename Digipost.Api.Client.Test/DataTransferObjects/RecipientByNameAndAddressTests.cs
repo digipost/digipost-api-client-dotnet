@@ -1,7 +1,7 @@
-﻿using Digipost.Api.Client.Domain.SendMessage;
+﻿using Digipost.Api.Client.Common.Recipient;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.DataTransferObjects
+namespace Digipost.Api.Client.Tests.DataTransferObjects
 {
     public class RecipientByNameAndAddressTests
     {

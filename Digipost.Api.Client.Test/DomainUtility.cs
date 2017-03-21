@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Print;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Print;
+using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Resources.Content;
+using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Test
+namespace Digipost.Api.Client.Tests
 {
     public class DomainUtility
     {
@@ -17,10 +18,15 @@ namespace Digipost.Api.Client.Test
             return new ClientConfig(new Broker(1010), Environment.Production);
         }
 
+        public static Sender GetSender()
+        {
+            return new Sender(1010);
+        }
+
         public static IMessage GetSimpleMessageWithRecipientById()
         {
             var message = new Message(
-                "1010", 
+                GetSender(),
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
                 GetDocument()
             );
@@ -32,7 +38,7 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message("1010", recipientById, new Document("TestSubject", "txt", new byte[3]))
+            return new Message(GetSender(), recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
                 Id = "ThatMessageId",
                 Attachments = new List<IDocument>
@@ -84,7 +90,7 @@ namespace Digipost.Api.Client.Test
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
         {
-            return new Message("1010", GetRecipientByNameAndAddress(), GetDocument());
+            return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
         public static IDocument GetDocument()

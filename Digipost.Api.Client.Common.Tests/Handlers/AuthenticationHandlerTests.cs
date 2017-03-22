@@ -5,7 +5,7 @@ using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Resources.Certificate;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Handlers
+namespace Digipost.Api.Client.Common.Tests.Handlers
 {
     public class AuthenticationHandlerTests
     {

@@ -8,6 +8,7 @@ using System.Xml;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 
 namespace Digipost.Api.Client.Common.Utilities
 {

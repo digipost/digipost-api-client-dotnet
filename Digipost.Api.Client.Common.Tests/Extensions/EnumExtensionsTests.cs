@@ -1,9 +1,10 @@
 ﻿using System;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
+using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.Extensions
+namespace Digipost.Api.Client.Common.Tests.Extensions
 {
     public class EnumExtensionsTests
     {

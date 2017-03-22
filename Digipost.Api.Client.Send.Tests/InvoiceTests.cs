@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Resources.Content;
-using Digipost.Api.Client.Send;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.SendMessage
+namespace Digipost.Api.Client.Send.Tests
 {
     public class InvoiceTests
     {

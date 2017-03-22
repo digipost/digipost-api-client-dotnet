@@ -1,16 +1,13 @@
 ﻿using System;
-using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Resources.Certificate;
-using Digipost.Api.Client.Send;
 using Xunit;
-using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Tests.Action
+namespace Digipost.Api.Client.Common.Tests.Actions
 {
     public class DigipostActionTests
     {

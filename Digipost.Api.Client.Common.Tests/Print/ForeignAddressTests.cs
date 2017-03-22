@@ -2,7 +2,7 @@
 using Digipost.Api.Client.Common.Print;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.DataTransferObjects
+namespace Digipost.Api.Client.Common.Tests.Print
 {
     public class ForeignAddressTests
     {

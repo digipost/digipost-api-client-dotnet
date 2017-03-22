@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 

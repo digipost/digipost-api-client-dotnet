@@ -92,7 +92,6 @@
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
-    <Compile Include="EnvironmentTests.cs" />
     <Compile Include="Fakes\FakeResponseHandler.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
@@ -100,18 +99,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Smoke\ClientSmokeTests.cs" />
     <Compile Include="Smoke\TestHelper.cs" />
-    <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
-    <Compile Include="DataTransferObjects\DataTransferObjectConverterTests.cs" />
-    <Compile Include="DataTransferObjects\ForeignAddressTests.cs" />
-    <Compile Include="DataTransferObjects\IdentificationResultTests.cs" />
-    <Compile Include="DataTransferObjects\IdentificationTests.cs" />
-    <Compile Include="DataTransferObjects\NorwegianAddressTests.cs" />
-    <Compile Include="DataTransferObjects\PrintDetailsTests.cs" />
-    <Compile Include="DataTransferObjects\PrintRecipientTests.cs" />
-    <Compile Include="DataTransferObjects\PrintReturnRecipientTests.cs" />
-    <Compile Include="DataTransferObjects\RecipientByIdTests.cs" />
-    <Compile Include="DataTransferObjects\RecipientByNameAndAddressTests.cs" />
-    <Compile Include="DataTransferObjects\SmsNotificationTests.cs" />
     <Compile Include="Utilities\ByteUtility.cs" />
     <Compile Include="Utilities\SenderUtility.cs" />
   </ItemGroup>
@@ -146,9 +133,7 @@
       <Name>Digipost.Api.Client</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SendMessage\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

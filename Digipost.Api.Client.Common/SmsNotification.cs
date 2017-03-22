@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Digipost.Api.Client.Send
+namespace Digipost.Api.Client.Common
 {
     public class SmsNotification : ISmsNotification
     {

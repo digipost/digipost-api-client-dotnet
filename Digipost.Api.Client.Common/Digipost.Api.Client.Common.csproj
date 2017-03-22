@@ -113,7 +113,6 @@
     <Compile Include="Environment.cs" />
     <Compile Include="Handlers\AuthenticationHandler.cs" />
     <Compile Include="Handlers\LoggingHandler.cs" />
-    <Compile Include="Actions\IDigipostActionFactory.cs" />
     <Compile Include="Namespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipient\IRecipientById.cs" />

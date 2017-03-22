@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
-using Digipost.Api.Client.Send;
 
-namespace Digipost.Api.Client.Tests.Fakes
+namespace Digipost.Api.Client.Send.Tests.Fakes
 {
     internal class FakeInvoice : Invoice
     {

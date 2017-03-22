@@ -78,9 +78,21 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DigipostActionTests.cs" />
+    <Compile Include="DataTransferObjectConverterTests.cs" />
+    <Compile Include="Actions\DigipostActionTests.cs" />
+    <Compile Include="EnvironmentTests.cs" />
     <Compile Include="Extensions\EnumExtensionsTests.cs" />
+    <Compile Include="Print\ForeignAddressTests.cs" />
+    <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
+    <Compile Include="Identify\IdentificationResultTests.cs" />
+    <Compile Include="Identify\IdentificationTests.cs" />
+    <Compile Include="Print\NorwegianAddressTests.cs" />
+    <Compile Include="Print\PrintDetailsTests.cs" />
+    <Compile Include="Print\PrintRecipientTests.cs" />
+    <Compile Include="Print\PrintReturnRecipientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recipient\RecipientByIdTests.cs" />
+    <Compile Include="Recipient\RecipientByNameAndAddressTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Keys\signingkey.snk">
@@ -106,6 +118,7 @@
       <Name>Digipost.Api.Client.Tests</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

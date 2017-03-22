@@ -2,7 +2,7 @@
 using Digipost.Api.Client.Common.Recipient;
 using Xunit;
 
-namespace Digipost.Api.Client.Tests.DataTransferObjects
+namespace Digipost.Api.Client.Common.Tests.Recipient
 {
     public class RecipientByIdTests
     {

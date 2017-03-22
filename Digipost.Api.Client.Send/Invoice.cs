@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 
 namespace Digipost.Api.Client.Send

@@ -17,19 +17,16 @@ namespace Digipost.Api.Client.Common.Handlers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri url,
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate,
             HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
             ClientConfig = clientConfig;
-            Url = url;
             BusinessCertificate = businessCertificate;
             Method = WebRequestMethods.Http.Get;
         }
 
         private ClientConfig ClientConfig { get; }
-
-        private Uri Url { get; }
 
         private X509Certificate2 BusinessCertificate { get; }
 
@@ -55,7 +52,7 @@ namespace Digipost.Api.Client.Common.Handlers
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
 
-            var signature = ComputeSignature(Method, Url, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
+            var signature = ComputeSignature(Method, request.RequestUri, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
@@ -151,9 +148,8 @@ namespace Digipost.Api.Client.Common.Handlers
             public UriParts(Uri uri)
             {
                 var datUri = uri.IsAbsoluteUri ? uri.AbsolutePath : "/" + uri.OriginalString;
-                var uriParts = datUri.Split('?');
-                AbsoluteUri = uriParts.First().ToLower();
-                Parameters = uriParts.ElementAtOrDefault(1) ?? "";
+                AbsoluteUri = datUri.ToLower();
+                Parameters = uri.Query.Length > 0 ? uri.Query.Substring(1) : "";
             }
 
             public string AbsoluteUri { get; }

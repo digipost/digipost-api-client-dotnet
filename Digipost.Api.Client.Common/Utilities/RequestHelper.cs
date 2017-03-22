@@ -6,8 +6,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Actions;
-using Digipost.Api.Client.Domain;
+using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Domain.Exceptions;
+using Digipost.Api.Client.Domain.Identify;
+using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Domain.Utilities;
 
 namespace Digipost.Api.Client.Common.Utilities
@@ -16,74 +18,105 @@ namespace Digipost.Api.Client.Common.Utilities
     {
         private readonly X509Certificate2 _businessCertificate;
         private readonly ClientConfig _clientConfig;
-        private IDigipostActionFactory _digipostActionFactory;
 
         internal RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _clientConfig = clientConfig;
             _businessCertificate = businessCertificate;
+            HttpClient = GetHttpClient();
         }
 
-        internal IDigipostActionFactory DigipostActionFactory
+        internal HttpClient HttpClient { get; set; }
+
+        private HttpClient GetHttpClient()
         {
-            get { return _digipostActionFactory ?? (_digipostActionFactory = new DigipostActionFactory()); }
-            set { _digipostActionFactory = value; }
+            var loggingHandler = new LoggingHandler(
+                new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate},
+                _clientConfig
+            );
+
+            var authenticationHandler = new AuthenticationHandler(_clientConfig, _businessCertificate, loggingHandler);
+
+            var httpClient = new HttpClient(authenticationHandler)
+            {
+                Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds),
+                BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri)
+            };
+
+            return httpClient;
         }
 
-        internal Task<T> Post<T>(IRequestContent content, Uri uri)
+        internal Task<T> PostMessage<T>(IMessage message, Uri uri)
         {
-            var action = DigipostActionFactory.CreateClass(content, _clientConfig, _businessCertificate, uri);
+            var messageAction = new MessageAction(message);
+            var httpContent = messageAction.Content(message);
 
-            ValidateXml(action.RequestContent);
+            return Post<T>(httpContent, messageAction.RequestContent, uri);
+        }
 
-            var responseTask = action.PostAsync(content);
-            return Send<T>(responseTask);
+        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
+        {
+            var messageAction = new IdentificationAction(identification, _clientConfig, _businessCertificate);
+            var httpContent = messageAction.Content(identification);
+
+            return Post<T>(httpContent, messageAction.RequestContent, uri);
+        }
+
+        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
+        {
+            ValidateXml(messageActionRequestContent);
+
+            var postAsync = HttpClient.PostAsync(uri, httpContent);
+
+            return Send<T>(postAsync);
         }
 
         internal Task<T> Get<T>(Uri uri)
         {
-            var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
-            var responseTask = action.GetAsync();
-
-            return Send<T>(responseTask);
+            return Send<T>(HttpClient.GetAsync(uri));
         }
 
         internal Task<string> Delete(Uri uri)
         {
-            var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
-            var responseTask = action.DeleteAsync();
-
-            return Send<string>(responseTask);
+            return Send<string>(HttpClient.DeleteAsync(uri));
         }
 
         internal async Task<Stream> GetStream(Uri uri)
         {
-            var action = DigipostActionFactory.CreateClass(_clientConfig, _businessCertificate, uri);
-            var responseTask = action.GetAsync();
+            var responseTask = HttpClient.GetAsync(uri);
+            var httpResponseMessage = await responseTask.ConfigureAwait(false);
 
-            var documentStream = await (await responseTask.ConfigureAwait(false)).Content.ReadAsStreamAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                var responseContent = await ReadResponse(httpResponseMessage).ConfigureAwait(false);
+                HandleResponseErrorAndThrow(responseContent, httpResponseMessage.StatusCode);
+            }
 
-            return documentStream;
+            return await httpResponseMessage.Content.ReadAsStreamAsync();
         }
 
         private static async Task<T> Send<T>(Task<HttpResponseMessage> responseTask)
         {
-            var responseTaskResult = await responseTask.ConfigureAwait(false);
+            var httpResponseMessage = await responseTask.ConfigureAwait(false);
 
-            var responseContent = await ReadResponse(responseTaskResult).ConfigureAwait(false);
+            var responseContent = await ReadResponse(httpResponseMessage).ConfigureAwait(false);
 
-            if (responseTaskResult.IsSuccessStatusCode)
-                return HandleSuccessResponse<T>(responseContent);
+            if (!httpResponseMessage.IsSuccessStatusCode)
+                HandleResponseErrorAndThrow(responseContent, httpResponseMessage.StatusCode);
 
+            return HandleSuccessResponse<T>(responseContent);
+        }
+
+        private static void HandleResponseErrorAndThrow(string responseContent, HttpStatusCode statusCode)
+        {
             var emptyResponse = string.IsNullOrEmpty(responseContent);
 
             if (!emptyResponse)
                 ThrowNotEmptyResponseError(responseContent);
             else
             {
-                ThrowEmptyResponseError(responseTaskResult.StatusCode);
+                ThrowEmptyResponseError(statusCode);
             }
-            return HandleSuccessResponse<T>(responseContent);
         }
 
         private static void ValidateXml(XmlDocument document)

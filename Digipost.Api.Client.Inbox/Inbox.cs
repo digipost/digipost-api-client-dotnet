@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Inbox
@@ -36,7 +35,7 @@ namespace Digipost.Api.Client.Inbox
         {
             var documentDataUri = new Uri($"{_inboxRoot}/{document.Id}/content", UriKind.Relative);
 
-            return await _requestHelper.GetStream(documentDataUri);
+            return await _requestHelper.GetStream(documentDataUri).ConfigureAwait(false);
         }
 
         public async Task DeleteDocument(InboxDocument document)

@@ -16,16 +16,16 @@ namespace Digipost.Api.Client.Test.Handlers
             {
                 //Arrange
                 const string senderId = "1337";
-                const string uri = "fakeuri";
+                const string uri = "http://fakeuri.no/someendpoint";
                 const string method = "POST";
                 const string sha256Hash = "TheHashOfContentForHeader";
                 const string expectedSignature =
-                    "tE/WjL2wot+DB42kiuCnDNm0WgBT/UPFoVGCewomssiKKfILqVu0MDjRo3qwjFRnW3jVqppGnJL5Nq2cl3APCo9nlnizGSd/YXr26XijHPmcgEr48hfnSypQ54TQ6q6swW1Eigq8xcoU3c6R7IkEE5R+rN4f3qpFvc252NHEWgn9QEJGHOE5782PGXggBDPaW/rf1v2i/AtXU1gi0VGg+TagFwLcvF4qNFZB5sg1slGEFV1C9hKpDWrB+uxrRXGiOW60sYEQ+HpxgnHcg5IlKrgUwlbSH/wnKSVnrJ81UzA4zX+oqmtjYdww98E6JFebrS7FBVhG67wqbVDlxY/KVw==";
+                    "HEZfhL+mu0Pb9Owvfs7pHLUXxZPthONK53nWTwXPFtFVjslr4AIxLqUSbAO7PerzBcRryYa84SellVabx8t16Ixg52afLQb02qyeDx1qF23YAIvvv01NmEJkVUUTV/oN7MgDAb4NGeujzVoUzXKTV+b5YC4W2c4M/RWSGYF1HxEEo+82SDyTlwGa3XxhcVem2Kg0LOgZvKaJnFWk0fsVDI7J9xWdOY0NWbtlm/xu77w2IlR+91lbr2G5A75lyzboXVEYvOj3UGzKwFTqGDpR7var+/PzWh00lQ/dKtILKzDGz3E80CxCOtlU/6kczk9MtYVQvLCy7QR0GMUI6ypTzg==";
                 var certificate = CertificateResource.Certificate();
                 var dateTime = new DateTime(2014, 07, 07, 12, 00, 02).ToString("R");
 
                 //Act
-                var computedSignature = AuthenticationHandler.ComputeSignature(method, new Uri(uri, UriKind.Relative), dateTime, sha256Hash,
+                var computedSignature = AuthenticationHandler.ComputeSignature(method, new Uri(uri), dateTime, sha256Hash,
                     senderId,
                     certificate,
                     false);

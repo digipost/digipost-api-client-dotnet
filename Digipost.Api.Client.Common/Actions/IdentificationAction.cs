@@ -11,12 +11,12 @@ namespace Digipost.Api.Client.Common.Actions
 {
     internal class IdentificationAction : DigipostAction
     {
-        public IdentificationAction(IIdentification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
-            : base(identification, clientConfig, businessCertificate, uri)
+        public IdentificationAction(IIdentification identification, ClientConfig clientConfig, X509Certificate2 businessCertificate)
+            : base(identification)
         {
         }
 
-        protected override HttpContent Content(IRequestContent requestContent)
+        internal override HttpContent Content(IRequestContent requestContent)
         {
             var xmlMessage = Serialize(requestContent);
             var messageContent = new StringContent(xmlMessage);

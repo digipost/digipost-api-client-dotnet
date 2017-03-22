@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Domain;
 using Digipost.Api.Client.Domain.SendMessage;
@@ -11,12 +10,12 @@ namespace Digipost.Api.Client.Common.Actions
 {
     internal class MessageAction : DigipostAction
     {
-        public MessageAction(IMessage message, ClientConfig clientConfig, X509Certificate2 businessCertificate, Uri uri)
-            : base(message, clientConfig, businessCertificate, uri)
+        public MessageAction(IMessage message)
+            : base(message)
         {
         }
 
-        protected override HttpContent Content(IRequestContent requestContent)
+        internal override HttpContent Content(IRequestContent requestContent)
         {
             var message = requestContent as IMessage;
             var boundary = Guid.NewGuid().ToString();

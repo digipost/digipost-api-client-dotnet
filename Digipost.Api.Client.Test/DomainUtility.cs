@@ -107,18 +107,6 @@ namespace Digipost.Api.Client.Test
             return identification;
         }
 
-        public static IIdentification GetPersonalIdentificationById()
-        {
-            var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"));
-            return identification;
-        }
-
-        public static IIdentification GetPersonalIdentificationByNameAndAddress()
-        {
-            var identification = new Identification(new RecipientByNameAndAddress("ola nordmann", "0000", "Oslo", "Biskop gunnerius gate 14a"));
-            return identification;
-        }
-
         public static RecipientById GetRecipientByDigipostId()
         {
             return new RecipientById(IdentificationType.DigipostAddress, "ola.nordmann#246BB");

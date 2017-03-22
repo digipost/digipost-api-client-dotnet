@@ -21,11 +21,10 @@ namespace Digipost.Api.Client.Api
     {
         private const int MinimumSearchLength = 3;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly RequestHelper _requestHelper;
 
         public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate, RequestHelper requestHelper)
         {
-            _requestHelper = requestHelper;
+            RequestHelper = requestHelper;
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
         }
@@ -36,16 +35,11 @@ namespace Digipost.Api.Client.Api
             BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
         }
 
+        public RequestHelper RequestHelper { get; }
+
         private ClientConfig ClientConfig { get; }
 
         private X509Certificate2 BusinessCertificate { get; }
-
-        [Obsolete("Not in use, set factory on RequestHelper instead.")]
-        public IDigipostActionFactory DigipostActionFactory
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
@@ -63,10 +57,10 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = _requestHelper.Post<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
-                throw messageDeliveryResultTask.Exception.InnerException;
+                throw messageDeliveryResultTask.Exception?.InnerException;
 
             var messageDeliveryResult = DataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
 
@@ -86,7 +80,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = _requestHelper.Post<identificationresult>(identification, uri);
+            var identifyResponse = RequestHelper.PostIdentification<identificationresult>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
@@ -127,7 +121,7 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResultDataTransferObject = await _requestHelper.Get<recipients>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await RequestHelper.Get<recipients>(uri).ConfigureAwait(false);
 
             var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
 

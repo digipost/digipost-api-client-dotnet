@@ -58,6 +58,6 @@ namespace Digipost.Api.Client.Test.Utilities
 
         public X509Certificate2 Certificate { get; set; }
 
-        public RecipientById Recipient{ get; set; }
+        public RecipientById Recipient { get; set; }
     }
 }

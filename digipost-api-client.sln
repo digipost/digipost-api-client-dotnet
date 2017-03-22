@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send.Tests", "Digipost.Api.Client.Send.Tests\Digipost.Api.Client.Send.Tests.csproj", "{71983742-4592-43BF-9599-7575ECA508A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common.Tests", "Digipost.Api.Client.Common.Tests\Digipost.Api.Client.Common.Tests.csproj", "{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{71983742-4592-43BF-9599-7575ECA508A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71983742-4592-43BF-9599-7575ECA508A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71983742-4592-43BF-9599-7575ECA508A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71983742-4592-43BF-9599-7575ECA508A0}</ProjectGuid>
+    <ProjectGuid>{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.Send.Tests</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.Send.Tests</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.Common.Tests</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.Common.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
@@ -74,14 +75,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DocumentTests.cs" />
-    <Compile Include="Fakes\FakeDocument.cs" />
-    <Compile Include="Fakes\FakeInvoice.cs" />
-    <Compile Include="InvoiceTests.cs" />
-    <Compile Include="MessageActionTests.cs" />
-    <Compile Include="MessageTests.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DigipostActionTests.cs" />
+    <Compile Include="Extensions\EnumExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendDataTransferObjectConverterTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Keys\signingkey.snk">
+      <Link>signingkey.snk</Link>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
@@ -96,20 +101,10 @@
       <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
       <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
-      <Project>{28138693-b5b5-40da-b9fa-e75f28ec9e90}</Project>
-      <Name>Digipost.Api.Client.Send</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Test\Digipost.Api.Client.Tests.csproj">
       <Project>{fdf4509b-f574-4eef-a7c7-80b79afb31ad}</Project>
       <Name>Digipost.Api.Client.Tests</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -15,12 +15,9 @@ namespace Digipost.Api.Client.Common
 
         public static Environment NorskHelsenett => new Environment(new Uri("https://api.nhn.digipost.no"));
 
-        [Obsolete("Use Environment.DifiTest instead")]
-        public static Environment Preprod => new Environment(new Uri("https://api.difitest.digipost.no/"));
+        internal static Environment DifiTest => new Environment(new Uri("https://api.difitest.digipost.no/"));
 
-        public static Environment DifiTest => new Environment(new Uri("https://api.difitest.digipost.no/"));
-
-        public static Environment Qa => new Environment(new Uri("https://api.qa.digipost.no/"));
+        internal static Environment Qa => new Environment(new Uri("https://api.qa.digipost.no/"));
 
         public override string ToString()
         {

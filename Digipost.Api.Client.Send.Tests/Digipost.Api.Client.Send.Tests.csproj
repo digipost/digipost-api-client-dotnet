@@ -74,6 +74,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DocumentTests.cs" />
     <Compile Include="Fakes\FakeDocument.cs" />
     <Compile Include="Fakes\FakeInvoice.cs" />

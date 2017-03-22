@@ -4,7 +4,7 @@ using Digipost.Api.Client.Common;
 
 namespace Digipost.Api.Client.Docs
 {
-    public class Inbox
+    public class InboxExamples
     {
         private static readonly ClientConfig ClientConfig = new ClientConfig(new Broker(123456), Environment.Production);
         private static readonly DigipostClient client = new DigipostClient(ClientConfig, thumbprint: "84e492a972b7e...");
@@ -23,7 +23,6 @@ namespace Digipost.Api.Client.Docs
             var clientConfig = new ClientConfig(broker, Environment.Production);
             var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
         }
-
 
         private void Hent_dokumenter()
         {

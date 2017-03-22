@@ -45,22 +45,22 @@ To communicate over HTTPS you need to sign your request with a business certific
 1. Copy the thumbprint and load as shown below
 
 ``` csharp
-var config = new ClientConfig(senderId: "xxxxx", environment: Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+ var clientConfig = new ClientConfig(broker, Environment.Production);
+ var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
 ```
 
 ### Load business certificate from file
 If there is a reason for not loading the certificate from the Windows certificate store, you can use the constructor taking in a `X509Certificate2`:
 
 ``` csharp
-var config = new ClientConfig(senderId: "xxxxx", environment: Environment.Production);
+var clientConfig = new ClientConfig(broker, Environment.Production);
 var businessCertificate =
-new X509Certificate2(
-    @"C:\Path\To\Certificate\Cert.p12",
-    "secretPasswordProperlyInstalledAndLoaded",
-    X509KeyStorageFlags.Exportable
-);
+    new X509Certificate2(
+        @"C:\Path\To\Certificate\Cert.p12",
+        "secretPasswordProperlyInstalledAndLoaded",
+        X509KeyStorageFlags.Exportable
+    );
 
-var client = new DigipostClient(config, businessCertificate);
+var client = new DigipostClient(clientConfig, businessCertificate);
 
 ```

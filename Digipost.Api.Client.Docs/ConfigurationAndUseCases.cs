@@ -42,7 +42,6 @@ namespace Digipost.Api.Client.Docs
 
         public void SendOneLetterViaNameAndAddress()
         {
-            //Compose Recipient by name and address and create document
             var recipient = new RecipientByNameAndAddress(
                 fullName: "Ola Nordmann",
                 addressLine1: "Prinsensveien 123",
@@ -52,12 +51,11 @@ namespace Digipost.Api.Client.Docs
 
             var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
 
-            //Compose message and send
             var message = new Message(sender, recipient, primaryDocument);
             var result = client.SendMessage(message);
         }
 
-        public void SendOneLetterWithMultipleAttachments()
+        public void WithMultipleAttachments()
         {
             var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
             var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
@@ -67,8 +65,7 @@ namespace Digipost.Api.Client.Docs
                     sender,
                     new RecipientById(IdentificationType.PersonalIdentificationNumber, id: "241084xxxxx"),
                     primaryDocument
-                )
-                {Attachments = {attachment1, attachment2}};
+                ){Attachments = {attachment1, attachment2}};
 
             var result = client.SendMessage(message);
         }
@@ -143,8 +140,8 @@ namespace Digipost.Api.Client.Docs
             if (identificationResponse.ResultType == IdentificationResultType.DigipostAddress)
             {
                 //Exist as user in Digipost. 
-                //If you used personal identification number to identify - continue to use that in the next step. 
-                //If not- see Data for DigipostAddress 
+                //If you used personal identification number to identify - use this to send a message to this individual. 
+                //If not, see Data field for DigipostAddress. 
             }
             else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
             {
@@ -200,6 +197,21 @@ namespace Digipost.Api.Client.Docs
                 var digipostAddress = person.DigipostAddress;
                 var phoneNumber = person.MobileNumber;
             }
+        }
+
+        public void SendOnBehalfOfOrganization()
+        {
+            var broker = new Broker(12345);
+            var sender = new Sender(67890);
+
+            var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx");
+            var primaryDocument = new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt");
+
+            var clientConfig = new ClientConfig(broker, Environment.Production);
+
+            var message = new Message(sender, digitalRecipient, primaryDocument);
+
+            var result = client.SendMessage(message);
         }
 
         public void SendMessageWithDeliveryTime()

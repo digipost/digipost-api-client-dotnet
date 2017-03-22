@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 
-namespace Digipost.Api.Client.Test.Fakes
+namespace Digipost.Api.Client.Tests.Fakes
 {
     public interface IFakeHttpClientHandlerResponse
     {

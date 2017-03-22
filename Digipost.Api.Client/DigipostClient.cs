@@ -1,35 +1,59 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using ApiClientShared;
+using ApiClientShared.Enums;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Handlers;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Search;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client
 {
     public class DigipostClient
     {
-        private readonly DigipostApi _api;
+        private readonly SendMessageApi _api;
         private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
+
+        public DigipostClient(ClientConfig clientConfig, string thumbprint)
+            : this(clientConfig, CertificateUtility.SenderCertificate(thumbprint, Language.English))
+        {
+        }
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _clientConfig = clientConfig;
-            _requestHelper = new RequestHelper(clientConfig, businessCertificate);
-            _api = new DigipostApi(clientConfig, businessCertificate, _requestHelper);
+            _requestHelper = new RequestHelper(GetHttpClient(businessCertificate));
+            _api = new SendMessageApi(new SendRequestHelper(_requestHelper));
         }
 
-        public DigipostClient(ClientConfig clientConfig, string thumbprint)
+        private HttpClient GetHttpClient(X509Certificate2 businessCertificate)
         {
-            _api = new DigipostApi(clientConfig, thumbprint);
+            var loggingHandler = new LoggingHandler(
+                new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate},
+                _clientConfig
+            );
+
+            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate, loggingHandler);
+
+            var httpClient = new HttpClient(authenticationHandler)
+            {
+                Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds),
+                BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri)
+            };
+
+            return httpClient;
         }
 
-        public Inbox.Inbox GetInbox(string senderId)
+        public Inbox.Inbox GetInbox(Sender senderId)
         {
-            return new Inbox.Inbox(_clientConfig.SenderId, _requestHelper);
+            return new Inbox.Inbox(senderId, _requestHelper);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

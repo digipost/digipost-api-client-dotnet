@@ -7,8 +7,8 @@
     <ProjectGuid>{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.Test</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.Test</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.Tests</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -92,34 +92,13 @@
     <Compile Include="CompareObjects\Difference.cs" />
     <Compile Include="CompareObjects\IComparator.cs" />
     <Compile Include="CompareObjects\IDifference.cs" />
-    <Compile Include="EnvironmentTests.cs" />
-    <Compile Include="Extensions\EnumExtensionsTests.cs" />
-    <Compile Include="Fakes\FakeDocument.cs" />
     <Compile Include="Fakes\FakeResponseHandler.cs" />
-    <Compile Include="Fakes\FakeInvoice.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
     <Compile Include="DomainUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendMessage\InvoiceTests.cs" />
     <Compile Include="Smoke\ClientSmokeTests.cs" />
     <Compile Include="Smoke\TestHelper.cs" />
-    <Compile Include="Handlers\AuthenticationHandlerTests.cs" />
-    <Compile Include="Action\DigipostActionTests.cs" />
-    <Compile Include="DataTransferObjects\DataTransferObjectConverterTests.cs" />
-    <Compile Include="DataTransferObjects\DocumentTests.cs" />
-    <Compile Include="DataTransferObjects\ForeignAddressTests.cs" />
-    <Compile Include="DataTransferObjects\IdentificationResultTests.cs" />
-    <Compile Include="DataTransferObjects\IdentificationTests.cs" />
-    <Compile Include="DataTransferObjects\InvoiceTests.cs" />
-    <Compile Include="DataTransferObjects\MessageTests.cs" />
-    <Compile Include="DataTransferObjects\NorwegianAddressTests.cs" />
-    <Compile Include="DataTransferObjects\PrintDetailsTests.cs" />
-    <Compile Include="DataTransferObjects\PrintRecipientTests.cs" />
-    <Compile Include="DataTransferObjects\PrintReturnRecipientTests.cs" />
-    <Compile Include="DataTransferObjects\RecipientByIdTests.cs" />
-    <Compile Include="DataTransferObjects\RecipientByNameAndAddressTests.cs" />
-    <Compile Include="DataTransferObjects\SmsNotificationTests.cs" />
     <Compile Include="Utilities\ByteUtility.cs" />
     <Compile Include="Utilities\SenderUtility.cs" />
   </ItemGroup>
@@ -127,7 +106,6 @@
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
-    <None Include="AppReadme\Compare-NET-Objects-Help.chm" />
     <None Include="C:\Keys\signingkey.snk">
       <Link>signingkey.snk</Link>
     </None>
@@ -138,10 +116,6 @@
       <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
       <Name>Digipost.Api.Client.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
-      <Project>{6622E975-31E3-45DB-8156-FB593FC872F4}</Project>
-      <Name>Digipost.Api.Client.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
       <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>
       <Name>Digipost.Api.Client.Resources</Name>
@@ -150,11 +124,16 @@
       <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
       <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
+      <Project>{28138693-b5b5-40da-b9fa-e75f28ec9e90}</Project>
+      <Name>Digipost.Api.Client.Send</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
       <Project>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</Project>
       <Name>Digipost.Api.Client</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

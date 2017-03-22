@@ -2,7 +2,7 @@
 using System.Linq;
 using KellermanSoftware.CompareNetObjects;
 
-namespace Digipost.Api.Client.Test.CompareObjects
+namespace Digipost.Api.Client.Tests.CompareObjects
 {
     internal class Comparator : IComparator
     {

@@ -5,20 +5,18 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Common.Actions;
+using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Handlers;
+using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
-using Digipost.Api.Client.Test.Fakes;
-using Moq;
+using Digipost.Api.Client.Send;
+using Digipost.Api.Client.Tests.Fakes;
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Test.Integration
+namespace Digipost.Api.Client.Tests.Integration
 {
     public class DigipostApiIntegrationTests
     {
@@ -28,7 +26,7 @@ namespace Digipost.Api.Client.Test.Integration
 
         public DigipostApiIntegrationTests()
         {
-            ClientConfig = new ClientConfig("1337", Environment.Production)
+            ClientConfig = new ClientConfig(new Broker(1337), Environment.Production)
             {
                 LogRequestAndResponse = false,
                 TimeoutMilliseconds = 300000000
@@ -45,12 +43,13 @@ namespace Digipost.Api.Client.Test.Integration
             return authenticationHandler;
         }
 
-        private DigipostApi GetDigipostApi(FakeResponseHandler fakeResponseHandler)
+        private SendMessageApi GetDigipostApi(FakeResponseHandler fakeResponseHandler)
         {
             var fakeHandlerChain = CreateHandlerChain(fakeResponseHandler);
-            var requestHelper = new RequestHelper(ClientConfig, Certificate) { HttpClient = new HttpClient(fakeHandlerChain) { BaseAddress = new Uri("http://www.fakeBaseAddress.no") } };
+            var httpClient = new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://www.fakeBaseAddress.no")};
+            var requestHelper = new RequestHelper(httpClient) {HttpClient = httpClient};
 
-            var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+            var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper));
             return digipostApi;
         }
 
@@ -122,7 +121,7 @@ namespace Digipost.Api.Client.Test.Integration
         {
             private void Identify(IIdentification identification)
             {
-                var fakeResponseHandler = new FakeResponseHandler { ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult() };
+                var fakeResponseHandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Identification.GetResult()};
                 var digipostApi = GetDigipostApi(fakeResponseHandler);
 
                 digipostApi.Identify(identification);

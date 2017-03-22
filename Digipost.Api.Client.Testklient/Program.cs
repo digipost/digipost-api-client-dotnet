@@ -2,24 +2,24 @@
 using System.Reflection;
 using Common.Logging;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Exceptions;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Print;
+using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.ConcurrencyTest;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Print;
-using Digipost.Api.Client.Domain.Search;
-using Digipost.Api.Client.Domain.SendMessage;
 using Digipost.Api.Client.Resources.Content;
+using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
+        private const string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
+        private const long SenderId = 779051;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static readonly string Thumbprint = "d8 6e 19 1b 8f 9b 0b 57 3e db 72 db a8 09 1f dc 6a 10 18 fd";
-        private static readonly string SenderId = "779051";
 
         private static void Main(string[] args)
         {
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Testklient
 
         private static void RunSingle()
         {
-            var config = new ClientConfig(SenderId, Environment.Production);
+            var config = new ClientConfig(new Broker(SenderId), Environment.Production);
 
             //Logging.Initialize(config);
             var api = new DigipostClient(config, Thumbprint);
@@ -60,9 +60,8 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
             Console.WriteLine("======================================");
-            IMessage message;
 
-            message = isQaOrLocal ? GetMessageWithRecipientByIdForQaOrLocal() : GetMessage();
+            var message = isQaOrLocal ? GetMessageWithRecipientByIdForQaOrLocal() : GetMessage();
 
             try
             {
@@ -129,7 +128,7 @@ namespace Digipost.Api.Client.Testklient
 
             var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001");
 
-            var message = new Message(digitalRecipient, primaryDocument);
+            var message = new Message(new Sender(1010), digitalRecipient, primaryDocument);
 
             return message;
         }
@@ -152,7 +151,7 @@ namespace Digipost.Api.Client.Testklient
                 );
 
             //message
-            var message = new Message(new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);
+            var message = new Message(new Sender(1010), new RecipientById(IdentificationType.PersonalIdentificationNumber, "07068932715"), invoice);
 
             message.Attachments.Add(attachment);
 

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,7 +46,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DataTransferObjectConverter.cs" />
+    <Compile Include="InboxDataTransferObjectConverter.cs" />
     <Compile Include="IInbox.cs" />
     <Compile Include="InboxDocument.cs" />
     <Compile Include="Inbox.cs" />
@@ -60,10 +61,6 @@
     <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
       <Project>{baa33e63-9cdf-4b8a-ba06-b107995585d0}</Project>
       <Name>Digipost.Api.Client.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Domain\Digipost.Api.Client.Domain.csproj">
-      <Project>{6622e975-31e3-45db-8156-fb593fc872f4}</Project>
-      <Name>Digipost.Api.Client.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>

@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Xml;
-using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Common.Actions
 {

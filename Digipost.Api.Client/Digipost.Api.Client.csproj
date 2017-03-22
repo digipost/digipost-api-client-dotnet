@@ -65,9 +65,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DigipostClient.cs" />
-    <Compile Include="Api\IDigipostApi.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Api\DigipostApi.cs" />
+    <Compile Include="Api\SendMessageApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

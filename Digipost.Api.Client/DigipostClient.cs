@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using ApiClientShared;
+using ApiClientShared.Enums;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Handlers;
@@ -15,23 +17,20 @@ namespace Digipost.Api.Client
 {
     public class DigipostClient
     {
-        private readonly DigipostApi _api;
+        private readonly SendMessageApi _api;
         private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
-        private readonly SendRequestHelper _sendRequestHelper;
+
+        public DigipostClient(ClientConfig clientConfig, string thumbprint)
+            : this(clientConfig, CertificateUtility.SenderCertificate(thumbprint, Language.English))
+        {
+        }
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             _clientConfig = clientConfig;
-            _requestHelper = new RequestHelper(GetHttpClient(businessCertificate), clientConfig, businessCertificate);
-            _sendRequestHelper = new SendRequestHelper(GetHttpClient(businessCertificate), clientConfig, businessCertificate);
-
-            _api = new DigipostApi(clientConfig, businessCertificate, _requestHelper);
-        }
-
-        public DigipostClient(ClientConfig clientConfig, string thumbprint)
-        {
-            _api = new DigipostApi(clientConfig, thumbprint);
+            _requestHelper = new RequestHelper(GetHttpClient(businessCertificate));
+            _api = new SendMessageApi(new SendRequestHelper(_requestHelper));
         }
 
         private HttpClient GetHttpClient(X509Certificate2 businessCertificate)
@@ -69,12 +68,12 @@ namespace Digipost.Api.Client
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            return _api.SendMessage(_sendRequestHelper, message);
+            return _api.SendMessage(message);
         }
 
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            return _api.SendMessageAsync(_sendRequestHelper, message);
+            return _api.SendMessageAsync(message);
         }
 
         public ISearchDetailsResult Search(string query)

@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Send.Tests
 {
     public class MessageTests
     {
-        internal readonly Sender _sender = new Sender(1010);
+        internal readonly Sender Sender = new Sender(1010);
 
         public class ConstructorMethod : MessageTests
         {
@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void ConstructWithRecipientAndPrimaryDocument()
             {
                 //Arrange
-                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(Sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var document = DomainUtility.GetDocument();
                 var printDetails = DomainUtility.GetPrintDetails();
 
-                var message = new Message(_sender, recipient, document) {PrintDetails = printDetails};
+                var message = new Message(Sender, recipient, document) {PrintDetails = printDetails};
 
                 //Act
 
@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void DeliveryTimeNotSpecifiedGivesFalse()
             {
                 //Arrange
-                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(Sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 );
 
                 //Act
@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void DeliveryTimeSpecifiedGivesTrue()
             {
                 //Arrange
-                var message = new Message(_sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
+                var message = new Message(Sender, DomainUtility.GetRecipientByDigipostId(), DomainUtility.GetDocument()
                 ) {DeliveryTime = DateTime.Today};
 
                 //Act

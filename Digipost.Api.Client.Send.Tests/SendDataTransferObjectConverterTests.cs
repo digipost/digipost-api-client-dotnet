@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Send.Tests
 {
     public class SendDataTransferObjectConverterTests
     {
-        private static readonly Comparator _comparator = new Comparator();
+        private static readonly Comparator Comparator = new Comparator();
 
         public class FromDataTransferObjectConverterMethod
         {
@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Send.Tests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
+                Comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
 
@@ -84,7 +84,7 @@ namespace Digipost.Api.Client.Send.Tests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
+                Comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
 
@@ -150,7 +150,7 @@ namespace Digipost.Api.Client.Send.Tests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
+                Comparator.Equal(expected, actual, out differences);
 
                 Assert.Equal(0, differences.Count());
             }
@@ -184,7 +184,7 @@ namespace Digipost.Api.Client.Send.Tests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
+                Comparator.Equal(expected, actual, out differences);
 
                 Assert.Equal(0, differences.Count());
             }
@@ -203,7 +203,7 @@ namespace Digipost.Api.Client.Send.Tests
                 //Assert
 
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
+                Comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
 
@@ -224,7 +224,7 @@ namespace Digipost.Api.Client.Send.Tests
                 //Assert
 
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
+                Comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
 
@@ -297,7 +297,7 @@ namespace Digipost.Api.Client.Send.Tests
                 //Assert
 
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
+                Comparator.Equal(expectedDto, actualDto, out differences);
                 Assert.Equal(0, differences.Count());
             }
 
@@ -323,7 +323,7 @@ namespace Digipost.Api.Client.Send.Tests
 
                 //Assert
                 IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
+                Comparator.Equal(expected, actual, out differences);
                 Assert.Equal(0, differences.Count());
             }
         }

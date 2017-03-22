@@ -43,13 +43,13 @@ namespace Digipost.Api.Client.Tests.Integration
             return authenticationHandler;
         }
 
-        private DigipostApi GetDigipostApi(FakeResponseHandler fakeResponseHandler)
+        private SendMessageApi GetDigipostApi(FakeResponseHandler fakeResponseHandler)
         {
             var fakeHandlerChain = CreateHandlerChain(fakeResponseHandler);
             var httpClient = new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://www.fakeBaseAddress.no")};
-            var requestHelper = new RequestHelper(httpClient, ClientConfig, Certificate) {HttpClient = httpClient};
+            var requestHelper = new RequestHelper(httpClient) {HttpClient = httpClient};
 
-            var digipostApi = new DigipostApi(ClientConfig, Certificate, requestHelper);
+            var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper));
             return digipostApi;
         }
 
@@ -59,8 +59,7 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 var digipostApi = GetDigipostApi(fakeResponseHandler);
 
-                var sendRequestHelper = new SendRequestHelper(digipostApi.RequestHelper.HttpClient, ClientConfig, Certificate);
-                digipostApi.SendMessage(sendRequestHelper, message);
+                digipostApi.SendMessage(message);
             }
 
             [Fact]

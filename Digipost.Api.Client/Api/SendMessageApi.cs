@@ -1,48 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using ApiClientShared;
-using ApiClientShared.Enums;
 using Common.Logging;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
-using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.Api
 {
-    internal class DigipostApi : IDigipostApi
+    internal class SendMessageApi
     {
         private const int MinimumSearchLength = 3;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public DigipostApi(ClientConfig clientConfig, X509Certificate2 businessCertificate, RequestHelper requestHelper)
+        public SendMessageApi(SendRequestHelper requestHelper)
         {
             RequestHelper = requestHelper;
-            ClientConfig = clientConfig;
-            BusinessCertificate = businessCertificate;
         }
 
-        public DigipostApi(ClientConfig clientConfig, string thumbprint)
+        public SendRequestHelper RequestHelper { get; }
+
+        public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            ClientConfig = clientConfig;
-            BusinessCertificate = CertificateUtility.SenderCertificate(thumbprint, Language.English);
-        }
-
-        public RequestHelper RequestHelper { get; }
-
-        private ClientConfig ClientConfig { get; }
-
-        private X509Certificate2 BusinessCertificate { get; }
-
-        public IMessageDeliveryResult SendMessage(SendRequestHelper sendRequestHelper, IMessage message)
-        {
-            var messageDelivery = SendMessageAsync(sendRequestHelper, message);
+            var messageDelivery = SendMessageAsync(message);
 
             if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
                 throw messageDelivery.Exception.InnerException;
@@ -50,13 +34,13 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<IMessageDeliveryResult> SendMessageAsync(SendRequestHelper sendRequestHelper, IMessage message)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = sendRequestHelper.PostMessage<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;

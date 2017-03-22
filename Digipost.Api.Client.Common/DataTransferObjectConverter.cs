@@ -198,7 +198,6 @@ namespace Digipost.Api.Client.Common
                 var address = printOrPrintReturnRecipient.Address as ForeignAddress;
                 printRecipientDataTransferObject.Item = ToDataTransferObject(address);
             }
-            ;
 
             return printRecipientDataTransferObject;
         }
@@ -220,15 +219,12 @@ namespace Digipost.Api.Client.Common
             {
                 smsNotificationDto.afterhours = smsNotification.NotifyAfterHours.ToArray();
             }
-            ;
 
             return smsNotificationDto;
         }
 
         public static IIdentificationResult FromDataTransferObject(identificationresult identificationResultDto)
         {
-            IdentificationResult identificationResult;
-
             var itemsChoiceType = identificationResultDto.ItemsElementName?.FirstOrDefault();
             var identifiedByDigipostOrPin = itemsChoiceType == null;
 
@@ -236,9 +232,8 @@ namespace Digipost.Api.Client.Common
             {
                 return IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationResultDto);
             }
-            identificationResult = new IdentificationResult(itemsChoiceType.Value.ToIdentificationResultType(), identificationResultDto.Items.ElementAt(0).ToString());
 
-            return identificationResult;
+            return new IdentificationResult(itemsChoiceType.Value.ToIdentificationResultType(), identificationResultDto.Items.ElementAt(0).ToString());
         }
 
         private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationresult identificationResultDto)

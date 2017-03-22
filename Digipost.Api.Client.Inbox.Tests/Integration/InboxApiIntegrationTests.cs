@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Http;
 using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.Fakes;
@@ -24,7 +23,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             {
                 BaseAddress = new Uri("http://www.fakeBaseAddress.no")
             };
-            var requestHelper = new RequestHelper(httpClient, DomainUtility.GetClientConfig(), CertificateResource.Certificate());
+            var requestHelper = new RequestHelper(httpClient);
 
             var inbox = new Inbox(DomainUtility.GetSender(), requestHelper);
             return inbox;

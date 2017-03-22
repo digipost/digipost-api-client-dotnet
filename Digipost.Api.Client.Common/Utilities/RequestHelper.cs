@@ -2,37 +2,21 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
-using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Exceptions;
-using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
     internal class RequestHelper
     {
-        private readonly X509Certificate2 _businessCertificate;
-        private readonly ClientConfig _clientConfig;
-
-        internal RequestHelper(HttpClient httpClient, ClientConfig clientConfig, X509Certificate2 businessCertificate)
+        internal RequestHelper(HttpClient httpClient)
         {
-            _clientConfig = clientConfig;
-            _businessCertificate = businessCertificate;
             HttpClient = httpClient;
         }
 
         internal HttpClient HttpClient { get; set; }
-
-        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
-        {
-            var messageAction = new IdentificationAction(identification, _clientConfig, _businessCertificate);
-            var httpContent = messageAction.Content(identification);
-
-            return Post<T>(httpContent, messageAction.RequestContent, uri);
-        }
 
         internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
         {

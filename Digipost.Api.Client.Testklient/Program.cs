@@ -60,9 +60,8 @@ namespace Digipost.Api.Client.Testklient
             Console.WriteLine("======================================");
             Console.WriteLine("Sending message:");
             Console.WriteLine("======================================");
-            IMessage message;
 
-            message = isQaOrLocal ? GetMessageWithRecipientByIdForQaOrLocal() : GetMessage();
+            var message = isQaOrLocal ? GetMessageWithRecipientByIdForQaOrLocal() : GetMessage();
 
             try
             {

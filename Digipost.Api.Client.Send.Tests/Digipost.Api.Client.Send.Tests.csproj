@@ -104,7 +104,7 @@
       <Project>{28138693-b5b5-40da-b9fa-e75f28ec9e90}</Project>
       <Name>Digipost.Api.Client.Send</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Test\Digipost.Api.Client.Tests.csproj">
+    <ProjectReference Include="..\Digipost.Api.Client.Tests\Digipost.Api.Client.Tests.csproj">
       <Project>{fdf4509b-f574-4eef-a7c7-80b79afb31ad}</Project>
       <Name>Digipost.Api.Client.Tests</Name>
     </ProjectReference>

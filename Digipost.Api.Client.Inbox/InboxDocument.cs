@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Digipost.Api.Client.Domain.Enums;
+using Digipost.Api.Client.Common.Enums;
 
 namespace Digipost.Api.Client.Inbox
 {

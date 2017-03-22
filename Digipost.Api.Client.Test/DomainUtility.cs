@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Print;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Print;
+using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Resources.Content;
+using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
+using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Test
+namespace Digipost.Api.Client.Tests
 {
     public class DomainUtility
     {
         public static ClientConfig GetClientConfig()
         {
-            return new ClientConfig("senderId", Environment.Production);
+            return new ClientConfig(new Broker(1010), Environment.Production);
+        }
+
+        public static Sender GetSender()
+        {
+            return new Sender(1010);
         }
 
         public static IMessage GetSimpleMessageWithRecipientById()
         {
             var message = new Message(
+                GetSender(),
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
                 GetDocument()
             );
@@ -31,10 +39,9 @@ namespace Digipost.Api.Client.Test
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(recipientById, new Document("TestSubject", "txt", new byte[3]))
+            return new Message(GetSender(), recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
                 Id = "ThatMessageId",
-                SenderId = "SenderId",
                 Attachments = new List<IDocument>
                 {
                     new Document("TestSubject attachment", "txt", new byte[3])
@@ -51,7 +58,7 @@ namespace Digipost.Api.Client.Test
         {
             return new message
             {
-                Item = "SenderId",
+                Item = long.Parse("1010"),
                 messageid = "ThatMessageId",
                 primarydocument = new document
                 {
@@ -84,11 +91,7 @@ namespace Digipost.Api.Client.Test
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
         {
-            var message = new Message(
-                GetRecipientByNameAndAddress(),
-                GetDocument()
-            );
-            return message;
+            return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
         public static IDocument GetDocument()

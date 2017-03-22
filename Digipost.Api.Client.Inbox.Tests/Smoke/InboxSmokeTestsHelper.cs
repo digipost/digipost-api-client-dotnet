@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Test.Utilities;
+using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests.Smoke
@@ -10,23 +10,25 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
     public class InboxSmokeTestsHelper
     {
         private readonly DigipostClient _client;
-        private readonly string _senderId;
+        private readonly TestSender _testSender;
         private Inbox _inbox;
         private InboxDocument _inboxDocument;
         private IEnumerable<InboxDocument> _inboxDocuments;
 
-        internal InboxSmokeTestsHelper(Sender sender)
+        internal InboxSmokeTestsHelper(TestSender testSender)
         {
-            _senderId = sender.Id;
+            _testSender = testSender;
+            var broker = new Broker(testSender.Id);
+
             _client = new DigipostClient(
-                new ClientConfig(_senderId, sender.Environment),
-                sender.Certificate
+                new ClientConfig(broker, testSender.Environment),
+                testSender.Certificate
             );
         }
 
         public InboxSmokeTestsHelper Get_inbox()
         {
-            _inbox = _client.GetInbox(_senderId);
+            _inbox = _client.GetInbox(new Sender(_testSender.Id));
             _inboxDocuments = _inbox.Fetch().Result;
 
             return this;

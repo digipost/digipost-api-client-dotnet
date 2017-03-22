@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Digipost.Api.Client.Test.Fakes
+namespace Digipost.Api.Client.Tests.Fakes
 {
     public class FakeResponseHandler : DelegatingHandler, IFakeHttpClientHandlerResponse
     {

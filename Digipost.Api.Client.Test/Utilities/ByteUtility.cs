@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Digipost.Api.Client.Test.Utilities
+namespace Digipost.Api.Client.Tests.Utilities
 {
     internal class ByteUtility
     {

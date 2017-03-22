@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Common.Logging;
-using Digipost.Api.Client.Domain;
 
 namespace Digipost.Api.Client.Common.Handlers
 {
@@ -35,9 +34,9 @@ namespace Digipost.Api.Client.Common.Handlers
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var date = DateTime.UtcNow.ToString("R");
-            var senderId = ClientConfig.SenderId;
+            var brokerId = ClientConfig.Broker.Id.ToString();
 
-            request.Headers.Add("X-Digipost-UserId", senderId);
+            request.Headers.Add("X-Digipost-UserId", brokerId);
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", DigipostVersion.V7);
             request.Headers.Add("User-Agent", GetAssemblyVersion());
@@ -52,7 +51,7 @@ namespace Digipost.Api.Client.Common.Handlers
                 request.Headers.Add("X-Content-SHA256", contentHash);
             }
 
-            var signature = ComputeSignature(Method, request.RequestUri, date, contentHash, senderId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
+            var signature = ComputeSignature(Method, request.RequestUri, date, contentHash, brokerId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

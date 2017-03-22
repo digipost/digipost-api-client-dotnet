@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.Test.CompareObjects
+﻿namespace Digipost.Api.Client.Tests.CompareObjects
 {
     internal class Difference : IDifference
     {

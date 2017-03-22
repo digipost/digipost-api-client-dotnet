@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Domain;
-using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.Search;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Test.Utilities;
+using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Send;
+using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Smoke
+namespace Digipost.Api.Client.Tests.Smoke
 {
     internal class TestHelper
     {
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
-        private readonly Sender _sender;
+        private readonly TestSender _testSender;
 
         //Gradually built state, identification
         private Identification _identification;
@@ -30,10 +30,11 @@ namespace Digipost.Api.Client.Test.Smoke
         //Gradually built state, search
         private ISearchDetailsResult _searchResult;
 
-        public TestHelper(Sender sender)
+        public TestHelper(TestSender testSender)
         {
-            _sender = sender;
-            _digipostClient = new DigipostClient(new ClientConfig(sender.Id, sender.Environment) {TimeoutMilliseconds = 900000000}, sender.Certificate);
+            var broker = new Broker(testSender.Id);
+            _testSender = testSender;
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000}, testSender.Certificate);
         }
 
         public TestHelper Create_message_with_primary_document()
@@ -60,7 +61,7 @@ namespace Digipost.Api.Client.Test.Smoke
         {
             Assert_state(_primary);
 
-            _recipient = _sender.Recipient;
+            _recipient = _testSender.Recipient;
 
             return this;
         }
@@ -70,10 +71,9 @@ namespace Digipost.Api.Client.Test.Smoke
             Assert_state(_recipient);
 
             _messageDeliveryResult = _digipostClient.SendMessage(
-                new Message(_recipient, _primary)
+                new Message(new Sender(_testSender.Id), _recipient, _primary)
                 {
                     Attachments = _attachments
-                    //SenderId = "1010"
                 });
 
             return this;

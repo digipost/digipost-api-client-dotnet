@@ -2,65 +2,21 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
-using Digipost.Api.Client.Common.Actions;
-using Digipost.Api.Client.Common.Handlers;
-using Digipost.Api.Client.Domain.Exceptions;
-using Digipost.Api.Client.Domain.Identify;
-using Digipost.Api.Client.Domain.SendMessage;
-using Digipost.Api.Client.Domain.Utilities;
+using Digipost.Api.Client.Common.Exceptions;
+using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
     internal class RequestHelper
     {
-        private readonly X509Certificate2 _businessCertificate;
-        private readonly ClientConfig _clientConfig;
-
-        internal RequestHelper(ClientConfig clientConfig, X509Certificate2 businessCertificate)
+        internal RequestHelper(HttpClient httpClient)
         {
-            _clientConfig = clientConfig;
-            _businessCertificate = businessCertificate;
-            HttpClient = GetHttpClient();
+            HttpClient = httpClient;
         }
 
         internal HttpClient HttpClient { get; set; }
-
-        private HttpClient GetHttpClient()
-        {
-            var loggingHandler = new LoggingHandler(
-                new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate},
-                _clientConfig
-            );
-
-            var authenticationHandler = new AuthenticationHandler(_clientConfig, _businessCertificate, loggingHandler);
-
-            var httpClient = new HttpClient(authenticationHandler)
-            {
-                Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds),
-                BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri)
-            };
-
-            return httpClient;
-        }
-
-        internal Task<T> PostMessage<T>(IMessage message, Uri uri)
-        {
-            var messageAction = new MessageAction(message);
-            var httpContent = messageAction.Content(message);
-
-            return Post<T>(httpContent, messageAction.RequestContent, uri);
-        }
-
-        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
-        {
-            var messageAction = new IdentificationAction(identification, _clientConfig, _businessCertificate);
-            var httpContent = messageAction.Content(identification);
-
-            return Post<T>(httpContent, messageAction.RequestContent, uri);
-        }
 
         internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
         {

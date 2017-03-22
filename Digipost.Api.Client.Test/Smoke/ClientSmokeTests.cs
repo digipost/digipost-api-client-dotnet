@@ -1,8 +1,8 @@
-﻿using Digipost.Api.Client.Domain.Enums;
-using Digipost.Api.Client.Test.Utilities;
+﻿using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
-namespace Digipost.Api.Client.Test.Smoke
+namespace Digipost.Api.Client.Tests.Smoke
 {
     public class ClientSmokeTests
     {

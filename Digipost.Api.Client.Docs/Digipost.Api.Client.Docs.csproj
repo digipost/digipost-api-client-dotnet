@@ -51,7 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CertificateLoading.cs" />
-    <Compile Include="ConfigurationAndUseCases.cs" />
+    <Compile Include="SendExamples.cs" />
     <Compile Include="InboxExamples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

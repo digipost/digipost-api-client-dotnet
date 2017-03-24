@@ -6,6 +6,8 @@ layout: default
 
 ### Client configuration
 
+`ClientConfig` is a container for all the connection specific paramters that you can set.
+
 ``` csharp
 // The actual sender of the message. The broker is the owner of the organization certificate 
 // used in the library. The broker id can be retrieved from your Digipost organization account.

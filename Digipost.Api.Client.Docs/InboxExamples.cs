@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Docs
             var broker = new Broker(12345);
 
             // The sender is what the receiver of the message sees as the sender of the message. 
-            // If you are delivering on behalf of yourself, set this to your organization`s sender id.
+            // Sender and broker id will both be your organization's id if you are sending on behalf of yourself.
             var sender = new Sender(67890);
 
             var clientConfig = new ClientConfig(broker, Environment.Production);

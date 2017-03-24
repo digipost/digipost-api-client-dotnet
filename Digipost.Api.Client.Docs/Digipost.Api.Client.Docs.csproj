@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="CertificateLoading.cs" />
     <Compile Include="ConfigurationAndUseCases.cs" />
-    <Compile Include="Inbox.cs" />
+    <Compile Include="InboxExamples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

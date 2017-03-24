@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.Docs
         private async Task Slett_dokument()
         {
             var inbox = client.GetInbox(sender);
-            
+
             var documentMetadata = (await inbox.Fetch()).First();
 
             await inbox.DeleteDocument(documentMetadata);

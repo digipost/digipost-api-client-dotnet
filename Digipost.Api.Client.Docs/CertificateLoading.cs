@@ -10,7 +10,6 @@ namespace Digipost.Api.Client.Docs
         private static readonly Sender sender = new Sender(67890);
         private static readonly Broker broker = new Broker(12345);
 
-
         public void LoadCertificateFromThumbprint()
         {
             var clientConfig = new ClientConfig(broker, Environment.Production);

@@ -10,9 +10,10 @@ The client library is available as a nuget package. The client library (and asso
 To install the nuget package, follow these steps in Visual Studio:
 
 1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
-1. Search for _digipost-signature-api-client-dotnet_.
+1. Search for _digipost-api-client_.
 * If you would like pre-releases of this package, make sure _Include Prerelease_ is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
-1. Select _digipost-signature-api-client_ and click _Install_.
+1. Select _digipost-api-client_ and click _Install_.
+
 
 ### Install and use business certificate
 

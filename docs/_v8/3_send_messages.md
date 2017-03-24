@@ -8,13 +8,11 @@ layout: default
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
-var message = new Message( 
-    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"), 
+var message = new Message(
+    sender,
+    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
     new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
-  );
+);
 
 var result = client.SendMessage(message); 
 
@@ -24,22 +22,16 @@ var result = client.SendMessage(message);
 
 {% highlight csharp %}
 
-//Init Client
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
-//Compose Recipient by name and address and create document
 var recipient = new RecipientByNameAndAddress(
-    fullName: "Ola Nordmann", 
-    addressLine1: "Prinsensveien 123", 
+    fullName: "Ola Nordmann",
+    addressLine1: "Prinsensveien 123",
     postalCode: "0460",
     city: "Oslo"
-    );
+);
 
 var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
 
-//Compose message and send
-var message = new Message(recipient, primaryDocument);
+var message = new Message(sender, recipient, primaryDocument);
 var result = client.SendMessage(message);
 
 {% endhighlight %}
@@ -48,16 +40,15 @@ var result = client.SendMessage(message);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
 var attachment2 = new Document(subject: "Attachment 2", fileType: "pdf", path: @"c:\...\attachment_02.pdf");
 
 var message = new Message(
-    new RecipientById(IdentificationType.PersonalIdentificationNumber, id: "241084xxxxx"), primaryDocument
-    ) { Attachments = { attachment1, attachment2 } };
+        sender,
+        new RecipientById(IdentificationType.PersonalIdentificationNumber, id: "241084xxxxx"),
+        primaryDocument
+    ){Attachments = {attachment1, attachment2}};
 
 var result = client.SendMessage(message);
 
@@ -67,16 +58,16 @@ var result = client.SendMessage(message);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 
 primaryDocument.SmsNotification = new SmsNotification(afterHours: 0); //SMS reminder after 0 hours
 primaryDocument.SmsNotification.NotifyAtTimes.Add(new DateTime(2015, 05, 05, 12, 00, 00)); //new reminder at a specific date
 
 var message = new Message(
-    new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx"), primaryDocument);
+    sender,
+    new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx"),
+    primaryDocument
+);
 
 var result = client.SendMessage(message);
 
@@ -88,14 +79,12 @@ In cases where the recipient is not a Digipost user, it is also possible to use 
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
     addressLine1: "Prinsensveien 123",
     postalCode: "0460",
-    city: "Oslo");
+    city: "Oslo"
+);
 
 var printDetails =
     new PrintDetails(
@@ -105,11 +94,11 @@ var printDetails =
         printReturnRecipient: new PrintReturnRecipient(
             "Kari Nordmann",
             new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
-        );
+    );
 
 var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
 
-var messageWithFallbackToPrint = new Message(recipient, primaryDocument)
+var messageWithFallbackToPrint = new Message(sender, recipient, primaryDocument)
 {
     PrintDetails = printDetails
 };
@@ -122,16 +111,17 @@ var result = client.SendMessage(messageWithFallbackToPrint);
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
-var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
-
-primaryDocument.AuthenticationLevel = AuthenticationLevel.TwoFactor; // Require BankID or BuyPass to open letter
-primaryDocument.SensitivityLevel = SensitivityLevel.Sensitive; // Sender information and subject will be hidden until Digipost user is logged in at the appropriate authentication level
+var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf")
+{
+    AuthenticationLevel = AuthenticationLevel.TwoFactor, // Require BankID or BuyPass to open letter
+    SensitivityLevel = SensitivityLevel.Sensitive // Sender information and subject will be hidden until Digipost user is logged in at the appropriate authentication level
+};
 
 var message = new Message(
-    new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx"), primaryDocument);
+    sender,
+    new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx"),
+    primaryDocument
+);
 
 var result = client.SendMessage(message);
 
@@ -191,17 +181,14 @@ Following is a example that uses personal identification number as identificatio
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxxx"));
 var identificationResponse = client.Identify(identification);
 
 if (identificationResponse.ResultType == IdentificationResultType.DigipostAddress)
 {
     //Exist as user in Digipost. 
-    //If you used personal identification number to identify- continue to use that in the next step. 
-    //If not- see Data for DigipostAddress 
+    //If you used personal identification number to identify - use this to send a message to this individual. 
+    //If not, see Data field for DigipostAddress.  
 }
 else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
 {
@@ -222,16 +209,18 @@ The Digipost API is accessible from both internet and Norsk Helsenett (NHN). Bot
 
 {% highlight csharp %}
 
-
-var config = new ClientConfig("xxxxx", Environment.NorskHelsenett);
+// API URL is different when request is sent from NHN
+var config = new ClientConfig(new Broker(12345), Environment.NorskHelsenett);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
 var message = new Message(
+    sender,
     new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
     new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
-  );
+);
 
 var result = client.SendMessage(message);
+
 {% endhighlight %}
 
 ### Send invoice
@@ -240,10 +229,8 @@ It is possible to send invoice-metadata with a document. Documents with invoice-
 
 {% highlight csharp %}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var message = new Message(
+    sender,
     new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxx"),
     new Invoice(
         subject: "Invoice 1",
@@ -253,9 +240,7 @@ var message = new Message(
         account: "2593143xxxx",
         duedate: DateTime.Parse("01.01.2016"),
         kid: "123123123")
-    );
-
-var result = client.SendMessage(message); 
+);
 
 {% endhighlight %}
 
@@ -265,40 +250,42 @@ A central part of a user interface in the application that is integrating with D
 It is important to note that the search results returned do not necessarily include the receiver to which you actually wish to send. The search results returned are strictly based on the search query you have sent in. This equally applies when only one search result is returned. This means that the actual person to which you wish to send must be confirmed by a human being before the actual document i sent (typically in the senders application). If the goal is to create a 100% automated workflow then the identify recipient endpoint should be used (see Identify recipient use case).
 
 {% highlight csharp %}
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var response = client.Search("Ola Nordmann Bellsund Longyearbyen");
 
 foreach (var person in response.PersonDetails)
 {
- var digipostAddress = person.DigipostAddress;
- var phoneNumber = person.MobileNumber;
+    var digipostAddress = person.DigipostAddress;
+    var phoneNumber = person.MobileNumber;
 }
+
+
 {% endhighlight %}
 
 ### Send on behalf of organization
-In the following use case, sender is defined as the party who is responsible for the actual content of the letter. Broker is defined as the party who is responsible for the technical transaction, which in this context means creating the request and being the party that is authenticated.
+In the following use case, `Sender` is defined as the party who is responsible for the actual content of the letter. `Broker` is defined as the party who is responsible for the technical transaction, which in this context means creating the request and being the party that is authenticated.
 
 ![example]({{ site.baseurl}}/assets/images/sender_broker_digipost.png)
 
-Sending on behalf of an organization is accomplished by setting `Message.SenderId` to the id of the sender when constructing a message. The actual letter will appear in the receivers Digipost mailbox with the senders details (logo, name, etc.). 
+Sending on behalf of an organization is accomplished by setting `Message.Sender` to the id of the sender when constructing a message. The actual letter will appear in the receivers Digipost mailbox with the senders details (logo, name, etc.). 
 
 <blockquote> Remember to use the business certificate of the broker to sign the message, not the one belonging to the sender. Also, the proper permissions need to be set by Digipost to send on behalf of an organization.</blockquote>
 
-Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _112233_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _5555_.  
+Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.  
 
 {% highlight csharp %}
 
-config = new ClientConfig(senderId: "112233");
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+var broker = new Broker(12345);
+var sender = new Sender(67890);
 
 var digitalRecipient = new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx");
 var primaryDocument = new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt");
 
-var message = new Message(digitalRecipient, primaryDocument){ SenderId = "5555"};
+var clientConfig = new ClientConfig(broker, Environment.Production);
 
-var result = client.SendMessage(message); 
+var message = new Message(sender, digitalRecipient, primaryDocument);
+
+var result = client.SendMessage(message);
+ 
 
 {% endhighlight %}
 
@@ -308,13 +295,14 @@ A message can be sent with a delivery time. This means that a message can be sen
 
 {% highlight csharp%}
 
-var config = new ClientConfig("xxxxx", Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
-
 var message = new Message(
-    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"), 
+    sender,
+    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
     new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
-    ) { DeliveryTime = DateTime.Now.AddDays(1).AddHours(4) };
+)
+{
+    DeliveryTime = DateTime.Now.AddDays(1).AddHours(4)
+};
 
 var result = client.SendMessage(message);
 

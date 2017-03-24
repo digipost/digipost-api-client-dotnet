@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
                               _stopwatch.ElapsedMilliseconds + " Avg:" +
                               (_stopwatch.Elapsed.Seconds == 0
                                   ? _successfulCalls
-                                  : _successfulCalls/_stopwatch.Elapsed.Seconds) + " req/sec");
+                                  : _successfulCalls / _stopwatch.Elapsed.Seconds) + " req/sec");
         }
 
         public void TestParallel()

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
-using Digipost.Api.Client.Domain.SendMessage;
+using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -13,8 +14,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public DigipostParalell(int numberOfRequests, int defaultConnectionLimit, int degreeOfParallelism,
             ClientConfig clientConfig, string thumbprint)
-            :
-                base(clientConfig, thumbprint, numberOfRequests)
+            : base(clientConfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;
             _degreeOfParallelism = degreeOfParallelism;

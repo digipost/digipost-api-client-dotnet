@@ -10,6 +10,7 @@ The client library is available as a nuget package. The client library (and asso
 To install the nuget package, follow these steps in Visual Studio:
 
 1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
+
 1. Search for _digipost-api-client_.
 * If you would like pre-releases of this package, make sure _Include Prerelease_ is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
 1. Select _digipost-api-client_ and click _Install_.
@@ -45,22 +46,25 @@ To communicate over HTTPS you need to sign your request with a business certific
 1. Copy the thumbprint and load as shown below
 
 ``` csharp
-var config = new ClientConfig(senderId: "xxxxx", environment: Environment.Production);
-var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+
+ var clientConfig = new ClientConfig(broker, Environment.Production);
+ var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
+
 ```
 
 ### Load business certificate from file
 If there is a reason for not loading the certificate from the Windows certificate store, you can use the constructor taking in a `X509Certificate2`:
 
 ``` csharp
-var config = new ClientConfig(senderId: "xxxxx", environment: Environment.Production);
-var businessCertificate =
-new X509Certificate2(
-    @"C:\Path\To\Certificate\Cert.p12",
-    "secretPasswordProperlyInstalledAndLoaded",
-    X509KeyStorageFlags.Exportable
-);
 
-var client = new DigipostClient(config, businessCertificate);
+var clientConfig = new ClientConfig(broker, Environment.Production);
+var businessCertificate =
+    new X509Certificate2(
+        @"C:\Path\To\Certificate\Cert.p12",
+        "secretPasswordProperlyInstalledAndLoaded",
+        X509KeyStorageFlags.Exportable
+    );
+
+var client = new DigipostClient(clientConfig, businessCertificate);
 
 ```

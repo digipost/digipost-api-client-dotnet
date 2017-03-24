@@ -1,5 +1,7 @@
 ﻿using System;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.ConcurrencyTest
 {
@@ -8,7 +10,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
         private const ProcessingType ProcessingType = Enums.ProcessingType.Parallel;
         private const RequestType RequestType = Enums.RequestType.Message;
         private const string Thumbprint = "29 7e 44 24 f2 8d ed 2c 9a a7 3d 9b 22 7c 73 48 f1 8a 1b 9b";
-        private const string SenderId = "106824802"; //"779052"; 
+        private const long SenderId = 106824802; //"779052"; 
         private const int DegreeOfParallelism = 4;
         private const int NumberOfRequests = 100;
         private const int ThreadsActive = 4;
@@ -24,7 +26,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
             Console.WriteLine("Starting to send digipost: {0}, with requests: {1}, poolcount: {2}", processingType,
                 numberOfRequests, connectionLimit);
 
-            var clientConfig = new ClientConfig(SenderId, Environment.Production);
+            var clientConfig = new ClientConfig(new Broker(SenderId), Environment.Production);
 
             switch (processingType)
             {

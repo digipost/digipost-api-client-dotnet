@@ -40,7 +40,7 @@ function Get-Xsd($XsdPathRelativeToSourceDir)
 
 $CodeDir = Get-CodeDirectory
 
-$XsdRelattivePath= "\Digipost.Api.Client.Resources\Xsd\Data\api_v7.xsd"
+$XsdRelativePath= "\Digipost.Api.Client.Resources\Xsd\Data\api_v7.xsd"
 $XsdPath = Get-Xsd($XsdRelativePath)
 
 GenerateCode $XsdPath "$CodeDir"

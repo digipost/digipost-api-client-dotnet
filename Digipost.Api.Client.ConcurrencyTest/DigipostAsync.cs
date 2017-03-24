@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.ConcurrencyTest.Enums;
 
 namespace Digipost.Api.Client.ConcurrencyTest
@@ -9,8 +10,7 @@ namespace Digipost.Api.Client.ConcurrencyTest
 
         public DigipostAsync(int numberOfRequests, int defaultConnectionLimit, ClientConfig clientconfig,
             string thumbprint)
-            :
-                base(clientconfig, thumbprint, numberOfRequests)
+            : base(clientconfig, thumbprint, numberOfRequests)
         {
             _defaultConnectionLimit = defaultConnectionLimit;
         }

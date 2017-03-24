@@ -25,11 +25,17 @@
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.dll" target="lib\net45\" />
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.xml" target="lib\net45\" />
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.dll" target="lib\net45\" />        
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Domain.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.dll" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.xml" target="lib\net45\" />
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\" />   
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.dll" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.xml" target="lib\net45\" />
+
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.dll" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.xml" target="lib\net45\" />
 
         <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Resources.dll" target="lib\net45\" />   
+
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\" />   
     </files>
 </package>

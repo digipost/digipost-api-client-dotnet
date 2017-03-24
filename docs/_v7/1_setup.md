@@ -14,6 +14,7 @@ To install the nuget package, follow these steps in Visual Studio:
 * If you would like pre-releases of this package, make sure _Include Prerelease_ is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
 1. Select _digipost-api-client_ and click _Install_.
 
+
 ### Install and use business certificate
 
 <blockquote>SSL Certificates are small data files that digitally bind a cryptographic key to an organization's details. When installed on a web server, it activates the padlock and the https protocol (over port 443) and allows secure connections from a web server to a browser.</blockquote>

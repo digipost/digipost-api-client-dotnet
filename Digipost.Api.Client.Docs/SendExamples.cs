@@ -62,10 +62,10 @@ namespace Digipost.Api.Client.Docs
             var attachment2 = new Document(subject: "Attachment 2", fileType: "pdf", path: @"c:\...\attachment_02.pdf");
 
             var message = new Message(
-                    sender,
-                    new RecipientById(IdentificationType.PersonalIdentificationNumber, id: "241084xxxxx"),
-                    primaryDocument
-                ){Attachments = {attachment1, attachment2}};
+                sender,
+                new RecipientById(IdentificationType.PersonalIdentificationNumber, id: "241084xxxxx"),
+                primaryDocument
+            ) {Attachments = {attachment1, attachment2}};
 
             var result = client.SendMessage(message);
         }

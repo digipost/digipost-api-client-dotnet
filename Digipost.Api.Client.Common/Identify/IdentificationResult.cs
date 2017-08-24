@@ -1,7 +1,6 @@
 ﻿using System;
 using Digipost.Api.Client.Common.Enums;
 
-
 namespace Digipost.Api.Client.Common.Identify
 {
     public class IdentificationResult : IIdentificationResult

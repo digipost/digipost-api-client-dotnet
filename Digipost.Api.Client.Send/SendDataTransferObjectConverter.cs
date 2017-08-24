@@ -5,7 +5,6 @@ using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Recipient;
 
-
 namespace Digipost.Api.Client.Send
 {
     internal class SendDataTransferObjectConverter

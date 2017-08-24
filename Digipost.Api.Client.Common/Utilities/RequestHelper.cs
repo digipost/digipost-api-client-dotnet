@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Exceptions;
 
-
 namespace Digipost.Api.Client.Common.Utilities
 {
     internal class RequestHelper

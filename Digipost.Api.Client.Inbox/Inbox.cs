@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Utilities;
 
-
 namespace Digipost.Api.Client.Inbox
 {
     public class Inbox : IInbox

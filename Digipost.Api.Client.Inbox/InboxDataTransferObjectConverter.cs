@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Extensions;
 
-
 namespace Digipost.Api.Client.Inbox
 {
     internal class InboxDataTransferObjectConverter

@@ -7,7 +7,6 @@ using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Extensions;
-using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 using Digipost.Api.Client.Send;
 
 namespace Digipost.Api.Client.Api

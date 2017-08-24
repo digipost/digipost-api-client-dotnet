@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Tests.Utilities
                         1010,
                         digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.Qa,
-                        new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VTGM")
+                        new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
                     );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);

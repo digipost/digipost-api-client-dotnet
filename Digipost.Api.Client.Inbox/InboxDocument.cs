@@ -25,5 +25,7 @@ namespace Digipost.Api.Client.Inbox
         public Uri Delete { get; set; }
 
         public IEnumerable<InboxDocument> Attachments { get; set; } = new List<InboxDocument>();
+
+        public string ReferenceFromSender { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Digipost.Api.Client.Common.Enums;
-using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
+
 
 namespace Digipost.Api.Client.Common.Identify
 {

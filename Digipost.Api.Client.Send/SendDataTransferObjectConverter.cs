@@ -4,7 +4,7 @@ using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Recipient;
-using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
+
 
 namespace Digipost.Api.Client.Send
 {

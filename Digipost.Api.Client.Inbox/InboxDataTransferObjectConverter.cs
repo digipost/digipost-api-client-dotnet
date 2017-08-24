@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Extensions;
-using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
+
 
 namespace Digipost.Api.Client.Inbox
 {
@@ -26,7 +26,8 @@ namespace Digipost.Api.Client.Inbox
                 FirstAccessed = inboxdocument.firstaccessedSpecified ? inboxdocument.firstaccessed : (DateTime?) null,
                 Id = inboxdocument.id,
                 Sender = inboxdocument.sender,
-                Subject = inboxdocument.subject
+                Subject = inboxdocument.subject,
+                ReferenceFromSender = inboxdocument.referencefromsender
             };
         }
     }

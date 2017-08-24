@@ -6,7 +6,6 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Resources.Content;
-using Digipost.Api.Client.Scripts.Xsd.XsdToCode.Code;
 using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://api.digipost.no/schema/datatypes" elementFormDefault="qualified" targetNamespace="http://api.digipost.no/schema/datatypes" version="1.0">
+
+  <xs:element name="appointment" type="tns:appointment"/>
+
+  <xs:element name="boligdetaljer" type="tns:boligdetaljer"/>
+
+  <xs:element name="category" type="tns:category"/>
+
+  <xs:element name="externalLink" type="tns:externalLink"/>
+
+  <xs:element name="residence" type="tns:residence"/>
+
+  <xs:complexType final="extension restriction" name="appointment">
+    <xs:sequence>
+      <xs:element name="start-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="end-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="arrival-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="place" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:appointmentAddress"/>
+      <xs:element minOccurs="0" name="sub-title" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="appointmentAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="street-address" type="xs:string"/>
+      <xs:element name="postal-code" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="info">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+      <xs:element minOccurs="0" name="text" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="boligdetaljer">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:residence"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="hjemmelshavere" type="tns:hjemmelshaver"/>
+      <xs:element minOccurs="0" name="bruksareal" type="xs:int"/>
+      <xs:element minOccurs="0" name="antall-oppholdsrom" type="xs:int"/>
+      <xs:element minOccurs="0" name="antall-baderom" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="omsetningshistorikk" type="tns:omsetningshistorikk"/>
+      <xs:element minOccurs="0" name="organisasjonsnummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="bruksenhet" type="xs:string"/>
+      <xs:element minOccurs="0" name="andelsnummer" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="heftelser" type="tns:heftelse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="residence">
+    <xs:sequence>
+      <xs:element name="address" type="tns:residenceAddress"/>
+      <xs:element minOccurs="0" name="matrikkel" type="tns:matrikkel"/>
+      <xs:element minOccurs="0" name="source" type="xs:string"/>
+      <xs:element minOccurs="0" name="external-id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="residenceAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="unit-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="house-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="street-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="postal-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="matrikkel">
+    <xs:sequence>
+      <xs:element name="kommunenummer" type="xs:string"/>
+      <xs:element name="gaardsnummer" type="xs:string"/>
+      <xs:element name="bruksnummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="festenummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="seksjonsnummer" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="hjemmelshaver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="omsetningshistorikk">
+    <xs:sequence>
+      <xs:element name="dato" type="xs:string"/>
+      <xs:element minOccurs="0" name="beskrivelse" type="xs:string"/>
+      <xs:element minOccurs="0" name="selger" type="xs:string"/>
+      <xs:element minOccurs="0" name="kjoeper" type="xs:string"/>
+      <xs:element minOccurs="0" name="beloep" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="heftelse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="panthaver" type="xs:string"/>
+      <xs:element minOccurs="0" name="type-pant" type="xs:string"/>
+      <xs:element minOccurs="0" name="beloep" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="category">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType final="extension restriction" name="externalLink">
+    <xs:sequence>
+      <xs:element name="url" type="xs:anyURI"/>
+      <xs:element minOccurs="0" name="deadline" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="button-text" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

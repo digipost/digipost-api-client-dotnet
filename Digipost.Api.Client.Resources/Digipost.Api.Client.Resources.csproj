@@ -96,6 +96,9 @@
       <Link>signingkey.snk</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Xsd\Data\datatypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Certificate\Data\DigipostTestCert.p12" />

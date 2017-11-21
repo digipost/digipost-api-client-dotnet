@@ -2376,6 +2376,8 @@ public partial class document {
     
     private link[] linkField;
     
+    private System.Xml.XmlElement datatypeField;
+    
     private string technicaltypeField;
     
     /// <remarks/>
@@ -2516,6 +2518,17 @@ public partial class document {
         }
         set {
             this.linkField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("data-type")]
+    public System.Xml.XmlElement datatype {
+        get {
+            return this.datatypeField;
+        }
+        set {
+            this.datatypeField = value;
         }
     }
     

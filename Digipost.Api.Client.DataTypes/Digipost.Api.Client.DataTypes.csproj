@@ -56,7 +56,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Appointment\AppointmentAddress.cs" />
-    <Compile Include="Appointment\ExternalLink.cs" />
+    <Compile Include="Appointment\Appointment.cs" />
     <Compile Include="Appointment\Info.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="ExternalLink.cs" />

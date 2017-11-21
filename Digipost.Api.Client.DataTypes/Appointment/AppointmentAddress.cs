@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.DataTypes
         public string City { get; set; }
 
         /// <inheritdoc />
-        public AppointmentAddress(string postalCode, string city) : this(string.Empty, postalCode, city)
+        public AppointmentAddress(string postalCode, string city) : this(null, postalCode, city)
         {
         }
 
@@ -21,5 +21,17 @@ namespace Digipost.Api.Client.DataTypes
             PostalCode = postalCode;
             City = city;
         }
+
+        internal appointmentAddress AsDataTransferObject()
+        {
+            return new appointmentAddress()
+            {
+                streetaddress = StreetAddress,
+                postalcode = PostalCode,
+                city = City
+
+            };
+        }
+
     }
 }

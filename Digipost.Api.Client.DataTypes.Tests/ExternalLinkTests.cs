@@ -16,12 +16,13 @@ namespace Digipost.Api.Client.DataTypes.Tests
         public void AsDataTransferObject()
         {
             var now = DateTime.Now;
-            var expected = new ExternalLink(new Uri("https://digipost.no"))
+            var source = new ExternalLink(new Uri("https://digipost.no"))
             {
                 ButtonText = "Click me",
                 Deadline = now,
                 Description = "Description"
             };
+            var expected = source.AsDataTransferObject();
 
             var actual = new externalLink()
             {

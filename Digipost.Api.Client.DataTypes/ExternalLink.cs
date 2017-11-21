@@ -35,7 +35,7 @@ namespace Digipost.Api.Client.DataTypes
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
 
-        protected externalLink AsDataTransferObject()
+        internal externalLink AsDataTransferObject()
         {
             var dto = new externalLink()
             {

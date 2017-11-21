@@ -43,6 +43,6 @@ namespace Digipost.Api.Client.Send
         /// </summary>
         byte[] ContentBytes { get; set; }
 
-        DataType DataType { get; set; }
+        IDataType DataType { get; set; }
     }
 }

@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes", "Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj", "{04EA2E77-B6B0-48AA-888C-EB21876F6767}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes.Tests", "Digipost.Api.Client.DataTypes.Tests\Digipost.Api.Client.DataTypes.Tests.csproj", "{FF6174C7-8429-4889-8E8E-98A908916B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

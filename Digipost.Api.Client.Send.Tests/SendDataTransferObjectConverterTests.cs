@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void Document()
             {
                 //Arrange
-                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3), new ExternalLink(new Uri("https://digipost.no")));
+                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
                 var expectedDto = new document
                 {
                     subject = source.Subject,
@@ -31,8 +31,7 @@ namespace Digipost.Api.Client.Send.Tests
                     sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
                     sensitivitylevelSpecified = true,
                     smsnotification = new smsnotification {afterhours = source.SmsNotification.NotifyAfterHours.ToArray()},
-                    uuid = source.Guid,
-                    datatype = new ExternalLink(new Uri("https://digipost.no")).Serialize()
+                    uuid = source.Guid
                 };
 
                 //Act

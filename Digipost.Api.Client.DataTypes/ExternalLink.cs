@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes
 {
-    public class ExternalLink : DataType
+    public class ExternalLink : IDataType
     {
         /// <summary>
         /// Target URL of this link. Must be http or https.
@@ -29,7 +30,12 @@ namespace Digipost.Api.Client.DataTypes
             Url = url;
         }
 
-        protected override object AsDataTransferObject()
+        public XmlElement Serialize()
+        {
+            return DataTypeSerialization.Serialize(AsDataTransferObject());
+        }
+
+        protected externalLink AsDataTransferObject()
         {
             var dto = new externalLink()
             {

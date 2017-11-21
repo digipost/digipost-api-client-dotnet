@@ -5,6 +5,7 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
@@ -25,10 +26,15 @@ namespace Digipost.Api.Client.Tests
 
         public static IMessage GetSimpleMessageWithRecipientById()
         {
+            return GetSimpleMessageWithRecipientById(GetDocument());
+        }
+
+        public static IMessage GetSimpleMessageWithRecipientById(IDocument document)
+        {
             var message = new Message(
                 GetSender(),
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
-                GetDocument()
+                document
             );
             return message;
         }
@@ -93,9 +99,12 @@ namespace Digipost.Api.Client.Tests
             return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
-        public static IDocument GetDocument()
+        public static IDocument GetDocument(IDataType dataType = null)
         {
-            return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText());
+            return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText())
+            {
+                DataType = dataType
+            };
         }
 
         public static IDocument GetInvoice()

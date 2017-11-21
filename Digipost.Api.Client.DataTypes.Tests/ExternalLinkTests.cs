@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.DataTypes.Tests
                 deadline = now,
                 deadlineSpecified = true,
                 description = "Description",
-                url = "https://digipost.no"
+                url = "https://digipost.no/"
             };
 
             IEnumerable<IDifference> differences;

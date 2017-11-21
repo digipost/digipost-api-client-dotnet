@@ -32,7 +32,8 @@ namespace Digipost.Api.Client.DataTypes.Tests
                 url = "https://digipost.no"
             };
 
-            Comparator.Equal(expected, actual, out var differences);
+            IEnumerable<IDifference> differences;
+            Comparator.Equal(expected, actual, out differences);
             Assert.Empty(differences);
         }
     }

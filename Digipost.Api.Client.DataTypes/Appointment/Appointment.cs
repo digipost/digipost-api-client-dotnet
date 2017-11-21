@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.DataTypes.Appointment
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
 
-        protected appointment AsDataTransferObject()
+        internal appointment AsDataTransferObject()
         {
             var dto = new appointment()
             {

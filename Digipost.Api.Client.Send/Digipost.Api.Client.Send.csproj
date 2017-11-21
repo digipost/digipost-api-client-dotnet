@@ -70,6 +70,10 @@
       <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
       <Name>Digipost.Api.Client.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj">
+      <Project>{04ea2e77-b6b0-48aa-888c-eb21876f6767}</Project>
+      <Name>Digipost.Api.Client.DataTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
       <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
       <Name>Digipost.Api.Client.Xsd</Name>

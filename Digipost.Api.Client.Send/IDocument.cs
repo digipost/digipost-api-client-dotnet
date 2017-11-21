@@ -1,5 +1,6 @@
 ﻿using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.DataTypes;
 
 namespace Digipost.Api.Client.Send
 {
@@ -41,5 +42,7 @@ namespace Digipost.Api.Client.Send
         ///     The document encoded as a byte array.
         /// </summary>
         byte[] ContentBytes { get; set; }
+
+        DataType DataType { get; set; }
     }
 }

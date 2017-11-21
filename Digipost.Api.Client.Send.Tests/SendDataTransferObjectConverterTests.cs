@@ -4,6 +4,7 @@ using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
+using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
@@ -20,7 +21,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void Document()
             {
                 //Arrange
-                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
+                IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3), new ExternalLink(new Uri("https://digipost.no")));
                 var expectedDto = new document
                 {
                     subject = source.Subject,
@@ -30,7 +31,8 @@ namespace Digipost.Api.Client.Send.Tests
                     sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
                     sensitivitylevelSpecified = true,
                     smsnotification = new smsnotification {afterhours = source.SmsNotification.NotifyAfterHours.ToArray()},
-                    uuid = source.Guid
+                    uuid = source.Guid,
+                    datatype = new ExternalLink(new Uri("https://digipost.no")).Serialize()
                 };
 
                 //Act

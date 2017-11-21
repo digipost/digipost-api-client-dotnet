@@ -76,6 +76,11 @@ namespace Digipost.Api.Client.Send
             documentDto.smsnotification = DataTransferObjectConverter.ToDataTransferObject(document.SmsNotification);
             documentDto.uuid = document.Guid;
 
+            if (document.DataType != null)
+            {
+                documentDto.datatype = document.DataType.Serialize();
+            }
+
             return documentDto;
         }
 

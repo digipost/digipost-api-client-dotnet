@@ -27,6 +27,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send", "Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj", "{28138693-B5B5-40DA-B9FA-E75F28EC9E90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send.Tests", "Digipost.Api.Client.Send.Tests\Digipost.Api.Client.Send.Tests.csproj", "{71983742-4592-43BF-9599-7575ECA508A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767} = {04EA2E77-B6B0-48AA-888C-EB21876F6767}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common.Tests", "Digipost.Api.Client.Common.Tests\Digipost.Api.Client.Common.Tests.csproj", "{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}"
 EndProject

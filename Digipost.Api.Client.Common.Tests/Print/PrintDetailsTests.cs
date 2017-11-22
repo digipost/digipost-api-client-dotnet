@@ -10,8 +10,6 @@ namespace Digipost.Api.Client.Common.Tests.Print
     {
         public class ConstructorMethod : PrintDetailsTests
         {
-            private readonly Comparator _comparator = new Comparator();
-
             [Fact]
             public void SimpleConstructor()
             {
@@ -22,9 +20,9 @@ namespace Digipost.Api.Client.Common.Tests.Print
                 //Act
 
                 //Assert
-                _comparator.AssertEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient);
+                Comparator.AssertEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient);
 
-                _comparator.AssertEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient);
+                Comparator.AssertEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient);
 
                 Assert.Equal(PostType.A, printDetails.PostType);
                 Assert.Equal(PrintColors.Colors, printDetails.PrintColors);

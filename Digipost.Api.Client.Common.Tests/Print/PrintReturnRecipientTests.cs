@@ -9,8 +9,6 @@ namespace Digipost.Api.Client.Common.Tests.Print
     {
         public class ConstructorMethod : PrintReturnRecipientTests
         {
-            private readonly Comparator _comparator = new Comparator();
-
             [Fact]
             public void SimpleConstructor()
             {
@@ -23,7 +21,7 @@ namespace Digipost.Api.Client.Common.Tests.Print
                 //Assert
                 Assert.Equal(name, printRecipient.Name);
 
-                _comparator.AssertEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address);
+                Comparator.AssertEqual(DomainUtility.GetNorwegianAddress(), printRecipient.Address);
             }
         }
     }

@@ -49,8 +49,7 @@ namespace Digipost.Api.Client.Inbox.Tests
 
                 var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
-                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
-                comparator.AssertEqual(expected, actual);
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -61,8 +60,7 @@ namespace Digipost.Api.Client.Inbox.Tests
 
                 var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
-                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
-                comparator.AssertEqual(expected, actual);
+                Comparator.AssertEqual(expected, actual);
             }
         }
     }

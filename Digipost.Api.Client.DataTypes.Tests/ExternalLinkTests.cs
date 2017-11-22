@@ -6,8 +6,6 @@ namespace Digipost.Api.Client.DataTypes.Tests
 {
     public class ExternalLinkTests
     {
-        private static readonly Comparator Comparator = new Comparator();
-
         [Fact]
         public void AsDataTransferObject()
         {

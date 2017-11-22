@@ -7,8 +7,6 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
 {
     public class AppointmentTests
     {
-        private static readonly Comparator Comparator = new Comparator();
-
         [Fact]
         public void AllowsOnlyRequiredParameters()
         {

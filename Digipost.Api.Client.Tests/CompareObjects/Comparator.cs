@@ -5,10 +5,8 @@ using Xunit;
 
 namespace Digipost.Api.Client.Tests.CompareObjects
 {
-    internal class Comparator
+    internal static class Comparator
     {
-        public ComparisonConfiguration ComparisonConfiguration { get; set; } = new ComparisonConfiguration();
-
         private static void Equal(object expected, object actual, out IEnumerable<Difference> differences)
         {
             var compareLogic = new CompareLogic(
@@ -29,7 +27,7 @@ namespace Digipost.Api.Client.Tests.CompareObjects
             }).ToList();
         }
 
-        public void AssertEqual(object expected, object actual)
+        public static void AssertEqual(object expected, object actual)
         {
             IEnumerable<Difference> differences;
             Equal(expected, actual, out differences);

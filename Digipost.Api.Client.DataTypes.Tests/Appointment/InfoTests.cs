@@ -5,8 +5,6 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
 {
     public class InfoTests
     {
-        private static readonly Comparator Comparator = new Comparator();
-
         [Fact]
         public void AsDataTransferObject()
         {

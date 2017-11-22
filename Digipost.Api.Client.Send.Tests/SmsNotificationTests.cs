@@ -8,8 +8,6 @@ namespace Digipost.Api.Client.Send.Tests
 {
     public class SmsNotificationTests
     {
-        private readonly Comparator _comparator = new Comparator();
-
         public class ConstructorMethod : SmsNotificationTests
         {
             [Fact]
@@ -25,7 +23,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var actual = smsNotification.NotifyAfterHours;
 
                 //Assert
-                _comparator.AssertEqual(expected, actual);
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -41,7 +39,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var actual = smsNotification.NotifyAtTimes;
 
                 //Assert
-                _comparator.AssertEqual(expected, actual);
+                Comparator.AssertEqual(expected, actual);
             }
         }
     }

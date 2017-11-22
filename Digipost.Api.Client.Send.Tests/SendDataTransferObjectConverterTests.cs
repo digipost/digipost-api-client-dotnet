@@ -12,8 +12,6 @@ namespace Digipost.Api.Client.Send.Tests
 {
     public class SendDataTransferObjectConverterTests
     {
-        private static readonly Comparator Comparator = new Comparator();
-
         public class FromDataTransferObjectConverterMethod
         {
             [Fact]

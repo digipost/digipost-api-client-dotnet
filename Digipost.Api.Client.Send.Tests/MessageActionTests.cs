@@ -35,7 +35,6 @@ namespace Digipost.Api.Client.Send.Tests
 
                 Assert.Contains("<externalLink", content.InnerXml);
             }
-
         }
     }
 }

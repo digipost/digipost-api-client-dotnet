@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
@@ -11,6 +8,22 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
     public class AppointmentTests
     {
         private static readonly Comparator Comparator = new Comparator();
+
+        [Fact]
+        public void AllowsOnlyRequiredParameters()
+        {
+            var now = DateTime.Now;
+
+            var source = new DataTypes.Appointment.Appointment(now);
+            var expected = source.AsDataTransferObject();
+
+            var actual = new appointment
+            {
+                starttime = now.ToString("O")
+            };
+
+            Comparator.AssertEqual(expected, actual);
+        }
 
         [Fact]
         public void AsDataTransferObject()
@@ -24,7 +37,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 EndTime = now.AddHours(1),
                 AppointmentAddress = address,
                 ArrivalTime = "15 minutes before",
-                Info = new List<Info>()
+                Info = new List<Info>
                 {
                     info
                 },
@@ -33,7 +46,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
             };
             var expected = source.AsDataTransferObject();
 
-            var actual = new appointment()
+            var actual = new appointment
             {
                 starttime = now.ToString("O"),
                 endtime = now.AddHours(1).ToString("O"),
@@ -49,22 +62,5 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
 
             Comparator.AssertEqual(expected, actual);
         }
-
-        [Fact]
-        public void AllowsOnlyRequiredParameters()
-        {
-            var now = DateTime.Now;
-
-            var source = new DataTypes.Appointment.Appointment(now);
-            var expected = source.AsDataTransferObject();
-
-            var actual = new appointment()
-            {
-                starttime = now.ToString("O"),
-            };
-
-            Comparator.AssertEqual(expected, actual);
-        }
-
     }
 }

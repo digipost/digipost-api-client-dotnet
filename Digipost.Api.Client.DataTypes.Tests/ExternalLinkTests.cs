@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
@@ -24,7 +20,7 @@ namespace Digipost.Api.Client.DataTypes.Tests
             };
             var expected = source.AsDataTransferObject();
 
-            var actual = new externalLink()
+            var actual = new externalLink
             {
                 buttontext = "Click me",
                 deadline = now,

@@ -5,30 +5,30 @@ namespace Digipost.Api.Client.DataTypes
 {
     public class ExternalLink : IDataType
     {
-        /// <summary>
-        /// Target URL of this link. Must be http or https.
-        /// </summary>
-        public Uri Url { get; set; }
-
-        /// <summary>
-        /// Optional deadline for the user to respond. ISO8601 full DateTime.
-        /// </summary>
-        public DateTime? Deadline { get; set; }
-
-        /// <summary>
-        /// A short, optional text-field, describing the external link.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Optional text which will be displayed on the button.
-        /// </summary>
-        public string ButtonText { get; set; }
-
         public ExternalLink(Uri url)
         {
             Url = url;
         }
+
+        /// <summary>
+        ///     Target URL of this link. Must be http or https.
+        /// </summary>
+        public Uri Url { get; set; }
+
+        /// <summary>
+        ///     Optional deadline for the user to respond. ISO8601 full DateTime.
+        /// </summary>
+        public DateTime? Deadline { get; set; }
+
+        /// <summary>
+        ///     A short, optional text-field, describing the external link.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        ///     Optional text which will be displayed on the button.
+        /// </summary>
+        public string ButtonText { get; set; }
 
         public XmlElement Serialize()
         {
@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.DataTypes
 
         internal externalLink AsDataTransferObject()
         {
-            var dto = new externalLink()
+            var dto = new externalLink
             {
                 buttontext = ButtonText,
                 description = Description,
@@ -50,6 +50,5 @@ namespace Digipost.Api.Client.DataTypes
             }
             return dto;
         }
-
     }
 }

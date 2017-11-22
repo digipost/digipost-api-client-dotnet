@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Digipost.Api.Client.Tests.CompareObjects;
+﻿using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
 namespace Digipost.Api.Client.DataTypes.Tests.Appointment
@@ -14,14 +13,13 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
             var source = new Info("Title", "Text");
             var expected = source.AsDataTransferObject();
 
-            var actual = new info()
+            var actual = new info
             {
                 title = "Title",
-                text = "Text",
+                text = "Text"
             };
 
             Comparator.AssertEqual(expected, actual);
         }
-
     }
 }

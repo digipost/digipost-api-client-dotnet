@@ -1,12 +1,10 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.DataTypes
 {
     internal class DataTypeSerialization
     {
-
         internal static XmlElement Serialize<T>(T data)
         {
             var document = new XmlDocument();
@@ -14,6 +12,5 @@ namespace Digipost.Api.Client.DataTypes
             document.LoadXml(serialized);
             return document.DocumentElement;
         }
-
     }
 }

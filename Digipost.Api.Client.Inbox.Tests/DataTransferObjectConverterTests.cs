@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;

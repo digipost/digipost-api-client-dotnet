@@ -20,9 +20,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 text = "Text",
             };
 
-            IEnumerable<IDifference> differences;
-            Comparator.Equal(expected, actual, out differences);
-            Assert.Empty(differences);
+            Comparator.AssertEqual(expected, actual);
         }
 
     }

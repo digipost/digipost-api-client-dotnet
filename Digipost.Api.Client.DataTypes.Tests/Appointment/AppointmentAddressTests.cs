@@ -21,9 +21,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 city = "Oslo"
             };
 
-            IEnumerable<IDifference> differences;
-            Comparator.Equal(expected, actual, out differences);
-            Assert.Empty(differences);
+            Comparator.AssertEqual(expected, actual);
         }
 
         [Fact]
@@ -38,9 +36,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 city = "Oslo"
             };
 
-            IEnumerable<IDifference> differences;
-            Comparator.Equal(expected, actual, out differences);
-            Assert.Empty(differences);
+            Comparator.AssertEqual(expected, actual);
         }
 
     }

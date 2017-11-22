@@ -47,9 +47,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 subtitle = "SubTitle"
             };
 
-            IEnumerable<IDifference> differences;
-            Comparator.Equal(expected, actual, out differences);
-            Assert.Empty(differences);
+            Comparator.AssertEqual(expected, actual);
         }
 
         [Fact]
@@ -65,9 +63,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
                 starttime = now.ToString("O"),
             };
 
-            IEnumerable<IDifference> differences;
-            Comparator.Equal(expected, actual, out differences);
-            Assert.Empty(differences);
+            Comparator.AssertEqual(expected, actual);
         }
 
     }

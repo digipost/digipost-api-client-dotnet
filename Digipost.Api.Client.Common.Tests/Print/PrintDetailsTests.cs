@@ -24,13 +24,9 @@ namespace Digipost.Api.Client.Common.Tests.Print
                 //Act
 
                 //Assert
-                IEnumerable<IDifference> printDifference;
-                _comparator.Equal(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient, out printDifference);
-                Assert.Equal(0, printDifference.Count());
+                _comparator.AssertEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient);
 
-                IEnumerable<IDifference> printReturnDifference;
-                _comparator.Equal(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
-                Assert.Equal(0, printReturnDifference.Count());
+                _comparator.AssertEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient);
 
                 Assert.Equal(PostType.A, printDetails.PostType);
                 Assert.Equal(PrintColors.Colors, printDetails.PrintColors);

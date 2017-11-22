@@ -1,20 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using KellermanSoftware.CompareNetObjects;
+using Xunit;
 
 namespace Digipost.Api.Client.Tests.CompareObjects
 {
-    internal class Comparator : IComparator
+    internal class Comparator
     {
         public ComparisonConfiguration ComparisonConfiguration { get; set; } = new ComparisonConfiguration();
 
-        public bool Equal(object expected, object actual)
-        {
-            IEnumerable<IDifference> differences;
-            return Equal(expected, actual, out differences);
-        }
-
-        public bool Equal(object expected, object actual, out IEnumerable<IDifference> differences)
+        private static void Equal(object expected, object actual, out IEnumerable<Difference> differences)
         {
             var compareLogic = new CompareLogic(
                 new ComparisonConfig
@@ -31,9 +26,14 @@ namespace Digipost.Api.Client.Tests.CompareObjects
                 WhatIsCompared = d.GetWhatIsCompared(),
                 ExpectedValue = d.Object1Value,
                 ActualValue = d.Object2Value
-            }).ToList<IDifference>();
+            }).ToList();
+        }
 
-            return compareResult.AreEqual;
+        public void AssertEqual(object expected, object actual)
+        {
+            IEnumerable<Difference> differences;
+            Equal(expected, actual, out differences);
+            Assert.Equal(new List<Difference>(), differences);
         }
     }
 }

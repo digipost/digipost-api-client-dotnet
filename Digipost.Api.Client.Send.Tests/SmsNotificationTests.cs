@@ -26,10 +26,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var actual = smsNotification.NotifyAfterHours;
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-
-                Assert.Equal(0, differences.Count());
+                _comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -45,10 +42,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var actual = smsNotification.NotifyAtTimes;
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-
-                Assert.Equal(0, differences.Count());
+                _comparator.AssertEqual(expected, actual);
             }
         }
     }

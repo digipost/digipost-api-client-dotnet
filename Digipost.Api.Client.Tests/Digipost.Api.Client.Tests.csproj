@@ -90,8 +90,6 @@
     <Compile Include="CompareObjects\Comparator.cs" />
     <Compile Include="CompareObjects\ComparisonConfiguration.cs" />
     <Compile Include="CompareObjects\Difference.cs" />
-    <Compile Include="CompareObjects\IComparator.cs" />
-    <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="Fakes\FakeResponseHandler.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />

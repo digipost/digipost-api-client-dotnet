@@ -37,7 +37,6 @@ namespace Digipost.Api.Client.DataTypes.Appointment
         public string SubTitle { get; set; }
 
         /// <summary>
-        ///     w
         ///     Additional sections of information (max 2) with a title and text
         /// </summary>
         public List<Info> Info { get; set; }

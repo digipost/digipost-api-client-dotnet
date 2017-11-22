@@ -8,7 +8,6 @@ namespace Digipost.Api.Client.Common
         public ApiClientXmlValidator()
         {
             AddXsd(Namespace.DigipostApiV7, XsdResource.GetApiV7Xsd());
-
             AddXsd(Namespace.DataTypes, XsdResource.GetDataTypesXsd());
         }
     }

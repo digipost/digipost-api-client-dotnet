@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
@@ -50,10 +49,7 @@ namespace Digipost.Api.Client.Inbox.Tests
 
                 var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
-                IEnumerable<IDifference> differences;
-                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
-                comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -64,10 +60,7 @@ namespace Digipost.Api.Client.Inbox.Tests
 
                 var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
 
-                IEnumerable<IDifference> differences;
-                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
-                comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
         }
     }

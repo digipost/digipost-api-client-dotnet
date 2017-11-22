@@ -18,5 +18,10 @@ namespace Digipost.Api.Client.Resources.Xsd
         {
             return GetResource("api_v7.xsd");
         }
+
+        public static XmlReader GetDataTypesXsd()
+        {
+            return GetResource("datatypes.xsd");
+        }
     }
 }

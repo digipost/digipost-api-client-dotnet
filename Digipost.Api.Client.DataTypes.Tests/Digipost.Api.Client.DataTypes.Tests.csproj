@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{28138693-B5B5-40DA-B9FA-E75F28EC9E90}</ProjectGuid>
+    <ProjectGuid>{FF6174C7-8429-4889-8E8E-98A908916B14}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client.Send</RootNamespace>
-    <AssemblyName>Digipost.Api.Client.Send</AssemblyName>
+    <RootNamespace>Digipost.Api.Client.DataTypes.Tests</RootNamespace>
+    <AssemblyName>Digipost.Api.Client.DataTypes.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,7 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Digipost.Api.Client.Send.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -46,50 +47,51 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ContentHash.cs" />
-    <Compile Include="SendDataTransferObjectConverter.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="IDocument.cs" />
-    <Compile Include="IInvoice.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="IMessageDeliveryResult.cs" />
-    <Compile Include="Invoice.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageAction.cs" />
-    <Compile Include="MessageDeliveryResult.cs" />
+    <Compile Include="Appointment\AppointmentAddressTests.cs" />
+    <Compile Include="Appointment\AppointmentTests.cs" />
+    <Compile Include="Appointment\InfoTests.cs" />
+    <Compile Include="ExternalLinkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendRequestHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
-      <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
-      <Name>Digipost.Api.Client.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj">
-      <Project>{04ea2e77-b6b0-48aa-888c-eb21876f6767}</Project>
-      <Name>Digipost.Api.Client.DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
-      <Project>{9e8e7c47-894d-441c-956a-2f6eac2215e0}</Project>
-      <Name>Digipost.Api.Client.Xsd</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
+      <Link>Properties\signingkey.snk</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj">
+      <Project>{04EA2E77-B6B0-48AA-888C-EB21876F6767}</Project>
+      <Name>Digipost.Api.Client.DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
+      <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
+      <Name>Digipost.Api.Client.Xsd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.Tests\Digipost.Api.Client.Tests.csproj">
+      <Project>{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}</Project>
+      <Name>Digipost.Api.Client.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

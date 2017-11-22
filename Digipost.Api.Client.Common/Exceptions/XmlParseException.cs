@@ -18,6 +18,6 @@ namespace Digipost.Api.Client.Common.Exceptions
             XmlRawData = xmlRawData;
         }
 
-        public string XmlRawData { get; private set; }
+        public string XmlRawData { get; }
     }
 }

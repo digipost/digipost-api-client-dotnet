@@ -13,8 +13,6 @@ namespace Digipost.Api.Client.Common.Tests
 {
     public class DataTransferObjectConverterTests
     {
-        private readonly Comparator _comparator = new Comparator();
-
         public class ToDataTransferObjectMethod : DataTransferObjectConverterTests
         {
             [Fact]
@@ -44,9 +42,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -71,9 +67,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -98,9 +92,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -131,9 +123,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -173,9 +163,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -213,9 +201,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert    
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -233,9 +219,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -260,9 +244,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -293,9 +275,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -320,9 +300,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -346,9 +324,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -373,9 +349,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -400,9 +374,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -430,9 +402,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -486,10 +456,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
 
                 Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintDetails) null));
             }
@@ -527,10 +494,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -558,10 +522,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -597,10 +558,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -628,9 +586,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -653,9 +609,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -693,9 +647,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actualDto, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actualDto);
             }
 
             [Fact]
@@ -821,10 +773,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                var comparator = new Comparator {ComparisonConfiguration = new ComparisonConfiguration {IgnoreObjectTypes = true}};
-                comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
 
             [Fact]
@@ -848,9 +797,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.ToDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expectedDto, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expectedDto, actual);
             }
         }
 
@@ -878,9 +825,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var actual = DataTransferObjectConverter.FromDataTransferObject(source);
 
                 //Assert
-                IEnumerable<IDifference> differences;
-                _comparator.Equal(expected, actual, out differences);
-                Assert.Equal(0, differences.Count());
+                Comparator.AssertEqual(expected, actual);
             }
         }
     }

@@ -43,6 +43,9 @@ namespace Digipost.Api.Client.Send
         /// </summary>
         byte[] ContentBytes { get; set; }
 
+        /// <summary>
+        ///     Optional metadata to enrich the document in Digipost. See https://github.com/digipost/digipost-data-types for valid data-types.
+        /// </summary>
         IDataType DataType { get; set; }
     }
 }

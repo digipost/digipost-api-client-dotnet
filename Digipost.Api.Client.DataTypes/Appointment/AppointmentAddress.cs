@@ -2,7 +2,6 @@
 {
     public class AppointmentAddress
     {
-        /// <inheritdoc />
         public AppointmentAddress(string postalCode, string city)
             : this(null, postalCode, city)
         {

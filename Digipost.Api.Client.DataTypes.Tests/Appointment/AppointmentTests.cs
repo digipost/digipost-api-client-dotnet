@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
         [Fact]
         public void AsDataTransferObject()
         {
-            var now = DateTime.Parse("2017-11-21T13:00:00+01:00");
+            var now = DateTime.Now;
             var address = new AppointmentAddress("Gateveien 1", "0001", "Oslo");
             var info = new Info("Title", "Very important information");
 
@@ -35,11 +35,11 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
 
             var actual = new appointment()
             {
-                starttime = "2017-11-21T13:00:00.0000000+01:00",
-                endtime = "2017-11-21T14:00:00.0000000+01:00",
+                starttime = now.ToString("O"),
+                endtime = now.AddHours(1).ToString("O"),
                 arrivaltime = "15 minutes before",
                 address = address.AsDataTransferObject(),
-                info = new info[]
+                info = new[]
                 {
                     info.AsDataTransferObject()
                 },
@@ -55,14 +55,14 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
         [Fact]
         public void AllowsOnlyRequiredParameters()
         {
-            var now = DateTime.Parse("2017-11-21T13:00:00+01:00");
+            var now = DateTime.Now;
 
             var source = new DataTypes.Appointment.Appointment(now);
             var expected = source.AsDataTransferObject();
 
             var actual = new appointment()
             {
-                starttime = "2017-11-21T13:00:00.0000000+01:00",
+                starttime = now.ToString("O"),
             };
 
             IEnumerable<IDifference> differences;

@@ -8,6 +8,9 @@
             Text = text;
         }
 
+        /// <summary>
+        ///     150 characters or less.
+        /// </summary>
         public string Title { get; set; }
 
         public string Text { get; set; }

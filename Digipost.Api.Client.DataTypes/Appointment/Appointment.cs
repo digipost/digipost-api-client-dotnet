@@ -21,23 +21,26 @@ namespace Digipost.Api.Client.DataTypes.Appointment
 
         /// <summary>
         ///     Free text but can contain ISO8601 formatted date and time. Example: Please arrive 15 minutes early.
+        ///     150 characters or less.
         /// </summary>
         public string ArrivalTime { get; set; }
 
         /// <summary>
-        ///     The name of the place. Example: Oslo City Røntgen
+        ///     The name of the place. Example: Oslo City Røntgen.
+        ///     150 characters or less.
         /// </summary>
         public string Place { get; set; }
 
         public AppointmentAddress AppointmentAddress { get; set; }
 
         /// <summary>
-        ///     Example: MR-undersøkelse av høyre kne
+        ///     Example: MR-undersøkelse av høyre kne.
+        ///     150 characters or less.
         /// </summary>
         public string SubTitle { get; set; }
 
         /// <summary>
-        ///     Additional sections of information (max 2) with a title and text
+        ///     Additional sections of information (max 2) with a title and text.
         /// </summary>
         public List<Info> Info { get; set; }
 

@@ -22,11 +22,13 @@ namespace Digipost.Api.Client.DataTypes
 
         /// <summary>
         ///     A short, optional text-field, describing the external link.
+        ///     70 characters or less.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
         ///     Optional text which will be displayed on the button.
+        ///     30 characters or less.
         /// </summary>
         public string ButtonText { get; set; }
 

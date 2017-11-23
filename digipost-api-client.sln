@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client", "Digipost.Api.Client\Digipost.Api.Client.csproj", "{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}"
 EndProject
@@ -27,12 +27,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send", "Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj", "{28138693-B5B5-40DA-B9FA-E75F28EC9E90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send.Tests", "Digipost.Api.Client.Send.Tests\Digipost.Api.Client.Send.Tests.csproj", "{71983742-4592-43BF-9599-7575ECA508A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767} = {04EA2E77-B6B0-48AA-888C-EB21876F6767}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common.Tests", "Digipost.Api.Client.Common.Tests\Digipost.Api.Client.Common.Tests.csproj", "{3C80F5A3-7D71-4A46-B917-C5AEBF0EC5BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Tests", "Digipost.Api.Client.Tests\Digipost.Api.Client.Tests.csproj", "{FDF4509B-F574-4EEF-A7C7-80B79AFB31AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", "Digipost.Api.Client.Docs\Digipost.Api.Client.Docs.csproj", "{78746C71-867E-42C6-B729-DAAC3461E203}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes", "Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj", "{04EA2E77-B6B0-48AA-888C-EB21876F6767}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes.Tests", "Digipost.Api.Client.DataTypes.Tests\Digipost.Api.Client.DataTypes.Tests.csproj", "{FF6174C7-8429-4889-8E8E-98A908916B14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,8 +99,19 @@ Global
 		{78746C71-867E-42C6-B729-DAAC3461E203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78746C71-867E-42C6-B729-DAAC3461E203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78746C71-867E-42C6-B729-DAAC3461E203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EA2E77-B6B0-48AA-888C-EB21876F6767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6174C7-8429-4889-8E8E-98A908916B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8D99B4A-C3C1-4400-8FE3-829B98E986C2}
 	EndGlobalSection
 EndGlobal

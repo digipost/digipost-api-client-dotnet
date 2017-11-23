@@ -1,4 +1,6 @@
-﻿using Digipost.Api.Client.Common.Utilities;
+﻿using System;
+using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Tests;
 using Xunit;
 
@@ -21,6 +23,17 @@ namespace Digipost.Api.Client.Send.Tests
                 //Assert
                 var expected = SerializeUtil.Serialize(SendDataTransferObjectConverter.ToDataTransferObject(message));
                 Assert.Equal(expected, content.InnerXml);
+            }
+
+            [Fact]
+            public void SerializedXmlContainsDataType()
+            {
+                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(new ExternalLink(new Uri("https://digipost.no"))));
+
+                var action = new MessageAction(message);
+                var content = action.RequestContent;
+
+                Assert.Contains("<externalLink", content.InnerXml);
             }
         }
     }

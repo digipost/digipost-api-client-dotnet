@@ -90,8 +90,6 @@
     <Compile Include="CompareObjects\Comparator.cs" />
     <Compile Include="CompareObjects\ComparisonConfiguration.cs" />
     <Compile Include="CompareObjects\Difference.cs" />
-    <Compile Include="CompareObjects\IComparator.cs" />
-    <Compile Include="CompareObjects\IDifference.cs" />
     <Compile Include="Fakes\FakeResponseHandler.cs" />
     <Compile Include="Fakes\IFakeHttpClientHandlerResponse.cs" />
     <Compile Include="Integration\DigipostApiIntegrationTests.cs" />
@@ -115,6 +113,10 @@
     <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
       <Project>{BAA33E63-9CDF-4B8A-BA06-B107995585D0}</Project>
       <Name>Digipost.Api.Client.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj">
+      <Project>{04ea2e77-b6b0-48aa-888c-eb21876f6767}</Project>
+      <Name>Digipost.Api.Client.DataTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
       <Project>{5548c4bb-7811-4a22-a8f6-751f3ab8ce0d}</Project>

@@ -20,11 +20,13 @@ namespace Digipost.Api.Client.Tests.Smoke
 
         //Gradually built state, identification
         private Identification _identification;
+
         private IIdentificationResult _identificationResult;
         private IMessageDeliveryResult _messageDeliveryResult;
 
         //Gradually built state, message
         private IDocument _primary;
+
         private DigipostRecipient _recipient;
 
         //Gradually built state, search

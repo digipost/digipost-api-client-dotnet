@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Digipost.Api.Client.Common.Enums;
+﻿using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.CompareObjects;
@@ -12,8 +10,6 @@ namespace Digipost.Api.Client.Common.Tests.Print
     {
         public class ConstructorMethod : PrintDetailsTests
         {
-            private readonly Comparator _comparator = new Comparator();
-
             [Fact]
             public void SimpleConstructor()
             {
@@ -24,13 +20,9 @@ namespace Digipost.Api.Client.Common.Tests.Print
                 //Act
 
                 //Assert
-                IEnumerable<IDifference> printDifference;
-                _comparator.Equal(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient, out printDifference);
-                Assert.Equal(0, printDifference.Count());
+                Comparator.AssertEqual(DomainUtility.GetPrintRecipientWithNorwegianAddress(), printDetails.PrintRecipient);
 
-                IEnumerable<IDifference> printReturnDifference;
-                _comparator.Equal(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient, out printReturnDifference);
-                Assert.Equal(0, printReturnDifference.Count());
+                Comparator.AssertEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient);
 
                 Assert.Equal(PostType.A, printDetails.PostType);
                 Assert.Equal(PrintColors.Colors, printDetails.PrintColors);

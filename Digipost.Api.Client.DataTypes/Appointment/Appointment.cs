@@ -63,5 +63,16 @@ namespace Digipost.Api.Client.DataTypes.Appointment
             };
             return dto;
         }
+
+        public override string ToString()
+        {
+            return $"Appointment starting at {StartTime}. " +
+                   $"End time: '{(EndTime.HasValue ? EndTime.ToString() : "<none>")}', " +
+                   $"arrival time: '{ArrivalTime ?? "<none>"}', " +
+                   $"{AppointmentAddress?.ToString() ?? "address: <none>"}, " +
+                   $"place: '{Place ?? "<none>"}', " +
+                   $"sub title: '{SubTitle ?? "<none>"}', " +
+                   $"{(Info != null ? string.Join(", ", Info.Select(x => x.ToString())) : "no additional info")}.";
+        }
     }
 }

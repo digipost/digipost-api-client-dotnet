@@ -52,5 +52,10 @@ namespace Digipost.Api.Client.DataTypes
             }
             return dto;
         }
+
+        public override string ToString()
+        {
+            return $"External link to '{Url}'. Description: '{Description ?? "<none>"}', ButtonText: '{ButtonText ?? "<none>"}', DeadLine: '{(Deadline.HasValue ? Deadline.ToString() : "<none>")}'";
+        }
     }
 }

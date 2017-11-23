@@ -23,5 +23,10 @@
                 text = Text
             };
         }
+
+        public override string ToString()
+        {
+            return $"Info: '{Title}' - '{Text}'";
+        }
     }
 }

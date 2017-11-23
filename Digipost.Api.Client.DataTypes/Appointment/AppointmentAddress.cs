@@ -38,5 +38,10 @@
                 city = City
             };
         }
+
+        public override string ToString()
+        {
+            return $"Address: '{(StreetAddress != null ? $"{StreetAddress}, " : "")}{PostalCode} {City}'";
+        }
     }
 }

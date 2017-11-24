@@ -10,11 +10,11 @@ layout: default
 
 ``` csharp
 
-// The actual sender of the message. The broker is the owner of the organization certificate 
+// The actual sender of the message. The broker is the owner of the organization certificate
 // used in the library. The broker id can be retrieved from your Digipost organization account.
 var broker = new Broker(12345);
 
-// The sender is what the receiver of the message sees as the sender of the message. 
+// The sender is what the receiver of the message sees as the sender of the message.
 // Sender and broker id will both be your organization's id if you are sending on behalf of yourself.
 var sender = new Sender(67890);
 
@@ -33,7 +33,7 @@ var message = new Message(
     new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
 );
 
-var result = client.SendMessage(message); 
+var result = client.SendMessage(message);
 
 ```
 
@@ -167,9 +167,9 @@ var result = client.SendMessage(message);
 
 ### Identify recipient
 
-Attempts to identify the person submitted in the request and returns whether he or she has a Digipost account. The person can be identified by personal identification number (PIN), Digipost address, or name and address. 
+Attempts to identify the person submitted in the request and returns whether he or she has a Digipost account. The person can be identified by personal identification number (PIN), Digipost address, or name and address.
 
-If the user is identified, the `ResultType` will be `DigipostAddress` or `PersonAlias`. In cases where we identify the person, the data parameter will contain the given identification value. 
+If the user is identified, the `ResultType` will be `DigipostAddress` or `PersonAlias`. In cases where we identify the person, the data parameter will contain the given identification value.
 
 User is identified and have a Digipost account:
 
@@ -179,7 +179,7 @@ Data: "Ola.Nordmann#3244B"
 Error: Null
 ```
 
-User is identified but does not have a Digipost account: 
+User is identified but does not have a Digipost account:
 
 ``` csharp
 ResultType: PersonAlias
@@ -193,7 +193,7 @@ The `PersonAlias` can be used for feature lookups, instead of the given identify
 Note: If you identify a person by PIN, the Digipost address will not be returned, since it is preferred that you continue to use this as identificator when sending the message.
 </blockquote>
 
-If the user is not identified, the `ResultType` will be `InvalidReason` or `UnidentifiedReason`. See the Error parameter for more detailed error message. 
+If the user is not identified, the `ResultType` will be `InvalidReason` or `UnidentifiedReason`. See the Error parameter for more detailed error message.
 
 The user is not identified because the PIN is not valid:
 
@@ -219,13 +219,13 @@ var identificationResponse = client.Identify(identification);
 
 if (identificationResponse.ResultType == IdentificationResultType.DigipostAddress)
 {
-    //Exist as user in Digipost. 
-    //If you used personal identification number to identify - use this to send a message to this individual. 
+    //Exist as user in Digipost.
+    //If you used personal identification number to identify - use this to send a message to this individual.
     //If not, see Data field for DigipostAddress.  
 }
 else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
 {
-    //The person is identified but does not have an active Digipost account. 
+    //The person is identified but does not have an active Digipost account.
     //You can continue to use this alias to check the status of the user in future calls.
 }
 else if (identificationResponse.ResultType == IdentificationResultType.InvalidReason ||
@@ -275,7 +275,7 @@ var message = new Message(
         kid: "123123123")
 );
 
-var result = client.SendMessage(message); 
+var result = client.SendMessage(message);
 ```
 
 ### Search for receivers
@@ -299,7 +299,7 @@ In the following use case, `Sender` is defined as the party who is responsible f
 
 ![example]({{ site.baseurl}}/assets/images/sender_broker_digipost.png)
 
-Sending on behalf of an organization is accomplished by setting `Message.Sender` to the id of the sender when constructing a message. The actual letter will appear in the receivers Digipost mailbox with the senders details (logo, name, etc.). 
+Sending on behalf of an organization is accomplished by setting `Message.Sender` to the id of the sender when constructing a message. The actual letter will appear in the receivers Digipost mailbox with the senders details (logo, name, etc.).
 
 <blockquote> Remember to use the business certificate of the broker to sign the message, not the one belonging to the sender. Also, the proper permissions need to be set by Digipost to send on behalf of an organization.</blockquote>
 
@@ -338,5 +338,29 @@ var message = new Message(
 };
 
 var result = client.SendMessage(message);
+
+```
+
+### Send message with appointment metadata
+
+A document may include metadata user for enhanced user experience in Digipost. One of the complex data types supported is `Appointment`, which represents a meeting set for a specific place and time. The following example demonstrates how to include such metadata:
+
+``` csharp
+
+var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
+var appointment = new Appointment(startTime)
+{
+    EndTime = startTime.AddMinutes(30),
+    AppointmentAddress = new AppointmentAddress("Storgata 1", "0001", "Oslo")
+};
+
+var document = new Document(
+    subject: "Your appointment",
+    fileType: "pdf",
+    path: @"c:\...\document.pdf",
+    dataType: appointment
+);
+
+// Create Message and send using the client as specified in other examples.
 
 ```

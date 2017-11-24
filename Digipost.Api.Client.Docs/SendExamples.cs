@@ -4,6 +4,8 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.DataTypes;
+using Digipost.Api.Client.DataTypes.Appointment;
 using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 
@@ -226,6 +228,23 @@ namespace Digipost.Api.Client.Docs
             };
 
             var result = client.SendMessage(message);
+        }
+
+        public void SendMessageWithAppointmentMetadata()
+        {
+            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
+            var appointment = new Appointment(startTime)
+            {
+                EndTime = startTime.AddMinutes(30),
+                AppointmentAddress = new AppointmentAddress("Storgata 1", "0001", "Oslo")
+            };
+
+            var document = new Document(
+                subject: "Your appointment",
+                fileType: "pdf",
+                path: @"c:\...\document.pdf",
+                dataType: appointment
+            );
         }
     }
 }

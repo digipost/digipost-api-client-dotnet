@@ -341,9 +341,19 @@ var result = client.SendMessage(message);
 
 ```
 
-### Send message with appointment metadata
+### Send a message with extra computer readable data
 
-A document may include metadata user for enhanced user experience in Digipost. One of the complex data types supported is `Appointment`, which represents a meeting set for a specific place and time. The following example demonstrates how to include such metadata:
+Starting with version 8 of the Digipost API, messages can have extra bits of computer readable information that
+allows the creation of a customized, dynamic user experience for messages in Digipost. These extra bits of
+information are referred to as "Datatypes".
+
+All datatypes are sent in the same way. Each document can accommodate one datatype-object. An exhaustive list of
+available datatypes and their documentation can be found at
+[digipost/digipost-data-types](https://github.com/digipost/digipost-data-types).
+
+### Send message with appointment datatype
+
+One of the complex data types supported is `Appointment`, which represents a meeting set for a specific place and time. The following example demonstrates how to include such extra data:
 
 ``` csharp
 
@@ -359,6 +369,34 @@ var document = new Document(
     fileType: "pdf",
     path: @"c:\...\document.pdf",
     dataType: appointment
+);
+
+// Create Message and send using the client as specified in other examples.
+
+```
+
+### Send message with external link datatype
+
+This Datatype enhances a message in Digipost with a button which sends the user to an external site. The button
+can optionally have a deadline, a description and a custom text.
+
+``` csharp
+
+var linkTarget = new Uri("https://example.org/loan-offer/uniqueCustomerId/");
+var externalLink = new ExternalLink(
+    url: linkTarget,
+    description: "Please read the terms, and use the button above to accept them. The offer expires at 23/10-2018 10:00.",
+    buttonText: "Accept offer"
+)
+{
+    Deadline = DateTime.Parse("2018-10-23T10:00:00+0200"),
+};
+
+var document = new Document(
+    subject: "Your appointment",
+    fileType: "pdf",
+    path: @"c:\...\document.pdf",
+    dataType: externalLink
 );
 
 // Create Message and send using the client as specified in other examples.

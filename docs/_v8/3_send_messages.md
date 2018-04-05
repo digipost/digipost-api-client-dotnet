@@ -343,7 +343,7 @@ var result = client.SendMessage(message);
 
 ### Send a message with extra computer readable data
 
-Starting with version 9 of the Digipost API, messages can have extra bits of computer readable information that
+Starting with version 8 of the Digipost API, messages can have extra bits of computer readable information that
 allows the creation of a customized, dynamic user experience for messages in Digipost. These extra bits of
 information are referred to as "Datatypes".
 

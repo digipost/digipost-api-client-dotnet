@@ -9,6 +9,8 @@ namespace Digipost.Api.Client.Testklient
 {
     internal class Program
     {
+        // This class is not intended as an example for integrators.
+        // Please refer to online documentation at repository root.
         public static void Main(string[] args)
         {
             var environment = Environment.Production;

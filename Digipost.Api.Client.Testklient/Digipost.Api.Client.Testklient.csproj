@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Digipost.Api.Client.Testklient</RootNamespace>
     <AssemblyName>Digipost.Api.Client.Testklient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>
@@ -42,10 +43,6 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6e6972f540d5419a, processorArchitecture=MSIL">
-      <HintPath>..\packages\api-client-shared.2.0.0\lib\net45\ApiClientShared.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -54,29 +51,29 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=1.2.0.0, Culture=neutral, PublicKeyToken=6e6972f540d5419a, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.1.2.0\lib\net45\Difi.Felles.Utility.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Difi.Felles.Utility, Version=2.0.1.52, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1.52-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client, Version=8.0.0.66, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.0.0.66-beta\lib\net45\Digipost.Api.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Digipost.Api.Client, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Common, Version=8.0.0.66, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.0.0.66-beta\lib\net45\Digipost.Api.Client.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Digipost.Api.Client.Common, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Inbox, Version=8.0.0.66, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.0.0.66-beta\lib\net45\Digipost.Api.Client.Inbox.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Digipost.Api.Client.DataTypes, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.DataTypes.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Send, Version=8.0.0.66, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.0.0.66-beta\lib\net45\Digipost.Api.Client.Send.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Digipost.Api.Client.Inbox, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.Inbox.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Xsd, Version=8.0.0.66, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.0.0.66-beta\lib\net45\Digipost.Api.Client.Xsd.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Digipost.Api.Client.Send, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.Send.dll</HintPath>
+    </Reference>
+    <Reference Include="Digipost.Api.Client.Shared, Version=3.0.0.0, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\api-client-shared.3.0.0\lib\net46\Digipost.Api.Client.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Digipost.Api.Client.Xsd, Version=8.2.0.141, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
+      <HintPath>..\packages\digipost-api-client.8.2.0.141-beta\lib\net45\Digipost.Api.Client.Xsd.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>

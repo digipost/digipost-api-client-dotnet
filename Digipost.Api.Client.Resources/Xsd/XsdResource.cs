@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Xml;
-using ApiClientShared;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.Resources.Xsd
 {

@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using ApiClientShared;
-using ApiClientShared.Enums;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Handlers;
@@ -12,6 +10,7 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
+using Digipost.Api.Client.Shared.Certificate;
 
 namespace Digipost.Api.Client
 {
@@ -22,7 +21,7 @@ namespace Digipost.Api.Client
         private readonly RequestHelper _requestHelper;
 
         public DigipostClient(ClientConfig clientConfig, string thumbprint)
-            : this(clientConfig, CertificateUtility.SenderCertificate(thumbprint, Language.English))
+            : this(clientConfig, CertificateUtility.SenderCertificate(thumbprint))
         {
         }
 

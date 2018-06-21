@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
-using ApiClientShared.Enums;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Shared.Certificate;
 using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Tests.Utilities
@@ -47,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Utilities
         public TestSender(long id, string certificateThumbprint, Environment environment, RecipientById recipientById)
         {
             Id = id;
-            Certificate = CertificateUtility.SenderCertificate(certificateThumbprint, Language.English);
+            Certificate = CertificateUtility.SenderCertificate(certificateThumbprint);
             Environment = environment;
             Recipient = recipientById;
         }

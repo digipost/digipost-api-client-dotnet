@@ -33,7 +33,7 @@
     <DocumentationFile>bin\Release\Digipost.Api.Client.Inbox.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>

@@ -6,11 +6,11 @@ namespace Digipost.Api.Client.Resources.Xsd
 {
     internal static class XsdResource
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Resources.Xsd.Data");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility(typeof(XsdResource).Assembly, "Digipost.Api.Client.Resources.Xsd.Data");
 
         private static XmlReader GetResource(params string[] path)
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            var bytes = ResourceUtility.ReadAllBytes(path);
             return XmlReader.Create(new MemoryStream(bytes));
         }
 

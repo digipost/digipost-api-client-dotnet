@@ -1,14 +1,16 @@
-﻿using Digipost.Api.Client.Shared.Resources.Resource;
+﻿using Digipost.Api.Client.Resources.Xsd;
+using Digipost.Api.Client.Shared.Resources.Resource;
+using System.Reflection;
 
 namespace Digipost.Api.Client.Resources.Content
 {
     internal class ContentResource
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Resources.Content.Data");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility(typeof(XsdResource).GetTypeInfo().Assembly,"Digipost.Api.Client.Resources.Content.Data");
 
         private static byte[] GetResource(params string[] path)
         {
-            return ResourceUtility.ReadAllBytes(true, path);
+            return ResourceUtility.ReadAllBytes(path);
         }
 
         internal static class Hoveddokument

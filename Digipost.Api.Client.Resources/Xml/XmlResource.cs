@@ -1,17 +1,19 @@
 ﻿using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
+using Digipost.Api.Client.Resources.Xsd;
 using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.Resources.Xml
 {
     internal static class XmlResource
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Digipost.Api.Client.Resources.Xml.Data");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility(typeof(XmlResource).GetTypeInfo().Assembly,"Digipost.Api.Client.Resources.Xml.Data");
 
         private static StringContent GetResource(params string[] path)
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            var bytes = ResourceUtility.ReadAllBytes(path);
 
             if (bytes == null)
             {

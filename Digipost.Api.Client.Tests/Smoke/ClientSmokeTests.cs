@@ -40,5 +40,9 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);
         }
+
+
+
+
     }
 }

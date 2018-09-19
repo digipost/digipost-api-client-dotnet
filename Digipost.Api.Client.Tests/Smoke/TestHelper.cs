@@ -68,6 +68,15 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
+        public TestHelper To_Physical_Recipient()
+        {
+            Assert_state(_primary);
+
+            _recipient = _testSender.Recipient;
+
+            return this;
+        }
+
         public TestHelper SendMessage()
         {
             Assert_state(_recipient);

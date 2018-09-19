@@ -27,7 +27,8 @@ namespace Digipost.Api.Client.Tests.Utilities
                         1010,
                         digipostTestintegrasjonforDigitalPostThumbprint,
                         Environment.Qa,
-                        new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
+                        //new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
+                        new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "Digipost Testgate 2A", "0467", "Oslo")
                     );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);
@@ -43,12 +44,12 @@ namespace Digipost.Api.Client.Tests.Utilities
 
     internal class TestSender
     {
-        public TestSender(long id, string certificateThumbprint, Environment environment, RecipientById recipientById)
+        public TestSender(long id, string certificateThumbprint, Environment environment, DigipostRecipient recipient)
         {
             Id = id;
             Certificate = CertificateUtility.SenderCertificate(certificateThumbprint);
             Environment = environment;
-            Recipient = recipientById;
+            Recipient = recipient;
         }
 
         public long Id { get; set; }
@@ -57,6 +58,6 @@ namespace Digipost.Api.Client.Tests.Utilities
 
         public X509Certificate2 Certificate { get; set; }
 
-        public RecipientById Recipient { get; set; }
+        public DigipostRecipient Recipient { get; set; }
     }
 }

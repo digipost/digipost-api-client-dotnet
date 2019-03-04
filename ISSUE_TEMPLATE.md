@@ -28,8 +28,7 @@ public void MyCode()
 3. Please provide the error message you get when performing the action.
 4. Provide us with what you have tried so far.
 
-## Do not:
-- Use screenshots or PDF's to describe the issue.
-- Assume we know everything about your code. We need context to understand your problem.
+- Do not use screenshots or PDF's to describe the issue.
+- Do not assume we know everything about your code. We need context to understand your problem.
 
 > Delete this chapter after you have created the issue description.

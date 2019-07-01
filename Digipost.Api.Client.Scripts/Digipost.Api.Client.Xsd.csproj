@@ -58,7 +58,7 @@
       <Link>signingkey.snk</Link>
     </None>
     <None Include="XsdToCode\GenerateDataTypesClasses.ps1" />
-    <None Include="XsdToCode\GennerateDigipostClasses.ps1" />
+    <None Include="XsdToCode\GenerateDigipostClasses.ps1" />
     <None Include="XsdToCode\Functions.ps1" />
   </ItemGroup>
   <ItemGroup />

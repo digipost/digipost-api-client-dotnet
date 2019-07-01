@@ -79,9 +79,6 @@
     <EmbeddedResource Include="Xml\Data\IdentificationResult.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Xml\Data\SearchResult.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Content\Data\Hoveddokument.pdf" />
   </ItemGroup>
   <ItemGroup>

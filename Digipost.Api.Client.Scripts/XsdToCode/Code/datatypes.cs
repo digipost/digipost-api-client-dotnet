@@ -22,6 +22,11 @@ using System.Xml.Serialization;
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+
+public partial class eventAppointment {
+
+}
+
 public partial class appointment {
     
     private string starttimeField;
@@ -112,6 +117,11 @@ public partial class appointment {
             this.infoField = value;
         }
     }
+}
+
+public partial class eventBarcode
+{
+    
 }
 
 /// <remarks/>

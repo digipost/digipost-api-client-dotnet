@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://api.digipost.no/schema/datatypes" elementFormDefault="qualified" targetNamespace="http://api.digipost.no/schema/datatypes" version="1.0">
 
+  <xs:element name="event" type="tns:event"/>
+  
   <xs:element name="appointment" type="tns:appointment"/>
 
   <xs:element name="boligdetaljer" type="tns:boligdetaljer"/>
@@ -11,6 +13,46 @@
 
   <xs:element name="residence" type="tns:residence"/>
 
+  <xs:complexType final="extension restriction" name="event">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="time" type="tns:timeInterval"/>
+      <xs:element minOccurs="0" name="subTitle" type="xs:string"/>
+      <xs:element minOccurs="0" name="timeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="place" type="xs:string"/>
+      <xs:element minOccurs="0" name="placeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:eventAddress"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+      <xs:element minOccurs="0" name="barcodeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcode" type="tns:barcode"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="links" type="tns:externalLink"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="timeInterval">
+    <xs:sequence>
+      <xs:element name="start-time" type="xs:dateTime"/>
+      <xs:element name="end-time" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="barcode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="barcodeValue" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcodeType" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcodeText" type="xs:string"/>
+      <xs:element minOccurs="0" name="showValueInBarcode" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType final="extension restriction" name="eventAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="street-address" type="xs:string"/>
+      <xs:element name="postal-code" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  
   <xs:complexType final="extension restriction" name="appointment">
     <xs:sequence>
       <xs:element name="start-time" type="xs:string"/>

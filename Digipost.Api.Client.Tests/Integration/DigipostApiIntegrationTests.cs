@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -64,12 +65,26 @@ namespace Digipost.Api.Client.Tests.Integration
             [Fact]
             public void InternalServerErrorShouldCauseDigipostResponseException()
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientById();
-                const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-                var messageContent = new StringContent(string.Empty);
+                Exception exception = null;
 
-                var ex = Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
-                Assert.True(ex is ClientResponseException || ex.InnerException is ClientResponseException);
+                try
+                {
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
+                    const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
+                    var messageContent = new StringContent(string.Empty);
+
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
+                }
+                catch (AggregateException e)
+                {
+                    exception = e.InnerExceptions.ElementAt(0);
+                }
+                catch (ClientResponseException e)
+                {
+                    exception = e;
+                }
+
+                Assert.True(exception is ClientResponseException);
             }
 
             [Fact]
@@ -90,12 +105,26 @@ namespace Digipost.Api.Client.Tests.Integration
             [Fact]
             public void ShouldSerializeErrorMessage()
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientById();
-                const HttpStatusCode statusCode = HttpStatusCode.NotFound;
-                var messageContent = XmlResource.SendMessage.GetError();
+                Exception exception = null;
 
-                var ex = Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
-                Assert.True(ex is ClientResponseException || ex.InnerException is ClientResponseException);
+                try
+                {
+                    var message = DomainUtility.GetSimpleMessageWithRecipientById();
+                    const HttpStatusCode statusCode = HttpStatusCode.NotFound;
+                    var messageContent = XmlResource.SendMessage.GetError();
+
+                    SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent});
+                }
+                catch (AggregateException e)
+                {
+                    exception = e.InnerExceptions.ElementAt(0);
+                }
+                catch (ClientResponseException e)
+                {
+                    exception = e;
+                }
+
+                Assert.True(exception is ClientResponseException);
             }
         }
 

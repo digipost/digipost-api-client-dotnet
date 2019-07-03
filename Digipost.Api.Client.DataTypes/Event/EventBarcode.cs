@@ -30,13 +30,14 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// </summary>
         public bool ShowValueInBarcode { get; set; }
         
-        internal eventBarcode AsDataTransferObject()
+        internal barcode AsDataTransferObject()
         {
-            return new eventBarcode
+            return new barcode
             {
-                streetaddress = StreetAddress,
-                postalcode = PostalCode,
-                city = City
+                barcodeValue = BarcodeValue,
+                barcodeType = BarcodeType,
+                barcodeText = BarcodeText,
+                showValueInBarcode = ShowValueInBarcode
             };
         }
 

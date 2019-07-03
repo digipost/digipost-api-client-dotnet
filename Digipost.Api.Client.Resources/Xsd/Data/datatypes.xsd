@@ -15,7 +15,7 @@
 
   <xs:complexType final="extension restriction" name="event">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" name="time" type="tns:timeInterval"/>
+      <xs:element maxOccurs="unbounded" name="time" type="tns:eventTimeSpan"/>
       <xs:element minOccurs="0" name="subTitle" type="xs:string"/>
       <xs:element minOccurs="0" name="timeLabel" type="xs:string"/>
       <xs:element minOccurs="0" name="description" type="xs:string"/>
@@ -29,7 +29,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="timeInterval">
+  <xs:complexType name="eventTimeSpan">
     <xs:sequence>
       <xs:element name="start-time" type="xs:dateTime"/>
       <xs:element name="end-time" type="xs:dateTime"/>

@@ -29,9 +29,9 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// </summary>
         public string City { get; set; }
 
-        internal appointmentAddress AsDataTransferObject()
+        internal eventAddress AsDataTransferObject()
         {
-            return new appointmentAddress
+            return new eventAddress
             {
                 streetaddress = StreetAddress,
                 postalcode = PostalCode,

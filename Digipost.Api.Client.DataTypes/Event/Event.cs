@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// <summary>
         ///     A List of the time intervals of the event.
         /// </summary>
-        public List<TimeSpan> Time { get; set; }
+        public List<EventTimeSpan> Time { get; set; }
         
         /// <summary>
         ///     Optional label for time. null yield default in gui, eg. 'Opening hours'
@@ -66,7 +66,7 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// </summary>
         public List<ExternalLink> Links { get; set; }
         
-        public Event(List<TimeSpan> time)
+        public Event(List<EventTimeSpan> time)
         {
             Time = time;
         }
@@ -76,17 +76,21 @@ namespace Digipost.Api.Client.DataTypes.Event
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal eventAppointment AsDataTransferObject()
+        internal @event AsDataTransferObject()
         {
-            var dto = new eventAppointment
+            var dto = new @event
             {
-                starttime = StartTime.ToString("O"),
-                arrivaltime = ArrivalTime,
-                subtitle = SubTitle,
+                subTitle = SubTitle,
+                time = Time?.Select(i => i.AsDataTransferObject()).ToArray(),
+                timeLabel = TimeLabel,
+                description = Description,
                 place = Place,
-                endtime = EndTime?.ToString("O"),
-                address = AppointmentAddress?.AsDataTransferObject(),
-                info = Info?.Select(i => i.AsDataTransferObject()).ToArray()
+                placeLabel = PlaceLabel,
+                address = Address?.AsDataTransferObject(),
+                info = Info?.Select(i => i.AsDataTransferObject()).ToArray(),
+                barcodeLabel = BarcodeLabel,
+                barcode = Barcode?.AsDataTransferObject(),
+                links = Links?.Select(i => i.AsDataTransferObject()).ToArray()
             };
             return dto;
         }

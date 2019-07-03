@@ -4,7 +4,7 @@
     Write-Host("OUT: $OutDir")
     
     $CurrentDirectory = (Get-Item -Path ".\" -Verbose).FullName
-	Set-Location "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\"
+	Set-Location "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\"
     Invoke-Expression ".\Xsd.exe $XsdPath /classes /out:$OutDir"
     Set-Location $CurrentDirectory
 }

@@ -8,7 +8,7 @@
 # If problems running script from network drive:
 #  net use Z: `"\\vmware-host\Shared Folders`
 
-$Functions = $PSScriptRoot + "\GenerateClassesFromXsdFunctions.ps1"
+$Functions = $PSScriptRoot + "\GenerateDigipostClasses.ps1"
 . $Functions
 
 $CodeDir = Get-CodeDirectory

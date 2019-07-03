@@ -56,10 +56,14 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Appointment\AppointmentAddress.cs" />
     <Compile Include="Appointment\Appointment.cs" />
+    <Compile Include="Appointment\AppointmentAddress.cs" />
     <Compile Include="Appointment\Info.cs" />
     <Compile Include="DataType.cs" />
+    <Compile Include="Event\EventBarcode.cs" />
+    <Compile Include="Event\Event.cs" />
+    <Compile Include="Event\EventAddress.cs" />
+    <Compile Include="Event\EventTimeSpan.cs" />
     <Compile Include="ExternalLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTypeSerialization.cs" />

@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Tests.CompareObjects;
+﻿using Digipost.Api.Client.DataTypes.Appointment;
+using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
 namespace Digipost.Api.Client.DataTypes.Tests.Appointment

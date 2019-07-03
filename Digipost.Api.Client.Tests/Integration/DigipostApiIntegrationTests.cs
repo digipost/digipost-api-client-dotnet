@@ -66,6 +66,7 @@ namespace Digipost.Api.Client.Tests.Integration
             public void InternalServerErrorShouldCauseDigipostResponseException()
             {
                 Exception exception = null;
+
                 try
                 {
                     var message = DomainUtility.GetSimpleMessageWithRecipientById();
@@ -78,8 +79,12 @@ namespace Digipost.Api.Client.Tests.Integration
                 {
                     exception = e.InnerExceptions.ElementAt(0);
                 }
+                catch (ClientResponseException e)
+                {
+                    exception = e;
+                }
 
-                Assert.True(exception?.GetType() == typeof(ClientResponseException));
+                Assert.True(exception is ClientResponseException);
             }
 
             [Fact]
@@ -100,6 +105,8 @@ namespace Digipost.Api.Client.Tests.Integration
             [Fact]
             public void ShouldSerializeErrorMessage()
             {
+                Exception exception = null;
+
                 try
                 {
                     var message = DomainUtility.GetSimpleMessageWithRecipientById();
@@ -110,10 +117,14 @@ namespace Digipost.Api.Client.Tests.Integration
                 }
                 catch (AggregateException e)
                 {
-                    var ex = e.InnerExceptions.ElementAt(0);
-
-                    Assert.True(ex.GetType() == typeof(ClientResponseException));
+                    exception = e.InnerExceptions.ElementAt(0);
                 }
+                catch (ClientResponseException e)
+                {
+                    exception = e;
+                }
+
+                Assert.True(exception is ClientResponseException);
             }
         }
 
@@ -132,21 +143,6 @@ namespace Digipost.Api.Client.Tests.Integration
             {
                 var identification = DomainUtility.GetPersonalIdentification();
                 Identify(identification);
-            }
-        }
-
-        public class SearchMethod : DigipostApiIntegrationTests
-        {
-            [Fact]
-            public void ProperRequestSent()
-            {
-                const string searchString = "jarand";
-
-                var fakeResponseHandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
-                var digipostApi = GetDigipostApi(fakeResponseHandler);
-
-                var result = digipostApi.Search(searchString);
-                Assert.NotNull(result);
             }
         }
     }

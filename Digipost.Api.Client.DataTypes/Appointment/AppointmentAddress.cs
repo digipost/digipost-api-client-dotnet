@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.DataTypes
+﻿namespace Digipost.Api.Client.DataTypes.Appointment
 {
     public class AppointmentAddress
     {

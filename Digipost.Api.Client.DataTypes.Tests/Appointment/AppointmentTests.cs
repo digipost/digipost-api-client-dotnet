@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Digipost.Api.Client.DataTypes.Appointment;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 

@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
 public partial class @event {
     
-    private timeInterval[] timeField;
+    private eventTimeSpan[] timeField;
     
     private string subTitleField;
     
@@ -48,7 +48,7 @@ public partial class @event {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("time")]
-    public timeInterval[] time {
+    public eventTimeSpan[] time {
         get {
             return this.timeField;
         }
@@ -166,7 +166,7 @@ public partial class @event {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class timeInterval {
+public partial class eventTimeSpan {
     
     private System.DateTime starttimeField;
     

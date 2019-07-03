@@ -134,20 +134,5 @@ namespace Digipost.Api.Client.Tests.Integration
                 Identify(identification);
             }
         }
-
-        public class SearchMethod : DigipostApiIntegrationTests
-        {
-            [Fact]
-            public void ProperRequestSent()
-            {
-                const string searchString = "jarand";
-
-                var fakeResponseHandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = XmlResource.Search.GetResult()};
-                var digipostApi = GetDigipostApi(fakeResponseHandler);
-
-                var result = digipostApi.Search(searchString);
-                Assert.NotNull(result);
-            }
-        }
     }
 }

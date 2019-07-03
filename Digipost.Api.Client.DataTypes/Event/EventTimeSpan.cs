@@ -6,7 +6,8 @@ namespace Digipost.Api.Client.DataTypes.Event
     {
         public EventTimeSpan(DateTime start, DateTime end)
         {
-            
+            Start = start;
+            End = end;
         }
         
         /// <summary>

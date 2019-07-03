@@ -67,6 +67,8 @@
     <Compile Include="Appointment\AppointmentAddressTests.cs" />
     <Compile Include="Appointment\AppointmentTests.cs" />
     <Compile Include="Appointment\InfoTests.cs" />
+    <Compile Include="Event\BarcodeTests.cs" />
+    <Compile Include="Event\EventTests.cs" />
     <Compile Include="ExternalLinkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

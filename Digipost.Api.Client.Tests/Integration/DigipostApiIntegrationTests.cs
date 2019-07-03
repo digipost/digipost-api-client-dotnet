@@ -68,7 +68,8 @@ namespace Digipost.Api.Client.Tests.Integration
                 const HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
                 var messageContent = new StringContent(string.Empty);
 
-                Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
+                var ex = Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
+                Assert.True(ex is ClientResponseException || ex.InnerException is ClientResponseException);
             }
 
             [Fact]
@@ -93,7 +94,8 @@ namespace Digipost.Api.Client.Tests.Integration
                 const HttpStatusCode statusCode = HttpStatusCode.NotFound;
                 var messageContent = XmlResource.SendMessage.GetError();
 
-                Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
+                var ex = Assert.Throws<ClientResponseException>(() => SendMessage(message, new FakeResponseHandler {ResultCode = statusCode, HttpContent = messageContent}));
+                Assert.True(ex is ClientResponseException || ex.InnerException is ClientResponseException);
             }
         }
 

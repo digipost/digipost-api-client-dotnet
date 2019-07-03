@@ -97,13 +97,17 @@ namespace Digipost.Api.Client.DataTypes.Event
         
         public override string ToString()
         {
-            return $"Event starting at {StartTime}. " +
-                   $"End time: '{(EndTime.HasValue ? EndTime.ToString() : "<none>")}', " +
-                   $"arrival time: '{ArrivalTime ?? "<none>"}', " +
-                   $"{AppointmentAddress?.ToString() ?? "address: <none>"}, " +
-                   $"place: '{Place ?? "<none>"}', " +
-                   $"sub title: '{SubTitle ?? "<none>"}', " +
-                   $"{(Info != null ? string.Join(", ", Info.Select(x => x.ToString())) : "no additional info")}.";
+            return $"Times: '{(Time != null ? string.Join(", ", Time.Select(x => x.ToString())) : "<none>")}', " +
+                   $"Label: '{TimeLabel}', " +
+                   $"Subtitle: '{SubTitle}', " +
+                   $"Description: '{Description}', " +
+                   $"Place: '{Place}', " +
+                   $"PlaceLabel: '{PlaceLabel}', " +
+                   $"Address: '{Address?.ToString() ?? "Address: <none>"}', " +
+                   $"Info: '{(Info != null ? string.Join(", ", Info.Select(x => x.ToString())) : "no additional info")}', " +
+                   $"BarcodeLabel: '{BarcodeLabel}', " +
+                   $"Barcode: '{Barcode?.ToString() ?? "Barcode: <none>"}', " +
+                   $"Links: '{(Links != null ? string.Join(", ", Links.Select(x => x.ToString())) : "<none>")}'.";
         }
     }
 }

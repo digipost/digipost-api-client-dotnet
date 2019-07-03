@@ -43,7 +43,10 @@ namespace Digipost.Api.Client.DataTypes.Event
 
         public override string ToString()
         {
-            return $"Address: '{(StreetAddress != null ? $"{StreetAddress}, " : "")}{PostalCode} {City}'";
+            return $"Barcode: '" +
+                   $"{(BarcodeValue != null ? $"{BarcodeValue}, " : "")} " +
+                   $"{(BarcodeType != null ? $"{BarcodeType}, " : "")} " +
+                   $"{(BarcodeText != null ? $"{BarcodeText}, " : "")}'";
         }
     }
 }

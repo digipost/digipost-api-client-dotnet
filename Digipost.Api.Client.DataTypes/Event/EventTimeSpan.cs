@@ -23,8 +23,8 @@ namespace Digipost.Api.Client.DataTypes.Event
         {
             return new eventTimeSpan
             {
-                start = Start,
-                end = End
+                starttime = Start,
+                endtime = End
             };
         }
 

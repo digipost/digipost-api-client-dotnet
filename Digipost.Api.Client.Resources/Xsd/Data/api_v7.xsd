@@ -963,31 +963,6 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:element name="document-events" type="document-events" />
-
-    <xsd:complexType name="document-events">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <annox:annotate target="class">
-                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="document-events"/>
-                </annox:annotate>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="event" type="event" minOccurs="0" maxOccurs="unbounded" />
-        </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="event">
-        <xsd:sequence>
-            <xsd:element name="metadata" type="event-metadata" minOccurs="0" maxOccurs="1" />
-        </xsd:sequence>
-        <xsd:attribute name="uuid" type="uuid" use="required" />
-        <xsd:attribute name="type" type="event-type" use="required" />
-        <xsd:attribute name="created" type="xsd:dateTime" use="required" />
-        <xsd:attribute name="document-created" type="xsd:dateTime" use="required" />
-    </xsd:complexType>
-
     <xsd:complexType name="event-metadata" abstract="true" />
 
     <xsd:complexType name="move-files-from-public-sector-metadata">

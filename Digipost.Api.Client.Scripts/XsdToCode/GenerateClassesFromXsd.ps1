@@ -11,7 +11,7 @@ function GenerateCode($XsdDirectory, $RootXsd, $OutDir, $Namespace)
     
     Set-Location $XsdDirectory
 
-    Invoke-Expression "xsd $RootXsd /classes /outputdir:$OutDir /namespace:$Namespace"
+    Invoke-Expression "xsd $RootXsd /classes /outputdir:$OutDir /namespace:"
 }
 
 function Get-ScriptDirectory
@@ -30,5 +30,5 @@ $XsdPath = "$SourceDir/Digipost.Api.Client.Resources/Xsd/Data"
 $RootDatatypesXsd = "$XsdPath/datatypes.xsd"
 $RootApiXsd = "$XsdPath/api_$CurrentApiVersion.xsd"
 
-GenerateCode "$XsdPath" "$RootDatatypesXsd" "$CodeDir" "Datatypes_$CurrentApiVersion"
-GenerateCode "$XsdPath" "$RootApiXsd" "$CodeDir" "Api_$CurrentApiVersion"
+GenerateCode "$XsdPath" "$RootDatatypesXsd" "$CodeDir" "datatypes"
+GenerateCode "$XsdPath" "$RootApiXsd" "$CodeDir" "$CurrentApiVersion"

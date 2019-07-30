@@ -3,7 +3,7 @@
 # brew cask install powershell
 
 
-function GenerateCode($XsdDirectory, $RootXsd, $OutDir)
+function GenerateCode($XsdDirectory, $RootXsd, $OutDir, $Namespace)
 {
     Write-Host("[Generating code from XSD: $XsdDirectory]")
     Write-Host("Output-directory: $OutDir")
@@ -11,7 +11,7 @@ function GenerateCode($XsdDirectory, $RootXsd, $OutDir)
     
     Set-Location $XsdDirectory
 
-    Invoke-Expression "xsd $RootXsd /classes /outputdir:$OutDir"
+    Invoke-Expression "xsd $RootXsd /classes /outputdir:$OutDir /namespace:$Namespace"
 }
 
 function Get-ScriptDirectory
@@ -30,5 +30,5 @@ $XsdPath = "$SourceDir/Digipost.Api.Client.Resources/Xsd/Data"
 $RootDatatypesXsd = "$XsdPath/datatypes.xsd"
 $RootApiXsd = "$XsdPath/api_$CurrentApiVersion.xsd"
 
-GenerateCode "$XsdPath" "$RootDatatypesXsd" "$CodeDir"
-GenerateCode "$XsdPath" "$RootApiXsd" "$CodeDir"
+GenerateCode "$XsdPath" "$RootDatatypesXsd" "$CodeDir" "Datatypes_$CurrentApiVersion"
+GenerateCode "$XsdPath" "$RootApiXsd" "$CodeDir" "Api_$CurrentApiVersion"

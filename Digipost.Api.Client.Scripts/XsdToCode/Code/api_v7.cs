@@ -317,6 +317,362 @@ public partial class feature {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-fallback-deadline", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printfallbackdeadline {
+    
+    private System.DateTime deadlineField;
+    
+    private printdetails printdetailsField;
+    
+    /// <remarks/>
+    public System.DateTime deadline {
+        get {
+            return this.deadlineField;
+        }
+        set {
+            this.deadlineField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("print-details")]
+    public printdetails printdetails {
+        get {
+            return this.printdetailsField;
+        }
+        set {
+            this.printdetailsField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-details", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printdetails {
+    
+    private printrecipient recipientField;
+    
+    private printrecipient returnaddressField;
+    
+    private posttype posttypeField;
+    
+    private printcolors colorField;
+    
+    private nondeliverablehandling nondeliverablehandlingField;
+    
+    public printdetails() {
+        this.colorField = printcolors.MONOCHROME;
+        this.nondeliverablehandlingField = nondeliverablehandling.RETURN_TO_SENDER;
+    }
+    
+    /// <remarks/>
+    public printrecipient recipient {
+        get {
+            return this.recipientField;
+        }
+        set {
+            this.recipientField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("return-address")]
+    public printrecipient returnaddress {
+        get {
+            return this.returnaddressField;
+        }
+        set {
+            this.returnaddressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("post-type")]
+    public posttype posttype {
+        get {
+            return this.posttypeField;
+        }
+        set {
+            this.posttypeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.ComponentModel.DefaultValueAttribute(printcolors.MONOCHROME)]
+    public printcolors color {
+        get {
+            return this.colorField;
+        }
+        set {
+            this.colorField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("nondeliverable-handling")]
+    [System.ComponentModel.DefaultValueAttribute(nondeliverablehandling.RETURN_TO_SENDER)]
+    public nondeliverablehandling nondeliverablehandling {
+        get {
+            return this.nondeliverablehandlingField;
+        }
+        set {
+            this.nondeliverablehandlingField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-recipient", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printrecipient {
+    
+    private string nameField;
+    
+    private object itemField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("foreign-address", typeof(foreignaddress))]
+    [System.Xml.Serialization.XmlElementAttribute("norwegian-address", typeof(norwegianaddress))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="foreign-address", Namespace="http://api.digipost.no/schema/v7")]
+public partial class foreignaddress {
+    
+    private string addressline1Field;
+    
+    private string addressline2Field;
+    
+    private string addressline3Field;
+    
+    private string addressline4Field;
+    
+    private string itemField;
+    
+    private ItemChoiceType2 itemElementNameField;
+    
+    /// <remarks/>
+    public string addressline1 {
+        get {
+            return this.addressline1Field;
+        }
+        set {
+            this.addressline1Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string addressline2 {
+        get {
+            return this.addressline2Field;
+        }
+        set {
+            this.addressline2Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string addressline3 {
+        get {
+            return this.addressline3Field;
+        }
+        set {
+            this.addressline3Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string addressline4 {
+        get {
+            return this.addressline4Field;
+        }
+        set {
+            this.addressline4Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("country", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("country-code", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType2 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7", IncludeInSchema=false)]
+public enum ItemChoiceType2 {
+    
+    /// <remarks/>
+    country,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("country-code")]
+    countrycode,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="norwegian-address", Namespace="http://api.digipost.no/schema/v7")]
+public partial class norwegianaddress {
+    
+    private string addressline1Field;
+    
+    private string addressline2Field;
+    
+    private string addressline3Field;
+    
+    private string zipcodeField;
+    
+    private string cityField;
+    
+    /// <remarks/>
+    public string addressline1 {
+        get {
+            return this.addressline1Field;
+        }
+        set {
+            this.addressline1Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string addressline2 {
+        get {
+            return this.addressline2Field;
+        }
+        set {
+            this.addressline2Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string addressline3 {
+        get {
+            return this.addressline3Field;
+        }
+        set {
+            this.addressline3Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("zip-code")]
+    public string zipcode {
+        get {
+            return this.zipcodeField;
+        }
+        set {
+            this.zipcodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="post-type", Namespace="http://api.digipost.no/schema/v7")]
+public enum posttype {
+    
+    /// <remarks/>
+    A,
+    
+    /// <remarks/>
+    B,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-colors", Namespace="http://api.digipost.no/schema/v7")]
+public enum printcolors {
+    
+    /// <remarks/>
+    MONOCHROME,
+    
+    /// <remarks/>
+    COLORS,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="nondeliverable-handling", Namespace="http://api.digipost.no/schema/v7")]
+public enum nondeliverablehandling {
+    
+    /// <remarks/>
+    SHRED,
+    
+    /// <remarks/>
+    RETURN_TO_SENDER,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(TypeName="sender-organization", Namespace="http://api.digipost.no/schema/v7")]
 public partial class senderorganization {
     
@@ -590,328 +946,6 @@ public partial class smsnotification {
             this.afterhoursField = value;
         }
     }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="foreign-address", Namespace="http://api.digipost.no/schema/v7")]
-public partial class foreignaddress {
-    
-    private string addressline1Field;
-    
-    private string addressline2Field;
-    
-    private string addressline3Field;
-    
-    private string addressline4Field;
-    
-    private string itemField;
-    
-    private ItemChoiceType2 itemElementNameField;
-    
-    /// <remarks/>
-    public string addressline1 {
-        get {
-            return this.addressline1Field;
-        }
-        set {
-            this.addressline1Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string addressline2 {
-        get {
-            return this.addressline2Field;
-        }
-        set {
-            this.addressline2Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string addressline3 {
-        get {
-            return this.addressline3Field;
-        }
-        set {
-            this.addressline3Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string addressline4 {
-        get {
-            return this.addressline4Field;
-        }
-        set {
-            this.addressline4Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("country", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("country-code", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType2 ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7", IncludeInSchema=false)]
-public enum ItemChoiceType2 {
-    
-    /// <remarks/>
-    country,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("country-code")]
-    countrycode,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="norwegian-address", Namespace="http://api.digipost.no/schema/v7")]
-public partial class norwegianaddress {
-    
-    private string addressline1Field;
-    
-    private string addressline2Field;
-    
-    private string addressline3Field;
-    
-    private string zipcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    public string addressline1 {
-        get {
-            return this.addressline1Field;
-        }
-        set {
-            this.addressline1Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string addressline2 {
-        get {
-            return this.addressline2Field;
-        }
-        set {
-            this.addressline2Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string addressline3 {
-        get {
-            return this.addressline3Field;
-        }
-        set {
-            this.addressline3Field = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("zip-code")]
-    public string zipcode {
-        get {
-            return this.zipcodeField;
-        }
-        set {
-            this.zipcodeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-recipient", Namespace="http://api.digipost.no/schema/v7")]
-public partial class printrecipient {
-    
-    private string nameField;
-    
-    private object itemField;
-    
-    /// <remarks/>
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("foreign-address", typeof(foreignaddress))]
-    [System.Xml.Serialization.XmlElementAttribute("norwegian-address", typeof(norwegianaddress))]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-details", Namespace="http://api.digipost.no/schema/v7")]
-public partial class printdetails {
-    
-    private printrecipient recipientField;
-    
-    private printrecipient returnaddressField;
-    
-    private posttype posttypeField;
-    
-    private printcolors colorField;
-    
-    private nondeliverablehandling nondeliverablehandlingField;
-    
-    public printdetails() {
-        this.colorField = printcolors.MONOCHROME;
-        this.nondeliverablehandlingField = nondeliverablehandling.RETURN_TO_SENDER;
-    }
-    
-    /// <remarks/>
-    public printrecipient recipient {
-        get {
-            return this.recipientField;
-        }
-        set {
-            this.recipientField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("return-address")]
-    public printrecipient returnaddress {
-        get {
-            return this.returnaddressField;
-        }
-        set {
-            this.returnaddressField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("post-type")]
-    public posttype posttype {
-        get {
-            return this.posttypeField;
-        }
-        set {
-            this.posttypeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.ComponentModel.DefaultValueAttribute(printcolors.MONOCHROME)]
-    public printcolors color {
-        get {
-            return this.colorField;
-        }
-        set {
-            this.colorField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("nondeliverable-handling")]
-    [System.ComponentModel.DefaultValueAttribute(nondeliverablehandling.RETURN_TO_SENDER)]
-    public nondeliverablehandling nondeliverablehandling {
-        get {
-            return this.nondeliverablehandlingField;
-        }
-        set {
-            this.nondeliverablehandlingField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="post-type", Namespace="http://api.digipost.no/schema/v7")]
-public enum posttype {
-    
-    /// <remarks/>
-    A,
-    
-    /// <remarks/>
-    B,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-colors", Namespace="http://api.digipost.no/schema/v7")]
-public enum printcolors {
-    
-    /// <remarks/>
-    MONOCHROME,
-    
-    /// <remarks/>
-    COLORS,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="nondeliverable-handling", Namespace="http://api.digipost.no/schema/v7")]
-public enum nondeliverablehandling {
-    
-    /// <remarks/>
-    SHRED,
-    
-    /// <remarks/>
-    RETURN_TO_SENDER,
 }
 
 /// <remarks/>
@@ -1921,6 +1955,9 @@ public enum messagestatus {
     
     /// <remarks/>
     DELIVERED_TO_PRINT,
+    
+    /// <remarks/>
+    DELIVERED_WITH_PRINT_FALLBACK,
 }
 
 /// <remarks/>
@@ -2165,6 +2202,8 @@ public partial class message {
     
     private document[] attachmentField;
     
+    private printfallbackdeadline printfallbackdeadlineField;
+    
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("message-id")]
     public string messageid {
@@ -2250,6 +2289,17 @@ public partial class message {
         }
         set {
             this.attachmentField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("print-fallback-deadline")]
+    public printfallbackdeadline printfallbackdeadline {
+        get {
+            return this.printfallbackdeadlineField;
+        }
+        set {
+            this.printfallbackdeadlineField = value;
         }
     }
 }

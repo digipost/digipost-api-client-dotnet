@@ -266,6 +266,14 @@
                     </xsd:appinfo>
                 </xsd:annotation>
             </xsd:enumeration>
+            <xsd:enumeration value="DELIVERED_WITH_PRINT_FALLBACK">
+                <xsd:annotation>
+                    <xsd:documentation>The message is delivered, and will be delivered to print if it is not read by the user within the specified deadline. Consult the provided links to see what options are availiable.</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="DELIVERED_WITH_PRINT_FALLBACK" />
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -659,6 +667,14 @@
             </xsd:element>
             <xsd:element name="primary-document" type="document" minOccurs="1" maxOccurs="1" nillable="false"/>
             <xsd:element name="attachment" type="document" minOccurs="0" maxOccurs="201" nillable="false"/>
+            <xsd:element name="print-fallback-deadline" type="print-fallback-deadline" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="print-fallback-deadline">
+        <xsd:sequence>
+            <xsd:element name="deadline" type="xsd:dateTime"/>
+            <xsd:element name="print-details" type="print-details"/>
         </xsd:sequence>
     </xsd:complexType>
 

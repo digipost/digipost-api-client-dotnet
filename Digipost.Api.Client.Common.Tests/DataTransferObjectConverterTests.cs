@@ -415,10 +415,7 @@ namespace Digipost.Api.Client.Common.Tests
                         new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
                     new PrintReturnRecipient(
                         "ReturnName",
-                        new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")))
-                {
-                    PostType = PostType.A
-                };
+                        new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
 
                 var sourceAddress = source.PrintRecipient.Address;
                 var returnAddress = source.PrintReturnRecipient.Address;
@@ -472,10 +469,7 @@ namespace Digipost.Api.Client.Common.Tests
                         new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
                     new PrintReturnRecipient(
                         "ReturnName",
-                        new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")))
-                {
-                    PostType = PostType.A
-                };
+                        new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
                 
                 var source = new PrintFallbackDeadline(deadline, printDetails);
                 var sourceAddress = source.PrintDetails.PrintRecipient.Address;

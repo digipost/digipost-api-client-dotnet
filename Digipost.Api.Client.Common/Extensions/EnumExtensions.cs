@@ -67,19 +67,6 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static posttype ToPostType(this PostType postType)
-        {
-            switch (postType)
-            {
-                case PostType.A:
-                    return posttype.A;
-                case PostType.B:
-                    return posttype.B;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(postType), postType, null);
-            }
-        }
-
         public static printcolors ToPrintColors(this PrintColors printColors)
         {
             switch (printColors)

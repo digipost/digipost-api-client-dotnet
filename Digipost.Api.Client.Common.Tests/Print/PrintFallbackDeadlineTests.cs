@@ -16,7 +16,7 @@ namespace Digipost.Api.Client.Common.Tests.Print
             {
                 DateTime deadline = DateTime.Now.AddDays(3);
                 PrintDetails printDetails = new PrintDetails(DomainUtility.GetPrintRecipientWithNorwegianAddress(),
-                        DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PostType.A, PrintColors.Colors);
+                        DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PrintColors.Colors);
                 
                 //Arrange
                 var printFallbackDeadline = new PrintFallbackDeadline(

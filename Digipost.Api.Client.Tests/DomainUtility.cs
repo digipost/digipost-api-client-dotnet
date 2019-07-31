@@ -138,7 +138,7 @@ namespace Digipost.Api.Client.Tests
                 new PrintDetails(
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo", "Osloveien 15")),
                     new PrintReturnRecipient("Returkongen",
-                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")), PostType.A);
+                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
 
         public static printdetails GetPrintDetailsDataTransferObject()

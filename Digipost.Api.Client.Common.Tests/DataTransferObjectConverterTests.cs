@@ -422,7 +422,6 @@ namespace Digipost.Api.Client.Common.Tests
 
                 var expectedDto = new printdetails
                 {
-                    posttype = posttype.A,
                     recipient = new printrecipient
                     {
                         name = source.PrintRecipient.Name,
@@ -477,7 +476,6 @@ namespace Digipost.Api.Client.Common.Tests
                 
                 var expectedDtoPrintDetails = new printdetails
                 {
-                    posttype = posttype.A,
                     recipient = new printrecipient
                     {
                         name = source.PrintDetails.PrintRecipient.Name,

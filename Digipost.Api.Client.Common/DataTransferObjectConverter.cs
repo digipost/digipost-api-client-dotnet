@@ -126,7 +126,6 @@ namespace Digipost.Api.Client.Common
             {
                 recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
                 returnaddress = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
-                posttype = printDetails.PostType.ToPostType(),
                 color = printDetails.PrintColors.ToPrintColors(),
                 nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling()
             };

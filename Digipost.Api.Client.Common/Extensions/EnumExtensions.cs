@@ -17,6 +17,8 @@ namespace Digipost.Api.Client.Common.Extensions
                     return ItemChoiceType.organisationnumber;
                 case IdentificationType.NameAndAddress:
                     return ItemChoiceType.nameandaddress;
+                case IdentificationType.BankAccountNumber:
+                    return ItemChoiceType.bankaccountnumber;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(identificationType), identificationType, null);
             }

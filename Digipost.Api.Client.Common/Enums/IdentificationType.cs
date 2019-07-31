@@ -8,6 +8,8 @@
 
         OrganizationNumber,
 
-        NameAndAddress
+        NameAndAddress,
+        
+        BankAccountNumber
     }
 }

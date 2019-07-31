@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
@@ -6,6 +7,7 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.DataTypes.Appointment;
+using Digipost.Api.Client.DataTypes.Event;
 using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
 
@@ -275,6 +277,45 @@ namespace Digipost.Api.Client.Docs
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
                 dataType: appointment
+            );
+        }
+        
+        public void SendMessageWithEventMetadata()
+        {
+            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
+            
+            var eventTimeSpans = new List<EventTimeSpan>();
+            var timeSpan = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
+            var timeSpan2 = new EventTimeSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(1).AddHours(5));
+            eventTimeSpans.Add(timeSpan);
+            eventTimeSpans.Add(timeSpan2);
+            
+            var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
+            var address = new EventAddress("Gateveien 1", "0001", "Oslo");
+            var info = new Info("Title", "Very important information");
+            var links = new List<ExternalLink>();
+
+            var _event = new Event(eventTimeSpans)
+            {
+                Description = "Description here",
+                Address = address,
+                Info = new List<Info>
+                {
+                    info
+                },
+                Place = "Oslo City Røntgen",
+                PlaceLabel = "This is a place",
+                SubTitle = "SubTitle",
+                Barcode = barcode,
+                BarcodeLabel = "Barcode Label",
+                Links = links
+            };
+
+            var document = new Document(
+                subject: "Your appointment",
+                fileType: "pdf",
+                path: @"c:\...\document.pdf",
+                dataType: _event
             );
         }
     }

@@ -92,7 +92,7 @@ var result = client.SendMessage(message);
 
 ```
 
-### Send letter with fallback to print
+### Send letter with fallback to print if the user does not exist in Digipost
 
 In cases where the recipient is not a Digipost user, it is also possible to use the recipient's name and address for physical mail delivery.
 
@@ -124,6 +124,37 @@ var messageWithFallbackToPrint = new Message(sender, recipient, primaryDocument)
 
 var result = client.SendMessage(messageWithFallbackToPrint);
 
+```
+### Send letter with fallback to print if the user does not read the message within a certain deadline
+``` csharp
+
+var recipient = new RecipientByNameAndAddress(
+    fullName: "Ola Nordmann",
+    addressLine1: "Prinsensveien 123",
+    postalCode: "0460",
+    city: "Oslo"
+);
+
+var printDetails =
+    new PrintDetails(
+        printRecipient: new PrintRecipient(
+            "Ola Nordmann",
+            new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+        printReturnRecipient: new PrintReturnRecipient(
+            "Kari Nordmann",
+            new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+    );
+
+var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+var messageWithPrintFallback= new Message(sender, recipient, primaryDocument)
+{
+    PrintDetails = printDetails,
+    DeliveryTime = DateTime.Now.AddDays(3),
+    PrintFallbackDeadline = new PrintFallbackDeadline(DateTime.Now.AddDays(6), printDetails)
+};
+
+var result = client.SendMessage(messageWithPrintFallback);
 ```
 
 ### Send letter with higher security level
@@ -374,7 +405,50 @@ var document = new Document(
 // Create Message and send using the client as specified in other examples.
 
 ```
+### Send message with event datatype
 
+One of the complex data types supported is `Event`, which represents a meeting set for a specific place, but covering multiple time spans. The following example demonstrates how to include such extra data:
+
+``` csharp
+var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
+            
+var eventTimeSpans = new List<EventTimeSpan>();
+var timeSpan = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
+var timeSpan2 = new EventTimeSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(1).AddHours(5));
+eventTimeSpans.Add(timeSpan);
+eventTimeSpans.Add(timeSpan2);
+            
+var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
+var address = new EventAddress("Gateveien 1", "0001", "Oslo");
+var info = new Info("Title", "Very important information");
+var links = new List<ExternalLink>();
+
+var _event = new Event(eventTimeSpans)
+
+    Description = "Description here",
+    Address = address,
+    Info = new List<Info>
+    {
+        info
+    },
+    Place = "Oslo City Røntgen",
+    PlaceLabel = "This is a place",
+    SubTitle = "SubTitle",
+    Barcode = barcode,
+    BarcodeLabel = "Barcode Label",
+    Links = links
+};
+
+var document = new Document(
+    subject: "Your appointment",
+    fileType: "pdf",
+    path: @"c:\...\document.pdf",
+    dataType: _event
+);
+
+// Create Message and send using the client as specified in other examples.
+
+```
 ### Send message with external link datatype
 
 This Datatype enhances a message in Digipost with a button which sends the user to an external site. The button

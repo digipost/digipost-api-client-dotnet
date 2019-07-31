@@ -282,6 +282,421 @@ public enum authenticationlevel {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="document-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class documentmetadata {
+    
+    private link[] linkField;
+    
+    private string uuidField;
+    
+    private string technicaltypeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("link")]
+    public link[] link {
+        get {
+            return this.linkField;
+        }
+        set {
+            this.linkField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string uuid {
+        get {
+            return this.uuidField;
+        }
+        set {
+            this.uuidField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("technical-type")]
+    public string technicaltype {
+        get {
+            return this.technicaltypeField;
+        }
+        set {
+            this.technicaltypeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(postmarkedmetadata))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(failedprintmetadata))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(smsnotificationfailedmetadata))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(emailnotificationfailedmetadata))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(movefilesfrompublicsectormetadata))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="event-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public abstract partial class eventmetadata {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="postmarked-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class postmarkedmetadata : eventmetadata {
+    
+    private System.DateTime postmarkeddateField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("postmarked-date")]
+    public System.DateTime postmarkeddate {
+        get {
+            return this.postmarkeddateField;
+        }
+        set {
+            this.postmarkeddateField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="failed-print-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class failedprintmetadata : eventmetadata {
+    
+    private string errorcodeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("error-code")]
+    public string errorcode {
+        get {
+            return this.errorcodeField;
+        }
+        set {
+            this.errorcodeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="sms-notification-failed-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class smsnotificationfailedmetadata : eventmetadata {
+    
+    private string mobilenumberField;
+    
+    private string errorcodeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("mobile-number")]
+    public string mobilenumber {
+        get {
+            return this.mobilenumberField;
+        }
+        set {
+            this.mobilenumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("error-code")]
+    public string errorcode {
+        get {
+            return this.errorcodeField;
+        }
+        set {
+            this.errorcodeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="email-notification-failed-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class emailnotificationfailedmetadata : eventmetadata {
+    
+    private string emailaddressField;
+    
+    private string errorcodeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("email-address")]
+    public string emailaddress {
+        get {
+            return this.emailaddressField;
+        }
+        set {
+            this.emailaddressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("error-code")]
+    public string errorcode {
+        get {
+            return this.errorcodeField;
+        }
+        set {
+            this.errorcodeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="move-files-from-public-sector-metadata", Namespace="http://api.digipost.no/schema/v7")]
+public partial class movefilesfrompublicsectormetadata : eventmetadata {
+    
+    private documentmetadata[] documentField;
+    
+    private string x509CertificateField;
+    
+    private bool openedField;
+    
+    private System.DateTime deliverytimeField;
+    
+    private string subjectField;
+    
+    private authenticationlevel authenticationlevelField;
+    
+    private sensitivitylevel sensitivitylevelField;
+    
+    private string destinationmailboxField;
+    
+    private string destinationmailboxaddressField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("document")]
+    public documentmetadata[] document {
+        get {
+            return this.documentField;
+        }
+        set {
+            this.documentField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string x509Certificate {
+        get {
+            return this.x509CertificateField;
+        }
+        set {
+            this.x509CertificateField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool opened {
+        get {
+            return this.openedField;
+        }
+        set {
+            this.openedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("delivery-time")]
+    public System.DateTime deliverytime {
+        get {
+            return this.deliverytimeField;
+        }
+        set {
+            this.deliverytimeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string subject {
+        get {
+            return this.subjectField;
+        }
+        set {
+            this.subjectField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("authentication-level")]
+    public authenticationlevel authenticationlevel {
+        get {
+            return this.authenticationlevelField;
+        }
+        set {
+            this.authenticationlevelField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("sensitivity-level")]
+    public sensitivitylevel sensitivitylevel {
+        get {
+            return this.sensitivitylevelField;
+        }
+        set {
+            this.sensitivitylevelField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("destination-mailbox")]
+    public string destinationmailbox {
+        get {
+            return this.destinationmailboxField;
+        }
+        set {
+            this.destinationmailboxField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("destination-mailbox-address")]
+    public string destinationmailboxaddress {
+        get {
+            return this.destinationmailboxaddressField;
+        }
+        set {
+            this.destinationmailboxaddressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="sensitivity-level", Namespace="http://api.digipost.no/schema/v7")]
+public enum sensitivitylevel {
+    
+    /// <remarks/>
+    NORMAL,
+    
+    /// <remarks/>
+    SENSITIVE,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7")]
+public partial class @event {
+    
+    private eventmetadata metadataField;
+    
+    private string uuidField;
+    
+    private eventtype typeField;
+    
+    private System.DateTime createdField;
+    
+    private System.DateTime documentcreatedField;
+    
+    /// <remarks/>
+    public eventmetadata metadata {
+        get {
+            return this.metadataField;
+        }
+        set {
+            this.metadataField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string uuid {
+        get {
+            return this.uuidField;
+        }
+        set {
+            this.uuidField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public eventtype type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public System.DateTime created {
+        get {
+            return this.createdField;
+        }
+        set {
+            this.createdField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute("document-created")]
+    public System.DateTime documentcreated {
+        get {
+            return this.documentcreatedField;
+        }
+        set {
+            this.documentcreatedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="event-type", Namespace="http://api.digipost.no/schema/v7")]
+public enum eventtype {
+    
+    /// <remarks/>
+    EMAIL_NOTIFICATION_FAILED,
+    
+    /// <remarks/>
+    SMS_NOTIFICATION_FAILED,
+    
+    /// <remarks/>
+    OPENED,
+    
+    /// <remarks/>
+    MOVE_FILES_FROM_PUBLIC_SECTOR,
+    
+    /// <remarks/>
+    POSTMARKED,
+    
+    /// <remarks/>
+    PRINT_FAILED,
+    
+    /// <remarks/>
+    SHREDDED,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7")]
 public partial class feature {
     
@@ -364,7 +779,10 @@ public partial class printdetails {
     
     private nondeliverablehandling nondeliverablehandlingField;
     
+    private printinstruction[] printinstructionsField;
+    
     public printdetails() {
+        this.posttypeField = posttype.A;
         this.colorField = printcolors.MONOCHROME;
         this.nondeliverablehandlingField = nondeliverablehandling.RETURN_TO_SENDER;
     }
@@ -392,6 +810,7 @@ public partial class printdetails {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("post-type")]
+    [System.ComponentModel.DefaultValueAttribute(posttype.A)]
     public posttype posttype {
         get {
             return this.posttypeField;
@@ -421,6 +840,18 @@ public partial class printdetails {
         }
         set {
             this.nondeliverablehandlingField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute("print-instructions")]
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
+    public printinstruction[] printinstructions {
+        get {
+            return this.printinstructionsField;
+        }
+        set {
+            this.printinstructionsField = value;
         }
     }
 }
@@ -666,6 +1097,39 @@ public enum nondeliverablehandling {
     
     /// <remarks/>
     RETURN_TO_SENDER,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-instruction", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printinstruction {
+    
+    private string keyField;
+    
+    private string valueField;
+    
+    /// <remarks/>
+    public string key {
+        get {
+            return this.keyField;
+        }
+        set {
+            this.keyField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -1389,6 +1853,29 @@ public partial class encryptionkey {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="encryption-certificate", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("encryption-certificate", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class encryptioncertificate {
+    
+    private string valueField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://api.digipost.no/schema/v7")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
 public partial class autocomplete {
@@ -1662,6 +2149,7 @@ public partial class identification {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("bank-account-number", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(nameandaddress))]
     [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
@@ -1707,6 +2195,10 @@ public partial class identification {
 public enum ItemChoiceType {
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("bank-account-number")]
+    bankaccountnumber,
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("digipost-address")]
     digipostaddress,
     
@@ -1739,6 +2231,7 @@ public partial class messagerecipient {
     private printdetails printdetailsField;
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("bank-account-number", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(nameandaddress))]
     [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
@@ -1781,6 +2274,10 @@ public partial class messagerecipient {
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7", IncludeInSchema=false)]
 public enum ItemChoiceType1 {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("bank-account-number")]
+    bankaccountnumber,
     
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("digipost-address")]
@@ -1954,10 +2451,10 @@ public enum messagestatus {
     DELIVERED,
     
     /// <remarks/>
-    DELIVERED_TO_PRINT,
+    DELIVERED_WITH_PRINT_FALLBACK,
     
     /// <remarks/>
-    DELIVERED_WITH_PRINT_FALLBACK,
+    DELIVERED_TO_PRINT,
 }
 
 /// <remarks/>
@@ -2162,19 +2659,6 @@ public partial class document {
             this.technicaltypeField = value;
         }
     }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="sensitivity-level", Namespace="http://api.digipost.no/schema/v7")]
-public enum sensitivitylevel {
-    
-    /// <remarks/>
-    NORMAL,
-    
-    /// <remarks/>
-    SENSITIVE,
 }
 
 /// <remarks/>
@@ -2755,6 +3239,29 @@ public enum hashalgorithm {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="document-events", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("document-events", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class documentevents {
+    
+    private @event[] eventField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("event")]
+    public @event[] @event {
+        get {
+            return this.eventField;
+        }
+        set {
+            this.eventField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
 public partial class inbox {
@@ -2769,6 +3276,128 @@ public partial class inbox {
         }
         set {
             this.documentField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="user-information", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("user-information", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class userinformation {
+    
+    private string nationalidentitynumberField;
+    
+    private string phonenumberField;
+    
+    private string emailaddressField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("national-identity-number")]
+    public string nationalidentitynumber {
+        get {
+            return this.nationalidentitynumberField;
+        }
+        set {
+            this.nationalidentitynumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("phone-number")]
+    public string phonenumber {
+        get {
+            return this.phonenumberField;
+        }
+        set {
+            this.phonenumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("email-address")]
+    public string emailaddress {
+        get {
+            return this.emailaddressField;
+        }
+        set {
+            this.emailaddressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="user-account", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("user-account", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class useraccount {
+    
+    private string digipostaddressField;
+    
+    private string encryptionkeyField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("digipost-address")]
+    public string digipostaddress {
+        get {
+            return this.digipostaddressField;
+        }
+        set {
+            this.digipostaddressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("encryption-key")]
+    public string encryptionkey {
+        get {
+            return this.encryptionkeyField;
+        }
+        set {
+            this.encryptionkeyField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="additional-data", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("additional-data", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class additionaldata {
+    
+    private System.Xml.XmlElement datatypeField;
+    
+    private object itemField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("data-type")]
+    public System.Xml.XmlElement datatype {
+        get {
+            return this.datatypeField;
+        }
+        set {
+            this.datatypeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("sender-id", typeof(long))]
+    [System.Xml.Serialization.XmlElementAttribute("sender-organization", typeof(senderorganization))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
         }
     }
 }

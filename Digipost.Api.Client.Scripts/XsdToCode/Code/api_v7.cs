@@ -2036,9 +2036,6 @@ public enum messagestatus {
     DELIVERED,
     
     /// <remarks/>
-    DELIVERED_WITH_PRINT_FALLBACK,
-    
-    /// <remarks/>
     DELIVERED_TO_PRINT,
 }
 

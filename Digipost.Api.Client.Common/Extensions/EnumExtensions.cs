@@ -146,8 +146,6 @@ namespace Digipost.Api.Client.Common.Extensions
                     return MessageStatus.Delivered;
                 case messagestatus.DELIVERED_TO_PRINT:
                     return MessageStatus.DeliveredToPrint;
-                case messagestatus.DELIVERED_WITH_PRINT_FALLBACK:
-                    return MessageStatus.DeliveredWithPrintFallback;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(messagestatus), messagestatus, null);
             }

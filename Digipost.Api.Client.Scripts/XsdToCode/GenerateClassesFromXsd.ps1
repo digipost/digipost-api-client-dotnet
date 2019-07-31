@@ -1,8 +1,3 @@
-# Running for the first time:
-# Install Powershell with command ...
-# brew cask install powershell
-
-
 function GenerateCode($XsdDirectory, $RootXsd, $OutDir, $Namespace)
 {
     Write-Host("[Generating code from XSD: $XsdDirectory]")

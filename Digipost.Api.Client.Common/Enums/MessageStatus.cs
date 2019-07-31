@@ -21,6 +21,11 @@
         /// <summary>
         ///     The message is delivered to print. Consult the provided links to see what options are availiable.
         /// </summary>
-        DeliveredToPrint
+        DeliveredToPrint,
+        
+        /// <summary>
+        ///     The message is delivered, and will be delivered to print if it is not read by the user within the specified deadline. Consult the provided links to see what options are availiable.
+        /// </summary>
+        DeliveredWithPrintFallback
     }
 }

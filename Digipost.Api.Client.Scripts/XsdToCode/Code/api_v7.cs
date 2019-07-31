@@ -364,7 +364,10 @@ public partial class printdetails {
     
     private nondeliverablehandling nondeliverablehandlingField;
     
+    private printinstruction[] printinstructionsField;
+    
     public printdetails() {
+        this.posttypeField = posttype.A;
         this.colorField = printcolors.MONOCHROME;
         this.nondeliverablehandlingField = nondeliverablehandling.RETURN_TO_SENDER;
     }
@@ -392,6 +395,7 @@ public partial class printdetails {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("post-type")]
+    [System.ComponentModel.DefaultValueAttribute(posttype.A)]
     public posttype posttype {
         get {
             return this.posttypeField;
@@ -421,6 +425,18 @@ public partial class printdetails {
         }
         set {
             this.nondeliverablehandlingField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute("print-instructions")]
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
+    public printinstruction[] printinstructions {
+        get {
+            return this.printinstructionsField;
+        }
+        set {
+            this.printinstructionsField = value;
         }
     }
 }
@@ -666,6 +682,39 @@ public enum nondeliverablehandling {
     
     /// <remarks/>
     RETURN_TO_SENDER,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-instruction", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printinstruction {
+    
+    private string keyField;
+    
+    private string valueField;
+    
+    /// <remarks/>
+    public string key {
+        get {
+            return this.keyField;
+        }
+        set {
+            this.keyField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -1389,6 +1438,29 @@ public partial class encryptionkey {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="encryption-certificate", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("encryption-certificate", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class encryptioncertificate {
+    
+    private string valueField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://api.digipost.no/schema/v7")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
 public partial class autocomplete {
@@ -1662,6 +1734,7 @@ public partial class identification {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("bank-account-number", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(nameandaddress))]
     [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
@@ -1707,6 +1780,10 @@ public partial class identification {
 public enum ItemChoiceType {
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("bank-account-number")]
+    bankaccountnumber,
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("digipost-address")]
     digipostaddress,
     
@@ -1739,6 +1816,7 @@ public partial class messagerecipient {
     private printdetails printdetailsField;
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("bank-account-number", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("digipost-address", typeof(string))]
     [System.Xml.Serialization.XmlElementAttribute("name-and-address", typeof(nameandaddress))]
     [System.Xml.Serialization.XmlElementAttribute("organisation-number", typeof(string))]
@@ -1781,6 +1859,10 @@ public partial class messagerecipient {
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/v7", IncludeInSchema=false)]
 public enum ItemChoiceType1 {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("bank-account-number")]
+    bankaccountnumber,
     
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("digipost-address")]
@@ -1954,10 +2036,10 @@ public enum messagestatus {
     DELIVERED,
     
     /// <remarks/>
-    DELIVERED_TO_PRINT,
+    DELIVERED_WITH_PRINT_FALLBACK,
     
     /// <remarks/>
-    DELIVERED_WITH_PRINT_FALLBACK,
+    DELIVERED_TO_PRINT,
 }
 
 /// <remarks/>
@@ -2769,6 +2851,128 @@ public partial class inbox {
         }
         set {
             this.documentField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="user-information", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("user-information", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class userinformation {
+    
+    private string nationalidentitynumberField;
+    
+    private string phonenumberField;
+    
+    private string emailaddressField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("national-identity-number")]
+    public string nationalidentitynumber {
+        get {
+            return this.nationalidentitynumberField;
+        }
+        set {
+            this.nationalidentitynumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("phone-number")]
+    public string phonenumber {
+        get {
+            return this.phonenumberField;
+        }
+        set {
+            this.phonenumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("email-address")]
+    public string emailaddress {
+        get {
+            return this.emailaddressField;
+        }
+        set {
+            this.emailaddressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="user-account", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("user-account", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class useraccount {
+    
+    private string digipostaddressField;
+    
+    private string encryptionkeyField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("digipost-address")]
+    public string digipostaddress {
+        get {
+            return this.digipostaddressField;
+        }
+        set {
+            this.digipostaddressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("encryption-key")]
+    public string encryptionkey {
+        get {
+            return this.encryptionkeyField;
+        }
+        set {
+            this.encryptionkeyField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="additional-data", Namespace="http://api.digipost.no/schema/v7")]
+[System.Xml.Serialization.XmlRootAttribute("additional-data", Namespace="http://api.digipost.no/schema/v7", IsNullable=false)]
+public partial class additionaldata {
+    
+    private System.Xml.XmlElement datatypeField;
+    
+    private object itemField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("data-type")]
+    public System.Xml.XmlElement datatype {
+        get {
+            return this.datatypeField;
+        }
+        set {
+            this.datatypeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("sender-id", typeof(long))]
+    [System.Xml.Serialization.XmlElementAttribute("sender-organization", typeof(senderorganization))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
         }
     }
 }

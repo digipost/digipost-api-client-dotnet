@@ -4,6 +4,7 @@ using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
+using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
@@ -270,6 +271,83 @@ namespace Digipost.Api.Client.Send.Tests
                         },
                         deliverytime = DateTime.Today.AddDays(3),
                         deliverytimeSpecified = true
+                    };
+
+                //Act
+                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                Comparator.AssertEqual(expectedDto, actualDto);
+            }
+
+            [Fact]
+            public void MessageWithPrintFallbackDeadline()
+            {
+                                //Arrange
+                var printDetails = DomainUtility.GetPrintDetails();
+                var sender = new Sender(1010);
+                var deadline = DateTime.Now.AddDays(6);
+                var source = new Message(
+                    sender,
+                    DomainUtility.GetRecipientByNameAndAddress(),
+                    new Document("PrimaryDocument subject", "txt", new byte[3])
+                )
+                {
+                    Attachments = new List<IDocument>
+                    {
+                        new Document("TestSubject attachment subject", "txt", new byte[3])
+                        {
+                            Guid = "attachmentGuid"
+                        }
+                    },
+                    DeliveryTime = DateTime.Today.AddDays(3),
+                    PrimaryDocument = {Guid = "primaryDocumentGuid"},
+                    PrintDetails = printDetails,
+                    PrintFallbackDeadline = new PrintFallbackDeadline(deadline, printDetails)
+                };
+
+                var expectedDto =
+                    new message
+                    {
+                        Item = sender.Id,
+                        recipient = new messagerecipient
+                        {
+                            Item = new nameandaddress
+                            {
+                                fullname = "Ola Nordmann",
+                                postalcode = "0001",
+                                city = "Oslo",
+                                addressline1 = "Biskop Gunnerus Gate 14"
+                            },
+                            ItemElementName = ItemChoiceType1.nameandaddress,
+                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                        },
+                        primarydocument = new document
+                        {
+                            subject = "PrimaryDocument subject",
+                            filetype = "txt",
+                            uuid = "primaryDocumentGuid",
+                            authenticationlevelSpecified = true,
+                            sensitivitylevelSpecified = true
+                        },
+                        attachment = new[]
+                        {
+                            new document
+                            {
+                                subject = "TestSubject attachment subject",
+                                filetype = "txt",
+                                uuid = "attachmentGuid",
+                                sensitivitylevelSpecified = true,
+                                authenticationlevelSpecified = true
+                            }
+                        },
+                        deliverytime = DateTime.Today.AddDays(3),
+                        deliverytimeSpecified = true,
+                        printfallbackdeadline = new printfallbackdeadline
+                        {
+                            deadline = deadline,
+                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                        }
                     };
 
                 //Act

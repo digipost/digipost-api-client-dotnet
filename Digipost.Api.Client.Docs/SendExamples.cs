@@ -116,6 +116,37 @@ namespace Digipost.Api.Client.Docs
 
             var result = client.SendMessage(messageWithFallbackToPrint);
         }
+        
+        public void SendLetterWithPrintFallback()
+        {
+            var recipient = new RecipientByNameAndAddress(
+                fullName: "Ola Nordmann",
+                addressLine1: "Prinsensveien 123",
+                postalCode: "0460",
+                city: "Oslo"
+            );
+
+            var printDetails =
+                new PrintDetails(
+                    printRecipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnRecipient: new PrintReturnRecipient(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                );
+
+            var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+            var messageWithPrintFallback= new Message(sender, recipient, primaryDocument)
+            {
+                PrintDetails = printDetails,
+                DeliveryTime = DateTime.Now.AddDays(3),
+                PrintFallbackDeadline = new PrintFallbackDeadline(DateTime.Now.AddDays(6), printDetails)
+            };
+
+            var result = client.SendMessage(messageWithPrintFallback);
+        }
 
         public void SendLetterWithHigherSecurityLevel()
         {

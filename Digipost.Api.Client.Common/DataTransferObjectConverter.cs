@@ -126,12 +126,25 @@ namespace Digipost.Api.Client.Common
             {
                 recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
                 returnaddress = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
-                posttype = printDetails.PostType.ToPostType(),
                 color = printDetails.PrintColors.ToPrintColors(),
                 nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling()
             };
 
             return printDetailsDataTransferObject;
+        }
+        
+        public static printfallbackdeadline ToDataTransferObject(IPrintFallbackDeadline printFallbackDeadline)
+        {
+            if (printFallbackDeadline == null)
+                return null;
+
+            var printFallbackDeadlineDataTransferObject = new printfallbackdeadline
+            {
+                deadline = printFallbackDeadline.Deadline,
+                printdetails = ToDataTransferObject(printFallbackDeadline.PrintDetails)
+            };
+
+            return printFallbackDeadlineDataTransferObject;
         }
 
         private static printrecipient ToDataTransferObject(IPrint recipient)

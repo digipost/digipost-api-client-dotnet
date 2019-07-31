@@ -14,8 +14,12 @@ namespace Digipost.Api.Client.Send
         ///     The sender of the message, i.e. what the receiver of the message sees as the sender of the
         ///     message.
         /// </param>
-        /// <param name="digipostRecipient">The recipient recieving the message.</param>
-        /// <param name="primaryDocument">The primary document sent to the recipient.</param>
+        /// <param name="digipostRecipient">
+        ///     The recipient recieving the message.
+        /// </param>
+        /// <param name="primaryDocument">
+        ///     The primary document sent to the recipient.
+        /// </param>
         public Message(Sender sender, IDigipostRecipient digipostRecipient, IDocument primaryDocument)
         {
             Sender = sender;
@@ -29,6 +33,10 @@ namespace Digipost.Api.Client.Send
         public IDigipostRecipient DigipostRecipient { get; set; }
 
         public IPrintDetails PrintDetails { get; set; }
+        
+        public IPrintFallbackDeadline PrintFallbackDeadline { get; set; }
+
+        public bool PrintFallbackDeadlineSpecified => PrintFallbackDeadline != null;
 
         public Sender Sender { get; set; }
 

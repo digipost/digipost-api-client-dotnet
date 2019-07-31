@@ -15,7 +15,7 @@ namespace Digipost.Api.Client.Common.Tests.Print
             {
                 //Arrange
                 var printDetails = new PrintDetails(DomainUtility.GetPrintRecipientWithNorwegianAddress(),
-                    DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PostType.A, PrintColors.Colors);
+                    DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PrintColors.Colors);
 
                 //Act
 
@@ -24,7 +24,6 @@ namespace Digipost.Api.Client.Common.Tests.Print
 
                 Comparator.AssertEqual(DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), printDetails.PrintReturnRecipient);
 
-                Assert.Equal(PostType.A, printDetails.PostType);
                 Assert.Equal(PrintColors.Colors, printDetails.PrintColors);
                 Assert.Equal(NondeliverableHandling.ReturnToSender, printDetails.NondeliverableHandling);
             }

@@ -16,11 +16,6 @@ namespace Digipost.Api.Client.Common.Print
         IPrintReturnRecipient PrintReturnRecipient { get; set; }
 
         /// <summary>
-        ///     Defines how fast you want the item delivered. Note: additional charges may apply
-        /// </summary>
-        PostType PostType { get; set; }
-
-        /// <summary>
         ///     Defines if you want the documents printed in black / white or color (Note: additional charges may apply).
         /// </summary>
         PrintColors PrintColors { get; set; }

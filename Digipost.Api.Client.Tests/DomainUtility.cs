@@ -138,7 +138,7 @@ namespace Digipost.Api.Client.Tests
                 new PrintDetails(
                     new PrintRecipient("Ola Nordmann", new NorwegianAddress("0115", "Oslo", "Osloveien 15")),
                     new PrintReturnRecipient("Returkongen",
-                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")), PostType.A);
+                        new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
 
         public static printdetails GetPrintDetailsDataTransferObject()
@@ -165,6 +165,24 @@ namespace Digipost.Api.Client.Tests
                         zipcode = "5510"
                     }
                 }
+            };
+        }
+
+        public static PrintFallbackDeadline GetPrintFallbackDeadline()
+        {
+            return 
+                new PrintFallbackDeadline(
+                    DateTime.Now.AddDays(3),
+                    GetPrintDetails()
+                    );
+        }
+
+        public static printfallbackdeadline GetPrintFallbackDeadlineTransferObject()
+        {
+            return new printfallbackdeadline
+            {
+                deadline = DateTime.Now.AddDays(3),
+                printdetails = GetPrintDetailsDataTransferObject()
             };
         }
 

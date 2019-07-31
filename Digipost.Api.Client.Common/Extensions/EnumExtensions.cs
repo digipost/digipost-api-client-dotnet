@@ -17,6 +17,8 @@ namespace Digipost.Api.Client.Common.Extensions
                     return ItemChoiceType.organisationnumber;
                 case IdentificationType.NameAndAddress:
                     return ItemChoiceType.nameandaddress;
+                case IdentificationType.BankAccountNumber:
+                    return ItemChoiceType.bankaccountnumber;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(identificationType), identificationType, null);
             }
@@ -62,19 +64,6 @@ namespace Digipost.Api.Client.Common.Extensions
                     return sensitivitylevel.SENSITIVE;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sensitivityLevel), sensitivityLevel, null);
-            }
-        }
-
-        public static posttype ToPostType(this PostType postType)
-        {
-            switch (postType)
-            {
-                case PostType.A:
-                    return posttype.A;
-                case PostType.B:
-                    return posttype.B;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(postType), postType, null);
             }
         }
 

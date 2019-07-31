@@ -63,24 +63,6 @@ namespace Digipost.Api.Client.Common.Tests.Extensions
             }
         }
 
-        public class ToPostType
-        {
-            [Fact]
-            public void Converts_All_Enum_Values()
-            {
-                var enumValues = Enum.GetValues(typeof(PostType));
-                var enumValuesDto = Enum.GetValues(typeof(posttype));
-
-                Assert.Equal(enumValues.Length, enumValuesDto.Length);
-
-                foreach (var enumValue in enumValues)
-                {
-                    var currentEnum = (PostType) enumValue;
-                    currentEnum.ToPostType();
-                }
-            }
-        }
-
         public class ToPrintColors
         {
             [Fact]

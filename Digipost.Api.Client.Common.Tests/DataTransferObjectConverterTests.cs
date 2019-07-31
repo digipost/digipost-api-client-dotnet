@@ -462,6 +462,70 @@ namespace Digipost.Api.Client.Common.Tests
             }
 
             [Fact]
+            public void PrintFallbackDeadline()
+            { 
+                //Arrange
+                DateTime deadline = DateTime.Now.AddDays(3);
+                PrintDetails printDetails = new PrintDetails(
+                    new PrintRecipient(
+                        "Name",
+                        new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3")),
+                    new PrintReturnRecipient(
+                        "ReturnName",
+                        new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")))
+                {
+                    PostType = PostType.A
+                };
+                
+                var source = new PrintFallbackDeadline(deadline, printDetails);
+                var sourceAddress = source.PrintDetails.PrintRecipient.Address;
+                var returnAddress = source.PrintDetails.PrintReturnRecipient.Address;
+                
+                var expectedDtoPrintDetails = new printdetails
+                {
+                    posttype = posttype.A,
+                    recipient = new printrecipient
+                    {
+                        name = source.PrintDetails.PrintRecipient.Name,
+                        Item = new norwegianaddress
+                        {
+                            zipcode = ((NorwegianAddress) sourceAddress).PostalCode,
+                            city = ((NorwegianAddress) sourceAddress).City,
+                            addressline1 = sourceAddress.AddressLine1,
+                            addressline2 = sourceAddress.AddressLine2,
+                            addressline3 = sourceAddress.AddressLine3
+                        }
+                    },
+                    returnaddress = new printrecipient
+                    {
+                        name = source.PrintDetails.PrintReturnRecipient.Name,
+                        Item = new norwegianaddress
+                        {
+                            zipcode = ((NorwegianAddress) returnAddress).PostalCode,
+                            city = ((NorwegianAddress) returnAddress).City,
+                            addressline1 = returnAddress.AddressLine1,
+                            addressline2 = returnAddress.AddressLine2,
+                            addressline3 = returnAddress.AddressLine3
+                        }
+                    }
+                };
+                
+                var expectedDto = new printfallbackdeadline
+                {
+                    deadline = deadline,
+                    printdetails = expectedDtoPrintDetails
+                };
+
+                //Act
+                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+
+                //Assert
+                Comparator.AssertEqual(expectedDto, actualDto);
+
+                Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintFallbackDeadline) null));
+            }
+
+            [Fact]
             public void PrintRecipientFromForeignAddress()
             {
                 //Arrange

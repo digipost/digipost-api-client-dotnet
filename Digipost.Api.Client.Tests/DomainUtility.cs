@@ -168,6 +168,24 @@ namespace Digipost.Api.Client.Tests
             };
         }
 
+        public static PrintFallbackDeadline GetPrintFallbackDeadline()
+        {
+            return 
+                new PrintFallbackDeadline(
+                    DateTime.Now.AddDays(3),
+                    GetPrintDetails()
+                    );
+        }
+
+        public static printfallbackdeadline GetPrintFallbackDeadlineTransferObject()
+        {
+            return new printfallbackdeadline
+            {
+                deadline = DateTime.Now.AddDays(3),
+                printdetails = GetPrintDetailsDataTransferObject()
+            };
+        }
+
         public static NorwegianAddress GetNorwegianAddress()
         {
             return new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");

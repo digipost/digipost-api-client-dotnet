@@ -458,10 +458,10 @@ namespace Digipost.Api.Client.Common.Tests
             }
 
             [Fact]
-            public void PrintFallbackDeadline()
+            public void PrintIfUnread()
             { 
                 //Arrange
-                DateTime deadline = DateTime.Now.AddDays(3);
+                DateTime printifunreadafter = DateTime.Now.AddDays(3);
                 PrintDetails printDetails = new PrintDetails(
                     new PrintRecipient(
                         "Name",
@@ -470,7 +470,7 @@ namespace Digipost.Api.Client.Common.Tests
                         "ReturnName",
                         new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
                 
-                var source = new PrintFallbackDeadline(deadline, printDetails);
+                var source = new PrintIfUnread(printifunreadafter, printDetails);
                 var sourceAddress = source.PrintDetails.PrintRecipient.Address;
                 var returnAddress = source.PrintDetails.PrintReturnRecipient.Address;
                 
@@ -502,9 +502,9 @@ namespace Digipost.Api.Client.Common.Tests
                     }
                 };
                 
-                var expectedDto = new printfallbackdeadline
+                var expectedDto = new printifunread
                 {
-                    deadline = deadline,
+                    printifunreadafter = printifunreadafter,
                     printdetails = expectedDtoPrintDetails
                 };
 
@@ -514,7 +514,7 @@ namespace Digipost.Api.Client.Common.Tests
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
 
-                Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintFallbackDeadline) null));
+                Assert.Null(DataTransferObjectConverter.ToDataTransferObject((IPrintIfUnread) null));
             }
 
             [Fact]

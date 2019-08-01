@@ -57,14 +57,14 @@ namespace Digipost.Api.Client.Send
         IPrintDetails PrintDetails { get; set; }
         
         /// <summary>
-        ///     Specifies printfallback deadline for the current message. If the message is not read within the
+        ///     Specifies print-if-unread-after deadline for the current message. If the message is not read within the
         ///     deadline, it is sent to print with the contained printdetails.
         /// </summary>
-        IPrintFallbackDeadline PrintFallbackDeadline { get; set; }
+        IPrintIfUnread PrintIfUnread { get; set; }
         
         /// <summary>
-        ///     True if a printfallbackdeadline is specified for the message. Otherwise false.
+        ///     True if print-if-unread-after is specified for the message. Otherwise false.
         /// </summary>
-        bool PrintFallbackDeadlineSpecified { get; }
+        bool PrintIfUnreadAfterSpecified { get; }
     }
 }

@@ -1,11 +1,11 @@
 namespace Digipost.Api.Client.Common.Print
 {
-    public interface IPrintFallbackDeadline
+    public interface IPrintIfUnread
     {
         /// <summary>
         ///     The deadline by which the recipient must have read the message, or else it will go to print.
         /// </summary>
-        System.DateTime Deadline { get; set; }
+        System.DateTime PrintIfUnreadAfter { get; set; }
     
         /// <summary>
         ///     The details for the print fallback, if the recipient did not read the message within the deadline.

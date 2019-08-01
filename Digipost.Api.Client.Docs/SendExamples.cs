@@ -119,7 +119,7 @@ namespace Digipost.Api.Client.Docs
             var result = client.SendMessage(messageWithFallbackToPrint);
         }
         
-        public void SendLetterWithPrintFallback()
+        public void SendLetterWithPrintIfUnread()
         {
             var recipient = new RecipientByNameAndAddress(
                 fullName: "Ola Nordmann",
@@ -140,14 +140,14 @@ namespace Digipost.Api.Client.Docs
 
             var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
 
-            var messageWithPrintFallback= new Message(sender, recipient, primaryDocument)
+            var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
             {
                 PrintDetails = printDetails,
                 DeliveryTime = DateTime.Now.AddDays(3),
-                PrintFallbackDeadline = new PrintFallbackDeadline(DateTime.Now.AddDays(6), printDetails)
+                PrintIfUnread = new PrintIfUnread(DateTime.Now.AddDays(6), printDetails)
             };
 
-            var result = client.SendMessage(messageWithPrintFallback);
+            var result = client.SendMessage(messageWithPrintIfUnread);
         }
 
         public void SendLetterWithHigherSecurityLevel()

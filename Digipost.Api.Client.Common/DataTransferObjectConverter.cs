@@ -133,18 +133,18 @@ namespace Digipost.Api.Client.Common
             return printDetailsDataTransferObject;
         }
         
-        public static printfallbackdeadline ToDataTransferObject(IPrintFallbackDeadline printFallbackDeadline)
+        public static printifunread ToDataTransferObject(IPrintIfUnread printIfUnread)
         {
-            if (printFallbackDeadline == null)
+            if (printIfUnread == null)
                 return null;
 
-            var printFallbackDeadlineDataTransferObject = new printfallbackdeadline
+            var printIfUnreadDataTransferObject = new printifunread
             {
-                deadline = printFallbackDeadline.Deadline,
-                printdetails = ToDataTransferObject(printFallbackDeadline.PrintDetails)
+                printifunreadafter = printIfUnread.PrintIfUnreadAfter,
+                printdetails = ToDataTransferObject(printIfUnread.PrintDetails)
             };
 
-            return printFallbackDeadlineDataTransferObject;
+            return printIfUnreadDataTransferObject;
         }
 
         private static printrecipient ToDataTransferObject(IPrint recipient)

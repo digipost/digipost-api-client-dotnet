@@ -147,14 +147,14 @@ var printDetails =
 
 var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
 
-var messageWithPrintFallback= new Message(sender, recipient, primaryDocument)
+var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
 {
     PrintDetails = printDetails,
     DeliveryTime = DateTime.Now.AddDays(3),
-    PrintFallbackDeadline = new PrintFallbackDeadline(DateTime.Now.AddDays(6), printDetails)
+    PrintIfUnread = new PrintIfUnread(DateTime.Now.AddDays(6), printDetails)
 };
 
-var result = client.SendMessage(messageWithPrintFallback);
+var result = client.SendMessage(messageWithPrintIfUnread);
 ```
 
 ### Send letter with higher security level

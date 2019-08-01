@@ -417,6 +417,10 @@ namespace Digipost.Api.Client.Common.Tests
                         "ReturnName",
                         new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
 
+                List<PrintInstruction> printinstruction = new List<PrintInstruction>();
+                printinstruction.Add(new PrintInstruction("test", "testing"));
+                source.PrintInstructions = new PrintInstructions(printinstruction);
+                
                 var sourceAddress = source.PrintRecipient.Address;
                 var returnAddress = source.PrintReturnRecipient.Address;
 
@@ -445,7 +449,8 @@ namespace Digipost.Api.Client.Common.Tests
                             addressline2 = returnAddress.AddressLine2,
                             addressline3 = returnAddress.AddressLine3
                         }
-                    }
+                    },
+                    printinstructions = new printinstruction[]{new printinstruction{key = "test", value = "testing"}}
                 };
 
                 //Act

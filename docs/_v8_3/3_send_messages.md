@@ -36,8 +36,9 @@ var message = new Message(
 var result = client.SendMessage(message);
 
 ```
-
-### Send one letter to recipient via name and address
+### Other recipient types
+There are other recipient types available to identify recipients of messages. Note that some recipient types may 
+require special permissions to be set up in order to be used.
 
 ``` csharp
 

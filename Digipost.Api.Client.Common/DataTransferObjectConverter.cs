@@ -127,12 +127,39 @@ namespace Digipost.Api.Client.Common
                 recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
                 returnaddress = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
                 color = printDetails.PrintColors.ToPrintColors(),
-                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling()
+                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling(),
+                printinstructions = ToDataTransferObject(printDetails.PrintInstructions)
             };
 
             return printDetailsDataTransferObject;
         }
-        
+
+        public static printinstruction[] ToDataTransferObject(IPrintInstructions printInstructions)
+        {
+            if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
+                return null;
+
+            printinstruction[] printInstructionsTransferObject = 
+                printInstructions.PrintInstruction.Select(
+                    pi => ToDataTransferObject(pi)).ToArray();
+
+            return printInstructionsTransferObject;
+        }
+
+        public static printinstruction ToDataTransferObject(IPrintInstruction printInstruction)
+        {
+            if (printInstruction == null)
+                return null;
+
+            var printInstructionTransferObject = new printinstruction
+            {
+                key = printInstruction.key,
+                value = printInstruction.value
+            };
+
+            return printInstructionTransferObject;
+        }
+
         public static printifunread ToDataTransferObject(IPrintIfUnread printIfUnread)
         {
             if (printIfUnread == null)

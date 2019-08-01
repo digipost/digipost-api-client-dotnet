@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd ">
     <metadata>
         <id>digipost-api-client</id>
         <version>$version$</version>
@@ -11,34 +12,34 @@
         <description>Klientbibliotek for integrasjon mot Digipost REST-API.</description>
         <summary>Apache Licence 2.0</summary>
         <dependencies>
-        <group targetFramework=".NETFramework4.5">
-            <dependency id="api-client-shared" version="[4.0,)" />
-            <dependency id="Common.Logging" version="[3.3.1,3.4)" />
-            <dependency id="Common.Logging.Core" version="[3.3.1,3.4)" />
-            <dependency id="difi-felles-utility-dotnet" version="[2.0,)"/>
-            <dependency id="Microsoft.AspNet.WebApi.Client" version="[5.2.3,5.2.3]" />
-            <dependency id="Newtonsoft.Json" version="[9.0.1,9.1.0)" />            
-        </group>
-    </dependencies>
+            <group targetFramework=".NETFramework4.5">
+                <dependency id="api-client-shared" version="[4.0,)"/>
+                <dependency id="Common.Logging" version="[3.3.1,3.4)"/>
+                <dependency id="Common.Logging.Core" version="[3.3.1,3.4)"/>
+                <dependency id="difi-felles-utility-dotnet" version="[2.0,)"/>
+                <dependency id="Microsoft.AspNet.WebApi.Client" version="[5.2.3,5.2.3]"/>
+                <dependency id="Newtonsoft.Json" version="[9.0.1,9.1.0)"/>
+            </group>
+        </dependencies>
     </metadata>
     <files>
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.dll" target="lib\net45\"/>
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.xml" target="lib\net45\"/>
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.dll" target="lib\net45\"/>
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Common.xml" target="lib\net45\"/>
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.dll" target="lib\net45\"/>
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Inbox.xml" target="lib\net45\"/>
+        s
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.dll" target="lib\net45\"/>
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.xml" target="lib\net45\"/>
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Send.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.DataTypes.dll" target="lib\net45\"/>
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.DataTypes.xml" target="lib\net45\"/>
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.DataTypes.dll" target="lib\net45\" />
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.DataTypes.xml" target="lib\net45\" />
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Resources.dll" target="lib\net45\"/>
 
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Resources.dll" target="lib\net45\" />   
-
-        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\" />   
+        <file src="Digipost.Api.Client\bin\Release\Digipost.Api.Client.Xsd.dll" target="lib\net45\"/>
     </files>
 </package>

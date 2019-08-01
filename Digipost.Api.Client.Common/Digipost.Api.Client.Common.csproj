@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Digipost.Api.Client.Common</RootNamespace>
     <AssemblyName>Digipost.Api.Client.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -59,88 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="netstandard" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Actions\IdentificationAction.cs" />
-    <Compile Include="ApiClientXmlValidator.cs" />
-    <Compile Include="Broker.cs" />
-    <Compile Include="ClientConfig.cs" />
-    <Compile Include="Actions\DigipostAction.cs" />
-    <Compile Include="DataTransferObjectConverter.cs" />
-    <Compile Include="DigipostVersion.cs" />
-    <Compile Include="Enums\AuthenticationLevel.cs" />
-    <Compile Include="Enums\CountryIdentifier.cs" />
-    <Compile Include="Enums\DeliveryMethod.cs" />
-    <Compile Include="Enums\IdentificationChoiceType.cs" />
-    <Compile Include="Enums\IdentificationError.cs" />
-    <Compile Include="Enums\IdentificationResultCode.cs" />
-    <Compile Include="Enums\IdentificationResultType.cs" />
-    <Compile Include="Enums\IdentificationType.cs" />
-    <Compile Include="Enums\InvalidReason.cs" />
-    <Compile Include="Enums\MessageStatus.cs" />
-    <Compile Include="Enums\NonDeliverableHandling.cs" />
-    <Compile Include="Enums\PrintColors.cs" />
-    <Compile Include="Enums\SensitivityLevel.cs" />
-    <Compile Include="Enums\UnidentifiedReason.cs" />
-    <Compile Include="Error.cs" />
-    <Compile Include="Exceptions\APIException.cs" />
-    <Compile Include="Exceptions\ClientResponseException.cs" />
-    <Compile Include="Exceptions\ConfigException.cs" />
-    <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Identify\Identification.cs" />
-    <Compile Include="Identify\IdentificationResult.cs" />
-    <Compile Include="Identify\IIdentification.cs" />
-    <Compile Include="Identify\IIdentificationRecipient.cs" />
-    <Compile Include="Identify\IIdentificationResult.cs" />
-    <Compile Include="IDigipostRecipient.cs" />
-    <Compile Include="IError.cs" />
-    <Compile Include="ISmsNotification.cs" />
-    <Compile Include="Print\Address.cs" />
-    <Compile Include="Print\ForeignAddress.cs" />
-    <Compile Include="Print\IAddress.cs" />
-    <Compile Include="Print\IForeignAddress.cs" />
-    <Compile Include="Print\INorwegianAddress.cs" />
-    <Compile Include="Print\IPrint.cs" />
-    <Compile Include="Print\IPrintDetails.cs" />
-    <Compile Include="Print\IPrintIfUnread.cs" />
-    <Compile Include="Print\IPrintInstruction.cs" />
-    <Compile Include="Print\IPrintInstructions.cs" />
-    <Compile Include="Print\IPrintRecipient.cs" />
-    <Compile Include="Print\IPrintReturnRecipient.cs" />
-    <Compile Include="Print\NorwegianAddress.cs" />
-    <Compile Include="Print\Print.cs" />
-    <Compile Include="Print\PrintDetails.cs" />
-    <Compile Include="Print\PrintIfUnread.cs" />
-    <Compile Include="Print\PrintInstruction.cs" />
-    <Compile Include="Print\PrintInstructions.cs" />
-    <Compile Include="Print\PrintRecipient.cs" />
-    <Compile Include="Print\PrintReturnRecipient.cs" />
-    <Compile Include="Recipient\DigipostRecipient.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="Handlers\AuthenticationHandler.cs" />
-    <Compile Include="Handlers\LoggingHandler.cs" />
-    <Compile Include="Namespace.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recipient\IRecipientById.cs" />
-    <Compile Include="Recipient\IRecipientByNameAndAddress.cs" />
-    <Compile Include="Recipient\RecipientById.cs" />
-    <Compile Include="Recipient\RecipientByNameAndAddress.cs" />
-    <Compile Include="RequestContent.cs" />
-    <Compile Include="Search\ISearchDetails.cs" />
-    <Compile Include="Search\ISearchDetailsAddress.cs" />
-    <Compile Include="Search\ISearchDetailsResult.cs" />
-    <Compile Include="Search\SearchDetails.cs" />
-    <Compile Include="Search\SearchDetailsAddress.cs" />
-    <Compile Include="Search\SearchDetailsResult.cs" />
-    <Compile Include="Sender.cs" />
-    <Compile Include="SmsNotification.cs" />
-    <Compile Include="Utilities\RequestHelper.cs" />
-    <Compile Include="Utilities\SerializeUtil.cs" />
+    <Reference Include="NETStandard.Library" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Keys\signingkey.snk">
@@ -158,14 +77,6 @@
       <Name>Digipost.Api.Client.Xsd</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

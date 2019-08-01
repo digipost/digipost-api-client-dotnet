@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Digipost.Api.Client.Testklient</RootNamespace>
     <AssemblyName>Digipost.Api.Client.Testklient</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -54,26 +54,32 @@
     <Reference Include="Difi.Felles.Utility, Version=2.0.1.52, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1.52-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.dll</HintPath>
+    <Reference Include="Digipost.Api.Client, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Common, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.Common.dll</HintPath>
+    <Reference Include="Digipost.Api.Client.Common, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Digipost.Api.Client.DataTypes, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.DataTypes.dll</HintPath>
+    <Reference Include="Digipost.Api.Client.DataTypes, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.DataTypes.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Inbox, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.Inbox.dll</HintPath>
+    <Reference Include="Digipost.Api.Client.Inbox, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.Inbox.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Send, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.Send.dll</HintPath>
+    <Reference Include="Digipost.Api.Client.Send, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.Send.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Digipost.Api.Client.Shared, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\api-client-shared.4.0.0\lib\netstandard2\Digipost.Api.Client.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="Digipost.Api.Client.Xsd, Version=8.2.0.148, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\digipost-api-client.8.2.0.148-beta\lib\net45\Digipost.Api.Client.Xsd.dll</HintPath>
+    <Reference Include="Digipost.Api.Client.Xsd, Version=8.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\digipost-api-client.8.3.0\lib\net45\Digipost.Api.Client.Xsd.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -88,10 +94,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -101,7 +103,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

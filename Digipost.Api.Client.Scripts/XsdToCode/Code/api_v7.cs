@@ -317,20 +317,21 @@ public partial class feature {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-fallback-deadline", Namespace="http://api.digipost.no/schema/v7")]
-public partial class printfallbackdeadline {
+[System.Xml.Serialization.XmlTypeAttribute(TypeName="print-if-unread", Namespace="http://api.digipost.no/schema/v7")]
+public partial class printifunread {
     
-    private System.DateTime deadlineField;
+    private System.DateTime printifunreadafterField;
     
     private printdetails printdetailsField;
     
     /// <remarks/>
-    public System.DateTime deadline {
+    [System.Xml.Serialization.XmlElementAttribute("print-if-unread-after")]
+    public System.DateTime printifunreadafter {
         get {
-            return this.deadlineField;
+            return this.printifunreadafterField;
         }
         set {
-            this.deadlineField = value;
+            this.printifunreadafterField = value;
         }
     }
     
@@ -2281,7 +2282,7 @@ public partial class message {
     
     private document[] attachmentField;
     
-    private printfallbackdeadline printfallbackdeadlineField;
+    private printifunread printifunreadField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("message-id")]
@@ -2372,13 +2373,13 @@ public partial class message {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("print-fallback-deadline")]
-    public printfallbackdeadline printfallbackdeadline {
+    [System.Xml.Serialization.XmlElementAttribute("print-if-unread")]
+    public printifunread printifunread {
         get {
-            return this.printfallbackdeadlineField;
+            return this.printifunreadField;
         }
         set {
-            this.printfallbackdeadlineField = value;
+            this.printifunreadField = value;
         }
     }
 }

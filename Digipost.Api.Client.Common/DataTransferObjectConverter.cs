@@ -127,24 +127,51 @@ namespace Digipost.Api.Client.Common
                 recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
                 returnaddress = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
                 color = printDetails.PrintColors.ToPrintColors(),
-                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling()
+                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling(),
+                printinstructions = ToDataTransferObject(printDetails.PrintInstructions)
             };
 
             return printDetailsDataTransferObject;
         }
-        
-        public static printfallbackdeadline ToDataTransferObject(IPrintFallbackDeadline printFallbackDeadline)
+
+        public static printinstruction[] ToDataTransferObject(IPrintInstructions printInstructions)
         {
-            if (printFallbackDeadline == null)
+            if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
                 return null;
 
-            var printFallbackDeadlineDataTransferObject = new printfallbackdeadline
+            printinstruction[] printInstructionsTransferObject = 
+                printInstructions.PrintInstruction.Select(
+                    pi => ToDataTransferObject(pi)).ToArray();
+
+            return printInstructionsTransferObject;
+        }
+
+        public static printinstruction ToDataTransferObject(IPrintInstruction printInstruction)
+        {
+            if (printInstruction == null)
+                return null;
+
+            var printInstructionTransferObject = new printinstruction
             {
-                deadline = printFallbackDeadline.Deadline,
-                printdetails = ToDataTransferObject(printFallbackDeadline.PrintDetails)
+                key = printInstruction.key,
+                value = printInstruction.value
             };
 
-            return printFallbackDeadlineDataTransferObject;
+            return printInstructionTransferObject;
+        }
+
+        public static printifunread ToDataTransferObject(IPrintIfUnread printIfUnread)
+        {
+            if (printIfUnread == null)
+                return null;
+
+            var printIfUnreadDataTransferObject = new printifunread
+            {
+                printifunreadafter = printIfUnread.PrintIfUnreadAfter,
+                printdetails = ToDataTransferObject(printIfUnread.PrintDetails)
+            };
+
+            return printIfUnreadDataTransferObject;
         }
 
         private static printrecipient ToDataTransferObject(IPrint recipient)

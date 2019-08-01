@@ -7,9 +7,9 @@ using Xunit;
 
 namespace Digipost.Api.Client.Common.Tests.Print
 {
-    public class PrintFallbackDeadlineTests
+    public class PrintIfUnreadAfterTests
     {
-        public class ConstructorMethod : PrintFallbackDeadlineTests
+        public class ConstructorMethod : PrintIfUnreadAfterTests
         {
             [Fact]
             public void SimpleConstructor()
@@ -19,16 +19,16 @@ namespace Digipost.Api.Client.Common.Tests.Print
                         DomainUtility.GetPrintReturnRecipientWithNorwegianAddress(), PrintColors.Colors);
                 
                 //Arrange
-                var printFallbackDeadline = new PrintFallbackDeadline(
+                var printIfUnreadAfter = new PrintIfUnread(
                     deadline, 
                     printDetails);
                 
                 //Act
 
                 //Assert
-                Assert.Equal(deadline, printFallbackDeadline.Deadline);
+                Assert.Equal(deadline, printIfUnreadAfter.PrintIfUnreadAfter);
 
-                Comparator.AssertEqual(printDetails, printFallbackDeadline.PrintDetails);
+                Comparator.AssertEqual(printDetails, printIfUnreadAfter.PrintDetails);
             }
         }
     }

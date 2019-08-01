@@ -168,20 +168,20 @@ namespace Digipost.Api.Client.Tests
             };
         }
 
-        public static PrintFallbackDeadline GetPrintFallbackDeadline()
+        public static PrintIfUnread GetPrintIfUnread()
         {
             return 
-                new PrintFallbackDeadline(
+                new PrintIfUnread(
                     DateTime.Now.AddDays(3),
                     GetPrintDetails()
                     );
         }
 
-        public static printfallbackdeadline GetPrintFallbackDeadlineTransferObject()
+        public static printifunread GetPrintIfUnreadTransferObject()
         {
-            return new printfallbackdeadline
+            return new printifunread
             {
-                deadline = DateTime.Now.AddDays(3),
+                printifunreadafter = DateTime.Now.AddDays(3),
                 printdetails = GetPrintDetailsDataTransferObject()
             };
         }

@@ -88,7 +88,7 @@
     <Compile Include="Identify\IdentificationTests.cs" />
     <Compile Include="Print\NorwegianAddressTests.cs" />
     <Compile Include="Print\PrintDetailsTests.cs" />
-    <Compile Include="Print\PrintFallbackDeadlineTests.cs" />
+    <Compile Include="Print\PrintIfUnreadAfterTests.cs" />
     <Compile Include="Print\PrintRecipientTests.cs" />
     <Compile Include="Print\PrintReturnRecipientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

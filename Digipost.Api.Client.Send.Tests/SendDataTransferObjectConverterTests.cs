@@ -281,7 +281,7 @@ namespace Digipost.Api.Client.Send.Tests
             }
 
             [Fact]
-            public void MessageWithPrintFallbackDeadline()
+            public void MessageWithPrintIfUnread()
             {
                                 //Arrange
                 var printDetails = DomainUtility.GetPrintDetails();
@@ -303,7 +303,7 @@ namespace Digipost.Api.Client.Send.Tests
                     DeliveryTime = DateTime.Today.AddDays(3),
                     PrimaryDocument = {Guid = "primaryDocumentGuid"},
                     PrintDetails = printDetails,
-                    PrintFallbackDeadline = new PrintFallbackDeadline(deadline, printDetails)
+                    PrintIfUnread = new PrintIfUnread(deadline, printDetails)
                 };
 
                 var expectedDto =
@@ -343,9 +343,9 @@ namespace Digipost.Api.Client.Send.Tests
                         },
                         deliverytime = DateTime.Today.AddDays(3),
                         deliverytimeSpecified = true,
-                        printfallbackdeadline = new printfallbackdeadline
+                        printifunread = new printifunread
                         {
-                            deadline = deadline,
+                            printifunreadafter = deadline,
                             printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
                         }
                     };

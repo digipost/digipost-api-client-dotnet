@@ -34,9 +34,9 @@ namespace Digipost.Api.Client.Send
 
         public IPrintDetails PrintDetails { get; set; }
         
-        public IPrintFallbackDeadline PrintFallbackDeadline { get; set; }
+        public IPrintIfUnread PrintIfUnread { get; set; }
 
-        public bool PrintFallbackDeadlineSpecified => PrintFallbackDeadline != null;
+        public bool PrintIfUnreadAfterSpecified => PrintIfUnread != null;
 
         public Sender Sender { get; set; }
 

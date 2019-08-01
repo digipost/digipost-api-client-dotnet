@@ -41,9 +41,9 @@ namespace Digipost.Api.Client.Send
                 messageDto.deliverytimeSpecified = true;
             }
 
-            if (message.PrintFallbackDeadlineSpecified)
+            if (message.PrintIfUnreadAfterSpecified)
             {
-                messageDto.printfallbackdeadline = DataTransferObjectConverter.ToDataTransferObject(message.PrintFallbackDeadline);
+                messageDto.printifunread = DataTransferObjectConverter.ToDataTransferObject(message.PrintIfUnread);
             }
 
             return messageDto;

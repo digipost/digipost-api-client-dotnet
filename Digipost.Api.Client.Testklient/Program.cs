@@ -3,6 +3,7 @@ using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Send;
+using Document = Digipost.Api.Client.Send.Document;
 using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Testklient

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>digipost_api_client_dotnet_upgrade</RootNamespace>
+</PropertyGroup>
+
+</Project>

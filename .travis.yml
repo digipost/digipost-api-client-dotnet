@@ -29,13 +29,13 @@ script:
   - dotnet test Digipost.Api.Client.DataTypes.Tests/Digipost.Api.Client.DataTypes.Tests.csproj
   - dotnet test Digipost.Api.Client.Inbox.Tests/Digipost.Api.Client.Inbox.Tests.csproj
   - dotnet test Digipost.Api.Client.Send.Tests/Digipost.Api.Client.Send.Tests.csproj
-  - dotnet test Digipost.Api.Client.TestKlient/Digipost.Api.Client.Testklient.csproj
+  - dotnet test Digipost.Api.Client.TestKlient/Digipost.Api.Client.TestKlient.csproj
   - dotnet test Digipost.Api.Client.Tests/Digipost.Api.Client.Tests.csproj
 
 
 deploy:
   skip_cleanup: true
   provider: script
-  script: ./travis-deploy/pack-and-push.sh $TRAVIS_TAG $NUGET_API_KEY $TRAVIS_BUILD_DIR Digipost.Api.Client Digipost.Api.Client.Common Digipost.Api.Client.DataTypes Digipost.Api.Client.Docs Digipost.Api.Client.Inbox Digipost.Api.Client.Resources Digipost.Api.Client.Scrips Digipost.Api.Client.Send
+  script: ./travis-deploy/pack-and-push.sh $TRAVIS_TAG $NUGET_API_KEY $TRAVIS_BUILD_DIR Digipost.Api.Client Digipost.Api.Client.Common Digipost.Api.Client.DataTypes Digipost.Api.Client.Docs Digipost.Api.Client.Inbox Digipost.Api.Client.Resources Digipost.Api.Client.Scripts Digipost.Api.Client.Send
   on:
     tags: true

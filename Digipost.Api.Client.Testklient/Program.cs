@@ -6,7 +6,7 @@ using Digipost.Api.Client.Send;
 using Document = Digipost.Api.Client.Send.Document;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Testklient
+namespace Digipost.Api.Client.TestKlient
 {
     internal class Program
     {

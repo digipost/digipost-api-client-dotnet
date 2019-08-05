@@ -65,4 +65,25 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <None Update="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
 </Project>

@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Digipost.Api.Client")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Domain")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Tests")]
-[assembly: InternalsVisibleTo("Digipost.Api.Client.TestKlient")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.ConcurrencyTest")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Common")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Inbox.Tests")]

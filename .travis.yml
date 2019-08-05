@@ -29,7 +29,6 @@ script:
   - dotnet test Digipost.Api.Client.DataTypes.Tests/Digipost.Api.Client.DataTypes.Tests.csproj
   - dotnet test Digipost.Api.Client.Inbox.Tests/Digipost.Api.Client.Inbox.Tests.csproj
   - dotnet test Digipost.Api.Client.Send.Tests/Digipost.Api.Client.Send.Tests.csproj
-  - dotnet test Digipost.Api.Client.TestKlient/Digipost.Api.Client.TestKlient.csproj
   - dotnet test Digipost.Api.Client.Tests/Digipost.Api.Client.Tests.csproj
 
 

@@ -26,8 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send.Tests", "Digipost.Api.Client.Send.Tests\Digipost.Api.Client.Send.Tests.csproj", "{57566E3A-1DE1-4020-B1B3-8AEDD79ED4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.TestKlient", "Digipost.Api.Client.TestKlient\Digipost.Api.Client.TestKlient.csproj", "{76930282-33EB-4A5B-B12A-94AE70EF8A47}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Tests", "Digipost.Api.Client.Tests\Digipost.Api.Client.Tests.csproj", "{966A701B-7E91-4C41-BA28-B5C5E800E63D}"
 EndProject
 Global
@@ -62,8 +60,6 @@ Global
 		{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57566E3A-1DE1-4020-B1B3-8AEDD79ED4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57566E3A-1DE1-4020-B1B3-8AEDD79ED4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76930282-33EB-4A5B-B12A-94AE70EF8A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76930282-33EB-4A5B-B12A-94AE70EF8A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966A701B-7E91-4C41-BA28-B5C5E800E63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{966A701B-7E91-4C41-BA28-B5C5E800E63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection

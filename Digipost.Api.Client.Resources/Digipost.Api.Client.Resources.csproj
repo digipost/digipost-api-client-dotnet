@@ -5,6 +5,7 @@
         <RootNamespace>Digipost.Api.Client.Resources</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Resources</AssemblyName>
         <ProjectGuid>{18CBB05A-B0AE-42FF-870F-1C213A238751}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +32,6 @@
 
     <ItemGroup>
         <PackageReference Include="api-client-shared" Version="4.0.0" />
-        <PackageReference Include="Microsoft.NETCore.App" Version="2.2.6" />
     </ItemGroup>
     
     <ItemGroup>
@@ -43,5 +43,26 @@
         <None Include="C:\Keys\signingkey.snk">
             <Link>signingkey.snk</Link>
         </None>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <None Update="Certificate/Data/*" />
+        <None Update="Content/Data/*" />
+        <None Update="Xml/Data/*" />
+        <None Update="Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Certificate/Data/*" />
+        <None Remove="Content/Data/*" />
+        <None Remove="Xml/Data/*" />
+        <None Remove="Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Certificate/Data/*" />
+        <EmbeddedResource Include="Content/Data/*" />
+        <EmbeddedResource Include="Xml/Data/*" />
+        <EmbeddedResource Include="Xsd/Data/*" />
     </ItemGroup>
 </Project>

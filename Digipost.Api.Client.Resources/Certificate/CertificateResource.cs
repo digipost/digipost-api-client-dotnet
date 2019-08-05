@@ -1,7 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Resources.Xsd;
 using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.Resources.Certificate

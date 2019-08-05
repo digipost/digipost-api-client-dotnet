@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
-using Digipost.Api.Client.Resources.Xsd;
 using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.Resources.Xml

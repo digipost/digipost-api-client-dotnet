@@ -5,6 +5,7 @@
         <RootNamespace>Digipost.Api.Client.Scripts</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Scripts</AssemblyName>
         <ProjectGuid>{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

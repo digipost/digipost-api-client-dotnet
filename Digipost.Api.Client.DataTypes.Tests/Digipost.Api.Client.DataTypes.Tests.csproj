@@ -5,6 +5,7 @@
         <RootNamespace>Digipost.Api.Client.DataTypes.Tests</RootNamespace>
         <AssemblyName>Digipost.Api.Client.DataTypes.Tests</AssemblyName>
         <ProjectGuid>{8814CB98-13B3-4CDF-A081-D1470F80D38B}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,11 +31,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NETCore.App" Version="2.2.6" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0-preview-20190715-02" />
         <PackageReference Include="api-client-shared" Version="4.0.0" />
         <PackageReference Include="xunit.abstractions" Version="2.0.3" />
         <PackageReference Include="xunit.assert" Version="2.4.1" />
         <PackageReference Include="xunit.core" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
         <ProjectReference Include="..\Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj">
             <Project>{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}</Project>
             <Name>Digipost.Api.Client.DataTypes</Name>

@@ -1,5 +1,6 @@
 sudo: required
 language: csharp
+dist: xenial
 solution: digipost-api-client.sln
 
 git:
@@ -22,10 +23,6 @@ install:
 script:
   - set -e
   - dotnet build -c Release
-
-  - ./travis-deploy/add-secrets.sh
-  - find /home/travis/.microsoft
-  - cat /home/travis/.microsoft/usersecrets/organization-certificate/secrets.json
 
   - dotnet test Digipost.Api.Client.Common.Tests/Digipost.Api.Client.Common.Tests.csproj
   - dotnet test Digipost.Api.Client.ConcurrencyTest/Digipost.Api.Client.ConcurrencyTest.csproj

@@ -28,7 +28,7 @@ install:
   - dotnet restore
 
 before_script:
-  - pwsh -c 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+  - pwsh -ex RemoteSigned
 
 script:
   - set -e

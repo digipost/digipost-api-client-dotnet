@@ -2,7 +2,6 @@ sudo: required
 language: csharp
 dist: xenial
 solution: digipost-api-client.sln
-os: windows
 
 git:
   submodules: false
@@ -12,6 +11,13 @@ matrix:
     - dotnet: 2.2.104
       mono: none
       env: DOTNETCORE=2
+      addons:
+        apt:
+          sources:
+            - sourceline: "deb [arch=amd64] https://packages.microsoft.com/ubuntu/14.04/prod trusty main"
+              key_url: "https://packages.microsoft.com/keys/microsoft.asc"
+          packages:
+            - powershell
 
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
@@ -20,11 +26,13 @@ before_install:
 
 install:
   - dotnet restore
-  - PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
+
+before_script:
+  - pwsh -c 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 script:
   - set -e
-  - Powershell -File Digipost.Api.Client.Scripts/XsdToCode/GenerateClassesFromXsd.ps1
+  - pwsh -f Digipost.Api.Client.Scripts/XsdToCode/GenerateClassesFromXsd.ps1
   - dotnet build -c Release
 
   - dotnet test Digipost.Api.Client.Common.Tests/Digipost.Api.Client.Common.Tests.csproj

@@ -9,9 +9,8 @@ git:
 matrix:
   include:
     - dotnet: 2.2.104
-      mono: none
+      mono: latest
       env: DOTNETCORE=2
-    - mono: latest
 
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules

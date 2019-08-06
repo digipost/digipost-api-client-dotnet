@@ -9,6 +9,7 @@ git:
 matrix:
   include:
     - dotnet: 2.2.104
+      mono: none
       env: DOTNETCORE=2
 
 before_install:

@@ -27,9 +27,6 @@ before_install:
 install:
   - dotnet restore
 
-before_script:
-  - pwsh -ex RemoteSigned
-
 script:
   - set -e
   - pwsh -f Digipost.Api.Client.Scripts/XsdToCode/GenerateClassesFromXsd.ps1

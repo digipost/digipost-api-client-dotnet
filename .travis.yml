@@ -2,6 +2,7 @@ sudo: required
 language: csharp
 dist: xenial
 solution: digipost-api-client.sln
+os: windows
 
 git:
   submodules: false

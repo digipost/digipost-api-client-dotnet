@@ -16,12 +16,14 @@ before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
   - ./travis-deploy/patch-assembly-version.sh Directory.Build.props $TRAVIS_TAG
+  - PowerShell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
 
 install:
   - dotnet restore
 
 script:
   - set -e
+  - Powershell -File Digipost.Api.Client.Scripts/XsdToCode/GenerateClassesFromXsd.ps1
   - dotnet build -c Release
 
   - dotnet test Digipost.Api.Client.Common.Tests/Digipost.Api.Client.Common.Tests.csproj

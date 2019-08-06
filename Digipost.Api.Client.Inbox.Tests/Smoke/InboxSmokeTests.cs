@@ -1,5 +1,6 @@
 ﻿using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
@@ -12,7 +13,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 
         private readonly InboxSmokeTestsHelper _t;
         
-        [Fact]
+        [Fact(Skip = "Skipped because the inbox is currently empty")]
         public void Get_inbox_and_read_document()
         {
             _t

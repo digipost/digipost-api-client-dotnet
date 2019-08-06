@@ -41,7 +41,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
             Assert.True(_inboxDocuments.Any());
 
             _inboxDocument = _inboxDocuments.First();
-
+            
             return this;
         }
 

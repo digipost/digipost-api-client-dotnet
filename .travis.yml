@@ -16,6 +16,7 @@ matrix:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
+  - ./travis-deploy/patch-assembly-version.sh Directory.Build.props $TRAVIS_TAG
 
 install:
   - dotnet restore

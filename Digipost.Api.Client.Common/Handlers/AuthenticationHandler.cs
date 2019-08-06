@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -59,13 +60,30 @@ namespace Digipost.Api.Client.Common.Handlers
 
         private static string GetAssemblyVersion()
         {
-            var netVersion = Assembly
-                .GetExecutingAssembly()
-                .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
-
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
-            return $"digipost-api-client-dotnet/{assemblyVersion} (.NET/{netVersion})";
+            return $"digipost-api-client-dotnet/{assemblyVersion} (netcore/{GetNetCoreVersion()})";
+        }
+        
+        private static string GetNetCoreVersion()
+        {
+            try
+            {
+                var assembly = typeof(GCSettings).GetTypeInfo().Assembly;
+                var assemblyPath = assembly.CodeBase.Split(new[] {'/', '\\'}, StringSplitOptions.RemoveEmptyEntries);
+                var netCoreAppIndex = Array.IndexOf(assemblyPath, "Microsoft.NETCore.App");
+
+                if (netCoreAppIndex > 0 && netCoreAppIndex < assemblyPath.Length - 2)
+                {
+                    return assemblyPath[netCoreAppIndex + 1];
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            return "AssemblyVersionNotFound";
         }
 
         internal static string ComputeHash(byte[] inputBytes)
@@ -113,33 +131,14 @@ namespace Digipost.Api.Client.Common.Handlers
                 Log.Debug("=== SIGNATURE DATA END ===");
             }
 
-            var rsa2 = RsaCryptoServiceProvider(businessCertificate);
+            var rsa2 = businessCertificate.GetRSAPrivateKey();
 
             var sha = SHA256.Create();
             var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(messageHeader));
-            var signature = rsa2.SignHash(hash, CryptoConfig.MapNameToOID("SHA256"));
+            var signature = rsa2.SignHash(hash, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
             var base64Signature = Convert.ToBase64String(signature);
 
             return base64Signature;
-        }
-
-        internal static RSACryptoServiceProvider RsaCryptoServiceProvider(X509Certificate2 businessCertificate)
-        {
-            var rsa = businessCertificate.PrivateKey as RSACryptoServiceProvider;
-            var rsa2 = new RSACryptoServiceProvider();
-
-            try
-            {
-                var privateKeyBlob = rsa.ExportCspBlob(true);
-                rsa2.ImportCspBlob(privateKeyBlob);
-            }
-            catch (Exception e)
-            {
-                Log.Warn(e.Message);
-                throw new CryptographicException(
-                    "Exception while exporting CspBlob. Check if certificate is exportable.");
-            }
-            return rsa2;
         }
 
         private class UriParts

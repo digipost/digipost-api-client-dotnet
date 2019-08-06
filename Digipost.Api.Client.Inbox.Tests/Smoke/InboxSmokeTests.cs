@@ -11,11 +11,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         }
 
         private readonly InboxSmokeTestsHelper _t;
-
-        // These tests require you to set up certificates locally to run.
-        // If you need to test certificates, follow the walkthrough for how to set them and thumbnails up.
-        // Uncomment this block and run locally, but recomment before pushing. These tests will always fail on the build server.
-        /*
+        
         [Fact]
         public void Get_inbox_and_read_document()
         {
@@ -25,6 +21,5 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
                 .Fetch_document_data()
                 .Delete_document();
         }
-        */
     }
 }

@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
+        <Title>Digipost Api Client Dotnet</Title>
+        <PackageId>Digipost.Api.Client</PackageId>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <RootNamespace>Digipost.Api.Client.DataTypes</RootNamespace>
         <AssemblyName>Digipost.Api.Client.DataTypes</AssemblyName>

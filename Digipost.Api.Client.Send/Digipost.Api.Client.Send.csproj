@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
-        <Title>Digipost Api Client Dotnet</Title>
-        <PackageId>Digipost.Api.Client</PackageId>
+        <Title>Digipost Api Client Send</Title>
+        <PackageId>Digipost.Api.Client.Send</PackageId>
     </PropertyGroup>
     
     <PropertyGroup>

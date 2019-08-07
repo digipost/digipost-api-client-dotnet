@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
-        <Title>Digipost Api Client Dotnet</Title>
-        <PackageId>Digipost.Api.Client</PackageId>
+        <Title>Digipost Api Client Scripts</Title>
+        <PackageId>Digipost.Api.Client.Scripts</PackageId>
     </PropertyGroup>
     
     <PropertyGroup>

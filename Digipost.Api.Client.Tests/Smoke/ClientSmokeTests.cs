@@ -9,10 +9,10 @@ namespace Digipost.Api.Client.Tests.Smoke
         public ClientSmokeTests()
         {
             var sender = SenderUtility.GetSender(TestEnvironment.Qa);
-            _t = new TestHelper(sender);
+            _t = new ClientSmokeTestHelper(sender);
         }
 
-        private static TestHelper _t;
+        private static ClientSmokeTestHelper _t;
         
         [Fact]
         public void Can_identify_user()

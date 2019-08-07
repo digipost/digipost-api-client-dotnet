@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
-    internal class TestHelper
+    internal class ClientSmokeTestHelper
     {
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
@@ -32,34 +32,34 @@ namespace Digipost.Api.Client.Tests.Smoke
         //Gradually built state, search
         private ISearchDetailsResult _searchResult;
 
-        public TestHelper(TestSender testSender)
+        public ClientSmokeTestHelper(TestSender testSender)
         {
             var broker = new Broker(testSender.Id);
             _testSender = testSender;
             _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000}, testSender.Certificate);
         }
 
-        public TestHelper Create_message_with_primary_document()
+        public ClientSmokeTestHelper Create_message_with_primary_document()
         {
             _primary = DomainUtility.GetDocument();
             return this;
         }
 
-        public TestHelper Create_message_with_primary_invoice()
+        public ClientSmokeTestHelper Create_message_with_primary_invoice()
         {
             _primary = DomainUtility.GetInvoice();
 
             return this;
         }
 
-        public TestHelper Add_Attachments(params IDocument[] attachments)
+        public ClientSmokeTestHelper Add_Attachments(params IDocument[] attachments)
         {
             _attachments.AddRange(attachments);
 
             return this;
         }
 
-        public TestHelper To_Digital_Recipient()
+        public ClientSmokeTestHelper To_Digital_Recipient()
         {
             Assert_state(_primary);
 
@@ -68,7 +68,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
-        public TestHelper To_Physical_Recipient()
+        public ClientSmokeTestHelper To_Physical_Recipient()
         {
             Assert_state(_primary);
 
@@ -77,7 +77,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
-        public TestHelper SendMessage()
+        public ClientSmokeTestHelper SendMessage()
         {
             Assert_state(_recipient);
 
@@ -105,14 +105,14 @@ namespace Digipost.Api.Client.Tests.Smoke
             }
         }
 
-        public TestHelper Create_identification_request()
+        public ClientSmokeTestHelper Create_identification_request()
         {
             _identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "01013300001"));
 
             return this;
         }
 
-        public TestHelper SendIdentification()
+        public ClientSmokeTestHelper SendIdentification()
         {
             Assert_state(_identification);
 
@@ -128,7 +128,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert.Equal(identificationResultType, _identificationResult.ResultType);
         }
 
-        public TestHelper Create_search_request()
+        public ClientSmokeTestHelper Create_search_request()
         {
             _searchResult = _digipostClient.Search("Børre");
 

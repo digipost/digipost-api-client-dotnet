@@ -29,7 +29,8 @@ namespace Digipost.Api.Client.Tests.Utilities
                         CertificateResource.PostenCertificate(),
                         Environment.Qa,
                         //new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
-                        new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "Digipost Testgate 2A", "0467", "Oslo")
+                        //new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "Digipost Testgate 2A", "0467", "Oslo")
+                        new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
                     );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);

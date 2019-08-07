@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 
         private readonly InboxSmokeTestsHelper _t;
         
-        [Fact(Skip = "Skipped because the inbox is currently empty")]
+        [Fact(Skip = "Skipping due to missing inbox for test users")]
         public void Get_inbox_and_read_document()
         {
             _t

@@ -16,7 +16,7 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <NoWarn>1591</NoWarn>
+        <NoWarn>1591;NU1701</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -26,7 +26,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <NoWarn>1591</NoWarn>
+        <NoWarn>1591;NU1701</NoWarn>
         <DocumentationFile>bin\Release\Digipost.Api.Client.XML</DocumentationFile>
     </PropertyGroup>
 

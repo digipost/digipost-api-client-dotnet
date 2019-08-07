@@ -35,6 +35,7 @@
         <PackageReference Include="Common.Logging" Version="3.4.1" />
         <PackageReference Include="Common.Logging.Core" Version="3.4.1" />
         <PackageReference Include="difi-felles-utility-dotnet" Version="2.0.1.53-beta">
+            <NoWarn>NU1701</NoWarn>
             <Properties>SkipValidatePackageReferences=true</Properties>
         </PackageReference>
         <PackageReference Include="api-client-shared" Version="4.0.0" />

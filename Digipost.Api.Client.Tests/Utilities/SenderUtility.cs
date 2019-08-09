@@ -26,7 +26,7 @@ namespace Digipost.Api.Client.Tests.Utilities
                 case TestEnvironment.Qa:
                     return new TestSender(
                         1185201,
-                        CertificateResource.PostenCertificate(),
+                        CertificateReader.ReadCertificate(),
                         Environment.Qa,
                         //new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
                         //new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "Digipost Testgate 2A", "0467", "Oslo")

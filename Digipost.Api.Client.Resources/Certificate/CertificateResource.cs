@@ -11,11 +11,5 @@ namespace Digipost.Api.Client.Resources.Certificate
             var resourceUtility = new ResourceUtility(typeof(CertificateResource).GetTypeInfo().Assembly, "Digipost.Api.Client.Resources.Certificate.Data");
             return new X509Certificate2(resourceUtility.ReadAllBytes("DigipostTestCertWithPassword.p12"), "qwer1234", X509KeyStorageFlags.Exportable);
         }
-        
-        public static X509Certificate2 PostenCertificate()
-        {
-            var resourceUtility = new ResourceUtility(typeof(CertificateResource).GetTypeInfo().Assembly, "Digipost.Api.Client.Resources.Certificate.Data");
-            return new X509Certificate2(resourceUtility.ReadAllBytes("posten_signering.p12"), "Qwer12345", X509KeyStorageFlags.Exportable);
-        }
     }
 }

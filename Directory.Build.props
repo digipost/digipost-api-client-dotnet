@@ -14,6 +14,7 @@
         <PackageTags>Posten Digipost digital elektronisk dotnet api klient client</PackageTags>
         <Description>Klientbibliotek for integrasjon mot Digipost REST-API.</Description>
 
+        <UserSecretsId>smoke-certificate</UserSecretsId>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
 

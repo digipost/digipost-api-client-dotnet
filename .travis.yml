@@ -27,7 +27,7 @@ script:
     
   - ./travis-deploy/add-secrets.sh Digipost.Api.Client digipost_smoke_tests_certificate.p12
   - find /home/travis/.microsoft
-  - cat /home/travis/.microsoft/usersecrets/organization-certificate/secrets.json
+  - cat /home/travis/.microsoft/usersecrets/smoke-certificate/secrets.json
 
   - dotnet test Digipost.Api.Client.Common.Tests/Digipost.Api.Client.Common.Tests.csproj
   - dotnet test Digipost.Api.Client.ConcurrencyTest/Digipost.Api.Client.ConcurrencyTest.csproj

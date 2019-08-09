@@ -6,13 +6,15 @@ using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Exceptions;
-using Digipost.Api.Client.Common.Handlers;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Fakes;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
@@ -39,8 +41,7 @@ namespace Digipost.Api.Client.Tests.Integration
         internal AuthenticationHandler CreateHandlerChain(
             FakeResponseHandler fakehandler)
         {
-            var loggingHandler = new LoggingHandler(fakehandler, ClientConfig);
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate);
             return authenticationHandler;
         }
 
@@ -48,7 +49,10 @@ namespace Digipost.Api.Client.Tests.Integration
         {
             var fakeHandlerChain = CreateHandlerChain(fakeResponseHandler);
             var httpClient = new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://www.fakeBaseAddress.no")};
-            var requestHelper = new RequestHelper(httpClient) {HttpClient = httpClient};
+            
+            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            
+            var requestHelper = new RequestHelper(httpClient, serviceProvider.GetService<ILoggerFactory>()) {HttpClient = httpClient};
 
             var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper));
             return digipostApi;

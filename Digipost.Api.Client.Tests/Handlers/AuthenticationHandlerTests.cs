@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
-using Digipost.Api.Client.Common.Handlers;
+using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Resources.Certificate;
 using Xunit;
 
-namespace Digipost.Api.Client.Common.Tests.Handlers
+namespace Digipost.Api.Client.Tests.Handlers
 {
     public class AuthenticationHandlerTests
     {

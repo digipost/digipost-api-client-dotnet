@@ -37,13 +37,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Common.Logging" Version="3.4.1" />
-        <PackageReference Include="Common.Logging.Core" Version="3.4.1" />
         <PackageReference Include="difi-felles-utility-dotnet" Version="2.0.1.53-beta">
             <NoWarn>NU1701</NoWarn>
             <Properties>SkipValidatePackageReferences=true</Properties>
         </PackageReference>
         <PackageReference Include="api-client-shared" Version="4.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="1.5.2" />
         <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
             <Project>{18CBB05A-B0AE-42FF-870F-1C213A238751}</Project>
             <Name>Digipost.Api.Client.Resources</Name>

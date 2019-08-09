@@ -6,8 +6,11 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace Digipost.Api.Client.Tests.Smoke
@@ -36,7 +39,10 @@ namespace Digipost.Api.Client.Tests.Smoke
         {
             var broker = new Broker(testSender.Id);
             _testSender = testSender;
-            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000}, testSender.Certificate);
+            
+            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
         }
 
         public ClientSmokeTestHelper Create_message_with_primary_document()

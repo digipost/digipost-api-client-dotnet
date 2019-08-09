@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Tests.Utilities;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests.Smoke
@@ -20,9 +23,12 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
             _testSender = testSender;
             var broker = new Broker(testSender.Id);
 
+            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            
             _client = new DigipostClient(
                 new ClientConfig(broker, testSender.Environment),
-                testSender.Certificate
+                testSender.Certificate,
+                serviceProvider.GetService<ILoggerFactory>()
             );
         }
 

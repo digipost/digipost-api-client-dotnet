@@ -7,6 +7,7 @@ using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.Fakes;
+using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests.Integration
@@ -23,7 +24,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             {
                 BaseAddress = new Uri("http://www.fakeBaseAddress.no")
             };
-            var requestHelper = new RequestHelper(httpClient);
+            var requestHelper = new RequestHelper(httpClient, new NullLoggerFactory());
 
             var inbox = new Inbox(DomainUtility.GetSender(), requestHelper);
             return inbox;

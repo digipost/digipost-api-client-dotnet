@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -9,17 +8,17 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.Logging;
+using Digipost.Api.Client.Common;
+using Microsoft.Extensions.Logging;
+using NLog.Fluent;
 
-namespace Digipost.Api.Client.Common.Handlers
+namespace Digipost.Api.Client.Internal
 {
     internal class AuthenticationHandler : DelegatingHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static ILogger<DigipostClient> _logger;
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate,
-            HttpMessageHandler innerHandler)
-            : base(innerHandler)
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;

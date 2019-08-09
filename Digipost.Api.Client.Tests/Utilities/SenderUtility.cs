@@ -12,8 +12,6 @@ namespace Digipost.Api.Client.Tests.Utilities
     {
         public static TestSender GetSender(TestEnvironment testEnvironment)
         {
-            //var digipostTestintegrasjonforDigitalPostThumbprint = "‎2d 7f 30 dd 05 d3 b7 fc 7a e5 97 3a 73 f8 49 08 3b 20 40 ed";
-
             switch (testEnvironment)
             {
                 case TestEnvironment.DifiTest:
@@ -28,8 +26,6 @@ namespace Digipost.Api.Client.Tests.Utilities
                         1185201,
                         CertificateReader.ReadCertificate(),
                         Environment.Qa,
-                        //new RecipientById(IdentificationType.DigipostAddress, "digipost.testintegrasjon.for.digita#VZJS")
-                        //new RecipientByNameAndAddress("Jarand-Bjarte Tysseng Kvistdahl Grindheim", "Digipost Testgate 2A", "0467", "Oslo")
                         new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
                     );
                 default:

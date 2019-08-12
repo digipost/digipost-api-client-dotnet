@@ -38,18 +38,26 @@ namespace Digipost.Api.Client.Tests.Integration
             Certificate = CertificateResource.Certificate();
         }
 
-        internal AuthenticationHandler CreateHandlerChain(
+        internal HttpClient GetHttpClient(
             FakeResponseHandler fakehandler)
         {
             var loggingHandler = new LoggingHandler(ClientConfig, new LoggerFactory());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, loggingHandler);
-            return authenticationHandler;
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate);
+            
+            var httpClient = HttpClientFactory.Create(
+                authenticationHandler,
+                loggingHandler,
+                fakehandler
+            );
+
+            httpClient.BaseAddress = new Uri("http://www.fakeBaseAddress.no");
+            
+            return httpClient;
         }
 
         private SendMessageApi GetDigipostApi(FakeResponseHandler fakeResponseHandler)
         {
-            var fakeHandlerChain = CreateHandlerChain(fakeResponseHandler);
-            var httpClient = new HttpClient(fakeHandlerChain) {BaseAddress = new Uri("http://www.fakeBaseAddress.no")};
+            var httpClient = GetHttpClient(fakeResponseHandler);
             
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
             

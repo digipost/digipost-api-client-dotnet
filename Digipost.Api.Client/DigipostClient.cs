@@ -46,17 +46,10 @@ namespace Digipost.Api.Client
 
         private HttpClient GetHttpClient(X509Certificate2 businessCertificate)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            var clientCertificates = new X509Certificate2Collection {businessCertificate};
-            handler.ClientCertificates.AddRange(clientCertificates);
-            handler.ServerCertificateCustomValidationCallback = ValidateServerCertificateThrowIfInvalid;
-            handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
             var loggingHandler = new LoggingHandler(_clientConfig, _loggerFactory);
-            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate, loggingHandler);
+            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate);
 
             var httpClient = HttpClientFactory.Create(
-                handler,
                 authenticationHandler,
                 loggingHandler
             );
@@ -100,21 +93,6 @@ namespace Digipost.Api.Client
         public Task<ISearchDetailsResult> SearchAsync(string query)
         {
             return _api.SearchAsync(query);
-        }
-        
-        private bool ValidateServerCertificateThrowIfInvalid(HttpRequestMessage message, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyerrors)
-        {
-            var x509Certificate2 = new X509Certificate2(certificate);
-
-            var validationResult = CertificateValidator.ValidateCertificate(x509Certificate2);
-
-            if (validationResult.Type != CertificateValidationType.Valid)
-            {
-                _logger.LogError($"Certificate received in the response is not valid. The reason is '{validationResult.Type}', description: '{validationResult.Message}'", null);
-                throw new CertificateException($"Certificate received in the response is not valid. The reason is '{validationResult.Type}', description: '{validationResult.Message}'", null);
-            }
-
-            return true;
         }
     }
 }

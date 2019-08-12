@@ -17,7 +17,7 @@ namespace Digipost.Api.Client.Internal
     {
         private static ILogger<DigipostClient> _logger;
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, HttpMessageHandler innerHandler) : base(innerHandler)
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate)
         {
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;

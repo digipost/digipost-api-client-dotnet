@@ -41,7 +41,8 @@ namespace Digipost.Api.Client.Tests.Integration
         internal AuthenticationHandler CreateHandlerChain(
             FakeResponseHandler fakehandler)
         {
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate);
+            var loggingHandler = new LoggingHandler(ClientConfig, new LoggerFactory());
+            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate, loggingHandler);
             return authenticationHandler;
         }
 

@@ -53,7 +53,7 @@ namespace Digipost.Api.Client
             handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
             var loggingHandler = new LoggingHandler(_clientConfig, _loggerFactory);
-            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate);
+            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate, loggingHandler);
 
             var httpClient = HttpClientFactory.Create(
                 handler,

@@ -36,6 +36,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Difi.Felles.Utility" Version="3.0.0-beta.1" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />

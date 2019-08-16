@@ -37,11 +37,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="difi-felles-utility-dotnet" Version="2.0.1.53-beta">
-            <NoWarn>NU1701</NoWarn>
-            <Properties>SkipValidatePackageReferences=true</Properties>
-        </PackageReference>
         <PackageReference Include="api-client-shared" Version="4.0.0" />
+        <PackageReference Include="Difi.Felles.Utility" Version="3.0.0-beta.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
         <PackageReference Include="NLog.Extensions.Logging" Version="1.5.2" />

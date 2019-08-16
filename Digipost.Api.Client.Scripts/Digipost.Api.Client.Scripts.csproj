@@ -46,4 +46,7 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Difi.Felles.Utility" Version="3.0.0-beta.1" />
+    </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
@@ -46,12 +47,10 @@ namespace Digipost.Api.Client
 
         private HttpClient GetHttpClient(X509Certificate2 businessCertificate)
         {
-            var loggingHandler = new LoggingHandler(_clientConfig, _loggerFactory);
-            var authenticationHandler = new AuthenticationHandler(_clientConfig, businessCertificate);
-
+            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, businessCertificate, _loggerFactory)};
+            
             var httpClient = HttpClientFactory.Create(
-                authenticationHandler,
-                loggingHandler
+                allDelegationHandlers.ToArray()
             );
 
             httpClient.Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds);

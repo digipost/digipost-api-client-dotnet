@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -41,13 +42,14 @@ namespace Digipost.Api.Client.Tests.Integration
         internal HttpClient GetHttpClient(
             FakeResponseHandler fakehandler)
         {
-            var loggingHandler = new LoggingHandler(ClientConfig, new LoggerFactory());
-            var authenticationHandler = new AuthenticationHandler(ClientConfig, Certificate);
+            ClientConfig.LogRequestAndResponse = true;
+            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            
+            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(ClientConfig, serviceProvider.GetService<ILoggerFactory>()), new AuthenticationHandler(ClientConfig, Certificate, serviceProvider.GetService<ILoggerFactory>())};
             
             var httpClient = HttpClientFactory.Create(
-                authenticationHandler,
-                loggingHandler,
-                fakehandler
+                fakehandler,
+                allDelegationHandlers.ToArray()
             );
 
             httpClient.BaseAddress = new Uri("http://www.fakeBaseAddress.no");

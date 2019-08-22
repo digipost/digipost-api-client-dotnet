@@ -17,8 +17,9 @@ namespace Digipost.Api.Client.Internal
     {
         private static ILogger<DigipostClient> _logger;
 
-        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate)
+        public AuthenticationHandler(ClientConfig clientConfig, X509Certificate2 businessCertificate, ILoggerFactory loggerFactory)
         {
+            _logger = loggerFactory.CreateLogger<DigipostClient>();
             ClientConfig = clientConfig;
             BusinessCertificate = businessCertificate;
             Method = WebRequestMethods.Http.Get;

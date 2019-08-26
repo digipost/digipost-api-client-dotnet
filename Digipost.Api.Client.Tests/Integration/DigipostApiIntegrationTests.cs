@@ -27,7 +27,6 @@ namespace Digipost.Api.Client.Tests.Integration
         protected ClientConfig ClientConfig;
         protected Uri Uri;
 
-        // These tests will fail on MacOS due to how it deals with keys.
         public DigipostApiIntegrationTests()
         {
             ClientConfig = new ClientConfig(new Broker(1337), Environment.Production)

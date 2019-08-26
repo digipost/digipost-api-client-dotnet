@@ -1,23 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
-using Common.Logging;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Send;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Digipost.Api.Client.Api
 {
     internal class SendMessageApi
     {
         private const int MinimumSearchLength = 3;
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private ILogger<SendMessageApi> _logger;
+        
         public SendMessageApi(SendRequestHelper requestHelper)
         {
+            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            _logger = serviceProvider.GetService<ILogger<SendMessageApi>>();
             RequestHelper = requestHelper;
         }
 
@@ -35,7 +38,7 @@ namespace Digipost.Api.Client.Api
 
         public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            Log.Debug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
+            _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
             var uri = new Uri("messages", UriKind.Relative);
 
@@ -46,7 +49,7 @@ namespace Digipost.Api.Client.Api
 
             var messageDeliveryResult = SendDataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
 
-            Log.Debug($"Response received for message to recipient, {message.DigipostRecipient}: '{messageDeliveryResult.Status}'. Will be available to Recipient at {messageDeliveryResult.DeliveryTime}.");
+            _logger.LogDebug($"Response received for message to recipient, {message.DigipostRecipient}: '{messageDeliveryResult.Status}'. Will be available to Recipient at {messageDeliveryResult.DeliveryTime}.");
 
             return messageDeliveryResult;
         }
@@ -58,7 +61,7 @@ namespace Digipost.Api.Client.Api
 
         public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
-            Log.Debug($"Outgoing identification request: {identification}");
+            _logger.LogDebug($"Outgoing identification request: {identification}");
 
             var uri = new Uri("identification", UriKind.Relative);
 
@@ -68,7 +71,7 @@ namespace Digipost.Api.Client.Api
             {
                 var exception = identifyResponse.Exception?.InnerException;
 
-                Log.Warn($"Identification failed, {exception}");
+                _logger.LogWarning($"Identification failed, {exception}");
 
                 if (identifyResponse.Exception != null)
                     throw identifyResponse.Exception.InnerException;
@@ -77,7 +80,7 @@ namespace Digipost.Api.Client.Api
             var identificationResultDataTransferObject = await identifyResponse.ConfigureAwait(false);
             var identificationResult = DataTransferObjectConverter.FromDataTransferObject(identificationResultDataTransferObject);
 
-            Log.Debug($"Response received for identification to recipient, ResultType '{identificationResult.ResultType}', Data '{identificationResult.Data}'.");
+            _logger.LogDebug($"Response received for identification to recipient, ResultType '{identificationResult.ResultType}', Data '{identificationResult.Data}'.");
 
             return identificationResult;
         }
@@ -89,7 +92,7 @@ namespace Digipost.Api.Client.Api
 
         public async Task<ISearchDetailsResult> SearchAsync(string search)
         {
-            Log.Debug($"Outgoing search request, term: '{search}'.");
+            _logger.LogDebug($"Outgoing search request, term: '{search}'.");
 
             search = search.RemoveReservedUriCharacters();
             var uri = new Uri($"recipients/search/{Uri.EscapeUriString(search)}", UriKind.Relative);
@@ -107,7 +110,7 @@ namespace Digipost.Api.Client.Api
 
             var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
 
-            Log.Debug($"Response received for search with term '{search}' retrieved.");
+            _logger.LogDebug($"Response received for search with term '{search}' retrieved.");
 
             return searchDetailsResult;
         }

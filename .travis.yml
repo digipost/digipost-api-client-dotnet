@@ -1,0 +1,45 @@
+sudo: required
+language: csharp
+dist: xenial
+solution: digipost-api-client.sln
+
+git:
+  submodules: false
+
+matrix:
+  include:
+    - dotnet: 2.2.104
+      mono: none
+      env: DOTNETCORE=2
+
+before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+  - openssl aes-256-cbc -K $encrypted_f85e426f4af7_key -iv $encrypted_f85e426f4af7_iv -in digipost_smoke_tests_certificate.p12.enc -out digipost_smoke_tests_certificate.p12 -d
+  - ./travis-deploy/patch-assembly-version.sh Directory.Build.props $TRAVIS_TAG
+
+install:
+  - dotnet restore
+
+script:
+  - set -e
+  - dotnet build -c Release
+    
+  - ./travis-deploy/add-secrets.sh Digipost.Api.Client digipost_smoke_tests_certificate.p12
+  - find /home/travis/.microsoft
+  - cat /home/travis/.microsoft/usersecrets/smoke-certificate/secrets.json
+
+  - dotnet test Digipost.Api.Client.Common.Tests/Digipost.Api.Client.Common.Tests.csproj
+  - dotnet test Digipost.Api.Client.ConcurrencyTest/Digipost.Api.Client.ConcurrencyTest.csproj
+  - dotnet test Digipost.Api.Client.DataTypes.Tests/Digipost.Api.Client.DataTypes.Tests.csproj
+  - dotnet test Digipost.Api.Client.Inbox.Tests/Digipost.Api.Client.Inbox.Tests.csproj
+  - dotnet test Digipost.Api.Client.Send.Tests/Digipost.Api.Client.Send.Tests.csproj
+  - dotnet test Digipost.Api.Client.Tests/Digipost.Api.Client.Tests.csproj
+
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./travis-deploy/pack-and-push.sh $TRAVIS_TAG $NUGET_API_KEY $TRAVIS_BUILD_DIR Digipost.Api.Client Digipost.Api.Client.Common Digipost.Api.Client.DataTypes Digipost.Api.Client.Docs Digipost.Api.Client.Inbox Digipost.Api.Client.Resources Digipost.Api.Client.Scripts Digipost.Api.Client.Send
+  on:
+    tags: true

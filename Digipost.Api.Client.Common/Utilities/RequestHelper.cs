@@ -5,14 +5,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
     internal class RequestHelper
     {
-        internal RequestHelper(HttpClient httpClient)
+        private ILogger<RequestHelper> _logger;
+        
+        internal RequestHelper(HttpClient httpClient, ILoggerFactory loggerFactory)
         {
             HttpClient = httpClient;
+            _logger = loggerFactory.CreateLogger<RequestHelper>();
         }
 
         internal HttpClient HttpClient { get; set; }
@@ -50,7 +54,7 @@ namespace Digipost.Api.Client.Common.Utilities
             return await httpResponseMessage.Content.ReadAsStreamAsync();
         }
 
-        private static async Task<T> Send<T>(Task<HttpResponseMessage> responseTask)
+        private async Task<T> Send<T>(Task<HttpResponseMessage> responseTask)
         {
             var httpResponseMessage = await responseTask.ConfigureAwait(false);
 
@@ -62,7 +66,7 @@ namespace Digipost.Api.Client.Common.Utilities
             return HandleSuccessResponse<T>(responseContent);
         }
 
-        private static void HandleResponseErrorAndThrow(string responseContent, HttpStatusCode statusCode)
+        private void HandleResponseErrorAndThrow(string responseContent, HttpStatusCode statusCode)
         {
             var emptyResponse = string.IsNullOrEmpty(responseContent);
 
@@ -74,7 +78,7 @@ namespace Digipost.Api.Client.Common.Utilities
             }
         }
 
-        private static void ValidateXml(XmlDocument document)
+        private void ValidateXml(XmlDocument document)
         {
             if (document.InnerXml.Length == 0)
             {
@@ -87,6 +91,7 @@ namespace Digipost.Api.Client.Common.Utilities
 
             if (!isValidXml)
             {
+                _logger.LogError($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
                 throw new XmlException($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
             }
         }
@@ -97,16 +102,18 @@ namespace Digipost.Api.Client.Common.Utilities
             return contentResult;
         }
 
-        private static void ThrowNotEmptyResponseError(string responseContent)
+        private void ThrowNotEmptyResponseError(string responseContent)
         {
             var errorDataTransferObject = SerializeUtil.Deserialize<error>(responseContent);
             var error = DataTransferObjectConverter.FromDataTransferObject(errorDataTransferObject);
 
+            _logger.LogError("Error occured, check inner Error object for more information.", error);
             throw new ClientResponseException("Error occured, check inner Error object for more information.", error);
         }
 
-        private static void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
+        private void ThrowEmptyResponseError(HttpStatusCode httpStatusCode)
         {
+            _logger.LogError((int) httpStatusCode + ": " + httpStatusCode);
             throw new ClientResponseException((int) httpStatusCode + ": " + httpStatusCode);
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Xml;
 
 namespace Digipost.Api.Client.Common.Actions

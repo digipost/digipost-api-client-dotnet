@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Common;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Digipost.Api.Client.Docs
 {
@@ -26,7 +27,7 @@ namespace Digipost.Api.Client.Docs
                     X509KeyStorageFlags.Exportable
                 );
 
-            var client = new DigipostClient(clientConfig, businessCertificate);
+            var client = new DigipostClient(clientConfig, businessCertificate, new NullLoggerFactory());
         }
     }
 }

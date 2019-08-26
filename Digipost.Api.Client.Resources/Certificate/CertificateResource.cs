@@ -1,7 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using Digipost.Api.Client.Resources.Xsd;
 using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.Resources.Certificate
@@ -11,7 +9,7 @@ namespace Digipost.Api.Client.Resources.Certificate
         public static X509Certificate2 Certificate()
         {
             var resourceUtility = new ResourceUtility(typeof(CertificateResource).GetTypeInfo().Assembly, "Digipost.Api.Client.Resources.Certificate.Data");
-            return new X509Certificate2(resourceUtility.ReadAllBytes("DigipostTestCert.p12"), string.Empty, X509KeyStorageFlags.Exportable);
+            return new X509Certificate2(resourceUtility.ReadAllBytes("DigipostTestCertWithPassword.p12"), "qwer1234", X509KeyStorageFlags.Exportable);
         }
     }
 }

@@ -1,109 +1,77 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{309FBB5E-248F-42EC-81CC-4D4F4578CBFD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Digipost.Api.Client</RootNamespace>
-    <AssemblyName>Digipost.Api.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>1591</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Digipost.Api.Client.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Digipost.Api.Client.Shared, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\api-client-shared.4.0.0\lib\netstandard2\Digipost.Api.Client.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="netstandard" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="DigipostClient.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Api\SendMessageApi.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
-      <Project>{baa33e63-9cdf-4b8a-ba06-b107995585d0}</Project>
-      <Name>Digipost.Api.Client.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj">
-      <Project>{11E46C69-8CD6-412D-9D25-1562770660A9}</Project>
-      <Name>Digipost.Api.Client.Inbox</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Scripts\Digipost.Api.Client.Xsd.csproj">
-      <Project>{9E8E7C47-894D-441C-956A-2F6EAC2215E0}</Project>
-      <Name>Digipost.Api.Client.Xsd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
-      <Project>{28138693-b5b5-40da-b9fa-e75f28ec9e90}</Project>
-      <Name>Digipost.Api.Client.Send</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
+
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+        <Title>Digipost Api Client</Title>
+        <PackageId>Digipost.Api.Client</PackageId>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-  </Target>
+    
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RootNamespace>Digipost.Api.Client</RootNamespace>
+        <ProjectGuid>{20A5FD61-56FD-46C4-A1A7-77EEFC7AAD2E}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <NoWarn>1591;NU1701</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <NoWarn>1591;NU1701</NoWarn>
+        <DocumentationFile>bin\Release\Digipost.Api.Client.XML</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BouncyCastle" Version="1.8.5" />
+        <PackageReference Include="Difi.Felles.Utility" Version="3.0.2" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0-preview-20190715-02" />
+        <PackageReference Include="NLog" Version="4.6.6" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="1.5.2" />
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+        <PackageReference Include="System.Net.Requests" Version="4.3.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
+            <Project>{CD338E5A-1ED0-4331-B34E-8292FA8E387B}</Project>
+            <Name>Digipost.Api.Client.Common</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj">
+            <Project>{F23C5F66-E398-4234-8FB1-443D958FDF1A}</Project>
+            <Name>Digipost.Api.Client.Inbox</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
+            <Project>{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}</Project>
+            <Name>Digipost.Api.Client.Send</Name>
+        </ProjectReference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Compile Include="..\SharedAssemblyInfo.cs">
+            <Link>Properties\SharedAssemblyInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="C:\Keys\signingkey.snk">
+            <Link>signingkey.snk</Link>
+        </None>
+    </ItemGroup>
+
 </Project>

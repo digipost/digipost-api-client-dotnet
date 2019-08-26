@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+
+        <Version>0.0.0.0</Version>
+        <AssemblyVersion>0.0.0.0</AssemblyVersion>
+
+        <Authors>Digipost AS</Authors>
+        <Company>Posten Norge AS</Company>
+        <Copyright>Copyright © 2019 Posten Norge AS</Copyright>
+
+        <PackageProjectUrl>https://github.com/digipost/digipost-api-client-dotnet/</PackageProjectUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageTags>Posten Digipost digital elektronisk dotnet api klient client</PackageTags>
+        <Description>Klientbibliotek for integrasjon mot Digipost REST-API.</Description>
+
+        <UserSecretsId>smoke-certificate</UserSecretsId>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+</Project>

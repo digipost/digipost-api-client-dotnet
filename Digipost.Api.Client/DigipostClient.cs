@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;

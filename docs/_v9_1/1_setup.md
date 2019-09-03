@@ -11,15 +11,16 @@ To install the nuget package, follow these steps in Visual Studio/Rider:
 
 1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
 
-1. Search for _Digipost.Api.Client. Multiple packages will appear. Install those necessary for you. Make sure you _DON'T_ install the _digipost-api-client_ packages. Those are .NET Framework libraries with an unfortunately similar name.
-* If you would like pre-releases of this package, make sure _Include Prerelease_ is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
-1. Select which _Digipost-Api.Client.X_ libraries you need and click _Install_ for each.
+1. Search for _Digipost.Api.Client. Multiple packages will appear. Install those necessary for you. Make sure you _DON'T_ install the `digipost-api-client packages. Those are .NET Framework libraries with an unfortunately similar name.
+If you're looking for the .NET Framework documention, please see version [8.3](http://digipost.github.io/digipost-api-client-dotnet/v8.3/).
+If you would like pre-releases of this package, make sure Include Prerelease` is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
+1. Select which _Digipost.Api.Client.X_ libraries you need and click _Install_ for each.
 
-### Install and use business certificate
+### Install and use enterprise certificate
 
 <blockquote>SSL Certificates are small data files that digitally bind a cryptographic key to an organization's details. When installed on a web server, it activates the padlock and the https protocol (over port 443) and allows secure connections from a web server to a browser.</blockquote>
 
-To communicate over HTTPS you need to sign your request with a business certificate. The business certificate can be loaded directly from file or from the Windows certificate store. The latter is preferred, as this avoids password handling in the code itself.
+To communicate over HTTPS you need to sign your request with a enterprise certificate. The enterprise certificate can be loaded directly from file or from the Windows certificate store. The latter is preferred, as this avoids password handling in the code itself.
 
 The following steps will install the certificate in the your certificate store. This should be done on the server where your application will run.
 For more information, please see the [Microsoft Documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows#how-the-secret-manager-tool-works).
@@ -67,10 +68,10 @@ dotnet user-secrets set "Certificate:Password" "<your-certificate-password>"
 1. Open `Keychain Access`
 1. Choose `login` keychain
 1. Press _File_ and then _Import_
-1. Choose the business certificate and add it 
+1. Choose the enterprise certificate and add it 
 
 ##### Trust the Certificate on Linux:
-Download the root and intermediate certificates from [Difi](https://begrep.difi.no/SikkerDigitalPost/1.2.6/sikkerhet/sertifikathandtering) for your business certificate provider. 
+Download the root and intermediate certificates from [Difi](https://begrep.difi.no/SikkerDigitalPost/1.2.6/sikkerhet/sertifikathandtering) for your enterprise certificate provider. 
 Note the renaming to have `.crt` ending for `update-ca-certificates`:
  
 ```
@@ -116,24 +117,24 @@ return new X509Certificate2(certificatePath, certificatePassword, X509KeyStorage
 ```
 
 
-### Load business certificate from file
+### Load enterprise certificate from file
 If there is a reason for not loading the certificate from the Windows certificate store, you can use the constructor taking in a `X509Certificate2`:
 
 ``` csharp
 
 var clientConfig = new ClientConfig(broker, Environment.Production);
-var businessCertificate =
+var enterpriseCertificate =
     new X509Certificate2(
         @"C:\Path\To\Certificate\Cert.p12",
         "secretPasswordProperlyInstalledAndLoaded",
         X509KeyStorageFlags.Exportable
     );
 
-var client = new DigipostClient(clientConfig, businessCertificate);
+var client = new DigipostClient(clientConfig, enterpriseCertificate);
 
 ```
 
-#### <span style="color:red">\[Warning: This is technically supported on other operating systems than Windows, but we've not tested that thoroughly. Use at your own risk.\]</span> Load business certificate from thumbprint in code
+#### <span style="color:red">\[Warning: This is technically supported on other operating systems than Windows, but we've not tested that thoroughly. Use at your own risk.\]</span> Load enterprise certificate from thumbprint in code
 
 1. Start mmc.exe (Click windowsbutton and type mmc.exe)
 1. _Choose File_ -> _Add/Remove Snap-in…_ (Ctrl + M)

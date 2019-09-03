@@ -331,7 +331,7 @@ In the following use case, `Sender` is defined as the party who is responsible f
 
 Sending on behalf of an organization is accomplished by setting `Message.Sender` to the id of the sender when constructing a message. The actual letter will appear in the receivers Digipost mailbox with the senders details (logo, name, etc.).
 
-<blockquote> Remember to use the business certificate of the broker to sign the message, not the one belonging to the sender. Also, the proper permissions need to be set by Digipost to send on behalf of an organization.</blockquote>
+<blockquote> Remember to use the enterprise certificate of the broker to sign the message, not the one belonging to the sender. Also, the proper permissions need to be set by Digipost to send on behalf of an organization.</blockquote>
 
 Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.  
 

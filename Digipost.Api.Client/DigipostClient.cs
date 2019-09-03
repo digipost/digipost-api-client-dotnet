@@ -31,6 +31,11 @@ namespace Digipost.Api.Client
         {
         }
 
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate) 
+            : this(clientConfig, businessCertificate, new NullLoggerFactory())
+        {
+        }
+        
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();

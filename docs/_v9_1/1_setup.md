@@ -140,7 +140,7 @@ var client = new DigipostClient(clientConfig, enterpriseCertificate);
 1. Start mmc.exe (Click windowsbutton and type mmc.exe)
 1. _Choose File_ -> _Add/Remove Snap-in…_ (Ctrl + M)
 1. Mark certificate and click _Add >_
-1. If the certificate was installed in _Current User_ choose _My User Account_ and if installed on _Local Machine_ choose _Computer Account_. Then click _Finish_ and then _OK_
+1. If the certificate was installed in `Current User` choose `My User Account` and if installed on `Local Machine` choose `Computer Account`. Then click _Finish_ and then _OK_
 1. Expand _Certificates_ node, select _Personal_ and open _Certificates_
 1. Double-click on the installed certificate
 1. Go to the _Details_ tab

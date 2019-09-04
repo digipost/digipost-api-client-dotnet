@@ -20,7 +20,7 @@ If you would like pre-releases of this package, make sure Include Prerelease` is
 
 <blockquote>SSL Certificates are small data files that digitally bind a cryptographic key to an organization's details. When installed on a web server, it activates the padlock and the https protocol (over port 443) and allows secure connections from a web server to a browser.</blockquote>
 
-To communicate over HTTPS you need to sign your request with a enterprise certificate. The enterprise certificate can be loaded directly from file or from the Windows certificate store. The latter is preferred, as this avoids password handling in the code itself.
+To communicate over HTTPS you need to sign your request with a enterprise certificate. The enterprise certificate can be loaded directly from file or from the Windows certificate store.
 
 The following steps will install the certificate in the your certificate store. This should be done on the server where your application will run.
 For more information, please see the [Microsoft Documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows#how-the-secret-manager-tool-works).

@@ -3,13 +3,15 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Digests;
+using Org.BouncyCastle.Security;
 
 namespace Digipost.Api.Client.Internal
 {
@@ -87,10 +89,13 @@ namespace Digipost.Api.Client.Internal
 
         internal static string ComputeHash(byte[] inputBytes)
         {
-            HashAlgorithm hashAlgorithm = new SHA256CryptoServiceProvider();
-            var hashedBytes = hashAlgorithm.ComputeHash(inputBytes);
+            IDigest digest = new Sha256Digest();
+            var hash = new byte[digest.GetDigestSize()];
+            
+            digest.BlockUpdate(inputBytes, 0, inputBytes.Length);
+            digest.DoFinal(hash, 0);
 
-            return Convert.ToBase64String(hashedBytes);
+            return Convert.ToBase64String(hash);
         }
 
         internal static string ComputeSignature(string method, Uri uri, string date, string contentSha256Hash,
@@ -130,12 +135,16 @@ namespace Digipost.Api.Client.Internal
                 _logger.LogDebug("=== SIGNATURE DATA END ===");
             }
 
-            var rsa2 = businessCertificate.GetRSAPrivateKey();
+            byte[] messageBytes = Encoding.UTF8.GetBytes(messageHeader);
 
-            var sha = SHA256.Create();
-            var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(messageHeader));
-            var signature = rsa2.SignHash(hash, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
-            var base64Signature = Convert.ToBase64String(signature);
+
+            var privKey = DotNetUtilities.GetRsaKeyPair(businessCertificate.GetRSAPrivateKey());
+            
+            ISigner signer = SignerUtilities.GetSigner("SHA-256withRSA");
+            signer.Init(true, privKey.Private);
+            signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
+            
+            var base64Signature = Convert.ToBase64String(signer.GenerateSignature());
 
             return base64Signature;
         }

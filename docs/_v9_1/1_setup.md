@@ -11,7 +11,7 @@ To install the nuget package, follow these steps in Visual Studio/Rider:
 
 1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
 
-1. Search for _Digipost.Api.Client_. Multiple packages will appear. Install those necessary for you. Make sure you _DON'T_ install the `digipost-api-client packages. Those are .NET Framework libraries with an unfortunately similar name.
+1. Search for _Digipost.Api.Client_. Multiple packages will appear. Install those necessary for you. Make sure you _DON'T_ install the `digipost-api-client` packages. Those are .NET Framework libraries with an unfortunately similar name.
 If you're looking for the .NET Framework documention, please see version [8.3](http://digipost.github.io/digipost-api-client-dotnet/v8.3/).
 If you would like pre-releases of this package, make sure Include Prerelease` is enabled. Please refer to documentation for your version of Visual Studio for detailed instructions.
 1. Select which _Digipost.Api.Client.X_ libraries you need and click _Install_ for each.

@@ -31,20 +31,25 @@ namespace Digipost.Api.Client
         {
         }
 
-        public DigipostClient(ClientConfig clientConfig, X509Certificate2 businessCertificate, ILoggerFactory loggerFactory)
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate) 
+            : this(clientConfig, enterpriseCertificate, new NullLoggerFactory())
+        {
+        }
+        
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();
             _loggerFactory = loggerFactory;
             
             _clientConfig = clientConfig;
-            _httpClient = GetHttpClient(businessCertificate);
+            _httpClient = GetHttpClient(enterpriseCertificate);
             _requestHelper = new RequestHelper(_httpClient, _loggerFactory);
             _api = new SendMessageApi(new SendRequestHelper(_requestHelper));
         }
 
-        private HttpClient GetHttpClient(X509Certificate2 businessCertificate)
+        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)
         {
-            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, businessCertificate, _loggerFactory)};
+            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
             
             var httpClient = HttpClientFactory.Create(
                 allDelegationHandlers.ToArray()

@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Docs
                     X509KeyStorageFlags.Exportable
                 );
 
-            var client = new DigipostClient(clientConfig, businessCertificate, new NullLoggerFactory());
+            var client = new DigipostClient(clientConfig, businessCertificate);
         }
     }
 }

@@ -8,6 +8,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <RootNamespace>Digipost.Api.Client</RootNamespace>
+        <AssemblyName>Digipost.Api.Client</AssemblyName>
         <ProjectGuid>{20A5FD61-56FD-46C4-A1A7-77EEFC7AAD2E}</ProjectGuid>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>

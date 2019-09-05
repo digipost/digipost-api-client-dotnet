@@ -6,7 +6,7 @@ layout: default
 
 ### Client configuration
 
-`ClientConfig` is a container for all the connection specific paramters that you can set.
+`ClientConfig` is a container for all the connection specific parameters that you can set.
 
 ``` csharp
 

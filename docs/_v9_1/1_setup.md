@@ -38,12 +38,12 @@ On MacOS/Linux the path is:
 ```
 
 Add the following `UserSecretsId` element to your `.csproj` file:
-``` xml
+{% highlight xml %}
 <PropertyGroup>
      <TargetFramework>netcoreapp2.1</TargetFramework>
      <UserSecretsId>enterprise-certificate</UserSecretsId>
 </PropertyGroup>
-```
+{% endhighlight %}
 
 This means that the element `<user_secrets_id>` in the path will be `enterprise-certificate`.
 
@@ -82,7 +82,7 @@ sudo update-ca-certificates
 ```
 
 ### Create ClientConfig and DigipostClient:
-``` csharp
+```csharp
 
 // The actual sender of the message. The broker is the owner of the organization certificate 
 // used in the library. The broker id can be retrieved from your Digipost organization account.
@@ -95,7 +95,7 @@ var client = new DigipostClient(clientConfig, CertificateReader.ReadCertificate(
 ```
 
 Where `CertificateReader.ReadCertificate()` is:
-```  csharp
+```csharp
 
 var pathToSecrets = $"{System.Environment.GetEnvironmentVariable("HOME")}/.microsoft/usersecrets/smoke-certificate/secrets.json";
 _logger.LogDebug($"Reading certificate details from secrets file: {pathToSecrets}");
@@ -121,7 +121,7 @@ return new X509Certificate2(certificatePath, certificatePassword, X509KeyStorage
 ### Load enterprise certificate from file
 If there is a reason for not loading the certificate from the Windows certificate store, you can use the constructor taking in a `X509Certificate2`:
 
-``` csharp
+```csharp
 
 var clientConfig = new ClientConfig(broker, Environment.Production);
 var enterpriseCertificate =
@@ -147,7 +147,7 @@ var client = new DigipostClient(clientConfig, enterpriseCertificate);
 1. Scroll down to _Thumbprint_
 1. Copy the thumbprint and load as shown below
 
-``` csharp
+```csharp
 
  var clientConfig = new ClientConfig(broker, Environment.Production);
  var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");

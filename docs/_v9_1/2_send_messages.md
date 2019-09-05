@@ -8,7 +8,7 @@ layout: default
 
 `ClientConfig` is a container for all the connection specific parameters that you can set.
 
-``` csharp
+```csharp
 
 // The actual sender of the message. The broker is the owner of the organization certificate 
 // used in the library. The broker id can be retrieved from your Digipost organization account.
@@ -23,7 +23,7 @@ var client = new DigipostClient(clientConfig, CertificateReader.ReadCertificate(
 
 ### Send one letter to recipient via personal identification number
 
-``` csharp
+```csharp
 
 var message = new Message(
     sender,
@@ -38,7 +38,7 @@ var result = client.SendMessage(message);
 There are other recipient types available to identify recipients of messages. Note that some recipient types may 
 require special permissions to be set up in order to be used.
 
-``` csharp
+```csharp
 
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
@@ -56,7 +56,7 @@ var result = client.SendMessage(message);
 
 ### Send one letter with multiple attachments
 
-``` csharp
+```csharp
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
@@ -74,7 +74,7 @@ var result = client.SendMessage(message);
 
 ### Send letter with SMS notification
 
-``` csharp
+```csharp
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 
@@ -95,7 +95,7 @@ var result = client.SendMessage(message);
 
 In cases where the recipient is not a Digipost user, it is also possible to use the recipient's name and address for physical mail delivery.
 
-``` csharp
+```csharp
 
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
@@ -125,7 +125,7 @@ var result = client.SendMessage(messageWithFallbackToPrint);
 
 ```
 ### Send letter with fallback to print if the user does not read the message within a certain deadline
-``` csharp
+```csharp
 
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
@@ -158,7 +158,7 @@ var result = client.SendMessage(messageWithPrintIfUnread);
 
 ### Send letter with higher security level
 
-``` csharp
+```csharp
 
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf")
 {
@@ -178,7 +178,7 @@ var result = client.SendMessage(message);
 
 ### Send letter with higher security level
 
-``` csharp
+```csharp
 
 var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
@@ -203,7 +203,7 @@ If the user is identified, the `ResultType` will be `DigipostAddress` or `Person
 
 User is identified and have a Digipost account:
 
-``` csharp
+```csharp
 ResultType: DigipostAddress
 Data: "Ola.Nordmann#3244B"
 Error: Null
@@ -211,7 +211,7 @@ Error: Null
 
 User is identified but does not have a Digipost account:
 
-``` csharp
+```csharp
 ResultType: PersonAlias
 Data: "azdixsdfsdffsdfncixtvpwdp#6QE6"
 Error: Null
@@ -227,7 +227,7 @@ If the user is not identified, the `ResultType` will be `InvalidReason` or `Unid
 
 The user is not identified because the PIN is not valid:
 
-``` csharp
+```csharp
 ResultType: InvalidReason
 Data: Null
 Error: InvalidPersonalIdentificationNumber
@@ -235,7 +235,7 @@ Error: InvalidPersonalIdentificationNumber
 
 The user is not identified because we did not have a match from the identify criteria:
 
-``` csharp
+```csharp
 ResultType: UnidentifiedReason
 Data: Null
 Error: NotFound
@@ -243,7 +243,7 @@ Error: NotFound
 
 Following is a example that uses personal identification number as identification choice.
 
-``` csharp
+```csharp
 var identification = new Identification(new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxxx"));
 var identificationResponse = client.Identify(identification);
 
@@ -270,7 +270,7 @@ else if (identificationResponse.ResultType == IdentificationResultType.InvalidRe
 
 The Digipost API is accessible from both internet and Norsk Helsenett (NHN). Both entry points use the same API, the only difference is that `ClientConfig.Environment` must be set to `Environment.NorskHelsenett`.
 
-``` csharp
+```csharp
 
 // API URL is different when request is sent from NHN
 var config = new ClientConfig(new Broker(12345), Environment.NorskHelsenett);
@@ -290,7 +290,7 @@ var result = client.SendMessage(message);
 
 It is possible to send invoice-metadata with a document. Documents with invoice-metadata enables the _Send to Online Bank_ feature, which allows people to pay the invoice directly in Digipost.
 
-``` csharp
+```csharp
 
 var message = new Message(
     sender,
@@ -313,7 +313,7 @@ A central part of a user interface in the application that is integrating with D
 
 It is important to note that the search results returned do not necessarily include the receiver to which you actually wish to send. The search results returned are strictly based on the search query you have sent in. This equally applies when only one search result is returned. This means that the actual person to which you wish to send must be confirmed by a human being before the actual document i sent (typically in the senders application). If the goal is to create a 100% automated workflow then the identify recipient endpoint should be used (see Identify recipient use case).
 
-``` csharp
+```csharp
 var response = client.Search("Ola Nordmann Bellsund Longyearbyen");
 
 foreach (var person in response.PersonDetails)
@@ -335,7 +335,7 @@ Sending on behalf of an organization is accomplished by setting `Message.Sender`
 
 Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.  
 
-``` csharp
+```csharp
 
 var broker = new Broker(12345);
 var sender = new Sender(67890);
@@ -356,7 +356,7 @@ var result = client.SendMessage(message);
 
 A message can be sent with a delivery time. This means that a message can be sent at 11 AM, and be delivered to the recipient's Digipost inbox at 3 PM the next day. `Message.DeliveryTime` is used for this purpose and is of type `DateTime`. This gives you a lot of flexibility on how to set the delivery time.
 
-``` csharp
+```csharp
 
 var message = new Message(
     sender,
@@ -385,7 +385,7 @@ available datatypes and their documentation can be found at
 
 One of the complex data types supported is `Appointment`, which represents a meeting set for a specific place and time. The following example demonstrates how to include such extra data:
 
-``` csharp
+```csharp
 
 var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
 var appointment = new Appointment(startTime)
@@ -408,7 +408,7 @@ var document = new Document(
 
 One of the complex data types supported is `Event`, which represents a meeting set for a specific place, but covering multiple time spans. The following example demonstrates how to include such extra data:
 
-``` csharp
+```csharp
 var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
             
 var eventTimeSpans = new List<EventTimeSpan>();
@@ -453,7 +453,7 @@ var document = new Document(
 This Datatype enhances a message in Digipost with a button which sends the user to an external site. The button
 can optionally have a deadline, a description and a custom text.
 
-``` csharp
+```csharp
 
 var linkTarget = new Uri("https://example.org/loan-offer/uniqueCustomerId/");
 var externalLink = new ExternalLink(

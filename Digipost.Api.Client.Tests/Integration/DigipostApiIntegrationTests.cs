@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Tests.Integration
             
             var requestHelper = new RequestHelper(httpClient, serviceProvider.GetService<ILoggerFactory>()) {HttpClient = httpClient};
 
-            var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper));
+            var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper), serviceProvider.GetService<ILoggerFactory>());
             return digipostApi;
         }
 

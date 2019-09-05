@@ -33,7 +33,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <NoWarn>1591</NoWarn>
-        <DocumentationFile>bin\Release\Digipost.Api.Client.XML</DocumentationFile>
+        <DocumentationFile>bin\Release\Digipost.Api.Client.Inbox.XML</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

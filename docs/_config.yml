@@ -2,7 +2,7 @@
 name: .NET client library for Digipost API
 
 # url of the download button
-downloadUrl: https://www.nuget.org/packages/digipost-api-client/
+downloadUrl: https://www.nuget.org/packages?q=Digipost.Api.Client
 # licence of the software
 license: MIT License
 licenseUrl: http://opensource.org/licenses/MIT

@@ -42,7 +42,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
             
-            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
         }
 
         public ClientSmokeTestHelper Create_message_with_primary_document()

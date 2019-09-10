@@ -17,10 +17,9 @@ namespace Digipost.Api.Client.Api
         private const int MinimumSearchLength = 3;
         private ILogger<SendMessageApi> _logger;
         
-        public SendMessageApi(SendRequestHelper requestHelper)
+        public SendMessageApi(SendRequestHelper requestHelper, ILoggerFactory loggerFactory)
         {
-            var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
-            _logger = serviceProvider.GetService<ILogger<SendMessageApi>>();
+            _logger = loggerFactory.CreateLogger<SendMessageApi>();
             RequestHelper = requestHelper;
         }
 

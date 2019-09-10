@@ -44,7 +44,7 @@ namespace Digipost.Api.Client
             _clientConfig = clientConfig;
             _httpClient = GetHttpClient(enterpriseCertificate);
             _requestHelper = new RequestHelper(_httpClient, _loggerFactory);
-            _api = new SendMessageApi(new SendRequestHelper(_requestHelper));
+            _api = new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory);
         }
 
         private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)

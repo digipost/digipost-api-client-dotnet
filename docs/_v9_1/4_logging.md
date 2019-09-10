@@ -18,7 +18,7 @@ There are numerous ways to implement a logger, but the following examples will b
 
 1. Install the Nuget-packages `NLog`, `NLog.Extensions.Logging` and `Microsoft.Extensions.DependencyInjection`.
 1. Create an `nlog.config` file. The following is an example that logs to both file and console:
-``` xml
+{% highlight xml %}
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- XSD manual extracted from package NLog.Schema: https://www.nuget.org/packages/NLog.Schema-->
@@ -47,11 +47,11 @@ There are numerous ways to implement a logger, but the following examples will b
         <logger name="*" minlevel="Trace" writeTo="fileTarget,consoleTarget"/>
     </rules>
 </nlog>
-```
+{% endhighlight %}
 
 In your application, do the following to create a logger and supply it to `DigipostClient`:
 
-``` csharp
+```csharp
 private static IServiceProvider CreateServiceProviderAndSetUpLogging()
 {
     var services = new ServiceCollection();

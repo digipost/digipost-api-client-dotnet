@@ -8,7 +8,7 @@ layout: default
 
 `ClientConfig` is a container for all the connection specific paramters that you can set.
 
-``` csharp
+```csharp
 // The actual sender of the message. The broker is the owner of the organization certificate 
 // used in the library. The broker id can be retrieved from your Digipost organization account.
 const int brokerId = 12345;
@@ -26,7 +26,7 @@ The inbox call outputs a list of documents ordered by `DeliveryTime`. `Offset` i
 The values `offset` and `limit` is meant for pagination so that one can fetch 100 and then the next 100. 
 
 
-``` csharp
+```csharp
 
 var inbox = client.GetInbox(sender);
 
@@ -40,7 +40,7 @@ We have now fetched the 200 newest inbox documents. As long as no new documents 
 
 ### Download document content
 
-``` csharp
+```csharp
 
 var inbox = client.GetInbox(sender);
 
@@ -52,7 +52,7 @@ var documentStream = await inbox.FetchDocument(documentMetadata);
 
 ### Delete document
 
-``` csharp
+```csharp
 
 var inbox = client.GetInbox(sender);
 

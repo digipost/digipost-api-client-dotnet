@@ -20,12 +20,12 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// </summary>
         public DateTime End { get; set; }
 
-        internal eventTimeSpan AsDataTransferObject()
+        internal timeInterval AsDataTransferObject()
         {
-            return new eventTimeSpan
+            return new timeInterval
             {
-                starttime = Start,
-                endtime = End
+                starttime = Start.ToString(),
+                endtime = End.ToString()
             };
         }
 

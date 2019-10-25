@@ -20,6 +20,7 @@
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+<<<<<<< HEAD
 public partial class @event {
     
     private eventTimeSpan[] timeField;
@@ -62,26 +63,72 @@ public partial class @event {
         }
         set {
             this.subTitleField = value;
+=======
+public partial class appointment {
+    
+    private string starttimeField;
+    
+    private string endtimeField;
+    
+    private string arrivaltimeField;
+    
+    private string placeField;
+    
+    private datatypeaddress addressField;
+    
+    private string subtitleField;
+    
+    private info[] infoField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("start-time")]
+    public string starttime {
+        get {
+            return this.starttimeField;
+        }
+        set {
+            this.starttimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     public string timeLabel {
         get {
             return this.timeLabelField;
         }
         set {
             this.timeLabelField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("end-time")]
+    public string endtime {
+        get {
+            return this.endtimeField;
+        }
+        set {
+            this.endtimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     public string description {
         get {
             return this.descriptionField;
         }
         set {
             this.descriptionField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("arrival-time")]
+    public string arrivaltime {
+        get {
+            return this.arrivaltimeField;
+        }
+        set {
+            this.arrivaltimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
@@ -96,22 +143,41 @@ public partial class @event {
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     public string placeLabel {
         get {
             return this.placeLabelField;
         }
         set {
             this.placeLabelField = value;
+=======
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     public eventAddress address {
         get {
             return this.addressField;
         }
         set {
             this.addressField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("sub-title")]
+    public string subtitle {
+        get {
+            return this.subtitleField;
+        }
+        set {
+            this.subtitleField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
@@ -125,6 +191,7 @@ public partial class @event {
             this.infoField = value;
         }
     }
+<<<<<<< HEAD
     
     /// <remarks/>
     public string barcodeLabel {
@@ -133,20 +200,61 @@ public partial class @event {
         }
         set {
             this.barcodeLabelField = value;
+=======
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class datatypeaddress {
+    
+    private string streetaddressField;
+    
+    private string streetaddress2Field;
+    
+    private string postalcodeField;
+    
+    private string cityField;
+    
+    private string countryField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("street-address")]
+    public string streetaddress {
+        get {
+            return this.streetaddressField;
+        }
+        set {
+            this.streetaddressField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     public barcode barcode {
         get {
             return this.barcodeField;
         }
         set {
             this.barcodeField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("street-address-2")]
+    public string streetaddress2 {
+        get {
+            return this.streetaddress2Field;
+        }
+        set {
+            this.streetaddress2Field = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
+<<<<<<< HEAD
     [System.Xml.Serialization.XmlElementAttribute("links")]
     public externalLink[] links {
         get {
@@ -178,12 +286,1915 @@ public partial class eventTimeSpan {
         }
         set {
             this.starttimeField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
+    public string postalcode {
+        get {
+            return this.postalcodeField;
+        }
+        set {
+            this.postalcodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("end-time")]
+    public System.DateTime endtime {
+        get {
+            return this.endtimeField;
+        }
+        set {
+            this.endtimeField = value;
+=======
+    public string country {
+        get {
+            return this.countryField;
+        }
+        set {
+            this.countryField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class heftelse {
+    
+    private string panthaverField;
+    
+    private string typepantField;
+    
+    private string beloepField;
+    
+    /// <remarks/>
+    public string panthaver {
+        get {
+            return this.panthaverField;
+        }
+        set {
+            this.panthaverField = value;
+=======
+public partial class delivery {
+    
+    private string nameField;
+    
+    private datatypeaddress addressField;
+    
+    private string termsField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("type-pant")]
+    public string typepant {
+        get {
+            return this.typepantField;
+        }
+        set {
+            this.typepantField = value;
+=======
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string beloep {
+        get {
+            return this.beloepField;
+        }
+        set {
+            this.beloepField = value;
+=======
+    public string terms {
+        get {
+            return this.termsField;
+        }
+        set {
+            this.termsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class omsetningshistorikk {
+    
+    private string datoField;
+    
+    private string beskrivelseField;
+    
+    private string selgerField;
+    
+    private string kjoeperField;
+    
+    private long beloepField;
+    
+    private bool beloepFieldSpecified;
+    
+    /// <remarks/>
+    public string dato {
+        get {
+            return this.datoField;
+        }
+        set {
+            this.datoField = value;
+=======
+public partial class customer {
+    
+    private string nameField;
+    
+    private datatypeaddress addressField;
+    
+    private string phoneNumberField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string beskrivelse {
+        get {
+            return this.beskrivelseField;
+        }
+        set {
+            this.beskrivelseField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string selger {
+        get {
+            return this.selgerField;
+        }
+        set {
+            this.selgerField = value;
+=======
+    public string phoneNumber {
+        get {
+            return this.phoneNumberField;
+        }
+        set {
+            this.phoneNumberField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class vatLevel {
+    
+    private string grossAmountField;
+    
+    private string netAmountField;
+    
+    private string vatField;
+    
+    private string vatPercentField;
+    
+    /// <remarks/>
+    public string grossAmount {
+        get {
+            return this.grossAmountField;
+        }
+        set {
+            this.grossAmountField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string kjoeper {
+        get {
+            return this.kjoeperField;
+        }
+        set {
+            this.kjoeperField = value;
+=======
+    public string netAmount {
+        get {
+            return this.netAmountField;
+        }
+        set {
+            this.netAmountField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public long beloep {
+        get {
+            return this.beloepField;
+        }
+        set {
+            this.beloepField = value;
+=======
+    public string vat {
+        get {
+            return this.vatField;
+        }
+        set {
+            this.vatField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool beloepSpecified {
+        get {
+            return this.beloepFieldSpecified;
+        }
+        set {
+            this.beloepFieldSpecified = value;
+=======
+    public string vatPercent {
+        get {
+            return this.vatPercentField;
+        }
+        set {
+            this.vatPercentField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class hjemmelshaver {
+    
+    private string nameField;
+    
+    private string emailField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+=======
+public partial class vatDetails {
+    
+    private vatLevel[] levelsField;
+    
+    private string sumField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("levels")]
+    public vatLevel[] levels {
+        get {
+            return this.levelsField;
+        }
+        set {
+            this.levelsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string email {
+        get {
+            return this.emailField;
+        }
+        set {
+            this.emailField = value;
+=======
+    public string sum {
+        get {
+            return this.sumField;
+        }
+        set {
+            this.sumField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class matrikkel {
+    
+    private string kommunenummerField;
+    
+    private string gaardsnummerField;
+    
+    private string bruksnummerField;
+    
+    private string festenummerField;
+    
+    private string seksjonsnummerField;
+    
+    /// <remarks/>
+    public string kommunenummer {
+        get {
+            return this.kommunenummerField;
+        }
+        set {
+            this.kommunenummerField = value;
+=======
+public partial class taxiDetails {
+    
+    private string carPlateNumberField;
+    
+    private string licenseField;
+    
+    private string orgNumberLicenseHolderField;
+    
+    private string startTimeField;
+    
+    private string stopTimeField;
+    
+    private string tipsField;
+    
+    private string totalMeterPriceField;
+    
+    private int totalDistanceBeforeBoardingInMetersField;
+    
+    private bool totalDistanceBeforeBoardingInMetersFieldSpecified;
+    
+    private int totalDistanceInMetersField;
+    
+    private bool totalDistanceInMetersFieldSpecified;
+    
+    private int totalDistanceWithPassengerInMetersField;
+    
+    private bool totalDistanceWithPassengerInMetersFieldSpecified;
+    
+    private int totalTimeBeforeBoardingInSecondsField;
+    
+    private bool totalTimeBeforeBoardingInSecondsFieldSpecified;
+    
+    private int totalTimeInSecondsField;
+    
+    private bool totalTimeInSecondsFieldSpecified;
+    
+    private int totalTimeWithPassengerInSecondsField;
+    
+    private bool totalTimeWithPassengerInSecondsFieldSpecified;
+    
+    private vatDetails vatField;
+    
+    /// <remarks/>
+    public string carPlateNumber {
+        get {
+            return this.carPlateNumberField;
+        }
+        set {
+            this.carPlateNumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string gaardsnummer {
+        get {
+            return this.gaardsnummerField;
+        }
+        set {
+            this.gaardsnummerField = value;
+=======
+    public string license {
+        get {
+            return this.licenseField;
+        }
+        set {
+            this.licenseField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string bruksnummer {
+        get {
+            return this.bruksnummerField;
+        }
+        set {
+            this.bruksnummerField = value;
+=======
+    public string orgNumberLicenseHolder {
+        get {
+            return this.orgNumberLicenseHolderField;
+        }
+        set {
+            this.orgNumberLicenseHolderField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string festenummer {
+        get {
+            return this.festenummerField;
+        }
+        set {
+            this.festenummerField = value;
+=======
+    public string startTime {
+        get {
+            return this.startTimeField;
+        }
+        set {
+            this.startTimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string seksjonsnummer {
+        get {
+            return this.seksjonsnummerField;
+        }
+        set {
+            this.seksjonsnummerField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class residenceAddress {
+    
+    private string unitnumberField;
+    
+    private string housenumberField;
+    
+    private string streetnameField;
+    
+    private string postalcodeField;
+    
+    private string cityField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("unit-number")]
+    public string unitnumber {
+        get {
+            return this.unitnumberField;
+        }
+        set {
+            this.unitnumberField = value;
+=======
+    public string stopTime {
+        get {
+            return this.stopTimeField;
+        }
+        set {
+            this.stopTimeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tips {
+        get {
+            return this.tipsField;
+        }
+        set {
+            this.tipsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("house-number")]
+    public string housenumber {
+        get {
+            return this.housenumberField;
+        }
+        set {
+            this.housenumberField = value;
+=======
+    public string totalMeterPrice {
+        get {
+            return this.totalMeterPriceField;
+        }
+        set {
+            this.totalMeterPriceField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("street-name")]
+    public string streetname {
+        get {
+            return this.streetnameField;
+        }
+        set {
+            this.streetnameField = value;
+=======
+    public int totalDistanceBeforeBoardingInMeters {
+        get {
+            return this.totalDistanceBeforeBoardingInMetersField;
+        }
+        set {
+            this.totalDistanceBeforeBoardingInMetersField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
+    public string postalcode {
+        get {
+            return this.postalcodeField;
+        }
+        set {
+            this.postalcodeField = value;
+=======
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalDistanceBeforeBoardingInMetersSpecified {
+        get {
+            return this.totalDistanceBeforeBoardingInMetersFieldSpecified;
+        }
+        set {
+            this.totalDistanceBeforeBoardingInMetersFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int totalDistanceInMeters {
+        get {
+            return this.totalDistanceInMetersField;
+        }
+        set {
+            this.totalDistanceInMetersField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalDistanceInMetersSpecified {
+        get {
+            return this.totalDistanceInMetersFieldSpecified;
+        }
+        set {
+            this.totalDistanceInMetersFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int totalDistanceWithPassengerInMeters {
+        get {
+            return this.totalDistanceWithPassengerInMetersField;
+        }
+        set {
+            this.totalDistanceWithPassengerInMetersField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalDistanceWithPassengerInMetersSpecified {
+        get {
+            return this.totalDistanceWithPassengerInMetersFieldSpecified;
+        }
+        set {
+            this.totalDistanceWithPassengerInMetersFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int totalTimeBeforeBoardingInSeconds {
+        get {
+            return this.totalTimeBeforeBoardingInSecondsField;
+        }
+        set {
+            this.totalTimeBeforeBoardingInSecondsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalTimeBeforeBoardingInSecondsSpecified {
+        get {
+            return this.totalTimeBeforeBoardingInSecondsFieldSpecified;
+        }
+        set {
+            this.totalTimeBeforeBoardingInSecondsFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int totalTimeInSeconds {
+        get {
+            return this.totalTimeInSecondsField;
+        }
+        set {
+            this.totalTimeInSecondsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalTimeInSecondsSpecified {
+        get {
+            return this.totalTimeInSecondsFieldSpecified;
+        }
+        set {
+            this.totalTimeInSecondsFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int totalTimeWithPassengerInSeconds {
+        get {
+            return this.totalTimeWithPassengerInSecondsField;
+        }
+        set {
+            this.totalTimeWithPassengerInSecondsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool totalTimeWithPassengerInSecondsSpecified {
+        get {
+            return this.totalTimeWithPassengerInSecondsFieldSpecified;
+        }
+        set {
+            this.totalTimeWithPassengerInSecondsFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public vatDetails vat {
+        get {
+            return this.vatField;
+        }
+        set {
+            this.vatField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class receiptLine {
+    
+    private string itemnameField;
+    
+    private string itemdescriptionField;
+    
+    private string itemcodeField;
+    
+    private string unitField;
+    
+    private double quantityField;
+    
+    private string itempriceField;
+    
+    private string itemvatField;
+    
+    private string totalpriceField;
+    
+    private string totalvatField;
+    
+    private string discountField;
+    
+    private string serialNumberField;
+    
+    private string eanCodeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("item-name")]
+    public string itemname {
+        get {
+            return this.itemnameField;
+        }
+        set {
+            this.itemnameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("item-description")]
+    public string itemdescription {
+        get {
+            return this.itemdescriptionField;
+        }
+        set {
+            this.itemdescriptionField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("item-code")]
+    public string itemcode {
+        get {
+            return this.itemcodeField;
+        }
+        set {
+            this.itemcodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string unit {
+        get {
+            return this.unitField;
+        }
+        set {
+            this.unitField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public double quantity {
+        get {
+            return this.quantityField;
+        }
+        set {
+            this.quantityField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("item-price")]
+    public string itemprice {
+        get {
+            return this.itempriceField;
+        }
+        set {
+            this.itempriceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("item-vat")]
+    public string itemvat {
+        get {
+            return this.itemvatField;
+        }
+        set {
+            this.itemvatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("total-price")]
+    public string totalprice {
+        get {
+            return this.totalpriceField;
+        }
+        set {
+            this.totalpriceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("total-vat")]
+    public string totalvat {
+        get {
+            return this.totalvatField;
+        }
+        set {
+            this.totalvatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string discount {
+        get {
+            return this.discountField;
+        }
+        set {
+            this.discountField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serialNumber {
+        get {
+            return this.serialNumberField;
+        }
+        set {
+            this.serialNumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string eanCode {
+        get {
+            return this.eanCodeField;
+        }
+        set {
+            this.eanCodeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class foreignCurrencyPayment {
+    
+    private string currencycodeField;
+    
+    private decimal amountField;
+    
+    private bool amountFieldSpecified;
+    
+    private decimal exchangerateField;
+    
+    private bool exchangerateFieldSpecified;
+    
+    private string labelField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("currency-code")]
+    public string currencycode {
+        get {
+            return this.currencycodeField;
+        }
+        set {
+            this.currencycodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public decimal amount {
+        get {
+            return this.amountField;
+        }
+        set {
+            this.amountField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool amountSpecified {
+        get {
+            return this.amountFieldSpecified;
+        }
+        set {
+            this.amountFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("exchange-rate")]
+    public decimal exchangerate {
+        get {
+            return this.exchangerateField;
+        }
+        set {
+            this.exchangerateField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool exchangerateSpecified {
+        get {
+            return this.exchangerateFieldSpecified;
+        }
+        set {
+            this.exchangerateFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string label {
+        get {
+            return this.labelField;
+        }
+        set {
+            this.labelField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class payment {
+    
+    private string typeField;
+    
+    private string cardnumberField;
+    
+    private string cardNameField;
+    
+    private string amountField;
+    
+    private string currencycodeField;
+    
+    private foreignCurrencyPayment foreigncurrencypaymentField;
+    
+    /// <remarks/>
+    public string type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("card-number")]
+    public string cardnumber {
+        get {
+            return this.cardnumberField;
+        }
+        set {
+            this.cardnumberField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cardName {
+        get {
+            return this.cardNameField;
+        }
+        set {
+            this.cardNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string amount {
+        get {
+            return this.amountField;
+        }
+        set {
+            this.amountField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("currency-code")]
+    public string currencycode {
+        get {
+            return this.currencycodeField;
+        }
+        set {
+            this.currencycodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("foreign-currency-payment")]
+    public foreignCurrencyPayment foreigncurrencypayment {
+        get {
+            return this.foreigncurrencypaymentField;
+        }
+        set {
+            this.foreigncurrencypaymentField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class bruker {
+    
+    private string fornavnField;
+    
+    private string etternavnField;
+    
+    private string foedselsnummerField;
+    
+    private datatypeaddress adresseField;
+    
+    /// <remarks/>
+    public string fornavn {
+        get {
+            return this.fornavnField;
+        }
+        set {
+            this.fornavnField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string etternavn {
+        get {
+            return this.etternavnField;
+        }
+        set {
+            this.etternavnField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string foedselsnummer {
+        get {
+            return this.foedselsnummerField;
+        }
+        set {
+            this.foedselsnummerField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress adresse {
+        get {
+            return this.adresseField;
+        }
+        set {
+            this.adresseField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class maanedsTidspunkt {
+    
+    private int maanedField;
+    
+    private int dagField;
+    
+    private int timeField;
+    
+    private bool timeFieldSpecified;
+    
+    private int minField;
+    
+    private bool minFieldSpecified;
+    
+    private string tidssoneField;
+    
+    public maanedsTidspunkt() {
+        this.tidssoneField = "+02:00";
+    }
+    
+    /// <remarks/>
+    public int maaned {
+        get {
+            return this.maanedField;
+        }
+        set {
+            this.maanedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int dag {
+        get {
+            return this.dagField;
+        }
+        set {
+            this.dagField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int time {
+        get {
+            return this.timeField;
+        }
+        set {
+            this.timeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool timeSpecified {
+        get {
+            return this.timeFieldSpecified;
+        }
+        set {
+            this.timeFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int min {
+        get {
+            return this.minField;
+        }
+        set {
+            this.minField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool minSpecified {
+        get {
+            return this.minFieldSpecified;
+        }
+        set {
+            this.minFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.ComponentModel.DefaultValueAttribute("+02:00")]
+    public string tidssone {
+        get {
+            return this.tidssoneField;
+        }
+        set {
+            this.tidssoneField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class aarligRepeterendePeriode {
+    
+    private int startaarField;
+    
+    private bool startaarFieldSpecified;
+    
+    private int sluttaarField;
+    
+    private bool sluttaarFieldSpecified;
+    
+    private maanedsTidspunkt fraField;
+    
+    private maanedsTidspunkt tilField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("start-aar")]
+    public int startaar {
+        get {
+            return this.startaarField;
+        }
+        set {
+            this.startaarField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool startaarSpecified {
+        get {
+            return this.startaarFieldSpecified;
+        }
+        set {
+            this.startaarFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("slutt-aar")]
+    public int sluttaar {
+        get {
+            return this.sluttaarField;
+        }
+        set {
+            this.sluttaarField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool sluttaarSpecified {
+        get {
+            return this.sluttaarFieldSpecified;
+        }
+        set {
+            this.sluttaarFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public maanedsTidspunkt fra {
+        get {
+            return this.fraField;
+        }
+        set {
+            this.fraField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public maanedsTidspunkt til {
+        get {
+            return this.tilField;
+        }
+        set {
+            this.tilField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class periode {
+    
+    private string fraField;
+    
+    private string tilField;
+    
+    /// <remarks/>
+    public string fra {
+        get {
+            return this.fraField;
+        }
+        set {
+            this.fraField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string til {
+        get {
+            return this.tilField;
+        }
+        set {
+            this.tilField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class gyldighetsPeriode {
+    
+    private object itemField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("aarlig-repeterende-periode", typeof(aarligRepeterendePeriode))]
+    [System.Xml.Serialization.XmlElementAttribute("periode", typeof(periode))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class cost {
+    
+    private decimal valuetobepayedField;
+    
+    private decimal packagevalueField;
+    
+    private bool packagevalueFieldSpecified;
+    
+    private decimal customsfeeoutlayedField;
+    
+    private bool customsfeeoutlayedFieldSpecified;
+    
+    private string vastextField;
+    
+    private decimal customsfeeField;
+    
+    private bool customsfeeFieldSpecified;
+    
+    private decimal customsfeeoutlaycostField;
+    
+    private bool customsfeeoutlaycostFieldSpecified;
+    
+    private decimal codamountField;
+    
+    private bool codamountFieldSpecified;
+    
+    private decimal codfeeField;
+    
+    private bool codfeeFieldSpecified;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("value-to-be-payed")]
+    public decimal valuetobepayed {
+        get {
+            return this.valuetobepayedField;
+        }
+        set {
+            this.valuetobepayedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("package-value")]
+    public decimal packagevalue {
+        get {
+            return this.packagevalueField;
+        }
+        set {
+            this.packagevalueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool packagevalueSpecified {
+        get {
+            return this.packagevalueFieldSpecified;
+        }
+        set {
+            this.packagevalueFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlayed")]
+    public decimal customsfeeoutlayed {
+        get {
+            return this.customsfeeoutlayedField;
+        }
+        set {
+            this.customsfeeoutlayedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool customsfeeoutlayedSpecified {
+        get {
+            return this.customsfeeoutlayedFieldSpecified;
+        }
+        set {
+            this.customsfeeoutlayedFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("vas-text")]
+    public string vastext {
+        get {
+            return this.vastextField;
+        }
+        set {
+            this.vastextField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee")]
+    public decimal customsfee {
+        get {
+            return this.customsfeeField;
+        }
+        set {
+            this.customsfeeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool customsfeeSpecified {
+        get {
+            return this.customsfeeFieldSpecified;
+        }
+        set {
+            this.customsfeeFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlay-cost")]
+    public decimal customsfeeoutlaycost {
+        get {
+            return this.customsfeeoutlaycostField;
+        }
+        set {
+            this.customsfeeoutlaycostField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool customsfeeoutlaycostSpecified {
+        get {
+            return this.customsfeeoutlaycostFieldSpecified;
+        }
+        set {
+            this.customsfeeoutlaycostFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("cod-amount")]
+    public decimal codamount {
+        get {
+            return this.codamountField;
+        }
+        set {
+            this.codamountField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool codamountSpecified {
+        get {
+            return this.codamountFieldSpecified;
+        }
+        set {
+            this.codamountFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("cod-fee")]
+    public decimal codfee {
+        get {
+            return this.codfeeField;
+        }
+        set {
+            this.codfeeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool codfeeSpecified {
+        get {
+            return this.codfeeFieldSpecified;
+        }
+        set {
+            this.codfeeFieldSpecified = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class package {
+    
+    private int lengthField;
+    
+    private bool lengthFieldSpecified;
+    
+    private int widthField;
+    
+    private bool widthFieldSpecified;
+    
+    private int heightField;
+    
+    private bool heightFieldSpecified;
+    
+    private int weightField;
+    
+    private bool weightFieldSpecified;
+    
+    /// <remarks/>
+    public int length {
+        get {
+            return this.lengthField;
+        }
+        set {
+            this.lengthField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool lengthSpecified {
+        get {
+            return this.lengthFieldSpecified;
+        }
+        set {
+            this.lengthFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int width {
+        get {
+            return this.widthField;
+        }
+        set {
+            this.widthField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool widthSpecified {
+        get {
+            return this.widthFieldSpecified;
+        }
+        set {
+            this.widthFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int height {
+        get {
+            return this.heightField;
+        }
+        set {
+            this.heightField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool heightSpecified {
+        get {
+            return this.heightFieldSpecified;
+        }
+        set {
+            this.heightFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public int weight {
+        get {
+            return this.weightField;
+        }
+        set {
+            this.weightField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool weightSpecified {
+        get {
+            return this.weightFieldSpecified;
+        }
+        set {
+            this.weightFieldSpecified = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class pickupPlace {
+    
+    private string nameField;
+    
+    private string codeField;
+    
+    private string instructionField;
+    
+    private string shelflocationField;
+    
+    private datatypeaddress addressField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string code {
+        get {
+            return this.codeField;
+        }
+        set {
+            this.codeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string instruction {
+        get {
+            return this.instructionField;
+        }
+        set {
+            this.instructionField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("shelf-location")]
+    public string shelflocation {
+        get {
+            return this.shelflocationField;
+        }
+        set {
+            this.shelflocationField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class sender {
+    
+    private string nameField;
+    
+    private string referenceField;
+    
+    private datatypeaddress addressField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string reference {
+        get {
+            return this.referenceField;
+        }
+        set {
+            this.referenceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class datatyperecipient {
+    
+    private string nameField;
+    
+    private string digipostaddressField;
+    
+    private datatypeaddress addressField;
+    
+    /// <remarks/>
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("digipost-address")]
+    public string digipostaddress {
+        get {
+            return this.digipostaddressField;
+        }
+        set {
+            this.digipostaddressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class barcode {
+    
+    private string barcodevalueField;
+    
+    private string barcodetypeField;
+    
+    private string barcodetextField;
+    
+    private bool showvalueinbarcodeField;
+    
+    public barcode() {
+        this.showvalueinbarcodeField = false;
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("barcode-value")]
+    public string barcodevalue {
+        get {
+            return this.barcodevalueField;
+        }
+        set {
+            this.barcodevalueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("barcode-type")]
+    public string barcodetype {
+        get {
+            return this.barcodetypeField;
+        }
+        set {
+            this.barcodetypeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("barcode-text")]
+    public string barcodetext {
+        get {
+            return this.barcodetextField;
+        }
+        set {
+            this.barcodetextField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("show-value-in-barcode")]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool showvalueinbarcode {
+        get {
+            return this.showvalueinbarcodeField;
+        }
+        set {
+            this.showvalueinbarcodeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class timeInterval {
+    
+    private string starttimeField;
+    
+    private string endtimeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("start-time")]
+    public string starttime {
+        get {
+            return this.starttimeField;
+        }
+        set {
+            this.starttimeField = value;
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("end-time")]
-    public System.DateTime endtime {
+    public string endtime {
         get {
             return this.endtimeField;
         }
@@ -502,123 +2513,6 @@ public partial class residenceAddress {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class appointmentAddress {
-    
-    private string streetaddressField;
-    
-    private string postalcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("street-address")]
-    public string streetaddress {
-        get {
-            return this.streetaddressField;
-        }
-        set {
-            this.streetaddressField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
-    public string postalcode {
-        get {
-            return this.postalcodeField;
-        }
-        set {
-            this.postalcodeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class barcode {
-    
-    private string barcodeValueField;
-    
-    private string barcodeTypeField;
-    
-    private string barcodeTextField;
-    
-    private bool showValueInBarcodeField;
-    
-    private bool showValueInBarcodeFieldSpecified;
-    
-    /// <remarks/>
-    public string barcodeValue {
-        get {
-            return this.barcodeValueField;
-        }
-        set {
-            this.barcodeValueField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string barcodeType {
-        get {
-            return this.barcodeTypeField;
-        }
-        set {
-            this.barcodeTypeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string barcodeText {
-        get {
-            return this.barcodeTextField;
-        }
-        set {
-            this.barcodeTextField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public bool showValueInBarcode {
-        get {
-            return this.showValueInBarcodeField;
-        }
-        set {
-            this.showValueInBarcodeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool showValueInBarcodeSpecified {
-        get {
-            return this.showValueInBarcodeFieldSpecified;
-        }
-        set {
-            this.showValueInBarcodeFieldSpecified = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 public partial class info {
     
     private string titleField;
@@ -642,225 +2536,6 @@ public partial class info {
         }
         set {
             this.textField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class eventAddress {
-    
-    private string streetaddressField;
-    
-    private string postalcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("street-address")]
-    public string streetaddress {
-        get {
-            return this.streetaddressField;
-        }
-        set {
-            this.streetaddressField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
-    public string postalcode {
-        get {
-            return this.postalcodeField;
-        }
-        set {
-            this.postalcodeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-public partial class externalLink {
-    
-    private string urlField;
-    
-    private System.DateTime deadlineField;
-    
-    private bool deadlineFieldSpecified;
-    
-    private string descriptionField;
-    
-    private string buttontextField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI")]
-    public string url {
-        get {
-            return this.urlField;
-        }
-        set {
-            this.urlField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public System.DateTime deadline {
-        get {
-            return this.deadlineField;
-        }
-        set {
-            this.deadlineField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool deadlineSpecified {
-        get {
-            return this.deadlineFieldSpecified;
-        }
-        set {
-            this.deadlineFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string description {
-        get {
-            return this.descriptionField;
-        }
-        set {
-            this.descriptionField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("button-text")]
-    public string buttontext {
-        get {
-            return this.buttontextField;
-        }
-        set {
-            this.buttontextField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-public partial class appointment {
-    
-    private string starttimeField;
-    
-    private string endtimeField;
-    
-    private string arrivaltimeField;
-    
-    private string placeField;
-    
-    private appointmentAddress addressField;
-    
-    private string subtitleField;
-    
-    private info[] infoField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("start-time")]
-    public string starttime {
-        get {
-            return this.starttimeField;
-        }
-        set {
-            this.starttimeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("end-time")]
-    public string endtime {
-        get {
-            return this.endtimeField;
-        }
-        set {
-            this.endtimeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("arrival-time")]
-    public string arrivaltime {
-        get {
-            return this.arrivaltimeField;
-        }
-        set {
-            this.arrivaltimeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string place {
-        get {
-            return this.placeField;
-        }
-        set {
-            this.placeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public appointmentAddress address {
-        get {
-            return this.addressField;
-        }
-        set {
-            this.addressField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("sub-title")]
-    public string subtitle {
-        get {
-            return this.subtitleField;
-        }
-        set {
-            this.subtitleField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("info")]
-    public info[] info {
-        get {
-            return this.infoField;
-        }
-        set {
-            this.infoField = value;
         }
     }
 }
@@ -899,6 +2574,8 @@ public partial class boligdetaljer {
     private string andelsnummerField;
     
     private heftelse[] heftelserField;
+    
+    private externalLink callToActionField;
     
     /// <remarks/>
     public residence residence {
@@ -1037,6 +2714,16 @@ public partial class boligdetaljer {
             this.heftelserField = value;
         }
     }
+    
+    /// <remarks/>
+    public externalLink callToAction {
+        get {
+            return this.callToActionField;
+        }
+        set {
+            this.callToActionField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -1094,6 +2781,1499 @@ public partial class residence {
         }
         set {
             this.externalidField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class externalLink {
+    
+    private string urlField;
+    
+    private System.DateTime deadlineField;
+    
+    private bool deadlineFieldSpecified;
+    
+    private string descriptionField;
+    
+    private string buttontextField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI")]
+    public string url {
+        get {
+            return this.urlField;
+        }
+        set {
+            this.urlField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime deadline {
+        get {
+            return this.deadlineField;
+        }
+        set {
+            this.deadlineField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool deadlineSpecified {
+        get {
+            return this.deadlineFieldSpecified;
+        }
+        set {
+            this.deadlineFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("button-text")]
+    public string buttontext {
+        get {
+            return this.buttontextField;
+        }
+        set {
+            this.buttontextField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class appointmentAddress {
+    
+    private string streetaddressField;
+    
+    private string postalcodeField;
+    
+    private string cityField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("street-address")]
+    public string streetaddress {
+        get {
+            return this.streetaddressField;
+        }
+        set {
+            this.streetaddressField = value;
+=======
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class @event {
+    
+    private string subtitleField;
+    
+    private timeInterval[] starttimeField;
+    
+    private string timeLabelField;
+    
+    private string descriptionField;
+    
+    private string placeField;
+    
+    private string placeLabelField;
+    
+    private datatypeaddress addressField;
+    
+    private info[] infoField;
+    
+    private string barcodeLabelField;
+    
+    private barcode barcodeField;
+    
+    private externalLink[] linksField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("sub-title")]
+    public string subtitle {
+        get {
+            return this.subtitleField;
+        }
+        set {
+            this.subtitleField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
+    public string postalcode {
+        get {
+            return this.postalcodeField;
+        }
+        set {
+            this.postalcodeField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("start-time")]
+    public timeInterval[] starttime {
+        get {
+            return this.starttimeField;
+        }
+        set {
+            this.starttimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+=======
+    public string timeLabel {
+        get {
+            return this.timeLabelField;
+        }
+        set {
+            this.timeLabelField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string place {
+        get {
+            return this.placeField;
+        }
+        set {
+            this.placeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string placeLabel {
+        get {
+            return this.placeLabelField;
+        }
+        set {
+            this.placeLabelField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatypeaddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("info")]
+    public info[] info {
+        get {
+            return this.infoField;
+        }
+        set {
+            this.infoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string barcodeLabel {
+        get {
+            return this.barcodeLabelField;
+        }
+        set {
+            this.barcodeLabelField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public barcode barcode {
+        get {
+            return this.barcodeField;
+        }
+        set {
+            this.barcodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("links")]
+    public externalLink[] links {
+        get {
+            return this.linksField;
+        }
+        set {
+            this.linksField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class barcode {
+    
+    private string barcodeValueField;
+    
+    private string barcodeTypeField;
+    
+    private string barcodeTextField;
+    
+    private bool showValueInBarcodeField;
+    
+    private bool showValueInBarcodeFieldSpecified;
+    
+    /// <remarks/>
+    public string barcodeValue {
+        get {
+            return this.barcodeValueField;
+        }
+        set {
+            this.barcodeValueField = value;
+=======
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class payslip {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute("pickup-notice", Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class pickupNotice {
+    
+    private string parcelidField;
+    
+    private string parceluuidField;
+    
+    private barcode barcodeField;
+    
+    private string productnameField;
+    
+    private string arrivaldatetimeField;
+    
+    private string returndatetimeField;
+    
+    private datatyperecipient recipientField;
+    
+    private sender senderField;
+    
+    private pickupPlace pickupplaceField;
+    
+    private package packageField;
+    
+    private cost costField;
+    
+    private status statusField;
+    
+    private bool statusFieldSpecified;
+    
+    private tag[] tagsField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("parcel-id")]
+    public string parcelid {
+        get {
+            return this.parcelidField;
+        }
+        set {
+            this.parcelidField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("parcel-uuid")]
+    public string parceluuid {
+        get {
+            return this.parceluuidField;
+        }
+        set {
+            this.parceluuidField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public barcode barcode {
+        get {
+            return this.barcodeField;
+        }
+        set {
+            this.barcodeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("product-name")]
+    public string productname {
+        get {
+            return this.productnameField;
+        }
+        set {
+            this.productnameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("arrival-date-time")]
+    public string arrivaldatetime {
+        get {
+            return this.arrivaldatetimeField;
+        }
+        set {
+            this.arrivaldatetimeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("return-date-time")]
+    public string returndatetime {
+        get {
+            return this.returndatetimeField;
+        }
+        set {
+            this.returndatetimeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public datatyperecipient recipient {
+        get {
+            return this.recipientField;
+        }
+        set {
+            this.recipientField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public sender sender {
+        get {
+            return this.senderField;
+        }
+        set {
+            this.senderField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("pickup-place")]
+    public pickupPlace pickupplace {
+        get {
+            return this.pickupplaceField;
+        }
+        set {
+            this.pickupplaceField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string barcodeType {
+        get {
+            return this.barcodeTypeField;
+        }
+        set {
+            this.barcodeTypeField = value;
+=======
+    public package package {
+        get {
+            return this.packageField;
+        }
+        set {
+            this.packageField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string barcodeText {
+        get {
+            return this.barcodeTextField;
+        }
+        set {
+            this.barcodeTextField = value;
+=======
+    public cost cost {
+        get {
+            return this.costField;
+        }
+        set {
+            this.costField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public bool showValueInBarcode {
+        get {
+            return this.showValueInBarcodeField;
+        }
+        set {
+            this.showValueInBarcodeField = value;
+=======
+    public status status {
+        get {
+            return this.statusField;
+        }
+        set {
+            this.statusField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+<<<<<<< HEAD
+    public bool showValueInBarcodeSpecified {
+        get {
+            return this.showValueInBarcodeFieldSpecified;
+        }
+        set {
+            this.showValueInBarcodeFieldSpecified = value;
+=======
+    public bool statusSpecified {
+        get {
+            return this.statusFieldSpecified;
+        }
+        set {
+            this.statusFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("tags")]
+    public tag[] tags {
+        get {
+            return this.tagsField;
+        }
+        set {
+            this.tagsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+<<<<<<< HEAD
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public partial class info {
+    
+    private string titleField;
+    
+    private string textField;
+    
+    /// <remarks/>
+    public string title {
+        get {
+            return this.titleField;
+        }
+        set {
+            this.titleField = value;
+=======
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public enum status {
+    
+    /// <remarks/>
+    READY_FOR_PICKUP,
+    
+    /// <remarks/>
+    UNKNOWN,
+    
+    /// <remarks/>
+    RETURNED,
+    
+    /// <remarks/>
+    DEVIATION,
+    
+    /// <remarks/>
+    PICKED_UP,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+public enum tag {
+    
+    /// <remarks/>
+    VARSEL2,
+    
+    /// <remarks/>
+    VARSEL1,
+    
+    /// <remarks/>
+    POSTEN,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute("pickup-notice-status", Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class pickupNoticeStatus {
+    
+    private status statusField;
+    
+    private string occurrencedatetimeField;
+    
+    /// <remarks/>
+    public status status {
+        get {
+            return this.statusField;
+        }
+        set {
+            this.statusField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string text {
+        get {
+            return this.textField;
+        }
+        set {
+            this.textField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("occurrence-datetime")]
+    public string occurrencedatetime {
+        get {
+            return this.occurrencedatetimeField;
+        }
+        set {
+            this.occurrencedatetimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+<<<<<<< HEAD
+public partial class eventAddress {
+    
+    private string streetaddressField;
+    
+    private string postalcodeField;
+    
+    private string cityField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("street-address")]
+    public string streetaddress {
+        get {
+            return this.streetaddressField;
+        }
+        set {
+            this.streetaddressField = value;
+=======
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class proof {
+    
+    private string utstedervisningsnavnField;
+    
+    private string bakgrunnsfargeField;
+    
+    private string utstedttidspunktField;
+    
+    private gyldighetsPeriode gyldighetsperioderField;
+    
+    private bruker bevisbrukerField;
+    
+    private string tittelField;
+    
+    private string bevisidnavnField;
+    
+    private string bevisidverdiField;
+    
+    private info[] attributtField;
+    
+    private info[] infoField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("utsteder-visningsnavn")]
+    public string utstedervisningsnavn {
+        get {
+            return this.utstedervisningsnavnField;
+        }
+        set {
+            this.utstedervisningsnavnField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
+    public string postalcode {
+        get {
+            return this.postalcodeField;
+        }
+        set {
+            this.postalcodeField = value;
+=======
+    public string bakgrunnsfarge {
+        get {
+            return this.bakgrunnsfargeField;
+        }
+        set {
+            this.bakgrunnsfargeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class externalLink {
+    
+    private string urlField;
+    
+    private System.DateTime deadlineField;
+    
+    private bool deadlineFieldSpecified;
+    
+    private string descriptionField;
+    
+    private string buttontextField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI")]
+    public string url {
+        get {
+            return this.urlField;
+        }
+        set {
+            this.urlField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("utstedt-tidspunkt")]
+    public string utstedttidspunkt {
+        get {
+            return this.utstedttidspunktField;
+        }
+        set {
+            this.utstedttidspunktField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public gyldighetsPeriode gyldighetsperioder {
+        get {
+            return this.gyldighetsperioderField;
+        }
+        set {
+            this.gyldighetsperioderField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("bevis-bruker")]
+    public bruker bevisbruker {
+        get {
+            return this.bevisbrukerField;
+        }
+        set {
+            this.bevisbrukerField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string tittel {
+        get {
+            return this.tittelField;
+        }
+        set {
+            this.tittelField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public System.DateTime deadline {
+        get {
+            return this.deadlineField;
+        }
+        set {
+            this.deadlineField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("bevis-id-navn")]
+    public string bevisidnavn {
+        get {
+            return this.bevisidnavnField;
+        }
+        set {
+            this.bevisidnavnField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool deadlineSpecified {
+        get {
+            return this.deadlineFieldSpecified;
+        }
+        set {
+            this.deadlineFieldSpecified = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("bevis-id-verdi")]
+    public string bevisidverdi {
+        get {
+            return this.bevisidverdiField;
+        }
+        set {
+            this.bevisidverdiField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("attributt")]
+    public info[] attributt {
+        get {
+            return this.attributtField;
+        }
+        set {
+            this.attributtField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("button-text")]
+    public string buttontext {
+        get {
+            return this.buttontextField;
+        }
+        set {
+            this.buttontextField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("info")]
+    public info[] info {
+        get {
+            return this.infoField;
+        }
+        set {
+            this.infoField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+<<<<<<< HEAD
+public partial class appointment {
+    
+    private string starttimeField;
+    
+    private string endtimeField;
+    
+    private string arrivaltimeField;
+    
+    private string placeField;
+    
+    private appointmentAddress addressField;
+    
+    private string subtitleField;
+    
+    private info[] infoField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("start-time")]
+    public string starttime {
+        get {
+            return this.starttimeField;
+        }
+        set {
+            this.starttimeField = value;
+=======
+public partial class receipt {
+    
+    private string receiptIdField;
+    
+    private string receiptNumberField;
+    
+    private string purchaseTimeField;
+    
+    private string totalPriceField;
+    
+    private string totalVatField;
+    
+    private string currencyField;
+    
+    private string cashierField;
+    
+    private string registerField;
+    
+    private string merchantchainField;
+    
+    private string merchantnameField;
+    
+    private string merchantphonenumberField;
+    
+    private datatypeaddress merchantaddressField;
+    
+    private string orgnumberField;
+    
+    private barcode barcodeField;
+    
+    private payment[] paymentsField;
+    
+    private receiptLine[] itemsField;
+    
+    private taxiDetails taxiDetailsField;
+    
+    private customer customerField;
+    
+    private delivery deliveryField;
+    
+    private string ordernumberField;
+    
+    private string membershipnumberField;
+    
+    private string commentField;
+    
+    /// <remarks/>
+    public string receiptId {
+        get {
+            return this.receiptIdField;
+        }
+        set {
+            this.receiptIdField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("end-time")]
+    public string endtime {
+        get {
+            return this.endtimeField;
+        }
+        set {
+            this.endtimeField = value;
+=======
+    public string receiptNumber {
+        get {
+            return this.receiptNumberField;
+        }
+        set {
+            this.receiptNumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("arrival-time")]
+    public string arrivaltime {
+        get {
+            return this.arrivaltimeField;
+        }
+        set {
+            this.arrivaltimeField = value;
+=======
+    public string purchaseTime {
+        get {
+            return this.purchaseTimeField;
+        }
+        set {
+            this.purchaseTimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string place {
+        get {
+            return this.placeField;
+        }
+        set {
+            this.placeField = value;
+=======
+    public string totalPrice {
+        get {
+            return this.totalPriceField;
+        }
+        set {
+            this.totalPriceField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public appointmentAddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+=======
+    public string totalVat {
+        get {
+            return this.totalVatField;
+        }
+        set {
+            this.totalVatField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("sub-title")]
+    public string subtitle {
+        get {
+            return this.subtitleField;
+        }
+        set {
+            this.subtitleField = value;
+=======
+    public string currency {
+        get {
+            return this.currencyField;
+        }
+        set {
+            this.currencyField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("info")]
+    public info[] info {
+        get {
+            return this.infoField;
+        }
+        set {
+            this.infoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+public partial class boligdetaljer {
+    
+    private residence residenceField;
+    
+    private hjemmelshaver[] hjemmelshavereField;
+    
+    private int bruksarealField;
+    
+    private bool bruksarealFieldSpecified;
+    
+    private int antalloppholdsromField;
+    
+    private bool antalloppholdsromFieldSpecified;
+    
+    private int antallbaderomField;
+    
+    private bool antallbaderomFieldSpecified;
+    
+    private omsetningshistorikk[] omsetningshistorikkField;
+    
+    private string organisasjonsnummerField;
+    
+    private string bruksenhetField;
+    
+    private string andelsnummerField;
+    
+    private heftelse[] heftelserField;
+    
+    /// <remarks/>
+    public residence residence {
+        get {
+            return this.residenceField;
+        }
+        set {
+            this.residenceField = value;
+=======
+    public string cashier {
+        get {
+            return this.cashierField;
+        }
+        set {
+            this.cashierField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string register {
+        get {
+            return this.registerField;
+        }
+        set {
+            this.registerField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("merchant-chain")]
+    public string merchantchain {
+        get {
+            return this.merchantchainField;
+        }
+        set {
+            this.merchantchainField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("merchant-name")]
+    public string merchantname {
+        get {
+            return this.merchantnameField;
+        }
+        set {
+            this.merchantnameField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("hjemmelshavere")]
+    public hjemmelshaver[] hjemmelshavere {
+        get {
+            return this.hjemmelshavereField;
+        }
+        set {
+            this.hjemmelshavereField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("merchant-phone-number")]
+    public string merchantphonenumber {
+        get {
+            return this.merchantphonenumberField;
+        }
+        set {
+            this.merchantphonenumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public int bruksareal {
+        get {
+            return this.bruksarealField;
+        }
+        set {
+            this.bruksarealField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("merchant-address")]
+    public datatypeaddress merchantaddress {
+        get {
+            return this.merchantaddressField;
+        }
+        set {
+            this.merchantaddressField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool bruksarealSpecified {
+        get {
+            return this.bruksarealFieldSpecified;
+        }
+        set {
+            this.bruksarealFieldSpecified = value;
+=======
+    public string orgnumber {
+        get {
+            return this.orgnumberField;
+        }
+        set {
+            this.orgnumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("antall-oppholdsrom")]
+    public int antalloppholdsrom {
+        get {
+            return this.antalloppholdsromField;
+        }
+        set {
+            this.antalloppholdsromField = value;
+=======
+    public barcode barcode {
+        get {
+            return this.barcodeField;
+        }
+        set {
+            this.barcodeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool antalloppholdsromSpecified {
+        get {
+            return this.antalloppholdsromFieldSpecified;
+        }
+        set {
+            this.antalloppholdsromFieldSpecified = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("payments")]
+    public payment[] payments {
+        get {
+            return this.paymentsField;
+        }
+        set {
+            this.paymentsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("antall-baderom")]
+    public int antallbaderom {
+        get {
+            return this.antallbaderomField;
+        }
+        set {
+            this.antallbaderomField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("items")]
+    public receiptLine[] items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool antallbaderomSpecified {
+        get {
+            return this.antallbaderomFieldSpecified;
+        }
+        set {
+            this.antallbaderomFieldSpecified = value;
+=======
+    public taxiDetails taxiDetails {
+        get {
+            return this.taxiDetailsField;
+        }
+        set {
+            this.taxiDetailsField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("omsetningshistorikk")]
+    public omsetningshistorikk[] omsetningshistorikk {
+        get {
+            return this.omsetningshistorikkField;
+        }
+        set {
+            this.omsetningshistorikkField = value;
+=======
+    public customer customer {
+        get {
+            return this.customerField;
+        }
+        set {
+            this.customerField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string organisasjonsnummer {
+        get {
+            return this.organisasjonsnummerField;
+        }
+        set {
+            this.organisasjonsnummerField = value;
+=======
+    public delivery delivery {
+        get {
+            return this.deliveryField;
+        }
+        set {
+            this.deliveryField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string bruksenhet {
+        get {
+            return this.bruksenhetField;
+        }
+        set {
+            this.bruksenhetField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("order-number")]
+    public string ordernumber {
+        get {
+            return this.ordernumberField;
+        }
+        set {
+            this.ordernumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string andelsnummer {
+        get {
+            return this.andelsnummerField;
+        }
+        set {
+            this.andelsnummerField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("membership-number")]
+    public string membershipnumber {
+        get {
+            return this.membershipnumberField;
+        }
+        set {
+            this.membershipnumberField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("heftelser")]
+    public heftelse[] heftelser {
+        get {
+            return this.heftelserField;
+        }
+        set {
+            this.heftelserField = value;
+=======
+    public string comment {
+        get {
+            return this.commentField;
+        }
+        set {
+            this.commentField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
+<<<<<<< HEAD
+public partial class residence {
+    
+    private residenceAddress addressField;
+    
+    private matrikkel matrikkelField;
+    
+    private string sourceField;
+    
+    private string externalidField;
+    
+    /// <remarks/>
+    public residenceAddress address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public matrikkel matrikkel {
+        get {
+            return this.matrikkelField;
+        }
+        set {
+            this.matrikkelField = value;
+=======
+public partial class signedDocument {
+    
+    private string documentissuerField;
+    
+    private string documentsubjectField;
+    
+    private string signingtimeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("document-issuer")]
+    public string documentissuer {
+        get {
+            return this.documentissuerField;
+        }
+        set {
+            this.documentissuerField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    public string source {
+        get {
+            return this.sourceField;
+        }
+        set {
+            this.sourceField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("document-subject")]
+    public string documentsubject {
+        get {
+            return this.documentsubjectField;
+        }
+        set {
+            this.documentsubjectField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
+        }
+    }
+    
+    /// <remarks/>
+<<<<<<< HEAD
+    [System.Xml.Serialization.XmlElementAttribute("external-id")]
+    public string externalid {
+        get {
+            return this.externalidField;
+        }
+        set {
+            this.externalidField = value;
+=======
+    [System.Xml.Serialization.XmlElementAttribute("signing-time")]
+    public string signingtime {
+        get {
+            return this.signingtimeField;
+        }
+        set {
+            this.signingtimeField = value;
+>>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }

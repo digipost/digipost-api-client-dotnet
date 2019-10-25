@@ -31,7 +31,7 @@ namespace Digipost.Api.Client.DataTypes.Appointment
         /// </summary>
         public string Place { get; set; }
 
-        public AppointmentAddress AppointmentAddress { get; set; }
+        public Address AppointmentAddress { get; set; }
 
         /// <summary>
         ///     Example: MR-undersøkelse av høyre kne.

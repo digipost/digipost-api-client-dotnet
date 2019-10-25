@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
         public void AsDataTransferObject()
         {
             var now = DateTime.Now;
-            var address = new AppointmentAddress("Gateveien 1", "0001", "Oslo");
+            var address = new Address("Gateveien 1", "0001", "Oslo");
             var info = new Info("Title", "Very important information");
 
             var source = new DataTypes.Appointment.Appointment(now)

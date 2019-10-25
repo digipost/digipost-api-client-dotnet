@@ -34,10 +34,10 @@ namespace Digipost.Api.Client.DataTypes.Event
         {
             return new barcode
             {
-                barcodeValue = BarcodeValue,
-                barcodeType = BarcodeType,
-                barcodeText = BarcodeText,
-                showValueInBarcode = ShowValueInBarcode
+                barcodevalue = BarcodeValue,
+                barcodetype = BarcodeType,
+                barcodetext = BarcodeText,
+                showvalueinbarcode = ShowValueInBarcode
             };
         }
 

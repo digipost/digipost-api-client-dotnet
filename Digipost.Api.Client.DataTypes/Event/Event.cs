@@ -44,7 +44,7 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// <summary>
         ///     Address where the event takes place.
         /// </summary>
-        public EventAddress Address { get; set; }
+        public Address Address { get; set; }
         
         /// <summary>
         ///     Additional sections of information (max 10) with a title and text.
@@ -80,8 +80,8 @@ namespace Digipost.Api.Client.DataTypes.Event
         {
             var dto = new @event
             {
-                subTitle = SubTitle,
-                time = Time?.Select(i => i.AsDataTransferObject()).ToArray(),
+                subtitle = SubTitle,
+                starttime = Time?.Select(i => i.AsDataTransferObject()).ToArray(),
                 timeLabel = TimeLabel,
                 description = Description,
                 place = Place,

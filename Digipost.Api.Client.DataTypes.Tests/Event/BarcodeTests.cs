@@ -12,12 +12,12 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
             var source = new EventBarcode("12345678", "BarcodeType", "This is a barcode", true);
             var expected = source.AsDataTransferObject();
 
-            var actual = new barcode()
+            var actual = new barcode
             {
-                barcodeValue = "12345678",
-                barcodeType= "BarcodeType",
-                barcodeText = "This is a barcode",
-                showValueInBarcode = true
+                barcodevalue = "12345678",
+                barcodetype= "BarcodeType",
+                barcodetext = "This is a barcode",
+                showvalueinbarcode = true
             };
 
             Comparator.AssertEqual(expected, actual);

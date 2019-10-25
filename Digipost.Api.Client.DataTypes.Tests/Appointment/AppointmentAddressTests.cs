@@ -9,10 +9,10 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
         [Fact]
         public void AsDataTransferObject()
         {
-            var source = new AppointmentAddress("Gateveien 1", "0001", "Oslo");
+            var source = new Address("Gateveien 1", "0001", "Oslo");
             var expected = source.AsDataTransferObject();
 
-            var actual = new appointmentAddress
+            var actual = new datatypeaddress
             {
                 streetaddress = "Gateveien 1",
                 postalcode = "0001",
@@ -25,9 +25,9 @@ namespace Digipost.Api.Client.DataTypes.Tests.Appointment
         [Fact]
         public void AsDataTransferObjectWithoutStreetAddress()
         {
-            var expected = new AppointmentAddress("0001", "Oslo");
+            var expected = new Address("0001", "Oslo");
 
-            var actual = new appointmentAddress
+            var actual = new datatypeaddress
             {
                 streetaddress = null,
                 postalcode = "0001",

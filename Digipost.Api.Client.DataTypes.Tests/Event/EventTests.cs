@@ -18,12 +18,12 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
             var source = new DataTypes.Event.Event(ets);
             var expected = source.AsDataTransferObject();
 
-            var nets = new eventTimeSpan[1];
-            nets[0] = new eventTimeSpan {starttime = DateTime.Today, endtime = DateTime.Today.AddHours(3)};
+            var nets = new timeInterval[1];
+            nets[0] = new timeInterval {starttime = DateTime.Today.ToString(), endtime = DateTime.Today.AddHours(3).ToString()};
 
             var actual = new @event
             {
-                time = nets
+                starttime = nets
             };
 
             Comparator.AssertEqual(expected, actual);
@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
             var ts = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
             ets.Add(ts);
             var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
-            var address = new EventAddress("Gateveien 1", "0001", "Oslo");
+            var address = new Address("Gateveien 1", "0001", "Oslo");
             var info = new Info("Title", "Very important information");
             var links = new List<ExternalLink>();
 
@@ -57,13 +57,13 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
             };
             var expected = source.AsDataTransferObject();
 
-            var nets = new eventTimeSpan[1];
-            nets[0] = new eventTimeSpan {starttime = DateTime.Today, endtime = DateTime.Today.AddHours(3)};
+            var nets = new timeInterval[1];
+            nets[0] = new timeInterval {starttime = DateTime.Today.ToString(), endtime = DateTime.Today.AddHours(3).ToString()};
             var nlinks = new externalLink[0];
             
             var actual = new @event
             {
-                time = nets,
+                starttime = nets,
                 description = "Description here",
                 address = address.AsDataTransferObject(),
                 info = new[]
@@ -72,7 +72,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
                 },
                 place = "Oslo City Røntgen",
                 placeLabel = "This is a place",
-                subTitle = "SubTitle",
+                subtitle = "SubTitle",
                 barcode = barcode.AsDataTransferObject(),
                 barcodeLabel = "Barcode Label",
                 links = nlinks

@@ -9,6 +9,7 @@ using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.DataTypes.Appointment;
 using Digipost.Api.Client.DataTypes.Event;
 using Digipost.Api.Client.Send;
+using Address = Digipost.Api.Client.DataTypes.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Docs
@@ -277,7 +278,7 @@ namespace Digipost.Api.Client.Docs
             var appointment = new Appointment(startTime)
             {
                 EndTime = startTime.AddMinutes(30),
-                AppointmentAddress = new AppointmentAddress("Storgata 1", "0001", "Oslo")
+                AppointmentAddress = new Address("Storgata 1", "0001", "Oslo")
             };
 
             var document = new Document(
@@ -299,7 +300,7 @@ namespace Digipost.Api.Client.Docs
             eventTimeSpans.Add(timeSpan2);
             
             var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
-            var address = new EventAddress("Gateveien 1", "0001", "Oslo");
+            var address = new Address("Gateveien 1", "0001", "Oslo");
             var info = new Info("Title", "Very important information");
             var links = new List<ExternalLink>();
 

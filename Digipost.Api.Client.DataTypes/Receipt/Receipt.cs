@@ -7,6 +7,14 @@ namespace Digipost.Api.Client.DataTypes.Receipt
 {
     public class Receipt : IDataType
     {
+        public Receipt(DateTime purchaseTime, decimal totalPrice, decimal totalVat, string merchantName)
+        {
+            PurchaseTime = purchaseTime;
+            TotalPrice = totalPrice;
+            TotalVat = totalVat;
+            MerchantName = merchantName;
+        }
+
         /// <summary>
         ///     The ID of this receipt in the system it was imported from
         /// </summary>
@@ -137,14 +145,14 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                 merchantchain = MerchantChain,
                 merchantname = MerchantName,
                 merchantphonenumber = MerchantPhoneNumber,
-                merchantaddress = MerchantAddress.AsDataTransferObject(),
+                merchantaddress = MerchantAddress?.AsDataTransferObject(),
                 orgnumber = OrganizationNumber,
-                barcode = Barcode.AsDataTransferObject(),
+                barcode = Barcode?.AsDataTransferObject(),
                 payments = Payments?.Select(i => i.AsDataTransferObject()).ToArray(),
                 items = Items?.Select(i => i.AsDataTransferObject()).ToArray(),
-                taxiDetails = TaxiDetails.AsDataTransferObject(),
-                customer = Customer.AsDataTransferObject(),
-                delivery = Delivery.AsDataTransferObject(),
+                taxiDetails = TaxiDetails?.AsDataTransferObject(),
+                customer = Customer?.AsDataTransferObject(),
+                delivery = Delivery?.AsDataTransferObject(),
                 ordernumber = OrderNumber,
                 membershipnumber = MembershipNumber,
                 comment = Comment
@@ -165,14 +173,14 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                    $"MerchantChain: '{MerchantChain}', " +
                    $"MerchantName: '{MerchantName}', " +
                    $"MerchantPhoneNumber: '{MerchantPhoneNumber}', " +
-                   $"MerchantAddress: '{MerchantAddress}', " +
+                   $"MerchantAddress: '{MerchantAddress?.ToString() ?? "<none>"}', " +
                    $"OrganizationNumber: '{OrganizationNumber}', " +
-                   $"Barcode: '{Barcode}', " +
+                   $"Barcode: '{Barcode?.ToString() ?? "<none>"}', " +
                    $"Payments: '{(Payments != null ? string.Join(", ", Payments.Select(x => x.ToString())) : "no additional info")}', " +
                    $"Items: '{(Items != null ? string.Join(", ", Items.Select(x => x.ToString())) : "no additional info")}', " +
-                   $"TaxiDetails: '{TaxiDetails}', " +
-                   $"Customer: '{Customer}', " +
-                   $"Delivery: '{Delivery}', " +
+                   $"TaxiDetails: '{TaxiDetails?.ToString() ?? "<none>"}', " +
+                   $"Customer: '{Customer?.ToString() ?? "<none>"}', " +
+                   $"Delivery: '{Delivery?.ToString() ?? "<none>"}', " +
                    $"OrderNumber: '{OrderNumber}', " +
                    $"MembershipNumber: '{MembershipNumber}', " +
                    $"Comment: '{Comment}'";

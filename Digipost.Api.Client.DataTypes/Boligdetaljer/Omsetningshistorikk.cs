@@ -5,6 +5,11 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
     public class Omsetningshistorikk : IDataType
     {
+        public Omsetningshistorikk(DateTime dato)
+        {
+            Dato = dato;
+        }
+
         /// <summary>
         ///     ISO8691 full DateTime
         /// </summary>

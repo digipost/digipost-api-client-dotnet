@@ -48,7 +48,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                 cardName = CardName,
                 amount = Amount,
                 currencycode = CurrencyCode,
-                foreigncurrencypayment = ForeignCurrencyPayment.AsDataTransferObject()
+                foreigncurrencypayment = ForeignCurrencyPayment?.AsDataTransferObject()
             };
             return dto;
         }
@@ -59,7 +59,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                    $"CardNumber: '{CardNumber}', " +
                    $"CardName: '{CardName}', " +
                    $"Amount: '{Amount}', " +
-                   $"ForeignCurrencyPayment: '{ForeignCurrencyPayment}'";
+                   $"ForeignCurrencyPayment: '{ForeignCurrencyPayment?.ToString() ?? "<none>"}'";
         }
     }
 }

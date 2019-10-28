@@ -1,12 +1,9 @@
+using System.Xml;
+
 namespace Digipost.Api.Client.DataTypes
 {
     public class Address
     {
-        public Address(string postalCode, string city)
-            : this(null, postalCode, city)
-        {
-        }
-
         public Address(string streetAddress, string postalCode, string city)
         {
             StreetAddress = streetAddress;
@@ -29,6 +26,11 @@ namespace Digipost.Api.Client.DataTypes
         /// </summary>
         public string City { get; set; }
 
+        public XmlElement Serialize()
+        {
+            return DataTypeSerialization.Serialize(AsDataTransferObject());
+        }
+        
         internal datatypeaddress AsDataTransferObject()
         {
             return new datatypeaddress

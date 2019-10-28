@@ -4,6 +4,14 @@ namespace Digipost.Api.Client.DataTypes.Pickup
 {
     public class PickupPlace : IDataType
     {
+        public PickupPlace(string name, string code, string instruction, Address address)
+        {
+            Name = name;
+            Code = code;
+            Instruction = instruction;
+            Address = address;
+        }
+
         /// <summary>
         ///     The pickup place name
         /// </summary>

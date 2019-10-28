@@ -7,6 +7,11 @@ namespace Digipost.Api.Client.DataTypes.Event
 {
     public class Event : IDataType
     {
+        public Event(List<EventTimeSpan> time)
+        {
+            Time = time;
+        }
+        
         /// <summary>
         ///     The name of the event.
         ///     Example: Kommunestyre- og fylkestingvalg
@@ -65,12 +70,7 @@ namespace Digipost.Api.Client.DataTypes.Event
         ///     Links for related information to the event.
         /// </summary>
         public List<ExternalLink> Links { get; set; }
-        
-        public Event(List<EventTimeSpan> time)
-        {
-            Time = time;
-        }
-        
+
         public XmlElement Serialize()
         {
             return DataTypeSerialization.Serialize(AsDataTransferObject());

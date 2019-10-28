@@ -5,7 +5,7 @@ namespace Digipost.Api.Client.DataTypes
     public class ResidenceAddress : IDataType
     {
         /// <summary>
-        ///     Bolignummer. Must be of format [UKHL]0000. E.g. H0304
+        ///     Residence number. Must be of format [UKHL]0000. E.g. H0304
         /// </summary>
         public string UnitNumber { get; set; }
         

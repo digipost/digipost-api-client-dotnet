@@ -4,6 +4,12 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class Bruker : IDataType
     {
+        public Bruker(string fornavn, string etternavn)
+        {
+            Fornavn = fornavn;
+            Etternavn = etternavn;
+        }
+
         /// <summary>
         ///     Name
         /// </summary>
@@ -36,7 +42,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
                 fornavn = Fornavn,
                 etternavn = Etternavn,
                 foedselsnummer = Foedselsnummer,
-                adresse = Address.AsDataTransferObject()
+                adresse = Address?.AsDataTransferObject()
             };
             return dto;
         }
@@ -46,7 +52,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
             return $"Fornavn: '{Fornavn}', " +
                    $"Etternavn: '{Etternavn}', " +
                    $"Foedselsnummer: '{Foedselsnummer}', " +
-                   $"Address: '{Address}'";
+                   $"Address: '{Address?.ToString() ?? "<none>"}'";
         }
     }
 }

@@ -7,6 +7,14 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class Proof : IDataType
     {
+        public Proof(string utstederVisningsnavn, GyldighetsPeriode gyldighetsPeriode, Bruker bevisBruker, string tittel)
+        {
+            UtstederVisningsnavn = utstederVisningsnavn;
+            GyldighetsPeriode = gyldighetsPeriode;
+            BevisBruker = bevisBruker;
+            Tittel = tittel;
+        }
+
         /// <summary>
         ///     Name of the authorizer
         /// </summary>
@@ -20,7 +28,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         /// <summary>
         ///     DateTime the Proof was sent
         /// </summary>
-        public DateTime UtstedtTidspunkt { get; set; }
+        public DateTime? UtstedtTidspunkt { get; set; }
         
         /// <summary>
         ///     The valid time period, either single or repeating
@@ -68,14 +76,14 @@ namespace Digipost.Api.Client.DataTypes.Proof
             {
                 utstedervisningsnavn = UtstederVisningsnavn,
                 bakgrunnsfarge = BakgrunnsFarge,
-                utstedttidspunkt = UtstedtTidspunkt.ToString("O"),
+                utstedttidspunkt = UtstedtTidspunkt?.ToString("O"),
                 gyldighetsperioder = GyldighetsPeriode.AsDataTransferObject(),
                 bevisbruker = BevisBruker.AsDataTransferObject(),
                 tittel = Tittel,
                 bevisidnavn = BevisIdNavn,
                 bevisidverdi = BevisIdVerdi,
-                attributt = Attributt.Select(i => i.AsDataTransferObject()).ToArray(),
-                info = Info.Select(i => i.AsDataTransferObject()).ToArray()
+                attributt = Attributt?.Select(i => i.AsDataTransferObject()).ToArray(),
+                info = Info?.Select(i => i.AsDataTransferObject()).ToArray()
             };
             return dto;
         }
@@ -84,7 +92,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             return $"UtstederVisningsnavn: '{UtstederVisningsnavn}', " +
                    $"BakgrunnsFarge: '{BakgrunnsFarge}', " +
-                   $"UtstedtTidspunkt: '{UtstedtTidspunkt}', " +
+                   $"UtstedtTidspunkt: '{UtstedtTidspunkt?.ToString("O") ?? "<none>"}', " +
                    $"GyldighetsPeriode: '{GyldighetsPeriode}', " +
                    $"BevisBruker: '{BevisBruker}', " +
                    $"Tittel: '{Tittel}', " +

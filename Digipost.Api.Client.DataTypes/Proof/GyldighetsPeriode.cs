@@ -4,6 +4,11 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class GyldighetsPeriode : IDataType
     {
+        public GyldighetsPeriode(TidsPeriode tidsPeriode)
+        {
+            TidsPeriode = tidsPeriode;
+        }
+
         /// <summary>
         ///     The valid time period
         /// </summary>

@@ -4,6 +4,12 @@ namespace Digipost.Api.Client.DataTypes.Pickup
 {
     public class Recipient : IDataType
     {
+        public Recipient(string name, string digipostAddress)
+        {
+            Name = name;
+            DigipostAddress = digipostAddress;
+        }
+
         /// <summary>
         ///     The name of the recipient
         /// </summary>
@@ -13,6 +19,11 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         ///     The digipost address for the recipient
         /// </summary>
         public string DigipostAddress { get; set; }
+        
+        /// <summary>
+        ///     The sender's address
+        /// </summary>
+        public Address Address { get; set; }
         
         public XmlElement Serialize()
         {
@@ -24,7 +35,8 @@ namespace Digipost.Api.Client.DataTypes.Pickup
             var dto = new datatyperecipient
             {
                 name = Name,
-                digipostaddress = DigipostAddress
+                digipostaddress = DigipostAddress,
+                address = Address.AsDataTransferObject()
             };
             return dto;
         }
@@ -32,7 +44,8 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         public override string ToString()
         {
             return $"Name: '{Name}', " +
-                   $"DigipostAddress: '{DigipostAddress}'";
+                   $"DigipostAddress: '{DigipostAddress}', " + 
+                   $"Address: '{Address}'";
         }
     }
 }

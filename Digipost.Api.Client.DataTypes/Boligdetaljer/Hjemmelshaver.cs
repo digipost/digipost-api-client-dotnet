@@ -4,6 +4,11 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
     public class Hjemmelshaver : IDataType
     {
+        public Hjemmelshaver(string name)
+        {
+            Name = name;
+        }
+
         /// <summary>
         ///     
         /// </summary>

@@ -5,6 +5,13 @@ namespace Digipost.Api.Client.DataTypes
 {
     public class SignedDocument : IDataType
     {
+        public SignedDocument(string documentIssuer, string documentSubject, DateTime signingTime)
+        {
+            DocumentIssuer = documentIssuer;
+            DocumentSubject = documentSubject;
+            SigningTime = signingTime;
+        }
+
         /// <summary>
         ///     The original issuer of the document to be signed
         /// </summary>

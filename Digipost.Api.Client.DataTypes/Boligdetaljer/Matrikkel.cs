@@ -4,6 +4,13 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
     public class Matrikkel : IDataType
     {
+        public Matrikkel(string kommuneNummer, string gaardsNummer, string bruksNummer)
+        {
+            KommuneNummer = kommuneNummer;
+            GaardsNummer = gaardsNummer;
+            BruksNummer = bruksNummer;
+        }
+
         /// <summary>
         ///     Kommunenummer
         /// </summary>

@@ -4,6 +4,12 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class MaanedsTidspunkt : IDataType
     {
+        public MaanedsTidspunkt(int maaned, int dag)
+        {
+            Maaned = maaned;
+            Dag = dag;
+        }
+
         /// <summary>
         ///     Month (1-12)
         /// </summary>

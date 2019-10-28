@@ -4,6 +4,11 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
     public class Residence : IDataType
     {
+        public Residence(ResidenceAddress address)
+        {
+            Address = address;
+        }
+
         /// <summary>
         ///     Residence address
         /// </summary>
@@ -34,7 +39,7 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
             var dto = new residence
             {
                 address = Address.AsDataTransferObject(),
-                matrikkel = Matrikkel.AsDataTransferObject(),
+                matrikkel = Matrikkel?.AsDataTransferObject(),
                 source = Source,
                 externalid = ExternalId
             };
@@ -44,7 +49,7 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
         public override string ToString()
         {
             return $"Address: '{Address}', " +
-                   $"Matrikkel: '{Matrikkel}', " +
+                   $"Matrikkel: '{Matrikkel?.ToString() ?? "<none>"}', " +
                    $"Source: '{Source}', " +
                    $"ExternalId: '{ExternalId}'";
         }

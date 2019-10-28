@@ -1,7 +1,7 @@
 ﻿using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
-namespace Digipost.Api.Client.DataTypes.Tests.Appointment
+namespace Digipost.Api.Client.DataTypes.Tests
 {
     public class InfoTests
     {

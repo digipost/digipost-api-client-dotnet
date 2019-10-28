@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
             var dto = new delivery
             {
                 name = Name,
-                address = Address.AsDataTransferObject(),
+                address = Address?.AsDataTransferObject(),
                 terms = Terms
             };
             return dto;
@@ -38,7 +38,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
         public override string ToString()
         {
             return $"Name: '{Name}', " +
-                   $"Address: '{Address}', " +
+                   $"Address: '{Address?.ToString() ?? "<none>"}', " +
                    $"Terms: '{Terms}'";
         }
     }

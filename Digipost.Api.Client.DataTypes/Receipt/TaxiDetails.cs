@@ -23,12 +23,12 @@ namespace Digipost.Api.Client.DataTypes.Receipt
         /// <summary>
         ///     Start time
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         
         /// <summary>
         ///     Stop time
         /// </summary>
-        public DateTime StopTime { get; set; }
+        public DateTime? StopTime { get; set; }
         
         /// <summary>
         ///     Tips
@@ -87,8 +87,8 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                 carPlateNumber = CarPlateNumber,
                 license = License,
                 orgNumberLicenseHolder = OrgNumberLicenseHolder,
-                startTime = StartTime.ToString("O"),
-                stopTime = StopTime.ToString("O"),
+                startTime = StartTime?.ToString("O"),
+                stopTime = StopTime?.ToString("O"),
                 tips = Tips.ToString("C"),
                 totalMeterPrice = TotalMeterPrice.ToString("C"),
                 totalDistanceBeforeBoardingInMeters = TotalDistanceBeforeBoarding,
@@ -97,7 +97,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                 totalTimeBeforeBoardingInSeconds = TotalTimeBeforeBoarding,
                 totalTimeInSeconds = TotalTime,
                 totalTimeWithPassengerInSeconds = TotalTimeWithPassenger,
-                vat = Vat.AsDataTransferObject()
+                vat = Vat?.AsDataTransferObject()
             };
             return dto;
         }
@@ -107,8 +107,8 @@ namespace Digipost.Api.Client.DataTypes.Receipt
             return $"CarPlateNumber: '{CarPlateNumber}', " +
                    $"License: '{License}', " +
                    $"OrgNumberLicenseHolder: '{OrgNumberLicenseHolder}', " +
-                   $"StartTime: '{StartTime}', " +
-                   $"StopTime: '{StopTime}', " +
+                   $"StartTime: '{StartTime?.ToString("O") ?? "<none>"}', " +
+                   $"StopTime: '{StopTime?.ToString("O" + "") ?? "<none>"}', " +
                    $"Tips: '{Tips}', " +
                    $"TotalMeterPrice: '{TotalMeterPrice}', " +
                    $"TotalDistanceBeforeBoarding: '{TotalDistanceBeforeBoarding}', " +
@@ -117,7 +117,7 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                    $"TotalTimeBeforeBoarding: '{TotalTimeBeforeBoarding}', " +
                    $"TotalTime: '{TotalTime}', " +
                    $"TotalTimeWithPassenger: '{TotalTimeWithPassenger}', " +
-                   $"Vat: '{Vat}'";
+                   $"Vat: '{Vat?.ToString() ?? "<none>"}'";
         }
     }
 }

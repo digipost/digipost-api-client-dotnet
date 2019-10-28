@@ -14,6 +14,11 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         /// </summary>
         public string Reference { get; set; }
         
+        /// <summary>
+        ///     The sender's address
+        /// </summary>
+        public Address Address { get; set; }
+        
         public XmlElement Serialize()
         {
             return DataTypeSerialization.Serialize(AsDataTransferObject());
@@ -24,7 +29,8 @@ namespace Digipost.Api.Client.DataTypes.Pickup
             var dto = new sender
             {
                 name = Name,
-                reference = Reference
+                reference = Reference,
+                address = Address?.AsDataTransferObject()
             };
             return dto;
         }
@@ -32,7 +38,8 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         public override string ToString()
         {
             return $"Name: '{Name}', " +
-                   $"Reference: '{Reference}'";
+                   $"Reference: '{Reference}', " + 
+                   $"Address: '{Address?.ToString() ?? "<none>"}'";
         }
     }
 }

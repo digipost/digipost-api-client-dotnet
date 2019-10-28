@@ -2,7 +2,7 @@ using Digipost.Api.Client.DataTypes.Event;
 using Digipost.Api.Client.Tests.CompareObjects;
 using Xunit;
 
-namespace Digipost.Api.Client.DataTypes.Tests.Event
+namespace Digipost.Api.Client.DataTypes.Tests
 {
     public class BarcodeTests
     {

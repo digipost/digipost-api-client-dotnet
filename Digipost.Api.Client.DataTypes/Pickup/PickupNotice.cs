@@ -7,6 +7,16 @@ namespace Digipost.Api.Client.DataTypes.Pickup
 {
     public class PickupNotice : IDataType
     {
+        public PickupNotice(string parcelId, Barcode barcode, DateTime arrivalDateTime, DateTime returnDateTime, Recipient recipient, PickupPlace pickupPlace)
+        {
+            ParcelId = parcelId;
+            Barcode = barcode;
+            ArrivalDateTime = arrivalDateTime;
+            ReturnDateTime = returnDateTime;
+            Recipient = recipient;
+            PickupPlace = pickupPlace;
+        }
+
         /// <summary>
         ///     The id of the parcel in posten
         /// </summary>
@@ -88,10 +98,10 @@ namespace Digipost.Api.Client.DataTypes.Pickup
                 arrivaldatetime = ArrivalDateTime.ToString("O"),
                 returndatetime = ReturnDateTime.ToString("O"),
                 recipient = Recipient.AsDataTransferObject(),
-                sender = Sender.AsDataTransferObject(),
+                sender = Sender?.AsDataTransferObject(),
                 pickupplace = PickupPlace.AsDataTransferObject(),
-                package = Package.AsDataTransferObject(),
-                cost = Cost.AsDataTransferObject(),
+                package = Package?.AsDataTransferObject(),
+                cost = Cost?.AsDataTransferObject(),
                 status = (status) Enum.Parse(typeof(status), Status.ToString()),
                 tags = Tags?.Select(i => (tag) Enum.Parse(typeof(tag), i.ToString())).ToArray()
             };

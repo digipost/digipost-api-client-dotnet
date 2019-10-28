@@ -6,6 +6,11 @@ namespace Digipost.Api.Client.DataTypes.Pickup
 {
     public class Cost : IDataType
     {
+        public Cost(decimal valueToBePayed)
+        {
+            ValueToBePayed = valueToBePayed;
+        }
+
         /// <summary>
         ///     The value of the parcel in NOK
         /// </summary>

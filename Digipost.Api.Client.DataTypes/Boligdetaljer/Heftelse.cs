@@ -4,6 +4,13 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
     public class Heftelse : IDataType
     {
+        public Heftelse(string pantHaver, string typePant, string beloep)
+        {
+            PantHaver = pantHaver;
+            TypePant = typePant;
+            Beloep = beloep;
+        }
+
         /// <summary>
         ///     
         /// </summary>

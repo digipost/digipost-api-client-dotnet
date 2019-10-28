@@ -2,8 +2,14 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class AarligRepeterendePeriode : IDataType
+    public class AarligRepeterendePeriode : TidsPeriode, IDataType
     {
+        public AarligRepeterendePeriode(MaanedsTidspunkt fra, MaanedsTidspunkt til)
+        {
+            Fra = fra;
+            Til = til;
+        }
+
         /// <summary>
         ///     Starting year of the repeating period
         /// </summary>
@@ -45,8 +51,8 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             return $"StartAar: '{StartAar}', " +
                    $"SluttAar: '{SluttAar}', " +
-                   $"Fra: '{Fra.ToString()}', " +
-                   $"Til: '{Til.ToString()}'";
+                   $"Fra: '{Fra}', " +
+                   $"Til: '{Til}'";
         }
     }
 }

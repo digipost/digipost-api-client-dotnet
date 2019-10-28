@@ -20,50 +20,6 @@
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-<<<<<<< HEAD
-public partial class @event {
-    
-    private eventTimeSpan[] timeField;
-    
-    private string subTitleField;
-    
-    private string timeLabelField;
-    
-    private string descriptionField;
-    
-    private string placeField;
-    
-    private string placeLabelField;
-    
-    private eventAddress addressField;
-    
-    private info[] infoField;
-    
-    private string barcodeLabelField;
-    
-    private barcode barcodeField;
-    
-    private externalLink[] linksField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("time")]
-    public eventTimeSpan[] time {
-        get {
-            return this.timeField;
-        }
-        set {
-            this.timeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string subTitle {
-        get {
-            return this.subTitleField;
-        }
-        set {
-            this.subTitleField = value;
-=======
 public partial class appointment {
     
     private string starttimeField;
@@ -88,19 +44,10 @@ public partial class appointment {
         }
         set {
             this.starttimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string timeLabel {
-        get {
-            return this.timeLabelField;
-        }
-        set {
-            this.timeLabelField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("end-time")]
     public string endtime {
         get {
@@ -108,19 +55,10 @@ public partial class appointment {
         }
         set {
             this.endtimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string description {
-        get {
-            return this.descriptionField;
-        }
-        set {
-            this.descriptionField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("arrival-time")]
     public string arrivaltime {
         get {
@@ -128,7 +66,6 @@ public partial class appointment {
         }
         set {
             this.arrivaltimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
@@ -143,33 +80,16 @@ public partial class appointment {
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string placeLabel {
-        get {
-            return this.placeLabelField;
-        }
-        set {
-            this.placeLabelField = value;
-=======
     public datatypeaddress address {
         get {
             return this.addressField;
         }
         set {
             this.addressField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public eventAddress address {
-        get {
-            return this.addressField;
-        }
-        set {
-            this.addressField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("sub-title")]
     public string subtitle {
         get {
@@ -177,7 +97,6 @@ public partial class appointment {
         }
         set {
             this.subtitleField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
@@ -191,16 +110,6 @@ public partial class appointment {
             this.infoField = value;
         }
     }
-<<<<<<< HEAD
-    
-    /// <remarks/>
-    public string barcodeLabel {
-        get {
-            return this.barcodeLabelField;
-        }
-        set {
-            this.barcodeLabelField = value;
-=======
 }
 
 /// <remarks/>
@@ -229,19 +138,10 @@ public partial class datatypeaddress {
         }
         set {
             this.streetaddressField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public barcode barcode {
-        get {
-            return this.barcodeField;
-        }
-        set {
-            this.barcodeField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("street-address-2")]
     public string streetaddress2 {
         get {
@@ -249,44 +149,10 @@ public partial class datatypeaddress {
         }
         set {
             this.streetaddress2Field = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("links")]
-    public externalLink[] links {
-        get {
-            return this.linksField;
-        }
-        set {
-            this.linksField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class eventTimeSpan {
-    
-    private System.DateTime starttimeField;
-    
-    private System.DateTime endtimeField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("start-time")]
-    public System.DateTime starttime {
-        get {
-            return this.starttimeField;
-        }
-        set {
-            this.starttimeField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("postal-code")]
     public string postalcode {
         get {
@@ -304,27 +170,16 @@ public partial class eventTimeSpan {
         }
         set {
             this.cityField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("end-time")]
-    public System.DateTime endtime {
-        get {
-            return this.endtimeField;
-        }
-        set {
-            this.endtimeField = value;
-=======
     public string country {
         get {
             return this.countryField;
         }
         set {
             this.countryField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -335,23 +190,6 @@ public partial class eventTimeSpan {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class heftelse {
-    
-    private string panthaverField;
-    
-    private string typepantField;
-    
-    private string beloepField;
-    
-    /// <remarks/>
-    public string panthaver {
-        get {
-            return this.panthaverField;
-        }
-        set {
-            this.panthaverField = value;
-=======
 public partial class delivery {
     
     private string nameField;
@@ -367,46 +205,26 @@ public partial class delivery {
         }
         set {
             this.nameField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("type-pant")]
-    public string typepant {
-        get {
-            return this.typepantField;
-        }
-        set {
-            this.typepantField = value;
-=======
     public datatypeaddress address {
         get {
             return this.addressField;
         }
         set {
             this.addressField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string beloep {
-        get {
-            return this.beloepField;
-        }
-        set {
-            this.beloepField = value;
-=======
     public string terms {
         get {
             return this.termsField;
         }
         set {
             this.termsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -417,29 +235,6 @@ public partial class delivery {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class omsetningshistorikk {
-    
-    private string datoField;
-    
-    private string beskrivelseField;
-    
-    private string selgerField;
-    
-    private string kjoeperField;
-    
-    private long beloepField;
-    
-    private bool beloepFieldSpecified;
-    
-    /// <remarks/>
-    public string dato {
-        get {
-            return this.datoField;
-        }
-        set {
-            this.datoField = value;
-=======
 public partial class customer {
     
     private string nameField;
@@ -465,29 +260,10 @@ public partial class customer {
         }
         set {
             this.addressField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string beskrivelse {
-        get {
-            return this.beskrivelseField;
-        }
-        set {
-            this.beskrivelseField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public string selger {
-        get {
-            return this.selgerField;
-        }
-        set {
-            this.selgerField = value;
-=======
     public string phoneNumber {
         get {
             return this.phoneNumberField;
@@ -521,65 +297,36 @@ public partial class vatLevel {
         }
         set {
             this.grossAmountField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string kjoeper {
-        get {
-            return this.kjoeperField;
-        }
-        set {
-            this.kjoeperField = value;
-=======
     public string netAmount {
         get {
             return this.netAmountField;
         }
         set {
             this.netAmountField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public long beloep {
-        get {
-            return this.beloepField;
-        }
-        set {
-            this.beloepField = value;
-=======
     public string vat {
         get {
             return this.vatField;
         }
         set {
             this.vatField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool beloepSpecified {
-        get {
-            return this.beloepFieldSpecified;
-        }
-        set {
-            this.beloepFieldSpecified = value;
-=======
     public string vatPercent {
         get {
             return this.vatPercentField;
         }
         set {
             this.vatPercentField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -590,21 +337,6 @@ public partial class vatLevel {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class hjemmelshaver {
-    
-    private string nameField;
-    
-    private string emailField;
-    
-    /// <remarks/>
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-=======
 public partial class vatDetails {
     
     private vatLevel[] levelsField;
@@ -619,26 +351,16 @@ public partial class vatDetails {
         }
         set {
             this.levelsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string email {
-        get {
-            return this.emailField;
-        }
-        set {
-            this.emailField = value;
-=======
     public string sum {
         get {
             return this.sumField;
         }
         set {
             this.sumField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -649,27 +371,6 @@ public partial class vatDetails {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class matrikkel {
-    
-    private string kommunenummerField;
-    
-    private string gaardsnummerField;
-    
-    private string bruksnummerField;
-    
-    private string festenummerField;
-    
-    private string seksjonsnummerField;
-    
-    /// <remarks/>
-    public string kommunenummer {
-        get {
-            return this.kommunenummerField;
-        }
-        set {
-            this.kommunenummerField = value;
-=======
 public partial class taxiDetails {
     
     private string carPlateNumberField;
@@ -719,106 +420,40 @@ public partial class taxiDetails {
         }
         set {
             this.carPlateNumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string gaardsnummer {
-        get {
-            return this.gaardsnummerField;
-        }
-        set {
-            this.gaardsnummerField = value;
-=======
     public string license {
         get {
             return this.licenseField;
         }
         set {
             this.licenseField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string bruksnummer {
-        get {
-            return this.bruksnummerField;
-        }
-        set {
-            this.bruksnummerField = value;
-=======
     public string orgNumberLicenseHolder {
         get {
             return this.orgNumberLicenseHolderField;
         }
         set {
             this.orgNumberLicenseHolderField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string festenummer {
-        get {
-            return this.festenummerField;
-        }
-        set {
-            this.festenummerField = value;
-=======
     public string startTime {
         get {
             return this.startTimeField;
         }
         set {
             this.startTimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string seksjonsnummer {
-        get {
-            return this.seksjonsnummerField;
-        }
-        set {
-            this.seksjonsnummerField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class residenceAddress {
-    
-    private string unitnumberField;
-    
-    private string housenumberField;
-    
-    private string streetnameField;
-    
-    private string postalcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("unit-number")]
-    public string unitnumber {
-        get {
-            return this.unitnumberField;
-        }
-        set {
-            this.unitnumberField = value;
-=======
     public string stopTime {
         get {
             return this.stopTimeField;
@@ -835,60 +470,30 @@ public partial class residenceAddress {
         }
         set {
             this.tipsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("house-number")]
-    public string housenumber {
-        get {
-            return this.housenumberField;
-        }
-        set {
-            this.housenumberField = value;
-=======
     public string totalMeterPrice {
         get {
             return this.totalMeterPriceField;
         }
         set {
             this.totalMeterPriceField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("street-name")]
-    public string streetname {
-        get {
-            return this.streetnameField;
-        }
-        set {
-            this.streetnameField = value;
-=======
     public int totalDistanceBeforeBoardingInMeters {
         get {
             return this.totalDistanceBeforeBoardingInMetersField;
         }
         set {
             this.totalDistanceBeforeBoardingInMetersField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
-    public string postalcode {
-        get {
-            return this.postalcodeField;
-        }
-        set {
-            this.postalcodeField = value;
-=======
     [System.Xml.Serialization.XmlIgnoreAttribute()]
     public bool totalDistanceBeforeBoardingInMetersSpecified {
         get {
@@ -2843,19 +2448,10 @@ public partial class externalLink {
         }
         set {
             this.descriptionField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("button-text")]
     public string buttontext {
         get {
@@ -2863,7 +2459,6 @@ public partial class externalLink {
         }
         set {
             this.buttontextField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -2874,24 +2469,6 @@ public partial class externalLink {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class appointmentAddress {
-    
-    private string streetaddressField;
-    
-    private string postalcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("street-address")]
-    public string streetaddress {
-        get {
-            return this.streetaddressField;
-        }
-        set {
-            this.streetaddressField = value;
-=======
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
 public partial class @event {
     
@@ -2925,20 +2502,10 @@ public partial class @event {
         }
         set {
             this.subtitleField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
-    public string postalcode {
-        get {
-            return this.postalcodeField;
-        }
-        set {
-            this.postalcodeField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("start-time")]
     public timeInterval[] starttime {
         get {
@@ -2946,19 +2513,10 @@ public partial class @event {
         }
         set {
             this.starttimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-=======
     public string timeLabel {
         get {
             return this.timeLabelField;
@@ -3047,7 +2605,6 @@ public partial class @event {
         }
         set {
             this.linksField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -3058,27 +2615,6 @@ public partial class @event {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class barcode {
-    
-    private string barcodeValueField;
-    
-    private string barcodeTypeField;
-    
-    private string barcodeTextField;
-    
-    private bool showValueInBarcodeField;
-    
-    private bool showValueInBarcodeFieldSpecified;
-    
-    /// <remarks/>
-    public string barcodeValue {
-        get {
-            return this.barcodeValueField;
-        }
-        set {
-            this.barcodeValueField = value;
-=======
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
 public partial class payslip {
 }
@@ -3213,77 +2749,41 @@ public partial class pickupNotice {
         }
         set {
             this.pickupplaceField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string barcodeType {
-        get {
-            return this.barcodeTypeField;
-        }
-        set {
-            this.barcodeTypeField = value;
-=======
     public package package {
         get {
             return this.packageField;
         }
         set {
             this.packageField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string barcodeText {
-        get {
-            return this.barcodeTextField;
-        }
-        set {
-            this.barcodeTextField = value;
-=======
     public cost cost {
         get {
             return this.costField;
         }
         set {
             this.costField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public bool showValueInBarcode {
-        get {
-            return this.showValueInBarcodeField;
-        }
-        set {
-            this.showValueInBarcodeField = value;
-=======
     public status status {
         get {
             return this.statusField;
         }
         set {
             this.statusField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-<<<<<<< HEAD
-    public bool showValueInBarcodeSpecified {
-        get {
-            return this.showValueInBarcodeFieldSpecified;
-        }
-        set {
-            this.showValueInBarcodeFieldSpecified = value;
-=======
     public bool statusSpecified {
         get {
             return this.statusFieldSpecified;
@@ -3301,7 +2801,6 @@ public partial class pickupNotice {
         }
         set {
             this.tagsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -3309,24 +2808,6 @@ public partial class pickupNotice {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
 [System.SerializableAttribute()]
-<<<<<<< HEAD
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class info {
-    
-    private string titleField;
-    
-    private string textField;
-    
-    /// <remarks/>
-    public string title {
-        get {
-            return this.titleField;
-        }
-        set {
-            this.titleField = value;
-=======
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 public enum status {
     
@@ -3382,19 +2863,10 @@ public partial class pickupNoticeStatus {
         }
         set {
             this.statusField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string text {
-        get {
-            return this.textField;
-        }
-        set {
-            this.textField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("occurrence-datetime")]
     public string occurrencedatetime {
         get {
@@ -3402,7 +2874,6 @@ public partial class pickupNoticeStatus {
         }
         set {
             this.occurrencedatetimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -3413,24 +2884,6 @@ public partial class pickupNoticeStatus {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-<<<<<<< HEAD
-public partial class eventAddress {
-    
-    private string streetaddressField;
-    
-    private string postalcodeField;
-    
-    private string cityField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("street-address")]
-    public string streetaddress {
-        get {
-            return this.streetaddressField;
-        }
-        set {
-            this.streetaddressField = value;
-=======
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
 public partial class proof {
     
@@ -3462,70 +2915,20 @@ public partial class proof {
         }
         set {
             this.utstedervisningsnavnField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("postal-code")]
-    public string postalcode {
-        get {
-            return this.postalcodeField;
-        }
-        set {
-            this.postalcodeField = value;
-=======
     public string bakgrunnsfarge {
         get {
             return this.bakgrunnsfargeField;
         }
         set {
             this.bakgrunnsfargeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string city {
-        get {
-            return this.cityField;
-        }
-        set {
-            this.cityField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-public partial class externalLink {
-    
-    private string urlField;
-    
-    private System.DateTime deadlineField;
-    
-    private bool deadlineFieldSpecified;
-    
-    private string descriptionField;
-    
-    private string buttontextField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI")]
-    public string url {
-        get {
-            return this.urlField;
-        }
-        set {
-            this.urlField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("utstedt-tidspunkt")]
     public string utstedttidspunkt {
         get {
@@ -3564,19 +2967,10 @@ public partial class externalLink {
         }
         set {
             this.tittelField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public System.DateTime deadline {
-        get {
-            return this.deadlineField;
-        }
-        set {
-            this.deadlineField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("bevis-id-navn")]
     public string bevisidnavn {
         get {
@@ -3584,20 +2978,10 @@ public partial class externalLink {
         }
         set {
             this.bevisidnavnField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool deadlineSpecified {
-        get {
-            return this.deadlineFieldSpecified;
-        }
-        set {
-            this.deadlineFieldSpecified = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("bevis-id-verdi")]
     public string bevisidverdi {
         get {
@@ -3605,19 +2989,10 @@ public partial class externalLink {
         }
         set {
             this.bevisidverdiField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string description {
-        get {
-            return this.descriptionField;
-        }
-        set {
-            this.descriptionField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("attributt")]
     public info[] attributt {
         get {
@@ -3625,20 +3000,10 @@ public partial class externalLink {
         }
         set {
             this.attributtField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("button-text")]
-    public string buttontext {
-        get {
-            return this.buttontextField;
-        }
-        set {
-            this.buttontextField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("info")]
     public info[] info {
         get {
@@ -3646,7 +3011,6 @@ public partial class externalLink {
         }
         set {
             this.infoField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -3658,32 +3022,6 @@ public partial class externalLink {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-<<<<<<< HEAD
-public partial class appointment {
-    
-    private string starttimeField;
-    
-    private string endtimeField;
-    
-    private string arrivaltimeField;
-    
-    private string placeField;
-    
-    private appointmentAddress addressField;
-    
-    private string subtitleField;
-    
-    private info[] infoField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("start-time")]
-    public string starttime {
-        get {
-            return this.starttimeField;
-        }
-        set {
-            this.starttimeField = value;
-=======
 public partial class receipt {
     
     private string receiptIdField;
@@ -3737,164 +3075,60 @@ public partial class receipt {
         }
         set {
             this.receiptIdField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("end-time")]
-    public string endtime {
-        get {
-            return this.endtimeField;
-        }
-        set {
-            this.endtimeField = value;
-=======
     public string receiptNumber {
         get {
             return this.receiptNumberField;
         }
         set {
             this.receiptNumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("arrival-time")]
-    public string arrivaltime {
-        get {
-            return this.arrivaltimeField;
-        }
-        set {
-            this.arrivaltimeField = value;
-=======
     public string purchaseTime {
         get {
             return this.purchaseTimeField;
         }
         set {
             this.purchaseTimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string place {
-        get {
-            return this.placeField;
-        }
-        set {
-            this.placeField = value;
-=======
     public string totalPrice {
         get {
             return this.totalPriceField;
         }
         set {
             this.totalPriceField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public appointmentAddress address {
-        get {
-            return this.addressField;
-        }
-        set {
-            this.addressField = value;
-=======
     public string totalVat {
         get {
             return this.totalVatField;
         }
         set {
             this.totalVatField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("sub-title")]
-    public string subtitle {
-        get {
-            return this.subtitleField;
-        }
-        set {
-            this.subtitleField = value;
-=======
     public string currency {
         get {
             return this.currencyField;
         }
         set {
             this.currencyField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("info")]
-    public info[] info {
-        get {
-            return this.infoField;
-        }
-        set {
-            this.infoField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "0.0.0.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-public partial class boligdetaljer {
-    
-    private residence residenceField;
-    
-    private hjemmelshaver[] hjemmelshavereField;
-    
-    private int bruksarealField;
-    
-    private bool bruksarealFieldSpecified;
-    
-    private int antalloppholdsromField;
-    
-    private bool antalloppholdsromFieldSpecified;
-    
-    private int antallbaderomField;
-    
-    private bool antallbaderomFieldSpecified;
-    
-    private omsetningshistorikk[] omsetningshistorikkField;
-    
-    private string organisasjonsnummerField;
-    
-    private string bruksenhetField;
-    
-    private string andelsnummerField;
-    
-    private heftelse[] heftelserField;
-    
-    /// <remarks/>
-    public residence residence {
-        get {
-            return this.residenceField;
-        }
-        set {
-            this.residenceField = value;
-=======
     public string cashier {
         get {
             return this.cashierField;
@@ -3933,20 +3167,10 @@ public partial class boligdetaljer {
         }
         set {
             this.merchantnameField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("hjemmelshavere")]
-    public hjemmelshaver[] hjemmelshavere {
-        get {
-            return this.hjemmelshavereField;
-        }
-        set {
-            this.hjemmelshavereField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("merchant-phone-number")]
     public string merchantphonenumber {
         get {
@@ -3954,19 +3178,10 @@ public partial class boligdetaljer {
         }
         set {
             this.merchantphonenumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public int bruksareal {
-        get {
-            return this.bruksarealField;
-        }
-        set {
-            this.bruksarealField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("merchant-address")]
     public datatypeaddress merchantaddress {
         get {
@@ -3974,60 +3189,30 @@ public partial class boligdetaljer {
         }
         set {
             this.merchantaddressField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bruksarealSpecified {
-        get {
-            return this.bruksarealFieldSpecified;
-        }
-        set {
-            this.bruksarealFieldSpecified = value;
-=======
     public string orgnumber {
         get {
             return this.orgnumberField;
         }
         set {
             this.orgnumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("antall-oppholdsrom")]
-    public int antalloppholdsrom {
-        get {
-            return this.antalloppholdsromField;
-        }
-        set {
-            this.antalloppholdsromField = value;
-=======
     public barcode barcode {
         get {
             return this.barcodeField;
         }
         set {
             this.barcodeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool antalloppholdsromSpecified {
-        get {
-            return this.antalloppholdsromFieldSpecified;
-        }
-        set {
-            this.antalloppholdsromFieldSpecified = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("payments")]
     public payment[] payments {
         get {
@@ -4035,20 +3220,10 @@ public partial class boligdetaljer {
         }
         set {
             this.paymentsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("antall-baderom")]
-    public int antallbaderom {
-        get {
-            return this.antallbaderomField;
-        }
-        set {
-            this.antallbaderomField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("items")]
     public receiptLine[] items {
         get {
@@ -4056,78 +3231,40 @@ public partial class boligdetaljer {
         }
         set {
             this.itemsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool antallbaderomSpecified {
-        get {
-            return this.antallbaderomFieldSpecified;
-        }
-        set {
-            this.antallbaderomFieldSpecified = value;
-=======
     public taxiDetails taxiDetails {
         get {
             return this.taxiDetailsField;
         }
         set {
             this.taxiDetailsField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("omsetningshistorikk")]
-    public omsetningshistorikk[] omsetningshistorikk {
-        get {
-            return this.omsetningshistorikkField;
-        }
-        set {
-            this.omsetningshistorikkField = value;
-=======
     public customer customer {
         get {
             return this.customerField;
         }
         set {
             this.customerField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string organisasjonsnummer {
-        get {
-            return this.organisasjonsnummerField;
-        }
-        set {
-            this.organisasjonsnummerField = value;
-=======
     public delivery delivery {
         get {
             return this.deliveryField;
         }
         set {
             this.deliveryField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string bruksenhet {
-        get {
-            return this.bruksenhetField;
-        }
-        set {
-            this.bruksenhetField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("order-number")]
     public string ordernumber {
         get {
@@ -4135,19 +3272,10 @@ public partial class boligdetaljer {
         }
         set {
             this.ordernumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string andelsnummer {
-        get {
-            return this.andelsnummerField;
-        }
-        set {
-            this.andelsnummerField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("membership-number")]
     public string membershipnumber {
         get {
@@ -4155,27 +3283,16 @@ public partial class boligdetaljer {
         }
         set {
             this.membershipnumberField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("heftelser")]
-    public heftelse[] heftelser {
-        get {
-            return this.heftelserField;
-        }
-        set {
-            this.heftelserField = value;
-=======
     public string comment {
         get {
             return this.commentField;
         }
         set {
             this.commentField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }
@@ -4187,35 +3304,6 @@ public partial class boligdetaljer {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
-<<<<<<< HEAD
-public partial class residence {
-    
-    private residenceAddress addressField;
-    
-    private matrikkel matrikkelField;
-    
-    private string sourceField;
-    
-    private string externalidField;
-    
-    /// <remarks/>
-    public residenceAddress address {
-        get {
-            return this.addressField;
-        }
-        set {
-            this.addressField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public matrikkel matrikkel {
-        get {
-            return this.matrikkelField;
-        }
-        set {
-            this.matrikkelField = value;
-=======
 public partial class signedDocument {
     
     private string documentissuerField;
@@ -4232,19 +3320,10 @@ public partial class signedDocument {
         }
         set {
             this.documentissuerField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    public string source {
-        get {
-            return this.sourceField;
-        }
-        set {
-            this.sourceField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("document-subject")]
     public string documentsubject {
         get {
@@ -4252,20 +3331,10 @@ public partial class signedDocument {
         }
         set {
             this.documentsubjectField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
     
     /// <remarks/>
-<<<<<<< HEAD
-    [System.Xml.Serialization.XmlElementAttribute("external-id")]
-    public string externalid {
-        get {
-            return this.externalidField;
-        }
-        set {
-            this.externalidField = value;
-=======
     [System.Xml.Serialization.XmlElementAttribute("signing-time")]
     public string signingtime {
         get {
@@ -4273,7 +3342,6 @@ public partial class signedDocument {
         }
         set {
             this.signingtimeField = value;
->>>>>>> 7f00257... Legg til manglende datatyper
         }
     }
 }

@@ -60,9 +60,4 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Boligdetailjer" />
-      <Folder Include="Pickup" />
-      <Folder Include="Receipt" />
-    </ItemGroup>
 </Project>

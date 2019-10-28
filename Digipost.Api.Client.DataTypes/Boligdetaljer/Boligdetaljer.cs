@@ -4,9 +4,9 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Boligdetaljer
 {
-    public class BoligDetailjer : IDataType
+    public class Boligdetaljer : IDataType
     {
-        public BoligDetailjer(Residence residence)
+        public Boligdetaljer(Residence residence)
         {
             Residence = residence;
         }

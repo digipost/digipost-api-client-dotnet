@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.DataTypes.Pickup
             {
                 name = Name,
                 digipostaddress = DigipostAddress,
-                address = Address.AsDataTransferObject()
+                address = Address?.AsDataTransferObject()
             };
             return dto;
         }
@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         {
             return $"Name: '{Name}', " +
                    $"DigipostAddress: '{DigipostAddress}', " + 
-                   $"Address: '{Address}'";
+                   $"Address: '{Address?.ToString() ?? "<none>"}'";
         }
     }
 }

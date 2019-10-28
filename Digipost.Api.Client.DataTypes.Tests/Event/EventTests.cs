@@ -35,7 +35,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
             var ets = new List<EventTimeSpan>();
             var ts = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
             ets.Add(ts);
-            var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
+            var barcode = new Barcode("12345678", "insert type here", "this is a code", true);
             var address = new Address("Gateveien 1", "0001", "Oslo");
             var info = new Info("Title", "Very important information");
             var links = new List<ExternalLink>();

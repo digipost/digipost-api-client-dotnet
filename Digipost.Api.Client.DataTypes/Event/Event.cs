@@ -59,7 +59,7 @@ namespace Digipost.Api.Client.DataTypes.Event
         /// <summary>
         ///     The Barcode to be scanned for validation.
         /// </summary>
-        public EventBarcode Barcode { get; set; }
+        public Barcode Barcode { get; set; }
         
         /// <summary>
         ///     Links for related information to the event.

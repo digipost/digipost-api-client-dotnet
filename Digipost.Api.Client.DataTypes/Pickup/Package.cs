@@ -9,37 +9,44 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         /// </summary>
         public int Length { get; set; }
         
+        /// <summary>
+        ///     Package width in cm
+        /// </summary>
+        public int Width { get; set; }
+        
+        /// <summary>
+        ///     Package height in cm
+        /// </summary>
+        public int Height { get; set; }
+        
+        /// <summary>
+        ///     Package weight in cm
+        /// </summary>
+        public int Weight { get; set; }
+        
         public XmlElement Serialize()
         {
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal cost AsDataTransferObject()
+        internal package AsDataTransferObject()
         {
-            var dto = new cost
+            var dto = new package
             {
-                valuetobepayed = ValueToBePayed,
-                packagevalue = PackageValue,
-                customsfeeoutlayed = CustomsFeeOutlaid,
-                vastext = VasText,
-                customsfee = CustomsFee,
-                customsfeeoutlaycost = CustomsFeeOutlayCost,
-                codamount = CodAmount,
-                codfee = CodFee
+                length = Length,
+                width = Width,
+                height = Height,
+                weight = Weight
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"ValueToBePayed: '{ValueToBePayed}', " +
-                   $"PackageValue: '{PackageValue}', " +
-                   $"CustomsFeeOutlaid: '{CustomsFeeOutlaid}', " +
-                   $"VasText: '{VasText}', " +
-                   $"CustomsFee: '{CustomsFee}', " +
-                   $"CustomsFeeOutlayCost: '{CustomsFeeOutlayCost}', " +
-                   $"CodAmount: '{CodAmount}', " +
-                   $"CodFee: '{CodFee}'";
+            return $"Length: '{Length}', " +
+                   $"Width: '{Width}', " +
+                   $"Height: '{Height}', " +
+                   $"Weight: '{Weight}'";
         }
     }
 }

@@ -1,8 +1,10 @@
-namespace Digipost.Api.Client.DataTypes.Event
+using System.Xml;
+
+namespace Digipost.Api.Client.DataTypes
 {
-    public class EventBarcode
+    public class Barcode : IDataType
     {
-        public EventBarcode(string barcodeValue, string barcodeType, string barcodeText, bool showValueInBarcode)
+        public Barcode(string barcodeValue, string barcodeType, string barcodeText, bool showValueInBarcode)
         {
             BarcodeValue = barcodeValue;
             BarcodeType = barcodeType;
@@ -11,42 +13,47 @@ namespace Digipost.Api.Client.DataTypes.Event
         }
         
         /// <summary>
-        ///     The barcode on this receipt.
+        ///     The barcode on this receipt
         /// </summary>
         public string BarcodeValue { get; set; }
         
         /// <summary>
-        ///     The type of barcode.
         /// </summary>
         public string BarcodeType { get; set; }
         
         /// <summary>
-        ///     Barcode text can be used to describe the barcode.
+        ///     Barcode text can be used to describe the barcode
         /// </summary>
         public string BarcodeText { get; set; }
         
         /// <summary>
-        ///     If true, the barcode will render its value as part of the image.
+        ///     If true, the barcode will render its value as part of the image
         /// </summary>
         public bool ShowValueInBarcode { get; set; }
         
+        public XmlElement Serialize()
+        {
+            return DataTypeSerialization.Serialize(AsDataTransferObject());
+        }
+        
         internal barcode AsDataTransferObject()
         {
-            return new barcode
+            var dto = new barcode
             {
                 barcodevalue = BarcodeValue,
                 barcodetype = BarcodeType,
                 barcodetext = BarcodeText,
                 showvalueinbarcode = ShowValueInBarcode
             };
+            return dto;
         }
-
+        
         public override string ToString()
         {
-            return $"Barcode: '" +
-                   $"{(BarcodeValue != null ? $"{BarcodeValue}, " : "")} " +
-                   $"{(BarcodeType != null ? $"{BarcodeType}, " : "")} " +
-                   $"{(BarcodeText != null ? $"{BarcodeText}, " : "")}'";
+            return $"BarcodeValue: '{BarcodeValue}', " +
+                   $"BarcodeType: '{BarcodeType}', " +
+                   $"BarcodeText: '{BarcodeText}', " +
+                   $"ShowValueInBarcode: '{ShowValueInBarcode}'";
         }
     }
 }

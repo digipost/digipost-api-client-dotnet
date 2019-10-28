@@ -1,7 +1,9 @@
 namespace Digipost.Api.Client.DataTypes
 {
-    public class Tag
+    public enum Tag
     {
-        
+        VARSEL1
+        , VARSEL2
+        , POSTEN
     }
 }

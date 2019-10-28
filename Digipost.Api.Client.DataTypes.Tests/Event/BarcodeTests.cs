@@ -9,7 +9,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Event
         [Fact]
         public void AsDataTransferObject()
         {
-            var source = new EventBarcode("12345678", "BarcodeType", "This is a barcode", true);
+            var source = new Barcode("12345678", "BarcodeType", "This is a barcode", true);
             var expected = source.AsDataTransferObject();
 
             var actual = new barcode

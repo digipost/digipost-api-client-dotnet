@@ -4,10 +4,10 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class ProofHolder : IDataType
     {
-        public ProofHolder(string firstName, string surName)
+        public ProofHolder(string firstName, string surname)
         {
             FirstName = firstName;
-            SurName = surName;
+            Surname = surname;
         }
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         /// <summary>
         ///     Surname
         /// </summary>
-        public string SurName { get; set; }
+        public string Surname { get; set; }
         
         /// <summary>
         ///     Social Security Number
@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
             var dto = new bruker
             {
                 fornavn = FirstName,
-                etternavn = SurName,
+                etternavn = Surname,
                 foedselsnummer = SocialSecurityNumber,
                 adresse = Address?.AsDataTransferObject()
             };
@@ -50,7 +50,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         public override string ToString()
         {
             return $"Fornavn: '{FirstName}', " +
-                   $"Etternavn: '{SurName}', " +
+                   $"Etternavn: '{Surname}', " +
                    $"Foedselsnummer: '{SocialSecurityNumber}', " +
                    $"Address: '{Address?.ToString() ?? "<none>"}'";
         }

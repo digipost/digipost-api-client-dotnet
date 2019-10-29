@@ -7,58 +7,58 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class Proof : IDataType
     {
-        public Proof(string utstederVisningsnavn, GyldighetsPeriode gyldighetsPeriode, Bruker bevisBruker, string tittel)
+        public Proof(string authorizerName, ValidPeriod validPeriod, ProofHolder bevisProofHolder, string title)
         {
-            UtstederVisningsnavn = utstederVisningsnavn;
-            GyldighetsPeriode = gyldighetsPeriode;
-            BevisBruker = bevisBruker;
-            Tittel = tittel;
+            AuthorizerName = authorizerName;
+            ValidPeriod = validPeriod;
+            BevisProofHolder = bevisProofHolder;
+            Title = title;
         }
 
         /// <summary>
         ///     Name of the authorizer
         /// </summary>
-        public string UtstederVisningsnavn { get; set; }
+        public string AuthorizerName { get; set; }
         
         /// <summary>
         ///     Background color of the Proof (#RRGGBB hexcode)
         /// </summary>
-        public string BakgrunnsFarge { get; set; }
+        public string BackgroundColor { get; set; }
         
         /// <summary>
         ///     DateTime the Proof was sent
         /// </summary>
-        public DateTime? UtstedtTidspunkt { get; set; }
+        public DateTime? IssuedTime { get; set; }
         
         /// <summary>
         ///     The valid time period, either single or repeating
         /// </summary>
-        public GyldighetsPeriode GyldighetsPeriode { get; set; }
+        public ValidPeriod ValidPeriod { get; set; }
         
         /// <summary>
         ///     The user of the Proof
         /// </summary>
-        public Bruker BevisBruker { get; set; }
+        public ProofHolder BevisProofHolder { get; set; }
         
         /// <summary>
         ///     Title of the Proof
         /// </summary>
-        public string Tittel { get; set; }
+        public string Title { get; set; }
         
         /// <summary>
         ///     Name of the Proof ID
         /// </summary>
-        public string BevisIdNavn { get; set; }
+        public string ProofIdName { get; set; }
         
         /// <summary>
         ///     Value of the Proof ID
         /// </summary>
-        public string BevisIdVerdi { get; set; }
+        public string ProofIdValue { get; set; }
         
         /// <summary>
         ///     The Attributes of the Proof
         /// </summary>
-        public List<Info> Attributt { get; set; }
+        public List<Info> Attribute { get; set; }
         
         /// <summary>
         ///     The Info of the Proof
@@ -74,15 +74,15 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new proof
             {
-                utstedervisningsnavn = UtstederVisningsnavn,
-                bakgrunnsfarge = BakgrunnsFarge,
-                utstedttidspunkt = UtstedtTidspunkt?.ToString("O"),
-                gyldighetsperioder = GyldighetsPeriode.AsDataTransferObject(),
-                bevisbruker = BevisBruker.AsDataTransferObject(),
-                tittel = Tittel,
-                bevisidnavn = BevisIdNavn,
-                bevisidverdi = BevisIdVerdi,
-                attributt = Attributt?.Select(i => i.AsDataTransferObject()).ToArray(),
+                utstedervisningsnavn = AuthorizerName,
+                bakgrunnsfarge = BackgroundColor,
+                utstedttidspunkt = IssuedTime?.ToString("O"),
+                gyldighetsperioder = ValidPeriod.AsDataTransferObject(),
+                bevisbruker = BevisProofHolder.AsDataTransferObject(),
+                tittel = Title,
+                bevisidnavn = ProofIdName,
+                bevisidverdi = ProofIdValue,
+                attributt = Attribute?.Select(i => i.AsDataTransferObject()).ToArray(),
                 info = Info?.Select(i => i.AsDataTransferObject()).ToArray()
             };
             return dto;
@@ -90,15 +90,15 @@ namespace Digipost.Api.Client.DataTypes.Proof
         
         public override string ToString()
         {
-            return $"UtstederVisningsnavn: '{UtstederVisningsnavn}', " +
-                   $"BakgrunnsFarge: '{BakgrunnsFarge}', " +
-                   $"UtstedtTidspunkt: '{UtstedtTidspunkt?.ToString("O") ?? "<none>"}', " +
-                   $"GyldighetsPeriode: '{GyldighetsPeriode}', " +
-                   $"BevisBruker: '{BevisBruker}', " +
-                   $"Tittel: '{Tittel}', " +
-                   $"BevisIdNavn: '{BevisIdNavn}', " +
-                   $"BevisIdVerdi: '{BevisIdVerdi}', " +
-                   $"Attributt: '{(Attributt != null ? string.Join(", ", Attributt.Select(x => x.ToString())) : "<none>")}', " +
+            return $"UtstederVisningsnavn: '{AuthorizerName}', " +
+                   $"BakgrunnsFarge: '{BackgroundColor}', " +
+                   $"UtstedtTidspunkt: '{IssuedTime?.ToString("O") ?? "<none>"}', " +
+                   $"GyldighetsPeriode: '{ValidPeriod}', " +
+                   $"BevisBruker: '{BevisProofHolder}', " +
+                   $"Tittel: '{Title}', " +
+                   $"BevisIdNavn: '{ProofIdName}', " +
+                   $"BevisIdVerdi: '{ProofIdValue}', " +
+                   $"Attributt: '{(Attribute != null ? string.Join(", ", Attribute.Select(x => x.ToString())) : "<none>")}', " +
                    $"Info: '{(Info != null ? string.Join(", ", Info.Select(x => x.ToString())) : "<none>")}'";
         }
     }

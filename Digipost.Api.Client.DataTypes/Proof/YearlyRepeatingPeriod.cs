@@ -2,33 +2,33 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class AarligRepeterendePeriode : TidsPeriode, IDataType
+    public class YearlyRepeatingPeriod : TimePeriode, IDataType
     {
-        public AarligRepeterendePeriode(MaanedsTidspunkt fra, MaanedsTidspunkt til)
+        public YearlyRepeatingPeriod(MonthlyTimePoint from, MonthlyTimePoint to)
         {
-            Fra = fra;
-            Til = til;
+            From = from;
+            To = to;
         }
 
         /// <summary>
         ///     Starting year of the repeating period
         /// </summary>
-        public int StartAar { get; set; }
+        public int StartYear { get; set; }
         
         /// <summary>
         ///     Ending year of the repeating period
         /// </summary>
-        public int SluttAar { get; set; }
+        public int EndYear { get; set; }
         
         /// <summary>
         ///     Starting month of the repeating period
         /// </summary>
-        public MaanedsTidspunkt Fra { get; set; }
+        public MonthlyTimePoint From { get; set; }
         
         /// <summary>
         ///     Ending month of the repeating period
         /// </summary>
-        public MaanedsTidspunkt Til { get; set; }
+        public MonthlyTimePoint To { get; set; }
         
         public XmlElement Serialize()
         {
@@ -39,20 +39,20 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new aarligRepeterendePeriode
             {
-                startaar = StartAar,
-                sluttaar = SluttAar,
-                fra = Fra.AsDataTransferObject(),
-                til = Til.AsDataTransferObject()
+                startaar = StartYear,
+                sluttaar = EndYear,
+                fra = From.AsDataTransferObject(),
+                til = To.AsDataTransferObject()
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"StartAar: '{StartAar}', " +
-                   $"SluttAar: '{SluttAar}', " +
-                   $"Fra: '{Fra}', " +
-                   $"Til: '{Til}'";
+            return $"StartAar: '{StartYear}', " +
+                   $"SluttAar: '{EndYear}', " +
+                   $"Fra: '{From}', " +
+                   $"Til: '{To}'";
         }
     }
 }

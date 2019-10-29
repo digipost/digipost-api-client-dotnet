@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.DataTypes.Tests.Proof
         {
             var time = DateTime.Now;
 
-            var source = new DataTypes.Proof.Proof("Blah & Co. Authority", new GyldighetsPeriode(new Periode {Fra = time}), new Bruker("Testbert", "Foogård"), "Proof Title");
+            var source = new DataTypes.Proof.Proof("Blah & Co. Authority", new ValidPeriod(new Period {From = time}), new ProofHolder("Testbert", "Foogård"), "Proof Title");
 
             var expected = source.AsDataTransferObject();
 

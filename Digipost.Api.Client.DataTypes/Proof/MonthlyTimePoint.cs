@@ -2,28 +2,28 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class MaanedsTidspunkt : IDataType
+    public class MonthlyTimePoint : IDataType
     {
-        public MaanedsTidspunkt(int maaned, int dag)
+        public MonthlyTimePoint(int month, int day)
         {
-            Maaned = maaned;
-            Dag = dag;
+            Month = month;
+            Day = day;
         }
 
         /// <summary>
         ///     Month (1-12)
         /// </summary>
-        public int Maaned { get; set; }
+        public int Month { get; set; }
         
         /// <summary>
         ///     Day (1-31)
         /// </summary>
-        public int Dag { get; set; }
+        public int Day { get; set; }
         
         /// <summary>
         ///     Hour (1-23)
         /// </summary>
-        public int Time { get; set; }
+        public int Hour { get; set; }
         
         /// <summary>
         ///     Minute (1-59)
@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         /// <summary>
         ///     Time zone based on the ISO8601 standard
         /// </summary>
-        public string Tidssone { get; set; }
+        public string TimeZone { get; set; }
 
         
         public XmlElement Serialize()
@@ -45,22 +45,22 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new maanedsTidspunkt
             {
-                maaned = Maaned,
-                dag = Dag,
-                time = Time,
+                maaned = Month,
+                dag = Day,
+                time = Hour,
                 min = Min,
-                tidssone = Tidssone
+                tidssone = TimeZone
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"Maaned: '{Maaned}', " +
-                   $"Dag: '{Dag}', " +
-                   $"Time: '{Time}', " +
+            return $"Maaned: '{Month}', " +
+                   $"Dag: '{Day}', " +
+                   $"Time: '{Hour}', " +
                    $"Min: '{Min}', " +
-                   $"Tidssone: '{Tidssone}'";
+                   $"Tidssone: '{TimeZone}'";
         }
     }
 }

@@ -3,17 +3,17 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class Periode : TidsPeriode, IDataType
+    public class Period : TimePeriode, IDataType
     {
         /// <summary>
-        ///     Periode start (ISO8601 full DateTime)
+        ///     Period start (ISO8601 full DateTime)
         /// </summary>
-        public DateTime? Fra { get; set; }
+        public DateTime? From { get; set; }
         
         /// <summary>
-        ///     Periode end (ISO8601 full DateTime)
+        ///     Period end (ISO8601 full DateTime)
         /// </summary>
-        public DateTime? Til { get; set; }
+        public DateTime? To { get; set; }
         
         public XmlElement Serialize()
         {
@@ -24,16 +24,16 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new periode
             {
-                fra = Fra?.ToString("O"),
-                til = Til?.ToString("O")
+                fra = From?.ToString("O"),
+                til = To?.ToString("O")
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"Fra: '{Fra?.ToString("O") ?? "<none>"}', " +
-                   $"Til: '{Til?.ToString("O") ?? "<none>"}'";
+            return $"Fra: '{From?.ToString("O") ?? "<none>"}', " +
+                   $"Til: '{To?.ToString("O") ?? "<none>"}'";
         }
     }
 }

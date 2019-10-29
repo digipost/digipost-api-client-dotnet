@@ -1,6 +1,6 @@
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public interface TidsPeriode
+    public interface TimePeriode
     {
         /* Empty interface */
     }

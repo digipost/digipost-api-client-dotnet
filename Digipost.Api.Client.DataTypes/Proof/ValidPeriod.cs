@@ -2,17 +2,17 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class GyldighetsPeriode : IDataType
+    public class ValidPeriod : IDataType
     {
-        public GyldighetsPeriode(TidsPeriode tidsPeriode)
+        public ValidPeriod(TimePeriode timePeriode)
         {
-            TidsPeriode = tidsPeriode;
+            TimePeriode = timePeriode;
         }
 
         /// <summary>
         ///     The valid time period
         /// </summary>
-        public TidsPeriode TidsPeriode { get; set; }
+        public TimePeriode TimePeriode { get; set; }
         
         public XmlElement Serialize()
         {
@@ -23,14 +23,14 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new gyldighetsPeriode
             {
-                Item = TidsPeriode
+                Item = TimePeriode
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"Tidsperiode: '{TidsPeriode}'";
+            return $"Tidsperiode: '{TimePeriode}'";
         }
     }
 }

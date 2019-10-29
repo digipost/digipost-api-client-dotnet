@@ -2,28 +2,28 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class Bruker : IDataType
+    public class ProofHolder : IDataType
     {
-        public Bruker(string fornavn, string etternavn)
+        public ProofHolder(string firstName, string surName)
         {
-            Fornavn = fornavn;
-            Etternavn = etternavn;
+            FirstName = firstName;
+            SurName = surName;
         }
 
         /// <summary>
         ///     Name
         /// </summary>
-        public string Fornavn { get; set; }
+        public string FirstName { get; set; }
         
         /// <summary>
         ///     Surname
         /// </summary>
-        public string Etternavn { get; set; }
+        public string SurName { get; set; }
         
         /// <summary>
         ///     Social Security Number
         /// </summary>
-        public string Foedselsnummer { get; set; }
+        public string SocialSecurityNumber { get; set; }
         
         /// <summary>
         ///     Address
@@ -39,9 +39,9 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new bruker
             {
-                fornavn = Fornavn,
-                etternavn = Etternavn,
-                foedselsnummer = Foedselsnummer,
+                fornavn = FirstName,
+                etternavn = SurName,
+                foedselsnummer = SocialSecurityNumber,
                 adresse = Address?.AsDataTransferObject()
             };
             return dto;
@@ -49,9 +49,9 @@ namespace Digipost.Api.Client.DataTypes.Proof
         
         public override string ToString()
         {
-            return $"Fornavn: '{Fornavn}', " +
-                   $"Etternavn: '{Etternavn}', " +
-                   $"Foedselsnummer: '{Foedselsnummer}', " +
+            return $"Fornavn: '{FirstName}', " +
+                   $"Etternavn: '{SurName}', " +
+                   $"Foedselsnummer: '{SocialSecurityNumber}', " +
                    $"Address: '{Address?.ToString() ?? "<none>"}'";
         }
     }

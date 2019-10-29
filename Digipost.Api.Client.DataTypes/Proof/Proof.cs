@@ -7,11 +7,11 @@ namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class Proof : IDataType
     {
-        public Proof(string authorizerName, ValidPeriod validPeriod, ProofHolder bevisProofHolder, string title)
+        public Proof(string authorizerName, ValidPeriod validPeriod, ProofHolder proofHolder, string title)
         {
             AuthorizerName = authorizerName;
             ValidPeriod = validPeriod;
-            BevisProofHolder = bevisProofHolder;
+            ProofHolder = proofHolder;
             Title = title;
         }
 
@@ -38,7 +38,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
         /// <summary>
         ///     The user of the Proof
         /// </summary>
-        public ProofHolder BevisProofHolder { get; set; }
+        public ProofHolder ProofHolder { get; set; }
         
         /// <summary>
         ///     Title of the Proof
@@ -78,7 +78,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
                 bakgrunnsfarge = BackgroundColor,
                 utstedttidspunkt = IssuedTime?.ToString("O"),
                 gyldighetsperioder = ValidPeriod.AsDataTransferObject(),
-                bevisbruker = BevisProofHolder.AsDataTransferObject(),
+                bevisbruker = ProofHolder.AsDataTransferObject(),
                 tittel = Title,
                 bevisidnavn = ProofIdName,
                 bevisidverdi = ProofIdValue,
@@ -94,7 +94,7 @@ namespace Digipost.Api.Client.DataTypes.Proof
                    $"BakgrunnsFarge: '{BackgroundColor}', " +
                    $"UtstedtTidspunkt: '{IssuedTime?.ToString("O") ?? "<none>"}', " +
                    $"GyldighetsPeriode: '{ValidPeriod}', " +
-                   $"BevisBruker: '{BevisProofHolder}', " +
+                   $"BevisBruker: '{ProofHolder}', " +
                    $"Tittel: '{Title}', " +
                    $"BevisIdNavn: '{ProofIdName}', " +
                    $"BevisIdVerdi: '{ProofIdValue}', " +

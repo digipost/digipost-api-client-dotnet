@@ -36,10 +36,8 @@ namespace Digipost.Api.Client.DataTypes
             var dto = new foreignCurrencyPayment
             {
                 currencycode = CurrencyCode,
-                amount = Amount.GetValueOrDefault(),
-                amountSpecified = Amount.HasValue,
-                exchangerate = ExchangeRate.GetValueOrDefault(),
-                exchangerateSpecified = ExchangeRate.HasValue,
+                amount = Amount,
+                exchangerate = ExchangeRate,
                 label = Label
             };
             return dto;

@@ -102,7 +102,6 @@ namespace Digipost.Api.Client.DataTypes.Pickup
                 pickupplace = PickupPlace.AsDataTransferObject(),
                 package = Package?.AsDataTransferObject(),
                 cost = Cost?.AsDataTransferObject(),
-                statusSpecified = Status.HasValue,
                 tags = Tags?.Select(i => (tag) Enum.Parse(typeof(tag), i.ToString())).ToArray()
             };
 

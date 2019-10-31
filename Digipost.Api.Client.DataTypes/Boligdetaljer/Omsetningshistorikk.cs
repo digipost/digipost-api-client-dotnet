@@ -48,8 +48,7 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
                 beskrivelse = Beskrivelse,
                 selger = Selger,
                 kjoeper = Kjoeper,
-                beloep = Beloep.GetValueOrDefault(0),
-                beloepSpecified = Beloep.HasValue
+                beloep = Beloep,
             };
             return dto;
         }

@@ -48,7 +48,6 @@ namespace Digipost.Api.Client.DataTypes
             if (Deadline.HasValue)
             {
                 dto.deadline = Deadline.Value;
-                dto.deadlineSpecified = true;
             }
             return dto;
         }

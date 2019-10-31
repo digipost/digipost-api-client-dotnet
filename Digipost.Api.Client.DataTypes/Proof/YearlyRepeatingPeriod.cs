@@ -40,10 +40,8 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new yearlyRepeatingPeriod
             {
-                startyear = StartYear.GetValueOrDefault(0),
-                startyearSpecified = StartYear.HasValue,
-                endyear = EndYear.GetValueOrDefault(0),
-                endyearSpecified = EndYear.HasValue,
+                startyear = StartYear,
+                endyear = EndYear,
                 from = From.AsDataTransferObject(),
                 to = To.AsDataTransferObject()
             };

@@ -22,7 +22,6 @@ namespace Digipost.Api.Client.DataTypes.Tests
             {
                 buttontext = "Click me",
                 deadline = now,
-                deadlineSpecified = true,
                 description = "Description",
                 url = "https://digipost.no/"
             };

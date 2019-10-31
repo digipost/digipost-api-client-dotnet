@@ -67,9 +67,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" ref="tns:residence"/>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="hjemmelshavere" type="tns:hjemmelshaver"/>
-      <xs:element minOccurs="0" name="bruksareal" type="xs:int"/>
-      <xs:element minOccurs="0" name="antall-oppholdsrom" type="xs:int"/>
-      <xs:element minOccurs="0" name="antall-baderom" type="xs:int"/>
+      <xs:element minOccurs="0" name="bruksareal" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="antall-oppholdsrom" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="antall-baderom" type="xs:int" nillable="true"/>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="omsetningshistorikk" type="tns:omsetningshistorikk"/>
       <xs:element minOccurs="0" name="organisasjonsnummer" type="xs:string"/>
       <xs:element minOccurs="0" name="bruksenhet" type="xs:string"/>
@@ -121,7 +121,7 @@
       <xs:element minOccurs="0" name="beskrivelse" type="xs:string"/>
       <xs:element minOccurs="0" name="selger" type="xs:string"/>
       <xs:element minOccurs="0" name="kjoeper" type="xs:string"/>
-      <xs:element minOccurs="0" name="beloep" type="xs:long"/>
+      <xs:element minOccurs="0" name="beloep" type="xs:long" nillable="true"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -136,7 +136,7 @@
   <xs:complexType final="extension restriction" name="externalLink">
     <xs:sequence>
       <xs:element name="url" type="xs:anyURI"/>
-      <xs:element minOccurs="0" name="deadline" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="deadline" type="xs:dateTime" nillable="true"/>
       <xs:element minOccurs="0" name="description" type="xs:string"/>
       <xs:element minOccurs="0" name="button-text" type="xs:string"/>
     </xs:sequence>
@@ -172,8 +172,8 @@
   <xs:complexType final="extension restriction" name="foreignCurrencyPayment">
     <xs:sequence>
       <xs:element minOccurs="0" name="currency-code" type="xs:string"/>
-      <xs:element minOccurs="0" name="amount" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="exchange-rate" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" nillable="true"/>
+      <xs:element minOccurs="0" name="exchange-rate" type="xs:decimal" nillable="true"/>
       <xs:element minOccurs="0" name="label" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
@@ -193,22 +193,22 @@
   <xs:complexType final="extension restriction" name="cost">
     <xs:sequence>
       <xs:element name="value-to-be-payed" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="package-value" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="customs-fee-outlayed" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="package-value" type="xs:decimal" nillable="true"/>
+      <xs:element minOccurs="0" name="customs-fee-outlayed" type="xs:decimal" nillable="true"/>
       <xs:element minOccurs="0" name="vas-text" type="xs:string"/>
-      <xs:element minOccurs="0" name="customs-fee" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="customs-fee-outlay-cost" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="cod-amount" type="xs:decimal"/>
-      <xs:element minOccurs="0" name="cod-fee" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="customs-fee" type="xs:decimal" nillable="true"/>
+      <xs:element minOccurs="0" name="customs-fee-outlay-cost" type="xs:decimal" nillable="true"/>
+      <xs:element minOccurs="0" name="cod-amount" type="xs:decimal" nillable="true"/>
+      <xs:element minOccurs="0" name="cod-fee" type="xs:decimal" nillable="true"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType final="extension restriction" name="package">
     <xs:sequence>
-      <xs:element minOccurs="0" name="length" type="xs:int"/>
-      <xs:element minOccurs="0" name="width" type="xs:int"/>
-      <xs:element minOccurs="0" name="height" type="xs:int"/>
-      <xs:element minOccurs="0" name="weight" type="xs:int"/>
+      <xs:element minOccurs="0" name="length" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="width" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="height" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="weight" type="xs:int" nillable="true"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -304,8 +304,8 @@
 
   <xs:complexType final="extension restriction" name="yearlyRepeatingPeriod">
     <xs:sequence>
-      <xs:element minOccurs="0" name="start-year" type="xs:int"/>
-      <xs:element minOccurs="0" name="end-year" type="xs:int"/>
+      <xs:element minOccurs="0" name="start-year" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="end-year" type="xs:int" nillable="true"/>
       <xs:element name="from" type="tns:calendarDate"/>
       <xs:element name="to" type="tns:calendarDate"/>
     </xs:sequence>
@@ -399,13 +399,13 @@
       <xs:element minOccurs="0" name="startTime" type="xs:string"/>
       <xs:element minOccurs="0" name="stopTime" type="xs:string"/>
       <xs:element minOccurs="0" name="tips" type="xs:string"/>
-      <xs:element minOccurs="0" name="totalMeterPrice" type="xs:string"/>
-      <xs:element minOccurs="0" name="totalDistanceBeforeBoardingInMeters" type="xs:int"/>
-      <xs:element minOccurs="0" name="totalDistanceInMeters" type="xs:int"/>
-      <xs:element minOccurs="0" name="totalDistanceWithPassengerInMeters" type="xs:int"/>
-      <xs:element minOccurs="0" name="totalTimeBeforeBoardingInSeconds" type="xs:int"/>
-      <xs:element minOccurs="0" name="totalTimeInSeconds" type="xs:int"/>
-      <xs:element minOccurs="0" name="totalTimeWithPassengerInSeconds" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalMeterPrice" type="xs:string" nillable="true"/>
+      <xs:element minOccurs="0" name="totalDistanceBeforeBoardingInMeters" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="totalDistanceInMeters" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="totalDistanceWithPassengerInMeters" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="totalTimeBeforeBoardingInSeconds" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="totalTimeInSeconds" type="xs:int" nillable="true"/>
+      <xs:element minOccurs="0" name="totalTimeWithPassengerInSeconds" type="xs:int" nillable="true"/>
       <xs:element minOccurs="0" name="vat" type="tns:vatDetails"/>
     </xs:sequence>
   </xs:complexType>

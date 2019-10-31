@@ -33,14 +33,10 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         {
             var dto = new package
             {
-                length = Length.GetValueOrDefault(0),
-                lengthSpecified = Length.HasValue,
-                width = Width.GetValueOrDefault(0),
-                widthSpecified = Width.HasValue,
-                height = Height.GetValueOrDefault(0),
-                heightSpecified = Height.HasValue,
-                weight = Weight.GetValueOrDefault(0),
-                weightSpecified = Weight.HasValue
+                length = Length,
+                width = Width,
+                height = Height,
+                weight = Weight,
             };
             return dto;
         }

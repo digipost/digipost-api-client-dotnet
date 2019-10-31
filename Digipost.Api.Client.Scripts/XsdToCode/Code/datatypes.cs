@@ -387,29 +387,17 @@ public partial class taxiDetails {
     
     private string totalMeterPriceField;
     
-    private int totalDistanceBeforeBoardingInMetersField;
+    private System.Nullable<int> totalDistanceBeforeBoardingInMetersField;
     
-    private bool totalDistanceBeforeBoardingInMetersFieldSpecified;
+    private System.Nullable<int> totalDistanceInMetersField;
     
-    private int totalDistanceInMetersField;
+    private System.Nullable<int> totalDistanceWithPassengerInMetersField;
     
-    private bool totalDistanceInMetersFieldSpecified;
+    private System.Nullable<int> totalTimeBeforeBoardingInSecondsField;
     
-    private int totalDistanceWithPassengerInMetersField;
+    private System.Nullable<int> totalTimeInSecondsField;
     
-    private bool totalDistanceWithPassengerInMetersFieldSpecified;
-    
-    private int totalTimeBeforeBoardingInSecondsField;
-    
-    private bool totalTimeBeforeBoardingInSecondsFieldSpecified;
-    
-    private int totalTimeInSecondsField;
-    
-    private bool totalTimeInSecondsFieldSpecified;
-    
-    private int totalTimeWithPassengerInSecondsField;
-    
-    private bool totalTimeWithPassengerInSecondsFieldSpecified;
+    private System.Nullable<int> totalTimeWithPassengerInSecondsField;
     
     private vatDetails vatField;
     
@@ -474,6 +462,7 @@ public partial class taxiDetails {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
     public string totalMeterPrice {
         get {
             return this.totalMeterPriceField;
@@ -484,7 +473,8 @@ public partial class taxiDetails {
     }
     
     /// <remarks/>
-    public int totalDistanceBeforeBoardingInMeters {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalDistanceBeforeBoardingInMeters {
         get {
             return this.totalDistanceBeforeBoardingInMetersField;
         }
@@ -493,19 +483,10 @@ public partial class taxiDetails {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalDistanceBeforeBoardingInMetersSpecified {
-        get {
-            return this.totalDistanceBeforeBoardingInMetersFieldSpecified;
-        }
-        set {
-            this.totalDistanceBeforeBoardingInMetersFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int totalDistanceInMeters {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalDistanceInMeters {
         get {
             return this.totalDistanceInMetersField;
         }
@@ -514,19 +495,10 @@ public partial class taxiDetails {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalDistanceInMetersSpecified {
-        get {
-            return this.totalDistanceInMetersFieldSpecified;
-        }
-        set {
-            this.totalDistanceInMetersFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int totalDistanceWithPassengerInMeters {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalDistanceWithPassengerInMeters {
         get {
             return this.totalDistanceWithPassengerInMetersField;
         }
@@ -535,19 +507,10 @@ public partial class taxiDetails {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalDistanceWithPassengerInMetersSpecified {
-        get {
-            return this.totalDistanceWithPassengerInMetersFieldSpecified;
-        }
-        set {
-            this.totalDistanceWithPassengerInMetersFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int totalTimeBeforeBoardingInSeconds {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalTimeBeforeBoardingInSeconds {
         get {
             return this.totalTimeBeforeBoardingInSecondsField;
         }
@@ -556,19 +519,10 @@ public partial class taxiDetails {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalTimeBeforeBoardingInSecondsSpecified {
-        get {
-            return this.totalTimeBeforeBoardingInSecondsFieldSpecified;
-        }
-        set {
-            this.totalTimeBeforeBoardingInSecondsFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int totalTimeInSeconds {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalTimeInSeconds {
         get {
             return this.totalTimeInSecondsField;
         }
@@ -576,20 +530,11 @@ public partial class taxiDetails {
             this.totalTimeInSecondsField = value;
         }
     }
+
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalTimeInSecondsSpecified {
-        get {
-            return this.totalTimeInSecondsFieldSpecified;
-        }
-        set {
-            this.totalTimeInSecondsFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
-    public int totalTimeWithPassengerInSeconds {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> totalTimeWithPassengerInSeconds {
         get {
             return this.totalTimeWithPassengerInSecondsField;
         }
@@ -598,16 +543,6 @@ public partial class taxiDetails {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool totalTimeWithPassengerInSecondsSpecified {
-        get {
-            return this.totalTimeWithPassengerInSecondsFieldSpecified;
-        }
-        set {
-            this.totalTimeWithPassengerInSecondsFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
     public vatDetails vat {
@@ -790,13 +725,9 @@ public partial class foreignCurrencyPayment {
     
     private string currencycodeField;
     
-    private decimal amountField;
+    private System.Nullable<decimal> amountField;
     
-    private bool amountFieldSpecified;
-    
-    private decimal exchangerateField;
-    
-    private bool exchangerateFieldSpecified;
+    private System.Nullable<decimal> exchangerateField;
     
     private string labelField;
     
@@ -812,7 +743,8 @@ public partial class foreignCurrencyPayment {
     }
     
     /// <remarks/>
-    public decimal amount {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<decimal> amount {
         get {
             return this.amountField;
         }
@@ -821,20 +753,10 @@ public partial class foreignCurrencyPayment {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool amountSpecified {
-        get {
-            return this.amountFieldSpecified;
-        }
-        set {
-            this.amountFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("exchange-rate")]
-    public decimal exchangerate {
+    [System.Xml.Serialization.XmlElementAttribute("exchange-rate", IsNullable=true)]
+    public System.Nullable<decimal> exchangerate {
         get {
             return this.exchangerateField;
         }
@@ -843,16 +765,6 @@ public partial class foreignCurrencyPayment {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool exchangerateSpecified {
-        get {
-            return this.exchangerateFieldSpecified;
-        }
-        set {
-            this.exchangerateFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
     public string label {
@@ -1094,21 +1006,17 @@ public partial class calendarDate {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 public partial class yearlyRepeatingPeriod {
     
-    private int startyearField;
+    private System.Nullable<int> startyearField;
     
-    private bool startyearFieldSpecified;
-    
-    private int endyearField;
-    
-    private bool endyearFieldSpecified;
+    private System.Nullable<int> endyearField;
     
     private calendarDate fromField;
     
     private calendarDate toField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("start-year")]
-    public int startyear {
+    [System.Xml.Serialization.XmlElementAttribute("start-year", IsNullable=true)]
+    public System.Nullable<int> startyear {
         get {
             return this.startyearField;
         }
@@ -1117,20 +1025,10 @@ public partial class yearlyRepeatingPeriod {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool startyearSpecified {
-        get {
-            return this.startyearFieldSpecified;
-        }
-        set {
-            this.startyearFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("end-year")]
-    public int endyear {
+    [System.Xml.Serialization.XmlElementAttribute("end-year", IsNullable=true)]
+    public System.Nullable<int> endyear {
         get {
             return this.endyearField;
         }
@@ -1139,16 +1037,6 @@ public partial class yearlyRepeatingPeriod {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool endyearSpecified {
-        get {
-            return this.endyearFieldSpecified;
-        }
-        set {
-            this.endyearFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
     public calendarDate from {
@@ -1237,31 +1125,19 @@ public partial class cost {
     
     private decimal valuetobepayedField;
     
-    private decimal packagevalueField;
+    private System.Nullable<decimal> packagevalueField;
     
-    private bool packagevalueFieldSpecified;
-    
-    private decimal customsfeeoutlayedField;
-    
-    private bool customsfeeoutlayedFieldSpecified;
+    private System.Nullable<decimal> customsfeeoutlayedField;
     
     private string vastextField;
     
-    private decimal customsfeeField;
+    private System.Nullable<decimal> customsfeeField;
     
-    private bool customsfeeFieldSpecified;
+    private System.Nullable<decimal> customsfeeoutlaycostField;
     
-    private decimal customsfeeoutlaycostField;
+    private System.Nullable<decimal> codamountField;
     
-    private bool customsfeeoutlaycostFieldSpecified;
-    
-    private decimal codamountField;
-    
-    private bool codamountFieldSpecified;
-    
-    private decimal codfeeField;
-    
-    private bool codfeeFieldSpecified;
+    private System.Nullable<decimal> codfeeField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("value-to-be-payed")]
@@ -1275,8 +1151,8 @@ public partial class cost {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("package-value")]
-    public decimal packagevalue {
+    [System.Xml.Serialization.XmlElementAttribute("package-value", IsNullable=true)]
+    public System.Nullable<decimal> packagevalue {
         get {
             return this.packagevalueField;
         }
@@ -1285,20 +1161,10 @@ public partial class cost {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool packagevalueSpecified {
-        get {
-            return this.packagevalueFieldSpecified;
-        }
-        set {
-            this.packagevalueFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlayed")]
-    public decimal customsfeeoutlayed {
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlayed", IsNullable=true)]
+    public System.Nullable<decimal> customsfeeoutlayed {
         get {
             return this.customsfeeoutlayedField;
         }
@@ -1307,16 +1173,6 @@ public partial class cost {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool customsfeeoutlayedSpecified {
-        get {
-            return this.customsfeeoutlayedFieldSpecified;
-        }
-        set {
-            this.customsfeeoutlayedFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("vas-text")]
@@ -1330,8 +1186,8 @@ public partial class cost {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("customs-fee")]
-    public decimal customsfee {
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee", IsNullable=true)]
+    public System.Nullable<decimal> customsfee {
         get {
             return this.customsfeeField;
         }
@@ -1340,20 +1196,10 @@ public partial class cost {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool customsfeeSpecified {
-        get {
-            return this.customsfeeFieldSpecified;
-        }
-        set {
-            this.customsfeeFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlay-cost")]
-    public decimal customsfeeoutlaycost {
+    [System.Xml.Serialization.XmlElementAttribute("customs-fee-outlay-cost", IsNullable=true)]
+    public System.Nullable<decimal> customsfeeoutlaycost {
         get {
             return this.customsfeeoutlaycostField;
         }
@@ -1362,20 +1208,10 @@ public partial class cost {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool customsfeeoutlaycostSpecified {
-        get {
-            return this.customsfeeoutlaycostFieldSpecified;
-        }
-        set {
-            this.customsfeeoutlaycostFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("cod-amount")]
-    public decimal codamount {
+    [System.Xml.Serialization.XmlElementAttribute("cod-amount", IsNullable=true)]
+    public System.Nullable<decimal> codamount {
         get {
             return this.codamountField;
         }
@@ -1384,36 +1220,15 @@ public partial class cost {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codamountSpecified {
-        get {
-            return this.codamountFieldSpecified;
-        }
-        set {
-            this.codamountFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("cod-fee")]
-    public decimal codfee {
+    [System.Xml.Serialization.XmlElementAttribute("cod-fee", IsNullable=true)]
+    public System.Nullable<decimal> codfee {
         get {
             return this.codfeeField;
         }
         set {
             this.codfeeField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool codfeeSpecified {
-        get {
-            return this.codfeeFieldSpecified;
-        }
-        set {
-            this.codfeeFieldSpecified = value;
         }
     }
 }
@@ -1426,24 +1241,17 @@ public partial class cost {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
 public partial class package {
     
-    private int lengthField;
+    private System.Nullable<int> lengthField;
     
-    private bool lengthFieldSpecified;
+    private System.Nullable<int> widthField;
     
-    private int widthField;
+    private System.Nullable<int> heightField;
     
-    private bool widthFieldSpecified;
-    
-    private int heightField;
-    
-    private bool heightFieldSpecified;
-    
-    private int weightField;
-    
-    private bool weightFieldSpecified;
+    private System.Nullable<int> weightField;
     
     /// <remarks/>
-    public int length {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> length {
         get {
             return this.lengthField;
         }
@@ -1452,19 +1260,10 @@ public partial class package {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool lengthSpecified {
-        get {
-            return this.lengthFieldSpecified;
-        }
-        set {
-            this.lengthFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int width {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> width {
         get {
             return this.widthField;
         }
@@ -1473,19 +1272,10 @@ public partial class package {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool widthSpecified {
-        get {
-            return this.widthFieldSpecified;
-        }
-        set {
-            this.widthFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int height {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> height {
         get {
             return this.heightField;
         }
@@ -1494,35 +1284,15 @@ public partial class package {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool heightSpecified {
-        get {
-            return this.heightFieldSpecified;
-        }
-        set {
-            this.heightFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    public int weight {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> weight {
         get {
             return this.weightField;
         }
         set {
             this.weightField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool weightSpecified {
-        get {
-            return this.weightFieldSpecified;
-        }
-        set {
-            this.weightFieldSpecified = value;
         }
     }
 }
@@ -1851,9 +1621,7 @@ public partial class omsetningshistorikk {
     
     private string kjoeperField;
     
-    private long beloepField;
-    
-    private bool beloepFieldSpecified;
+    private System.Nullable<long> beloepField;
     
     /// <remarks/>
     public string dato {
@@ -1896,23 +1664,13 @@ public partial class omsetningshistorikk {
     }
     
     /// <remarks/>
-    public long beloep {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<long> beloep {
         get {
             return this.beloepField;
         }
         set {
             this.beloepField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool beloepSpecified {
-        get {
-            return this.beloepFieldSpecified;
-        }
-        set {
-            this.beloepFieldSpecified = value;
         }
     }
 }
@@ -2138,17 +1896,11 @@ public partial class boligdetaljer {
     
     private hjemmelshaver[] hjemmelshavereField;
     
-    private int bruksarealField;
+    private System.Nullable<int> bruksarealField;
     
-    private bool bruksarealFieldSpecified;
+    private System.Nullable<int> antalloppholdsromField;
     
-    private int antalloppholdsromField;
-    
-    private bool antalloppholdsromFieldSpecified;
-    
-    private int antallbaderomField;
-    
-    private bool antallbaderomFieldSpecified;
+    private System.Nullable<int> antallbaderomField;
     
     private omsetningshistorikk[] omsetningshistorikkField;
     
@@ -2184,7 +1936,8 @@ public partial class boligdetaljer {
     }
     
     /// <remarks/>
-    public int bruksareal {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<int> bruksareal {
         get {
             return this.bruksarealField;
         }
@@ -2193,20 +1946,10 @@ public partial class boligdetaljer {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool bruksarealSpecified {
-        get {
-            return this.bruksarealFieldSpecified;
-        }
-        set {
-            this.bruksarealFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("antall-oppholdsrom")]
-    public int antalloppholdsrom {
+    [System.Xml.Serialization.XmlElementAttribute("antall-oppholdsrom", IsNullable=true)]
+    public System.Nullable<int> antalloppholdsrom {
         get {
             return this.antalloppholdsromField;
         }
@@ -2215,20 +1958,10 @@ public partial class boligdetaljer {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool antalloppholdsromSpecified {
-        get {
-            return this.antalloppholdsromFieldSpecified;
-        }
-        set {
-            this.antalloppholdsromFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("antall-baderom")]
-    public int antallbaderom {
+    [System.Xml.Serialization.XmlElementAttribute("antall-baderom", IsNullable=true)]
+    public System.Nullable<int> antallbaderom {
         get {
             return this.antallbaderomField;
         }
@@ -2236,17 +1969,7 @@ public partial class boligdetaljer {
             this.antallbaderomField = value;
         }
     }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool antallbaderomSpecified {
-        get {
-            return this.antallbaderomFieldSpecified;
-        }
-        set {
-            this.antallbaderomFieldSpecified = value;
-        }
-    }
+
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("omsetningshistorikk")]
@@ -2381,9 +2104,7 @@ public partial class externalLink {
     
     private string urlField;
     
-    private System.DateTime deadlineField;
-    
-    private bool deadlineFieldSpecified;
+    private System.Nullable<System.DateTime> deadlineField;
     
     private string descriptionField;
     
@@ -2401,7 +2122,8 @@ public partial class externalLink {
     }
     
     /// <remarks/>
-    public System.DateTime deadline {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    public System.Nullable<System.DateTime> deadline {
         get {
             return this.deadlineField;
         }
@@ -2410,16 +2132,6 @@ public partial class externalLink {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool deadlineSpecified {
-        get {
-            return this.deadlineFieldSpecified;
-        }
-        set {
-            this.deadlineFieldSpecified = value;
-        }
-    }
     
     /// <remarks/>
     public string description {
@@ -2632,8 +2344,6 @@ public partial class pickupNotice {
     
     private status statusField;
     
-    private bool statusFieldSpecified;
-    
     private tag[] tagsField;
     
     /// <remarks/>
@@ -2759,17 +2469,6 @@ public partial class pickupNotice {
         }
         set {
             this.statusField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool statusSpecified {
-        get {
-            return this.statusFieldSpecified;
-        }
-        set {
-            this.statusFieldSpecified = value;
         }
     }
     

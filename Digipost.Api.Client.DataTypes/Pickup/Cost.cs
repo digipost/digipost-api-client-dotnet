@@ -61,19 +61,13 @@ namespace Digipost.Api.Client.DataTypes.Pickup
             var dto = new cost
             {
                 valuetobepayed = ValueToBePayed,
-                packagevalue = PackageValue.GetValueOrDefault(0),
-                packagevalueSpecified = PackageValue.HasValue,
-                customsfeeoutlayed = CustomsFeeOutlayCost.GetValueOrDefault(0),
-                customsfeeoutlayedSpecified = CustomsFeeOutlayCost.HasValue,
+                packagevalue = PackageValue,
+                customsfeeoutlayed = CustomsFeeOutlayCost,
                 vastext = VasText,
-                customsfee = CustomsFee.GetValueOrDefault(0),
-                customsfeeSpecified = CustomsFee.HasValue,
-                customsfeeoutlaycost = CustomsFeeOutlayCost.GetValueOrDefault(0),
-                customsfeeoutlaycostSpecified = CustomsFeeOutlayCost.HasValue,
-                codamount = CodAmount.GetValueOrDefault(0),
-                codamountSpecified = CodAmount.HasValue,
-                codfee = CodFee.GetValueOrDefault(0),
-                codfeeSpecified = CodFee.HasValue
+                customsfee = CustomsFee,
+                customsfeeoutlaycost = CustomsFeeOutlayCost,
+                codamount = CodAmount,
+                codfee = CodFee
             };
             return dto;
         }

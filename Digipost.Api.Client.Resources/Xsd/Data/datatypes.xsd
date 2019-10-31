@@ -263,60 +263,60 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType final="extension restriction" name="aarligRepeterendePeriode">
+  <xs:complexType final="extension restriction" name="calendarDate">
     <xs:sequence>
-      <xs:element minOccurs="0" name="start-aar" type="xs:int"/>
-      <xs:element minOccurs="0" name="slutt-aar" type="xs:int"/>
-      <xs:element name="fra" type="tns:maanedsTidspunkt"/>
-      <xs:element name="til" type="tns:maanedsTidspunkt"/>
+      <xs:element name="month" type="xs:int"/>
+      <xs:element name="day" type="xs:int"/>
+      <xs:element default="0" minOccurs="0" name="hour" type="xs:int"/>
+      <xs:element default="0" minOccurs="0" name="min" type="xs:int"/>
+      <xs:element default="+01:00" minOccurs="0" name="time-zone" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType final="extension restriction" name="maanedsTidspunkt">
+  <xs:complexType final="extension restriction" name="period">
     <xs:sequence>
-      <xs:element name="maaned" type="xs:int"/>
-      <xs:element name="dag" type="xs:int"/>
-      <xs:element minOccurs="0" name="time" type="xs:int"/>
-      <xs:element minOccurs="0" name="min" type="xs:int"/>
-      <xs:element default="+02:00" minOccurs="0" name="tidssone" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType final="extension restriction" name="bruker">
-    <xs:sequence>
-      <xs:element name="fornavn" type="xs:string"/>
-      <xs:element name="etternavn" type="xs:string"/>
-      <xs:element minOccurs="0" name="foedselsnummer" type="xs:string"/>
-      <xs:element minOccurs="0" name="adresse" type="tns:datatypeaddress"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType final="extension restriction" name="gyldighetsPeriode">
-    <xs:choice>
-      <xs:element name="periode" type="tns:periode"/>
-      <xs:element name="aarlig-repeterende-periode" type="tns:aarligRepeterendePeriode"/>
-    </xs:choice>
-  </xs:complexType>
-
-  <xs:complexType final="extension restriction" name="periode">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fra" type="xs:string"/>
-      <xs:element minOccurs="0" name="til" type="xs:string"/>
+      <xs:element minOccurs="0" name="from" type="xs:string"/>
+      <xs:element minOccurs="0" name="to" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType final="extension restriction" name="proof">
     <xs:sequence>
-      <xs:element name="utsteder-visningsnavn" type="xs:string"/>
-      <xs:element minOccurs="0" name="bakgrunnsfarge" type="xs:string"/>
-      <xs:element minOccurs="0" name="utstedt-tidspunkt" type="xs:string"/>
-      <xs:element name="gyldighetsperioder" type="tns:gyldighetsPeriode"/>
-      <xs:element name="bevis-bruker" type="tns:bruker"/>
-      <xs:element name="tittel" type="xs:string"/>
-      <xs:element minOccurs="0" name="bevis-id-navn" type="xs:string"/>
-      <xs:element minOccurs="0" name="bevis-id-verdi" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="attributt" type="tns:info"/>
+      <xs:element name="authorizer-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="background-color" type="xs:string"/>
+      <xs:element minOccurs="0" name="issued-time" type="xs:string"/>
+      <xs:element name="valid-period" type="tns:validPeriod"/>
+      <xs:element name="proof-holder" type="tns:proofHolder"/>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element minOccurs="0" name="proof-id-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="proof-id-value" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="tns:info"/>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="validPeriod">
+    <xs:choice>
+      <xs:element name="period" type="tns:period"/>
+      <xs:element name="yearly-repeating-period" type="tns:yearlyRepeatingPeriod"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="yearlyRepeatingPeriod">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="start-year" type="xs:int"/>
+      <xs:element minOccurs="0" name="end-year" type="xs:int"/>
+      <xs:element name="from" type="tns:calendarDate"/>
+      <xs:element name="to" type="tns:calendarDate"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="proofHolder">
+    <xs:sequence>
+      <xs:element name="firstname" type="xs:string"/>
+      <xs:element name="surname" type="xs:string"/>
+      <xs:element minOccurs="0" name="social-security-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:datatypeaddress"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -429,8 +429,8 @@
   <xs:simpleType name="status">
     <xs:restriction base="xs:string">
       <xs:enumeration value="READY_FOR_PICKUP"/>
-      <xs:enumeration value="UNKNOWN"/>
       <xs:enumeration value="RETURNED"/>
+      <xs:enumeration value="UNKNOWN"/>
       <xs:enumeration value="DEVIATION"/>
       <xs:enumeration value="PICKED_UP"/>
     </xs:restriction>
@@ -438,9 +438,9 @@
 
   <xs:simpleType name="tag">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="POSTEN"/>
       <xs:enumeration value="VARSEL2"/>
       <xs:enumeration value="VARSEL1"/>
-      <xs:enumeration value="POSTEN"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

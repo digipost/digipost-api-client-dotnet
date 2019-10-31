@@ -35,14 +35,14 @@ namespace Digipost.Api.Client.DataTypes.Proof
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal bruker AsDataTransferObject()
+        internal proofHolder AsDataTransferObject()
         {
-            var dto = new bruker
+            var dto = new proofHolder
             {
-                fornavn = FirstName,
-                etternavn = Surname,
-                foedselsnummer = SocialSecurityNumber,
-                adresse = Address?.AsDataTransferObject()
+                firstname = FirstName,
+                surname = Surname,
+                socialsecuritynumber = SocialSecurityNumber,
+                address = Address?.AsDataTransferObject()
             };
             return dto;
         }

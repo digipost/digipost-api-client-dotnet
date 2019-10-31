@@ -19,12 +19,12 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         /// <summary>
         ///     The value of the parcel in NOK
         /// </summary>
-        public decimal PackageValue { get; set; }
+        public decimal? PackageValue { get; set; }
         
         /// <summary>
         ///     Paid fee in customs
         /// </summary>
-        public decimal CustomsFeeOutlaid { get; set; }
+        public decimal? CustomsFeeOutlaid { get; set; }
         
         /// <summary>
         ///     Information about the value added service (vas)
@@ -34,22 +34,22 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         /// <summary>
         ///     Fee paid for customs declaration
         /// </summary>
-        public decimal CustomsFee { get; set; }
+        public decimal? CustomsFee { get; set; }
         
         /// <summary>
         ///     Outlay for customs by the service
         /// </summary>
-        public decimal CustomsFeeOutlayCost { get; set; }
+        public decimal? CustomsFeeOutlayCost { get; set; }
         
         /// <summary>
         ///     Cash on delivery (cod) amount
         /// </summary>
-        public decimal CodAmount { get; set; }
+        public decimal? CodAmount { get; set; }
         
         /// <summary>
         ///     Cash on delivery (cod) fee
         /// </summary>
-        public decimal CodFee { get; set; }
+        public decimal? CodFee { get; set; }
         
         public XmlElement Serialize()
         {
@@ -61,13 +61,19 @@ namespace Digipost.Api.Client.DataTypes.Pickup
             var dto = new cost
             {
                 valuetobepayed = ValueToBePayed,
-                packagevalue = PackageValue,
-                customsfeeoutlayed = CustomsFeeOutlaid,
+                packagevalue = PackageValue.GetValueOrDefault(0),
+                packagevalueSpecified = PackageValue.HasValue,
+                customsfeeoutlayed = CustomsFeeOutlayCost.GetValueOrDefault(0),
+                customsfeeoutlayedSpecified = CustomsFeeOutlayCost.HasValue,
                 vastext = VasText,
-                customsfee = CustomsFee,
-                customsfeeoutlaycost = CustomsFeeOutlayCost,
-                codamount = CodAmount,
-                codfee = CodFee
+                customsfee = CustomsFee.GetValueOrDefault(0),
+                customsfeeSpecified = CustomsFee.HasValue,
+                customsfeeoutlaycost = CustomsFeeOutlayCost.GetValueOrDefault(0),
+                customsfeeoutlaycostSpecified = CustomsFeeOutlayCost.HasValue,
+                codamount = CodAmount.GetValueOrDefault(0),
+                codamountSpecified = CodAmount.HasValue,
+                codfee = CodFee.GetValueOrDefault(0),
+                codfeeSpecified = CodFee.HasValue
             };
             return dto;
         }

@@ -24,17 +24,17 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
         /// <summary>
         ///     Size (Square meters) of the Residence
         /// </summary>
-        public int BruksAreal { get; set; }
+        public int? BruksAreal { get; set; }
         
         /// <summary>
         ///     Numbers of rooms in the Residence, not including Bathrooms, Kitchen or Storage Rooms
         /// </summary>
-        public int AntallOppholdsRom { get; set; }
+        public int? AntallOppholdsRom { get; set; }
         
         /// <summary>
         ///     Number of Bathrooms in the Residence
         /// </summary>
-        public int AntallBaderom { get; set; }
+        public int? AntallBaderom { get; set; }
         
         /// <summary>
         ///     Info about previous sales and transactions regarding the Residence
@@ -77,9 +77,12 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
             {
                 residence = Residence.AsDataTransferObject(),
                 hjemmelshavere = Hjemmelshavere?.Select(i => i.AsDataTransferObject()).ToArray(),
-                bruksareal = BruksAreal,
-                antalloppholdsrom = AntallOppholdsRom,
-                antallbaderom = AntallBaderom,
+                bruksareal = BruksAreal.GetValueOrDefault(0),
+                bruksarealSpecified = BruksAreal.HasValue,
+                antalloppholdsrom = AntallOppholdsRom.GetValueOrDefault(0),
+                antalloppholdsromSpecified = AntallOppholdsRom.HasValue,
+                antallbaderom = AntallBaderom.GetValueOrDefault(0),
+                antallbaderomSpecified = AntallBaderom.HasValue,
                 omsetningshistorikk = Omsetningshistorikk?.Select(i => i.AsDataTransferObject()).ToArray(),
                 organisasjonsnummer = OrganisasjonsNummer,
                 bruksenhet = BruksEnhet,

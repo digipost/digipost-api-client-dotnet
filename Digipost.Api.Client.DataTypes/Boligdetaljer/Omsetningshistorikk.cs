@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
         /// <summary>
         ///     Beloep
         /// </summary>
-        public long Beloep { get; set; }
+        public long? Beloep { get; set; }
         
         public XmlElement Serialize()
         {
@@ -48,7 +48,8 @@ namespace Digipost.Api.Client.DataTypes.Boligdetaljer
                 beskrivelse = Beskrivelse,
                 selger = Selger,
                 kjoeper = Kjoeper,
-                beloep = Beloep
+                beloep = Beloep.GetValueOrDefault(0),
+                beloepSpecified = Beloep.HasValue
             };
             return dto;
         }

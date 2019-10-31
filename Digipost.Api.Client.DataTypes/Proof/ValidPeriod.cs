@@ -19,9 +19,9 @@ namespace Digipost.Api.Client.DataTypes.Proof
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal gyldighetsPeriode AsDataTransferObject()
+        internal validPeriod AsDataTransferObject()
         {
-            var dto = new gyldighetsPeriode
+            var dto = new validPeriod
             {
                 Item = TimePeriode
             };

@@ -1,10 +1,11 @@
+using System;
 using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
     public class YearlyRepeatingPeriod : TimePeriode, IDataType
     {
-        public YearlyRepeatingPeriod(MonthlyTimePoint from, MonthlyTimePoint to)
+        public YearlyRepeatingPeriod(CalenderDate from, CalenderDate to)
         {
             From = from;
             To = to;
@@ -13,46 +14,48 @@ namespace Digipost.Api.Client.DataTypes.Proof
         /// <summary>
         ///     Starting year of the repeating period
         /// </summary>
-        public int StartYear { get; set; }
+        public int? StartYear { get; set; }
         
         /// <summary>
         ///     Ending year of the repeating period
         /// </summary>
-        public int EndYear { get; set; }
+        public int? EndYear { get; set; }
         
         /// <summary>
         ///     Starting month of the repeating period
         /// </summary>
-        public MonthlyTimePoint From { get; set; }
+        public CalenderDate From { get; set; }
         
         /// <summary>
         ///     Ending month of the repeating period
         /// </summary>
-        public MonthlyTimePoint To { get; set; }
+        public CalenderDate To { get; set; }
         
         public XmlElement Serialize()
         {
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal aarligRepeterendePeriode AsDataTransferObject()
+        internal yearlyRepeatingPeriod AsDataTransferObject()
         {
-            var dto = new aarligRepeterendePeriode
+            var dto = new yearlyRepeatingPeriod
             {
-                startaar = StartYear,
-                sluttaar = EndYear,
-                fra = From.AsDataTransferObject(),
-                til = To.AsDataTransferObject()
+                startyear = StartYear.GetValueOrDefault(0),
+                startyearSpecified = StartYear.HasValue,
+                endyear = EndYear.GetValueOrDefault(0),
+                endyearSpecified = EndYear.HasValue,
+                from = From.AsDataTransferObject(),
+                to = To.AsDataTransferObject()
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"StartAar: '{StartYear}', " +
-                   $"SluttAar: '{EndYear}', " +
-                   $"Fra: '{From}', " +
-                   $"Til: '{To}'";
+            return $"Start Year: '{StartYear}', " +
+                   $"End Year: '{EndYear}', " +
+                   $"From: '{From}', " +
+                   $"To: '{To}'";
         }
     }
 }

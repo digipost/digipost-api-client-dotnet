@@ -74,15 +74,15 @@ namespace Digipost.Api.Client.DataTypes.Proof
         {
             var dto = new proof
             {
-                utstedervisningsnavn = AuthorizerName,
-                bakgrunnsfarge = BackgroundColor,
-                utstedttidspunkt = IssuedTime?.ToString("O"),
-                gyldighetsperioder = ValidPeriod.AsDataTransferObject(),
-                bevisbruker = ProofHolder.AsDataTransferObject(),
-                tittel = Title,
-                bevisidnavn = ProofIdName,
-                bevisidverdi = ProofIdValue,
-                attributt = Attribute?.Select(i => i.AsDataTransferObject()).ToArray(),
+                authorizername = AuthorizerName,
+                backgroundcolor = BackgroundColor,
+                issuedtime = IssuedTime?.ToString("O"),
+                validperiod = ValidPeriod.AsDataTransferObject(),
+                proofholder = ProofHolder.AsDataTransferObject(),
+                title = Title,
+                proofidname = ProofIdName,
+                proofidvalue = ProofIdValue,
+                attribute = Attribute?.Select(i => i.AsDataTransferObject()).ToArray(),
                 info = Info?.Select(i => i.AsDataTransferObject()).ToArray()
             };
             return dto;

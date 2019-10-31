@@ -43,32 +43,32 @@ namespace Digipost.Api.Client.DataTypes.Receipt
         /// <summary>
         ///     Total distance before boarding in meters
         /// </summary>
-        public int TotalDistanceBeforeBoarding { get; set; }
+        public int? TotalDistanceBeforeBoarding { get; set; }
         
         /// <summary>
         ///     Total distance in meters
         /// </summary>
-        public int TotalDistance { get; set; }
+        public int? TotalDistance { get; set; }
         
         /// <summary>
         ///     Total distance with passenger in meters
         /// </summary>
-        public int TotalDistanceWithPassenger { get; set; }
+        public int? TotalDistanceWithPassenger { get; set; }
         
         /// <summary>
         ///     Total time before boarding in seconds
         /// </summary>
-        public int TotalTimeBeforeBoarding { get; set; }
+        public int? TotalTimeBeforeBoarding { get; set; }
         
         /// <summary>
         ///     Total time in seconds
         /// </summary>
-        public int TotalTime { get; set; }
+        public int? TotalTime { get; set; }
         
         /// <summary>
         ///     Total time with passenger in seconds
         /// </summary>
-        public int TotalTimeWithPassenger { get; set; }
+        public int? TotalTimeWithPassenger { get; set; }
         
         /// <summary>
         ///     VAT
@@ -91,12 +91,18 @@ namespace Digipost.Api.Client.DataTypes.Receipt
                 stopTime = StopTime?.ToString("O"),
                 tips = Tips.ToString("C"),
                 totalMeterPrice = TotalMeterPrice.ToString("C"),
-                totalDistanceBeforeBoardingInMeters = TotalDistanceBeforeBoarding,
-                totalDistanceInMeters = TotalDistance,
-                totalDistanceWithPassengerInMeters = TotalDistanceWithPassenger,
-                totalTimeBeforeBoardingInSeconds = TotalTimeBeforeBoarding,
-                totalTimeInSeconds = TotalTime,
-                totalTimeWithPassengerInSeconds = TotalTimeWithPassenger,
+                totalDistanceBeforeBoardingInMeters = TotalDistanceBeforeBoarding.GetValueOrDefault(0),
+                totalDistanceBeforeBoardingInMetersSpecified = TotalDistanceBeforeBoarding.HasValue,
+                totalDistanceInMeters = TotalDistance.GetValueOrDefault(0),
+                totalDistanceInMetersSpecified = TotalDistance.HasValue,
+                totalDistanceWithPassengerInMeters = TotalDistanceWithPassenger.GetValueOrDefault(0),
+                totalDistanceWithPassengerInMetersSpecified = TotalDistanceWithPassenger.HasValue,
+                totalTimeBeforeBoardingInSeconds = TotalTimeBeforeBoarding.GetValueOrDefault(0),
+                totalTimeBeforeBoardingInSecondsSpecified = TotalTime.HasValue,
+                totalTimeInSeconds = TotalTime.GetValueOrDefault(0),
+                totalTimeInSecondsSpecified = TotalTime.HasValue,
+                totalTimeWithPassengerInSeconds = TotalTimeWithPassenger.GetValueOrDefault(0),
+                totalTimeWithPassengerInSecondsSpecified = TotalTimeWithPassenger.HasValue,
                 vat = Vat?.AsDataTransferObject()
             };
             return dto;

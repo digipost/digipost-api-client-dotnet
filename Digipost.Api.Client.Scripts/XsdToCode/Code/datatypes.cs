@@ -955,53 +955,54 @@ public partial class payment {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class bruker {
+public partial class proofHolder {
     
-    private string fornavnField;
+    private string firstnameField;
     
-    private string etternavnField;
+    private string surnameField;
     
-    private string foedselsnummerField;
+    private string socialsecuritynumberField;
     
-    private datatypeaddress adresseField;
+    private datatypeaddress addressField;
     
     /// <remarks/>
-    public string fornavn {
+    public string firstname {
         get {
-            return this.fornavnField;
+            return this.firstnameField;
         }
         set {
-            this.fornavnField = value;
+            this.firstnameField = value;
         }
     }
     
     /// <remarks/>
-    public string etternavn {
+    public string surname {
         get {
-            return this.etternavnField;
+            return this.surnameField;
         }
         set {
-            this.etternavnField = value;
+            this.surnameField = value;
         }
     }
     
     /// <remarks/>
-    public string foedselsnummer {
+    [System.Xml.Serialization.XmlElementAttribute("social-security-number")]
+    public string socialsecuritynumber {
         get {
-            return this.foedselsnummerField;
+            return this.socialsecuritynumberField;
         }
         set {
-            this.foedselsnummerField = value;
+            this.socialsecuritynumberField = value;
         }
     }
     
     /// <remarks/>
-    public datatypeaddress adresse {
+    public datatypeaddress address {
         get {
-            return this.adresseField;
+            return this.addressField;
         }
         set {
-            this.adresseField = value;
+            this.addressField = value;
         }
     }
 }
@@ -1012,68 +1013,57 @@ public partial class bruker {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class maanedsTidspunkt {
+public partial class calendarDate {
     
-    private int maanedField;
+    private int monthField;
     
-    private int dagField;
+    private int dayField;
     
-    private int timeField;
-    
-    private bool timeFieldSpecified;
+    private int hourField;
     
     private int minField;
     
-    private bool minFieldSpecified;
+    private string timezoneField;
     
-    private string tidssoneField;
-    
-    public maanedsTidspunkt() {
-        this.tidssoneField = "+02:00";
+    public calendarDate() {
+        this.hourField = 0;
+        this.minField = 0;
+        this.timezoneField = "+01:00";
     }
     
     /// <remarks/>
-    public int maaned {
+    public int month {
         get {
-            return this.maanedField;
+            return this.monthField;
         }
         set {
-            this.maanedField = value;
+            this.monthField = value;
         }
     }
     
     /// <remarks/>
-    public int dag {
+    public int day {
         get {
-            return this.dagField;
+            return this.dayField;
         }
         set {
-            this.dagField = value;
+            this.dayField = value;
         }
     }
     
     /// <remarks/>
-    public int time {
+    [System.ComponentModel.DefaultValueAttribute(0)]
+    public int hour {
         get {
-            return this.timeField;
+            return this.hourField;
         }
         set {
-            this.timeField = value;
+            this.hourField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool timeSpecified {
-        get {
-            return this.timeFieldSpecified;
-        }
-        set {
-            this.timeFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
+    [System.ComponentModel.DefaultValueAttribute(0)]
     public int min {
         get {
             return this.minField;
@@ -1084,24 +1074,14 @@ public partial class maanedsTidspunkt {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool minSpecified {
+    [System.Xml.Serialization.XmlElementAttribute("time-zone")]
+    [System.ComponentModel.DefaultValueAttribute("+01:00")]
+    public string timezone {
         get {
-            return this.minFieldSpecified;
+            return this.timezoneField;
         }
         set {
-            this.minFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.ComponentModel.DefaultValueAttribute("+02:00")]
-    public string tidssone {
-        get {
-            return this.tidssoneField;
-        }
-        set {
-            this.tidssoneField = value;
+            this.timezoneField = value;
         }
     }
 }
@@ -1112,81 +1092,81 @@ public partial class maanedsTidspunkt {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class aarligRepeterendePeriode {
+public partial class yearlyRepeatingPeriod {
     
-    private int startaarField;
+    private int startyearField;
     
-    private bool startaarFieldSpecified;
+    private bool startyearFieldSpecified;
     
-    private int sluttaarField;
+    private int endyearField;
     
-    private bool sluttaarFieldSpecified;
+    private bool endyearFieldSpecified;
     
-    private maanedsTidspunkt fraField;
+    private calendarDate fromField;
     
-    private maanedsTidspunkt tilField;
+    private calendarDate toField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("start-aar")]
-    public int startaar {
+    [System.Xml.Serialization.XmlElementAttribute("start-year")]
+    public int startyear {
         get {
-            return this.startaarField;
+            return this.startyearField;
         }
         set {
-            this.startaarField = value;
+            this.startyearField = value;
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool startaarSpecified {
+    public bool startyearSpecified {
         get {
-            return this.startaarFieldSpecified;
+            return this.startyearFieldSpecified;
         }
         set {
-            this.startaarFieldSpecified = value;
+            this.startyearFieldSpecified = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("slutt-aar")]
-    public int sluttaar {
+    [System.Xml.Serialization.XmlElementAttribute("end-year")]
+    public int endyear {
         get {
-            return this.sluttaarField;
+            return this.endyearField;
         }
         set {
-            this.sluttaarField = value;
+            this.endyearField = value;
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool sluttaarSpecified {
+    public bool endyearSpecified {
         get {
-            return this.sluttaarFieldSpecified;
+            return this.endyearFieldSpecified;
         }
         set {
-            this.sluttaarFieldSpecified = value;
+            this.endyearFieldSpecified = value;
         }
     }
     
     /// <remarks/>
-    public maanedsTidspunkt fra {
+    public calendarDate from {
         get {
-            return this.fraField;
+            return this.fromField;
         }
         set {
-            this.fraField = value;
+            this.fromField = value;
         }
     }
     
     /// <remarks/>
-    public maanedsTidspunkt til {
+    public calendarDate to {
         get {
-            return this.tilField;
+            return this.toField;
         }
         set {
-            this.tilField = value;
+            this.toField = value;
         }
     }
 }
@@ -1197,29 +1177,29 @@ public partial class aarligRepeterendePeriode {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class periode {
+public partial class period {
     
-    private string fraField;
+    private string fromField;
     
-    private string tilField;
+    private string toField;
     
     /// <remarks/>
-    public string fra {
+    public string from {
         get {
-            return this.fraField;
+            return this.fromField;
         }
         set {
-            this.fraField = value;
+            this.fromField = value;
         }
     }
     
     /// <remarks/>
-    public string til {
+    public string to {
         get {
-            return this.tilField;
+            return this.toField;
         }
         set {
-            this.tilField = value;
+            this.toField = value;
         }
     }
 }
@@ -1230,13 +1210,13 @@ public partial class periode {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://api.digipost.no/schema/datatypes")]
-public partial class gyldighetsPeriode {
+public partial class validPeriod {
     
     private object itemField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("aarlig-repeterende-periode", typeof(aarligRepeterendePeriode))]
-    [System.Xml.Serialization.XmlElementAttribute("periode", typeof(periode))]
+    [System.Xml.Serialization.XmlElementAttribute("period", typeof(period))]
+    [System.Xml.Serialization.XmlElementAttribute("yearly-repeating-period", typeof(yearlyRepeatingPeriod))]
     public object Item {
         get {
             return this.itemField;
@@ -2815,10 +2795,10 @@ public enum status {
     READY_FOR_PICKUP,
     
     /// <remarks/>
-    UNKNOWN,
+    RETURNED,
     
     /// <remarks/>
-    RETURNED,
+    UNKNOWN,
     
     /// <remarks/>
     DEVIATION,
@@ -2834,13 +2814,13 @@ public enum status {
 public enum tag {
     
     /// <remarks/>
+    POSTEN,
+    
+    /// <remarks/>
     VARSEL2,
     
     /// <remarks/>
     VARSEL1,
-    
-    /// <remarks/>
-    POSTEN,
 }
 
 /// <remarks/>
@@ -2887,119 +2867,121 @@ public partial class pickupNoticeStatus {
 [System.Xml.Serialization.XmlRootAttribute(Namespace="http://api.digipost.no/schema/datatypes", IsNullable=false)]
 public partial class proof {
     
-    private string utstedervisningsnavnField;
+    private string authorizernameField;
     
-    private string bakgrunnsfargeField;
+    private string backgroundcolorField;
     
-    private string utstedttidspunktField;
+    private string issuedtimeField;
     
-    private gyldighetsPeriode gyldighetsperioderField;
+    private validPeriod validperiodField;
     
-    private bruker bevisbrukerField;
+    private proofHolder proofholderField;
     
-    private string tittelField;
+    private string titleField;
     
-    private string bevisidnavnField;
+    private string proofidnameField;
     
-    private string bevisidverdiField;
+    private string proofidvalueField;
     
-    private info[] attributtField;
+    private info[] attributeField;
     
     private info[] infoField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("utsteder-visningsnavn")]
-    public string utstedervisningsnavn {
+    [System.Xml.Serialization.XmlElementAttribute("authorizer-name")]
+    public string authorizername {
         get {
-            return this.utstedervisningsnavnField;
+            return this.authorizernameField;
         }
         set {
-            this.utstedervisningsnavnField = value;
+            this.authorizernameField = value;
         }
     }
     
     /// <remarks/>
-    public string bakgrunnsfarge {
+    [System.Xml.Serialization.XmlElementAttribute("background-color")]
+    public string backgroundcolor {
         get {
-            return this.bakgrunnsfargeField;
+            return this.backgroundcolorField;
         }
         set {
-            this.bakgrunnsfargeField = value;
+            this.backgroundcolorField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("utstedt-tidspunkt")]
-    public string utstedttidspunkt {
+    [System.Xml.Serialization.XmlElementAttribute("issued-time")]
+    public string issuedtime {
         get {
-            return this.utstedttidspunktField;
+            return this.issuedtimeField;
         }
         set {
-            this.utstedttidspunktField = value;
+            this.issuedtimeField = value;
         }
     }
     
     /// <remarks/>
-    public gyldighetsPeriode gyldighetsperioder {
+    [System.Xml.Serialization.XmlElementAttribute("valid-period")]
+    public validPeriod validperiod {
         get {
-            return this.gyldighetsperioderField;
+            return this.validperiodField;
         }
         set {
-            this.gyldighetsperioderField = value;
+            this.validperiodField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("bevis-bruker")]
-    public bruker bevisbruker {
+    [System.Xml.Serialization.XmlElementAttribute("proof-holder")]
+    public proofHolder proofholder {
         get {
-            return this.bevisbrukerField;
+            return this.proofholderField;
         }
         set {
-            this.bevisbrukerField = value;
+            this.proofholderField = value;
         }
     }
     
     /// <remarks/>
-    public string tittel {
+    public string title {
         get {
-            return this.tittelField;
+            return this.titleField;
         }
         set {
-            this.tittelField = value;
+            this.titleField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("bevis-id-navn")]
-    public string bevisidnavn {
+    [System.Xml.Serialization.XmlElementAttribute("proof-id-name")]
+    public string proofidname {
         get {
-            return this.bevisidnavnField;
+            return this.proofidnameField;
         }
         set {
-            this.bevisidnavnField = value;
+            this.proofidnameField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("bevis-id-verdi")]
-    public string bevisidverdi {
+    [System.Xml.Serialization.XmlElementAttribute("proof-id-value")]
+    public string proofidvalue {
         get {
-            return this.bevisidverdiField;
+            return this.proofidvalueField;
         }
         set {
-            this.bevisidverdiField = value;
+            this.proofidvalueField = value;
         }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("attributt")]
-    public info[] attributt {
+    [System.Xml.Serialization.XmlElementAttribute("attribute")]
+    public info[] attribute {
         get {
-            return this.attributtField;
+            return this.attributeField;
         }
         set {
-            this.attributtField = value;
+            this.attributeField = value;
         }
     }
     

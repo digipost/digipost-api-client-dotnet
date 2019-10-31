@@ -2,9 +2,9 @@ using System.Xml;
 
 namespace Digipost.Api.Client.DataTypes.Proof
 {
-    public class MonthlyTimePoint : IDataType
+    public class CalenderDate : IDataType
     {
-        public MonthlyTimePoint(int month, int day)
+        public CalenderDate(int month, int day)
         {
             Month = month;
             Day = day;
@@ -21,12 +21,12 @@ namespace Digipost.Api.Client.DataTypes.Proof
         public int Day { get; set; }
         
         /// <summary>
-        ///     Hour (1-23)
+        ///     Hour (0-23)
         /// </summary>
         public int Hour { get; set; }
         
         /// <summary>
-        ///     Minute (1-59)
+        ///     Minute (0-59)
         /// </summary>
         public int Min { get; set; }
         
@@ -41,26 +41,26 @@ namespace Digipost.Api.Client.DataTypes.Proof
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal maanedsTidspunkt AsDataTransferObject()
+        internal calendarDate AsDataTransferObject()
         {
-            var dto = new maanedsTidspunkt
+            var dto = new calendarDate
             {
-                maaned = Month,
-                dag = Day,
-                time = Hour,
+                month = Month,
+                day = Day,
+                hour = Hour,
                 min = Min,
-                tidssone = TimeZone
+                timezone = TimeZone
             };
             return dto;
         }
         
         public override string ToString()
         {
-            return $"Maaned: '{Month}', " +
-                   $"Dag: '{Day}', " +
-                   $"Time: '{Hour}', " +
+            return $"Month: '{Month}', " +
+                   $"Day: '{Day}', " +
+                   $"Hour: '{Hour}', " +
                    $"Min: '{Min}', " +
-                   $"Tidssone: '{TimeZone}'";
+                   $"Time Zone: '{TimeZone}'";
         }
     }
 }

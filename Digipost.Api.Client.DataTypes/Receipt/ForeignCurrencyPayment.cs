@@ -14,12 +14,12 @@ namespace Digipost.Api.Client.DataTypes
         /// <summary>
         ///     Amount
         /// </summary>
-        public Decimal Amount { get; set; }
+        public Decimal? Amount { get; set; }
         
         /// <summary>
         ///     Exchange rate
         /// </summary>
-        public Decimal ExchangeRate { get; set; }
+        public Decimal? ExchangeRate { get; set; }
         
         /// <summary>
         ///     Label
@@ -36,8 +36,10 @@ namespace Digipost.Api.Client.DataTypes
             var dto = new foreignCurrencyPayment
             {
                 currencycode = CurrencyCode,
-                amount = Amount,
-                exchangerate = ExchangeRate,
+                amount = Amount.GetValueOrDefault(),
+                amountSpecified = Amount.HasValue,
+                exchangerate = ExchangeRate.GetValueOrDefault(),
+                exchangerateSpecified = ExchangeRate.HasValue,
                 label = Label
             };
             return dto;

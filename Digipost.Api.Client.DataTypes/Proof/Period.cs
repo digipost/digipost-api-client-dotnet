@@ -20,12 +20,12 @@ namespace Digipost.Api.Client.DataTypes.Proof
             return DataTypeSerialization.Serialize(AsDataTransferObject());
         }
         
-        internal periode AsDataTransferObject()
+        internal period AsDataTransferObject()
         {
-            var dto = new periode
+            var dto = new period
             {
-                fra = From?.ToString("O"),
-                til = To?.ToString("O")
+                from = From?.ToString("O"),
+                to = To?.ToString("O")
             };
             return dto;
         }

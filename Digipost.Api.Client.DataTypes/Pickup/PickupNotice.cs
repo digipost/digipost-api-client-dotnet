@@ -75,7 +75,7 @@ namespace Digipost.Api.Client.DataTypes.Pickup
         /// <summary>
         ///     The state the package is at present time
         /// </summary>
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
         
         /// <summary>
         ///     Tags to describe the document
@@ -102,9 +102,15 @@ namespace Digipost.Api.Client.DataTypes.Pickup
                 pickupplace = PickupPlace.AsDataTransferObject(),
                 package = Package?.AsDataTransferObject(),
                 cost = Cost?.AsDataTransferObject(),
-                status = (status) Enum.Parse(typeof(status), Status.ToString()),
+                statusSpecified = Status.HasValue,
                 tags = Tags?.Select(i => (tag) Enum.Parse(typeof(tag), i.ToString())).ToArray()
             };
+
+            if (Status.HasValue)
+            {
+                dto.status = (status) Enum.Parse(typeof(status), Status.ToString());
+            }
+            
             return dto;
         }
         

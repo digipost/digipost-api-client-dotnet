@@ -68,10 +68,10 @@ namespace Digipost.Api.Client.DataTypes.Appointment
         {
             return $"Appointment starting at {StartTime}. " +
                    $"End time: '{(EndTime.HasValue ? EndTime.ToString() : "<none>")}', " +
-                   $"arrival time: '{ArrivalTime ?? "<none>"}', " +
+                   $"Arrival time: '{ArrivalTime ?? "<none>"}', " +
                    $"{AppointmentAddress?.ToString() ?? "address: <none>"}, " +
-                   $"place: '{Place ?? "<none>"}', " +
-                   $"sub title: '{SubTitle ?? "<none>"}', " +
+                   $"Place: '{Place ?? "<none>"}', " +
+                   $"Subtitle: '{SubTitle ?? "<none>"}', " +
                    $"{(Info != null ? string.Join(", ", Info.Select(x => x.ToString())) : "no additional info")}.";
         }
     }

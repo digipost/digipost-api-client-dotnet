@@ -18,10 +18,10 @@ namespace Digipost.Api.Client.DataTypes.Tests.Proof
 
             var actual = new proof
             {
-                utstedervisningsnavn = "Blah & Co. Authority",
-                gyldighetsperioder = new gyldighetsPeriode { Item = new periode { fra = time.ToString("O")} },
-                bevisbruker = new bruker { fornavn = "Testbert", etternavn = "Foogård" },
-                tittel = "Proof Title"
+                authorizername = "Blah & Co. Authority",
+                validperiod = new validPeriod { Item = new period { from = time.ToString("O")} },
+                proofholder = new proofHolder { firstname = "Testbert", surname = "Foogård" },
+                title = "Proof Title"
             };
 
             Comparator.AssertEqual(expected, actual);

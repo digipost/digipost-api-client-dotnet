@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://api.digipost.no/schema/datatypes" elementFormDefault="qualified" targetNamespace="http://api.digipost.no/schema/datatypes" version="1.0">
+
+  <xs:element name="appointment" type="tns:appointment"/>
+
+  <xs:element name="boligdetaljer" type="tns:boligdetaljer"/>
+
+  <xs:element name="category" type="tns:category"/>
+
+  <xs:element name="event" type="tns:event"/>
+
+  <xs:element name="externalLink" type="tns:externalLink"/>
+
+  <xs:element name="payslip" type="tns:payslip"/>
+
+  <xs:element name="pickup-notice" type="tns:pickupNotice"/>
+
+  <xs:element name="pickup-notice-status" type="tns:pickupNoticeStatus"/>
+
+  <xs:element name="proof" type="tns:proof"/>
+
+  <xs:element name="receipt" type="tns:receipt"/>
+
+  <xs:element name="residence" type="tns:residence"/>
+
+  <xs:element name="signedDocument" type="tns:signedDocument"/>
+
+  <xs:complexType final="extension restriction" name="address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="street-address" type="xs:string"/>
+      <xs:element minOccurs="0" name="street-address-2" type="xs:string"/>
+      <xs:element minOccurs="0" name="postal-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="country" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="appointment">
+    <xs:sequence>
+      <xs:element name="start-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="end-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="arrival-time" type="xs:string"/>
+      <xs:element minOccurs="0" name="place" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+      <xs:element minOccurs="0" name="sub-title" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="info">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+      <xs:element minOccurs="0" name="text" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="barcode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="barcode-value" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcode-type" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcode-text" type="xs:string"/>
+      <xs:element default="false" minOccurs="0" name="show-value-in-barcode" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="boligdetaljer">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:residence"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="hjemmelshavere" type="tns:hjemmelshaver"/>
+      <xs:element minOccurs="0" name="bruksareal" type="xs:int"/>
+      <xs:element minOccurs="0" name="antall-oppholdsrom" type="xs:int"/>
+      <xs:element minOccurs="0" name="antall-baderom" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="omsetningshistorikk" type="tns:omsetningshistorikk"/>
+      <xs:element minOccurs="0" name="organisasjonsnummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="bruksenhet" type="xs:string"/>
+      <xs:element minOccurs="0" name="andelsnummer" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="heftelser" type="tns:heftelse"/>
+      <xs:element minOccurs="0" name="callToAction" type="tns:externalLink"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="residence">
+    <xs:sequence>
+      <xs:element name="address" type="tns:residenceAddress"/>
+      <xs:element minOccurs="0" name="matrikkel" type="tns:matrikkel"/>
+      <xs:element minOccurs="0" name="source" type="xs:string"/>
+      <xs:element minOccurs="0" name="external-id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="residenceAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="unit-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="house-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="street-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="postal-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="matrikkel">
+    <xs:sequence>
+      <xs:element name="kommunenummer" type="xs:string"/>
+      <xs:element name="gaardsnummer" type="xs:string"/>
+      <xs:element name="bruksnummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="festenummer" type="xs:string"/>
+      <xs:element minOccurs="0" name="seksjonsnummer" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="hjemmelshaver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="omsetningshistorikk">
+    <xs:sequence>
+      <xs:element name="dato" type="xs:string"/>
+      <xs:element minOccurs="0" name="beskrivelse" type="xs:string"/>
+      <xs:element minOccurs="0" name="selger" type="xs:string"/>
+      <xs:element minOccurs="0" name="kjoeper" type="xs:string"/>
+      <xs:element minOccurs="0" name="beloep" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="heftelse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="panthaver" type="xs:string"/>
+      <xs:element minOccurs="0" name="type-pant" type="xs:string"/>
+      <xs:element minOccurs="0" name="beloep" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="externalLink">
+    <xs:sequence>
+      <xs:element name="url" type="xs:anyURI"/>
+      <xs:element minOccurs="0" name="deadline" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="button-text" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="category">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType final="extension restriction" name="event">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sub-title" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" name="start-time" type="tns:timeInterval"/>
+      <xs:element minOccurs="0" name="timeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="place" type="xs:string"/>
+      <xs:element minOccurs="0" name="placeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+      <xs:element minOccurs="0" name="barcodeLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcode" type="tns:barcode"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="links" type="tns:link"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="timeInterval">
+    <xs:sequence>
+      <xs:element name="start-time" type="xs:string"/>
+      <xs:element name="end-time" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="link">
+    <xs:sequence>
+      <xs:element name="url" type="xs:anyURI"/>
+      <xs:element name="description" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="foreignCurrencyPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="currency-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="exchange-rate" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="label" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="payslip">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="signedDocument">
+    <xs:sequence>
+      <xs:element name="document-issuer" type="xs:string"/>
+      <xs:element name="document-subject" type="xs:string"/>
+      <xs:element name="signing-time" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="cost">
+    <xs:sequence>
+      <xs:element name="value-to-be-payed" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="package-value" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="customs-fee-outlayed" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="vas-text" type="xs:string"/>
+      <xs:element minOccurs="0" name="customs-fee" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="customs-fee-outlay-cost" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="cod-amount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="cod-fee" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="package">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="length" type="xs:int"/>
+      <xs:element minOccurs="0" name="width" type="xs:int"/>
+      <xs:element minOccurs="0" name="height" type="xs:int"/>
+      <xs:element minOccurs="0" name="weight" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="pickupNotice">
+    <xs:sequence>
+      <xs:element name="parcel-id" type="xs:string"/>
+      <xs:element minOccurs="0" name="parcel-uuid" type="xs:string"/>
+      <xs:element name="barcode" type="tns:barcode"/>
+      <xs:element minOccurs="0" name="product-name" type="xs:string"/>
+      <xs:element name="arrival-date-time" type="xs:string"/>
+      <xs:element name="return-date-time" type="xs:string"/>
+      <xs:element name="recipient" type="tns:recipient"/>
+      <xs:element minOccurs="0" name="sender" type="tns:sender"/>
+      <xs:element name="pickup-place" type="tns:pickupPlace"/>
+      <xs:element minOccurs="0" name="package" type="tns:package"/>
+      <xs:element minOccurs="0" name="cost" type="tns:cost"/>
+      <xs:element minOccurs="0" name="status" type="tns:status"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="tags" type="tns:tag"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="recipient">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="digipost-address" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="sender">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="reference" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="pickupPlace">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="instruction" type="xs:string"/>
+      <xs:element minOccurs="0" name="shelf-location" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="pickupNoticeStatus">
+    <xs:sequence>
+      <xs:element name="status" type="tns:status"/>
+      <xs:element minOccurs="0" name="occurrence-datetime" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="calendarDate">
+    <xs:sequence>
+      <xs:element name="month" type="xs:int"/>
+      <xs:element name="day" type="xs:int"/>
+      <xs:element default="0" minOccurs="0" name="hour" type="xs:int"/>
+      <xs:element default="0" minOccurs="0" name="min" type="xs:int"/>
+      <xs:element default="+01:00" minOccurs="0" name="time-zone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="period">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="from" type="xs:string"/>
+      <xs:element minOccurs="0" name="to" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="proof">
+    <xs:sequence>
+      <xs:element name="authorizer-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="background-color" type="xs:string"/>
+      <xs:element minOccurs="0" name="issued-time" type="xs:string"/>
+      <xs:element name="valid-period" type="tns:validPeriod"/>
+      <xs:element name="proof-holder" type="tns:proofHolder"/>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element minOccurs="0" name="proof-id-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="proof-id-value" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="tns:info"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="info" type="tns:info"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="validPeriod">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="period" type="tns:period"/>
+      <xs:element minOccurs="0" name="yearly-repeating-period" type="tns:yearlyRepeatingPeriod"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="yearlyRepeatingPeriod">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="start-year" type="xs:int"/>
+      <xs:element minOccurs="0" name="end-year" type="xs:int"/>
+      <xs:element name="from" type="tns:calendarDate"/>
+      <xs:element name="to" type="tns:calendarDate"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="proofHolder">
+    <xs:sequence>
+      <xs:element name="firstname" type="xs:string"/>
+      <xs:element name="surname" type="xs:string"/>
+      <xs:element minOccurs="0" name="social-security-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+      <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="delivery">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+      <xs:element minOccurs="0" name="terms" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="payment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+      <xs:element minOccurs="0" name="card-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="cardName" type="xs:string"/>
+      <xs:element minOccurs="0" name="amount" type="xs:string"/>
+      <xs:element minOccurs="0" name="currency-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="foreign-currency-payment" type="tns:foreignCurrencyPayment"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="receipt">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="receiptId" type="xs:string"/>
+      <xs:element minOccurs="0" name="receiptNumber" type="xs:string"/>
+      <xs:element name="purchaseTime" type="xs:string"/>
+      <xs:element name="totalPrice" type="xs:string"/>
+      <xs:element name="totalVat" type="xs:string"/>
+      <xs:element minOccurs="0" name="currency" type="xs:string"/>
+      <xs:element minOccurs="0" name="cashier" type="xs:string"/>
+      <xs:element minOccurs="0" name="register" type="xs:string"/>
+      <xs:element minOccurs="0" name="merchant-chain" type="xs:string"/>
+      <xs:element name="merchant-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="merchant-phone-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="merchant-address" type="tns:address"/>
+      <xs:element minOccurs="0" name="orgnumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="barcode" type="tns:barcode"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="payments" type="tns:payment"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="items" type="tns:receiptLine"/>
+      <xs:element minOccurs="0" name="taxiDetails" type="tns:taxiDetails"/>
+      <xs:element minOccurs="0" name="customer" type="tns:customer"/>
+      <xs:element minOccurs="0" name="delivery" type="tns:delivery"/>
+      <xs:element minOccurs="0" name="order-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="membership-number" type="xs:string"/>
+      <xs:element minOccurs="0" name="comment" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="receiptLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="item-name" type="xs:string"/>
+      <xs:element minOccurs="0" name="item-description" type="xs:string"/>
+      <xs:element minOccurs="0" name="item-code" type="xs:string"/>
+      <xs:element minOccurs="0" name="unit" type="xs:string"/>
+      <xs:element name="quantity" type="xs:double"/>
+      <xs:element minOccurs="0" name="item-price" type="xs:string"/>
+      <xs:element minOccurs="0" name="item-vat" type="xs:string"/>
+      <xs:element minOccurs="0" name="total-price" type="xs:string"/>
+      <xs:element minOccurs="0" name="total-vat" type="xs:string"/>
+      <xs:element minOccurs="0" name="discount" type="xs:string"/>
+      <xs:element minOccurs="0" name="serialNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="eanCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="taxiDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="carPlateNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="license" type="xs:string"/>
+      <xs:element minOccurs="0" name="orgNumberLicenseHolder" type="xs:string"/>
+      <xs:element minOccurs="0" name="startTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="stopTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="tips" type="xs:string"/>
+      <xs:element minOccurs="0" name="totalMeterPrice" type="xs:string"/>
+      <xs:element minOccurs="0" name="totalDistanceBeforeBoardingInMeters" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalDistanceInMeters" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalDistanceWithPassengerInMeters" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalTimeBeforeBoardingInSeconds" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalTimeInSeconds" type="xs:int"/>
+      <xs:element minOccurs="0" name="totalTimeWithPassengerInSeconds" type="xs:int"/>
+      <xs:element minOccurs="0" name="vat" type="tns:vatDetails"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="vatDetails">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="levels" type="tns:vatLevel"/>
+      <xs:element minOccurs="0" name="sum" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType final="extension restriction" name="vatLevel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="grossAmount" type="xs:string"/>
+      <xs:element minOccurs="0" name="netAmount" type="xs:string"/>
+      <xs:element minOccurs="0" name="vat" type="xs:string"/>
+      <xs:element minOccurs="0" name="vatPercent" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="READY_FOR_PICKUP"/>
+      <xs:enumeration value="UNKNOWN"/>
+      <xs:enumeration value="RETURNED"/>
+      <xs:enumeration value="DEVIATION"/>
+      <xs:enumeration value="PICKED_UP"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="tag">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VARSEL2"/>
+      <xs:enumeration value="VARSEL1"/>
+      <xs:enumeration value="POSTEN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

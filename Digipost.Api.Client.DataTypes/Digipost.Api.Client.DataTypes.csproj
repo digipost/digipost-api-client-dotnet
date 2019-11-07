@@ -56,4 +56,11 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Resources\XSD" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
 </Project>

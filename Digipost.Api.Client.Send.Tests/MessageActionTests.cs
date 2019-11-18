@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var action = new MessageAction(message);
                 var content = action.RequestContent;
 
-                Assert.Contains("DataTypes.ExternalLink", content.InnerXml);
+                Assert.Contains("<externalLink", content.InnerXml);
             }
         }
     }

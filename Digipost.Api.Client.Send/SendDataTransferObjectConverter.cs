@@ -86,7 +86,7 @@ namespace Digipost.Api.Client.Send
             if (document.DataType != null)
             {
                 var xmldoc = new XmlDocument();
-                var serialized = SerializeUtil.Serialize(document.DataType.GetType().ToString());
+                var serialized = SerializeUtil.Serialize(Convert.ChangeType(document.DataType, document.DataType.GetType()));
                 xmldoc.LoadXml(serialized);
                 documentDto.datatype = xmldoc.DocumentElement;
             }

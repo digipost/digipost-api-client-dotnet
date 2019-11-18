@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Common.Utilities
                 return null;
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(value.GetType());
 
             var settings = new XmlWriterSettings
             {

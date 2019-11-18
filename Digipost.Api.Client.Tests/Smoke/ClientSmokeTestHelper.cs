@@ -8,6 +8,7 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;

@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Smoke
         public void Can_send_datatype_document_digipost_user()
         {
             _t
-                .CreateMessageWithPrimaryDataTypeDocument(new ExternalLink { Url = "www.test.no", Description = "This is a link" })
+                .CreateMessageWithPrimaryDataTypeDocument(new ExternalLink { Url = "https://www.test.no", Description = "This is a link" })
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);

@@ -299,7 +299,7 @@ namespace Digipost.Api.Client.Docs
             var barcode = new Barcode { Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true };
             var address = new Address { Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo" };
             var info = new Info { Title = "Title", Text = "Very important information" };
-            var link = new Link { Url = "www.test.no", Description = "This is a link" };
+            var link = new Link { Url = "https://www.test.no", Description = "This is a link" };
 
             Event @event = new Event
             {

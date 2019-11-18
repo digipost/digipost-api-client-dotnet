@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataTypes;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
-using Digipost.Api.Client.DataTypes;
-using Digipost.Api.Client.DataTypes.Appointment;
-using Digipost.Api.Client.DataTypes.Event;
 using Digipost.Api.Client.Send;
+using Address = DataTypes.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
+using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Docs
 {
@@ -274,10 +274,11 @@ namespace Digipost.Api.Client.Docs
         public void SendMessageWithAppointmentMetadata()
         {
             var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-            var appointment = new Appointment(startTime)
+            var appointment = new Appointment
             {
-                EndTime = startTime.AddMinutes(30),
-                AppointmentAddress = new AppointmentAddress("Storgata 1", "0001", "Oslo")
+                Start_Time = startTime.ToString("O"),
+                End_Time = startTime.AddMinutes(30).ToString("O"),
+                Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
             };
 
             var document = new Document(
@@ -292,38 +293,33 @@ namespace Digipost.Api.Client.Docs
         {
             var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
             
-            var eventTimeSpans = new List<EventTimeSpan>();
-            var timeSpan = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
-            var timeSpan2 = new EventTimeSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(1).AddHours(5));
-            eventTimeSpans.Add(timeSpan);
-            eventTimeSpans.Add(timeSpan2);
+            var timeInterval1 = new TimeInterval { Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O") };
+            var timeInterval2 = new TimeInterval { Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O") };
             
-            var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
-            var address = new EventAddress("Gateveien 1", "0001", "Oslo");
-            var info = new Info("Title", "Very important information");
-            var links = new List<ExternalLink>();
+            var barcode = new Barcode { Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true };
+            var address = new Address { Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo" };
+            var info = new Info { Title = "Title", Text = "Very important information" };
+            var link = new Link { Url = "www.test.no", Description = "This is a link" };
 
-            var _event = new Event(eventTimeSpans)
+            Event @event = new Event
             {
+                Start_Time = { timeInterval1, timeInterval2 },
                 Description = "Description here",
                 Address = address,
-                Info = new List<Info>
-                {
-                    info
-                },
+                Info = { info },
                 Place = "Oslo City Røntgen",
                 PlaceLabel = "This is a place",
-                SubTitle = "SubTitle",
+                Sub_Title = "SubTitle",
                 Barcode = barcode,
                 BarcodeLabel = "Barcode Label",
-                Links = links
+                Links = { link }
             };
 
-            var document = new Document(
+            Document document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
-                dataType: _event
+                dataType: @event
             );
         }
     }

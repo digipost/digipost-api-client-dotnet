@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataTypes;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
@@ -12,6 +13,7 @@ using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
+using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
@@ -51,6 +53,12 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
+        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(IDataType dataType)
+        {
+            _primary = DomainUtility.GetDocument(dataType);
+            return this;
+        }
+        
         public ClientSmokeTestHelper Create_message_with_primary_invoice()
         {
             _primary = DomainUtility.GetInvoice();

@@ -1,4 +1,5 @@
 ﻿using System;
+using DataTypes;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Tests;
@@ -28,12 +29,12 @@ namespace Digipost.Api.Client.Send.Tests
             [Fact]
             public void SerializedXmlContainsDataType()
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(new ExternalLink(new Uri("https://digipost.no"))));
+                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(new ExternalLink { Url = "https://digipost.no" }));
 
                 var action = new MessageAction(message);
                 var content = action.RequestContent;
 
-                Assert.Contains("<externalLink", content.InnerXml);
+                Assert.Contains("DataTypes.ExternalLink", content.InnerXml);
             }
         }
     }

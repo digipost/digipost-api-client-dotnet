@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Common.Enums;
+﻿using DataTypes;
+using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
@@ -36,6 +37,16 @@ namespace Digipost.Api.Client.Tests.Smoke
         {
             _t
                 .Create_message_with_primary_document()
+                .To_Digital_Recipient()
+                .SendMessage()
+                .Expect_message_to_have_status(MessageStatus.Delivered);
+        }
+        
+        [Fact]
+        public void Can_send_datatype_document_digipost_user()
+        {
+            _t
+                .CreateMessageWithPrimaryDataTypeDocument(new ExternalLink { Url = "www.test.no", Description = "This is a link" })
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);

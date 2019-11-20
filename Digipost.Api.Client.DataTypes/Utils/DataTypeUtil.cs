@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.DataTypes.Utils
     {
         public static DynamicDataType GetDatatypeObject(string typeName)
         {
-            FileStream fileStream = new FileStream("/Users/aaronzachariaharrick/digipost/digipost-api-client-dotnet/Digipost.Api.Client.DataTypes/Resources/XSD/datatypes.xsd", FileMode.Open);
+            FileStream fileStream = new FileStream(GetFilePath( "Resources/XSD/datatypes.xsd"), FileMode.Open);
             StreamReader streamReader = new StreamReader(fileStream, Encoding.UTF8);
             XmlReader reader = XmlReader.Create(streamReader);
             
@@ -130,5 +130,14 @@ namespace Digipost.Api.Client.DataTypes.Utils
             return node;
         }
         
+        private static string GetFilePath(string basePath, params string[] path)
+        {
+            List<string> stringList = new List<string>
+            {
+                basePath
+            };
+            stringList.AddRange(path);
+            return string.Join(".", stringList);
+        }
     }
 }

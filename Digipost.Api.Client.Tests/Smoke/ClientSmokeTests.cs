@@ -1,5 +1,6 @@
 ﻿using DataTypes;
 using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
@@ -45,8 +46,11 @@ namespace Digipost.Api.Client.Tests.Smoke
         [Fact]
         public void Can_send_datatype_document_digipost_user()
         {
-            _t
-                .CreateMessageWithPrimaryDataTypeDocument(new ExternalLink { Url = "https://www.test.no", Description = "This is a link" })
+            ExternalLink externalLink = new ExternalLink {Url = "https://www.test.no", Description = "This is a link"};
+            string linkXml = SerializeUtil.Serialize(externalLink);
+            
+            _t 
+                .CreateMessageWithPrimaryDataTypeDocument(linkXml)
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);

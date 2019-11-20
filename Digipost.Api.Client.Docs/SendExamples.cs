@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using DataTypes;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
 using Address = DataTypes.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
@@ -281,11 +281,13 @@ namespace Digipost.Api.Client.Docs
                 Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
             };
 
+            string appointmentXml = SerializeUtil.Serialize(appointment);
+
             var document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
-                dataType: appointment
+                dataType: appointmentXml
             );
         }
         
@@ -315,11 +317,13 @@ namespace Digipost.Api.Client.Docs
                 Links = { link }
             };
 
+            string eventXml = SerializeUtil.Serialize(@event);
+            
             Document document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
-                dataType: @event
+                dataType: eventXml
             );
         }
     }

@@ -54,7 +54,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
-        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(IDataType dataType)
+        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(string dataType)
         {
             _primary = DomainUtility.GetDocument(dataType);
             return this;

@@ -101,7 +101,7 @@ namespace Digipost.Api.Client.Tests
             return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
-        public static IDocument GetDocument(IDataType dataType = null)
+        public static IDocument GetDocument(string dataType = null)
         {
             return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText())
             {

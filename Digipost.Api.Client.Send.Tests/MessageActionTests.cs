@@ -29,7 +29,10 @@ namespace Digipost.Api.Client.Send.Tests
             [Fact]
             public void SerializedXmlContainsDataType()
             {
-                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(new ExternalLink { Url = "https://digipost.no" }));
+                ExternalLink externalLink = new ExternalLink {Url = "https://digipost.no"};
+                string linkXml = SerializeUtil.Serialize(externalLink);
+                
+                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(linkXml));
 
                 var action = new MessageAction(message);
                 var content = action.RequestContent;

@@ -18,16 +18,7 @@ namespace Digipost.Api.Client.DataTypes.Utils
             
             var bytes = resourceUtility.ReadAllBytes("datatypes.xsd");
             var xml = XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes));
-            
-            //var ass = typeof(DataTypeUtil).GetTypeInfo().Assembly;
-            //var path = JoinWithBasePath("datatypes.xsd");
-            //Stream fileStream = typeof(DataTypeUtil).GetTypeInfo().Assembly.GetManifestResourceStream(JoinWithBasePath("datatypes.xsd"));
-            //StreamReader streamReader = new StreamReader(xml, Encoding.UTF8);
-            //XmlReader reader = XmlReader.Create(streamReader);
-            
-            //XmlDocument xmlDocument = new XmlDocument();
-            //xmlDocument.Load(reader);
-            
+
             return CreateObjectFromXmlNode(typeName, GetXmlNode(typeName, xml), xml);
         }
 

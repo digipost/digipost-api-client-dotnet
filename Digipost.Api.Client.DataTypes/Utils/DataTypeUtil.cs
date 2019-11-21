@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Xml;
+using Digipost.Api.Client.Resources.Xml;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Digipost.Api.Client.DataTypes.Utils
 {
@@ -11,20 +14,29 @@ namespace Digipost.Api.Client.DataTypes.Utils
     {
         public static DynamicDataType GetDatatypeObject(string typeName)
         {
-            FileStream fileStream = new FileStream(GetFilePath( "Resources/XSD/datatypes.xsd"), FileMode.Open);
-            StreamReader streamReader = new StreamReader(fileStream, Encoding.UTF8);
-            XmlReader reader = XmlReader.Create(streamReader);
+            ResourceUtility resourceUtility = new ResourceUtility(typeof(DataTypeUtil).GetTypeInfo().Assembly,"Digipost.Api.Client.DataTypes.Resources.XSD");
             
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(reader);
+            var bytes = resourceUtility.ReadAllBytes("datatypes.xsd");
+            var xml = XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes));
             
-            return CreateObjectFromXmlNode(GetXmlNode(typeName, xmlDocument), xmlDocument);
+            //var ass = typeof(DataTypeUtil).GetTypeInfo().Assembly;
+            //var path = JoinWithBasePath("datatypes.xsd");
+            //Stream fileStream = typeof(DataTypeUtil).GetTypeInfo().Assembly.GetManifestResourceStream(JoinWithBasePath("datatypes.xsd"));
+            //StreamReader streamReader = new StreamReader(xml, Encoding.UTF8);
+            //XmlReader reader = XmlReader.Create(streamReader);
+            
+            //XmlDocument xmlDocument = new XmlDocument();
+            //xmlDocument.Load(reader);
+            
+            return CreateObjectFromXmlNode(typeName, GetXmlNode(typeName, xml), xml);
         }
 
-        private static DynamicDataType CreateObjectFromXmlNode(XmlNode node, XmlDocument xmlDocument)
+        private static DynamicDataType CreateObjectFromXmlNode(string typeName, XmlNode node, XmlDocument xmlDocument)
         {
             var obj = new DynamicDataType();
 
+            obj.Name = typeName;
+            
             foreach (XmlNode child in node.FirstChild.ChildNodes)
             {
                 switch (child.Attributes["type"].Value)
@@ -53,6 +65,9 @@ namespace Digipost.Api.Client.DataTypes.Utils
                     case "xs:dateTime":
                         AddProperty<DateTime>(obj, child);
                         break;
+                    case "xs:anyURI":
+                        AddProperty<Url>(obj, child);
+                        break;
                     default:
                         string propName = child.Attributes["name"].Value.Replace("-", "_"); //Otherwise we'd have to escape '-' every time we use the property name.
                         string typePropName = child.Attributes["type"].Value.Substring(4);
@@ -67,7 +82,7 @@ namespace Digipost.Api.Client.DataTypes.Utils
                         }
                         else
                         {
-                            obj.CreateProperty(propName, CreateObjectFromXmlNode(subNode, xmlDocument));
+                            obj.CreateProperty(propName, CreateObjectFromXmlNode(typePropName, subNode, xmlDocument));
                         }
                         
                         break;
@@ -130,14 +145,25 @@ namespace Digipost.Api.Client.DataTypes.Utils
             return node;
         }
         
-        private static string GetFilePath(string basePath, params string[] path)
+        private static string JoinWithBasePath(params string[] path)
         {
             List<string> stringList = new List<string>
             {
-                basePath
+                IncludeProjectRootNameInBasePath(typeof(DataTypeUtil).GetTypeInfo().Assembly, "Digipost.Api.Client.DataTypes.Resources.XSD")
             };
             stringList.AddRange(path);
             return string.Join(".", stringList);
+        }
+        
+        private static string IncludeProjectRootNameInBasePath(Assembly currentAssembly, string basePathForResources)
+        {
+            string name = currentAssembly.GetName().Name;
+            string str;
+            if (basePathForResources.Contains(name))
+                str = basePathForResources;
+            else
+                str = string.Join(".", name, basePathForResources);
+            return str;
         }
     }
 }

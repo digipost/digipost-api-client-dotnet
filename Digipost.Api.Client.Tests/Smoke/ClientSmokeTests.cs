@@ -1,4 +1,5 @@
-﻿using DataTypes;
+﻿using System;
+using DataTypes;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Utils;
@@ -60,11 +61,11 @@ namespace Digipost.Api.Client.Tests.Smoke
         [Fact]
         public void Can_send_generic_datatype_document_digipost_user()
         {
-            dynamic test = DataTypeUtil.GetDatatypeObject("ExternalLink");
-            test.url = "https://wwww.test.no";
+            dynamic test = DataTypeUtil.GetDatatypeObject("externalLink");
+            test.url = "https://www.test.no";
             test.description = "This was a generic datatype";
-            
-            string linkXml = SerializeUtil.Serialize(test);
+
+            string linkXml = SerializeUtil.Serialize<DynamicDataType>(test);
             
             _t 
                 .CreateMessageWithPrimaryDataTypeDocument(linkXml)

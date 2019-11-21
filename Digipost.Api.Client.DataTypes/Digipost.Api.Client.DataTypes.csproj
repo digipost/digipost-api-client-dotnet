@@ -57,10 +57,19 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Resources\XSD" />
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <None Update="Resources/XSD/*" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Remove="Resources/XSD/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources/XSD/*" />
+    </ItemGroup>
+    
     <PropertyGroup>
         <OutputType>Exe</OutputType>
     </PropertyGroup>

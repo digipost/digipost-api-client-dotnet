@@ -14,5 +14,10 @@ namespace Digipost.Api.Client.Resources.Xsd
         {
             return XmlReader.Create(new MemoryStream(ApiResourceUtility.ReadAllBytes("api_v7.xsd")));
         }
+        
+        public static XmlReader GetDataTypesXsd(Assembly assembly)
+        {
+            return XmlReader.Create(new MemoryStream(new ResourceUtility(assembly, "Digipost.Api.Client.DataTypes.Core.Resources.XSD").ReadAllBytes("datatypes.xsd")));
+        }
     }
 }

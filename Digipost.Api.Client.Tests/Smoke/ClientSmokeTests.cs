@@ -45,24 +45,25 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
         
         [Fact]
-        public void Can_send_datatype_document_digipost_user()
+        public void Can_send_document_with_raw_datatype_to_digipost_user()
+        {
+            var raw = "<?xml version=\"1.0\" encoding=\"utf-8\"?><externalLink xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/datatypes\"><url>https://www.test.no</url><description>This was raw string</description></externalLink>";
+            _t 
+                .CreateMessageWithPrimaryDataTypeDocument(raw)
+                .To_Digital_Recipient()
+                .SendMessage()
+                .Expect_message_to_have_status(MessageStatus.Delivered);
+        }
+        
+        [Fact]
+        public void Can_send_document_with_object_datatype_to_digipost_user()
         {
             
             ExternalLink externalLink = new ExternalLink {Url = "https://www.test.no", Description = "This is a link"};
             string linkXml = SerializeUtil.Serialize(externalLink);
-            
-            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-            var appointment = new Appointment
-            {
-                Start_Time = startTime.ToString("O"),
-                End_Time = startTime.AddMinutes(30).ToString("O"),
-                Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
-            };
 
-            string appointmentXml = SerializeUtil.Serialize(appointment);
-            
             _t 
-                .CreateMessageWithPrimaryDataTypeDocument(appointmentXml)
+                .CreateMessageWithPrimaryDataTypeDocument(linkXml)
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);

@@ -1,7 +1,5 @@
-﻿using System;
-using DataTypes;
-using Digipost.Api.Client.Common.Utilities;
-using Digipost.Api.Client.DataTypes;
+﻿using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Tests;
 using Xunit;
 

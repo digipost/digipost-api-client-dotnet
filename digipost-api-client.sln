@@ -8,10 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.ConcurrencyTest", "Digipost.Api.Client.ConcurrencyTest\Digipost.Api.Client.ConcurrencyTest.csproj", "{7B5E5062-98E5-4312-9A82-28DF530BF5FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes", "Digipost.Api.Client.DataTypes\Digipost.Api.Client.DataTypes.csproj", "{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.DataTypes.Tests", "Digipost.Api.Client.DataTypes.Tests\Digipost.Api.Client.DataTypes.Tests.csproj", "{8814CB98-13B3-4CDF-A081-D1470F80D38B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", "Digipost.Api.Client.Docs\Digipost.Api.Client.Docs.csproj", "{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox", "Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj", "{F23C5F66-E398-4234-8FB1-443D958FDF1A}"
@@ -50,14 +46,6 @@ Global
 		{7B5E5062-98E5-4312-9A82-28DF530BF5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B5E5062-98E5-4312-9A82-28DF530BF5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B5E5062-98E5-4312-9A82-28DF530BF5FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DF4659A-DFF9-4DF6-8B5D-B1FDE55DA498}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8814CB98-13B3-4CDF-A081-D1470F80D38B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8814CB98-13B3-4CDF-A081-D1470F80D38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8814CB98-13B3-4CDF-A081-D1470F80D38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8814CB98-13B3-4CDF-A081-D1470F80D38B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}.Release|Any CPU.ActiveCfg = Release|Any CPU

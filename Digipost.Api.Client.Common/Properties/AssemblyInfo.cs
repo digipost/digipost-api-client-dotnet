@@ -9,4 +9,3 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Send")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Send.Tests")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Common.Tests")]
-[assembly: InternalsVisibleTo("Digipost.Api.Client.DataTypes")]

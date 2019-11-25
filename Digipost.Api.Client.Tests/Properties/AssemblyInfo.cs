@@ -7,4 +7,3 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Inbox.Tests")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Send.Tests")]
 [assembly: InternalsVisibleTo("Digipost.Api.Client.Common.Tests")]
-[assembly: InternalsVisibleTo("Digipost.Api.Client.DataTypes.Tests")]

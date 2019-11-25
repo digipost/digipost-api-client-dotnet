@@ -1,13 +1,13 @@
 ﻿using System;
-using DataTypes;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
-using Address = DataTypes.Address;
+using Address = Digipost.Api.Client.DataTypes.Core.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
 using Sender = Digipost.Api.Client.Common.Sender;
 

@@ -14,21 +14,7 @@ namespace Digipost.Api.Client.Common.Utilities
                 return null;
             }
 
-            XmlAttributeOverrides attributeOverrides = new XmlAttributeOverrides();
-            
-            if (value.GetType().Name == "DynamicDataType")
-            {
-                XmlAttributes attributes = new XmlAttributes();
-                
-                XmlRootAttribute rootAttribute = new XmlRootAttribute();
-                rootAttribute.ElementName = (value as dynamic).Name;
-                rootAttribute.Namespace = "http://api.digipost.no/schema/datatypes";
-                attributes.XmlRoot = rootAttribute;
-                
-                attributeOverrides.Add(value.GetType(), attributes);
-            }
-            
-            var serializer = new XmlSerializer(value.GetType(), attributeOverrides);
+            var serializer = new XmlSerializer(value.GetType());
 
             var settings = new XmlWriterSettings
             {

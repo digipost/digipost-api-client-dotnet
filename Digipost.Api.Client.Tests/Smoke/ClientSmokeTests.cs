@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Common.Enums;
+﻿using System;
+using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Tests.Utilities;
@@ -46,11 +47,22 @@ namespace Digipost.Api.Client.Tests.Smoke
         [Fact]
         public void Can_send_datatype_document_digipost_user()
         {
+            
             ExternalLink externalLink = new ExternalLink {Url = "https://www.test.no", Description = "This is a link"};
             string linkXml = SerializeUtil.Serialize(externalLink);
             
+            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
+            var appointment = new Appointment
+            {
+                Start_Time = startTime.ToString("O"),
+                End_Time = startTime.AddMinutes(30).ToString("O"),
+                Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
+            };
+
+            string appointmentXml = SerializeUtil.Serialize(appointment);
+            
             _t 
-                .CreateMessageWithPrimaryDataTypeDocument(linkXml)
+                .CreateMessageWithPrimaryDataTypeDocument(appointmentXml)
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);

@@ -7,14 +7,17 @@ namespace Digipost.Api.Client.Common
 {
     public class ApiClientXmlValidator : XmlValidator
     {
-        public ApiClientXmlValidator()
+        public ApiClientXmlValidator(bool skipDataTypes = false)
         {
             AddXsd(Namespace.DigipostApiV7, XsdResource.GetApiV7Xsd());
 
-            var dataTypesAssembly = GetDataTypesAssembly();
-            if (GetDataTypesAssembly() != null)
+            if (!skipDataTypes)
             {
-                //AddXsd(Namespace.DataTypes, XsdResource.GetDataTypesXsd(dataTypesAssembly));
+                var dataTypesAssembly = GetDataTypesAssembly();
+                if (GetDataTypesAssembly() != null)
+                {
+                    AddXsd(Namespace.DataTypes, XsdResource.GetDataTypesXsd(dataTypesAssembly));
+                }
             }
         }
 

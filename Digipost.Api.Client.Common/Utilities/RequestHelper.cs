@@ -85,18 +85,19 @@ namespace Digipost.Api.Client.Common.Utilities
             {
                 return;
             }
-
             
-            var xmlValidator = new ApiClientXmlValidator();
+            var xmlValidator = new ApiClientXmlValidator(skipMetaDataValidation);
             bool isValidXml;
             string validationMessages;
 
             if (skipMetaDataValidation || !xmlValidator.CheckIfDataTypesAssemblyIsIncluded())
             {
+                _logger.LogInformation("SKIPPING DATATYPES");
                 isValidXml = xmlValidator.Validate(GetDocumentXmlWithoutMetaData(document), out validationMessages);
             }
             else
             {
+                _logger.LogInformation("VALIDATING DATATYPES");
                 isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
             }
 

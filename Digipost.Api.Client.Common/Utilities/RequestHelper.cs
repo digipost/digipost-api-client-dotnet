@@ -22,9 +22,9 @@ namespace Digipost.Api.Client.Common.Utilities
 
         internal HttpClient HttpClient { get; set; }
 
-        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
+        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri, bool skipMetaDataValidation = false)
         {
-            ValidateXml(messageActionRequestContent);
+            ValidateXml(messageActionRequestContent, skipMetaDataValidation);
 
             var postAsync = HttpClient.PostAsync(uri, httpContent);
 
@@ -79,7 +79,7 @@ namespace Digipost.Api.Client.Common.Utilities
             }
         }
 
-        private void ValidateXml(XmlDocument document)
+        private void ValidateXml(XmlDocument document, bool skipMetaDataValidation)
         {
             if (document.InnerXml.Length == 0)
             {
@@ -91,7 +91,7 @@ namespace Digipost.Api.Client.Common.Utilities
             bool isValidXml;
             string validationMessages;
 
-            if (!xmlValidator.CheckIfDataTypesAssemblyIsIncluded())
+            if (skipMetaDataValidation || !xmlValidator.CheckIfDataTypesAssemblyIsIncluded())
             {
                 isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
             }

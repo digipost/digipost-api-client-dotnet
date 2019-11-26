@@ -25,9 +25,9 @@ namespace Digipost.Api.Client.Api
 
         public SendRequestHelper RequestHelper { get; }
 
-        public IMessageDeliveryResult SendMessage(IMessage message)
+        public IMessageDeliveryResult SendMessage(IMessage message, bool skipMetaDataValidation = false)
         {
-            var messageDelivery = SendMessageAsync(message);
+            var messageDelivery = SendMessageAsync(message, skipMetaDataValidation);
 
             if (messageDelivery.IsFaulted && messageDelivery.Exception != null)
                 throw messageDelivery.Exception.InnerException;
@@ -35,13 +35,13 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message, bool skipMetaDataValidation)
         {
             _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri, skipMetaDataValidation);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;

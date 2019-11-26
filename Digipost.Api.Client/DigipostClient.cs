@@ -78,13 +78,11 @@ namespace Digipost.Api.Client
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            _logger.LogInformation("SEND SKIP: " + _clientConfig.SkipMetaDataValidation);
             return _api.SendMessage(message, _clientConfig.SkipMetaDataValidation);
         }
 
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            _logger.LogInformation("SEND ASYNC SKIP: " + _clientConfig.SkipMetaDataValidation);
             return _api.SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
         }
 

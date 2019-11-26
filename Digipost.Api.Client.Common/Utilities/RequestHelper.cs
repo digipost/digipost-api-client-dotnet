@@ -93,10 +93,12 @@ namespace Digipost.Api.Client.Common.Utilities
 
             if (skipMetaDataValidation || !xmlValidator.CheckIfDataTypesAssemblyIsIncluded())
             {
+                _logger.LogInformation("SKIPPING DATATYPES");
                 isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
             }
             else
             {
+                _logger.LogInformation("VALIDATING DATATYPES");
                 isValidXml = xmlValidator.Validate(GetDocumentXmlWithoutMetaData(document), out validationMessages);
             }
 

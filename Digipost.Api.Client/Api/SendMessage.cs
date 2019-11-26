@@ -35,7 +35,7 @@ namespace Digipost.Api.Client.Api
             return messageDelivery.Result;
         }
 
-        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message, bool skipMetaDataValidation)
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message, bool skipMetaDataValidation = false)
         {
             _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 

@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Common
             if (!skipDataTypes)
             {
                 var dataTypesAssembly = GetDataTypesAssembly();
-                if (GetDataTypesAssembly() != null)
+                if (dataTypesAssembly != null)
                 {
                     AddXsd(Namespace.DataTypes, XsdResource.GetDataTypesXsd(dataTypesAssembly));
                 }

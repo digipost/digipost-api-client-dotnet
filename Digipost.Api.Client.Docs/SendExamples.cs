@@ -326,5 +326,27 @@ namespace Digipost.Api.Client.Docs
                 dataType: eventXml
             );
         }
+
+        public void SendMessageWithExternalLinkMetadata()
+        {
+            var externalLink = new ExternalLink
+            {
+                Url = "https://example.org/loan-offer/uniqueCustomerId/",
+                Description = "Please read the terms, and use the button above to accept them. The offer expires at 23/10-2018 10:00.",
+                Button_Text = "Accept offer",
+                Deadline = DateTime.Parse("2018-10-23T10:00:00+0200")
+            };
+
+            string linkXml = SerializeUtil.Serialize(externalLink);
+            
+            var document = new Document(
+                subject: "Your appointment",
+                fileType: "pdf",
+                path: @"c:\...\document.pdf",
+                dataType: linkXml
+            );
+
+            // Create Message and send using the client as specified in other examples.
+        }
     }
 }

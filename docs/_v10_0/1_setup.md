@@ -4,7 +4,7 @@ identification: setup
 layout: default
 ---
 
-The client library is available as a nuget package. The client library (and associated nuget package) is updated regularly as new functionality is added. 
+The client library is available as a Nuget package. The client library (and associated Nuget package) is updated regularly as new functionality is added. 
 
 
 To install the Nuget package, follow these steps in Visual Studio/Rider:

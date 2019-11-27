@@ -9,7 +9,6 @@ layout: default
 `ClientConfig` is a container for all the connection specific parameters that you can set.
 
 ```csharp
-
 // The actual sender of the message. The broker is the owner of the organization certificate
 // used in the library. The broker id can be retrieved from your Digipost organization account.
 var broker = new Broker(12345);
@@ -21,13 +20,11 @@ var sender = new Sender(67890);
 var clientConfig = new ClientConfig(broker, Environment.Production);
 
 var client = new DigipostClient(clientConfig, CertificateReader.ReadCertificate());
-
 ```
 
 ### Send one letter to recipient via personal identification number
 
 ```csharp
-
 var message = new Message(
     sender,
     new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
@@ -35,14 +32,13 @@ var message = new Message(
 );
 
 var result = client.SendMessage(message);
-
 ```
 ### Other recipient types
+
 There are other recipient types available to identify recipients of messages. Note that some recipient types may 
 require special permissions to be set up in order to be used.
 
 ```csharp
-
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
     addressLine1: "Prinsensveien 123",
@@ -54,13 +50,11 @@ var primaryDocument = new Document(subject: "document subject", fileType: "pdf",
 
 var message = new Message(sender, recipient, primaryDocument);
 var result = client.SendMessage(message);
-
 ```
 
 ### Send one letter with multiple attachments
 
 ```csharp
-
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 var attachment1 = new Document(subject: "Attachment 1", fileType: "txt", path: @"c:\...\attachment_01.txt");
 var attachment2 = new Document(subject: "Attachment 2", fileType: "pdf", path: @"c:\...\attachment_02.pdf");
@@ -72,13 +66,11 @@ var message = new Message(
     ){Attachments = {attachment1, attachment2}};
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send letter with SMS notification
 
 ```csharp
-
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf");
 
 primaryDocument.SmsNotification = new SmsNotification(afterHours: 0); //SMS reminder after 0 hours
@@ -91,7 +83,6 @@ var message = new Message(
 );
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send letter with fallback to print if the user does not exist in Digipost
@@ -99,7 +90,6 @@ var result = client.SendMessage(message);
 In cases where the recipient is not a Digipost user, it is also possible to use the recipient's name and address for physical mail delivery.
 
 ```csharp
-
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
     addressLine1: "Prinsensveien 123",
@@ -125,11 +115,11 @@ var messageWithFallbackToPrint = new Message(sender, recipient, primaryDocument)
 };
 
 var result = client.SendMessage(messageWithFallbackToPrint);
-
 ```
-### Send letter with fallback to print if the user does not read the message within a certain deadline
-```csharp
 
+### Send letter with fallback to print if the user does not read the message within a certain deadline
+
+```csharp
 var recipient = new RecipientByNameAndAddress(
     fullName: "Ola Nordmann",
     addressLine1: "Prinsensveien 123",
@@ -162,7 +152,6 @@ var result = client.SendMessage(messageWithPrintIfUnread);
 ### Send letter with higher security level
 
 ```csharp
-
 var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf")
 {
     AuthenticationLevel = AuthenticationLevel.TwoFactor, // Require BankID or BuyPass to open letter
@@ -176,13 +165,11 @@ var message = new Message(
 );
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send letter with higher security level
 
 ```csharp
-
 var config = new ClientConfig("xxxxx", Environment.Production);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
 
@@ -195,7 +182,6 @@ var message = new Message(
     new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx"), primaryDocument);
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Identify recipient
@@ -266,7 +252,6 @@ else if (identificationResponse.ResultType == IdentificationResultType.InvalidRe
 {
     //The person is NOT identified. Check Error for more details.
 }
-
 ```
 
 ### Send letter through Norsk Helsenett
@@ -274,7 +259,6 @@ else if (identificationResponse.ResultType == IdentificationResultType.InvalidRe
 The Digipost API is accessible from both internet and Norsk Helsenett (NHN). Both entry points use the same API, the only difference is that `ClientConfig.Environment` must be set to `Environment.NorskHelsenett`.
 
 ```csharp
-
 // API URL is different when request is sent from NHN
 var config = new ClientConfig(new Broker(12345), Environment.NorskHelsenett);
 var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
@@ -286,7 +270,6 @@ var message = new Message(
 );
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send invoice
@@ -294,7 +277,6 @@ var result = client.SendMessage(message);
 It is possible to send invoice-metadata with a document. Documents with invoice-metadata enables the _Send to Online Bank_ feature, which allows people to pay the invoice directly in Digipost.
 
 ```csharp
-
 var message = new Message(
     sender,
     new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxx"),
@@ -324,7 +306,6 @@ foreach (var person in response.PersonDetails)
     var digipostAddress = person.DigipostAddress;
     var phoneNumber = person.MobileNumber;
 }
-
 ```
 
 ### Send on behalf of organization
@@ -339,7 +320,6 @@ Sending on behalf of an organization is accomplished by setting `Message.Sender`
 Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.  
 
 ```csharp
-
 var broker = new Broker(12345);
 var sender = new Sender(67890);
 
@@ -352,7 +332,6 @@ var clientConfig = new ClientConfig(broker, Environment.Production);
 var message = new Message(sender, digitalRecipient, primaryDocument);
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send message with delivery time
@@ -360,7 +339,6 @@ var result = client.SendMessage(message);
 A message can be sent with a delivery time. This means that a message can be sent at 11 AM, and be delivered to the recipient's Digipost inbox at 3 PM the next day. `Message.DeliveryTime` is used for this purpose and is of type `DateTime`. This gives you a lot of flexibility on how to set the delivery time.
 
 ```csharp
-
 var message = new Message(
     sender,
     new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
@@ -371,7 +349,6 @@ var message = new Message(
 };
 
 var result = client.SendMessage(message);
-
 ```
 
 ### Send a message with extra computer readable data
@@ -384,97 +361,96 @@ All datatypes are sent in the same way. Each document can accommodate one dataty
 available datatypes and their documentation can be found at
 [digipost/digipost-data-types](https://github.com/digipost/digipost-data-types).
 
+DataTypes are sent as an XML string in the document's `datatype` field. You can build the XML yourself, or import our extension library [Digipost.Api.Client.DataTypes](https://www.nuget.org/packages/Digipost.Api.Client.DataTypes.Core/).
+This library includes classes for each datatype, which can be serialized using `SerializeUtil.Serialize(DataType)`, which gives you the XML string to append to the document. 
+The expansion library is optional, but highly recommended if you'll be working with DataTypes. The examples below will assume the usage of said library.
+
 ### Send message with appointment datatype
 
-One of the complex data types supported is `Appointment`, which represents a meeting set for a specific place and time. The following example demonstrates how to include such extra data:
+`Appointment` represents a meeting set for a specific place and time. The following example demonstrates how to include such extra data:
 
 ```csharp
-
 var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-var appointment = new Appointment(startTime)
+var appointment = new Appointment
 {
-    EndTime = startTime.AddMinutes(30),
-    AppointmentAddress = new AppointmentAddress("Storgata 1", "0001", "Oslo")
+    Start_Time = startTime.ToString("O"),
+    End_Time = startTime.AddMinutes(30).ToString("O"),
+    Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
 };
+
+string appointmentXml = SerializeUtil.Serialize(appointment);
 
 var document = new Document(
     subject: "Your appointment",
     fileType: "pdf",
     path: @"c:\...\document.pdf",
-    dataType: appointment
+    dataType: appointmentXml
 );
 
 // Create Message and send using the client as specified in other examples.
-
 ```
 ### Send message with event datatype
 
-One of the complex data types supported is `Event`, which represents a meeting set for a specific place, but covering multiple time spans. The following example demonstrates how to include such extra data:
+`Event` represents a meeting set for a specific place, but covering multiple time spans. The following example demonstrates how to include such extra data:
 
 ```csharp
 var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-            
-var eventTimeSpans = new List<EventTimeSpan>();
-var timeSpan = new EventTimeSpan(DateTime.Today, DateTime.Today.AddHours(3));
-var timeSpan2 = new EventTimeSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(1).AddHours(5));
-eventTimeSpans.Add(timeSpan);
-eventTimeSpans.Add(timeSpan2);
-            
-var barcode = new EventBarcode("12345678", "insert type here", "this is a code", true);
-var address = new EventAddress("Gateveien 1", "0001", "Oslo");
-var info = new Info("Title", "Very important information");
-var links = new List<ExternalLink>();
 
-var _event = new Event(eventTimeSpans)
+var timeInterval1 = new TimeInterval { Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O") };
+var timeInterval2 = new TimeInterval { Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O") };
 
+var barcode = new Barcode { Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true };
+var address = new Address { Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo" };
+var info = new Info { Title = "Title", Text = "Very important information" };
+var link = new Link { Url = "https://www.test.no", Description = "This is a link" };
+
+Event @event = new Event
+{
+    Start_Time = { timeInterval1, timeInterval2 },
     Description = "Description here",
     Address = address,
-    Info = new List<Info>
-    {
-        info
-    },
+    Info = { info },
     Place = "Oslo City Røntgen",
     PlaceLabel = "This is a place",
-    SubTitle = "SubTitle",
+    Sub_Title = "SubTitle",
     Barcode = barcode,
     BarcodeLabel = "Barcode Label",
-    Links = links
+    Links = { link }
 };
 
-var document = new Document(
+string eventXml = SerializeUtil.Serialize(@event);
+
+Document document = new Document(
     subject: "Your appointment",
     fileType: "pdf",
     path: @"c:\...\document.pdf",
-    dataType: _event
+    dataType: eventXml
 );
 
 // Create Message and send using the client as specified in other examples.
-
 ```
 ### Send message with external link datatype
 
-This Datatype enhances a message in Digipost with a button which sends the user to an external site. The button
+`ExternalLink` enhances a message in Digipost with a button which sends the user to an external site. The button
 can optionally have a deadline, a description and a custom text.
 
 ```csharp
-
-var linkTarget = new Uri("https://example.org/loan-offer/uniqueCustomerId/");
-var externalLink = new ExternalLink(
-    url: linkTarget,
-    description: "Please read the terms, and use the button above to accept them. The offer expires at 23/10-2018 10:00.",
-    buttonText: "Accept offer"
-)
+var externalLink = new ExternalLink
 {
-    Deadline = DateTime.Parse("2018-10-23T10:00:00+0200"),
+    Url = "https://example.org/loan-offer/uniqueCustomerId/",
+    Description = "Please read the terms, and use the button above to accept them. The offer expires at 23/10-2018 10:00.",
+    Button_Text = "Accept offer",
+    Deadline = DateTime.Parse("2018-10-23T10:00:00+0200")
 };
+
+string linkXml = SerializeUtil.Serialize(externalLink);
 
 var document = new Document(
     subject: "Your appointment",
     fileType: "pdf",
     path: @"c:\...\document.pdf",
-    dataType: externalLink
+    dataType: linkXml
 );
 
 // Create Message and send using the client as specified in other examples.
-
 ```

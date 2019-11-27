@@ -12,6 +12,7 @@ using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
+using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
@@ -35,14 +36,14 @@ namespace Digipost.Api.Client.Tests.Smoke
         //Gradually built state, search
         private ISearchDetailsResult _searchResult;
 
-        public ClientSmokeTestHelper(TestSender testSender)
+        public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
             var broker = new Broker(testSender.Id);
             _testSender = testSender;
             
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
             
-            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
         }
 
         public ClientSmokeTestHelper Create_message_with_primary_document()
@@ -51,6 +52,12 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
+        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(string dataType)
+        {
+            _primary = DomainUtility.GetDocument(dataType);
+            return this;
+        }
+        
         public ClientSmokeTestHelper Create_message_with_primary_invoice()
         {
             _primary = DomainUtility.GetInvoice();

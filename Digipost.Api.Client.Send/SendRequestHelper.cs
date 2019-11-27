@@ -20,12 +20,12 @@ namespace Digipost.Api.Client.Send
             return _requestHelper.Get<T>(uri);
         }
 
-        internal Task<T> PostMessage<T>(IMessage message, Uri uri)
+        internal Task<T> PostMessage<T>(IMessage message, Uri uri, bool skipMetaDataValidation = false)
         {
             var messageAction = new MessageAction(message);
             var httpContent = messageAction.Content(message);
 
-            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri);
+            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri, skipMetaDataValidation);
         }
 
         internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)

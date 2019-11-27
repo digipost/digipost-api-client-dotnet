@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
-    internal class SerializeUtil
+    public class SerializeUtil
     {
         public static string Serialize<T>(T value)
         {
@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Common.Utilities
                 return null;
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(value.GetType());
 
             var settings = new XmlWriterSettings
             {

@@ -22,8 +22,6 @@ $CurrentApiVersion = "v7"
 
 $CodeDir = "$XsdToCodeDir/Code"
 $XsdPath = "$SourceDir/Digipost.Api.Client.Resources/Xsd/Data"
-$RootDatatypesXsd = "$XsdPath/datatypes.xsd"
 $RootApiXsd = "$XsdPath/api_$CurrentApiVersion.xsd"
 
-GenerateCode "$XsdPath" "$RootDatatypesXsd" "$CodeDir" "datatypes"
 GenerateCode "$XsdPath" "$RootApiXsd" "$CodeDir" "$CurrentApiVersion"

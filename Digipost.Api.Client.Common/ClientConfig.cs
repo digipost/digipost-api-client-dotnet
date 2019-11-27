@@ -34,5 +34,11 @@
         ///     If set to true, all requests and responses are logged with log level DEBUG.
         /// </summary>
         public bool LogRequestAndResponse { get; set; }
+        
+        /// <summary>
+        ///     If set to true, document metadata xml will not be validated.
+        ///     Used to test sending documents as if you've not imported the DataTypes project.
+        /// </summary>
+        public bool SkipMetaDataValidation { get; set; }
     }
 }

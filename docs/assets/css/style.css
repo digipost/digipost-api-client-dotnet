@@ -46,6 +46,7 @@ blockquote {
 
 .list-versions {
   position: fixed;
+  right: 200px;
   bottom: 0%;
   width: 75px;
 }

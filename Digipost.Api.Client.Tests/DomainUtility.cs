@@ -5,10 +5,10 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
-using Digipost.Api.Client.DataTypes;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
 using Environment = Digipost.Api.Client.Common.Environment;
+using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests
 {
@@ -99,7 +99,7 @@ namespace Digipost.Api.Client.Tests
             return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
-        public static IDocument GetDocument(IDataType dataType = null)
+        public static IDocument GetDocument(string dataType = null)
         {
             return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText())
             {

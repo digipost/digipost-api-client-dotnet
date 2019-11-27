@@ -78,12 +78,12 @@ namespace Digipost.Api.Client
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            return _api.SendMessage(message);
+            return _api.SendMessage(message, _clientConfig.SkipMetaDataValidation);
         }
 
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            return _api.SendMessageAsync(message);
+            return _api.SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
         }
 
         public ISearchDetailsResult Search(string query)

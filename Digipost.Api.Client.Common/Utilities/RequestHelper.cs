@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Exceptions;
@@ -21,9 +22,9 @@ namespace Digipost.Api.Client.Common.Utilities
 
         internal HttpClient HttpClient { get; set; }
 
-        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri)
+        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri, bool skipMetaDataValidation = false)
         {
-            ValidateXml(messageActionRequestContent);
+            ValidateXml(messageActionRequestContent, skipMetaDataValidation);
 
             var postAsync = HttpClient.PostAsync(uri, httpContent);
 
@@ -78,22 +79,36 @@ namespace Digipost.Api.Client.Common.Utilities
             }
         }
 
-        private void ValidateXml(XmlDocument document)
+        private void ValidateXml(XmlDocument document, bool skipMetaDataValidation)
         {
             if (document.InnerXml.Length == 0)
             {
                 return;
             }
-
-            var xmlValidator = new ApiClientXmlValidator();
+            
+            var xmlValidator = new ApiClientXmlValidator(skipMetaDataValidation);
+            bool isValidXml;
             string validationMessages;
-            var isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
+
+            if (skipMetaDataValidation || !xmlValidator.CheckIfDataTypesAssemblyIsIncluded())
+            {
+                isValidXml = xmlValidator.Validate(GetDocumentXmlWithoutMetaData(document), out validationMessages);
+            }
+            else
+            {
+                isValidXml = xmlValidator.Validate(document.InnerXml, out validationMessages);
+            }
 
             if (!isValidXml)
             {
                 _logger.LogError($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
                 throw new XmlException($"Xml was invalid. Stopped sending message. Feilmelding: '{validationMessages}'");
             }
+        }
+
+        private string GetDocumentXmlWithoutMetaData(XmlDocument document)
+        {
+            return Regex.Replace(document.InnerXml, @"<data-type[^>]*>(.*?)</data-type>", "").Trim();
         }
 
         private static async Task<string> ReadResponse(HttpResponseMessage requestResult)

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Send
 {
@@ -83,7 +85,9 @@ namespace Digipost.Api.Client.Send
 
             if (document.DataType != null)
             {
-                documentDto.datatype = document.DataType.Serialize();
+                var xmldoc = new XmlDocument();
+                xmldoc.LoadXml(document.DataType);
+                documentDto.datatype = xmldoc.DocumentElement;
             }
 
             return documentDto;

@@ -7,9 +7,9 @@ layout: default
 The client library is available as a nuget package. The client library (and associated nuget package) is updated regularly as new functionality is added. 
 
 
-To install the nuget package, follow these steps in Visual Studio/Rider:
+To install the Nuget package, follow these steps in Visual Studio/Rider:
 
-1. Select _TOOLS -> nuget Package Manager -> Manage nuget Packages Solution..._
+1. Select _TOOLS -> Nuget Package Manager -> Manage Nuget Packages Solution..._
 
 1. Search for _Digipost.Api.Client_. Multiple packages will appear. Install those necessary for you. Make sure you _DON'T_ install the 
 `digipost-api-client packages`. Those are .NET Framework libraries with an unfortunately similar name.

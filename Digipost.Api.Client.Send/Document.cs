@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
-using NLog.Layouts;
 
 namespace Digipost.Api.Client.Send
 {
@@ -38,7 +37,7 @@ namespace Digipost.Api.Client.Send
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null, string dataType = null)
             : this(subject, fileType, new byte[] { }, authenticationLevel, sensitivityLevel, smsNotification, dataType)
         {
-            ContentBytes = ReadAllBytes(documentStream);
+            ContentBytes = ExtractBytesFromStream(documentStream);
         }
 
         /// <param name="subject">The subject of the document.</param>
@@ -52,7 +51,7 @@ namespace Digipost.Api.Client.Send
             SensitivityLevel sensitivityLevel = SensitivityLevel.Normal, ISmsNotification smsNotification = null, string dataType = null)
             : this(subject, fileType, new byte[] { }, authenticationLevel, sensitivityLevel, smsNotification, dataType)
         {
-            ContentBytes = ReadAllBytes(path);
+            ContentBytes = ExtractBytesFromPath(path);
         }
 
         /// <param name="subject">The subject of the document.</param>
@@ -85,14 +84,20 @@ namespace Digipost.Api.Client.Send
 
         public string DataType { get; set; }
 
-        internal virtual byte[] ReadAllBytes(string pathToDocument)
+        private static byte[] ExtractBytesFromPath(string path)
         {
-            return File.ReadAllBytes(pathToDocument);
+            using (var fileStream = new FileStream(path, FileMode.Open))
+            {
+                return ExtractBytesFromStream(fileStream);
+            }
         }
 
-        internal virtual byte[] ReadAllBytes(Stream documentStream)
+        private static byte[] ExtractBytesFromStream(Stream fileStream)
         {
-            return File.ReadAllBytes(new StreamReader(documentStream).ReadToEnd());
+            if (fileStream == null) return null;
+            var bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, bytes.Length);
+            return bytes;
         }
     }
 }

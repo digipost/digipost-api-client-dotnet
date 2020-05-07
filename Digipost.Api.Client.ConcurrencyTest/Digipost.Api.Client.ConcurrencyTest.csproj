@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.ConcurrencyTest</RootNamespace>
         <ProjectGuid>{7B5E5062-98E5-4312-9A82-28DF530BF5FB}</ProjectGuid>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Inbox.Tests</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Inbox.Tests</AssemblyName>
         <ProjectGuid>{37678527-9988-46E8-A5D6-8F9533058F67}</ProjectGuid>

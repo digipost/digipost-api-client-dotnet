@@ -6,7 +6,7 @@
     </PropertyGroup>
     
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Resources</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Resources</AssemblyName>
         <ProjectGuid>{18CBB05A-B0AE-42FF-870F-1C213A238751}</ProjectGuid>

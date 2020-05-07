@@ -19,7 +19,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             clientWithoutDataTypes = new ClientSmokeTestHelper(sender, true);
         }
         
-        [Fact]
+        [Fact(Skip = "SmokeTest")]
         public void Can_identify_user()
         {
             client
@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .Expect_identification_to_have_status(IdentificationResultType.DigipostAddress);
         }
 
-        [Fact]
+        [Fact(Skip = "SmokeTest")]
         public void Can_Search()
         {
             client
@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .Expect_search_to_have_result();
         }
 
-        [Fact]
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_digipost_user()
         {
             client
@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .Expect_message_to_have_status(MessageStatus.Delivered);
         }
         
-        [Fact]
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_with_raw_datatype_to_digipost_user()
         {
             var raw = "<?xml version=\"1.0\" encoding=\"utf-8\"?><externalLink xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/datatypes\"><url>https://www.test.no</url><description>This was raw string</description></externalLink>";
@@ -58,7 +58,7 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .Expect_message_to_have_status(MessageStatus.Delivered);
         }
         
-        [Fact]
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_with_object_datatype_to_digipost_user()
         {
             

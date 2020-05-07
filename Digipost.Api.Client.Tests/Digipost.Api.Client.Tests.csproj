@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Tests</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Tests</AssemblyName>
         <ProjectGuid>{966A701B-7E91-4C41-BA28-B5C5E800E63D}</ProjectGuid>
@@ -32,12 +32,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BouncyCastle" Version="1.8.5" />
-        <PackageReference Include="CompareNETObjects" Version="4.62.0" />
-        <PackageReference Include="Difi.Felles.Utility" Version="3.0.2" />
-        <PackageReference Include="Digipost.Api.Client.DataTypes.Core" Version="1.0.0" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="5.0.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+        <PackageReference Include="BouncyCastle" Version="1.8.6.1" />
+        <PackageReference Include="CompareNETObjects" Version="4.66.0" />
+        <PackageReference Include="Difi.Felles.Utility" Version="4.0.0" />
+        <PackageReference Include="Digipost.Api.Client.DataTypes.Core" Version="2.0.0" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="6.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
         <PackageReference Include="xunit.abstractions" Version="2.0.3" />
         <PackageReference Include="xunit.assert" Version="2.4.1" />
         <PackageReference Include="xunit.core" Version="2.4.1" />

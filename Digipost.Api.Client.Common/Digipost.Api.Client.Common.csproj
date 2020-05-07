@@ -37,12 +37,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BouncyCastle" Version="1.8.5" />
+        <PackageReference Include="BouncyCastle" Version="1.8.6.1" />
         <PackageReference Include="Difi.Felles.Utility" Version="4.0.0" />
         <PackageReference Include="Digipost.Api.Client.Shared" Version="6.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-        <PackageReference Include="NLog.Extensions.Logging" Version="1.5.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.3" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="1.6.2" />
         <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
             <Project>{18CBB05A-B0AE-42FF-870F-1C213A238751}</Project>
             <Name>Digipost.Api.Client.Resources</Name>

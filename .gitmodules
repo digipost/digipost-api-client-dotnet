@@ -1,3 +1,0 @@
-[submodule "travis-deploy"]
-	path = travis-deploy
-	url = git@github.com:digipost/travis-deploy.git

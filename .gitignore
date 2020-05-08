@@ -163,3 +163,4 @@ FakesAssemblies/
 /cert/*
 *.pk
 
+signingkey.snk

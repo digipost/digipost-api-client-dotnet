@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Digipost.Api.Client.ConcurrencyTest</RootNamespace>
         <ProjectGuid>{7B5E5062-98E5-4312-9A82-28DF530BF5FB}</ProjectGuid>
@@ -60,7 +62,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <None Include="C:\Keys\signingkey.snk">
+        <None Include="..\signingkey.snk">
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>

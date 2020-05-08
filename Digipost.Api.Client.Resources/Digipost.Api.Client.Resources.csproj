@@ -3,6 +3,8 @@
     <PropertyGroup>
         <Title>Digipost Api Client Resources</Title>
         <PackageId>Digipost.Api.Client.Resources</PackageId>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
     
     <PropertyGroup>
@@ -48,7 +50,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <None Include="C:\Keys\signingkey.snk">
+        <None Include="..\signingkey.snk">
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>

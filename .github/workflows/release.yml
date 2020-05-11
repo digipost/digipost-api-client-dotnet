@@ -1,0 +1,74 @@
+name: Release
+
+on: 
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Print openssl version
+      run: |
+        openssl version
+    - name: Decrypt signing key to use for strong-name
+      env:
+        SIGNINGKEY_ENC_PASSWORD: ${{ secrets.signingkeyEncPassword }}
+      run: |
+        openssl aes-256-cbc -salt -pbkdf2 -k "$SIGNINGKEY_ENC_PASSWORD" -in signingkey.snk.enc -out signingkey.snk -d
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Set release version
+      run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Common
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Docs
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Inbox
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Resources
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Scripts
+    - name: Pack nupkg
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Send
+    - name: Push Client to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY 
+    - name: Push Common to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Common.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    - name: Push Docs to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Docs.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    - name: Push Inbox to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Inbox.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    - name: Push Resources to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Resources.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    - name: Push Scripts to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Scripts.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    - name: Push Send to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Send.$RELEASE_VERSION.nupkg" --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY 

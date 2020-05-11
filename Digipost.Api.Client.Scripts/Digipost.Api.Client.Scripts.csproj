@@ -3,6 +3,8 @@
     <PropertyGroup>
         <Title>Digipost Api Client Scripts</Title>
         <PackageId>Digipost.Api.Client.Scripts</PackageId>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
     
     <PropertyGroup>
@@ -42,13 +44,13 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <None Include="C:\Keys\signingkey.snk">
+        <None Include="..\signingkey.snk">
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="BouncyCastle" Version="1.8.6.1" />
-      <PackageReference Include="Difi.Felles.Utility" Version="4.0.0" />
-      <PackageReference Include="Digipost.Api.Client.Shared" Version="6.0.0" />
+      <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+      <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
+      <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.0" />
     </ItemGroup>
 </Project>

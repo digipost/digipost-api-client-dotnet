@@ -37,10 +37,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BouncyCastle" Version="1.8.6.1" />
-        <PackageReference Include="Difi.Felles.Utility" Version="4.0.0" />
-        <PackageReference Include="Digipost.Api.Client.DataTypes.Core" Version="2.0.0" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="6.0.0" />
+        <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+        <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
+        <PackageReference Include="Digipost.Api.Client.DataTypes.Core" Version="3.0.0" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.0" />
         <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
             <Project>{CD338E5A-1ED0-4331-B34E-8292FA8E387B}</Project>
             <Name>Digipost.Api.Client.Common</Name>
@@ -66,7 +66,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <None Include="C:\Keys\signingkey.snk">
+        <None Include="..\signingkey.snk">
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>

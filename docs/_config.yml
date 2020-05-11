@@ -71,10 +71,10 @@ githubButton:
 
 # twitter buttons
 twitter:
-  enabled: true
+  enabled: false
   via:
   hash:
-  account: digipost_no
+  account:
 
 # facebook buttons
 facebook:
@@ -89,7 +89,7 @@ analytics:
 # DON'T MODIFY
 highlight: rouge
 
-gems:
+plugins:
   - jekyll-redirect-from
 
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'vendor']

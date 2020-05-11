@@ -10,24 +10,18 @@ namespace Digipost.Api.Client.Common.Utilities
         internal static IServiceProvider CreateServiceProviderAndSetUpLogging()
         {
             var services = new ServiceCollection();
-            
+
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
+            services.AddLogging((builder) =>
+            {
+                builder.SetMinimumLevel(LogLevel.Trace);
 
-            var serviceProvider = services.BuildServiceProvider();
-            SetUpLoggingForTesting(serviceProvider);
+                builder.AddNLog(new NLogProviderOptions {CaptureMessageTemplates = true, CaptureMessageProperties = true});
+                NLog.LogManager.LoadConfiguration("./../../../../Digipost.Api.Client.Common/nlog.config");
+            });
 
-            return serviceProvider;
+            return services.BuildServiceProvider();
         }
-        
-        private static void SetUpLoggingForTesting(IServiceProvider serviceProvider)
-        {
-            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
-            loggerFactory.AddNLog(new NLogProviderOptions {CaptureMessageTemplates = true, CaptureMessageProperties = true});
-            NLog.LogManager.LoadConfiguration("./../../../../Digipost.Api.Client.Common/nlog.config");
-        }
-
     }
 }

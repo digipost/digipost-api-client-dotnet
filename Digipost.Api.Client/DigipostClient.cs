@@ -21,7 +21,7 @@ namespace Digipost.Api.Client
         private readonly SendMessageApi _api;
         private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
-        
+
         private HttpClient _httpClient;
         private readonly ILogger<DigipostClient> _logger;
         private readonly ILoggerFactory _loggerFactory;
@@ -31,16 +31,16 @@ namespace Digipost.Api.Client
         {
         }
 
-        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate) 
+        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate)
             : this(clientConfig, enterpriseCertificate, new NullLoggerFactory())
         {
         }
-        
+
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();
             _loggerFactory = loggerFactory;
-            
+
             _clientConfig = clientConfig;
             _httpClient = GetHttpClient(enterpriseCertificate);
             _requestHelper = new RequestHelper(_httpClient, _loggerFactory);
@@ -50,20 +50,24 @@ namespace Digipost.Api.Client
         private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)
         {
             var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
-            
+
             var httpClient = HttpClientFactory.Create(
                 allDelegationHandlers.ToArray()
             );
 
             httpClient.Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds);
             httpClient.BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri);
-            
+
             return httpClient;
         }
 
         public Inbox.Inbox GetInbox(Sender senderId)
         {
             return new Inbox.Inbox(senderId, _requestHelper);
+        }
+        public Archive.Archive GetArchive(Sender senderId)
+        {
+            return new Archive.Archive(senderId, _requestHelper);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

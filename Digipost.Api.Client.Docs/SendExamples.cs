@@ -10,6 +10,7 @@ using Digipost.Api.Client.Send;
 using Address = Digipost.Api.Client.DataTypes.Core.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
 using Sender = Digipost.Api.Client.Common.Sender;
+#pragma warning disable 0649
 
 namespace Digipost.Api.Client.Docs
 {
@@ -20,7 +21,7 @@ namespace Digipost.Api.Client.Docs
 
         public void ClientConfigurationWithThumbprint()
         {
-            // The actual sender of the message. The broker is the owner of the organization certificate 
+            // The actual sender of the message. The broker is the owner of the organization certificate
             // used in the library. The broker id can be retrieved from your Digipost organization account.
             var broker = new Broker(12345);
 
@@ -128,7 +129,7 @@ namespace Digipost.Api.Client.Docs
 
             var result = client.SendMessage(messageWithFallbackToPrint);
         }
-        
+
         public void SendLetterWithPrintIfUnread()
         {
             var recipient = new RecipientByNameAndAddress(
@@ -184,13 +185,13 @@ namespace Digipost.Api.Client.Docs
 
             if (identificationResponse.ResultType == IdentificationResultType.DigipostAddress)
             {
-                //Exist as user in Digipost. 
-                //If you used personal identification number to identify - use this to send a message to this individual. 
-                //If not, see Data field for DigipostAddress. 
+                //Exist as user in Digipost.
+                //If you used personal identification number to identify - use this to send a message to this individual.
+                //If not, see Data field for DigipostAddress.
             }
             else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
             {
-                //The person is identified but does not have an active Digipost account. 
+                //The person is identified but does not have an active Digipost account.
                 //You can continue to use this alias to check the status of the user in future calls.
             }
             else if (identificationResponse.ResultType == IdentificationResultType.InvalidReason ||
@@ -292,14 +293,14 @@ namespace Digipost.Api.Client.Docs
                 dataType: appointmentXml
             );
         }
-        
+
         public void SendMessageWithEventMetadata()
         {
             var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-            
+
             var timeInterval1 = new TimeInterval { Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O") };
             var timeInterval2 = new TimeInterval { Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O") };
-            
+
             var barcode = new Barcode { Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true };
             var address = new Address { Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo" };
             var info = new Info { Title = "Title", Text = "Very important information" };
@@ -320,7 +321,7 @@ namespace Digipost.Api.Client.Docs
             };
 
             string eventXml = SerializeUtil.Serialize(@event);
-            
+
             Document document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
@@ -340,7 +341,7 @@ namespace Digipost.Api.Client.Docs
             };
 
             string linkXml = SerializeUtil.Serialize(externalLink);
-            
+
             var document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",

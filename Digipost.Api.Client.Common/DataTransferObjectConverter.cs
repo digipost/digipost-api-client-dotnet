@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
@@ -6,14 +7,15 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
+using V7;
 
 namespace Digipost.Api.Client.Common
 {
     internal class DataTransferObjectConverter
     {
-        public static identification ToDataTransferObject(IIdentification identification)
+        public static V7.Identification ToDataTransferObject(IIdentification identification)
         {
-            identification identificationDto = null;
+            V7.Identification identificationDto = null;
 
             if (identification.DigipostRecipient is RecipientById)
             {
@@ -28,45 +30,96 @@ namespace Digipost.Api.Client.Common
             return identificationDto;
         }
 
-        private static identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        private static V7.Identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
-            return new identification
+            switch (recipientById.IdentificationType)
             {
-                ItemElementName = recipientById.IdentificationType.ToItemChoiceType(),
-                Item = recipientById.Id
-            };
+                case IdentificationType.DigipostAddress:
+                    return new V7.Identification {Digipost_Address = recipientById.Id};
+                case IdentificationType.PersonalIdentificationNumber:
+                    return new V7.Identification {Personal_Identification_Number = recipientById.Id};
+                case IdentificationType.OrganizationNumber:
+                    return new V7.Identification {Organisation_Number = recipientById.Id};
+                case IdentificationType.BankAccountNumber:
+                    return new V7.Identification {Bank_Account_Number = recipientById.Id};
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(recipientById.IdentificationType), recipientById.IdentificationType, null);
+            }
         }
 
-        private static identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
+        private static V7.Identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var identification = new identification
+            var identification = new V7.Identification
             {
-                ItemElementName = ItemChoiceType.nameandaddress,
-                Item = new nameandaddress
+                Name_And_Address = new V7.Name_And_Address()
                 {
-                    fullname = recipientByNameAndAddress.FullName,
-                    addressline1 = recipientByNameAndAddress.AddressLine1,
-                    addressline2 = recipientByNameAndAddress.AddressLine2,
-                    postalcode = recipientByNameAndAddress.PostalCode,
-                    city = recipientByNameAndAddress.City,
-                    emailaddress = recipientByNameAndAddress.Email,
-                    phonenumber = recipientByNameAndAddress.PhoneNumber
+                    Fullname = recipientByNameAndAddress.FullName,
+                    Addressline1 = recipientByNameAndAddress.AddressLine1,
+                    Addressline2 = recipientByNameAndAddress.AddressLine2,
+                    Postalcode = recipientByNameAndAddress.PostalCode,
+                    City = recipientByNameAndAddress.City,
+                    Email_Address = recipientByNameAndAddress.Email,
+                    Phone_Number = recipientByNameAndAddress.PhoneNumber
                 }
             };
 
             if (recipientByNameAndAddress.BirthDate.HasValue)
             {
-                var nameandaddress = (nameandaddress) identification.Item;
-                nameandaddress.birthdate = recipientByNameAndAddress.BirthDate.Value;
-                nameandaddress.birthdateSpecified = true;
+                var nameandaddress = identification.Name_And_Address;
+                nameandaddress.Birth_Date = recipientByNameAndAddress.BirthDate.Value;
+                nameandaddress.Birth_DateSpecified = true;
             }
 
             return identification;
         }
 
-        public static messagerecipient ToDataTransferObject(IDigipostRecipient recipient)
+        public static V7.Message_Recipient Message_RecipientDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            messagerecipient messageRecipientDto = null;
+            var identification = new V7.Message_Recipient
+            {
+                Name_And_Address = new V7.Name_And_Address()
+                {
+                    Fullname = recipientByNameAndAddress.FullName,
+                    Addressline1 = recipientByNameAndAddress.AddressLine1,
+                    Addressline2 = recipientByNameAndAddress.AddressLine2,
+                    Postalcode = recipientByNameAndAddress.PostalCode,
+                    City = recipientByNameAndAddress.City,
+                    Email_Address = recipientByNameAndAddress.Email,
+                    Phone_Number = recipientByNameAndAddress.PhoneNumber
+                }
+            };
+
+            if (recipientByNameAndAddress.BirthDate.HasValue)
+            {
+                var nameandaddress = identification.Name_And_Address;
+                nameandaddress.Birth_Date = recipientByNameAndAddress.BirthDate.Value;
+                nameandaddress.Birth_DateSpecified = true;
+            }
+
+            return identification;
+        }
+
+        public static V7.Message_Recipient Message_RecipientDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        {
+            switch (recipientById.IdentificationType)
+            {
+                case IdentificationType.DigipostAddress:
+                    return new V7.Message_Recipient {Digipost_Address = recipientById.Id};
+                case IdentificationType.PersonalIdentificationNumber:
+                    return new V7.Message_Recipient {Personal_Identification_Number = recipientById.Id};
+                case IdentificationType.OrganizationNumber:
+                    return new V7.Message_Recipient {Organisation_Number = recipientById.Id};
+                case IdentificationType.BankAccountNumber:
+                    return new V7.Message_Recipient {Bank_Account_Number = recipientById.Id};
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(recipientById.IdentificationType), recipientById.IdentificationType, null);
+            }
+        }
+
+
+        public static V7.Message_Recipient ToDataTransferObject(IDigipostRecipient recipient)
+        {
+            V7.Message_Recipient messageRecipientDto = null;
 
             if (recipient is RecipientById)
             {
@@ -81,148 +134,159 @@ namespace Digipost.Api.Client.Common
             return messageRecipientDto;
         }
 
-        private static messagerecipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
+        private static V7.Message_Recipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
         {
-            return new messagerecipient
+            switch (recipient.IdentificationType)
             {
-                ItemElementName = recipient.IdentificationType.ToItemChoiceType1(),
-                Item = recipient.Id
-            };
+                case IdentificationType.DigipostAddress:
+                    return new V7.Message_Recipient {Digipost_Address = recipient.Id};
+                case IdentificationType.PersonalIdentificationNumber:
+                    return new V7.Message_Recipient {Personal_Identification_Number = recipient.Id};
+                case IdentificationType.OrganizationNumber:
+                    return new V7.Message_Recipient {Organisation_Number = recipient.Id};
+                case IdentificationType.BankAccountNumber:
+                    return new V7.Message_Recipient {Bank_Account_Number = recipient.Id};
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(recipient.IdentificationType), recipient.IdentificationType, null);
+            }
         }
 
-        private static messagerecipient RecipientDataTransferObjectFromRecipientByNameAndAddress(
-            IRecipientByNameAndAddress recipientByNameAndAddress)
+        private static V7.Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(IRecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var nameAndAddressDto = new nameandaddress
+            var nameAndAddressDto = new V7.Name_And_Address()
             {
-                fullname = recipientByNameAndAddress.FullName,
-                addressline1 = recipientByNameAndAddress.AddressLine1,
-                addressline2 = recipientByNameAndAddress.AddressLine2,
-                postalcode = recipientByNameAndAddress.PostalCode,
-                city = recipientByNameAndAddress.City,
-                emailaddress = recipientByNameAndAddress.Email,
-                phonenumber = recipientByNameAndAddress.PhoneNumber
+                Fullname = recipientByNameAndAddress.FullName,
+                Addressline1 = recipientByNameAndAddress.AddressLine1,
+                Addressline2 = recipientByNameAndAddress.AddressLine2,
+                Postalcode = recipientByNameAndAddress.PostalCode,
+                City = recipientByNameAndAddress.City,
+                Email_Address = recipientByNameAndAddress.Email,
+                Phone_Number = recipientByNameAndAddress.PhoneNumber
             };
 
             if (recipientByNameAndAddress.BirthDate != null)
             {
-                nameAndAddressDto.birthdate = recipientByNameAndAddress.BirthDate.Value;
-                nameAndAddressDto.birthdateSpecified = true;
+                nameAndAddressDto.Birth_Date = recipientByNameAndAddress.BirthDate.Value;
+                nameAndAddressDto.Birth_DateSpecified = true;
             }
 
-            return new messagerecipient
+            return new V7.Message_Recipient
             {
-                ItemElementName = ItemChoiceType1.nameandaddress,
-                Item = nameAndAddressDto
+                Name_And_Address = nameAndAddressDto
             };
         }
 
-        public static printdetails ToDataTransferObject(IPrintDetails printDetails)
+        public static V7.Print_Details ToDataTransferObject(IPrintDetails printDetails)
         {
             if (printDetails == null)
                 return null;
 
-            var printDetailsDataTransferObject = new printdetails
+            var printDetailsDataTransferObject = new V7.Print_Details
             {
-                recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
-                returnaddress = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
-                color = printDetails.PrintColors.ToPrintColors(),
-                nondeliverablehandling = printDetails.NondeliverableHandling.ToNondeliverablehandling(),
-                printinstructions = ToDataTransferObject(printDetails.PrintInstructions)
+                Recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
+                Return_Address = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
+                Color = printDetails.PrintColors.ToPrintColors(),
+                Nondeliverable_Handling = printDetails.NondeliverableHandling.ToNondeliverablehandling(),
             };
+
+            ToDataTransferObject(printDetails.PrintInstructions).ForEach(printDetailsDataTransferObject.Print_Instructions.Add);
 
             return printDetailsDataTransferObject;
         }
 
-        public static printinstruction[] ToDataTransferObject(IPrintInstructions printInstructions)
+        public static List<V7.Print_Instruction> ToDataTransferObject(IPrintInstructions printInstructions)
         {
             if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
-                return null;
+                return new List<Print_Instruction>();
 
-            printinstruction[] printInstructionsTransferObject = 
-                printInstructions.PrintInstruction.Select(
-                    pi => ToDataTransferObject(pi)).ToArray();
-
-            return printInstructionsTransferObject;
+            return printInstructions.PrintInstruction.Select(ToDataTransferObject).ToList();
         }
 
-        public static printinstruction ToDataTransferObject(IPrintInstruction printInstruction)
+        public static V7.Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
         {
             if (printInstruction == null)
                 return null;
 
-            var printInstructionTransferObject = new printinstruction
+            var printInstructionTransferObject = new V7.Print_Instruction
             {
-                key = printInstruction.key,
-                value = printInstruction.value
+                Key = printInstruction.key,
+                Value = printInstruction.value
             };
 
             return printInstructionTransferObject;
         }
 
-        public static printifunread ToDataTransferObject(IPrintIfUnread printIfUnread)
+        public static V7.Print_If_Unread ToDataTransferObject(IPrintIfUnread printIfUnread)
         {
             if (printIfUnread == null)
                 return null;
 
-            var printIfUnreadDataTransferObject = new printifunread
+            var printIfUnreadDataTransferObject = new V7.Print_If_Unread
             {
-                printifunreadafter = printIfUnread.PrintIfUnreadAfter,
-                printdetails = ToDataTransferObject(printIfUnread.PrintDetails)
+                Print_If_Unread_After = printIfUnread.PrintIfUnreadAfter,
+                Print_Details = ToDataTransferObject(printIfUnread.PrintDetails)
             };
 
             return printIfUnreadDataTransferObject;
         }
 
-        private static printrecipient ToDataTransferObject(IPrint recipient)
+        private static V7.Print_Recipient ToDataTransferObject(IPrint recipient)
         {
-            var printRecipientDto = new printrecipient
+            var printRecipientDto = new V7.Print_Recipient
             {
-                name = recipient.Name
+                Name = recipient.Name
             };
 
             if (recipient.Address is INorwegianAddress)
             {
-                printRecipientDto.Item = ToDataTransferObject((INorwegianAddress) recipient.Address);
+                printRecipientDto.Norwegian_Address = ToDataTransferObject((INorwegianAddress) recipient.Address);
             }
             else
             {
-                printRecipientDto.Item = ToDataTransferObject((IForeignAddress) recipient.Address);
+                printRecipientDto.Foreign_Address = ToDataTransferObject((IForeignAddress) recipient.Address);
             }
 
             return printRecipientDto;
         }
 
-        public static norwegianaddress ToDataTransferObject(INorwegianAddress norwegianAddress)
+        public static V7.Norwegian_Address ToDataTransferObject(INorwegianAddress norwegianAddress)
         {
-            return new norwegianaddress
+            return new V7.Norwegian_Address
             {
-                addressline1 = norwegianAddress.AddressLine1,
-                addressline2 = norwegianAddress.AddressLine2,
-                addressline3 = norwegianAddress.AddressLine3,
-                zipcode = norwegianAddress.PostalCode,
-                city = norwegianAddress.City
+                Addressline1 = norwegianAddress.AddressLine1,
+                Addressline2 = norwegianAddress.AddressLine2,
+                Addressline3 = norwegianAddress.AddressLine3,
+                Zip_Code = norwegianAddress.PostalCode,
+                City = norwegianAddress.City
             };
         }
 
-        public static foreignaddress ToDataTransferObject(IForeignAddress foreignAddress)
+        public static V7.Foreign_Address ToDataTransferObject(IForeignAddress foreignAddress)
         {
-            return new foreignaddress
+            var result = new V7.Foreign_Address
             {
-                addressline1 = foreignAddress.AddressLine1,
-                addressline2 = foreignAddress.AddressLine2,
-                addressline3 = foreignAddress.AddressLine3,
-                addressline4 = foreignAddress.Addressline4,
-                ItemElementName = foreignAddress.CountryIdentifier.ToCountryIdentifier(),
-                Item = foreignAddress.CountryIdentifierValue
+                Addressline1 = foreignAddress.AddressLine1,
+                Addressline2 = foreignAddress.AddressLine2,
+                Addressline3 = foreignAddress.AddressLine3,
+                Addressline4 = foreignAddress.Addressline4,
             };
+
+            if (foreignAddress.CountryIdentifier == CountryIdentifier.Country)
+            {
+                result.Country = foreignAddress.CountryIdentifierValue;
+            } else if (foreignAddress.CountryIdentifier == CountryIdentifier.Countrycode)
+            {
+                result.Country_Code = foreignAddress.CountryIdentifierValue;
+            }
+
+            return result;
         }
 
-        public static printrecipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
+        public static V7.Print_Recipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
         {
-            var printRecipientDataTransferObject = new printrecipient
+            var printRecipientDataTransferObject = new V7.Print_Recipient
             {
-                name = printOrPrintReturnRecipient.Name
+                Name = printOrPrintReturnRecipient.Name
             };
 
             var addressType = printOrPrintReturnRecipient.Address.GetType();
@@ -230,62 +294,79 @@ namespace Digipost.Api.Client.Common
             if (typeof(INorwegianAddress).IsAssignableFrom(addressType))
             {
                 var address = printOrPrintReturnRecipient.Address as NorwegianAddress;
-                printRecipientDataTransferObject.Item = ToDataTransferObject(address);
+                printRecipientDataTransferObject.Norwegian_Address = ToDataTransferObject(address);
             }
             else
             {
                 var address = printOrPrintReturnRecipient.Address as ForeignAddress;
-                printRecipientDataTransferObject.Item = ToDataTransferObject(address);
+                printRecipientDataTransferObject.Foreign_Address = ToDataTransferObject(address);
             }
 
             return printRecipientDataTransferObject;
         }
 
-        public static smsnotification ToDataTransferObject(ISmsNotification smsNotification)
+        public static V7.Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
         {
             if (smsNotification == null)
                 return null;
 
-            var smsNotificationDto = new smsnotification();
+            var smsNotificationDto = new V7.Sms_Notification();
 
             if (smsNotification.NotifyAtTimes.Count > 0)
             {
-                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new listedtime {time = dateTime, timeSpecified = true});
-                smsNotificationDto.at = timesAsListedTimes.ToArray();
+                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V7.Listed_Time {Time = dateTime, TimeSpecified = true});
+                foreach (var timesAsListedTime in timesAsListedTimes)
+                {
+                    smsNotificationDto.At.Add(timesAsListedTime);
+                }
             }
 
             if (smsNotification.NotifyAfterHours.Count > 0)
             {
-                smsNotificationDto.afterhours = smsNotification.NotifyAfterHours.ToArray();
+                foreach (var i in smsNotification.NotifyAfterHours.ToArray())
+                {
+                    smsNotificationDto.After_Hours.Add(i);
+                }
             }
 
             return smsNotificationDto;
         }
 
-        public static IIdentificationResult FromDataTransferObject(identificationresult identificationResultDto)
+        public static IIdentificationResult FromDataTransferObject(V7.Identification_Result identificationResultDto)
         {
-            var itemsChoiceType = identificationResultDto.ItemsElementName?.FirstOrDefault();
-            var identifiedByDigipostOrPin = itemsChoiceType == null;
+            var digipostAddress = identificationResultDto.Digipost_Address;
+            var personAlias = identificationResultDto.Person_Alias;
+
+            var identifiedByDigipostOrPin = digipostAddress != null || personAlias != null || identificationResultDto.Result == V7.Identification_Result_Code.DIGIPOST || identificationResultDto.Result == V7.Identification_Result_Code.IDENTIFIED;
 
             if (identifiedByDigipostOrPin)
             {
                 return IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationResultDto);
             }
 
-            return new IdentificationResult(itemsChoiceType.Value.ToIdentificationResultType(), identificationResultDto.Items.ElementAt(0).ToString());
+            if (identificationResultDto.Invalid_ReasonSpecified)
+            {
+                return new IdentificationResult(IdentificationResultType.InvalidReason, identificationResultDto.Invalid_Reason.ToString());
+            }
+            if (identificationResultDto.Unidentified_ReasonSpecified)
+            {
+                return new IdentificationResult(IdentificationResultType.UnidentifiedReason, identificationResultDto.Unidentified_Reason.ToString());
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(identificationResultDto.Result), identificationResultDto.Result, null);
         }
 
-        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(identificationresult identificationResultDto)
+        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(V7.Identification_Result identificationResultDto)
         {
             IdentificationResult identificationResult;
 
-            switch (identificationResultDto.result)
+            switch (identificationResultDto.Result)
             {
-                case identificationresultcode.DIGIPOST:
-                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress);
+                case V7.Identification_Result_Code.DIGIPOST:
+                    identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, identificationResultDto.Digipost_Address + "");
                     break;
-                case identificationresultcode.IDENTIFIED:
-                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias);
+                case V7.Identification_Result_Code.IDENTIFIED:
+                    identificationResult = new IdentificationResult(IdentificationResultType.Personalias, identificationResultDto.Person_Alias + "");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -293,38 +374,38 @@ namespace Digipost.Api.Client.Common
             return identificationResult;
         }
 
-        public static Error FromDataTransferObject(error error)
+        public static Error FromDataTransferObject(V7.Error error)
         {
             return new Error
             {
-                Errorcode = error.errorcode,
-                Errormessage = error.errormessage,
-                Errortype = error.errortype
+                Errorcode = error.Error_Code,
+                Errormessage = error.Error_Message,
+                Errortype = error.Error_Type
             };
         }
 
-        public static SearchDetailsResult FromDataTransferObject(recipients recipients)
+        public static SearchDetailsResult FromDataTransferObject(V7.Recipients recipients)
         {
             return new SearchDetailsResult
             {
-                PersonDetails = recipients.recipient?.Select(
+                PersonDetails = recipients.Recipient?.Select(
                     r => new SearchDetails
                     {
-                        FirstName = r.firstname,
-                        MiddleName = r.middlename,
-                        LastName = r.lastname,
-                        DigipostAddress = r.digipostaddress,
-                        MobileNumber = r.mobilenumber,
-                        OrganizationName = r.organisationname,
-                        OrganizationNumber = r.organisationnumber,
-                        SearchDetailsAddress = r.address?.Select(a => new SearchDetailsAddress
+                        FirstName = r.Firstname,
+                        MiddleName = r.Middlename,
+                        LastName = r.Lastname,
+                        DigipostAddress = r.Digipost_Address,
+                        MobileNumber = r.Mobile_Number,
+                        OrganizationName = r.Organisation_Name,
+                        OrganizationNumber = r.Organisation_Number,
+                        SearchDetailsAddress = r.Address?.Select(a => new SearchDetailsAddress
                         {
-                            Street = a.street,
-                            HouseNumber = a.housenumber,
-                            HouseLetter = a.houseletter,
-                            AdditionalAddressLine = a.additionaladdressline,
-                            PostalCode = a.zipcode,
-                            City = a.city
+                            Street = a.Street,
+                            HouseNumber = a.House_Number,
+                            HouseLetter = a.House_Letter,
+                            AdditionalAddressLine = a.Additional_Addressline,
+                            PostalCode = a.Zip_Code,
+                            City = a.City
                         })
                     })
             };

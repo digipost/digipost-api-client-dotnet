@@ -7,6 +7,7 @@ using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.CompareObjects;
+using V7;
 using Xunit;
 
 namespace Digipost.Api.Client.Send.Tests
@@ -20,16 +21,16 @@ namespace Digipost.Api.Client.Send.Tests
             {
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                var expectedDto = new document
+                var expectedDto = new V7.Document
                 {
-                    subject = source.Subject,
-                    filetype = source.FileType,
-                    authenticationlevel = source.AuthenticationLevel.ToAuthenticationLevel(),
-                    authenticationlevelSpecified = true,
-                    sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
-                    sensitivitylevelSpecified = true,
-                    smsnotification = new smsnotification {afterhours = source.SmsNotification.NotifyAfterHours.ToArray()},
-                    uuid = source.Guid
+                    Subject = source.Subject,
+                    File_Type = source.FileType,
+                    Authentication_Level = source.AuthenticationLevel.ToAuthenticationLevel(),
+                    Authentication_LevelSpecified = true,
+                    Sensitivity_Level = source.SensitivityLevel.ToSensitivityLevel(),
+                    Sensitivity_LevelSpecified = true,
+                    Sms_Notification = new Sms_Notification {After_Hours = {source.SmsNotification.NotifyAfterHours.ToArray()[0]}},
+                    Uuid = source.Guid
                 };
 
                 //Act
@@ -59,20 +60,20 @@ namespace Digipost.Api.Client.Send.Tests
                     smsNotification);
 
                 var expectedDto = new
-                    invoice
+                    V7.Invoice
                     {
-                        subject = source.Subject,
-                        filetype = source.FileType,
-                        authenticationlevel = source.AuthenticationLevel.ToAuthenticationLevel(),
-                        authenticationlevelSpecified = true,
-                        sensitivitylevel = source.SensitivityLevel.ToSensitivityLevel(),
-                        sensitivitylevelSpecified = true,
-                        smsnotification = new smsnotification {at = new[] {new listedtime {time = smsNotification.NotifyAtTimes.First(), timeSpecified = true}}},
-                        uuid = source.Guid,
-                        kid = source.Kid,
-                        amount = source.Amount,
-                        account = source.Account,
-                        duedate = source.Duedate
+                        Subject = source.Subject,
+                        File_Type = source.FileType,
+                        Authentication_Level = source.AuthenticationLevel.ToAuthenticationLevel(),
+                        Authentication_LevelSpecified = true,
+                        Sensitivity_Level = source.SensitivityLevel.ToSensitivityLevel(),
+                        Sensitivity_LevelSpecified = true,
+                        Sms_Notification = new V7.Sms_Notification() {At = {new V7.Listed_Time() {Time = smsNotification.NotifyAtTimes.First(), TimeSpecified = true}}},
+                        Uuid = source.Guid,
+                        Kid = source.Kid,
+                        Amount = source.Amount,
+                        Account = source.Account,
+                        Due_Date = source.Duedate
                     };
 
                 //Act
@@ -88,55 +89,54 @@ namespace Digipost.Api.Client.Send.Tests
                 //Arrange
                 var deliverytime = DateTime.Now.AddDays(3);
 
-                var source = new messagedelivery
+                var source = new V7.Message_Delivery()
                 {
-                    primarydocument = new document
+                    Primary_Document = new V7.Document
                     {
-                        subject = "TestSubject",
-                        filetype = "txt",
-                        authenticationlevel = authenticationlevel.TWO_FACTOR,
-                        sensitivitylevel = sensitivitylevel.SENSITIVE,
-                        uuid = "uuid",
-                        contenthash = new contenthash {hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
+                        Subject = "TestSubject",
+                        File_Type = "txt",
+                        Authentication_Level = Authentication_Level.TWO_FACTOR,
+                        Sensitivity_Level = Sensitivity_Level.SENSITIVE,
+                        Uuid = "uuid",
+                        Content_Hash = new Content_Hash() {Hash_Algorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
                     },
-                    attachment = new[]
-                    {
-                        new document
+                    Attachment = {
+                        new V7.Document
                         {
-                            subject = "TestSubject Attachment",
-                            filetype = "txt",
-                            authenticationlevel = authenticationlevel.TWO_FACTOR,
-                            sensitivitylevel = sensitivitylevel.SENSITIVE,
-                            uuid = "attachmentGuid",
-                            contenthash = new contenthash {hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
+                            Subject = "TestSubject Attachment",
+                            File_Type = "txt",
+                            Authentication_Level = Authentication_Level.TWO_FACTOR,
+                            Sensitivity_Level = Sensitivity_Level.SENSITIVE,
+                            Uuid = "attachmentGuid",
+                            Content_Hash = new Content_Hash() {Hash_Algorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
                         }
                     },
-                    deliverytime = deliverytime,
-                    deliverymethod = channel.DIGIPOST,
-                    deliverytimeSpecified = true,
-                    status = messagestatus.DELIVERED,
-                    senderid = 123456
+                    Delivery_Time = deliverytime,
+                    Delivery_Method = V7.Channel.DIGIPOST,
+                    Delivery_TimeSpecified = true,
+                    Status = Message_Status.DELIVERED,
+                    Sender_Id = 123456
                 };
 
                 var expected = new MessageDeliveryResult
                 {
-                    PrimaryDocument = new Document(source.primarydocument.subject, source.primarydocument.filetype, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
+                    PrimaryDocument = new Document(source.Primary_Document.Subject, source.Primary_Document.File_Type, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
                     {
-                        Guid = source.primarydocument.uuid,
-                        ContentHash = new ContentHash {HashAlgoritm = source.primarydocument.contenthash.hashalgorithm, Value = source.primarydocument.contenthash.Value}
+                        Guid = source.Primary_Document.Uuid,
+                        ContentHash = new ContentHash {HashAlgoritm = source.Primary_Document.Content_Hash.Hash_Algorithm, Value = source.Primary_Document.Content_Hash.Value}
                     },
                     Attachments = new List<Document>
                     {
-                        new Document(source.attachment[0].subject, source.attachment[0].filetype, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
+                        new Document(source.Attachment[0].Subject, source.Attachment[0].File_Type, AuthenticationLevel.TwoFactor, SensitivityLevel.Sensitive)
                         {
-                            Guid = source.attachment[0].uuid,
-                            ContentHash = new ContentHash {HashAlgoritm = source.attachment[0].contenthash.hashalgorithm, Value = source.attachment[0].contenthash.Value}
+                            Guid = source.Attachment[0].Uuid,
+                            ContentHash = new ContentHash {HashAlgoritm = source.Attachment[0].Content_Hash.Hash_Algorithm, Value = source.Attachment[0].Content_Hash.Value}
                         }
                     },
-                    DeliveryTime = source.deliverytime,
+                    DeliveryTime = source.Delivery_Time,
                     DeliveryMethod = DeliveryMethod.Digipost,
                     Status = MessageStatus.Delivered,
-                    SenderId = source.senderid
+                    SenderId = source.Sender_Id
                 };
 
                 //Act
@@ -153,21 +153,21 @@ namespace Digipost.Api.Client.Send.Tests
             public void Document()
             {
                 //Arrange
-                var source = new document
+                var source = new V7.Document
                 {
-                    subject = "testSubject",
-                    filetype = "txt",
-                    authenticationlevel = authenticationlevel.PASSWORD,
-                    sensitivitylevel = sensitivitylevel.SENSITIVE,
-                    smsnotification = new smsnotification {afterhours = new[] {3}},
-                    uuid = "uuid",
-                    contenthash = new contenthash {hashalgorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
+                    Subject = "testSubject",
+                    File_Type = "txt",
+                    Authentication_Level = Authentication_Level.PASSWORD,
+                    Sensitivity_Level = Sensitivity_Level.SENSITIVE,
+                    Sms_Notification = new Sms_Notification() {After_Hours = { 3 }},
+                    Uuid = "uuid",
+                    Content_Hash = new Content_Hash() {Hash_Algorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
                 };
 
-                IDocument expected = new Document(source.subject, source.filetype, AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3))
+                IDocument expected = new Document(source.Subject, source.File_Type, AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3))
                 {
-                    ContentHash = new ContentHash {HashAlgoritm = source.contenthash.hashalgorithm, Value = source.contenthash.Value},
-                    Guid = source.uuid
+                    ContentHash = new ContentHash {HashAlgoritm = source.Content_Hash.Hash_Algorithm, Value = source.Content_Hash.Value},
+                    Guid = source.Uuid
                 };
 
                 //Act
@@ -201,7 +201,7 @@ namespace Digipost.Api.Client.Send.Tests
                 source.PrintDetails = printDetails;
 
                 var expectedDto = DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById();
-                expectedDto.recipient.printdetails = DomainUtility.GetPrintDetailsDataTransferObject();
+                expectedDto.Recipient.Print_Details = DomainUtility.GetPrintDetailsDataTransferObject();
 
                 //Act
                 var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
@@ -235,42 +235,40 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 var expectedDto =
-                    new message
+                    new V7.Message()
                     {
-                        Item = sender.Id,
-                        recipient = new messagerecipient
+                        Sender_Id = sender.Id,
+                        Recipient = new Message_Recipient()
                         {
-                            Item = new nameandaddress
+                            Name_And_Address = new Name_And_Address()
                             {
-                                fullname = "Ola Nordmann",
-                                postalcode = "0001",
-                                city = "Oslo",
-                                addressline1 = "Biskop Gunnerus Gate 14"
+                                Fullname = "Ola Nordmann",
+                                Postalcode = "0001",
+                                City = "Oslo",
+                                Addressline1 = "Biskop Gunnerus Gate 14"
                             },
-                            ItemElementName = ItemChoiceType1.nameandaddress,
-                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                            Print_Details = DomainUtility.GetPrintDetailsDataTransferObject()
                         },
-                        primarydocument = new document
+                        Primary_Document = new V7.Document
                         {
-                            subject = "PrimaryDocument subject",
-                            filetype = "txt",
-                            uuid = "primaryDocumentGuid",
-                            authenticationlevelSpecified = true,
-                            sensitivitylevelSpecified = true
+                            Subject = "PrimaryDocument subject",
+                            File_Type = "txt",
+                            Uuid = "primaryDocumentGuid",
+                            Authentication_LevelSpecified = true,
+                            Sensitivity_LevelSpecified = true
                         },
-                        attachment = new[]
-                        {
-                            new document
+                        Attachment = {
+                            new V7.Document
                             {
-                                subject = "TestSubject attachment subject",
-                                filetype = "txt",
-                                uuid = "attachmentGuid",
-                                sensitivitylevelSpecified = true,
-                                authenticationlevelSpecified = true
+                                Subject = "TestSubject attachment subject",
+                                File_Type = "txt",
+                                Uuid = "attachmentGuid",
+                                Sensitivity_LevelSpecified = true,
+                                Authentication_LevelSpecified = true
                             }
                         },
-                        deliverytime = DateTime.Today.AddDays(3),
-                        deliverytimeSpecified = true
+                        Delivery_Time = DateTime.Today.AddDays(3),
+                        Delivery_TimeSpecified = true
                     };
 
                 //Act
@@ -307,46 +305,44 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 var expectedDto =
-                    new message
+                    new V7.Message()
                     {
-                        Item = sender.Id,
-                        recipient = new messagerecipient
+                        Sender_Id = sender.Id,
+                        Recipient = new V7.Message_Recipient()
                         {
-                            Item = new nameandaddress
+                            Name_And_Address = new V7.Name_And_Address()
                             {
-                                fullname = "Ola Nordmann",
-                                postalcode = "0001",
-                                city = "Oslo",
-                                addressline1 = "Biskop Gunnerus Gate 14"
+                                Fullname = "Ola Nordmann",
+                                Postalcode = "0001",
+                                City = "Oslo",
+                                Addressline1 = "Biskop Gunnerus Gate 14"
                             },
-                            ItemElementName = ItemChoiceType1.nameandaddress,
-                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                            Print_Details = DomainUtility.GetPrintDetailsDataTransferObject()
                         },
-                        primarydocument = new document
+                        Primary_Document = new V7.Document
                         {
-                            subject = "PrimaryDocument subject",
-                            filetype = "txt",
-                            uuid = "primaryDocumentGuid",
-                            authenticationlevelSpecified = true,
-                            sensitivitylevelSpecified = true
+                            Subject = "PrimaryDocument subject",
+                            File_Type = "txt",
+                            Uuid = "primaryDocumentGuid",
+                            Authentication_LevelSpecified = true,
+                            Sensitivity_LevelSpecified = true
                         },
-                        attachment = new[]
-                        {
-                            new document
+                        Attachment = {
+                            new V7.Document
                             {
-                                subject = "TestSubject attachment subject",
-                                filetype = "txt",
-                                uuid = "attachmentGuid",
-                                sensitivitylevelSpecified = true,
-                                authenticationlevelSpecified = true
+                                Subject = "TestSubject attachment subject",
+                                File_Type = "txt",
+                                Uuid = "attachmentGuid",
+                                Sensitivity_LevelSpecified = true,
+                                Authentication_LevelSpecified = true
                             }
                         },
-                        deliverytime = DateTime.Today.AddDays(3),
-                        deliverytimeSpecified = true,
-                        printifunread = new printifunread
+                        Delivery_Time = DateTime.Today.AddDays(3),
+                        Delivery_TimeSpecified = true,
+                        Print_If_Unread = new Print_If_Unread()
                         {
-                            printifunreadafter = deadline,
-                            printdetails = DomainUtility.GetPrintDetailsDataTransferObject()
+                            Print_If_Unread_After = deadline,
+                            Print_Details = DomainUtility.GetPrintDetailsDataTransferObject()
                         }
                     };
 
@@ -364,11 +360,12 @@ namespace Digipost.Api.Client.Send.Tests
                 var atTimes = new List<DateTime> {DateTime.Now, DateTime.Now.AddHours(3)};
                 var afterHours = new List<int> {4, 5};
 
-                var sourceDto = new smsnotification
+                var sourceDto = new Sms_Notification()
                 {
-                    afterhours = afterHours.ToArray(),
-                    at = atTimes.Select(a => new listedtime {timeSpecified = true, time = a}).ToArray()
+                    After_Hours = { 4, 5 },
                 };
+                atTimes.Select(a => new Listed_Time() {TimeSpecified = true, Time = a})
+                    .ToList().ForEach(a => sourceDto.At.Add(a));
 
                 var expected = new SmsNotification();
                 expected.NotifyAfterHours.AddRange(afterHours);

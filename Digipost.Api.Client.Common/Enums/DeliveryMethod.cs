@@ -10,6 +10,16 @@
         /// <summary>
         ///     Delivered digitally in Digipost
         /// </summary>
-        Digipost
+        Digipost,
+
+        /// <summary>
+        ///     Delivered through physical peppol.
+        /// </summary>
+        PEPPOL,
+
+        /// <summary>
+        ///     Delivered to email
+        /// </summary>
+        EPOST
     }
 }

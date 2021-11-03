@@ -4,129 +4,125 @@ using System.Linq;
 using System.Xml;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Extensions;
-using Digipost.Api.Client.Common.Recipient;
-using Digipost.Api.Client.Common.Utilities;
+using V7;
 
 namespace Digipost.Api.Client.Send
 {
     internal class SendDataTransferObjectConverter
     {
-        public static message ToDataTransferObject(IMessage message)
+        public static V7.Message ToDataTransferObject(IMessage message)
         {
             var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
 
-            var messageDto = new message
+            var messageDto = new V7.Message
             {
-                Item = message.Sender.Id,
-                primarydocument = primaryDocumentDataTransferObject,
-                messageid = message.Id,
-                recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient)
+                Sender_Id = message.Sender.Id,
+                Primary_Document = primaryDocumentDataTransferObject,
+                Message_Id = message.Id,
+                Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient)
             };
 
-            messageDto.recipient.printdetails = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails);
+            messageDto.Recipient.Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails);
 
-            if (message.DigipostRecipient is RecipientById)
-            {
-                var identificationType = ((RecipientById) message.DigipostRecipient).IdentificationType;
-                messageDto.recipient.ItemElementName = identificationType.ToItemChoiceType1();
-            }
-            else if (message.DigipostRecipient is RecipientByNameAndAddress)
-            {
-                messageDto.recipient.ItemElementName = ItemChoiceType1.nameandaddress;
-            }
 
-            messageDto.attachment = message.Attachments.Select(ToDataTransferObject).ToArray();
+            foreach (var document in message.Attachments.Select(ToDataTransferObject))
+            {
+                messageDto.Attachment.Add(document);
+            }
 
             if (message.DeliveryTimeSpecified)
             {
-                messageDto.deliverytime = message.DeliveryTime.Value;
-                messageDto.deliverytimeSpecified = true;
+                messageDto.Delivery_Time = message.DeliveryTime.Value;
+                messageDto.Delivery_TimeSpecified = true;
             }
 
             if (message.PrintIfUnreadAfterSpecified)
             {
-                messageDto.printifunread = DataTransferObjectConverter.ToDataTransferObject(message.PrintIfUnread);
+                messageDto.Print_If_Unread = DataTransferObjectConverter.ToDataTransferObject(message.PrintIfUnread);
             }
 
             return messageDto;
         }
 
-        public static document ToDataTransferObject(IDocument document)
+        public static V7.Document ToDataTransferObject(IDocument document)
         {
-            document documentDto;
+            V7.Document documentDto;
 
             if (document is Invoice)
             {
                 var invoice = (Invoice) document;
 
-                var invoiceDto = new invoice
+                var invoiceDto = new V7.Invoice
                 {
-                    amount = invoice.Amount,
-                    duedate = invoice.Duedate,
-                    kid = invoice.Kid,
-                    account = invoice.Account
+                    Amount = invoice.Amount,
+                    Due_Date = invoice.Duedate,
+                    Kid = invoice.Kid,
+                    Account = invoice.Account
                 };
 
                 documentDto = invoiceDto;
             }
             else
             {
-                documentDto = new document();
+                documentDto = new V7.Document();
             }
 
-            documentDto.subject = document.Subject;
-            documentDto.filetype = document.FileType;
-            documentDto.authenticationlevel = document.AuthenticationLevel.ToAuthenticationLevel();
-            documentDto.authenticationlevelSpecified = true;
-            documentDto.sensitivitylevel = document.SensitivityLevel.ToSensitivityLevel();
-            documentDto.sensitivitylevelSpecified = true;
-            documentDto.smsnotification = DataTransferObjectConverter.ToDataTransferObject(document.SmsNotification);
-            documentDto.uuid = document.Guid;
+            documentDto.Subject = document.Subject;
+            documentDto.File_Type = document.FileType;
+            documentDto.Authentication_Level = document.AuthenticationLevel.ToAuthenticationLevel();
+            documentDto.Authentication_LevelSpecified = true;
+            documentDto.Sensitivity_Level = document.SensitivityLevel.ToSensitivityLevel();
+            documentDto.Sensitivity_LevelSpecified = true;
+            documentDto.Sms_Notification = DataTransferObjectConverter.ToDataTransferObject(document.SmsNotification);
+            documentDto.Uuid = document.Guid;
 
             if (document.DataType != null)
             {
                 var xmldoc = new XmlDocument();
                 xmldoc.LoadXml(document.DataType);
-                documentDto.datatype = xmldoc.DocumentElement;
+                documentDto.Data_Type = new Data_Type()
+                {
+                    Any = xmldoc.DocumentElement
+                };
             }
 
             return documentDto;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(messagedelivery messageDeliveryDto)
+        public static IMessageDeliveryResult FromDataTransferObject(V7.Message_Delivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
-                MessageId = messageDeliveryDto.messageid,
-                PrimaryDocument = FromDataTransferObject(messageDeliveryDto.primarydocument),
-                Attachments = messageDeliveryDto.attachment?.Select(FromDataTransferObject).ToList(),
-                DeliveryTime = messageDeliveryDto.deliverytime,
-                DeliveryMethod = messageDeliveryDto.deliverymethod.ToDeliveryMethod(),
-                Status = messageDeliveryDto.status.ToMessageStatus(),
-                SenderId = messageDeliveryDto.senderid
+                MessageId = messageDeliveryDto.Message_Id,
+                PrimaryDocument = FromDataTransferObject(messageDeliveryDto.Primary_Document),
+                Attachments = messageDeliveryDto.Attachment?.Select(FromDataTransferObject).ToList(),
+                DeliveryTime = messageDeliveryDto.Delivery_Time,
+                DeliveryMethod = messageDeliveryDto.Delivery_Method.ToDeliveryMethod(),
+                Status = messageDeliveryDto.Status.ToMessageStatus(),
+                SenderId = messageDeliveryDto.Sender_Id
             };
 
             return messageDeliveryResult;
         }
 
-        public static IDocument FromDataTransferObject(document documentDto)
+        public static IDocument FromDataTransferObject(V7.Document documentDto)
         {
-            return new Document(documentDto.subject, documentDto.filetype, documentDto.authenticationlevel.ToAuthenticationLevel(), documentDto.sensitivitylevel.ToSensitivityLevel(), FromDataTransferObject(documentDto.smsnotification))
+            return new Document(documentDto.Subject, documentDto.File_Type, documentDto.Authentication_Level.ToAuthenticationLevel(), documentDto.Sensitivity_Level.ToSensitivityLevel(), FromDataTransferObject(documentDto.Sms_Notification))
             {
-                Guid = documentDto.uuid,
-                ContentHash = new ContentHash {HashAlgoritm = documentDto.contenthash.hashalgorithm, Value = documentDto.contenthash.Value}
+                Guid = documentDto.Uuid,
+                ContentHash = new ContentHash {HashAlgoritm = documentDto.Content_Hash.Hash_Algorithm, Value = documentDto.Content_Hash.Value}
             };
         }
 
-        public static ISmsNotification FromDataTransferObject(smsnotification smsNotificationDto)
+        public static ISmsNotification FromDataTransferObject(V7.Sms_Notification smsNotificationDto)
         {
             if (smsNotificationDto == null)
                 return null;
 
             var smsNotification = new SmsNotification
             {
-                NotifyAfterHours = smsNotificationDto.afterhours?.ToList() ?? new List<int>(),
-                NotifyAtTimes = smsNotificationDto.at?.Select(listedTime => listedTime.time).ToList() ?? new List<DateTime>()
+                NotifyAfterHours = smsNotificationDto.After_Hours?.ToList() ?? new List<int>(),
+                NotifyAtTimes = smsNotificationDto.At?.Select(listedTime => listedTime.Time).ToList() ?? new List<DateTime>()
             };
 
             return smsNotification;

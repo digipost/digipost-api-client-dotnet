@@ -1,32 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
 
 namespace Digipost.Api.Client.Inbox
 {
     internal class InboxDataTransferObjectConverter
     {
-        internal static IEnumerable<InboxDocument> FromDataTransferObject(inbox inbox)
+        internal static IEnumerable<InboxDocument> FromDataTransferObject(V7.Inbox inbox)
         {
-            return inbox.document?.Select(FromDataTransferObject) ?? new List<InboxDocument>();
+            return inbox.Document?.Select(FromDataTransferObject) ?? new List<InboxDocument>();
         }
 
-        internal static InboxDocument FromDataTransferObject(inboxdocument inboxdocument)
+        internal static InboxDocument FromDataTransferObject(V7.Inbox_Document inboxdocument)
         {
             return new InboxDocument
             {
-                Attachments = inboxdocument.attachment?.Select(FromDataTransferObject) ?? new List<InboxDocument>(),
-                AuthenticationLevel = inboxdocument.authenticationlevel.ToAuthenticationLevel(),
-                Content = new Uri(inboxdocument.contenturi),
-                ContentType = inboxdocument.contenttype,
-                Delete = new Uri(inboxdocument.deleteuri),
-                DeliveryTime = inboxdocument.deliverytime,
-                FirstAccessed = inboxdocument.firstaccessedSpecified ? inboxdocument.firstaccessed : (DateTime?) null,
-                Id = inboxdocument.id,
-                Sender = inboxdocument.sender,
-                Subject = inboxdocument.subject,
-                ReferenceFromSender = inboxdocument.referencefromsender
+                Attachments = inboxdocument.Attachment?.Select(FromDataTransferObject) ?? new List<InboxDocument>(),
+                AuthenticationLevel = inboxdocument.Authentication_Level.ToAuthenticationLevel(),
+                Content = new Uri(inboxdocument.Content_Uri),
+                ContentType = inboxdocument.Content_Type,
+                Delete = new Uri(inboxdocument.Delete_Uri),
+                DeliveryTime = inboxdocument.Delivery_Time,
+                FirstAccessed = inboxdocument.First_AccessedSpecified ? inboxdocument.First_Accessed : (DateTime?) null,
+                Id = inboxdocument.Id,
+                Sender = inboxdocument.Sender,
+                Subject = inboxdocument.Subject,
+                ReferenceFromSender = inboxdocument.Reference_From_Sender
             };
         }
     }

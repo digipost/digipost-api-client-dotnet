@@ -165,6 +165,27 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:complexType name="peppol-addresses">
+        <xsd:sequence>
+            <xsd:element name="receiver" minOccurs="1" maxOccurs="1" type="peppol-address"/>
+            <xsd:element name="sender" minOccurs="1" maxOccurs="1" type="peppol-address"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="peppol-address">
+        <xsd:sequence>
+            <xsd:element name="schemeID" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="endpointID" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="email-details">
+        <xsd:sequence>
+            <xsd:element name="email-address" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
     <xsd:complexType name="print-recipient">
         <xsd:sequence>
             <xsd:element name="name" type="name" minOccurs="1" maxOccurs="1" />
@@ -494,6 +515,8 @@
                     </xsd:simpleType>
                 </xsd:element>
                 <xsd:element name="digipost-address" minOccurs="0" maxOccurs="1" type="xsd:string" nillable="false" />
+                <xsd:element name="email-details" minOccurs="0" maxOccurs="1" type="email-details" nillable="false" />
+                <xsd:element name="peppol-addresses" minOccurs="0" maxOccurs="1" type="peppol-addresses" nillable="false" />
                 <xsd:element name="name-and-address" minOccurs="0" maxOccurs="1" type="name-and-address" nillable="false" />
                 <xsd:element name="bank-account-number" minOccurs="0" maxOccurs="1" nillable="false">
                     <xsd:annotation>
@@ -529,9 +552,9 @@
 
     <xsd:complexType name="print-details">
         <xsd:sequence>
-            <xsd:element name="recipient" type="print-recipient"  minOccurs="1" maxOccurs="1"  />
-            <xsd:element name="return-address" type="print-recipient"  minOccurs="1" maxOccurs="1"  />
-            <xsd:element name="post-type" type="post-type" minOccurs="0" maxOccurs="1" default="A" />
+            <xsd:element name="recipient" type="print-recipient" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="return-address" type="print-recipient" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="post-type" type="post-type" minOccurs="0" maxOccurs="1" default="A"/>
             <xsd:element name="color" type="print-colors" minOccurs="0" maxOccurs="1" default="MONOCHROME"/>
             <xsd:element name="nondeliverable-handling" type="nondeliverable-handling" minOccurs="0" maxOccurs="1" default="RETURN_TO_SENDER"/>
             <xsd:element name="print-instructions" type="print-instructions" minOccurs="0" maxOccurs="1"/>
@@ -576,7 +599,6 @@
             <xsd:enumeration value="RETURN_TO_SENDER" />
         </xsd:restriction>
     </xsd:simpleType>
-
 
     <xsd:complexType name="content-hash">
         <xsd:simpleContent>
@@ -877,7 +899,6 @@
         <xsd:attribute name="time" type="xsd:dateTime" />
     </xsd:complexType>
 
-
     <xsd:simpleType name="after-hours">
         <xsd:restriction base="xsd:int">
             <xsd:minInclusive value="0" />
@@ -991,6 +1012,8 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="PRINT" />
             <xsd:enumeration value="DIGIPOST" />
+            <xsd:enumeration value="PEPPOL" />
+            <xsd:enumeration value="EPOST" />
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -1015,6 +1038,31 @@
             <xsd:enumeration value="SHA256" />
         </xsd:restriction>
     </xsd:simpleType>
+
+    <xsd:element name="document-events" type="document-events" />
+
+    <xsd:complexType name="document-events">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate target="class">
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="document-events"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="event" type="event" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="event">
+        <xsd:sequence>
+            <xsd:element name="metadata" type="event-metadata" minOccurs="0" maxOccurs="1" />
+        </xsd:sequence>
+        <xsd:attribute name="uuid" type="uuid" use="required" />
+        <xsd:attribute name="type" type="event-type" use="required" />
+        <xsd:attribute name="created" type="xsd:dateTime" use="required" />
+        <xsd:attribute name="document-created" type="xsd:dateTime" use="required" />
+    </xsd:complexType>
 
     <xsd:complexType name="event-metadata" abstract="true" />
 
@@ -1062,6 +1110,14 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="failed-peppol-metadata">
+        <xsd:complexContent>
+            <xsd:extension base="event-metadata">
+                <xsd:attribute name="error-code" type="xsd:string" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="postmarked-metadata">
         <xsd:complexContent>
             <xsd:extension base="event-metadata">
@@ -1081,12 +1137,16 @@
     <xsd:simpleType name="event-type">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="EMAIL_NOTIFICATION_FAILED" />
+            <xsd:enumeration value="EMAIL_MESSAGE_SENT" />
+            <xsd:enumeration value="EMAIL_MESSAGE_FAILED" />
             <xsd:enumeration value="SMS_NOTIFICATION_FAILED" />
             <xsd:enumeration value="OPENED" />
             <xsd:enumeration value="MOVE_FILES_FROM_PUBLIC_SECTOR" />
             <xsd:enumeration value="POSTMARKED" />
             <xsd:enumeration value="PRINT_FAILED" />
             <xsd:enumeration value="SHREDDED" />
+            <xsd:enumeration value="PEPPOL_DELIVERED" />
+            <xsd:enumeration value="PEPPOL_FAILED" />
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -1192,6 +1252,81 @@
         <xsd:sequence>
             <xsd:element name="print-if-unread-after" type="xsd:dateTime"/>
             <xsd:element name="print-details" type="print-details"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="archives" type="archives" />
+
+    <xsd:complexType name="archives">
+        <xsd:sequence>
+            <xsd:element name="archive" type="archive" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="link" type="link" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="archive" type="archive" />
+
+    <xsd:complexType name="archive">
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="1">
+                <xsd:element name="sender-id" type="xsd:long">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
+                            on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
+                            on its behalf.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="sender-organization" type="sender-organization" />
+            </xsd:choice>
+            <xsd:element name="name" type="xsd:string" nillable="false" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="link" type="link" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="documents" type="archive-document" minOccurs="0" maxOccurs="201"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="archive-document" type="archive-document" />
+
+    <xsd:complexType name="archive-document">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate target="class">
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="archive-document"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="uuid" type="uuid" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="file-name" nillable="false" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="file-type" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+            <xsd:element name="referenceid" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="255"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="content-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="content-hash" type="content-hash" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="archived-time" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="deletion-time" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="link" type="link" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="archive-document-content" type="archive-document-content" />
+
+    <xsd:complexType name="archive-document-content">
+        <xsd:sequence>
+            <xsd:element name="content-type" type="xsd:string" minOccurs="1" maxOccurs="1"  nillable="false" />
+            <xsd:element name="uri" type="xsd:string" minOccurs="1" maxOccurs="1"  nillable="false" />
         </xsd:sequence>
     </xsd:complexType>
 

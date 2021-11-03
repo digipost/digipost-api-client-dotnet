@@ -7,7 +7,12 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
+using V7;
+using Document = Digipost.Api.Client.Send.Document;
 using Environment = Digipost.Api.Client.Common.Environment;
+using Identification = Digipost.Api.Client.Common.Identify.Identification;
+using Invoice = Digipost.Api.Client.Send.Invoice;
+using Message = Digipost.Api.Client.Send.Message;
 using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests
@@ -59,39 +64,37 @@ namespace Digipost.Api.Client.Tests
             };
         }
 
-        public static message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
+        public static V7.Message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
         {
-            return new message
+            var message = new V7.Message()
             {
-                Item = long.Parse("1010"),
-                messageid = "ThatMessageId",
-                primarydocument = new document
+                Sender_Id = long.Parse("1010"),
+                Message_Id = "ThatMessageId",
+                Primary_Document = new V7.Document()
                 {
-                    subject = "TestSubject",
-                    filetype = "txt",
-                    uuid = "attachmentGuidPrimary",
-                    authenticationlevelSpecified = true,
-                    sensitivitylevelSpecified = true
+                    Subject = "TestSubject",
+                    File_Type = "txt",
+                    Uuid = "attachmentGuidPrimary",
+                    Authentication_LevelSpecified = true,
+                    Sensitivity_LevelSpecified = true
                 },
-                attachment = new[]
+                Delivery_Time = DateTime.Today.AddDays(3),
+                Delivery_TimeSpecified = true,
+                Recipient = new V7.Message_Recipient()
                 {
-                    new document
-                    {
-                        subject = "TestSubject attachment",
-                        filetype = "txt",
-                        uuid = "attachmentGuid",
-                        authenticationlevelSpecified = true,
-                        sensitivitylevelSpecified = true
-                    }
-                },
-                deliverytime = DateTime.Today.AddDays(3),
-                deliverytimeSpecified = true,
-                recipient = new messagerecipient
-                {
-                    ItemElementName = ItemChoiceType1.digipostaddress,
-                    Item = "ola.nordmann#246BB"
+                    Digipost_Address = "ola.nordmann#246BB"
                 }
             };
+            message.Attachment.Add(new V7.Document()
+            {
+                Subject = "TestSubject attachment",
+                File_Type = "txt",
+                Uuid = "attachmentGuid",
+                Authentication_LevelSpecified = true,
+                Sensitivity_LevelSpecified = true
+            });
+
+            return message;
         }
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
@@ -141,28 +144,28 @@ namespace Digipost.Api.Client.Tests
                         new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
 
-        public static printdetails GetPrintDetailsDataTransferObject()
+        public static V7.Print_Details GetPrintDetailsDataTransferObject()
         {
-            return new printdetails
+            return new V7.Print_Details
             {
-                recipient = new printrecipient
+                Recipient = new V7.Print_Recipient()
                 {
-                    name = "Ola Nordmann",
-                    Item = new norwegianaddress
+                    Name = "Ola Nordmann",
+                    Norwegian_Address = new V7.Norwegian_Address
                     {
-                        addressline1 = "Osloveien 15",
-                        city = "Oslo",
-                        zipcode = "0115"
+                        Addressline1 = "Osloveien 15",
+                        City = "Oslo",
+                        Zip_Code = "0115"
                     }
                 },
-                returnaddress = new printrecipient
+                Return_Address = new V7.Print_Recipient
                 {
-                    name = "Returkongen",
-                    Item = new norwegianaddress
+                    Name = "Returkongen",
+                    Norwegian_Address = new Norwegian_Address()
                     {
-                        addressline1 = "Sophauggata 22",
-                        city = "Sophaugen",
-                        zipcode = "5510"
+                        Addressline1 = "Sophauggata 22",
+                        City = "Sophaugen",
+                        Zip_Code = "5510"
                     }
                 }
             };
@@ -170,19 +173,19 @@ namespace Digipost.Api.Client.Tests
 
         public static PrintIfUnread GetPrintIfUnread()
         {
-            return 
+            return
                 new PrintIfUnread(
                     DateTime.Now.AddDays(3),
                     GetPrintDetails()
                     );
         }
 
-        public static printifunread GetPrintIfUnreadTransferObject()
+        public static V7.Print_If_Unread GetPrintIfUnreadTransferObject()
         {
-            return new printifunread
+            return new V7.Print_If_Unread
             {
-                printifunreadafter = DateTime.Now.AddDays(3),
-                printdetails = GetPrintDetailsDataTransferObject()
+                Print_If_Unread_After = DateTime.Now.AddDays(3),
+                Print_Details = GetPrintDetailsDataTransferObject()
             };
         }
 

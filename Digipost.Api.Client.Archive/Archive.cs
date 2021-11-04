@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Utilities;
@@ -23,13 +25,19 @@ namespace Digipost.Api.Client.Archive
 
         public Sender Sender { get; set; }
 
-        public async Task<Stream> FetchDocument(String externalId)
+        public Task<Stream> StreamDocumentFromExternalId(String externalId)
         {
-            var guid = new Guid(externalId);
+            var nameUuidFromBytes = UUIDInterop.NameUUIDFromBytes(externalId);
+            return StreamDocumentFromExternalId(Guid.Parse(nameUuidFromBytes));
+        }
 
-            var documentDataUri = new Uri($"{_archiveRoot}/{guid.ToString()}/contentstream", UriKind.Relative);
+        public async Task<Stream> StreamDocumentFromExternalId(Guid guid)
+        {
+            var documentNyUuid = new Uri($"{_archiveRoot}/document/uuid/{guid.ToString()}", UriKind.Relative);
+            var archive = await _requestHelper.Get<V7.Archive>(documentNyUuid).ConfigureAwait(false);
+            var first = archive.Documents[0].Link.First(link => link.Rel.EndsWith("get_archive_document_content_stream"));
 
-            return await _requestHelper.GetStream(documentDataUri).ConfigureAwait(false);
+            return await _requestHelper.GetStream(new Uri(first.Uri, UriKind.Absolute)).ConfigureAwait(false);
         }
 
     }

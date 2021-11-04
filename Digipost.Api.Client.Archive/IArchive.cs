@@ -6,7 +6,11 @@ namespace Digipost.Api.Client.Archive
 {
     internal interface IArchive
     {
-        Task<Stream> FetchDocument(String externalId);
+        /**
+         * This will hash and create a Guid the same way as java UUID.nameUUIDFromBytes
+         */
+        Task<Stream> StreamDocumentFromExternalId(String externalId);
+        Task<Stream> StreamDocumentFromExternalId(Guid externalId_guid);
 
     }
 }

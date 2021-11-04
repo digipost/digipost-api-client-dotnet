@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -52,8 +53,13 @@ namespace Digipost.Api.Client
             var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
 
             var httpClient = HttpClientFactory.Create(
+                new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                },
                 allDelegationHandlers.ToArray()
             );
+
 
             httpClient.Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds);
             httpClient.BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri);

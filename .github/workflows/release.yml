@@ -28,10 +28,12 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-    - name: Set release version
-      run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-    - name: Set assembly version to major semver
-      run: echo ::set-env name=ASSEMBLY_VERSION::$(echo ${GITHUB_REF:10} | cut -d '.' -f 1).0.0
+    - name: Set RELEASE_VERSION environment variable
+      run: echo "RELEASE_VERSION=$(echo ${GITHUB_REF:10})" >> $GITHUB_ENV
+    - name: Set ASSEMBLY_VERSION environment variable
+      run: echo "ASSEMBLY_VERSION=$(echo $(echo ${GITHUB_REF:10} | cut -d '.' -f 1).0.0)" >> $GITHUB_ENV
+    - name: Print relese version
+      run: echo RELEASE_VERSION
     - name: Print assembly version
       run: echo $ASSEMBLY_VERSION
     - name: Pack nupkg

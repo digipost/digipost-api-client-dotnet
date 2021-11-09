@@ -33,7 +33,7 @@ jobs:
     - name: Set ASSEMBLY_VERSION environment variable
       run: echo "ASSEMBLY_VERSION=$(echo $(echo ${GITHUB_REF:10} | cut -d '.' -f 1).0.0)" >> $GITHUB_ENV
     - name: Print relese version
-      run: echo RELEASE_VERSION
+      run: echo $RELEASE_VERSION
     - name: Print assembly version
       run: echo $ASSEMBLY_VERSION
     - name: Pack nupkg
@@ -46,8 +46,6 @@ jobs:
       run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Inbox
     - name: Pack nupkg
       run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Resources
-    - name: Pack nupkg
-      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.ApiDomain
     - name: Pack nupkg
       run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Send
     - name: Push Client to NuGet
@@ -70,10 +68,6 @@ jobs:
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
       run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Resources.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
-    - name: Push ApiDomain to NuGet
-      env:
-        NUGET_API_KEY: ${{ secrets.nugetApiKey }}
-      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.ApiDomain.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
     - name: Push Send to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}

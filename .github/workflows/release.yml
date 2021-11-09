@@ -1,6 +1,6 @@
 name: Release
 
-on: 
+on:
   push:
     tags:
       - '*'
@@ -45,13 +45,13 @@ jobs:
     - name: Pack nupkg
       run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Resources
     - name: Pack nupkg
-      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Scripts
+      run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.ApiDomain
     - name: Pack nupkg
       run: dotnet pack -p:PackageVersion=$RELEASE_VERSION -p:AssemblyVersion=$ASSEMBLY_VERSION --configuration Release --no-build --output digipost/packed Digipost.Api.Client.Send
     - name: Push Client to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
-      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY 
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
     - name: Push Common to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
@@ -68,11 +68,11 @@ jobs:
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
       run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Resources.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
-    - name: Push Scripts to NuGet
+    - name: Push ApiDomain to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
-      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Scripts.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.ApiDomain.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
     - name: Push Send to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.nugetApiKey }}
-      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Send.$RELEASE_VERSION.nupkg" --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY 
+      run: dotnet nuget push "digipost/packed/Digipost.Api.Client.Send.$RELEASE_VERSION.nupkg" --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY

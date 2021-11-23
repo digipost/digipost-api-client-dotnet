@@ -8,9 +8,10 @@ An example web application that uses this client library can be found at https:/
 Bruk Rider, som er C#-varianten av Intellij IDEA.
 
 ## Auto-Generering av Kode fra XSD
-Kjør GenerateClassesFromXsd.ps1 skriptet i Rider, pass på å ha Powershell installert på din maskin.
--  brew cask install powershell
+It should be installed a tool named `xscgen`. Use this to generate the xsd if you need to update the api domain:
 
-## Hvordan Release?
+`dotnet xscgen "Digipost.Api.Client.Resources/Xsd/Data/api_v7.xsd" -o Digipost.Api.Client.Common/Generated/Apidomain/`
+
+## Hvordan Release? 
 
 Releasing er gjort via tagging med [Semver](http://semver.org) versjons schema. For en beta-release, bruk `-beta` som versjon suffix i taggen.

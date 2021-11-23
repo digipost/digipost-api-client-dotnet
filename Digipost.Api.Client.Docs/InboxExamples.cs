@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
+#pragma warning disable 0649
 
 namespace Digipost.Api.Client.Docs
 {

@@ -6,7 +6,7 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client</RootNamespace>
@@ -15,7 +15,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
@@ -61,12 +61,16 @@
             <Project>{F23C5F66-E398-4234-8FB1-443D958FDF1A}</Project>
             <Name>Digipost.Api.Client.Inbox</Name>
         </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj">
+            <Project>{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}</Project>
+            <Name>Digipost.Api.Client.Archive</Name>
+        </ProjectReference>
         <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
             <Project>{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}</Project>
             <Name>Digipost.Api.Client.Send</Name>
         </ProjectReference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Compile Include="..\SharedAssemblyInfo.cs">
             <Link>Properties\SharedAssemblyInfo.cs</Link>

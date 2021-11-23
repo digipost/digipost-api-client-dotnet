@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
-using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Send;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Digipost.Api.Client.Api
@@ -16,7 +14,7 @@ namespace Digipost.Api.Client.Api
     {
         private const int MinimumSearchLength = 3;
         private ILogger<SendMessageApi> _logger;
-        
+
         public SendMessageApi(SendRequestHelper requestHelper, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<SendMessageApi>();
@@ -41,7 +39,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("messages", UriKind.Relative);
 
-            var messageDeliveryResultTask = RequestHelper.PostMessage<messagedelivery>(message, uri, skipMetaDataValidation);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<V7.Message_Delivery>(message, uri, skipMetaDataValidation);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;
@@ -64,7 +62,7 @@ namespace Digipost.Api.Client.Api
 
             var uri = new Uri("identification", UriKind.Relative);
 
-            var identifyResponse = RequestHelper.PostIdentification<identificationresult>(identification, uri);
+            var identifyResponse = RequestHelper.PostIdentification<V7.Identification_Result>(identification, uri);
 
             if (identifyResponse.IsFaulted)
             {
@@ -105,7 +103,7 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResultDataTransferObject = await RequestHelper.Get<recipients>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await RequestHelper.Get<V7.Recipients>(uri).ConfigureAwait(false);
 
             var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
 

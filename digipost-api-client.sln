@@ -10,13 +10,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Concurr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", "Digipost.Api.Client.Docs\Digipost.Api.Client.Docs.csproj", "{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Archive", "Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj", "{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox", "Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj", "{F23C5F66-E398-4234-8FB1-443D958FDF1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox.Tests", "Digipost.Api.Client.Inbox.Tests\Digipost.Api.Client.Inbox.Tests.csproj", "{37678527-9988-46E8-A5D6-8F9533058F67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Resources", "Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj", "{18CBB05A-B0AE-42FF-870F-1C213A238751}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Scripts", "Digipost.Api.Client.Scripts\Digipost.Api.Client.Scripts.csproj", "{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Send", "Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj", "{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}"
 EndProject
@@ -54,6 +54,10 @@ Global
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37678527-9988-46E8-A5D6-8F9533058F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37678527-9988-46E8-A5D6-8F9533058F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37678527-9988-46E8-A5D6-8F9533058F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,10 +66,6 @@ Global
 		{18CBB05A-B0AE-42FF-870F-1C213A238751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18CBB05A-B0AE-42FF-870F-1C213A238751}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18CBB05A-B0AE-42FF-870F-1C213A238751}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0F4D5F2-F2C7-4DDA-8B94-0057A96DA5A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU

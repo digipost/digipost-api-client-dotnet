@@ -4,7 +4,7 @@
         <Title>Digipost Api Client Docs</Title>
         <PackageId>Digipost.Api.Client.Docs</PackageId>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Docs</RootNamespace>
@@ -49,6 +49,10 @@
             <Project>{F23C5F66-E398-4234-8FB1-443D958FDF1A}</Project>
             <Name>Digipost.Api.Client.Inbox</Name>
         </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj">
+            <Project>{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}</Project>
+            <Name>Digipost.Api.Client.Archive</Name>
+        </ProjectReference>
         <ProjectReference Include="..\Digipost.Api.Client.Send\Digipost.Api.Client.Send.csproj">
             <Project>{4F528578-EBAC-4984-BF5D-972FEC0DC4FB}</Project>
             <Name>Digipost.Api.Client.Send</Name>
@@ -59,7 +63,7 @@
         </ProjectReference>
         <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <Compile Include="..\SharedAssemblyInfo.cs">
             <Link>Properties\SharedAssemblyInfo.cs</Link>

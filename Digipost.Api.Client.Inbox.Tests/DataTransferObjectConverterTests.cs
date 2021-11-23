@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Tests.CompareObjects;
+using V7;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests
@@ -21,18 +22,17 @@ namespace Digipost.Api.Client.Inbox.Tests
                 const int id = 123456789;
                 const string sender = "sender";
 
-                var source = new inboxdocument
+                var source = new V7.Inbox_Document()
                 {
-                    attachment = new inboxdocument[0],
-                    authenticationlevel = authenticationlevel.PASSWORD,
-                    contenttype = contentType,
-                    contenturi = content,
-                    deleteuri = deleteUri,
-                    deliverytime = deliveryTime,
-                    firstaccessed = firstAccessed,
-                    firstaccessedSpecified = true,
-                    id = id,
-                    sender = sender
+                    Authentication_Level = Authentication_Level.PASSWORD,
+                    Content_Type = contentType,
+                    Content_Uri = content,
+                    Delete_Uri = deleteUri,
+                    Delivery_Time = deliveryTime,
+                    First_Accessed = firstAccessed,
+                    First_AccessedSpecified = true,
+                    Id = id,
+                    Sender = sender
                 };
 
                 var expected = new InboxDocument
@@ -55,7 +55,7 @@ namespace Digipost.Api.Client.Inbox.Tests
             [Fact]
             public void InboxWithEmptyListOnNullResult()
             {
-                var source = new inbox();
+                var source = new V7.Inbox();
                 var expected = new List<InboxDocument>();
 
                 var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);

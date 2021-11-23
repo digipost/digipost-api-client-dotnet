@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Common.Utilities
     internal class RequestHelper
     {
         private ILogger<RequestHelper> _logger;
-        
+
         internal RequestHelper(HttpClient httpClient, ILoggerFactory loggerFactory)
         {
             HttpClient = httpClient;
@@ -85,7 +85,7 @@ namespace Digipost.Api.Client.Common.Utilities
             {
                 return;
             }
-            
+
             var xmlValidator = new ApiClientXmlValidator(skipMetaDataValidation);
             bool isValidXml;
             string validationMessages;
@@ -119,7 +119,7 @@ namespace Digipost.Api.Client.Common.Utilities
 
         private void ThrowNotEmptyResponseError(string responseContent)
         {
-            var errorDataTransferObject = SerializeUtil.Deserialize<error>(responseContent);
+            var errorDataTransferObject = SerializeUtil.Deserialize<V7.Error>(responseContent);
             var error = DataTransferObjectConverter.FromDataTransferObject(errorDataTransferObject);
 
             _logger.LogError("Error occured, check inner Error object for more information.", error);

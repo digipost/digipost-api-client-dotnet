@@ -7,7 +7,9 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Tests.CompareObjects;
+using V7;
 using Xunit;
+using Identification = Digipost.Api.Client.Common.Identify.Identification;
 
 namespace Digipost.Api.Client.Common.Tests
 {
@@ -28,14 +30,13 @@ namespace Digipost.Api.Client.Common.Tests
                     "Adresselinje4"
                 );
 
-                var expectedDto = new foreignaddress
+                var expectedDto = new V7.Foreign_Address()
                 {
-                    ItemElementName = ItemChoiceType2.countrycode,
-                    Item = "SE",
-                    addressline1 = source.AddressLine1,
-                    addressline2 = source.AddressLine2,
-                    addressline3 = source.AddressLine3,
-                    addressline4 = source.Addressline4
+                    Country_Code = "SE",
+                    Addressline1 = source.AddressLine1,
+                    Addressline2 = source.AddressLine2,
+                    Addressline3 = source.AddressLine3,
+                    Addressline4 = source.Addressline4
                 };
 
                 //Act
@@ -50,11 +51,10 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string digipostAddress = "ola.nordmann#1234";
-                var source = new identificationresult
+                var source = new V7.Identification_Result()
                 {
-                    result = identificationresultcode.DIGIPOST,
-                    Items = new object[] {digipostAddress},
-                    ItemsElementName = new[] {ItemsChoiceType.digipostaddress}
+                    Result = Identification_Result_Code.DIGIPOST,
+                    Digipost_Address = digipostAddress
 
                     //IdentificationResultCode = IdentificationResultCode.Digipost,
                     //IdentificationValue = digipostAddress,
@@ -75,11 +75,10 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string personAlias = "fewoinf23nio3255n32oi5n32oi5n#1234";
-                var source = new identificationresult
+                var source = new V7.Identification_Result()
                 {
-                    result = identificationresultcode.IDENTIFIED,
-                    Items = new object[] {personAlias},
-                    ItemsElementName = new[] {ItemsChoiceType.personalias}
+                    Result = Identification_Result_Code.IDENTIFIED,
+                    Person_Alias = personAlias
 
                     //IdentificationResultCode = IdentificationResultCode.Identified,
                     //IdentificationValue = personAlias,
@@ -105,12 +104,12 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByAddressReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
-                var reason = unidentifiedreason.NOT_FOUND;
-                var source = new identificationresult
+                var reason = V7.Unidentified_Reason.NOT_FOUND;
+                var source = new V7.Identification_Result()
                 {
-                    result = identificationresultcode.UNIDENTIFIED,
-                    Items = new object[] {unidentifiedreason.NOT_FOUND},
-                    ItemsElementName = new[] {ItemsChoiceType.unidentifiedreason}
+                    Result = Identification_Result_Code.UNIDENTIFIED,
+                    Unidentified_Reason = V7.Unidentified_Reason.NOT_FOUND,
+                    Unidentified_ReasonSpecified = true
 
                     //IdentificationResultCode = IdentificationResultCode.Unidentified,
                     //IdentificationValue = reason,
@@ -142,20 +141,19 @@ namespace Digipost.Api.Client.Common.Tests
 
                 var sourceRecipient = (RecipientByNameAndAddress) source.DigipostRecipient;
 
-                var expectedDto = new identification
+                var expectedDto = new V7.Identification()
                 {
-                    ItemElementName = ItemChoiceType.nameandaddress,
-                    Item = new nameandaddress
+                    Name_And_Address =  new Name_And_Address()
                     {
-                        fullname = sourceRecipient.FullName,
-                        addressline1 = sourceRecipient.AddressLine1,
-                        addressline2 = sourceRecipient.AddressLine2,
-                        postalcode = sourceRecipient.PostalCode,
-                        city = sourceRecipient.City,
-                        birthdate = sourceRecipient.BirthDate.Value,
-                        birthdateSpecified = true,
-                        phonenumber = sourceRecipient.PhoneNumber,
-                        emailaddress = sourceRecipient.Email
+                        Fullname = sourceRecipient.FullName,
+                        Addressline1 = sourceRecipient.AddressLine1,
+                        Addressline2 = sourceRecipient.AddressLine2,
+                        Postalcode = sourceRecipient.PostalCode,
+                        City = sourceRecipient.City,
+                        Birth_Date = sourceRecipient.BirthDate.Value,
+                        Birth_DateSpecified = true,
+                        Phone_Number = sourceRecipient.PhoneNumber,
+                        Email_Address = sourceRecipient.Email
                     }
                 };
 
@@ -181,26 +179,25 @@ namespace Digipost.Api.Client.Common.Tests
 
                 var sourceRecipient = (RecipientByNameAndAddress) source.DigipostRecipient;
 
-                var expectedDto = new identification
+                var expectedDto = new V7.Identification()
                 {
-                    ItemElementName = ItemChoiceType.nameandaddress,
-                    Item = new nameandaddress
+                    Name_And_Address = new Name_And_Address()
                     {
-                        fullname = sourceRecipient.FullName,
-                        addressline1 = sourceRecipient.AddressLine1,
-                        addressline2 = sourceRecipient.AddressLine2,
-                        postalcode = sourceRecipient.PostalCode,
-                        city = sourceRecipient.City,
-                        birthdateSpecified = false,
-                        phonenumber = sourceRecipient.PhoneNumber,
-                        emailaddress = sourceRecipient.Email
+                        Fullname = sourceRecipient.FullName,
+                        Addressline1 = sourceRecipient.AddressLine1,
+                        Addressline2 = sourceRecipient.AddressLine2,
+                        Postalcode = sourceRecipient.PostalCode,
+                        City = sourceRecipient.City,
+                        Birth_DateSpecified = false,
+                        Phone_Number = sourceRecipient.PhoneNumber,
+                        Email_Address = sourceRecipient.Email
                     }
                 };
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
 
-                //Assert    
+                //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
             }
 
@@ -209,10 +206,9 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 var source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
-                var expectedDto = new identification
+                var expectedDto = new V7.Identification()
                 {
-                    ItemElementName = ItemChoiceType.organisationnumber,
-                    Item = ((RecipientById) source.DigipostRecipient).Id
+                    Organisation_Number = ((RecipientById) source.DigipostRecipient).Id
                 };
 
                 //Act
@@ -227,11 +223,10 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string digipostAddress = "bedriften#1234";
-                var source = new identificationresult
+                var source = new V7.Identification_Result()
                 {
-                    result = identificationresultcode.DIGIPOST,
-                    Items = new object[] {digipostAddress},
-                    ItemsElementName = new[] {ItemsChoiceType.digipostaddress}
+                    Result = Identification_Result_Code.DIGIPOST,
+                    Digipost_Address = digipostAddress
 
                     //IdentificationResultCode = IdentificationResultCode.Digipost,
                     //IdentificationValue = digipostAddress,
@@ -257,12 +252,12 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByOrganizationNumberReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                object invalidValue = invalidreason.INVALID_ORGANISATION_NUMBER;
-                var source = new identificationresult
+                object invalidValue = Invalid_Reason.INVALID_ORGANISATION_NUMBER;
+                var source = new Identification_Result()
                 {
-                    result = identificationresultcode.INVALID,
-                    Items = new[] {invalidValue},
-                    ItemsElementName = new[] {ItemsChoiceType.invalidreason}
+                    Result = Identification_Result_Code.INVALID,
+                    Invalid_Reason = (Invalid_Reason) invalidValue,
+                    Invalid_ReasonSpecified = true
 
                     //IdentificationResultCode = IdentificationResultCode.Invalid,
                     //IdentificationValue = invalidValue,
@@ -282,12 +277,12 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByOrganizationNumberReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
-                var reason = unidentifiedreason.NOT_FOUND;
-                var source = new identificationresult
+                var reason = Unidentified_Reason.NOT_FOUND;
+                var source = new Identification_Result()
                 {
-                    result = identificationresultcode.UNIDENTIFIED,
-                    Items = new object[] {reason},
-                    ItemsElementName = new[] {ItemsChoiceType.unidentifiedreason}
+                    Result = Identification_Result_Code.UNIDENTIFIED,
+                    Unidentified_Reason = reason,
+                    Unidentified_ReasonSpecified = true
 
                     //IdentificationResultCode = IdentificationResultCode.Unidentified,
                     //IdentificationValue = reason,
@@ -307,10 +302,9 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByPinReturnsDigipostResultWithNoneResultType()
             {
                 //Arrange
-                var source = new identificationresult
+                var source = new Identification_Result()
                 {
-                    result = identificationresultcode.DIGIPOST,
-                    Items = new object[] {null}
+                    Result = Identification_Result_Code.DIGIPOST,
                     //ItemsElementName = new [] { },
 
                     //IdentificationResultCode = IdentificationResultCode.Digipost,
@@ -332,10 +326,10 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
 
-                var source = new identificationresult
+                var source = new Identification_Result()
                 {
-                    result = identificationresultcode.IDENTIFIED,
-                    Items = new object[] {null}
+                    Result = Identification_Result_Code.IDENTIFIED,
+
                     //ItemsElementName = new [] { },
 
                     //IdentificationResultCode = IdentificationResultCode.Identified,
@@ -356,12 +350,12 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByPinReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                object invalidValue = invalidreason.INVALID_PERSONAL_IDENTIFICATION_NUMBER;
-                var source = new identificationresult
+                object invalidValue = Invalid_Reason.INVALID_PERSONAL_IDENTIFICATION_NUMBER;
+                var source = new Identification_Result()
                 {
-                    result = identificationresultcode.INVALID,
-                    Items = new[] {invalidValue},
-                    ItemsElementName = new[] {ItemsChoiceType.invalidreason}
+                    Result = Identification_Result_Code.INVALID,
+                    Invalid_Reason = (Invalid_Reason) invalidValue,
+                    Invalid_ReasonSpecified = true
 
                     //IdentificationResultCode = IdentificationResultCode.Invalid,
                     //IdentificationValue = invalidValue,
@@ -389,13 +383,13 @@ namespace Digipost.Api.Client.Common.Tests
                 //Arrange
                 var source = new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3");
 
-                var expectedDto = new norwegianaddress
+                var expectedDto = new Norwegian_Address()
                 {
-                    zipcode = source.PostalCode,
-                    city = source.City,
-                    addressline1 = source.AddressLine1,
-                    addressline2 = source.AddressLine2,
-                    addressline3 = source.AddressLine3
+                    Zip_Code = source.PostalCode,
+                    City = source.City,
+                    Addressline1 = source.AddressLine1,
+                    Addressline2 = source.AddressLine2,
+                    Addressline3 = source.AddressLine3
                 };
 
                 //Act
@@ -420,38 +414,39 @@ namespace Digipost.Api.Client.Common.Tests
                 List<PrintInstruction> printinstruction = new List<PrintInstruction>();
                 printinstruction.Add(new PrintInstruction("test", "testing"));
                 source.PrintInstructions = new PrintInstructions(printinstruction);
-                
+
                 var sourceAddress = source.PrintRecipient.Address;
                 var returnAddress = source.PrintReturnRecipient.Address;
 
-                var expectedDto = new printdetails
+                var expectedDto = new Print_Details()
                 {
-                    recipient = new printrecipient
+                    Recipient = new Print_Recipient()
                     {
-                        name = source.PrintRecipient.Name,
-                        Item = new norwegianaddress
+                        Name = source.PrintRecipient.Name,
+                        Norwegian_Address = new Norwegian_Address()
                         {
-                            zipcode = ((NorwegianAddress) sourceAddress).PostalCode,
-                            city = ((NorwegianAddress) sourceAddress).City,
-                            addressline1 = sourceAddress.AddressLine1,
-                            addressline2 = sourceAddress.AddressLine2,
-                            addressline3 = sourceAddress.AddressLine3
+                            Zip_Code = ((NorwegianAddress) sourceAddress).PostalCode,
+                            City = ((NorwegianAddress) sourceAddress).City,
+                            Addressline1 = sourceAddress.AddressLine1,
+                            Addressline2 = sourceAddress.AddressLine2,
+                            Addressline3 = sourceAddress.AddressLine3
                         }
                     },
-                    returnaddress = new printrecipient
+                    Return_Address = new Print_Recipient()
                     {
-                        name = source.PrintReturnRecipient.Name,
-                        Item = new norwegianaddress
+                        Name = source.PrintReturnRecipient.Name,
+                        Norwegian_Address = new Norwegian_Address()
                         {
-                            zipcode = ((NorwegianAddress) returnAddress).PostalCode,
-                            city = ((NorwegianAddress) returnAddress).City,
-                            addressline1 = returnAddress.AddressLine1,
-                            addressline2 = returnAddress.AddressLine2,
-                            addressline3 = returnAddress.AddressLine3
+                            Zip_Code = ((NorwegianAddress) returnAddress).PostalCode,
+                            City = ((NorwegianAddress) returnAddress).City,
+                            Addressline1 = returnAddress.AddressLine1,
+                            Addressline2 = returnAddress.AddressLine2,
+                            Addressline3 = returnAddress.AddressLine3
                         }
-                    },
-                    printinstructions = new printinstruction[]{new printinstruction{key = "test", value = "testing"}}
+                    }
                 };
+                expectedDto.Print_Instructions.Add(new Print_Instruction(){Key = "test", Value = "testing"});
+
 
                 //Act
                 var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -464,7 +459,7 @@ namespace Digipost.Api.Client.Common.Tests
 
             [Fact]
             public void PrintIfUnread()
-            { 
+            {
                 //Arrange
                 DateTime printifunreadafter = DateTime.Now.AddDays(3);
                 PrintDetails printDetails = new PrintDetails(
@@ -474,43 +469,43 @@ namespace Digipost.Api.Client.Common.Tests
                     new PrintReturnRecipient(
                         "ReturnName",
                         new NorwegianAddress("0001", "OsloRet", "Addr1Ret", "Addr2Ret", "Addr3Ret")));
-                
+
                 var source = new PrintIfUnread(printifunreadafter, printDetails);
                 var sourceAddress = source.PrintDetails.PrintRecipient.Address;
                 var returnAddress = source.PrintDetails.PrintReturnRecipient.Address;
-                
-                var expectedDtoPrintDetails = new printdetails
+
+                var expectedDtoPrintDetails = new V7.Print_Details()
                 {
-                    recipient = new printrecipient
+                    Recipient = new Print_Recipient()
                     {
-                        name = source.PrintDetails.PrintRecipient.Name,
-                        Item = new norwegianaddress
+                        Name = source.PrintDetails.PrintRecipient.Name,
+                        Norwegian_Address = new Norwegian_Address()
                         {
-                            zipcode = ((NorwegianAddress) sourceAddress).PostalCode,
-                            city = ((NorwegianAddress) sourceAddress).City,
-                            addressline1 = sourceAddress.AddressLine1,
-                            addressline2 = sourceAddress.AddressLine2,
-                            addressline3 = sourceAddress.AddressLine3
+                            Zip_Code = ((NorwegianAddress) sourceAddress).PostalCode,
+                            City = ((NorwegianAddress) sourceAddress).City,
+                            Addressline1 = sourceAddress.AddressLine1,
+                            Addressline2 = sourceAddress.AddressLine2,
+                            Addressline3 = sourceAddress.AddressLine3
                         }
                     },
-                    returnaddress = new printrecipient
+                    Return_Address = new Print_Recipient()
                     {
-                        name = source.PrintDetails.PrintReturnRecipient.Name,
-                        Item = new norwegianaddress
+                        Name = source.PrintDetails.PrintReturnRecipient.Name,
+                        Norwegian_Address = new Norwegian_Address()
                         {
-                            zipcode = ((NorwegianAddress) returnAddress).PostalCode,
-                            city = ((NorwegianAddress) returnAddress).City,
-                            addressline1 = returnAddress.AddressLine1,
-                            addressline2 = returnAddress.AddressLine2,
-                            addressline3 = returnAddress.AddressLine3
+                            Zip_Code = ((NorwegianAddress) returnAddress).PostalCode,
+                            City = ((NorwegianAddress) returnAddress).City,
+                            Addressline1 = returnAddress.AddressLine1,
+                            Addressline2 = returnAddress.AddressLine2,
+                            Addressline3 = returnAddress.AddressLine3
                         }
                     }
                 };
-                
-                var expectedDto = new printifunread
+
+                var expectedDto = new V7.Print_If_Unread()
                 {
-                    printifunreadafter = printifunreadafter,
-                    printdetails = expectedDtoPrintDetails
+                    Print_If_Unread_After = printifunreadafter,
+                    Print_Details = expectedDtoPrintDetails
                 };
 
                 //Act
@@ -537,17 +532,16 @@ namespace Digipost.Api.Client.Common.Tests
                         "Adresselinje4"
                     ));
 
-                var expectedDto = new printrecipient
+                var expectedDto = new V7.Print_Recipient()
                 {
-                    name = source.Name,
-                    Item = new foreignaddress
+                    Name = source.Name,
+                    Foreign_Address = new Foreign_Address()
                     {
-                        ItemElementName = ItemChoiceType2.country,
-                        Item = "NORGE",
-                        addressline1 = source.Address.AddressLine1,
-                        addressline2 = source.Address.AddressLine2,
-                        addressline3 = source.Address.AddressLine3,
-                        addressline4 = ((ForeignAddress) source.Address).Addressline4
+                        Country = "NORGE",
+                        Addressline1 = source.Address.AddressLine1,
+                        Addressline2 = source.Address.AddressLine2,
+                        Addressline3 = source.Address.AddressLine3,
+                        Addressline4 = ((ForeignAddress) source.Address).Addressline4
                     }
                 };
 
@@ -566,16 +560,16 @@ namespace Digipost.Api.Client.Common.Tests
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new printrecipient
+                var expectedDto = new V7.Print_Recipient()
                 {
-                    name = source.Name,
-                    Item = new norwegianaddress
+                    Name = source.Name,
+                    Norwegian_Address = new Norwegian_Address()
                     {
-                        zipcode = ((NorwegianAddress) source.Address).PostalCode,
-                        city = ((NorwegianAddress) source.Address).City,
-                        addressline1 = source.Address.AddressLine1,
-                        addressline2 = source.Address.AddressLine2,
-                        addressline3 = source.Address.AddressLine3
+                        Zip_Code = ((NorwegianAddress) source.Address).PostalCode,
+                        City = ((NorwegianAddress) source.Address).City,
+                        Addressline1 = source.Address.AddressLine1,
+                        Addressline2 = source.Address.AddressLine2,
+                        Addressline3 = source.Address.AddressLine3
                     }
                 };
 
@@ -601,17 +595,16 @@ namespace Digipost.Api.Client.Common.Tests
                         "Adresselinje4"
                     ));
 
-                var expectedDto = new printrecipient
+                var expectedDto = new V7.Print_Recipient()
                 {
-                    name = source.Name,
-                    Item = new foreignaddress
+                    Name = source.Name,
+                    Foreign_Address = new V7.Foreign_Address()
                     {
-                        ItemElementName = ItemChoiceType2.country,
-                        Item = ((ForeignAddress) source.Address).CountryIdentifierValue,
-                        addressline1 = source.Address.AddressLine1,
-                        addressline2 = source.Address.AddressLine2,
-                        addressline3 = source.Address.AddressLine3,
-                        addressline4 = ((ForeignAddress) source.Address).Addressline4
+                        Country = ((ForeignAddress) source.Address).CountryIdentifierValue,
+                        Addressline1 = source.Address.AddressLine1,
+                        Addressline2 = source.Address.AddressLine2,
+                        Addressline3 = source.Address.AddressLine3,
+                        Addressline4 = ((ForeignAddress) source.Address).Addressline4
                     }
                 };
 
@@ -630,16 +623,16 @@ namespace Digipost.Api.Client.Common.Tests
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new printrecipient
+                var expectedDto = new V7.Print_Recipient()
                 {
-                    name = source.Name,
-                    Item = new norwegianaddress
+                    Name = source.Name,
+                    Norwegian_Address = new Norwegian_Address()
                     {
-                        zipcode = ((NorwegianAddress) source.Address).PostalCode,
-                        city = ((NorwegianAddress) source.Address).City,
-                        addressline1 = source.Address.AddressLine1,
-                        addressline2 = source.Address.AddressLine2,
-                        addressline3 = source.Address.AddressLine3
+                        Zip_Code = ((NorwegianAddress) source.Address).PostalCode,
+                        City = ((NorwegianAddress) source.Address).City,
+                        Addressline1 = source.Address.AddressLine1,
+                        Addressline2 = source.Address.AddressLine2,
+                        Addressline3 = source.Address.AddressLine3
                     }
                 };
 
@@ -659,11 +652,10 @@ namespace Digipost.Api.Client.Common.Tests
                     "ola.nordmann#2233"
                 );
 
-                var expectedDto = new messagerecipient
+                var expectedDto = new V7.Message_Recipient()
                 {
-                    ItemElementName = ItemChoiceType1.digipostaddress,
-                    Item = "ola.nordmann#2233",
-                    printdetails = null //TODO: Implementer print!
+                    Digipost_Address = "ola.nordmann#2233",
+                    Print_Details = null //TODO: Implementer print!
                 };
 
                 //Act
@@ -687,20 +679,19 @@ namespace Digipost.Api.Client.Common.Tests
                     Email = "email@test.no"
                 };
 
-                var expectedDto = new messagerecipient
+                var expectedDto = new V7.Message_Recipient()
                 {
-                    ItemElementName = ItemChoiceType1.nameandaddress,
-                    Item = new nameandaddress
+                    Name_And_Address = new V7.Name_And_Address()
                     {
-                        fullname = source.FullName,
-                        addressline1 = source.AddressLine1,
-                        addressline2 = source.AddressLine2,
-                        postalcode = source.PostalCode,
-                        city = source.City,
-                        birthdate = birthDate,
-                        birthdateSpecified = true,
-                        phonenumber = source.PhoneNumber,
-                        emailaddress = source.Email
+                        Fullname = source.FullName,
+                        Addressline1 = source.AddressLine1,
+                        Addressline2 = source.AddressLine2,
+                        Postalcode = source.PostalCode,
+                        City = source.City,
+                        Birth_Date = birthDate,
+                        Birth_DateSpecified = true,
+                        Phone_Number = source.PhoneNumber,
+                        Email_Address = source.Email
                     }
                 };
 
@@ -715,61 +706,51 @@ namespace Digipost.Api.Client.Common.Tests
             public void SearchResult()
             {
                 //Arrange
-                var source = new recipients
+                var recipient0 = new V7.Recipient()
                 {
-                    recipient = new[]
-                    {
-                        new recipient
-                        {
-                            firstname = "Stian Jarand",
-                            middlename = "Jani",
-                            lastname = "Larsen",
-                            digipostaddress = "Stian.Jani.Larsen#22DB",
-                            mobilenumber = "12345678",
-                            organisationname = "Organisatorisk Landsforbund",
-                            organisationnumber = "1234567689",
-                            address = new[]
-                            {
-                                new address
-                                {
-                                    street = "Bakkeveien",
-                                    housenumber = "3",
-                                    houseletter = "C",
-                                    additionaladdressline = "Underetasjen",
-                                    zipcode = "3453",
-                                    city = "Konjakken"
-                                },
-                                new address
-                                {
-                                    street = "Komleveien",
-                                    housenumber = "33",
-                                    zipcode = "3453",
-                                    city = "Konjakken"
-                                }
-                            }
-                        },
-                        new recipient
-                        {
-                            firstname = "Bentoni Jarandsen",
-                            lastname = "Larsen",
-                            mobilenumber = "02345638",
-                            digipostaddress = "Bentoni.Jarandsen.Larsen#KG33",
-                            address = new[]
-                            {
-                                new address
-                                {
-                                    street = "Mudleveien",
-                                    housenumber = "45",
-                                    zipcode = "4046",
-                                    city = "Hafrsfjell"
-                                }
-                            }
-                        }
-                    }
+                    Firstname = "Stian Jarand",
+                    Middlename = "Jani",
+                    Lastname = "Larsen",
+                    Digipost_Address = "Stian.Jani.Larsen#22DB",
+                    Mobile_Number = "12345678",
+                    Organisation_Name = "Organisatorisk Landsforbund",
+                    Organisation_Number = "1234567689",
                 };
+                recipient0.Address.Add(new V7.Address()
+                {
+                    Street = "Bakkeveien",
+                    House_Number = "3",
+                    House_Letter = "C",
+                    Additional_Addressline = "Underetasjen",
+                    Zip_Code = "3453",
+                    City = "Konjakken"
+                });
+                recipient0.Address.Add(new V7.Address()
+                {
+                    Street = "Komleveien",
+                    House_Number = "33",
+                    Zip_Code = "3453",
+                    City = "Konjakken"
+                });
 
-                var recipient0 = source.recipient.ElementAt(0);
-                var recipient1 = source.recipient.ElementAt(1);
+                var recipient1 = new V7.Recipient()
+                {
+                    Firstname = "Bentoni Jarandsen",
+                    Lastname = "Larsen",
+                    Mobile_Number = "02345638",
+                    Digipost_Address = "Bentoni.Jarandsen.Larsen#KG33",
+                };
+                recipient1.Address.Add(new V7.Address()
+                {
+                    Street = "Mudleveien",
+                    House_Number = "45",
+                    Zip_Code = "4046",
+                    City = "Hafrsfjell"
+                });
+
+                var source = new V7.Recipients();
+                source.Recipient.Add(recipient0);
+                source.Recipient.Add(recipient1);
 
                 var expected = new SearchDetailsResult
                 {
@@ -777,54 +758,54 @@ namespace Digipost.Api.Client.Common.Tests
                     {
                         new SearchDetails
                         {
-                            FirstName = recipient0.firstname,
-                            MiddleName = recipient0.middlename,
-                            LastName = recipient0.lastname,
-                            MobileNumber = recipient0.mobilenumber,
-                            OrganizationName = recipient0.organisationname,
-                            OrganizationNumber = recipient0.organisationnumber,
-                            DigipostAddress = recipient0.digipostaddress,
+                            FirstName = recipient0.Firstname,
+                            MiddleName = recipient0.Middlename,
+                            LastName = recipient0.Lastname,
+                            MobileNumber = recipient0.Mobile_Number,
+                            OrganizationName = recipient0.Organisation_Name,
+                            OrganizationNumber = recipient0.Organisation_Number,
+                            DigipostAddress = recipient0.Digipost_Address,
                             SearchDetailsAddress = new List<SearchDetailsAddress>
                             {
                                 new SearchDetailsAddress
                                 {
-                                    Street = recipient0.address[0].street,
-                                    HouseNumber = recipient0.address[0].housenumber,
-                                    HouseLetter = recipient0.address[0].houseletter,
-                                    AdditionalAddressLine = recipient0.address[0].additionaladdressline,
-                                    PostalCode = recipient0.address[0].zipcode,
-                                    City = recipient0.address[0].city
+                                    Street = recipient0.Address[0].Street,
+                                    HouseNumber = recipient0.Address[0].House_Number,
+                                    HouseLetter = recipient0.Address[0].House_Letter,
+                                    AdditionalAddressLine = recipient0.Address[0].Additional_Addressline,
+                                    PostalCode = recipient0.Address[0].Zip_Code,
+                                    City = recipient0.Address[0].City
                                 },
                                 new SearchDetailsAddress
                                 {
-                                    Street = recipient0.address[1].street,
-                                    HouseNumber = recipient0.address[1].housenumber,
-                                    HouseLetter = recipient0.address[1].houseletter,
-                                    AdditionalAddressLine = recipient0.address[1].additionaladdressline,
-                                    PostalCode = recipient0.address[1].zipcode,
-                                    City = recipient0.address[1].city
+                                    Street = recipient0.Address[1].Street,
+                                    HouseNumber = recipient0.Address[1].House_Number,
+                                    HouseLetter = recipient0.Address[1].House_Letter,
+                                    AdditionalAddressLine = recipient0.Address[1].Additional_Addressline,
+                                    PostalCode = recipient0.Address[1].Zip_Code,
+                                    City = recipient0.Address[1].City
                                 }
                             }
                         },
                         new SearchDetails
                         {
-                            FirstName = recipient1.firstname,
-                            MiddleName = recipient1.middlename,
-                            LastName = recipient1.lastname,
-                            MobileNumber = recipient1.mobilenumber,
-                            OrganizationName = recipient1.organisationname,
-                            OrganizationNumber = recipient1.organisationnumber,
-                            DigipostAddress = recipient1.digipostaddress,
+                            FirstName = recipient1.Firstname,
+                            MiddleName = recipient1.Middlename,
+                            LastName = recipient1.Lastname,
+                            MobileNumber = recipient1.Mobile_Number,
+                            OrganizationName = recipient1.Organisation_Name,
+                            OrganizationNumber = recipient1.Organisation_Number,
+                            DigipostAddress = recipient1.Digipost_Address,
                             SearchDetailsAddress = new List<SearchDetailsAddress>
                             {
                                 new SearchDetailsAddress
                                 {
-                                    Street = recipient1.address[0].street,
-                                    HouseNumber = recipient1.address[0].housenumber,
-                                    HouseLetter = recipient1.address[0].houseletter,
-                                    AdditionalAddressLine = recipient1.address[0].additionaladdressline,
-                                    PostalCode = recipient1.address[0].zipcode,
-                                    City = recipient1.address[0].city
+                                    Street = recipient1.Address[0].Street,
+                                    HouseNumber = recipient1.Address[0].House_Number,
+                                    HouseLetter = recipient1.Address[0].House_Letter,
+                                    AdditionalAddressLine = recipient1.Address[0].Additional_Addressline,
+                                    PostalCode = recipient1.Address[0].Zip_Code,
+                                    City = recipient1.Address[0].City
                                 }
                             }
                         }
@@ -848,11 +829,13 @@ namespace Digipost.Api.Client.Common.Tests
                 source.NotifyAfterHours.AddRange(afterHours);
                 source.NotifyAtTimes.AddRange(atTimes);
 
-                var expectedDto = new smsnotification
-                {
-                    afterhours = afterHours.ToArray(),
-                    at = atTimes.Select(a => new listedtime {timeSpecified = true, time = a}).ToArray()
-                };
+                var expectedDto = new V7.Sms_Notification();
+
+                afterHours.ForEach(s => expectedDto.After_Hours.Add(s));
+
+                atTimes.Select(a => new V7.Listed_Time() {TimeSpecified = true, Time = a})
+                    .ToList()
+                    .ForEach(time => expectedDto.At.Add(time));
 
                 //Act
                 var actual = DataTransferObjectConverter.ToDataTransferObject(source);
@@ -868,18 +851,18 @@ namespace Digipost.Api.Client.Common.Tests
             public void Error()
             {
                 //Arrange
-                var source = new error
+                var source = new V7.Error()
                 {
-                    errorcode = "UNKNOWN_RECIPIENT",
-                    errormessage = "The recipient does not have a Digipost account.",
-                    errortype = "CLIENT_DATA"
+                    Error_Code = "UNKNOWN_RECIPIENT",
+                    Error_Message = "The recipient does not have a Digipost account.",
+                    Error_Type = "CLIENT_DATA"
                 };
 
                 var expected = new Error
                 {
-                    Errorcode = source.errorcode,
-                    Errormessage = source.errormessage,
-                    Errortype = source.errortype
+                    Errorcode = source.Error_Code,
+                    Errormessage = source.Error_Message,
+                    Errortype = source.Error_Type
                 };
 
                 //Act

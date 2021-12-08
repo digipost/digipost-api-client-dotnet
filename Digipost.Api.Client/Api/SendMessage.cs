@@ -99,6 +99,31 @@ namespace Digipost.Api.Client.Api
 
             return identificationResult;
         }
+        public async Task<IIdentificationResult> IdentifyAsync(IIdentification identification,CancellationToken cancellationToken)
+        {
+            _logger.LogDebug($"Outgoing identification request: {identification}");
+
+            var uri = new Uri("identification", UriKind.Relative);
+
+            var identifyResponse = RequestHelper.PostIdentification<V7.Identification_Result>(identification, uri,cancellationToken);
+
+            if (identifyResponse.IsFaulted)
+            {
+                var exception = identifyResponse.Exception?.InnerException;
+
+                _logger.LogWarning($"Identification failed, {exception}");
+
+                if (identifyResponse.Exception != null)
+                    throw identifyResponse.Exception.InnerException;
+            }
+
+            var identificationResultDataTransferObject = await identifyResponse.ConfigureAwait(false);
+            var identificationResult = DataTransferObjectConverter.FromDataTransferObject(identificationResultDataTransferObject);
+
+            _logger.LogDebug($"Response received for identification to recipient, ResultType '{identificationResult.ResultType}', Data '{identificationResult.Data}'.");
+
+            return identificationResult;
+        }
 
         public ISearchDetailsResult Search(string search)
         {

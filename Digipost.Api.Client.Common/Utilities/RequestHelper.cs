@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Exceptions;
@@ -22,28 +23,28 @@ namespace Digipost.Api.Client.Common.Utilities
 
         internal HttpClient HttpClient { get; set; }
 
-        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri, bool skipMetaDataValidation = false)
+        internal Task<T> Post<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri, bool skipMetaDataValidation = false,CancellationToken cancellationToken=default)
         {
             ValidateXml(messageActionRequestContent, skipMetaDataValidation);
 
-            var postAsync = HttpClient.PostAsync(uri, httpContent);
+            var postAsync = HttpClient.PostAsync(uri, httpContent,cancellationToken);
 
             return Send<T>(postAsync);
         }
 
-        internal Task<T> Get<T>(Uri uri)
+        internal Task<T> Get<T>(Uri uri,CancellationToken cancellationToken=default)
         {
-            return Send<T>(HttpClient.GetAsync(uri));
+            return Send<T>(HttpClient.GetAsync(uri,cancellationToken));
         }
 
-        internal Task<string> Delete(Uri uri)
+        internal Task<string> Delete(Uri uri,CancellationToken cancellationToken=default)
         {
-            return Send<string>(HttpClient.DeleteAsync(uri));
+            return Send<string>(HttpClient.DeleteAsync(uri,cancellationToken));
         }
 
-        internal async Task<Stream> GetStream(Uri uri)
+        internal async Task<Stream> GetStream(Uri uri,CancellationToken cancellationToken=default)
         {
-            var responseTask = HttpClient.GetAsync(uri);
+            var responseTask = HttpClient.GetAsync(uri,cancellationToken);
             var httpResponseMessage = await responseTask.ConfigureAwait(false);
 
             if (!httpResponseMessage.IsSuccessStatusCode)

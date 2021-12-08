@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Identify;
@@ -40,6 +41,23 @@ namespace Digipost.Api.Client.Api
             var uri = new Uri("messages", UriKind.Relative);
 
             var messageDeliveryResultTask = RequestHelper.PostMessage<V7.Message_Delivery>(message, uri, skipMetaDataValidation);
+
+            if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
+                throw messageDeliveryResultTask.Exception?.InnerException;
+
+            var messageDeliveryResult = SendDataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
+
+            _logger.LogDebug($"Response received for message to recipient, {message.DigipostRecipient}: '{messageDeliveryResult.Status}'. Will be available to Recipient at {messageDeliveryResult.DeliveryTime}.");
+
+            return messageDeliveryResult;
+        }
+        public async Task<IMessageDeliveryResult> SendMessageAsync(IMessage message, bool skipMetaDataValidation ,CancellationToken cancellationToken )
+        {
+            _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
+
+            var uri = new Uri("messages", UriKind.Relative);
+
+            var messageDeliveryResultTask = RequestHelper.PostMessage<V7.Message_Delivery>(message, uri, skipMetaDataValidation,cancellationToken);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;

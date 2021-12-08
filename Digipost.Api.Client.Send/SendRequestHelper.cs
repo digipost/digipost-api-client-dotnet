@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Identify;
@@ -20,20 +21,20 @@ namespace Digipost.Api.Client.Send
             return _requestHelper.Get<T>(uri);
         }
 
-        internal Task<T> PostMessage<T>(IMessage message, Uri uri, bool skipMetaDataValidation = false)
+        internal Task<T> PostMessage<T>(IMessage message, Uri uri, bool skipMetaDataValidation = false,CancellationToken cancellationToken=default)
         {
             var messageAction = new MessageAction(message);
             var httpContent = messageAction.Content(message);
 
-            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri, skipMetaDataValidation);
+            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri, skipMetaDataValidation,cancellationToken);
         }
 
-        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)
+        internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri,CancellationToken cancellationToken=default)
         {
             var messageAction = new IdentificationAction(identification);
             var httpContent = messageAction.Content(identification);
 
-            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri);
+            return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri,false,cancellationToken);
         }
     }
 }

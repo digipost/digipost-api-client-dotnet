@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
@@ -85,6 +86,10 @@ namespace Digipost.Api.Client
         {
             return _api.IdentifyAsync(identification);
         }
+        public Task<IIdentificationResult> IdentifyAsync(IIdentification identification,CancellationToken cancellationToken)
+        {
+            return _api.IdentifyAsync(identification,cancellationToken);
+        }
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
@@ -94,6 +99,10 @@ namespace Digipost.Api.Client
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             return _api.SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
+        }
+        public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message,CancellationToken cancellationToken)
+        {
+            return _api.SendMessageAsync(message, _clientConfig.SkipMetaDataValidation,cancellationToken);
         }
 
         public ISearchDetailsResult Search(string query)

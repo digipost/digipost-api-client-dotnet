@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<message-delivery xmlns="http://api.digipost.no/schema/v7">
+<message-delivery xmlns="http://api.digipost.no/schema/v8">
 	<delivery-method>DIGIPOST</delivery-method>
 	<sender-id>2121714811</sender-id>
 	<status>DELIVERED</status>

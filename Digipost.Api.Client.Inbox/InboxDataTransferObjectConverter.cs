@@ -8,12 +8,12 @@ namespace Digipost.Api.Client.Inbox
 {
     internal class InboxDataTransferObjectConverter
     {
-        internal static IEnumerable<InboxDocument> FromDataTransferObject(V7.Inbox inbox)
+        internal static IEnumerable<InboxDocument> FromDataTransferObject(V8.Inbox inbox)
         {
             return inbox.Document?.Select(FromDataTransferObject) ?? new List<InboxDocument>();
         }
 
-        internal static InboxDocument FromDataTransferObject(V7.Inbox_Document inboxdocument)
+        internal static InboxDocument FromDataTransferObject(V8.Inbox_Document inboxdocument)
         {
             return new InboxDocument
             {

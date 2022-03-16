@@ -4,17 +4,17 @@ using System.Linq;
 using System.Xml;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Extensions;
-using V7;
+using V8;
 
 namespace Digipost.Api.Client.Send
 {
     internal class SendDataTransferObjectConverter
     {
-        public static V7.Message ToDataTransferObject(IMessage message)
+        public static V8.Message ToDataTransferObject(IMessage message)
         {
             var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
 
-            var messageDto = new V7.Message
+            var messageDto = new V8.Message
             {
                 Sender_Id = message.Sender.Id,
                 Primary_Document = primaryDocumentDataTransferObject,
@@ -44,28 +44,9 @@ namespace Digipost.Api.Client.Send
             return messageDto;
         }
 
-        public static V7.Document ToDataTransferObject(IDocument document)
+        public static V8.Document ToDataTransferObject(IDocument document)
         {
-            V7.Document documentDto;
-
-            if (document is Invoice)
-            {
-                var invoice = (Invoice) document;
-
-                var invoiceDto = new V7.Invoice
-                {
-                    Amount = invoice.Amount,
-                    Due_Date = invoice.Duedate,
-                    Kid = invoice.Kid,
-                    Account = invoice.Account
-                };
-
-                documentDto = invoiceDto;
-            }
-            else
-            {
-                documentDto = new V7.Document();
-            }
+            V8.Document documentDto = new V8.Document();
 
             documentDto.Subject = document.Subject;
             documentDto.File_Type = document.FileType;
@@ -89,7 +70,7 @@ namespace Digipost.Api.Client.Send
             return documentDto;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(V7.Message_Delivery messageDeliveryDto)
+        public static IMessageDeliveryResult FromDataTransferObject(V8.Message_Delivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
@@ -105,7 +86,7 @@ namespace Digipost.Api.Client.Send
             return messageDeliveryResult;
         }
 
-        public static IDocument FromDataTransferObject(V7.Document documentDto)
+        public static IDocument FromDataTransferObject(V8.Document documentDto)
         {
             return new Document(documentDto.Subject, documentDto.File_Type, documentDto.Authentication_Level.ToAuthenticationLevel(), documentDto.Sensitivity_Level.ToSensitivityLevel(), FromDataTransferObject(documentDto.Sms_Notification))
             {
@@ -114,7 +95,7 @@ namespace Digipost.Api.Client.Send
             };
         }
 
-        public static ISmsNotification FromDataTransferObject(V7.Sms_Notification smsNotificationDto)
+        public static ISmsNotification FromDataTransferObject(V8.Sms_Notification smsNotificationDto)
         {
             if (smsNotificationDto == null)
                 return null;

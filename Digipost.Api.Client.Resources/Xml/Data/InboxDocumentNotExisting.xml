@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<error xmlns="http://api.digipost.no/schema/v7">
+<error xmlns="http://api.digipost.no/schema/v8">
   <error-code>GENERAL_ERROR</error-code>
   <error-message></error-message>
   <error-type>SERVER</error-type>

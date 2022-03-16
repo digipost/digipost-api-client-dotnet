@@ -7,7 +7,7 @@ using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Tests;
 using Digipost.Api.Client.Tests.CompareObjects;
-using V7;
+using V8;
 using Xunit;
 
 namespace Digipost.Api.Client.Send.Tests
@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Send.Tests
             {
                 //Arrange
                 IDocument source = new Document("TestSubject", "txt", new byte[2], AuthenticationLevel.Password, SensitivityLevel.Sensitive, new SmsNotification(3));
-                var expectedDto = new V7.Document
+                var expectedDto = new V8.Document
                 {
                     Subject = source.Subject,
                     File_Type = source.FileType,
@@ -41,57 +41,14 @@ namespace Digipost.Api.Client.Send.Tests
             }
 
             [Fact]
-            public void Invoice()
-            {
-                //Arrange
-                var contentBytes = new byte[] {0xb2};
-                var smsNotification = new SmsNotification(DateTime.Today.AddHours(3));
-
-                var source = new Invoice(
-                    "subject",
-                    "txt",
-                    contentBytes,
-                    100,
-                    "8902438456",
-                    DateTime.Today,
-                    "123123123",
-                    AuthenticationLevel.TwoFactor,
-                    SensitivityLevel.Sensitive,
-                    smsNotification);
-
-                var expectedDto = new
-                    V7.Invoice
-                    {
-                        Subject = source.Subject,
-                        File_Type = source.FileType,
-                        Authentication_Level = source.AuthenticationLevel.ToAuthenticationLevel(),
-                        Authentication_LevelSpecified = true,
-                        Sensitivity_Level = source.SensitivityLevel.ToSensitivityLevel(),
-                        Sensitivity_LevelSpecified = true,
-                        Sms_Notification = new V7.Sms_Notification() {At = {new V7.Listed_Time() {Time = smsNotification.NotifyAtTimes.First(), TimeSpecified = true}}},
-                        Uuid = source.Guid,
-                        Kid = source.Kid,
-                        Amount = source.Amount,
-                        Account = source.Account,
-                        Due_Date = source.Duedate
-                    };
-
-                //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
-
-                //Assert
-                Comparator.AssertEqual(expectedDto, actualDto);
-            }
-
-            [Fact]
             public void Message()
             {
                 //Arrange
                 var deliverytime = DateTime.Now.AddDays(3);
 
-                var source = new V7.Message_Delivery()
+                var source = new V8.Message_Delivery()
                 {
-                    Primary_Document = new V7.Document
+                    Primary_Document = new V8.Document
                     {
                         Subject = "TestSubject",
                         File_Type = "txt",
@@ -101,7 +58,7 @@ namespace Digipost.Api.Client.Send.Tests
                         Content_Hash = new Content_Hash() {Hash_Algorithm = "SHA256", Value = "5o0RMsXcgSZpGsL7FAmhSQnvGkqgOcvl5JDtMhXBSlc="}
                     },
                     Attachment = {
-                        new V7.Document
+                        new V8.Document
                         {
                             Subject = "TestSubject Attachment",
                             File_Type = "txt",
@@ -112,7 +69,7 @@ namespace Digipost.Api.Client.Send.Tests
                         }
                     },
                     Delivery_Time = deliverytime,
-                    Delivery_Method = V7.Channel.DIGIPOST,
+                    Delivery_Method = V8.Channel.DIGIPOST,
                     Delivery_TimeSpecified = true,
                     Status = Message_Status.DELIVERED,
                     Sender_Id = 123456
@@ -153,7 +110,7 @@ namespace Digipost.Api.Client.Send.Tests
             public void Document()
             {
                 //Arrange
-                var source = new V7.Document
+                var source = new V8.Document
                 {
                     Subject = "testSubject",
                     File_Type = "txt",
@@ -235,7 +192,7 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 var expectedDto =
-                    new V7.Message()
+                    new V8.Message()
                     {
                         Sender_Id = sender.Id,
                         Recipient = new Message_Recipient()
@@ -249,7 +206,7 @@ namespace Digipost.Api.Client.Send.Tests
                             },
                             Print_Details = DomainUtility.GetPrintDetailsDataTransferObject()
                         },
-                        Primary_Document = new V7.Document
+                        Primary_Document = new V8.Document
                         {
                             Subject = "PrimaryDocument subject",
                             File_Type = "txt",
@@ -258,7 +215,7 @@ namespace Digipost.Api.Client.Send.Tests
                             Sensitivity_LevelSpecified = true
                         },
                         Attachment = {
-                            new V7.Document
+                            new V8.Document
                             {
                                 Subject = "TestSubject attachment subject",
                                 File_Type = "txt",
@@ -305,12 +262,12 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 var expectedDto =
-                    new V7.Message()
+                    new V8.Message()
                     {
                         Sender_Id = sender.Id,
-                        Recipient = new V7.Message_Recipient()
+                        Recipient = new V8.Message_Recipient()
                         {
-                            Name_And_Address = new V7.Name_And_Address()
+                            Name_And_Address = new V8.Name_And_Address()
                             {
                                 Fullname = "Ola Nordmann",
                                 Postalcode = "0001",
@@ -319,7 +276,7 @@ namespace Digipost.Api.Client.Send.Tests
                             },
                             Print_Details = DomainUtility.GetPrintDetailsDataTransferObject()
                         },
-                        Primary_Document = new V7.Document
+                        Primary_Document = new V8.Document
                         {
                             Subject = "PrimaryDocument subject",
                             File_Type = "txt",
@@ -328,7 +285,7 @@ namespace Digipost.Api.Client.Send.Tests
                             Sensitivity_LevelSpecified = true
                         },
                         Attachment = {
-                            new V7.Document
+                            new V8.Document
                             {
                                 Subject = "TestSubject attachment subject",
                                 File_Type = "txt",

@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Common.Identify
                 case "NOT_FOUND":
                     return IdentificationError.Unknown;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(V7.Sensitivity_Level), identificationError, null);
+                    throw new ArgumentOutOfRangeException(nameof(V8.Sensitivity_Level), identificationError, null);
             }
         }
     }

@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Archive
         public async Task<Stream> StreamDocumentFromExternalId(Guid guid)
         {
             var documentNyUuid = new Uri($"{_archiveRoot}/document/uuid/{guid.ToString()}", UriKind.Relative);
-            var archive = await _requestHelper.Get<V7.Archive>(documentNyUuid).ConfigureAwait(false);
+            var archive = await _requestHelper.Get<V8.Archive>(documentNyUuid).ConfigureAwait(false);
             var first = archive.Documents[0].Link.First(link => link.Rel.EndsWith("get_archive_document_content_stream"));
 
             return await _requestHelper.GetStream(new Uri(first.Uri, UriKind.Absolute)).ConfigureAwait(false);

@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Internal
 
             request.Headers.Add("X-Digipost-UserId", brokerId);
             request.Headers.Add("Date", date);
-            request.Headers.Add("Accept", DigipostVersion.V7);
+            request.Headers.Add("Accept", DigipostVersion.V8);
             request.Headers.Add("User-Agent", GetAssemblyVersion());
             Method = request.Method.ToString();
 

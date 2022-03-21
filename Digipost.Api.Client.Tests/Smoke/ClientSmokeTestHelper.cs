@@ -12,7 +12,6 @@ using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
-using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
@@ -40,9 +39,9 @@ namespace Digipost.Api.Client.Tests.Smoke
         {
             var broker = new Broker(testSender.Id);
             _testSender = testSender;
-            
+
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
-            
+
             _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
         }
 
@@ -58,13 +57,6 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
         
-        public ClientSmokeTestHelper Create_message_with_primary_invoice()
-        {
-            _primary = DomainUtility.GetInvoice();
-
-            return this;
-        }
-
         public ClientSmokeTestHelper Add_Attachments(params IDocument[] attachments)
         {
             _attachments.AddRange(attachments);

@@ -7,7 +7,7 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Tests.CompareObjects;
-using V7;
+using V8;
 using Xunit;
 using Identification = Digipost.Api.Client.Common.Identify.Identification;
 
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Common.Tests
                     "Adresselinje4"
                 );
 
-                var expectedDto = new V7.Foreign_Address()
+                var expectedDto = new V8.Foreign_Address()
                 {
                     Country_Code = "SE",
                     Addressline1 = source.AddressLine1,
@@ -51,7 +51,7 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string digipostAddress = "ola.nordmann#1234";
-                var source = new V7.Identification_Result()
+                var source = new V8.Identification_Result()
                 {
                     Result = Identification_Result_Code.DIGIPOST,
                     Digipost_Address = digipostAddress
@@ -75,7 +75,7 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string personAlias = "fewoinf23nio3255n32oi5n32oi5n#1234";
-                var source = new V7.Identification_Result()
+                var source = new V8.Identification_Result()
                 {
                     Result = Identification_Result_Code.IDENTIFIED,
                     Person_Alias = personAlias
@@ -104,11 +104,11 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByAddressReturnsUnidentifiedResultWithUnidentifiedReason()
             {
                 //Arrange
-                var reason = V7.Unidentified_Reason.NOT_FOUND;
-                var source = new V7.Identification_Result()
+                var reason = V8.Unidentified_Reason.NOT_FOUND;
+                var source = new V8.Identification_Result()
                 {
                     Result = Identification_Result_Code.UNIDENTIFIED,
-                    Unidentified_Reason = V7.Unidentified_Reason.NOT_FOUND,
+                    Unidentified_Reason = V8.Unidentified_Reason.NOT_FOUND,
                     Unidentified_ReasonSpecified = true
 
                     //IdentificationResultCode = IdentificationResultCode.Unidentified,
@@ -141,7 +141,7 @@ namespace Digipost.Api.Client.Common.Tests
 
                 var sourceRecipient = (RecipientByNameAndAddress) source.DigipostRecipient;
 
-                var expectedDto = new V7.Identification()
+                var expectedDto = new V8.Identification()
                 {
                     Name_And_Address =  new Name_And_Address()
                     {
@@ -179,7 +179,7 @@ namespace Digipost.Api.Client.Common.Tests
 
                 var sourceRecipient = (RecipientByNameAndAddress) source.DigipostRecipient;
 
-                var expectedDto = new V7.Identification()
+                var expectedDto = new V8.Identification()
                 {
                     Name_And_Address = new Name_And_Address()
                     {
@@ -206,7 +206,7 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 var source = new Identification(new RecipientById(IdentificationType.OrganizationNumber, "123456789"));
-                var expectedDto = new V7.Identification()
+                var expectedDto = new V8.Identification()
                 {
                     Organisation_Number = ((RecipientById) source.DigipostRecipient).Id
                 };
@@ -223,7 +223,7 @@ namespace Digipost.Api.Client.Common.Tests
             {
                 //Arrange
                 const string digipostAddress = "bedriften#1234";
-                var source = new V7.Identification_Result()
+                var source = new V8.Identification_Result()
                 {
                     Result = Identification_Result_Code.DIGIPOST,
                     Digipost_Address = digipostAddress
@@ -474,7 +474,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var sourceAddress = source.PrintDetails.PrintRecipient.Address;
                 var returnAddress = source.PrintDetails.PrintReturnRecipient.Address;
 
-                var expectedDtoPrintDetails = new V7.Print_Details()
+                var expectedDtoPrintDetails = new V8.Print_Details()
                 {
                     Recipient = new Print_Recipient()
                     {
@@ -502,7 +502,7 @@ namespace Digipost.Api.Client.Common.Tests
                     }
                 };
 
-                var expectedDto = new V7.Print_If_Unread()
+                var expectedDto = new V8.Print_If_Unread()
                 {
                     Print_If_Unread_After = printifunreadafter,
                     Print_Details = expectedDtoPrintDetails
@@ -532,7 +532,7 @@ namespace Digipost.Api.Client.Common.Tests
                         "Adresselinje4"
                     ));
 
-                var expectedDto = new V7.Print_Recipient()
+                var expectedDto = new V8.Print_Recipient()
                 {
                     Name = source.Name,
                     Foreign_Address = new Foreign_Address()
@@ -560,7 +560,7 @@ namespace Digipost.Api.Client.Common.Tests
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new V7.Print_Recipient()
+                var expectedDto = new V8.Print_Recipient()
                 {
                     Name = source.Name,
                     Norwegian_Address = new Norwegian_Address()
@@ -595,10 +595,10 @@ namespace Digipost.Api.Client.Common.Tests
                         "Adresselinje4"
                     ));
 
-                var expectedDto = new V7.Print_Recipient()
+                var expectedDto = new V8.Print_Recipient()
                 {
                     Name = source.Name,
-                    Foreign_Address = new V7.Foreign_Address()
+                    Foreign_Address = new V8.Foreign_Address()
                     {
                         Country = ((ForeignAddress) source.Address).CountryIdentifierValue,
                         Addressline1 = source.Address.AddressLine1,
@@ -623,7 +623,7 @@ namespace Digipost.Api.Client.Common.Tests
                     "Name",
                     new NorwegianAddress("0001", "Oslo", "Addr1", "Addr2", "Addr3"));
 
-                var expectedDto = new V7.Print_Recipient()
+                var expectedDto = new V8.Print_Recipient()
                 {
                     Name = source.Name,
                     Norwegian_Address = new Norwegian_Address()
@@ -652,7 +652,7 @@ namespace Digipost.Api.Client.Common.Tests
                     "ola.nordmann#2233"
                 );
 
-                var expectedDto = new V7.Message_Recipient()
+                var expectedDto = new V8.Message_Recipient()
                 {
                     Digipost_Address = "ola.nordmann#2233",
                     Print_Details = null //TODO: Implementer print!
@@ -679,9 +679,9 @@ namespace Digipost.Api.Client.Common.Tests
                     Email = "email@test.no"
                 };
 
-                var expectedDto = new V7.Message_Recipient()
+                var expectedDto = new V8.Message_Recipient()
                 {
-                    Name_And_Address = new V7.Name_And_Address()
+                    Name_And_Address = new V8.Name_And_Address()
                     {
                         Fullname = source.FullName,
                         Addressline1 = source.AddressLine1,
@@ -706,7 +706,7 @@ namespace Digipost.Api.Client.Common.Tests
             public void SearchResult()
             {
                 //Arrange
-                var recipient0 = new V7.Recipient()
+                var recipient0 = new V8.Recipient()
                 {
                     Firstname = "Stian Jarand",
                     Middlename = "Jani",
@@ -716,7 +716,7 @@ namespace Digipost.Api.Client.Common.Tests
                     Organisation_Name = "Organisatorisk Landsforbund",
                     Organisation_Number = "1234567689",
                 };
-                recipient0.Address.Add(new V7.Address()
+                recipient0.Address.Add(new V8.Address()
                 {
                     Street = "Bakkeveien",
                     House_Number = "3",
@@ -725,7 +725,7 @@ namespace Digipost.Api.Client.Common.Tests
                     Zip_Code = "3453",
                     City = "Konjakken"
                 });
-                recipient0.Address.Add(new V7.Address()
+                recipient0.Address.Add(new V8.Address()
                 {
                     Street = "Komleveien",
                     House_Number = "33",
@@ -733,14 +733,14 @@ namespace Digipost.Api.Client.Common.Tests
                     City = "Konjakken"
                 });
 
-                var recipient1 = new V7.Recipient()
+                var recipient1 = new V8.Recipient()
                 {
                     Firstname = "Bentoni Jarandsen",
                     Lastname = "Larsen",
                     Mobile_Number = "02345638",
                     Digipost_Address = "Bentoni.Jarandsen.Larsen#KG33",
                 };
-                recipient1.Address.Add(new V7.Address()
+                recipient1.Address.Add(new V8.Address()
                 {
                     Street = "Mudleveien",
                     House_Number = "45",
@@ -748,7 +748,7 @@ namespace Digipost.Api.Client.Common.Tests
                     City = "Hafrsfjell"
                 });
 
-                var source = new V7.Recipients();
+                var source = new V8.Recipients();
                 source.Recipient.Add(recipient0);
                 source.Recipient.Add(recipient1);
 
@@ -829,11 +829,11 @@ namespace Digipost.Api.Client.Common.Tests
                 source.NotifyAfterHours.AddRange(afterHours);
                 source.NotifyAtTimes.AddRange(atTimes);
 
-                var expectedDto = new V7.Sms_Notification();
+                var expectedDto = new V8.Sms_Notification();
 
                 afterHours.ForEach(s => expectedDto.After_Hours.Add(s));
 
-                atTimes.Select(a => new V7.Listed_Time() {TimeSpecified = true, Time = a})
+                atTimes.Select(a => new V8.Listed_Time() {TimeSpecified = true, Time = a})
                     .ToList()
                     .ForEach(time => expectedDto.At.Add(time));
 
@@ -851,7 +851,7 @@ namespace Digipost.Api.Client.Common.Tests
             public void Error()
             {
                 //Arrange
-                var source = new V7.Error()
+                var source = new V8.Error()
                 {
                     Error_Code = "UNKNOWN_RECIPIENT",
                     Error_Message = "The recipient does not have a Digipost account.",

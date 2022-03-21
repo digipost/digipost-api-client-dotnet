@@ -27,7 +27,7 @@ namespace Digipost.Api.Client.Inbox
         {
             var inboxPath = new Uri($"{_inboxRoot}?offset={offset}&limit={limit}", UriKind.Relative);
 
-            var result = await _requestHelper.Get<V7.Inbox>(inboxPath).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.Inbox>(inboxPath).ConfigureAwait(false);
 
             return InboxDataTransferObjectConverter.FromDataTransferObject(result);
         }

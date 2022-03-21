@@ -10,11 +10,11 @@ namespace Digipost.Api.Client.Resources.Xsd
     {
         private static readonly ResourceUtility ApiResourceUtility = new ResourceUtility(typeof(XsdResource).Assembly, "Digipost.Api.Client.Resources.Xsd.Data");
 
-        public static XmlReader GetApiV7Xsd()
+        public static XmlReader GetApiV8Xsd()
         {
-            return XmlReader.Create(new MemoryStream(ApiResourceUtility.ReadAllBytes("api_v7.xsd")));
+            return XmlReader.Create(new MemoryStream(ApiResourceUtility.ReadAllBytes("api_v8.xsd")));
         }
-        
+
         public static XmlReader GetDataTypesXsd(Assembly assembly)
         {
             return XmlReader.Create(new MemoryStream(new ResourceUtility(assembly, "Digipost.Api.Client.DataTypes.Core.Resources.XSD").ReadAllBytes("datatypes.xsd")));

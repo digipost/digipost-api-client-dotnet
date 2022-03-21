@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<error xmlns="http://api.digipost.no/schema/v7">
+<error xmlns="http://api.digipost.no/schema/v8">
   <error-code>UNKNOWN_RECIPIENT</error-code>
   <error-message>The recipient does not have a Digipost account.</error-message>
   <error-type>CLIENT_DATA</error-type>

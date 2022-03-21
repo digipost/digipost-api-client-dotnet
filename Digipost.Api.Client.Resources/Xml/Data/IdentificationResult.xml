@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<identification-result xmlns="http://api.digipost.no/schema/v7">
+<identification-result xmlns="http://api.digipost.no/schema/v8">
 	<result>DIGIPOST</result>
 </identification-result>

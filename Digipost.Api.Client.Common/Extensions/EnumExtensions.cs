@@ -1,81 +1,81 @@
 ﻿using System;
 using Digipost.Api.Client.Common.Enums;
-using V7;
+using V8;
 
 namespace Digipost.Api.Client.Common.Extensions
 {
     internal static class EnumExtensions
     {
 
-        public static V7.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
+        public static V8.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
         {
             switch (authenticationLevel)
             {
                 case AuthenticationLevel.Password:
-                    return V7.Authentication_Level.PASSWORD;
+                    return V8.Authentication_Level.PASSWORD;
                 case AuthenticationLevel.TwoFactor:
-                    return V7.Authentication_Level.TWO_FACTOR;
+                    return V8.Authentication_Level.TWO_FACTOR;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(authenticationLevel), authenticationLevel, null);
             }
         }
 
-        public static V7.Sensitivity_Level ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
+        public static V8.Sensitivity_Level ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
         {
             switch (sensitivityLevel)
             {
                 case SensitivityLevel.Normal:
-                    return V7.Sensitivity_Level.NORMAL;
+                    return V8.Sensitivity_Level.NORMAL;
                 case SensitivityLevel.Sensitive:
-                    return V7.Sensitivity_Level.SENSITIVE;
+                    return V8.Sensitivity_Level.SENSITIVE;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sensitivityLevel), sensitivityLevel, null);
             }
         }
 
-        public static V7.Print_Colors ToPrintColors(this PrintColors printColors)
+        public static V8.Print_Colors ToPrintColors(this PrintColors printColors)
         {
             switch (printColors)
             {
                 case PrintColors.Monochrome:
-                    return V7.Print_Colors.MONOCHROME;
+                    return V8.Print_Colors.MONOCHROME;
                 case PrintColors.Colors:
-                    return V7.Print_Colors.COLORS;
+                    return V8.Print_Colors.COLORS;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(printColors), printColors, null);
             }
         }
 
-        public static V7.Nondeliverable_Handling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
+        public static V8.Nondeliverable_Handling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
         {
             switch (nondeliverableHandling)
             {
                 case NondeliverableHandling.ReturnToSender:
-                    return V7.Nondeliverable_Handling.RETURN_TO_SENDER;
+                    return V8.Nondeliverable_Handling.RETURN_TO_SENDER;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nondeliverableHandling), nondeliverableHandling, null);
             }
         }
 
 
-        public static DeliveryMethod ToDeliveryMethod(this V7.Channel deliveryMethod)
+        public static DeliveryMethod ToDeliveryMethod(this V8.Channel deliveryMethod)
         {
             switch (deliveryMethod)
             {
-                case V7.Channel.PRINT:
+                case V8.Channel.PRINT:
                     return DeliveryMethod.Print;
-                case V7.Channel.DIGIPOST:
+                case V8.Channel.DIGIPOST:
                     return DeliveryMethod.Digipost;
-                case V7.Channel.PEPPOL:
+                case V8.Channel.PEPPOL:
                     return DeliveryMethod.PEPPOL;
-                case V7.Channel.EPOST:
+                case V8.Channel.EPOST:
                     return DeliveryMethod.EPOST;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(deliveryMethod), deliveryMethod, null);
             }
         }
 
-        public static MessageStatus ToMessageStatus(this V7.Message_Status messagestatus)
+        public static MessageStatus ToMessageStatus(this V8.Message_Status messagestatus)
         {
             switch (messagestatus)
             {
@@ -92,7 +92,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static AuthenticationLevel ToAuthenticationLevel(this V7.Authentication_Level authenticationlevel)
+        public static AuthenticationLevel ToAuthenticationLevel(this V8.Authentication_Level authenticationlevel)
         {
             switch (authenticationlevel)
             {
@@ -105,7 +105,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static SensitivityLevel ToSensitivityLevel(this V7.Sensitivity_Level sensitivitylevel)
+        public static SensitivityLevel ToSensitivityLevel(this V8.Sensitivity_Level sensitivitylevel)
         {
             switch (sensitivitylevel)
             {

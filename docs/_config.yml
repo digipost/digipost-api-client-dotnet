@@ -1,5 +1,6 @@
 # name of the software
 name: .NET client library for Digipost API
+title: .NET client library for Digipost API
 
 # url of the download button
 downloadUrl: https://www.nuget.org/packages?q=Digipost.Api.Client
@@ -9,24 +10,24 @@ licenseUrl: http://opensource.org/licenses/MIT
 
 baseurl: "/digipost-api-client-dotnet"
 
-currentCollecion: "v12_0"
-currentVersion: "12.0"
-versions: ["12.0","10.0", "9.1", "8.3", "8.0", "7.0", "6.2", "6.1", "6.0"]
+currentCollecion: "v13_0"
+currentVersion: "13.0"
+versions: ["13.0","12.0","10.0", "9.1", "8.3", "8.0", "7.0", "6.2", "6.1", "6.0"]
 
 collections:
-  v6_0:  
+  v6_0:
     output: true
-    permalink: /v6.0/    
+    permalink: /v6.0/
   v6_1:
     output: true
     permalink: /v6.1/
   v6_2:
     output: true
     permalink: /v6.2/
-  v7_0:  
+  v7_0:
     output: true
-    permalink: /v7.0/ 
-  v8_0:  
+    permalink: /v7.0/
+  v8_0:
     output: true
     permalink: /v8.0/
   v8_3:
@@ -41,6 +42,9 @@ collections:
   v12_0:
     output: true
     permalink: /v12.0/
+  v13_0:
+    output: true
+    permalink: /v13.0/
 
 # list of additional links on the right of the top menu
 headerLinks:

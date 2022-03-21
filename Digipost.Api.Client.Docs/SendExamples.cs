@@ -10,6 +10,7 @@ using Digipost.Api.Client.Send;
 using Address = Digipost.Api.Client.DataTypes.Core.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
 using Sender = Digipost.Api.Client.Common.Sender;
+
 #pragma warning disable 0649
 
 namespace Digipost.Api.Client.Docs
@@ -218,17 +219,40 @@ namespace Digipost.Api.Client.Docs
 
         public void SendInvoice()
         {
+            var invoice = new Invoice();
+            invoice.Kid = "123123123";
+            invoice.Sum = new decimal(100.21);
+            invoice.Creditor_Account = "2593143xxxx";
+            invoice.Due_Date = "2022-12-03T10:15:30+01:00 Europe/Paris"; // ISO-8601 zoned datetime
+
             var message = new Message(
                 sender,
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxx"),
-                new Invoice(
+                new Document(
                     subject: "Invoice 1",
                     fileType: "pdf",
                     path: @"c:\...\invoice.pdf",
-                    amount: new decimal(100.21),
-                    account: "2593143xxxx",
-                    duedate: DateTime.Parse("01.01.2016"),
-                    kid: "123123123")
+                    dataType: SerializeUtil.Serialize(invoice))
+            );
+
+            var result = client.SendMessage(message);
+        }
+        public void SendInkasso()
+        {
+            var inkasso = new Inkasso();
+            inkasso.Kid = "123123123";
+            inkasso.Sum = new decimal(100.21);
+            inkasso.Account = "2593143xxxx";
+            inkasso.Due_Date = "2022-12-03T10:15:30+01:00 Europe/Paris"; // ISO-8601 zoned datetime
+
+            var message = new Message(
+                sender,
+                new RecipientById(IdentificationType.PersonalIdentificationNumber, "211084xxxx"),
+                new Document(
+                    subject: "Invoice 1",
+                    fileType: "pdf",
+                    path: @"c:\...\invoice.pdf",
+                    dataType: SerializeUtil.Serialize(inkasso))
             );
 
             var result = client.SendMessage(message);
@@ -281,7 +305,7 @@ namespace Digipost.Api.Client.Docs
             {
                 Start_Time = startTime.ToString("O"),
                 End_Time = startTime.AddMinutes(30).ToString("O"),
-                Address = new Address{ Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo" }
+                Address = new Address {Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo"}
             };
 
             string appointmentXml = SerializeUtil.Serialize(appointment);
@@ -298,26 +322,26 @@ namespace Digipost.Api.Client.Docs
         {
             var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
 
-            var timeInterval1 = new TimeInterval { Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O") };
-            var timeInterval2 = new TimeInterval { Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O") };
+            var timeInterval1 = new TimeInterval {Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O")};
+            var timeInterval2 = new TimeInterval {Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O")};
 
-            var barcode = new Barcode { Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true };
-            var address = new Address { Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo" };
-            var info = new Info { Title = "Title", Text = "Very important information" };
-            var link = new Link { Url = "https://www.test.no", Description = "This is a link" };
+            var barcode = new Barcode {Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true};
+            var address = new Address {Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo"};
+            var info = new Info {Title = "Title", Text = "Very important information"};
+            var link = new Link {Url = "https://www.test.no", Description = "This is a link"};
 
             Event @event = new Event
             {
-                Start_Time = { timeInterval1, timeInterval2 },
+                Start_Time = {timeInterval1, timeInterval2},
                 Description = "Description here",
                 Address = address,
-                Info = { info },
+                Info = {info},
                 Place = "Oslo City Røntgen",
                 PlaceLabel = "This is a place",
                 Sub_Title = "SubTitle",
                 Barcode = barcode,
                 BarcodeLabel = "Barcode Label",
-                Links = { link }
+                Links = {link}
             };
 
             string eventXml = SerializeUtil.Serialize(@event);

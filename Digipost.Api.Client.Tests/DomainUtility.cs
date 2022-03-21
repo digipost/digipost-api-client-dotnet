@@ -7,13 +7,11 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
-using V7;
+using V8;
 using Document = Digipost.Api.Client.Send.Document;
 using Environment = Digipost.Api.Client.Common.Environment;
 using Identification = Digipost.Api.Client.Common.Identify.Identification;
-using Invoice = Digipost.Api.Client.Send.Invoice;
-using Message = Digipost.Api.Client.Send.Message;
-using Sender = Digipost.Api.Client.Common.Sender;
+using Message = V8.Message;
 
 namespace Digipost.Api.Client.Tests
 {
@@ -36,7 +34,7 @@ namespace Digipost.Api.Client.Tests
 
         public static IMessage GetSimpleMessageWithRecipientById(IDocument document)
         {
-            var message = new Message(
+            var message = new Send.Message(
                 GetSender(),
                 new RecipientById(IdentificationType.PersonalIdentificationNumber, "00000000000"),
                 document
@@ -49,7 +47,7 @@ namespace Digipost.Api.Client.Tests
             var deliverytime = DateTime.Today.AddDays(3);
             var recipientById = GetRecipientByDigipostId();
 
-            return new Message(GetSender(), recipientById, new Document("TestSubject", "txt", new byte[3]))
+            return new Send.Message(GetSender(), recipientById, new Document("TestSubject", "txt", new byte[3]))
             {
                 Id = "ThatMessageId",
                 Attachments = new List<IDocument>
@@ -64,13 +62,13 @@ namespace Digipost.Api.Client.Tests
             };
         }
 
-        public static V7.Message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
+        public static Message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
         {
-            var message = new V7.Message()
+            var message = new Message()
             {
                 Sender_Id = long.Parse("1010"),
                 Message_Id = "ThatMessageId",
-                Primary_Document = new V7.Document()
+                Primary_Document = new V8.Document()
                 {
                     Subject = "TestSubject",
                     File_Type = "txt",
@@ -80,12 +78,12 @@ namespace Digipost.Api.Client.Tests
                 },
                 Delivery_Time = DateTime.Today.AddDays(3),
                 Delivery_TimeSpecified = true,
-                Recipient = new V7.Message_Recipient()
+                Recipient = new Message_Recipient()
                 {
                     Digipost_Address = "ola.nordmann#246BB"
                 }
             };
-            message.Attachment.Add(new V7.Document()
+            message.Attachment.Add(new V8.Document()
             {
                 Subject = "TestSubject attachment",
                 File_Type = "txt",
@@ -99,7 +97,7 @@ namespace Digipost.Api.Client.Tests
 
         public static IMessage GetSimpleMessageWithRecipientByNameAndAddress()
         {
-            return new Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
+            return new Send.Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
         public static IDocument GetDocument(string dataType = null)
@@ -108,11 +106,6 @@ namespace Digipost.Api.Client.Tests
             {
                 DataType = dataType
             };
-        }
-
-        public static IDocument GetInvoice()
-        {
-            return new Invoice("simple-invoice-dotnet", "pdf", ContentResource.Hoveddokument.Pdf(), 1005, "45278968788", DateTime.Now.AddDays(4));
         }
 
         public static IIdentification GetPersonalIdentification()
@@ -144,21 +137,21 @@ namespace Digipost.Api.Client.Tests
                         new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
 
-        public static V7.Print_Details GetPrintDetailsDataTransferObject()
+        public static Print_Details GetPrintDetailsDataTransferObject()
         {
-            return new V7.Print_Details
+            return new Print_Details
             {
-                Recipient = new V7.Print_Recipient()
+                Recipient = new Print_Recipient()
                 {
                     Name = "Ola Nordmann",
-                    Norwegian_Address = new V7.Norwegian_Address
+                    Norwegian_Address = new Norwegian_Address
                     {
                         Addressline1 = "Osloveien 15",
                         City = "Oslo",
                         Zip_Code = "0115"
                     }
                 },
-                Return_Address = new V7.Print_Recipient
+                Return_Address = new Print_Recipient
                 {
                     Name = "Returkongen",
                     Norwegian_Address = new Norwegian_Address()
@@ -180,9 +173,9 @@ namespace Digipost.Api.Client.Tests
                     );
         }
 
-        public static V7.Print_If_Unread GetPrintIfUnreadTransferObject()
+        public static Print_If_Unread GetPrintIfUnreadTransferObject()
         {
-            return new V7.Print_If_Unread
+            return new Print_If_Unread
             {
                 Print_If_Unread_After = DateTime.Now.AddDays(3),
                 Print_Details = GetPrintDetailsDataTransferObject()

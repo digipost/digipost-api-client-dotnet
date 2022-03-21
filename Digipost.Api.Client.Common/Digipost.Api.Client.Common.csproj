@@ -61,5 +61,8 @@
             <Link>signingkey.snk</Link>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Generated\Apidomain" />
+    </ItemGroup>
     
 </Project>

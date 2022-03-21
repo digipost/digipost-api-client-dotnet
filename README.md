@@ -10,7 +10,7 @@ Bruk Rider, som er C#-varianten av Intellij IDEA.
 ## Auto-Generering av Kode fra XSD
 It should be installed a tool named `xscgen`. Use this to generate the xsd if you need to update the api domain:
 
-`dotnet xscgen "Digipost.Api.Client.Resources/Xsd/Data/api_v7.xsd" -o Digipost.Api.Client.Common/Generated/Apidomain/`
+`dotnet xscgen "Digipost.Api.Client.Resources/Xsd/Data/api_v8.xsd" -o Digipost.Api.Client.Common/Generated/Apidomain/`
 
 ## Hvordan Release? 
 

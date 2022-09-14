@@ -87,8 +87,8 @@ facebook:
 
 # google analytics
 analytics:
-  trackingid: UA-77734017-1
-  domain: auto
+  trackingid:
+  domain:
 
 # DON'T MODIFY
 highlight: rouge

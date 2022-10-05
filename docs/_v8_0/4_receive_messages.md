@@ -34,7 +34,7 @@ var inbox = client.GetInbox(sender);
 
 var first100 = inbox.Fetch(); //Default offset is 0 and default limit is 100
 
-var next200 = inbox.Fetch(offset: 100, limit: 100);
+var next100 = inbox.Fetch(offset: 100, limit: 100);
 
 ```
 

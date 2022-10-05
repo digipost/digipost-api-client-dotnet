@@ -31,7 +31,7 @@ var inbox = client.GetInbox(sender);
 
 var first100 = inbox.Fetch(); //Default offset is 0 and default limit is 100
 
-var next200 = inbox.Fetch(offset: 100, limit: 100);
+var next100 = inbox.Fetch(offset: 100, limit: 100);
 ```
 
 We have now fetched the 200 newest inbox documents. As long as no new documents are received, the two API-calls shown above will always return the same result. If we now receive a new document, this will change. The first 100 will now contain 1 new document and 99 documents we have seen before. This means that as soon as you stumble upon a document you have seen before you can stop processing, given that all the following older ones have been processed. 

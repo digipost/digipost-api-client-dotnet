@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
-    public class SerializeUtil
+    public static class SerializeUtil
     {
         public static string Serialize<T>(T value)
         {

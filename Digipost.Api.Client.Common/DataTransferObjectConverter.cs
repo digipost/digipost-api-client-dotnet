@@ -11,7 +11,7 @@ using V8;
 
 namespace Digipost.Api.Client.Common
 {
-    internal class DataTransferObjectConverter
+    internal static class DataTransferObjectConverter
     {
         public static V8.Identification ToDataTransferObject(IIdentification identification)
         {
@@ -153,7 +153,7 @@ namespace Digipost.Api.Client.Common
 
         private static V8.Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(IRecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var nameAndAddressDto = new V8.Name_And_Address()
+            var nameAndAddressDto = new V8.Name_And_Address
             {
                 Fullname = recipientByNameAndAddress.FullName,
                 Addressline1 = recipientByNameAndAddress.AddressLine1,
@@ -305,32 +305,6 @@ namespace Digipost.Api.Client.Common
             return printRecipientDataTransferObject;
         }
 
-        public static V8.Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
-        {
-            if (smsNotification == null)
-                return null;
-
-            var smsNotificationDto = new V8.Sms_Notification();
-
-            if (smsNotification.NotifyAtTimes.Count > 0)
-            {
-                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V8.Listed_Time {Time = dateTime, TimeSpecified = true});
-                foreach (var timesAsListedTime in timesAsListedTimes)
-                {
-                    smsNotificationDto.At.Add(timesAsListedTime);
-                }
-            }
-
-            if (smsNotification.NotifyAfterHours.Count > 0)
-            {
-                foreach (var i in smsNotification.NotifyAfterHours.ToArray())
-                {
-                    smsNotificationDto.After_Hours.Add(i);
-                }
-            }
-
-            return smsNotificationDto;
-        }
 
         public static IIdentificationResult FromDataTransferObject(V8.Identification_Result identificationResultDto)
         {

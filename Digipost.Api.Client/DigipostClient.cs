@@ -6,12 +6,14 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Shared.Certificate;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -19,11 +21,10 @@ namespace Digipost.Api.Client
 {
     public class DigipostClient
     {
-        private readonly SendMessageApi _api;
         private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
+        private readonly IMemoryCache _entrypointCache;
 
-        private HttpClient _httpClient;
         private readonly ILogger<DigipostClient> _logger;
         private readonly ILoggerFactory _loggerFactory;
 
@@ -41,11 +42,16 @@ namespace Digipost.Api.Client
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();
             _loggerFactory = loggerFactory;
+            _entrypointCache = new MemoryCache(new MemoryCacheOptions());
 
             _clientConfig = clientConfig;
-            _httpClient = GetHttpClient(enterpriseCertificate);
-            _requestHelper = new RequestHelper(_httpClient, _loggerFactory);
-            _api = new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory);
+            var httpClient = GetHttpClient(enterpriseCertificate);
+            _requestHelper = new RequestHelper(httpClient, _loggerFactory);
+        }
+
+        private SendMessageApi _sendMessageApi()
+        {
+            return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot());
         }
 
         private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)
@@ -60,50 +66,70 @@ namespace Digipost.Api.Client
                 allDelegationHandlers.ToArray()
             );
 
-
             httpClient.Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds);
             httpClient.BaseAddress = new Uri(_clientConfig.Environment.Url.AbsoluteUri);
 
             return httpClient;
         }
 
+        public Root GetRoot(Sender senderId = null)
+        {
+            var currentSenderId = senderId == null ? "" : senderId.Id.ToString();
+            var cacheKey = "root" + currentSenderId;
+
+            if (_entrypointCache.TryGetValue(cacheKey, out Root root)) return root;
+
+            var result = _requestHelper.Get<V8.Entrypoint>(new Uri($"/{currentSenderId}", UriKind.Relative)).ConfigureAwait(false);
+            var entrypoint = result.GetAwaiter().GetResult();
+
+            root = DataTransferObjectConverter.FromDataTransferObject(entrypoint);
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                // Keep in cache for 5 minutes when in use, but max 1 hour.
+                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+
+            return _entrypointCache.Set(cacheKey, root, cacheEntryOptions);
+        }
+
         public Inbox.Inbox GetInbox(Sender senderId)
         {
-            return new Inbox.Inbox(senderId, _requestHelper);
+            return new Inbox.Inbox(_requestHelper, GetRoot(senderId));
         }
+
         public Archive.Archive GetArchive(Sender senderId)
         {
-            return new Archive.Archive(senderId, _requestHelper);
+            return new Archive.Archive(_requestHelper, GetRoot(senderId));
         }
 
         public IIdentificationResult Identify(IIdentification identification)
         {
-            return _api.Identify(identification);
+            return _sendMessageApi().Identify(identification);
         }
 
         public Task<IIdentificationResult> IdentifyAsync(IIdentification identification)
         {
-            return _api.IdentifyAsync(identification);
+            return _sendMessageApi().IdentifyAsync(identification);
         }
 
         public IMessageDeliveryResult SendMessage(IMessage message)
         {
-            return _api.SendMessage(message, _clientConfig.SkipMetaDataValidation);
+            return _sendMessageApi().SendMessage(message, _clientConfig.SkipMetaDataValidation);
         }
 
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
-            return _api.SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
+            return _sendMessageApi().SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
         }
 
         public ISearchDetailsResult Search(string query)
         {
-            return _api.Search(query);
+            return _sendMessageApi().Search(query);
         }
 
         public Task<ISearchDetailsResult> SearchAsync(string query)
         {
-            return _api.SearchAsync(query);
+            return _sendMessageApi().SearchAsync(query);
         }
     }
 }

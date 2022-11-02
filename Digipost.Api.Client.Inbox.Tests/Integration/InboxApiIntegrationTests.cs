@@ -1,7 +1,9 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Resources.Xml;
@@ -26,7 +28,11 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             };
             var requestHelper = new RequestHelper(httpClient, new NullLoggerFactory());
 
-            var inbox = new Inbox(DomainUtility.GetSender(), requestHelper);
+            var links = new List<Link>();
+            links.Add(new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/inbox") {Rel = httpClient.BaseAddress + "relations/get_inbox"});
+            var root = new Root("", links);
+
+            var inbox = new Inbox(requestHelper, root);
             return inbox;
         }
 

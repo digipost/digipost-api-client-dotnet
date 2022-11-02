@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
@@ -18,11 +18,12 @@ namespace Digipost.Api.Client.Tests.Smoke
             _client = new ClientSmokeTestHelper(sender);
             _clientWithoutDataTypes = new ClientSmokeTestHelper(sender, true);
         }
-        
+
         [Fact(Skip = "SmokeTest")]
         public void Can_identify_user()
         {
             _client
+                .HasRoot()
                 .Create_identification_request()
                 .SendIdentification()
                 .Expect_identification_to_have_status(IdentificationResultType.DigipostAddress);

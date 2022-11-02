@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
+<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
         <Title>Digipost Api Client</Title>
@@ -44,6 +44,7 @@
         <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
         <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.3" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.3" />
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.3" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,5 +60,13 @@ namespace Digipost.Api.Client.Common.Entrypoint
         /// </summary>
         public string MediaType { get; set; }
 
+        /// <summary>
+        /// the Uri as a typed absolute Uri
+        /// </summary>
+        /// <returns></returns>
+        public Uri AbsoluteUri()
+        {
+            return new Uri(Uri, UriKind.Absolute);
+        }
     }
 }

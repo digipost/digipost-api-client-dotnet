@@ -1,4 +1,4 @@
-﻿namespace Digipost.Api.Client.Send
+﻿namespace Digipost.Api.Client.Common
 {
     public class ContentHash
     {

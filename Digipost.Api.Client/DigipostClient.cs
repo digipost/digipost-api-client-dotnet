@@ -97,9 +97,9 @@ namespace Digipost.Api.Client
             return new Inbox.Inbox(_requestHelper, GetRoot(senderId));
         }
 
-        public Archive.Archive GetArchive(Sender senderId)
+        public Archive.ArchiveApi GetArchive(Sender senderId)
         {
-            return new Archive.Archive(_requestHelper, GetRoot(senderId));
+            return new Archive.ArchiveApi(_requestHelper, GetRoot(senderId));
         }
 
         public IIdentificationResult Identify(IIdentification identification)

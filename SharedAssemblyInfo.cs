@@ -8,4 +8,4 @@
 [assembly: AssemblyFileVersion("12.0.0")]
 [assembly: AssemblyInformationalVersion("12.0.0")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyCopyright("© 2015-2020 Digipost AS")]
+[assembly: AssemblyCopyright("© 2015-2022 Digipost AS")]

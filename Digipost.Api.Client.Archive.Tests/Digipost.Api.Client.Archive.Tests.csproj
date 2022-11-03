@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
+
+    <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Digipost.Api.Client.Archive.Tests</RootNamespace>
+        <AssemblyName>Digipost.Api.Client.Archive.Tests</AssemblyName>
+        <ProjectGuid>{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <NoWarn>1591</NoWarn>
+        <DocumentationFile>bin\Release\Digipost.Api.Client.XML</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+        <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+        <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+        <PackageReference Include="xunit.assert" Version="2.4.1" />
+        <PackageReference Include="xunit.core" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
+            <Project>{CD338E5A-1ED0-4331-B34E-8292FA8E387B}</Project>
+            <Name>Digipost.Api.Client.Common</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj">
+            <Project>{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}</Project>
+            <Name>Digipost.Api.Client.Archive</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Resources\Digipost.Api.Client.Resources.csproj">
+            <Project>{18CBB05A-B0AE-42FF-870F-1C213A238751}</Project>
+            <Name>Digipost.Api.Client.Resources</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client.Tests\Digipost.Api.Client.Tests.csproj">
+            <Project>{966A701B-7E91-4C41-BA28-B5C5E800E63D}</Project>
+            <Name>Digipost.Api.Client.Tests</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Digipost.Api.Client\Digipost.Api.Client.csproj">
+            <Project>{20A5FD61-56FD-46C4-A1A7-77EEFC7AAD2E}</Project>
+            <Name>Digipost.Api.Client</Name>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\SharedAssemblyInfo.cs">
+            <Link>Properties\SharedAssemblyInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="..\signingkey.snk">
+            <Link>signingkey.snk</Link>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <None Update="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <None Update="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <None Remove="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Certificate/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Content/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Xml/Data/*" />
+        <EmbeddedResource Include="../Digipost.Api.Client.Resources/Xsd/Data/*" />
+    </ItemGroup>
+</Project>

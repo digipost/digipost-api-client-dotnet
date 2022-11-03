@@ -99,7 +99,7 @@ namespace Digipost.Api.Client
 
         public Archive.ArchiveApi GetArchive(Sender senderId)
         {
-            return new Archive.ArchiveApi(_requestHelper, GetRoot(senderId));
+            return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(senderId));
         }
 
         public IIdentificationResult Identify(IIdentification identification)

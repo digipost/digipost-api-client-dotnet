@@ -12,10 +12,11 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
 
         private readonly ArchiveSmokeTestsHelper _t;
 
-        [Fact(Skip = "SmokeTest")]
+        [Fact(Skip = "Smoketest")]
         public void Get_inbox_and_read_document()
         {
-            _t.Get_archives();
+            _t.ArchiveAFile()
+                .Get_archives();
         }
     }
 }

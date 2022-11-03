@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Archive
 {
     public class ArchiveDocument : RestLinkable
     {
-        public ArchiveDocument(Guid id, string fileName, string fileType, string contentType)
+        internal ArchiveDocument(Guid id, string fileName, string fileType, string contentType)
         {
             Id = id;
             FileName = fileName;
@@ -15,6 +15,17 @@ namespace Digipost.Api.Client.Archive
             ContentType = contentType;
             Attributes = new Dictionary<string, string>();
             Links = new Dictionary<string, Link>();
+        }
+
+        public ArchiveDocument(Guid id, string fileName, string fileType, string contentType, byte[] contentBytes)
+        {
+            Id = id;
+            FileName = fileName;
+            FileType = fileType;
+            ContentType = contentType;
+            Attributes = new Dictionary<string, string>();
+            Links = new Dictionary<string, Link>();
+            ContentBytes = contentBytes;
         }
 
         public ArchiveDocument WithReferenceId(string referenceId)
@@ -63,6 +74,7 @@ namespace Digipost.Api.Client.Archive
 
         public Dictionary<string, string> Attributes { get; internal set; }
 
+        public byte[] ContentBytes { get; set; }
 
         public Uri DocumentByUuidUri()
         {
@@ -88,6 +100,5 @@ namespace Digipost.Api.Client.Archive
         {
             return Links["SELF_DELETE"].AbsoluteUri();
         }
-
     }
 }

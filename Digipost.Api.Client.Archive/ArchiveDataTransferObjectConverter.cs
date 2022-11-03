@@ -9,6 +9,23 @@ namespace Digipost.Api.Client.Archive
 {
     internal static class ArchiveDataTransferObjectConverter
     {
+        public static V8.Archive ToDataTransferObject(Archive a)
+        {
+            var dto = new V8.Archive()
+            {
+                Name = a.Name,
+                Sender_Id = a.Sender.Id,
+                Sender_IdSpecified = true
+            };
+
+            foreach (var ad in a.ArchiveDocuments.Select(ToDataTransferObject))
+            {
+                dto.Documents.Add(ad);
+            }
+
+            return dto;
+        }
+
         public static Archive_Document ToDataTransferObject(ArchiveDocument ad)
         {
             var dto = new Archive_Document()
@@ -21,6 +38,11 @@ namespace Digipost.Api.Client.Archive
                 Archived_Time = ad.ArchiveTime,
                 Deletion_Time = ad.DeletionTime
             };
+
+            foreach (var attribute in ad.Attributes)
+            {
+                dto.Attributes.Add(new Archive_Document_Attribute(){Key = attribute.Key, Value = attribute.Value});
+            }
 
             if (ad.ContentHash != null)
             {
@@ -37,7 +59,7 @@ namespace Digipost.Api.Client.Archive
         public static Dictionary<string, Link> FromDataTransferObject(IEnumerable<V8.Link> links)
         {
             return links.ToDictionary(
-                l => l.Rel.Substring(l.Rel.LastIndexOf('/')+1).ToUpper(),
+                l => l.Rel.Substring(l.Rel.LastIndexOf('/') + 1).ToUpper(),
                 link => new Link(link.Uri) {Rel = link.Rel, MediaType = link.Media_Type}
             );
         }

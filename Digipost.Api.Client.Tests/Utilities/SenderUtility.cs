@@ -8,7 +8,7 @@ using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Tests.Utilities
 {
-    internal class SenderUtility
+    internal static class SenderUtility
     {
         public static TestSender GetSender(TestEnvironment testEnvironment)
         {

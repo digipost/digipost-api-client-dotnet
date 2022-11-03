@@ -1,5 +1,6 @@
 ﻿using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
+using Digipost.Api.Client.Send.Actions;
 using Digipost.Api.Client.Tests;
 using Xunit;
 

@@ -15,7 +15,7 @@ using Message = V8.Message;
 
 namespace Digipost.Api.Client.Tests
 {
-    public class DomainUtility
+    public static class DomainUtility
     {
         public static ClientConfig GetClientConfig()
         {
@@ -102,7 +102,7 @@ namespace Digipost.Api.Client.Tests
 
         public static IDocument GetDocument(string dataType = null)
         {
-            return new Document("simple-document-dotnet", "txt", ContentResource.Hoveddokument.PlainText())
+            return new Document("simple-document-dotnet", "pdf", ContentResource.Hoveddokument.Pdf())
             {
                 DataType = dataType
             };

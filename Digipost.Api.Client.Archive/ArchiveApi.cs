@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Archive.Actions;
 using Digipost.Api.Client.Common.Entrypoint;
+using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Utilities;
 using Microsoft.Extensions.Logging;
 using V8;
@@ -21,7 +22,11 @@ namespace Digipost.Api.Client.Archive
 
         Archive ArchiveDocuments(Archive archiveWithDocuments);
 
+        Archive FetchArchiveDocuments(Archive archive);
+
         Task<Archive> ArchiveDocumentsAsync(Archive archiveWithDocuments);
+
+        Task DeleteDocument(ArchiveDocument archiveDocument);
 
         /**
          * This will hash and create a Guid the same way as java UUID.nameUUIDFromBytes
@@ -50,6 +55,24 @@ namespace Digipost.Api.Client.Archive
             var archives = await _requestHelper.Get<Archives>(absoluteUri).ConfigureAwait(false);
 
             return archives.Archive.Select(ArchiveDataTransferObjectConverter.FromDataTransferObject);
+        }
+
+        public Archive FetchArchiveDocuments(Archive archive)
+        {
+            if (!archive.HasMoreDocuments()) throw new ClientResponseException("Cant fetch more documents when there are no more");
+
+            var nextDocumentsUri = archive.NextDocumentsUri();
+
+            var result = _requestHelper.Get<V8.Archive>(nextDocumentsUri).Result;
+
+            return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
+        public async Task DeleteDocument(ArchiveDocument archiveDocument)
+        {
+            var deleteUri = archiveDocument.DeleteUri();
+
+            await _requestHelper.Delete(deleteUri);
         }
 
         public Archive ArchiveDocuments(Archive archiveWithDocuments)
@@ -93,7 +116,7 @@ namespace Digipost.Api.Client.Archive
         {
             var uri = _root.FindByRelationName("GET_ARCHIVE_DOCUMENT_BY_UUID").Uri;
 
-            var documentNyUuid = new Uri($"{uri}/{guid.ToString()}", UriKind.Absolute);
+            var documentNyUuid = new Uri($"{uri}{guid.ToString()}", UriKind.Absolute);
             var archive = await _requestHelper.Get<V8.Archive>(documentNyUuid).ConfigureAwait(false);
             var first = archive.Documents[0].Link.First(link => link.Rel.ToUpper().EndsWith("GET_ARCHIVE_DOCUMENT_CONTENT_STREAM"));
 

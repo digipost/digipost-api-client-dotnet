@@ -8,7 +8,7 @@ using V8;
 
 namespace Digipost.Api.Client.Send
 {
-    internal class SendDataTransferObjectConverter
+    internal static class SendDataTransferObjectConverter
     {
         public static V8.Message ToDataTransferObject(IMessage message)
         {
@@ -46,16 +46,17 @@ namespace Digipost.Api.Client.Send
 
         public static V8.Document ToDataTransferObject(IDocument document)
         {
-            V8.Document documentDto = new V8.Document();
-
-            documentDto.Subject = document.Subject;
-            documentDto.File_Type = document.FileType;
-            documentDto.Authentication_Level = document.AuthenticationLevel.ToAuthenticationLevel();
-            documentDto.Authentication_LevelSpecified = true;
-            documentDto.Sensitivity_Level = document.SensitivityLevel.ToSensitivityLevel();
-            documentDto.Sensitivity_LevelSpecified = true;
-            documentDto.Sms_Notification = DataTransferObjectConverter.ToDataTransferObject(document.SmsNotification);
-            documentDto.Uuid = document.Guid;
+            var documentDto = new V8.Document
+            {
+                Subject = document.Subject,
+                File_Type = document.FileType,
+                Authentication_Level = document.AuthenticationLevel.ToAuthenticationLevel(),
+                Authentication_LevelSpecified = true,
+                Sensitivity_Level = document.SensitivityLevel.ToSensitivityLevel(),
+                Sensitivity_LevelSpecified = true,
+                Sms_Notification = ToDataTransferObject(document.SmsNotification),
+                Uuid = document.Guid
+            };
 
             if (document.DataType != null)
             {
@@ -68,6 +69,33 @@ namespace Digipost.Api.Client.Send
             }
 
             return documentDto;
+        }
+
+        public static V8.Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
+        {
+            if (smsNotification == null)
+                return null;
+
+            var smsNotificationDto = new V8.Sms_Notification();
+
+            if (smsNotification.NotifyAtTimes.Count > 0)
+            {
+                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V8.Listed_Time {Time = dateTime, TimeSpecified = true});
+                foreach (var timesAsListedTime in timesAsListedTimes)
+                {
+                    smsNotificationDto.At.Add(timesAsListedTime);
+                }
+            }
+
+            if (smsNotification.NotifyAfterHours.Count > 0)
+            {
+                foreach (var i in smsNotification.NotifyAfterHours.ToArray())
+                {
+                    smsNotificationDto.After_Hours.Add(i);
+                }
+            }
+
+            return smsNotificationDto;
         }
 
         public static IMessageDeliveryResult FromDataTransferObject(V8.Message_Delivery messageDeliveryDto)

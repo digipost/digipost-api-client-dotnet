@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Utilities;
 
-namespace Digipost.Api.Client.Send
+namespace Digipost.Api.Client.Send.Actions
 {
     internal class MessageAction : DigipostAction
     {
@@ -26,8 +27,7 @@ namespace Digipost.Api.Client.Send
             multipartFormDataContent.Headers.ContentType = mediaTypeHeaderValue;
 
             AddBodyToContent(message, multipartFormDataContent);
-            AddPrimaryDocumentToContent(message, multipartFormDataContent);
-            AddAttachmentsToContent(message, multipartFormDataContent);
+            AddDocumentsToContent(message, multipartFormDataContent);
 
             return multipartFormDataContent;
         }
@@ -38,7 +38,7 @@ namespace Digipost.Api.Client.Send
             return SerializeUtil.Serialize(messageDataTransferObject);
         }
 
-        private static void AddBodyToContent(IMessage message, MultipartFormDataContent content)
+        private static void AddBodyToContent(IMessage message, MultipartContent content)
         {
             var messageDataTransferObject = SendDataTransferObjectConverter.ToDataTransferObject(message);
             var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
@@ -52,27 +52,19 @@ namespace Digipost.Api.Client.Send
             content.Add(messageContent);
         }
 
-        private static void AddPrimaryDocumentToContent(IMessage message, MultipartFormDataContent content)
+        private static void AddDocumentsToContent(IMessage message, MultipartContent content)
         {
-            var documentContent = new ByteArrayContent(message.PrimaryDocument.ContentBytes);
-            documentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-            documentContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = message.PrimaryDocument.Guid
-            };
-            content.Add(documentContent);
-        }
+            var documents = new List<IDocument> {message.PrimaryDocument};
+            documents.AddRange(message.Attachments);
 
-        private static void AddAttachmentsToContent(IMessage message, MultipartFormDataContent content)
-        {
-            foreach (var attachment in message.Attachments)
+            foreach (var document in documents)
             {
-                var attachmentContent = new ByteArrayContent(attachment.ContentBytes);
-                attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                var attachmentContent = new ByteArrayContent(document.ContentBytes);
+                attachmentContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 attachmentContent.Headers.ContentDisposition =
                     new ContentDispositionHeaderValue("attachment")
                     {
-                        FileName = attachment.Guid
+                        FileName = document.Guid
                     };
                 content.Add(attachmentContent);
             }

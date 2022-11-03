@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Digipost.Api.Client.Common
+namespace Digipost.Api.Client.Send
 {
     public interface ISmsNotification
     {

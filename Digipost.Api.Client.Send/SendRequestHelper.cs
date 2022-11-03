@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.Send.Actions;
 
 namespace Digipost.Api.Client.Send
 {

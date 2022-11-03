@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Enums;
@@ -8,14 +8,17 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using V8;
+using Identification = V8.Identification;
+using Link = Digipost.Api.Client.Common.Entrypoint.Link;
+using Root = Digipost.Api.Client.Common.Entrypoint.Root;
 
 namespace Digipost.Api.Client.Common
 {
-    internal class DataTransferObjectConverter
+    internal static class DataTransferObjectConverter
     {
-        public static V8.Identification ToDataTransferObject(IIdentification identification)
+        public static Identification ToDataTransferObject(IIdentification identification)
         {
-            V8.Identification identificationDto = null;
+            Identification identificationDto = null;
 
             if (identification.DigipostRecipient is RecipientById)
             {
@@ -30,28 +33,28 @@ namespace Digipost.Api.Client.Common
             return identificationDto;
         }
 
-        private static V8.Identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        private static Identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
             switch (recipientById.IdentificationType)
             {
                 case IdentificationType.DigipostAddress:
-                    return new V8.Identification {Digipost_Address = recipientById.Id};
+                    return new Identification {Digipost_Address = recipientById.Id};
                 case IdentificationType.PersonalIdentificationNumber:
-                    return new V8.Identification {Personal_Identification_Number = recipientById.Id};
+                    return new Identification {Personal_Identification_Number = recipientById.Id};
                 case IdentificationType.OrganizationNumber:
-                    return new V8.Identification {Organisation_Number = recipientById.Id};
+                    return new Identification {Organisation_Number = recipientById.Id};
                 case IdentificationType.BankAccountNumber:
-                    return new V8.Identification {Bank_Account_Number = recipientById.Id};
+                    return new Identification {Bank_Account_Number = recipientById.Id};
                 default:
                     throw new ArgumentOutOfRangeException(nameof(recipientById.IdentificationType), recipientById.IdentificationType, null);
             }
         }
 
-        private static V8.Identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
+        private static Identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var identification = new V8.Identification
+            var identification = new Identification
             {
-                Name_And_Address = new V8.Name_And_Address()
+                Name_And_Address = new Name_And_Address()
                 {
                     Fullname = recipientByNameAndAddress.FullName,
                     Addressline1 = recipientByNameAndAddress.AddressLine1,
@@ -73,11 +76,11 @@ namespace Digipost.Api.Client.Common
             return identification;
         }
 
-        public static V8.Message_Recipient Message_RecipientDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
+        public static Message_Recipient Message_RecipientDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var identification = new V8.Message_Recipient
+            var identification = new Message_Recipient
             {
-                Name_And_Address = new V8.Name_And_Address()
+                Name_And_Address = new Name_And_Address()
                 {
                     Fullname = recipientByNameAndAddress.FullName,
                     Addressline1 = recipientByNameAndAddress.AddressLine1,
@@ -99,27 +102,27 @@ namespace Digipost.Api.Client.Common
             return identification;
         }
 
-        public static V8.Message_Recipient Message_RecipientDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        public static Message_Recipient Message_RecipientDataTransferObjectFromIdentificationById(RecipientById recipientById)
         {
             switch (recipientById.IdentificationType)
             {
                 case IdentificationType.DigipostAddress:
-                    return new V8.Message_Recipient {Digipost_Address = recipientById.Id};
+                    return new Message_Recipient {Digipost_Address = recipientById.Id};
                 case IdentificationType.PersonalIdentificationNumber:
-                    return new V8.Message_Recipient {Personal_Identification_Number = recipientById.Id};
+                    return new Message_Recipient {Personal_Identification_Number = recipientById.Id};
                 case IdentificationType.OrganizationNumber:
-                    return new V8.Message_Recipient {Organisation_Number = recipientById.Id};
+                    return new Message_Recipient {Organisation_Number = recipientById.Id};
                 case IdentificationType.BankAccountNumber:
-                    return new V8.Message_Recipient {Bank_Account_Number = recipientById.Id};
+                    return new Message_Recipient {Bank_Account_Number = recipientById.Id};
                 default:
                     throw new ArgumentOutOfRangeException(nameof(recipientById.IdentificationType), recipientById.IdentificationType, null);
             }
         }
 
 
-        public static V8.Message_Recipient ToDataTransferObject(IDigipostRecipient recipient)
+        public static Message_Recipient ToDataTransferObject(IDigipostRecipient recipient)
         {
-            V8.Message_Recipient messageRecipientDto = null;
+            Message_Recipient messageRecipientDto = null;
 
             if (recipient is RecipientById)
             {
@@ -134,26 +137,26 @@ namespace Digipost.Api.Client.Common
             return messageRecipientDto;
         }
 
-        private static V8.Message_Recipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
+        private static Message_Recipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
         {
             switch (recipient.IdentificationType)
             {
                 case IdentificationType.DigipostAddress:
-                    return new V8.Message_Recipient {Digipost_Address = recipient.Id};
+                    return new Message_Recipient {Digipost_Address = recipient.Id};
                 case IdentificationType.PersonalIdentificationNumber:
-                    return new V8.Message_Recipient {Personal_Identification_Number = recipient.Id};
+                    return new Message_Recipient {Personal_Identification_Number = recipient.Id};
                 case IdentificationType.OrganizationNumber:
-                    return new V8.Message_Recipient {Organisation_Number = recipient.Id};
+                    return new Message_Recipient {Organisation_Number = recipient.Id};
                 case IdentificationType.BankAccountNumber:
-                    return new V8.Message_Recipient {Bank_Account_Number = recipient.Id};
+                    return new Message_Recipient {Bank_Account_Number = recipient.Id};
                 default:
                     throw new ArgumentOutOfRangeException(nameof(recipient.IdentificationType), recipient.IdentificationType, null);
             }
         }
 
-        private static V8.Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(IRecipientByNameAndAddress recipientByNameAndAddress)
+        private static Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(IRecipientByNameAndAddress recipientByNameAndAddress)
         {
-            var nameAndAddressDto = new V8.Name_And_Address()
+            var nameAndAddressDto = new Name_And_Address
             {
                 Fullname = recipientByNameAndAddress.FullName,
                 Addressline1 = recipientByNameAndAddress.AddressLine1,
@@ -170,18 +173,18 @@ namespace Digipost.Api.Client.Common
                 nameAndAddressDto.Birth_DateSpecified = true;
             }
 
-            return new V8.Message_Recipient
+            return new Message_Recipient
             {
                 Name_And_Address = nameAndAddressDto
             };
         }
 
-        public static V8.Print_Details ToDataTransferObject(IPrintDetails printDetails)
+        public static Print_Details ToDataTransferObject(IPrintDetails printDetails)
         {
             if (printDetails == null)
                 return null;
 
-            var printDetailsDataTransferObject = new V8.Print_Details
+            var printDetailsDataTransferObject = new Print_Details
             {
                 Recipient = ToDataTransferObject((IPrint) printDetails.PrintRecipient),
                 Return_Address = ToDataTransferObject((IPrint) printDetails.PrintReturnRecipient),
@@ -194,7 +197,7 @@ namespace Digipost.Api.Client.Common
             return printDetailsDataTransferObject;
         }
 
-        public static List<V8.Print_Instruction> ToDataTransferObject(IPrintInstructions printInstructions)
+        public static List<Print_Instruction> ToDataTransferObject(IPrintInstructions printInstructions)
         {
             if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
                 return new List<Print_Instruction>();
@@ -202,12 +205,12 @@ namespace Digipost.Api.Client.Common
             return printInstructions.PrintInstruction.Select(ToDataTransferObject).ToList();
         }
 
-        public static V8.Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
+        public static Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
         {
             if (printInstruction == null)
                 return null;
 
-            var printInstructionTransferObject = new V8.Print_Instruction
+            var printInstructionTransferObject = new Print_Instruction
             {
                 Key = printInstruction.key,
                 Value = printInstruction.value
@@ -216,12 +219,12 @@ namespace Digipost.Api.Client.Common
             return printInstructionTransferObject;
         }
 
-        public static V8.Print_If_Unread ToDataTransferObject(IPrintIfUnread printIfUnread)
+        public static Print_If_Unread ToDataTransferObject(IPrintIfUnread printIfUnread)
         {
             if (printIfUnread == null)
                 return null;
 
-            var printIfUnreadDataTransferObject = new V8.Print_If_Unread
+            var printIfUnreadDataTransferObject = new Print_If_Unread
             {
                 Print_If_Unread_After = printIfUnread.PrintIfUnreadAfter,
                 Print_Details = ToDataTransferObject(printIfUnread.PrintDetails)
@@ -230,9 +233,9 @@ namespace Digipost.Api.Client.Common
             return printIfUnreadDataTransferObject;
         }
 
-        private static V8.Print_Recipient ToDataTransferObject(IPrint recipient)
+        private static Print_Recipient ToDataTransferObject(IPrint recipient)
         {
-            var printRecipientDto = new V8.Print_Recipient
+            var printRecipientDto = new Print_Recipient
             {
                 Name = recipient.Name
             };
@@ -249,9 +252,9 @@ namespace Digipost.Api.Client.Common
             return printRecipientDto;
         }
 
-        public static V8.Norwegian_Address ToDataTransferObject(INorwegianAddress norwegianAddress)
+        public static Norwegian_Address ToDataTransferObject(INorwegianAddress norwegianAddress)
         {
-            return new V8.Norwegian_Address
+            return new Norwegian_Address
             {
                 Addressline1 = norwegianAddress.AddressLine1,
                 Addressline2 = norwegianAddress.AddressLine2,
@@ -261,9 +264,9 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static V8.Foreign_Address ToDataTransferObject(IForeignAddress foreignAddress)
+        public static Foreign_Address ToDataTransferObject(IForeignAddress foreignAddress)
         {
-            var result = new V8.Foreign_Address
+            var result = new Foreign_Address
             {
                 Addressline1 = foreignAddress.AddressLine1,
                 Addressline2 = foreignAddress.AddressLine2,
@@ -282,9 +285,9 @@ namespace Digipost.Api.Client.Common
             return result;
         }
 
-        public static V8.Print_Recipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
+        public static Print_Recipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
         {
-            var printRecipientDataTransferObject = new V8.Print_Recipient
+            var printRecipientDataTransferObject = new Print_Recipient
             {
                 Name = printOrPrintReturnRecipient.Name
             };
@@ -305,39 +308,26 @@ namespace Digipost.Api.Client.Common
             return printRecipientDataTransferObject;
         }
 
-        public static V8.Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
+        public static Root FromDataTransferObject(V8.Entrypoint entrypoint)
         {
-            if (smsNotification == null)
-                return null;
-
-            var smsNotificationDto = new V8.Sms_Notification();
-
-            if (smsNotification.NotifyAtTimes.Count > 0)
-            {
-                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V8.Listed_Time {Time = dateTime, TimeSpecified = true});
-                foreach (var timesAsListedTime in timesAsListedTimes)
-                {
-                    smsNotificationDto.At.Add(timesAsListedTime);
-                }
-            }
-
-            if (smsNotification.NotifyAfterHours.Count > 0)
-            {
-                foreach (var i in smsNotification.NotifyAfterHours.ToArray())
-                {
-                    smsNotificationDto.After_Hours.Add(i);
-                }
-            }
-
-            return smsNotificationDto;
+            return new Root(entrypoint.Certificate, entrypoint.Link.Select(FromDataTransferObject).ToList());
         }
 
-        public static IIdentificationResult FromDataTransferObject(V8.Identification_Result identificationResultDto)
+        public static Link FromDataTransferObject(V8.Link link)
+        {
+            return new Link(link.Uri)
+            {
+                Rel = link.Rel,
+                MediaType = link.Media_Type
+            };
+        }
+
+        public static IIdentificationResult FromDataTransferObject(Identification_Result identificationResultDto)
         {
             var digipostAddress = identificationResultDto.Digipost_Address;
             var personAlias = identificationResultDto.Person_Alias;
 
-            var identifiedByDigipostOrPin = digipostAddress != null || personAlias != null || identificationResultDto.Result == V8.Identification_Result_Code.DIGIPOST || identificationResultDto.Result == V8.Identification_Result_Code.IDENTIFIED;
+            var identifiedByDigipostOrPin = digipostAddress != null || personAlias != null || identificationResultDto.Result == Identification_Result_Code.DIGIPOST || identificationResultDto.Result == Identification_Result_Code.IDENTIFIED;
 
             if (identifiedByDigipostOrPin)
             {
@@ -356,16 +346,16 @@ namespace Digipost.Api.Client.Common
             throw new ArgumentOutOfRangeException(nameof(identificationResultDto.Result), identificationResultDto.Result, null);
         }
 
-        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(V8.Identification_Result identificationResultDto)
+        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(Identification_Result identificationResultDto)
         {
             IdentificationResult identificationResult;
 
             switch (identificationResultDto.Result)
             {
-                case V8.Identification_Result_Code.DIGIPOST:
+                case Identification_Result_Code.DIGIPOST:
                     identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, identificationResultDto.Digipost_Address + "");
                     break;
-                case V8.Identification_Result_Code.IDENTIFIED:
+                case Identification_Result_Code.IDENTIFIED:
                     identificationResult = new IdentificationResult(IdentificationResultType.Personalias, identificationResultDto.Person_Alias + "");
                     break;
                 default:
@@ -384,7 +374,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static SearchDetailsResult FromDataTransferObject(V8.Recipients recipients)
+        public static SearchDetailsResult FromDataTransferObject(Recipients recipients)
         {
             return new SearchDetailsResult
             {

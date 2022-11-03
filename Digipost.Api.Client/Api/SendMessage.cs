@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Extensions;
@@ -12,11 +13,13 @@ namespace Digipost.Api.Client.Api
 {
     internal class SendMessageApi
     {
+        private readonly Root _root;
         private const int MinimumSearchLength = 3;
-        private ILogger<SendMessageApi> _logger;
+        private readonly ILogger<SendMessageApi> _logger;
 
-        public SendMessageApi(SendRequestHelper requestHelper, ILoggerFactory loggerFactory)
+        public SendMessageApi(SendRequestHelper requestHelper, ILoggerFactory loggerFactory, Root root)
         {
+            _root = root;
             _logger = loggerFactory.CreateLogger<SendMessageApi>();
             RequestHelper = requestHelper;
         }
@@ -37,7 +40,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
-            var uri = new Uri("messages", UriKind.Relative);
+            var uri = new Uri(_root.FindByRelationName("CREATE_MESSAGE").Uri, UriKind.Absolute);
 
             var messageDeliveryResultTask = RequestHelper.PostMessage<V8.Message_Delivery>(message, uri, skipMetaDataValidation);
 
@@ -60,7 +63,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug($"Outgoing identification request: {identification}");
 
-            var uri = new Uri("identification", UriKind.Relative);
+            var uri = new Uri(_root.FindByRelationName("IDENTIFY_RECIPIENT").Uri, UriKind.Absolute);
 
             var identifyResponse = RequestHelper.PostIdentification<V8.Identification_Result>(identification, uri);
 
@@ -92,7 +95,7 @@ namespace Digipost.Api.Client.Api
             _logger.LogDebug($"Outgoing search request, term: '{search}'.");
 
             search = search.RemoveReservedUriCharacters();
-            var uri = new Uri($"recipients/search/{Uri.EscapeUriString(search)}", UriKind.Relative);
+            var uri = new Uri($"{_root.FindByRelationName("SEARCH").Uri}/{Uri.EscapeUriString(search)}", UriKind.Absolute);
 
             if (search.Length < MinimumSearchLength)
             {

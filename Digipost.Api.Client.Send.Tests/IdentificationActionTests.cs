@@ -1,13 +1,14 @@
-﻿using Digipost.Api.Client.Common.Actions;
+﻿using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.Send.Actions;
 using Xunit;
 
-namespace Digipost.Api.Client.Common.Tests.Actions
+namespace Digipost.Api.Client.Send.Tests
 {
-    public class DigipostActionTests
+    public class IdentificationActionTests
     {
         public class RequestContentBody
         {

@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
@@ -20,6 +22,8 @@ namespace Digipost.Api.Client.Tests.Smoke
         private readonly List<IDocument> _attachments = new List<IDocument>();
         private readonly DigipostClient _digipostClient;
         private readonly TestSender _testSender;
+
+        private readonly Root _root;
 
         //Gradually built state, identification
         private Identification _identification;
@@ -43,6 +47,14 @@ namespace Digipost.Api.Client.Tests.Smoke
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
             _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
+
+            _root = _digipostClient.GetRoot();
+        }
+
+        public ClientSmokeTestHelper HasRoot()
+        {
+            Assert_state(_root);
+            return this;
         }
 
         public ClientSmokeTestHelper Create_message_with_primary_document()
@@ -56,7 +68,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             _primary = DomainUtility.GetDocument(dataType);
             return this;
         }
-        
+
         public ClientSmokeTestHelper Add_Attachments(params IDocument[] attachments)
         {
             _attachments.AddRange(attachments);

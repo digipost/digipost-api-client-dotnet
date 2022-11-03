@@ -817,32 +817,6 @@ namespace Digipost.Api.Client.Common.Tests
                 //Assert
                 Comparator.AssertEqual(expected, actual);
             }
-
-            [Fact]
-            public void SmsNotification()
-            {
-                //Arrange
-                var atTimes = new List<DateTime> {DateTime.Now, DateTime.Now.AddHours(3)};
-                var afterHours = new List<int> {4, 5};
-
-                var source = new SmsNotification();
-                source.NotifyAfterHours.AddRange(afterHours);
-                source.NotifyAtTimes.AddRange(atTimes);
-
-                var expectedDto = new V8.Sms_Notification();
-
-                afterHours.ForEach(s => expectedDto.After_Hours.Add(s));
-
-                atTimes.Select(a => new V8.Listed_Time() {TimeSpecified = true, Time = a})
-                    .ToList()
-                    .ForEach(time => expectedDto.At.Add(time));
-
-                //Act
-                var actual = DataTransferObjectConverter.ToDataTransferObject(source);
-
-                //Assert
-                Comparator.AssertEqual(expectedDto, actual);
-            }
         }
 
         public class FromDataTransferObjectMethod : DataTransferObjectConverterTests

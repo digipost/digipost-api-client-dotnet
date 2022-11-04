@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
             var client = new DigipostClient(
-                new ClientConfig(broker, testSender.Environment),
+                new ClientConfig(broker, testSender.Environment){LogRequestAndResponse = true},
                 testSender.Certificate,
                 serviceProvider.GetService<ILoggerFactory>()
             );
@@ -53,6 +54,12 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             return this;
         }
 
+        public ArchiveSmokeTestsHelper Get_Default_Archive()
+        {
+            _archive = _archiveApi.FetchArchives().Result.Where(a => a.Name == null).First();
+            return this;
+        }
+
         public ArchiveSmokeTestsHelper Get_All_Documents()
         {
             Assert_state(_archive);
@@ -60,6 +67,21 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             _archivesWithDocuments = _archiveApi.FetchArchiveDocuments(_archive);
 
             Assert.NotEmpty(_archivesWithDocuments.ArchiveDocuments);
+            return this;
+        }
+
+        public ArchiveSmokeTestsHelper Get_All_DocumentsWithAttributes()
+        {
+            Assert_state(_archive);
+
+            var searchBy = new Dictionary<string, string>
+            {
+                ["smoke"] = "test"
+            };
+
+            var byAttribute = _archiveApi.FetchArchiveDocuments(_archive, searchBy);
+
+            Assert.NotEmpty(byAttribute.ArchiveDocuments);
             return this;
         }
 

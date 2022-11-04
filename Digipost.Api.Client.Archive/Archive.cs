@@ -1,6 +1,11 @@
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
 using Digipost.Api.Client.Common;
+using static System.Convert;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -59,6 +64,23 @@ namespace Digipost.Api.Client.Archive
         public Uri NextDocumentsUri()
         {
             return Links["NEXT_DOCUMENTS"].AbsoluteUri();
+        }
+
+        public Uri NextDocumentsUri(Dictionary<string, string> searchBy)
+        {
+            var nextDocumentsUri = Links["NEXT_DOCUMENTS"].AbsoluteUri();
+
+            var query = HttpUtility.ParseQueryString(nextDocumentsUri.Query);
+            var commaSeparated = string.Join(",", searchBy.Select(x => x.Key + "," + x.Value).ToArray());
+            var base64 = ToBase64String(Encoding.UTF8.GetBytes(commaSeparated));
+
+            query["attributes"] = "";
+            var uriBuilder = new UriBuilder(nextDocumentsUri)
+            {
+                Query = query + base64
+            };
+
+            return new Uri(uriBuilder.ToString());
         }
     }
 }

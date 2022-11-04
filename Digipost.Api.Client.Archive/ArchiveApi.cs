@@ -24,6 +24,8 @@ namespace Digipost.Api.Client.Archive
 
         Archive FetchArchiveDocuments(Archive archive);
 
+        Archive FetchArchiveDocuments(Archive archive, Dictionary<string, string> searchBy);
+
         Task<Archive> ArchiveDocumentsAsync(Archive archiveWithDocuments);
 
         Task DeleteDocument(ArchiveDocument archiveDocument);
@@ -62,6 +64,17 @@ namespace Digipost.Api.Client.Archive
             if (!archive.HasMoreDocuments()) throw new ClientResponseException("Cant fetch more documents when there are no more");
 
             var nextDocumentsUri = archive.NextDocumentsUri();
+
+            var result = _requestHelper.Get<V8.Archive>(nextDocumentsUri).Result;
+
+            return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
+        public Archive FetchArchiveDocuments(Archive archive, Dictionary<string, string> searchBy)
+        {
+            if (!archive.HasMoreDocuments()) throw new ClientResponseException("Cant fetch more documents when there are no more");
+
+            var nextDocumentsUri = archive.NextDocumentsUri(searchBy);
 
             var result = _requestHelper.Get<V8.Archive>(nextDocumentsUri).Result;
 

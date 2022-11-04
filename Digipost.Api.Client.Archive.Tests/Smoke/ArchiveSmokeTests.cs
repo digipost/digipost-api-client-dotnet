@@ -3,9 +3,9 @@ using Xunit;
 
 namespace Digipost.Api.Client.Archive.Tests.Smoke
 {
-    public class InboxSmokeTests
+    public class ArchiveSmokeTests
     {
-        public InboxSmokeTests()
+        public ArchiveSmokeTests()
         {
             _t = new ArchiveSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
         }
@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
         private readonly ArchiveSmokeTestsHelper _t;
 
         [Fact(Skip = "SmokeTest")]
-        public void Get_inbox_and_read_document()
+        public void ArchiveDocuments_read_and_delete()
         {
             _t.ArchiveAFile(ArchiveSmokeTestsHelper.ArchiveName)
                 .Get_Archive(ArchiveSmokeTestsHelper.ArchiveName)
@@ -23,9 +23,11 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
-        public void ArchiveADocument()
+        public void ArchiveADocumentWithAttributes()
         {
-            _t.ArchiveAFile();
+            _t.ArchiveAFile()
+                .Get_Default_Archive()
+                .Get_All_DocumentsWithAttributes();
         }
     }
 }

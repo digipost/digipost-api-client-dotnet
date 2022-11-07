@@ -27,7 +27,8 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
         {
             _t.ArchiveAFile()
                 .Get_Default_Archive()
-                .Get_All_DocumentsWithAttributes();
+                .Get_All_DocumentsWithAttributes()
+                .Update_attritbutesOnFirst();
         }
     }
 }

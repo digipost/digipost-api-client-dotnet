@@ -1,21 +1,20 @@
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
-using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Utilities;
 
-namespace Digipost.Api.Client.Send.Actions
+namespace Digipost.Api.Client.Archive.Actions
 {
-    internal class IdentificationAction : DigipostAction<IIdentification>
+    internal class ArchiveDocumentAction : DigipostAction<ArchiveDocument>
     {
-        public IdentificationAction(IIdentification identification)
-            : base(identification)
+        public ArchiveDocumentAction(ArchiveDocument archiveDocument)
+            : base(archiveDocument)
         {
         }
 
-        internal override HttpContent Content(IIdentification requestContent)
+        internal override HttpContent Content(ArchiveDocument requestContent)
         {
             var xmlMessage = Serialize(requestContent);
             var messageContent = new StringContent(xmlMessage);
@@ -28,10 +27,10 @@ namespace Digipost.Api.Client.Send.Actions
             return messageContent;
         }
 
-        protected override string Serialize(IIdentification requestContent)
+        protected override string Serialize(ArchiveDocument requestContent)
         {
-            var identificationDto = DataTransferObjectConverter.ToDataTransferObject(requestContent);
-            return SerializeUtil.Serialize(identificationDto);
+            var messageDataTransferObject = ArchiveDataTransferObjectConverter.ToDataTransferObject(requestContent);
+            return SerializeUtil.Serialize(messageDataTransferObject);
         }
     }
 }

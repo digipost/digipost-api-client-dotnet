@@ -8,16 +8,15 @@ using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Archive.Actions
 {
-    internal class ArchiveAction : DigipostAction
+    internal class ArchiveAction : DigipostAction<Archive>
     {
-        public ArchiveAction(Archive message)
-            : base(message)
+        public ArchiveAction(Archive archive)
+            : base(archive)
         {
         }
 
-        internal override HttpContent Content(IRequestContent requestContent)
+        internal override HttpContent Content(Archive archive)
         {
-            var archive = requestContent as Archive;
             var boundary = Guid.NewGuid().ToString();
 
             var multipartFormDataContent = new MultipartFormDataContent(boundary);
@@ -32,7 +31,7 @@ namespace Digipost.Api.Client.Archive.Actions
             return multipartFormDataContent;
         }
 
-        protected override string Serialize(IRequestContent requestContent)
+        protected override string Serialize(Archive requestContent)
         {
             var messageDataTransferObject = ArchiveDataTransferObjectConverter.ToDataTransferObject((Archive) requestContent);
             return SerializeUtil.Serialize(messageDataTransferObject);

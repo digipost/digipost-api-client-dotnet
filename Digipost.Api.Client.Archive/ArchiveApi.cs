@@ -28,6 +28,8 @@ namespace Digipost.Api.Client.Archive
 
         Task<Archive> ArchiveDocumentsAsync(Archive archiveWithDocuments);
 
+        Task<ArchiveDocument> UpdateDocument(ArchiveDocument archiveDocument);
+
         Task DeleteDocument(ArchiveDocument archiveDocument);
 
         /**
@@ -79,6 +81,21 @@ namespace Digipost.Api.Client.Archive
             var result = _requestHelper.Get<V8.Archive>(nextDocumentsUri).Result;
 
             return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
+        public async Task<ArchiveDocument> UpdateDocument(ArchiveDocument archiveDocument)
+        {
+            var updateUri = archiveDocument.UpdateUri();
+
+            var messageAction = new ArchiveDocumentAction(archiveDocument);
+            var httpContent = messageAction.Content(archiveDocument);
+
+            var updatedArchiveDocument = _requestHelper.Put<Archive_Document>(httpContent, messageAction.RequestContent, updateUri);
+
+            if (updatedArchiveDocument.IsFaulted && updatedArchiveDocument.Exception != null)
+                throw updatedArchiveDocument.Exception?.InnerException;
+
+            return ArchiveDataTransferObjectConverter.FromDataTransferObject(await updatedArchiveDocument.ConfigureAwait(false));
         }
 
         public async Task DeleteDocument(ArchiveDocument archiveDocument)

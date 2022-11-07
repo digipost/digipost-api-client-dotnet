@@ -8,16 +8,15 @@ using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Send.Actions
 {
-    internal class MessageAction : DigipostAction
+    internal class MessageAction : DigipostAction<IMessage>
     {
         public MessageAction(IMessage message)
             : base(message)
         {
         }
 
-        internal override HttpContent Content(IRequestContent requestContent)
+        internal override HttpContent Content(IMessage message)
         {
-            var message = requestContent as IMessage;
             var boundary = Guid.NewGuid().ToString();
 
             var multipartFormDataContent = new MultipartFormDataContent(boundary);
@@ -32,7 +31,7 @@ namespace Digipost.Api.Client.Send.Actions
             return multipartFormDataContent;
         }
 
-        protected override string Serialize(IRequestContent requestContent)
+        protected override string Serialize(IMessage requestContent)
         {
             var messageDataTransferObject = SendDataTransferObjectConverter.ToDataTransferObject((Message) requestContent);
             return SerializeUtil.Serialize(messageDataTransferObject);

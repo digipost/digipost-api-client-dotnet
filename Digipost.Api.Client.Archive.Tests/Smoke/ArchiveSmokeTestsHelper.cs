@@ -19,6 +19,7 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
         private readonly ArchiveApi _archiveApi;
         private Archive _archivesWithDocuments;
         private Archive _archive;
+        private Archive _byAttribute;
 
         private static readonly Func<string, string> FileContent = identifyingText => $@"
 _____ __  _______  __ __ _____________________________
@@ -79,9 +80,28 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
                 ["smoke"] = "test"
             };
 
-            var byAttribute = _archiveApi.FetchArchiveDocuments(_archive, searchBy);
+            _byAttribute = _archiveApi.FetchArchiveDocuments(_archive, searchBy);
 
-            Assert.NotEmpty(byAttribute.ArchiveDocuments);
+            Assert.NotEmpty(_byAttribute.ArchiveDocuments);
+            return this;
+        }
+
+        public ArchiveSmokeTestsHelper Update_attritbutesOnFirst()
+        {
+            Assert_state(_byAttribute);
+
+            var documentToUpdate = _byAttribute.ArchiveDocuments[0];
+            documentToUpdate.ReferenceId = "TheBoss";
+            documentToUpdate.WithAttribute("nr", "007");
+
+            var updateDocument = _archiveApi.UpdateDocument(documentToUpdate);
+
+            Assert.Equal("TheBoss", updateDocument.Result.ReferenceId);
+            Assert.True(updateDocument.Result.Attributes.ContainsKey("nr"));
+            Assert.True(updateDocument.Result.Attributes.ContainsValue("007"));
+            Assert.True(updateDocument.Result.Attributes.ContainsKey("smoke"));
+            Assert.True(updateDocument.Result.Attributes.ContainsValue("test"));
+
             return this;
         }
 

@@ -5,7 +5,7 @@ using Digipost.Api.Client.Common.Entrypoint;
 
 namespace Digipost.Api.Client.Archive
 {
-    public class ArchiveDocument : RestLinkable
+    public class ArchiveDocument : RestLinkable, IRequestContent
     {
         internal ArchiveDocument(Guid id, string fileName, string fileType, string contentType)
         {

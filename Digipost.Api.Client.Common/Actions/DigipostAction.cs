@@ -3,20 +3,20 @@ using System.Xml;
 
 namespace Digipost.Api.Client.Common.Actions
 {
-    public abstract class DigipostAction
+    public abstract class DigipostAction<T> where T: IRequestContent
     {
-        protected DigipostAction(IRequestContent requestContent)
+        protected DigipostAction(T requestContent)
         {
             InitializeRequestXmlContent(requestContent);
         }
 
         public XmlDocument RequestContent { get; internal set; }
 
-        internal abstract HttpContent Content(IRequestContent requestContent);
+        internal abstract HttpContent Content(T requestContent);
 
-        protected abstract string Serialize(IRequestContent requestContent);
+        protected abstract string Serialize(T requestContent);
 
-        private void InitializeRequestXmlContent(IRequestContent requestContent)
+        private void InitializeRequestXmlContent(T requestContent)
         {
             if (requestContent == null) return;
 

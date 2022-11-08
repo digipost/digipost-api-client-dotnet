@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
             var broker = new Broker(testSender.Id);
 
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
-            
+
             _client = new DigipostClient(
                 new ClientConfig(broker, testSender.Environment),
                 testSender.Certificate,
@@ -47,7 +47,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
             Assert.True(_inboxDocuments.Any());
 
             _inboxDocument = _inboxDocuments.First();
-            
+
             return this;
         }
 
@@ -55,7 +55,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         {
             Assert_state(_inboxDocument);
 
-            var documentStream = _inbox.FetchDocument(_inboxDocument).Result;
+            var documentStream = _inbox.FetchDocument(_inboxDocument.GetGetDocumentContentUri()).Result;
 
             Assert.Equal(true, documentStream.CanRead);
             Assert.True(documentStream.Length > 500);
@@ -67,7 +67,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
         {
             Assert_state(_inboxDocument);
 
-            _inbox.DeleteDocument(_inboxDocument).Wait();
+            _inbox.DeleteDocument(_inboxDocument.GetDeleteUri()).Wait();
 
             return this;
         }

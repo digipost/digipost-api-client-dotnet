@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common;
 using V8;
-using Link = Digipost.Api.Client.Common.Entrypoint.Link;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -56,14 +54,6 @@ namespace Digipost.Api.Client.Archive
             return dto;
         }
 
-        public static Dictionary<string, Link> FromDataTransferObject(IEnumerable<V8.Link> links)
-        {
-            return links.ToDictionary(
-                l => l.Rel.Substring(l.Rel.LastIndexOf('/') + 1).ToUpper(),
-                link => new Link(link.Uri) {Rel = link.Rel, MediaType = link.Media_Type}
-            );
-        }
-
         public static ArchiveDocument FromDataTransferObject(Archive_Document ad)
         {
             return new ArchiveDocument(
@@ -78,7 +68,7 @@ namespace Digipost.Api.Client.Archive
                 ArchiveTime = ad.Archived_Time,
                 DeletionTime = ad.Deletion_Time,
                 Attributes = ad.Attributes.ToDictionary(ada => ada.Key, ada => ada.Value),
-                Links = FromDataTransferObject(ad.Link)
+                Links = DataTransferObjectConverter.FromDataTransferObject(ad.Link)
             };
         }
 
@@ -87,8 +77,13 @@ namespace Digipost.Api.Client.Archive
             return new Archive(a.Name, new Sender(a.Sender_Id))
             {
                 ArchiveDocuments = a.Documents.Select(FromDataTransferObject).ToList(),
-                Links = FromDataTransferObject(a.Link)
+                Links =DataTransferObjectConverter.FromDataTransferObject(a.Link)
             };
+        }
+
+        public static ArchiveDocumentContent FromDataTransferObject(Archive_Document_Content result)
+        {
+            return new ArchiveDocumentContent(result.Content_Type, new Uri(result.Uri, UriKind.Absolute));
         }
     }
 }

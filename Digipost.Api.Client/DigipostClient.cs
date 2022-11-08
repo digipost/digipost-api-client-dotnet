@@ -8,6 +8,7 @@ using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
@@ -51,7 +52,7 @@ namespace Digipost.Api.Client
 
         private SendMessageApi _sendMessageApi()
         {
-            return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot());
+            return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot(new ApiRootUri()));
         }
 
         private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)
@@ -72,14 +73,13 @@ namespace Digipost.Api.Client
             return httpClient;
         }
 
-        public Root GetRoot(Sender senderId = null)
+        public Root GetRoot(ApiRootUri apiRootUri)
         {
-            var currentSenderId = senderId == null ? "" : senderId.Id.ToString();
-            var cacheKey = "root" + currentSenderId;
+            var cacheKey = "root" + apiRootUri;
 
             if (_entrypointCache.TryGetValue(cacheKey, out Root root)) return root;
 
-            var result = _requestHelper.Get<V8.Entrypoint>(new Uri($"/{currentSenderId}", UriKind.Relative)).ConfigureAwait(false);
+            var result = _requestHelper.Get<V8.Entrypoint>(apiRootUri).ConfigureAwait(false);
             var entrypoint = result.GetAwaiter().GetResult();
 
             root = DataTransferObjectConverter.FromDataTransferObject(entrypoint);
@@ -94,12 +94,12 @@ namespace Digipost.Api.Client
 
         public Inbox.Inbox GetInbox(Sender senderId)
         {
-            return new Inbox.Inbox(_requestHelper, GetRoot(senderId));
+            return new Inbox.Inbox(_requestHelper, GetRoot(new ApiRootUri(senderId)));
         }
 
         public Archive.ArchiveApi GetArchive(Sender senderId)
         {
-            return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(senderId));
+            return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
         }
 
         public IIdentificationResult Identify(IIdentification identification)

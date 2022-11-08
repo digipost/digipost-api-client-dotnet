@@ -19,6 +19,7 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
                 .Get_Archive(ArchiveSmokeTestsHelper.ArchiveName)
                 .Get_All_Documents()
                 .Get_Documents()
+                .Get_DocumentsByReferenceId()
                 .Delete_All_Documents();
         }
 

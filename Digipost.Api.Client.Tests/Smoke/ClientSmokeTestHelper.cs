@@ -7,6 +7,7 @@ using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
@@ -48,7 +49,7 @@ namespace Digipost.Api.Client.Tests.Smoke
 
             _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
 
-            _root = _digipostClient.GetRoot();
+            _root = _digipostClient.GetRoot(new ApiRootUri());
         }
 
         public ClientSmokeTestHelper HasRoot()

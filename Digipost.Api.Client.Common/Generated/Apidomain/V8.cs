@@ -2712,6 +2712,35 @@ namespace V8
         public Inbox_Document()
         {
             this._attachment = new System.Collections.ObjectModel.Collection<Inbox_Document>();
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Link> _link;
+        
+        [System.Xml.Serialization.XmlElementAttribute("link")]
+        public System.Collections.ObjectModel.Collection<Link> Link
+        {
+            get
+            {
+                return this._link;
+            }
+            private set
+            {
+                this._link = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Link collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LinkSpecified
+        {
+            get
+            {
+                return (this.Link.Count != 0);
+            }
         }
     }
     

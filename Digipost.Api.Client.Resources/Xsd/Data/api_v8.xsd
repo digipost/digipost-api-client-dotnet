@@ -1139,11 +1139,12 @@
             <xsd:element name="first-accessed" type="xsd:dateTime" minOccurs="0" maxOccurs="1" />
             <xsd:element name="authentication-level" type="authentication-level" minOccurs="1" maxOccurs="1" />
             <xsd:element name="content-type" type="xsd:string" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="content-uri" type="xsd:string" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="delete-uri" type="xsd:string" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="content-uri" type="xsd:string" minOccurs="0" maxOccurs="1" /> <!-- deprecated, bruk link -->
+            <xsd:element name="delete-uri" type="xsd:string" minOccurs="0" maxOccurs="1" /> <!-- deprecated, bruk link -->
             <xsd:sequence>
                 <xsd:element name="attachment" type="inbox-document" minOccurs="0" maxOccurs="unbounded" />
             </xsd:sequence>
+            <xsd:element name="link" type="link" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
 

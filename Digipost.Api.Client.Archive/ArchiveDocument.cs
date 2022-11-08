@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
+using Digipost.Api.Client.Common.Relations;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -76,29 +77,29 @@ namespace Digipost.Api.Client.Archive
 
         public byte[] ContentBytes { get; set; }
 
-        public Uri DocumentByUuidUri()
+        public GetArchiveDocumentByUuidUri GetArchiveDocumentByUuidUri()
         {
-            return Links["GET_ARCHIVE_DOCUMENT_BY_UUID"].AbsoluteUri();
+            return new GetArchiveDocumentByUuidUri(Links["GET_ARCHIVE_DOCUMENT_BY_UUID"]);
         }
 
-        public Uri DocumentContentUri()
+        public ArchiveDocumentContentUri DocumentContentUri()
         {
-            return Links["GET_ARCHIVE_DOCUMENT_CONTENT"].AbsoluteUri();
+            return new ArchiveDocumentContentUri(Links["GET_ARCHIVE_DOCUMENT_CONTENT"]);
         }
 
-        public Uri DocumentContentStreamUri()
+        public ArchiveDocumentContentStreamUri GetDocumentContentStreamUri()
         {
-            return Links["GET_ARCHIVE_DOCUMENT_CONTENT_STREAM"].AbsoluteUri();
+            return new ArchiveDocumentContentStreamUri(Links["GET_ARCHIVE_DOCUMENT_CONTENT_STREAM"]);
         }
 
-        public Uri UpdateUri()
+        public ArchiveDocumentUpdateUri GetUpdateUri()
         {
-            return Links["SELF_UPDATE"].AbsoluteUri();
+            return new ArchiveDocumentUpdateUri(Links["SELF_UPDATE"]);
         }
 
-        public Uri DeleteUri()
+        public ArchiveDocumentDeleteUri GetDeleteUri()
         {
-            return Links["SELF_DELETE"].AbsoluteUri();
+            return new ArchiveDocumentDeleteUri(Links["SELF_DELETE"]);
         }
     }
 }

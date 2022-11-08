@@ -40,7 +40,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
             var client = new DigipostClient(
-                new ClientConfig(broker, testSender.Environment){LogRequestAndResponse = true},
+                new ClientConfig(broker, testSender.Environment) {LogRequestAndResponse = true},
                 testSender.Certificate,
                 serviceProvider.GetService<ILoggerFactory>()
             );
@@ -65,7 +65,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
         {
             Assert_state(_archive);
 
-            _archivesWithDocuments = _archiveApi.FetchArchiveDocuments(_archive);
+            _archivesWithDocuments = _archiveApi.FetchArchiveDocuments(_archive.GetNextDocumentsUri()).Result;
 
             Assert.NotEmpty(_archivesWithDocuments.ArchiveDocuments);
             return this;
@@ -80,7 +80,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
                 ["smoke"] = "test"
             };
 
-            _byAttribute = _archiveApi.FetchArchiveDocuments(_archive, searchBy);
+            _byAttribute = _archiveApi.FetchArchiveDocuments(_archive.GetNextDocumentsUri(searchBy)).Result;
 
             Assert.NotEmpty(_byAttribute.ArchiveDocuments);
             return this;
@@ -94,7 +94,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             documentToUpdate.ReferenceId = "TheBoss";
             documentToUpdate.WithAttribute("nr", "007");
 
-            var updateDocument = _archiveApi.UpdateDocument(documentToUpdate);
+            var updateDocument = _archiveApi.UpdateDocument(documentToUpdate, documentToUpdate.GetUpdateUri());
 
             Assert.Equal("TheBoss", updateDocument.Result.ReferenceId);
             Assert.True(updateDocument.Result.Attributes.ContainsKey("nr"));
@@ -120,13 +120,24 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             return this;
         }
 
+        public ArchiveSmokeTestsHelper Get_DocumentsByReferenceId()
+        {
+            Assert_state(_archivesWithDocuments);
+            Assert.NotEmpty(_archivesWithDocuments.ArchiveDocuments);
+
+            var list = _archiveApi.FetchArchiveDocumentsByReferenceId("TheBoss").Result;
+            Assert.Equal("TheBoss", list.First().ArchiveDocuments[0].ReferenceId);
+
+            return this;
+        }
+
         public ArchiveSmokeTestsHelper Delete_All_Documents()
         {
             Assert_state(_archivesWithDocuments);
             Assert.NotEmpty(_archivesWithDocuments.ArchiveDocuments);
             foreach (var archiveDocument in _archivesWithDocuments.ArchiveDocuments)
             {
-                _archiveApi.DeleteDocument(archiveDocument).Wait();
+                _archiveApi.DeleteDocument(archiveDocument.GetDeleteUri()).Wait();
             }
 
             return this;
@@ -141,7 +152,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
                         .WithAttribute("smoke", "test")
                 );
 
-            _archive = _archiveApi.ArchiveDocuments(withArchiveDocument);
+            _archive = _archiveApi.ArchiveDocuments(withArchiveDocument).Result;
 
             Assert.NotEmpty(_archive.ArchiveDocuments);
 

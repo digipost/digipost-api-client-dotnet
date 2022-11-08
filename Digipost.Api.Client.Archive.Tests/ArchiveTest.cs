@@ -22,13 +22,13 @@ namespace Digipost.Api.Client.Archive.Tests
             };
 
             Assert.True(archive.HasMoreDocuments());
-            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0", archive.NextDocumentsUri().ToString());
+            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0", archive.GetNextDocumentsUri().ToString());
 
             var searchBy = new Dictionary<string, string>
             {
                 ["key"] = "val"
             };
-            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0&attributes=a2V5LHZhbA==", archive.NextDocumentsUri(searchBy).ToString());
+            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0&attributes=a2V5LHZhbA==", archive.GetNextDocumentsUri(searchBy).ToString());
         }
     }
 }

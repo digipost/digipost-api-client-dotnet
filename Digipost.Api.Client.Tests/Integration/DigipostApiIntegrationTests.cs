@@ -65,11 +65,16 @@ namespace Digipost.Api.Client.Tests.Integration
 
             var requestHelper = new RequestHelper(httpClient, serviceProvider.GetService<ILoggerFactory>()) {HttpClient = httpClient};
 
-            var links = new List<Link>();
-            links.Add(new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/recipient/search") {Rel = httpClient.BaseAddress + "relations/search"});
-            links.Add(new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/identification") {Rel = httpClient.BaseAddress + "relations/identify_recipient"});
-            links.Add(new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/message") {Rel = httpClient.BaseAddress + "relations/create_message"});
-            var root = new Root("", links);
+            var links = new Dictionary<string, Link>
+            {
+                ["SEARCH"] = new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/recipient/search") {Rel = httpClient.BaseAddress + "relations/search"},
+                ["IDENTIFY_RECIPIENT"] = new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/identification") {Rel = httpClient.BaseAddress + "relations/identify_recipient"},
+                ["CREATE_MESSAGE"] = new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/message") {Rel = httpClient.BaseAddress + "relations/create_message"}
+            };
+            var root = new Root("")
+            {
+                Links = links
+            };
 
             var digipostApi = new SendMessageApi(new SendRequestHelper(requestHelper), serviceProvider.GetService<ILoggerFactory>(), root);
             return digipostApi;

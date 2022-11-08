@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using Digipost.Api.Client.Common;
-using static System.Convert;
+using Digipost.Api.Client.Common.Relations;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -26,6 +22,7 @@ namespace Digipost.Api.Client.Archive
             Name = name;
             Sender = sender;
             ArchiveDocuments = new List<ArchiveDocument>();
+            ArchiveDocuments.AddRange(archiveDocuments);
         }
 
         public Archive WithArchiveDocument(ArchiveDocument archiveDocument)
@@ -46,6 +43,11 @@ namespace Digipost.Api.Client.Archive
 
         public List<ArchiveDocument> ArchiveDocuments { get; set; }
 
+        public ArchiveDocument One()
+        {
+            return ArchiveDocuments[0];
+        }
+
         /// <summary>
         /// True if you can fetch more documents from the archive
         /// </summary>
@@ -60,26 +62,14 @@ namespace Digipost.Api.Client.Archive
         /// over documents in an archive means looping until the relation hasMoreDocuments() => false
         /// </summary>
         /// <returns></returns>
-        public Uri NextDocumentsUri()
+        public ArchiveNextDocumentsUri GetNextDocumentsUri()
         {
-            return Links["NEXT_DOCUMENTS"].AbsoluteUri();
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"]);
         }
 
-        public Uri NextDocumentsUri(Dictionary<string, string> searchBy)
+        public ArchiveNextDocumentsUri GetNextDocumentsUri(Dictionary<string, string> searchBy)
         {
-            var nextDocumentsUri = Links["NEXT_DOCUMENTS"].AbsoluteUri();
-
-            var query = HttpUtility.ParseQueryString(nextDocumentsUri.Query);
-            var commaSeparated = string.Join(",", searchBy.Select(x => x.Key + "," + x.Value).ToArray());
-            var base64 = ToBase64String(Encoding.UTF8.GetBytes(commaSeparated));
-
-            query["attributes"] = "";
-            var uriBuilder = new UriBuilder(nextDocumentsUri)
-            {
-                Query = query + base64
-            };
-
-            return new Uri(uriBuilder.ToString());
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"], searchBy);
         }
     }
 }

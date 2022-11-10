@@ -28,6 +28,13 @@ namespace Digipost.Api.Client.Tests.Utilities
                         Environment.Qa,
                         new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
                     );
+                case TestEnvironment.Local:
+                    return new TestSender(
+                        1111,
+                        CertificateReader.ReadCertificate(),
+                        Environment.Local,
+                        new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
+                    );
                 default:
                     throw new ArgumentOutOfRangeException(nameof(testEnvironment), testEnvironment, null);
             }
@@ -37,7 +44,8 @@ namespace Digipost.Api.Client.Tests.Utilities
     internal enum TestEnvironment
     {
         DifiTest,
-        Qa
+        Qa,
+        Local
     }
 
     internal class TestSender

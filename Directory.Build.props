@@ -7,7 +7,7 @@
 
         <Authors>Digipost AS</Authors>
         <Company>Posten Norge AS</Company>
-        <Copyright>Copyright © 2019 Posten Norge AS</Copyright>
+        <Copyright>Copyright © 2022 Posten Norge AS</Copyright>
 
         <PackageProjectUrl>https://github.com/digipost/digipost-api-client-dotnet/</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

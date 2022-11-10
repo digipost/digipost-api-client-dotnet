@@ -36,6 +36,15 @@ namespace Digipost.Api.Client.Common.Utilities
             return Send<T>(HttpClient.GetAsync(uri));
         }
 
+        internal Task<T> Put<T>(HttpContent httpContent, XmlDocument messageActionRequestContent, Uri uri, bool skipMetaDataValidation = false)
+        {
+            ValidateXml(messageActionRequestContent, skipMetaDataValidation);
+
+            var postAsync = HttpClient.PutAsync(uri, httpContent);
+
+            return Send<T>(postAsync);
+        }
+
         internal Task<string> Delete(Uri uri)
         {
             return Send<string>(HttpClient.DeleteAsync(uri));

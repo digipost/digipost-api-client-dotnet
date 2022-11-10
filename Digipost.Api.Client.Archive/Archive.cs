@@ -1,37 +1,70 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Digipost.Api.Client.Common.Entrypoint;
-using Digipost.Api.Client.Common.Utilities;
+using System.Collections.Generic;
+using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Relations;
 
 namespace Digipost.Api.Client.Archive
 {
-    public class Archive : IArchive
+    public class Archive : RestLinkable,IRequestContent
     {
-        private readonly Root _root;
-        private readonly RequestHelper _requestHelper;
 
-        internal Archive(RequestHelper requestHelper, Root root)
+        public Archive(Sender sender, string name = null)
+            : this(sender, new List<ArchiveDocument>(), name)
         {
-            _root = root;
-            _requestHelper = requestHelper;
-        }
-        public Task<Stream> StreamDocumentFromExternalId(String externalId)
-        {
-            var nameUuidFromBytes = UUIDInterop.NameUUIDFromBytes(externalId);
-            return StreamDocumentFromExternalId(Guid.Parse(nameUuidFromBytes));
         }
 
-        public async Task<Stream> StreamDocumentFromExternalId(Guid guid)
+        public Archive(Sender sender, IEnumerable<ArchiveDocument> archiveDocuments, string name = null)
         {
-            var uri  =_root.FindByRelationName("GET_ARCHIVE_DOCUMENT_BY_UUID").Uri;
+            Name = name;
+            Sender = sender;
+            ArchiveDocuments = new List<ArchiveDocument>();
+            ArchiveDocuments.AddRange(archiveDocuments);
+        }
 
-            var documentNyUuid = new Uri($"{uri}/{guid.ToString()}", UriKind.Relative);
-            var archive = await _requestHelper.Get<V8.Archive>(documentNyUuid).ConfigureAwait(false);
-            var first = archive.Documents[0].Link.First(link => link.Rel.ToUpper().EndsWith("GET_ARCHIVE_DOCUMENT_CONTENT_STREAM"));
+        public Archive WithArchiveDocument(ArchiveDocument archiveDocument)
+        {
+            ArchiveDocuments.Add(archiveDocument);
+            return this;
+        }
 
-            return await _requestHelper.GetStream(new Uri(first.Uri, UriKind.Absolute)).ConfigureAwait(false);
+        public Archive WithArchiveDocuments(IEnumerable<ArchiveDocument> archiveDocuments)
+        {
+            ArchiveDocuments.AddRange(archiveDocuments);
+            return this;
+        }
+
+        public string Name { get; }
+
+        public Sender Sender { get; }
+
+        public List<ArchiveDocument> ArchiveDocuments { get; set; }
+
+        public ArchiveDocument One()
+        {
+            return ArchiveDocuments[0];
+        }
+
+        /// <summary>
+        /// True if you can fetch more documents from the archive
+        /// </summary>
+        /// <returns></returns>
+        public bool HasMoreDocuments()
+        {
+            return Links.ContainsKey("NEXT_DOCUMENTS");
+        }
+
+        /// <summary>
+        /// Url to fetch documents. This Url is also used to fetch the first documents. Looping
+        /// over documents in an archive means looping until the relation hasMoreDocuments() => false
+        /// </summary>
+        /// <returns></returns>
+        public ArchiveNextDocumentsUri GetNextDocumentsUri()
+        {
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"]);
+        }
+
+        public ArchiveNextDocumentsUri GetNextDocumentsUri(Dictionary<string, string> searchBy)
+        {
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"], searchBy);
         }
     }
 }

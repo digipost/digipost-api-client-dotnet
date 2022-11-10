@@ -8,14 +8,14 @@ using Digipost.Api.Client.Common.Utilities;
 
 namespace Digipost.Api.Client.Send.Actions
 {
-    internal class IdentificationAction : DigipostAction
+    internal class IdentificationAction : DigipostAction<IIdentification>
     {
         public IdentificationAction(IIdentification identification)
             : base(identification)
         {
         }
 
-        internal override HttpContent Content(IRequestContent requestContent)
+        internal override HttpContent Content(IIdentification requestContent)
         {
             var xmlMessage = Serialize(requestContent);
             var messageContent = new StringContent(xmlMessage);
@@ -28,9 +28,9 @@ namespace Digipost.Api.Client.Send.Actions
             return messageContent;
         }
 
-        protected override string Serialize(IRequestContent requestContent)
+        protected override string Serialize(IIdentification requestContent)
         {
-            var identificationDto = DataTransferObjectConverter.ToDataTransferObject((IIdentification) requestContent);
+            var identificationDto = DataTransferObjectConverter.ToDataTransferObject(requestContent);
             return SerializeUtil.Serialize(identificationDto);
         }
     }

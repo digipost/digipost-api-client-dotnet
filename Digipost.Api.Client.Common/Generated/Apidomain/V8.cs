@@ -1721,6 +1721,9 @@ namespace V8
         
         [System.Xml.Serialization.XmlElementAttribute("print-if-unread")]
         public Print_If_Unread Print_If_Unread { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("batch")]
+        public Batch Batch { get; set; }
     }
     
     /// <summary>
@@ -1769,6 +1772,122 @@ namespace V8
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         [System.Xml.Serialization.XmlElementAttribute("print-details")]
         public Print_Details Print_Details { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("batch", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("batch", Namespace="http://api.digipost.no/schema/v8")]
+    public partial class Batch
+    {
+        
+        /// <summary>
+        /// <para>A UUID (Universally unique identifier). This ID must be globally unique for the sender.
+        ///                With Java, a UUID can be created using UUID.randomUUID(), whereas
+        ///                System.Guid.NewGuid() can be used in .NET C#.</para>
+        /// <para xml:lang="en">Pattern: [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}.</para>
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("uuid")]
+        public string Uuid { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("status")]
+        public Batch_Status Status { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Status property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StatusSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("count-digipost")]
+        public int Count_Digipost { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Count_Digipost property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Count_DigipostSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("count-print")]
+        public int Count_Print { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Count_Print property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Count_PrintSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Link> _link;
+        
+        [System.Xml.Serialization.XmlElementAttribute("link")]
+        public System.Collections.ObjectModel.Collection<Link> Link
+        {
+            get
+            {
+                return this._link;
+            }
+            private set
+            {
+                this._link = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Link collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LinkSpecified
+        {
+            get
+            {
+                return (this.Link.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Batch" /> class.</para>
+        /// </summary>
+        public Batch()
+        {
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("batch-status", Namespace="http://api.digipost.no/schema/v8")]
+    public enum Batch_Status
+    {
+        
+        /// <summary>
+        /// <para>The batch is created and is ready to receive documents.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("The batch is created and is ready to receive documents.")]
+        CREATED,
+        
+        /// <summary>
+        /// <para>The batch has received documents and can receive more documents.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("The batch has received documents and can receive more documents.")]
+        NOT_COMMITTED,
+        
+        /// <summary>
+        /// <para>The batch has been committed and documents are being processed. The batch can not receive any more documents.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("The batch has been committed and documents are being processed. The batch can not" +
+            " receive any more documents.")]
+        COMMITTED,
+        
+        /// <summary>
+        /// <para>The batch has finished processing. Final statistics can now be fetched.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("The batch has finished processing. Final statistics can now be fetched.")]
+        DONE,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
@@ -2214,6 +2333,7 @@ namespace V8
     [System.Xml.Serialization.XmlTypeAttribute("event-metadata", Namespace="http://api.digipost.no/schema/v8")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Email_Delivered_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Email_Notification_Failed_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Failed_Peppol_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Failed_Print_Metadata))]
@@ -2376,6 +2496,19 @@ namespace V8
         
         [System.Xml.Serialization.XmlAttributeAttribute("technical-type")]
         public string Technical_Type { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("email-delivered-metadata", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Email_Delivered_Metadata : Event_Metadata
+    {
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlAttributeAttribute("email-address")]
+        public string Email_Address { get; set; }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
@@ -2579,6 +2712,35 @@ namespace V8
         public Inbox_Document()
         {
             this._attachment = new System.Collections.ObjectModel.Collection<Inbox_Document>();
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Link> _link;
+        
+        [System.Xml.Serialization.XmlElementAttribute("link")]
+        public System.Collections.ObjectModel.Collection<Link> Link
+        {
+            get
+            {
+                return this._link;
+            }
+            private set
+            {
+                this._link = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Link collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LinkSpecified
+        {
+            get
+            {
+                return (this.Link.Count != 0);
+            }
         }
     }
     
@@ -2641,8 +2803,8 @@ namespace V8
         
         /// <summary>
         /// <para>The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
-        ///							on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
-        ///							on its behalf.</para>
+        ///                            on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
+        ///                            on its behalf.</para>
         /// </summary>
         [System.ComponentModel.DescriptionAttribute("The actual sender of the message. This is used in scenarios where one party, the " +
             "broker, is creating a message on behalf of another, the sender. It is only possi" +
@@ -2746,8 +2908,8 @@ namespace V8
         
         /// <summary>
         /// <para>The actual sender of the message. This is used in scenarios where one party, the broker, is creating a message
-        ///							on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
-        ///							on its behalf.</para>
+        ///                            on behalf of another, the sender. It is only possible if the sender has granted the broker the right to send
+        ///                            on its behalf.</para>
         /// </summary>
         [System.ComponentModel.DescriptionAttribute("The actual sender of the message. This is used in scenarios where one party, the " +
             "broker, is creating a message on behalf of another, the sender. It is only possi" +
@@ -2877,6 +3039,43 @@ namespace V8
         [System.Xml.Serialization.XmlElementAttribute("content-hash")]
         public Content_Hash Content_Hash { get; set; }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Archive_Document_Attribute> _attributes;
+        
+        [System.Xml.Serialization.XmlElementAttribute("attributes")]
+        public System.Collections.ObjectModel.Collection<Archive_Document_Attribute> Attributes
+        {
+            get
+            {
+                return this._attributes;
+            }
+            private set
+            {
+                this._attributes = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Attributes collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool AttributesSpecified
+        {
+            get
+            {
+                return (this.Attributes.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Archive_Document" /> class.</para>
+        /// </summary>
+        public Archive_Document()
+        {
+            this._attributes = new System.Collections.ObjectModel.Collection<Archive_Document_Attribute>();
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+        
         [System.Xml.Serialization.XmlElementAttribute("archived-time", DataType="dateTime")]
         public System.DateTime Archived_Time { get; set; }
         
@@ -2922,14 +3121,32 @@ namespace V8
                 return (this.Link.Count != 0);
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("archive-document-attribute", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("archive-document-attribute", Namespace="http://api.digipost.no/schema/v8")]
+    public partial class Archive_Document_Attribute
+    {
         
         /// <summary>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="Archive_Document" /> class.</para>
+        /// <para xml:lang="en">Maximum length: 20.</para>
         /// </summary>
-        public Archive_Document()
-        {
-            this._link = new System.Collections.ObjectModel.Collection<Link>();
-        }
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(20)]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("key")]
+        public string Key { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Maximum length: 100.</para>
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(100)]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("value")]
+        public string Value { get; set; }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]

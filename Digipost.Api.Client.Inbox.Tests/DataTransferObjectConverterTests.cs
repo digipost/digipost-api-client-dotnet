@@ -26,8 +26,6 @@ namespace Digipost.Api.Client.Inbox.Tests
                 {
                     Authentication_Level = Authentication_Level.PASSWORD,
                     Content_Type = contentType,
-                    Content_Uri = content,
-                    Delete_Uri = deleteUri,
                     Delivery_Time = deliveryTime,
                     First_Accessed = firstAccessed,
                     First_AccessedSpecified = true,
@@ -39,8 +37,6 @@ namespace Digipost.Api.Client.Inbox.Tests
                 {
                     AuthenticationLevel = AuthenticationLevel.Password,
                     ContentType = contentType,
-                    Content = new Uri(content),
-                    Delete = new Uri(deleteUri),
                     DeliveryTime = deliveryTime,
                     FirstAccessed = firstAccessed,
                     Id = id,

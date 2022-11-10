@@ -28,9 +28,14 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
             };
             var requestHelper = new RequestHelper(httpClient, new NullLoggerFactory());
 
-            var links = new List<Link>();
-            links.Add(new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/inbox") {Rel = httpClient.BaseAddress + "relations/get_inbox"});
-            var root = new Root("", links);
+            var links = new Dictionary<string, Link>
+            {
+                ["GET_INBOX"] = new Link(httpClient.BaseAddress + $"{DomainUtility.GetSender().Id}/inbox") {Rel = httpClient.BaseAddress + "relations/get_inbox"}
+            };
+            var root = new Root("")
+            {
+                Links = links
+            };
 
             var inbox = new Inbox(requestHelper, root);
             return inbox;
@@ -45,44 +50,6 @@ namespace Digipost.Api.Client.Inbox.Tests.Integration
                 try
                 {
                     _inbox.Fetch().Wait();
-                }
-                catch (AggregateException e)
-                {
-                    exception = e.InnerExceptions.ElementAt(0);
-                }
-
-                Assert.True(exception?.GetType() == typeof(ClientResponseException));
-            }
-        }
-
-        public class FetchDocumentMethod : InboxApiIntegrationTests
-        {
-            [Fact]
-            public void ErrorShouldCauseDigipostResponseException()
-            {
-                Exception exception = null;
-                try
-                {
-                    _inbox.FetchDocument(new InboxDocument()).Wait();
-                }
-                catch (AggregateException e)
-                {
-                    exception = e.InnerExceptions.ElementAt(0);
-                }
-
-                Assert.True(exception?.GetType() == typeof(ClientResponseException));
-            }
-        }
-
-        public class DeleteDocumentMethod : InboxApiIntegrationTests
-        {
-            [Fact]
-            public void ErrorShouldCauseDigipostResponseException()
-            {
-                Exception exception = null;
-                try
-                {
-                    _inbox.DeleteDocument(new InboxDocument()).Wait();
                 }
                 catch (AggregateException e)
                 {

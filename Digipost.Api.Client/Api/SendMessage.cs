@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Send;
@@ -40,9 +41,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug($"Outgoing Digipost message to Recipient: {message.DigipostRecipient}");
 
-            var uri = new Uri(_root.FindByRelationName("CREATE_MESSAGE").Uri, UriKind.Absolute);
-
-            var messageDeliveryResultTask = RequestHelper.PostMessage<V8.Message_Delivery>(message, uri, skipMetaDataValidation);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<V8.Message_Delivery>(message, _root.GetSendMessageUri(), skipMetaDataValidation);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;
@@ -63,9 +62,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug($"Outgoing identification request: {identification}");
 
-            var uri = new Uri(_root.FindByRelationName("IDENTIFY_RECIPIENT").Uri, UriKind.Absolute);
-
-            var identifyResponse = RequestHelper.PostIdentification<V8.Identification_Result>(identification, uri);
+            var identifyResponse = RequestHelper.PostIdentification<V8.Identification_Result>(identification, _root.GetIdentifyRecipientUri());
 
             if (identifyResponse.IsFaulted)
             {
@@ -95,7 +92,7 @@ namespace Digipost.Api.Client.Api
             _logger.LogDebug($"Outgoing search request, term: '{search}'.");
 
             search = search.RemoveReservedUriCharacters();
-            var uri = new Uri($"{_root.FindByRelationName("SEARCH").Uri}/{Uri.EscapeUriString(search)}", UriKind.Absolute);
+            var uri = _root.GetRecipientSearchUri(search);
 
             if (search.Length < MinimumSearchLength)
             {

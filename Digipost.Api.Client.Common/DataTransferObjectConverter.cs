@@ -16,6 +16,14 @@ namespace Digipost.Api.Client.Common
 {
     internal static class DataTransferObjectConverter
     {
+        public static Dictionary<string, Link> FromDataTransferObject(IEnumerable<V8.Link> links)
+        {
+            return links.ToDictionary(
+                l => l.Rel.Substring(l.Rel.LastIndexOf('/') + 1).ToUpper(),
+                link => new Link(link.Uri) {Rel = link.Rel, MediaType = link.Media_Type}
+            );
+        }
+
         public static Identification ToDataTransferObject(IIdentification identification)
         {
             Identification identificationDto = null;
@@ -310,15 +318,9 @@ namespace Digipost.Api.Client.Common
 
         public static Root FromDataTransferObject(V8.Entrypoint entrypoint)
         {
-            return new Root(entrypoint.Certificate, entrypoint.Link.Select(FromDataTransferObject).ToList());
-        }
-
-        public static Link FromDataTransferObject(V8.Link link)
-        {
-            return new Link(link.Uri)
+            return new Root(entrypoint.Certificate)
             {
-                Rel = link.Rel,
-                MediaType = link.Media_Type
+                Links = FromDataTransferObject(entrypoint.Link)
             };
         }
 

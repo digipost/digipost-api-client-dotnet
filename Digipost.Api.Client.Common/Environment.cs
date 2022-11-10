@@ -18,6 +18,7 @@ namespace Digipost.Api.Client.Common
         public static Environment DifiTest => new Environment(new Uri("https://api.difitest.digipost.no/"));
 
         internal static Environment Qa => new Environment(new Uri("https://api.qa.digipost.no/"));
+        internal static Environment Local => new Environment(new Uri("http://localhost:8282/"));
 
         public override string ToString()
         {

@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Archive", "Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj", "{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.ArchiveTests", "Digipost.Api.Client.Archive.Tests\Digipost.Api.Client.Archive.Tests.csproj", "{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox", "Digipost.Api.Client.Inbox\Digipost.Api.Client.Inbox.csproj", "{F23C5F66-E398-4234-8FB1-443D958FDF1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Inbox.Tests", "Digipost.Api.Client.Inbox.Tests\Digipost.Api.Client.Inbox.Tests.csproj", "{37678527-9988-46E8-A5D6-8F9533058F67}"
@@ -54,6 +56,10 @@ Global
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23C5F66-E398-4234-8FB1-443D958FDF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU

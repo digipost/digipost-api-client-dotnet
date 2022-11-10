@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Docs
 
             var documentMetadata = (await inbox.Fetch()).First();
 
-            var documentStream = await inbox.FetchDocument(documentMetadata);
+            var documentStream = await inbox.FetchDocument(documentMetadata.GetGetDocumentContentUri());
         }
 
         private async Task Slett_dokument()
@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Docs
 
             var documentMetadata = (await inbox.Fetch()).First();
 
-            await inbox.DeleteDocument(documentMetadata);
+            await inbox.DeleteDocument(documentMetadata.GetDeleteUri());
         }
     }
 }

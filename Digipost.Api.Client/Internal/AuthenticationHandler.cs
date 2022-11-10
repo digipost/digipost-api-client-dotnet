@@ -65,7 +65,7 @@ namespace Digipost.Api.Client.Internal
 
             return $"digipost-api-client-dotnet/{assemblyVersion} (netcore/{GetNetCoreVersion()})";
         }
-        
+
         private static string GetNetCoreVersion()
         {
             try
@@ -91,7 +91,7 @@ namespace Digipost.Api.Client.Internal
         {
             IDigest digest = new Sha256Digest();
             var hash = new byte[digest.GetDigestSize()];
-            
+
             digest.BlockUpdate(inputBytes, 0, inputBytes.Length);
             digest.DoFinal(hash, 0);
 
@@ -118,7 +118,7 @@ namespace Digipost.Api.Client.Internal
                                 "date: " + date + "\n" +
                                 "x-content-sha256: " + contentSha256Hash + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
-                                uriParts.Parameters + "\n";
+                                uriParts.Parameters.ToLower() + "\n";
             }
             else
             {
@@ -126,7 +126,7 @@ namespace Digipost.Api.Client.Internal
                                 uriParts.AbsoluteUri + "\n" +
                                 "date: " + date + "\n" +
                                 "x-digipost-userid: " + userId + "\n" +
-                                uriParts.Parameters + "\n";
+                                uriParts.Parameters.ToLower() + "\n";
             }
 
             if (logRequestAndResponse)
@@ -139,11 +139,11 @@ namespace Digipost.Api.Client.Internal
 
 
             var privKey = DotNetUtilities.GetRsaKeyPair(businessCertificate.GetRSAPrivateKey());
-            
+
             ISigner signer = SignerUtilities.GetSigner("SHA-256withRSA");
             signer.Init(true, privKey.Private);
             signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
-            
+
             var base64Signature = Convert.ToBase64String(signer.GenerateSignature());
 
             return base64Signature;

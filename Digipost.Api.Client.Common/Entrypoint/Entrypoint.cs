@@ -61,7 +61,7 @@ namespace Digipost.Api.Client.Common.Entrypoint
         }
         public GetArchiveDocumentByUuidUri GetGetArchiveDocumentsByUuidUri(string externalId)
         {
-            var nameUuidFromBytes = UUIDInterop.NameUUIDFromBytes(externalId);
+            var nameUuidFromBytes = UuidInterop.NameUuidFromBytes(externalId);
 
             return new GetArchiveDocumentByUuidUri(Links["GET_ARCHIVE_DOCUMENT_BY_UUID"], Guid.Parse(nameUuidFromBytes));
         }

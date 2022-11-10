@@ -132,7 +132,7 @@ IEnumerable<Archive.Archive> fetchArchiveDocumentsByReferenceId = await client.G
 As you can see, it is a list of `Archives` containing `ArchiveDocument`;
 You should choose a ReferenceId in such a way to try and keep the count of documents low so as feasible.
 
-## Get documents by uuid
+## Get documents by externalId or Guid/Uuid
 
 You can retrieve a set of documents by the Guid/UUID that you give the document when you archive it. In the example above
 we use `Guid.NewGuid()` to generate an uuid/guid. You can either store that random uuid in your database for
@@ -142,10 +142,23 @@ You will get in return an instance of `Archive` which contains information on th
 and the actual document. From this you can fetch the actual document.
 
 ```csharp
-ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchArchiveDocument(client.GetRoot(new ApiRootUri()).GetGetArchiveDocumentsByUuidUri(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c")));
+ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c"));
+```
+```csharp
+ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId("MyExternalId");
 ```
 
 You can store your guid that you used at upload time to fetch by `Guid`.
+
+__Note:__
+The reason for having the string and Guid as a parameter is that with the java client it is possible to create an UUID 
+from a string. This is done deterministically. Under normal circumstance you should use `Guid.NewGuid()` when you 
+upload an document and store this id for reference in your system. But if you want to fetch a document that you 
+know is stored by another entity that uses the deterministic UUID approach with java and all you have is the
+original string, then you need to use the string parameterized method.
+Java generates UUID in slightly different manner compared to .NET Guid. Therefore we have implemented the 
+same UUID-generation logic into the client library api. You can use the method `Guid.Parse(UuidInterop.NameUuidFromBytes("MyExternalId""))`
+to create an exact equal value for a _Guid_ compared to _Uuid_.
 
 ## Get content of a document as a single-use link
 You can get the actual content of a document after you have retrieved the archive document. Below is an example of how
@@ -174,7 +187,7 @@ You can add an attribute or change an attribute value, but not delete an attribu
 to empty string. The value of the field for referenceID can be changed as well. 
 
 ```csharp
-ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchArchiveDocument(client.GetRoot(new ApiRootUri()).GetGetArchiveDocumentsByUuidUri(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c")));
+ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c"));
 archiveDocument.WithAttribute("newKey", "foobar")
     .WithReferenceId("MyProcessId[No12341234]Done");
 

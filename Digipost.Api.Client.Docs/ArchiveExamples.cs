@@ -126,7 +126,7 @@ namespace Digipost.Api.Client.Docs
 
         private async void ChangeAttributesReferenceIdOnArchiveDocument()
         {
-            ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchArchiveDocument(client.GetRoot(new ApiRootUri()).GetGetArchiveDocumentsByUuidUri(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c")));
+            ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c"));
             archiveDocument.WithAttribute("newKey", "foobar")
                 .WithReferenceId("MyProcessId[No12341234]Done");
 

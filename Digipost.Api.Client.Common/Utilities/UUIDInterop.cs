@@ -3,9 +3,9 @@ using System.Security.Cryptography;
 
 namespace Digipost.Api.Client.Common.Utilities
 {
-    public class UUIDInterop
+    public static class UuidInterop
     {
-        public static string NameUUIDFromBytes(String input)
+        public static string NameUuidFromBytes(String input)
         {
             MD5 md5 = MD5.Create();
             byte[] hash = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(input));

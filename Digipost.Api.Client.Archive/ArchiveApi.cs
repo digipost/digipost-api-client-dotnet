@@ -25,6 +25,7 @@ namespace Digipost.Api.Client.Archive
         Task<Archive> ArchiveDocumentsAsync(Archive archiveWithDocuments);
 
         Task<IEnumerable<Archive>> FetchArchiveDocumentsByReferenceId(string referenceId);
+
         Task<ArchiveDocument> FetchArchiveDocument(GetArchiveDocumentByUuidUri getArchiveDocumentByUuidUri);
 
         Task<Archive> FetchArchiveDocuments(ArchiveNextDocumentsUri nextDocumentsUri);
@@ -37,6 +38,10 @@ namespace Digipost.Api.Client.Archive
          * This will hash and create a Guid the same way as java UUID.nameUUIDFromBytes
          */
         Task<Archive> GetArchiveDocument(GetArchiveDocumentByUuidUri getArchiveDocumentUri);
+
+        Task<ArchiveDocument> FetchDocumentFromExternalId(String externalId);
+
+        Task<ArchiveDocument> FetchDocumentFromExternalId(Guid externalIdGuid);
 
         Task<Stream> StreamDocumentFromExternalId(String externalId);
 
@@ -143,6 +148,18 @@ namespace Digipost.Api.Client.Archive
             return result;
         }
 
+        public async Task<ArchiveDocument> FetchDocumentFromExternalId(string externalId)
+        {
+            var result = await _requestHelper.Get<Archive_Document>(_root.GetGetArchiveDocumentsByUuidUri(externalId)).ConfigureAwait(false);
+            return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
+        public async Task<ArchiveDocument> FetchDocumentFromExternalId(Guid externalIdGuid)
+        {
+            var result = await _requestHelper.Get<Archive_Document>(_root.GetGetArchiveDocumentsByUuidUri(externalIdGuid)).ConfigureAwait(false);
+            return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
+        }
+
         public async Task<Stream> StreamDocumentFromExternalId(string externalId)
         {
             var archive = GetArchiveDocument(_root.GetGetArchiveDocumentsByUuidUri(externalId)).Result;
@@ -166,7 +183,7 @@ namespace Digipost.Api.Client.Archive
 
         public async Task<ArchiveDocumentContent> GetDocumentContent(ArchiveDocumentContentUri archiveDocumentContentUri)
         {
-            var result = await _requestHelper.Get<V8.Archive_Document_Content>(archiveDocumentContentUri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<Archive_Document_Content>(archiveDocumentContentUri).ConfigureAwait(false);
 
             return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
         }

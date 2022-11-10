@@ -13,7 +13,7 @@ namespace Digipost.Api.Client.Common.Tests.Utilities
             var startString = "per er kul";
 
             //Act
-            var result = UUIDInterop.NameUUIDFromBytes(startString);
+            var result = UuidInterop.NameUuidFromBytes(startString);
 
             //Assert
             Assert.Equal("46f45680-1c6e-3425-bc1b-182a9928549f", result);

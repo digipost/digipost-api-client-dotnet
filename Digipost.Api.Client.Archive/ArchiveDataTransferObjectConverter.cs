@@ -74,7 +74,7 @@ namespace Digipost.Api.Client.Archive
 
         public static Archive FromDataTransferObject(V8.Archive a)
         {
-            return new Archive(a.Name, new Sender(a.Sender_Id))
+            return new Archive(new Sender(a.Sender_Id), a.Name)
             {
                 ArchiveDocuments = a.Documents.Select(FromDataTransferObject).ToList(),
                 Links =DataTransferObjectConverter.FromDataTransferObject(a.Link)

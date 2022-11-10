@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Archive.Tests
                     Sender_Id = 1010,
                 };
 
-                var expected = new Archive("per", new Sender(1010));
+                var expected = new Archive(new Sender(1010), "per");
 
                 var actual = ArchiveDataTransferObjectConverter.FromDataTransferObject(source);
 

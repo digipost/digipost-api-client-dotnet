@@ -97,7 +97,7 @@ namespace Digipost.Api.Client
             return new Inbox.Inbox(_requestHelper, GetRoot(new ApiRootUri(senderId)));
         }
 
-        public Archive.ArchiveApi GetArchive(Sender senderId)
+        public Archive.ArchiveApi GetArchive(Sender senderId = null)
         {
             return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
         }

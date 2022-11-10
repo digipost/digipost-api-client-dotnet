@@ -7,17 +7,12 @@ namespace Digipost.Api.Client.Archive
     public class Archive : RestLinkable,IRequestContent
     {
 
-        internal Archive(Sender sender)
-            : this(null, sender, new List<ArchiveDocument>())
+        public Archive(Sender sender, string name = null)
+            : this(sender, new List<ArchiveDocument>(), name)
         {
         }
 
-        internal Archive(string name, Sender sender)
-            : this(name, sender, new List<ArchiveDocument>())
-        {
-        }
-
-        public Archive(string name, Sender sender, IEnumerable<ArchiveDocument> archiveDocuments)
+        public Archive(Sender sender, IEnumerable<ArchiveDocument> archiveDocuments, string name = null)
         {
             Name = name;
             Sender = sender;

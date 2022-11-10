@@ -23,9 +23,9 @@ var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
 
 ### Get documents inbox
 
-The inbox call outputs a list of documents ordered by `DeliveryTime`. `Offset` is the start index of the list, and `limit` is the max number of documents to be returned. The `offset` and `limit` is therefore not in any way connected to `InboxDocument.Id`. 
+The inbox call outputs a list of documents ordered by `DeliveryTime`. `Offset` is the start index of the list, and `limit` is the max number of documents to be returned. The `offset` and `limit` are therefore not in any way connected to `InboxDocument.Id`. 
 
-The values `offset` and `limit` is meant for pagination so that one can fetch 100 and then the next 100. 
+The values `offset` and `limit` are meant for pagination so that one can fetch 100 and then the next 100. 
 
 
 ``` csharp

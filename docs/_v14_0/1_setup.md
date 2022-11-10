@@ -152,9 +152,9 @@ var client = new DigipostClient(clientConfig, enterpriseCertificate);
 
 ### Load root element of Digipost rest api
 
-Digipost api is restful. If you query the root you will get a response containing 
-Digipost public key and a list of resources you can use with your sender or as a broker for a sender. This
-information is used behind the scenes by the client library to get the correct urls for different resources.
+The Digipost API is a HATEOAS-driven REST API. If you query the root you will get a response containing
+the Digipost public key and a list of hyperlinks to resources you can use with your sender or as a broker 
+for a sender. This information is used behind the scenes by the client library to get the correct urls for different resources.
 
 Fetch the default root. This root is normally what you want to use if you are not a broker for another sender.
 ```csharp

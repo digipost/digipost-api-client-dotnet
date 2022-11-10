@@ -42,7 +42,7 @@ IEnumerable<Archive.Archive> fetchedArchives = await client.GetArchive().FetchAr
 
 ## Iterate documents in an archive
 You _can_ get content of an archive with paged requests. Under is an example of how to iterate
-an archive. However, it's use is strongly discouraged because it leads to the idea that
+an archive. However, its use is strongly discouraged because it leads to the idea that
 an archive can be iterated. We expect an archive to possibly reach many million rows so the iteration
 will possibly give huge loads. On the other hand being able to dump all data is a necessary feature of any archive.
 
@@ -70,7 +70,7 @@ For each iteration above you will get 100 documents.
 
 ## Archive Document attributes
 You can add optional attributes to documents. An attribute is a key/val string-dictionary that describe documents. You can add
-up to 15 attributes pr. archive document. The attribute key and value is case sensitive.
+up to 15 attributes per archive document. The attribute's key and value are case sensitive.
 
 ```csharp
 var archiveDocument = new ArchiveDocument(Guid.NewGuid(), "invoice_123123.pdf", "pdf", "application/psd", readFileFromDisk("invoice_123123.pdf"))

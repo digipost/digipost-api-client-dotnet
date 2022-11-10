@@ -79,7 +79,7 @@ namespace Digipost.Api.Client.Docs
             var fetchArchiveDocuments = client.GetArchive().FetchArchiveDocuments(archive.GetNextDocumentsUri(searchBy)).Result;
             var documents = fetchArchiveDocuments.ArchiveDocuments;
 
-            // documents now have te first 100 ArchiveDocuments in the archive that has invoicenumber=123123
+            // documents now have the first 100 ArchiveDocuments in the archive that have invoicenumber=123123
         }
         private async void FetchAllArchiveDocumentsWithAttribute()
         {
@@ -98,7 +98,7 @@ namespace Digipost.Api.Client.Docs
                 current = fetchArchiveDocuments;
             }
 
-            // documents now have all ArchiveDocuments in the archive that has invoicenumber=123123
+            // documents now have all ArchiveDocuments in the archive that have invoicenumber=123123
         }
 
         private async Task FetchArchiveDocumentByGuid()

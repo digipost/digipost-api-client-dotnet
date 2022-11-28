@@ -142,10 +142,10 @@ You will get in return an instance of `Archive` which contains information on th
 and the actual document. From this you can fetch the actual document.
 
 ```csharp
-ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c"));
+ArchiveDocument archiveDocument = (await client.GetArchive(sender).FetchDocumentFromExternalId(Guid.Parse("10ff4c99-8560-4741-83f0-1093dc4deb1c"))).One();
 ```
 ```csharp
-ArchiveDocument archiveDocument = await client.GetArchive(sender).FetchDocumentFromExternalId("MyExternalId");
+Archive archive = await client.GetArchive(sender).FetchDocumentFromExternalId("MyExternalId");
 ```
 
 You can store your guid that you used at upload time to fetch by `Guid`.

@@ -146,14 +146,17 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
         public ArchiveSmokeTestsHelper ArchiveAFile(string archiveName = null)
         {
             string content = $"Smoketested with .net api client on {DateTime.Now.ToString(CultureInfo.CurrentCulture)}";
+            var newGuid = Guid.NewGuid();
+
             var withArchiveDocument = new Archive(new Sender(_testSender.Id), archiveName)
                 .WithArchiveDocument(
-                    new ArchiveDocument(Guid.NewGuid(), "smoketest.txt", "txt", "text/plain", FileContentBytes(content))
+                    new ArchiveDocument(newGuid, "smoketest.txt", "txt", "text/plain", FileContentBytes(content))
                         .WithAttribute("smoke", "test")
                 );
 
             _archive = _archiveApi.ArchiveDocuments(withArchiveDocument).Result;
 
+            var archiveDocument = _archiveApi.FetchDocumentFromExternalId(newGuid).Result;
             Assert.NotEmpty(_archive.ArchiveDocuments);
 
             return this;

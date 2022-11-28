@@ -39,9 +39,9 @@ namespace Digipost.Api.Client.Archive
          */
         Task<Archive> GetArchiveDocument(GetArchiveDocumentByUuidUri getArchiveDocumentUri);
 
-        Task<ArchiveDocument> FetchDocumentFromExternalId(String externalId);
+        Task<Archive> FetchDocumentFromExternalId(String externalId);
 
-        Task<ArchiveDocument> FetchDocumentFromExternalId(Guid externalIdGuid);
+        Task<Archive> FetchDocumentFromExternalId(Guid externalIdGuid);
 
         Task<Stream> StreamDocumentFromExternalId(String externalId);
 
@@ -148,15 +148,15 @@ namespace Digipost.Api.Client.Archive
             return result;
         }
 
-        public async Task<ArchiveDocument> FetchDocumentFromExternalId(string externalId)
+        public async Task<Archive> FetchDocumentFromExternalId(string externalId)
         {
-            var result = await _requestHelper.Get<Archive_Document>(_root.GetGetArchiveDocumentsByUuidUri(externalId)).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.Archive>(_root.GetGetArchiveDocumentsByUuidUri(externalId)).ConfigureAwait(false);
             return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
         }
 
-        public async Task<ArchiveDocument> FetchDocumentFromExternalId(Guid externalIdGuid)
+        public async Task<Archive> FetchDocumentFromExternalId(Guid externalIdGuid)
         {
-            var result = await _requestHelper.Get<Archive_Document>(_root.GetGetArchiveDocumentsByUuidUri(externalIdGuid)).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.Archive>(_root.GetGetArchiveDocumentsByUuidUri(externalIdGuid)).ConfigureAwait(false);
             return ArchiveDataTransferObjectConverter.FromDataTransferObject(result);
         }
 

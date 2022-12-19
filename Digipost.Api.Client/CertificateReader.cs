@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Digipost.Api.Client
-{ 
+{
     public class CertificateReader
     {
         private readonly ILogger<CertificateReader> _logger;
@@ -14,6 +14,7 @@ namespace Digipost.Api.Client
         private CertificateReader(ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<CertificateReader>();
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings { MaxDepth = 128 };
         }
 
         public static X509Certificate2 ReadCertificate()
@@ -27,7 +28,7 @@ namespace Digipost.Api.Client
             var certificateReader = new CertificateReader(loggerFactory);
             return certificateReader.ReadCertificatePrivate();
         }
-        
+
         X509Certificate2 ReadCertificatePrivate()
         {
             var pathToSecrets = $"{System.Environment.GetEnvironmentVariable("HOME")}/.microsoft/usersecrets/enterprise-certificate/secrets.json";
@@ -38,7 +39,7 @@ namespace Digipost.Api.Client
             {
                 _logger.LogDebug($"Did not find file at {pathToSecrets}");
             }
-            
+
             var certificateConfig = File.ReadAllText(pathToSecrets);
             var deserializeObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(certificateConfig);
 

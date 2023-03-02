@@ -6,7 +6,7 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Common</RootNamespace>
@@ -41,7 +41,7 @@
     <ItemGroup>
         <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
         <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.0" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.1.3" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.3" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.3" />
@@ -65,5 +65,5 @@
     <ItemGroup>
       <Folder Include="Generated\Apidomain" />
     </ItemGroup>
-    
+
 </Project>

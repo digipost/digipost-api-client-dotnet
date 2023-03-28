@@ -67,6 +67,7 @@ namespace Digipost.Api.Client.Tests
             var message = new Message()
             {
                 Sender_Id = long.Parse("1010"),
+                Sender_IdSpecified = true,
                 Message_Id = "ThatMessageId",
                 Primary_Document = new V8.Document()
                 {

@@ -17,6 +17,7 @@ namespace Digipost.Api.Client.Send
             var messageDto = new V8.Message
             {
                 Sender_Id = message.Sender.Id,
+                Sender_IdSpecified = true,
                 Primary_Document = primaryDocumentDataTransferObject,
                 Message_Id = message.Id,
                 Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient)

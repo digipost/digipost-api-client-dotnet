@@ -221,6 +221,7 @@ namespace Digipost.Api.Client.Send.Tests
                     new V8.Message()
                     {
                         Sender_Id = sender.Id,
+                        Sender_IdSpecified = true,
                         Recipient = new Message_Recipient()
                         {
                             Name_And_Address = new Name_And_Address()
@@ -291,6 +292,7 @@ namespace Digipost.Api.Client.Send.Tests
                     new V8.Message()
                     {
                         Sender_Id = sender.Id,
+                        Sender_IdSpecified = true,
                         Recipient = new V8.Message_Recipient()
                         {
                             Name_And_Address = new V8.Name_And_Address()

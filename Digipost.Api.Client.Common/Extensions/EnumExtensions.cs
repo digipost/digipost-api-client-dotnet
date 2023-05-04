@@ -52,6 +52,8 @@ namespace Digipost.Api.Client.Common.Extensions
             {
                 case NondeliverableHandling.ReturnToSender:
                     return V8.Nondeliverable_Handling.RETURN_TO_SENDER;
+                case NondeliverableHandling.Shred:
+                    return V8.Nondeliverable_Handling.SHRED;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nondeliverableHandling), nondeliverableHandling, null);
             }

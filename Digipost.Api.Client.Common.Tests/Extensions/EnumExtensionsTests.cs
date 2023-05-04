@@ -72,8 +72,7 @@ namespace Digipost.Api.Client.Common.Tests.Extensions
                 var enumValues = Enum.GetValues(typeof(NondeliverableHandling));
                 var enumValuesDto = Enum.GetValues(typeof(V8.Nondeliverable_Handling));
 
-                var ignoredNondeliverableHandlingNotAvailableForPrivateSendersCount = 1;
-                Assert.Equal(enumValues.Length, enumValuesDto.Length - ignoredNondeliverableHandlingNotAvailableForPrivateSendersCount);
+                Assert.Equal(enumValues.Length, enumValuesDto.Length);
 
                 foreach (var enumValue in enumValues)
                 {

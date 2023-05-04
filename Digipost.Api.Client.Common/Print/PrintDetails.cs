@@ -18,7 +18,7 @@ namespace Digipost.Api.Client.Common.Print
 
         public PrintColors PrintColors { get; set; }
 
-        public NondeliverableHandling NondeliverableHandling { get; internal set; }
+        public NondeliverableHandling NondeliverableHandling { get; set; }
         
         public IPrintInstructions PrintInstructions { get; set; }
     }

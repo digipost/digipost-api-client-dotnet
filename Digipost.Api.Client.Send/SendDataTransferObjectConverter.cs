@@ -19,12 +19,21 @@ namespace Digipost.Api.Client.Send
                 Sender_Id = message.Sender.Id,
                 Sender_IdSpecified = true,
                 Primary_Document = primaryDocumentDataTransferObject,
-                Message_Id = message.Id,
-                Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient)
+                Message_Id = message.Id
             };
 
-            messageDto.Recipient.Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails);
-
+            if (message is PrintMessage)
+            {
+                messageDto.Recipient = new Message_Recipient()
+                {
+                    Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails)
+                };
+            }
+            else
+            {
+                messageDto.Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient);
+                messageDto.Recipient.Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails);
+            }
 
             foreach (var document in message.Attachments.Select(ToDataTransferObject))
             {

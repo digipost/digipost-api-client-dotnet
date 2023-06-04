@@ -149,6 +149,28 @@ var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
 var result = client.SendMessage(messageWithPrintIfUnread);
 ```
 
+### Send letter to print without any Digipost addressing information (directly to print)
+
+```csharp
+
+var printDetails =
+    new PrintDetails(
+        printRecipient: new PrintRecipient(
+            "Ola Nordmann",
+            new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+        printReturnRecipient: new PrintReturnRecipient(
+            "Kari Nordmann",
+            new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+    );
+
+var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+var messageToPrint = new PrintMessage(sender, printDetails, primaryDocument)
+
+var result = client.SendMessage(messageToPrint);
+// MessageStatus.DeliveredToPrint
+```
+
 ### Send letter with higher security level
 
 ```csharp

@@ -6,6 +6,7 @@ using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
@@ -39,6 +40,9 @@ namespace Digipost.Api.Client.Tests.Smoke
 
         //Gradually built state, search
         private ISearchDetailsResult _searchResult;
+
+        //Gradually built state, printMessage
+        private IPrintDetails _printDetails;
 
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
@@ -108,6 +112,19 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
+        public ClientSmokeTestHelper SendPrintMessage()
+        {
+            Assert_state(_printDetails);
+
+            _messageDeliveryResult = _digipostClient.SendMessage(
+                new PrintMessage(new Sender(_testSender.Id), _printDetails, _primary)
+                {
+                    Attachments = _attachments
+                });
+
+            return this;
+        }
+
         public void Expect_message_to_have_status(MessageStatus messageStatus)
         {
             Assert_state(_messageDeliveryResult);
@@ -150,6 +167,19 @@ namespace Digipost.Api.Client.Tests.Smoke
         {
             _searchResult = _digipostClient.Search("Børre");
 
+            return this;
+        }
+
+        public ClientSmokeTestHelper ToPrintDirectly()
+        {
+            _printDetails = new PrintDetails(
+                printRecipient: new PrintRecipient(
+                    "Ola Nordmann",
+                    new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                printReturnRecipient: new PrintReturnRecipient(
+                    "Kari Nordmann",
+                    new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+            );
             return this;
         }
 

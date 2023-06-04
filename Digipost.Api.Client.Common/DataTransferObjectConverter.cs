@@ -279,7 +279,7 @@ namespace Digipost.Api.Client.Common
                 Addressline1 = foreignAddress.AddressLine1,
                 Addressline2 = foreignAddress.AddressLine2,
                 Addressline3 = foreignAddress.AddressLine3,
-                Addressline4 = foreignAddress.Addressline4,
+                Addressline4 = foreignAddress.AddressLine4,
             };
 
             if (foreignAddress.CountryIdentifier == CountryIdentifier.Country)

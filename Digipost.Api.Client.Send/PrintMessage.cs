@@ -10,5 +10,10 @@ namespace Digipost.Api.Client.Send
         {
             PrintDetails = printDetails;
         }
+
+        public override string ToString()
+        {
+            return PrintDetails.ToString();
+        }
     }
 }

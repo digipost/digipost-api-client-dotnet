@@ -4,7 +4,7 @@ namespace Digipost.Api.Client.Common.Print
 {
     public interface IForeignAddress : IAddress
     {
-        string Addressline4 { get; set; }
+        string AddressLine4 { get; set; }
 
         /// <summary>
         ///     The value of the contryIdentifier.

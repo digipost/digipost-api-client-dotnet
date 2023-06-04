@@ -12,20 +12,25 @@ namespace Digipost.Api.Client.Common.Print
         /// <param name="addressLine1">First address line.</param>
         /// <param name="addressLine2">Second address line.</param>
         /// <param name="addressLine3">Third address line.</param>
-        /// <param name="addressline4">Fourth address line.</param>
+        /// <param name="addressLine4">Fourth address line.</param>
         public ForeignAddress(CountryIdentifier countryIdentifier, string countryIdentifierValue,
-            string addressLine1, string addressLine2 = null, string addressLine3 = null, string addressline4 = null)
+            string addressLine1, string addressLine2 = null, string addressLine3 = null, string addressLine4 = null)
             : base(addressLine1, addressLine2, addressLine3)
         {
-            Addressline4 = addressline4;
+            AddressLine4 = addressLine4;
             CountryIdentifier = countryIdentifier;
             CountryIdentifierValue = countryIdentifierValue;
         }
 
-        public string Addressline4 { get; set; }
+        public string AddressLine4 { get; set; }
 
         public string CountryIdentifierValue { get; set; }
 
         public CountryIdentifier CountryIdentifier { get; set; }
+
+        public override string ToString()
+        {
+            return $"Country: {CountryIdentifier.Country}, AddressLine1: {AddressLine1}, AddressLine2: {AddressLine2}, AddressLine3: {AddressLine3}, AddressLine4: {AddressLine4}";
+        }
     }
 }

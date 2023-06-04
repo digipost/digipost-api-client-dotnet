@@ -36,7 +36,7 @@ namespace Digipost.Api.Client.Common.Tests
                     Addressline1 = source.AddressLine1,
                     Addressline2 = source.AddressLine2,
                     Addressline3 = source.AddressLine3,
-                    Addressline4 = source.Addressline4
+                    Addressline4 = source.AddressLine4
                 };
 
                 //Act
@@ -541,7 +541,7 @@ namespace Digipost.Api.Client.Common.Tests
                         Addressline1 = source.Address.AddressLine1,
                         Addressline2 = source.Address.AddressLine2,
                         Addressline3 = source.Address.AddressLine3,
-                        Addressline4 = ((ForeignAddress) source.Address).Addressline4
+                        Addressline4 = ((ForeignAddress) source.Address).AddressLine4
                     }
                 };
 
@@ -604,7 +604,7 @@ namespace Digipost.Api.Client.Common.Tests
                         Addressline1 = source.Address.AddressLine1,
                         Addressline2 = source.Address.AddressLine2,
                         Addressline3 = source.Address.AddressLine3,
-                        Addressline4 = ((ForeignAddress) source.Address).Addressline4
+                        Addressline4 = ((ForeignAddress) source.Address).AddressLine4
                     }
                 };
 

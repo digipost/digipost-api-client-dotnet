@@ -6,5 +6,10 @@
             : base(name, address)
         {
         }
+
+        public override string ToString()
+        {
+            return $"FullName: {Name}, Address: {Address}";
+        }
     }
 }

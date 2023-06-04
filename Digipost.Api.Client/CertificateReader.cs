@@ -32,12 +32,12 @@ namespace Digipost.Api.Client
         X509Certificate2 ReadCertificatePrivate()
         {
             var pathToSecrets = $"{System.Environment.GetEnvironmentVariable("HOME")}/.microsoft/usersecrets/enterprise-certificate/secrets.json";
-            _logger.LogDebug($"Reading certificate details from secrets file: {pathToSecrets}");
+            _logger.LogDebug("Reading certificate details from secrets file: {pathToSecrets}", pathToSecrets);
             var fileExists = File.Exists(pathToSecrets);
 
             if (!fileExists)
             {
-                _logger.LogDebug($"Did not find file at {pathToSecrets}");
+                _logger.LogDebug("Did not find file at {pathToSecrets}", pathToSecrets);
             }
 
             var certificateConfig = File.ReadAllText(pathToSecrets);
@@ -46,7 +46,7 @@ namespace Digipost.Api.Client
             deserializeObject.TryGetValue("Certificate:Path:Absolute", out var certificatePath);
             deserializeObject.TryGetValue("Certificate:Password", out var certificatePassword);
 
-            _logger.LogDebug("Reading certificate from path found in secrets file: " + certificatePath);
+            _logger.LogDebug("Reading certificate from path found in secrets file: {certificatePath}",certificatePath);
 
             return new X509Certificate2(certificatePath, certificatePassword, X509KeyStorageFlags.Exportable);
         }

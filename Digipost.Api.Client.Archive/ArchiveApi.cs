@@ -129,7 +129,7 @@ namespace Digipost.Api.Client.Archive
 
         public async Task<Archive> ArchiveDocumentsAsync(Archive archiveWithDocuments)
         {
-            _logger.LogDebug($"Outgoing archive '{archiveWithDocuments.ArchiveDocuments.Count}' documents to archive: {archiveWithDocuments.Name ?? "default"}");
+            _logger.LogDebug("Outgoing archive '{count}' documents to archive: {name}", archiveWithDocuments.ArchiveDocuments.Count, archiveWithDocuments.Name ?? "default");
 
             var archiveUri = _root.GetArchiveDocumentsUri();
 
@@ -143,7 +143,7 @@ namespace Digipost.Api.Client.Archive
 
             var result = ArchiveDataTransferObjectConverter.FromDataTransferObject(await task.ConfigureAwait(false));
 
-            _logger.LogDebug($"Response received for archiving to '{archiveWithDocuments.Name ?? "default"}'");
+            _logger.LogDebug("Response received for archiving to '{name}'", archiveWithDocuments.Name ?? "default");
 
             return result;
         }

@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Common.Tests.Print
                 Assert.Equal("Adresselinje1", foreignAddress.AddressLine1);
                 Assert.Equal("Adresselinje2", foreignAddress.AddressLine2);
                 Assert.Equal("Adresselinje3", foreignAddress.AddressLine3);
-                Assert.Equal("Adresselinje4", foreignAddress.Addressline4);
+                Assert.Equal("Adresselinje4", foreignAddress.AddressLine4);
             }
         }
     }

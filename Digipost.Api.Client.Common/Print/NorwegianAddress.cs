@@ -21,5 +21,10 @@
         public string PostalCode { get; set; }
 
         public string City { get; set; }
+
+        public override string ToString()
+        {
+            return $"City: {City}, PostalCode: {PostalCode}, AddressLine1: {AddressLine1}, AddressLine2: {AddressLine2}, AddressLine3: {AddressLine3}";
+        }
     }
 }

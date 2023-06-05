@@ -131,6 +131,25 @@ namespace Digipost.Api.Client.Docs
             var result = client.SendMessage(messageWithFallbackToPrint);
         }
 
+        public void SendLetterWithDirectToPrint()
+        {
+            var printDetails =
+                new PrintDetails(
+                    printRecipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnRecipient: new PrintReturnRecipient(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                );
+
+            var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+            var messageToPrint = new PrintMessage(sender, printDetails, primaryDocument);
+
+            var result = client.SendMessage(messageToPrint);
+        }
+
         public void SendLetterWithPrintIfUnread()
         {
             var recipient = new RecipientByNameAndAddress(

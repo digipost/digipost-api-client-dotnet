@@ -48,6 +48,16 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
+        public void Can_send_direct_to_print()
+        {
+            _client
+                .Create_message_with_primary_document()
+                .ToPrintDirectly()
+                .SendPrintMessage()
+                .Expect_message_to_have_status(MessageStatus.DeliveredToPrint);
+        }
+
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_with_raw_datatype_to_digipost_user()
         {
             const string raw = "<?xml version=\"1.0\" encoding=\"utf-8\"?><externalLink xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/datatypes\"><url>https://www.test.no</url><description>This was raw string</description></externalLink>";

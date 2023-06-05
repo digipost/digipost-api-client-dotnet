@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Send
         public IDigipostRecipient DigipostRecipient { get; set; }
 
         public IPrintDetails PrintDetails { get; set; }
-        
+
         public IPrintIfUnread PrintIfUnread { get; set; }
 
         public bool PrintIfUnreadAfterSpecified => PrintIfUnread != null;
@@ -47,5 +47,10 @@ namespace Digipost.Api.Client.Send
         public IDocument PrimaryDocument { get; set; }
 
         public List<IDocument> Attachments { get; set; }
+
+        public override string ToString()
+        {
+            return DigipostRecipient.ToString();
+        }
     }
 }

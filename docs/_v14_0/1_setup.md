@@ -167,3 +167,15 @@ var root = client.GetRoot(new ApiRootUri(12345));
 ```
 
 You can use this resource to safely test your integration or to fetch Digipost public key.
+
+### Proxy support
+We have basic proxy support in the client. To use a proxy you need to define it in ClientConfig with a NetworkCredential for authentication.
+
+```csharp
+var clientConfig = new ClientConfig(broker, Environment.Production)
+{
+    WebProxy = new WebProxy("10.0.0.1"),
+    Credential = new NetworkCredential("foo", "bar")
+};
+ var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
+```

@@ -46,7 +46,7 @@ namespace Digipost.Api.Client
             _entrypointCache = new MemoryCache(new MemoryCacheOptions());
 
             _clientConfig = clientConfig;
-            var httpClient = GetHttpClient(enterpriseCertificate);
+            var httpClient = GetHttpClient(enterpriseCertificate, clientConfig.WebProxy, clientConfig.Credential);
             _requestHelper = new RequestHelper(httpClient, _loggerFactory);
         }
 
@@ -55,15 +55,23 @@ namespace Digipost.Api.Client
             return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot(new ApiRootUri()));
         }
 
-        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate)
+        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate, WebProxy proxy = null, NetworkCredential credential = null)
         {
             var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
 
+            var httpMessageHandler = new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
+            if (proxy != null)
+            {
+                proxy.Credentials = credential;
+                httpMessageHandler.Proxy = proxy;
+                httpMessageHandler.UseProxy = true;
+                httpMessageHandler.UseDefaultCredentials = false;
+            }
             var httpClient = HttpClientFactory.Create(
-                new HttpClientHandler
-                {
-                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-                },
+                httpMessageHandler,
                 allDelegationHandlers.ToArray()
             );
 

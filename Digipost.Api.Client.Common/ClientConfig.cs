@@ -1,4 +1,6 @@
-﻿namespace Digipost.Api.Client.Common
+﻿using System.Net;
+
+namespace Digipost.Api.Client.Common
 {
     /// <summary>
     ///     Contains configuration for sending digital post.
@@ -31,10 +33,20 @@
         public Broker Broker { get; set; }
 
         /// <summary>
+        ///     If set, the proxy will be used for all requests. Remember to set <see cref="Credential" /> as well.
+        /// </summary>
+        public WebProxy WebProxy { get; set; }
+
+        /// <summary>
+        ///     Will be used if both this and <see cref="WebProxy" /> is set.
+        /// </summary>
+        public NetworkCredential Credential { get; set; }
+
+        /// <summary>
         ///     If set to true, all requests and responses are logged with log level DEBUG.
         /// </summary>
         public bool LogRequestAndResponse { get; set; }
-        
+
         /// <summary>
         ///     If set to true, document metadata xml will not be validated.
         ///     Used to test sending documents as if you've not imported the DataTypes project.

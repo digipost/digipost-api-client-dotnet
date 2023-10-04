@@ -15,6 +15,8 @@ namespace Digipost.Api.Client.Docs
         {
             var clientConfig = new ClientConfig(broker, Environment.Production);
             var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
+
+
         }
 
         public void LoadCertificateFrom()

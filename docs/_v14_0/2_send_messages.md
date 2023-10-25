@@ -546,3 +546,35 @@ var document = new Document(
 
 // Create Message and send using the client as specified in other examples.
 ```
+
+
+### Get status of a sent document
+
+You can for any given document check its status to see if it and when has been delivered, status of 
+read approval, delivery method etc.
+
+To do this you need to have the Guid given to the document.
+
+Send the message:
+
+```csharp
+var documentGuid = Guid.NewGuid();
+var message = new Message(
+    sender,
+    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
+    new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
+    {
+        Guid = documentGuid.ToString()
+    }
+);
+
+client.SendMessage(message);
+```
+
+To fetch fhe DocumentStatus later:
+
+```csharp
+var documentStatus = _digipostClient.GetDocumentStatus(sender).GetDocumentStatus(documentGuid).Result;
+```
+
+This can be useful if you use fallback to print, print-if-unread, request for registration etc. 

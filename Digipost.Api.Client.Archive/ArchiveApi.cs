@@ -12,7 +12,7 @@ using V8;
 
 namespace Digipost.Api.Client.Archive
 {
-    internal interface IArchiveApi
+    public interface IArchiveApi
     {
         /// <summary>
         /// List all the archives available to the current sender
@@ -52,7 +52,7 @@ namespace Digipost.Api.Client.Archive
         Task<ArchiveDocumentContent> GetDocumentContent(ArchiveDocumentContentUri archiveDocumentContentUri);
     }
 
-    public class ArchiveApi : IArchiveApi
+    internal class ArchiveApi : IArchiveApi
     {
         private readonly Root _root;
         private readonly RequestHelper _requestHelper;

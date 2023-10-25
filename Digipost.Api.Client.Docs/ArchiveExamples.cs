@@ -26,7 +26,7 @@ namespace Digipost.Api.Client.Docs
                 new ArchiveDocument(Guid.NewGuid(), "attachment_123123.pdf", "pdf", "application/psd", readFileFromDisk("attachment_123123.pdf"))
             });
 
-            var savedArchive = await client.GetArchive().ArchiveDocuments(archive);
+            var savedArchive = client.GetArchive().ArchiveDocuments(archive);
         }
 
         private async Task ArchiveADocumentWithAutoDelete()

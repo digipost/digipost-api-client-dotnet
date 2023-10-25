@@ -38,6 +38,10 @@ namespace Digipost.Api.Client.Send
 
         public bool PrintIfUnreadAfterSpecified => PrintIfUnread != null;
 
+        public RequestForRegistration RequestForRegistration { get; set; }
+
+        public bool RequestForRegistrationSpecified => RequestForRegistration != null;
+
         public Sender Sender { get; set; }
 
         public DateTime? DeliveryTime { get; set; }

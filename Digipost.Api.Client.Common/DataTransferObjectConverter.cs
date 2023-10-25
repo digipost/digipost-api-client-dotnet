@@ -7,6 +7,7 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Send;
 using V8;
 using Identification = V8.Identification;
 using Link = Digipost.Api.Client.Common.Entrypoint.Link;
@@ -187,7 +188,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static Print_Details ToDataTransferObject(IPrintDetails printDetails)
+        internal static Print_Details ToDataTransferObject(this IPrintDetails printDetails)
         {
             if (printDetails == null)
                 return null;
@@ -239,6 +240,17 @@ namespace Digipost.Api.Client.Common
             };
 
             return printIfUnreadDataTransferObject;
+        }
+
+        internal static Request_For_Registration ToDataTransferObject(this RequestForRegistration requestForRegistration)
+        {
+            return new Request_For_Registration
+            {
+                Registration_Deadline = requestForRegistration.RegistrationDeadline,
+                Phone_Number = requestForRegistration.PhoneNumber,
+                Email_Address = requestForRegistration.EmailAddress,
+                Print_Details = requestForRegistration.PrintDetails.ToDataTransferObject()
+            };
         }
 
         private static Print_Recipient ToDataTransferObject(IPrint recipient)

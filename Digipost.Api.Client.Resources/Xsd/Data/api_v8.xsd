@@ -722,6 +722,7 @@
             <xsd:element name="primary-document" type="document" minOccurs="1" maxOccurs="1" nillable="false"/>
             <xsd:element name="attachment" type="document" minOccurs="0" maxOccurs="201" nillable="false"/>
             <xsd:element name="print-if-unread" type="print-if-unread" minOccurs="0"/>
+            <xsd:element name="request-for-registration" type="request-for-registration" minOccurs="0"/>
             <xsd:element name="batch" type="batch" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
@@ -964,6 +965,7 @@
             <xsd:enumeration value="DIGIPOST" />
             <xsd:enumeration value="PEPPOL" />
             <xsd:enumeration value="EPOST" />
+            <xsd:enumeration value="PENDING" />
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -1084,6 +1086,14 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="request-for-registration-expired-metadata">
+        <xsd:complexContent>
+            <xsd:extension base="event-metadata">
+                <xsd:attribute name="fallback-channel" type="xsd:string" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="document-metadata">
         <xsd:sequence>
             <xsd:element name="link" type="link" minOccurs="0" maxOccurs="unbounded" />
@@ -1105,6 +1115,9 @@
             <xsd:enumeration value="SHREDDED" />
             <xsd:enumeration value="PEPPOL_DELIVERED" />
             <xsd:enumeration value="PEPPOL_FAILED" />
+            <xsd:enumeration value="REQUEST_FOR_REGISTRATION_EXPIRED" />
+            <xsd:enumeration value="REQUEST_FOR_REGISTRATION_DELIVERED_DIGIPOST" />
+            <xsd:enumeration value="REQUEST_FOR_REGISTRATION_FAILED" />
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -1211,6 +1224,15 @@
         <xsd:sequence>
             <xsd:element name="print-if-unread-after" type="xsd:dateTime"/>
             <xsd:element name="print-details" type="print-details"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="request-for-registration">
+        <xsd:sequence>
+            <xsd:element name="registration-deadline" type="xsd:dateTime"/>
+            <xsd:element name="phone-number" type="xsd:string" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="email-address" type="xsd:string" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="print-details" type="print-details" minOccurs="0" maxOccurs="1" />
         </xsd:sequence>
     </xsd:complexType>
 

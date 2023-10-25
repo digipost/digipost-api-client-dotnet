@@ -20,6 +20,11 @@
         /// <summary>
         ///     Delivered to email
         /// </summary>
-        EPOST
+        EPOST,
+
+        /// <summary>
+        ///     Pending delivery
+        /// </summary>
+        PENDING
     }
 }

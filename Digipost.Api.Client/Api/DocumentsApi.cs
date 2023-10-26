@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.Api
             var documentStatusUri = _root.GetDocumentStatusUri(guid);
             var result = await _requestHelper.Get<Document_Status>(documentStatusUri).ConfigureAwait(false);
 
-            return SendDataTransferObjectConverter.FromDataTransferObject(result);
+            return result.FromDataTransferObject();
         }
     }
 }

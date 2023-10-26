@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Archive
 {
     internal static class ArchiveDataTransferObjectConverter
     {
-        public static V8.Archive ToDataTransferObject(Archive a)
+        internal static V8.Archive ToDataTransferObject(this Archive a)
         {
             var dto = new V8.Archive()
             {
@@ -24,7 +24,7 @@ namespace Digipost.Api.Client.Archive
             return dto;
         }
 
-        public static Archive_Document ToDataTransferObject(ArchiveDocument ad)
+        internal static Archive_Document ToDataTransferObject(this ArchiveDocument ad)
         {
             var dto = new Archive_Document()
             {
@@ -54,7 +54,7 @@ namespace Digipost.Api.Client.Archive
             return dto;
         }
 
-        public static ArchiveDocument FromDataTransferObject(Archive_Document ad)
+        internal static ArchiveDocument FromDataTransferObject(this Archive_Document ad)
         {
             return new ArchiveDocument(
                 new Guid(ad.Uuid),
@@ -68,20 +68,20 @@ namespace Digipost.Api.Client.Archive
                 ArchiveTime = ad.Archived_Time,
                 DeletionTime = ad.Deletion_Time,
                 Attributes = ad.Attributes.ToDictionary(ada => ada.Key, ada => ada.Value),
-                Links = DataTransferObjectConverter.FromDataTransferObject(ad.Link)
+                Links = ad.Link.FromDataTransferObject()
             };
         }
 
-        public static Archive FromDataTransferObject(V8.Archive a)
+        internal static Archive FromDataTransferObject(this V8.Archive a)
         {
             return new Archive(new Sender(a.Sender_Id), a.Name)
             {
                 ArchiveDocuments = a.Documents.Select(FromDataTransferObject).ToList(),
-                Links =DataTransferObjectConverter.FromDataTransferObject(a.Link)
+                Links = a.Link.FromDataTransferObject()
             };
         }
 
-        public static ArchiveDocumentContent FromDataTransferObject(Archive_Document_Content result)
+        internal static ArchiveDocumentContent FromDataTransferObject(this Archive_Document_Content result)
         {
             return new ArchiveDocumentContent(result.Content_Type, new Uri(result.Uri, UriKind.Absolute));
         }

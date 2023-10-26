@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var content = action.RequestContent;
 
                 //Assert
-                var identificationDto = DataTransferObjectConverter.ToDataTransferObject(identification);
+                var identificationDto = identification.ToDataTransferObject();
                 var expected = SerializeUtil.Serialize(identificationDto);
                 Assert.Equal(expected, content.InnerXml);
             }

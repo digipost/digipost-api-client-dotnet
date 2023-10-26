@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.Api
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;
 
-            var messageDeliveryResult = SendDataTransferObjectConverter.FromDataTransferObject(await messageDeliveryResultTask.ConfigureAwait(false));
+            var messageDeliveryResult = (await messageDeliveryResultTask.ConfigureAwait(false)).FromDataTransferObject();
 
             _logger.LogDebug("Response received for message to recipient, {message}: '{status}'. Will be available to Recipient at {deliverytime}.", message, messageDeliveryResult.Status, messageDeliveryResult.DeliveryTime);
 
@@ -74,7 +74,7 @@ namespace Digipost.Api.Client.Api
             }
 
             var identificationResultDataTransferObject = await identifyResponse.ConfigureAwait(false);
-            var identificationResult = DataTransferObjectConverter.FromDataTransferObject(identificationResultDataTransferObject);
+            var identificationResult = identificationResultDataTransferObject.FromDataTransferObject();
 
             _logger.LogDebug("Response received for identification to recipient, ResultType '{resultType}', Data '{data}'.", identificationResult.ResultType, identificationResult.Data);
 
@@ -104,7 +104,7 @@ namespace Digipost.Api.Client.Api
 
             var searchDetailsResultDataTransferObject = await RequestHelper.Get<Recipients>(uri).ConfigureAwait(false);
 
-            var searchDetailsResult = DataTransferObjectConverter.FromDataTransferObject(searchDetailsResultDataTransferObject);
+            var searchDetailsResult = searchDetailsResultDataTransferObject.FromDataTransferObject();
 
             _logger.LogDebug("Response received for search with term '{search}' retrieved.", search);
 

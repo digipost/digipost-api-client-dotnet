@@ -40,7 +40,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -64,7 +64,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -88,7 +88,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.Personalias, personAlias);
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -119,7 +119,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -158,7 +158,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -195,7 +195,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -212,7 +212,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -236,7 +236,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, digipostAddress);
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -267,7 +267,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -292,7 +292,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -315,7 +315,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.DigipostAddress, string.Empty);
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -340,7 +340,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.Personalias, string.Empty);
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -365,7 +365,7 @@ namespace Digipost.Api.Client.Common.Tests
                 var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -393,7 +393,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -449,7 +449,7 @@ namespace Digipost.Api.Client.Common.Tests
 
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -509,7 +509,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -546,7 +546,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -574,7 +574,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -609,7 +609,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -637,7 +637,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -659,7 +659,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -696,7 +696,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actualDto = DataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -812,7 +812,7 @@ namespace Digipost.Api.Client.Common.Tests
                     }
                 };
 
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -840,7 +840,7 @@ namespace Digipost.Api.Client.Common.Tests
                 };
 
                 //Act
-                var actual = DataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);

@@ -33,13 +33,13 @@ namespace Digipost.Api.Client.Send.Actions
 
         protected override string Serialize(IMessage requestContent)
         {
-            var messageDataTransferObject = SendDataTransferObjectConverter.ToDataTransferObject((Message) requestContent);
+            var messageDataTransferObject = requestContent.ToDataTransferObject();
             return SerializeUtil.Serialize(messageDataTransferObject);
         }
 
         private static void AddBodyToContent(IMessage message, MultipartContent content)
         {
-            var messageDataTransferObject = SendDataTransferObjectConverter.ToDataTransferObject(message);
+            var messageDataTransferObject = message.ToDataTransferObject();
             var xmlMessage = SerializeUtil.Serialize(messageDataTransferObject);
 
             var messageContent = new StringContent(xmlMessage);

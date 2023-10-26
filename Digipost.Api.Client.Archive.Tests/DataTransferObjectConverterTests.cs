@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Archive.Tests
 
                 var expected = new Archive(new Sender(1010), "per");
 
-                var actual = ArchiveDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 Comparator.AssertEqual(expected, actual);
             }
@@ -45,7 +45,7 @@ namespace Digipost.Api.Client.Archive.Tests
                 var expected = new ArchiveDocument(newGuid, "per.txt", "txt", "text/plain");
                 expected.Links.Add("get_something", new Common.Entrypoint.Link($"{BaseUri}/something") {MediaType = "text/plain", Rel = $"{BaseUri}/relations/get_something"});
 
-                var actual = ArchiveDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 Comparator.AssertEqual(expected, actual);
             }
@@ -65,7 +65,7 @@ namespace Digipost.Api.Client.Archive.Tests
                     Attributes = { new Archive_Document_Attribute(){Key = "test", Value = "val"} },
                 };
 
-                Comparator.AssertEqual(expected, ArchiveDataTransferObjectConverter.ToDataTransferObject(source));
+                Comparator.AssertEqual(expected, source.ToDataTransferObject());
             }
         }
     }

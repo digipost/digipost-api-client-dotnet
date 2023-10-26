@@ -14,7 +14,7 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
 {
     public class ArchiveSmokeTestsHelper
     {
-        public static readonly string ArchiveName = "SmokeTestArchive";
+        internal static readonly string ArchiveName = "SmokeTestArchive";
         private readonly TestSender _testSender;
         private readonly IArchiveApi _archiveApi;
         private Archive _archivesWithDocuments;

@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Inbox
 
             var result = await _requestHelper.Get<V8.Inbox>(inboxPath).ConfigureAwait(false);
 
-            return InboxDataTransferObjectConverter.FromDataTransferObject(result);
+            return result.FromDataTransferObject();
         }
 
         public async Task<Stream> FetchDocument(GetInboxDocumentContentUri getInboxDocumentContentUri)

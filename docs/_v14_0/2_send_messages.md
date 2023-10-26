@@ -117,6 +117,47 @@ var messageWithFallbackToPrint = new Message(sender, recipient, primaryDocument)
 var result = client.SendMessage(messageWithFallbackToPrint);
 ```
 
+### Send messaage with request for registration
+
+It is possible to send a message to a person, who does not have a Digipost account, where the message triggers 
+an SMS notification with a request for registration. The SMS notification says that if they register for a 
+Digipost account the document will be delivered digitally. If the user does not register for a Digipost 
+account within the defined deadline, the document will either be delivered as physical mail or not at all.
+Be aware that we need a PersonalIdentificationNumber as Recipient to be able to deliver the correct person!
+
+In this case the document will be delivered as physical mail by Digipost if the recipient has not registered for a Digipost account by the defined deadline:
+
+```csharp
+var recipient = new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx");
+
+var requestForRegistration = new RequestForRegistration(
+    DateTime.Now.AddDays(3),
+    "+4711223344",
+    null,
+    new PrintDetails(
+        printRecipient: new PrintRecipient(
+            "Ola Nordmann",
+            new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+        printReturnRecipient: new PrintReturnRecipient(
+            "Kari Nordmann",
+            new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+    )
+);
+
+var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
+{
+    RequestForRegistration = requestForRegistration
+};
+
+var result = client.SendMessage(messageWithPrintIfUnread);
+```
+
+If the sender wishes to send the document as physical mail through it's own 
+service (if the recipient does not register a Digipost account), print details _must not be included_.
+
+
 ### Send letter with fallback to print if the user does not read the message within a certain deadline
 
 ```csharp

@@ -1244,6 +1244,8 @@ namespace V8
         PEPPOL,
         
         EPOST,
+        
+        PENDING,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
@@ -1722,6 +1724,9 @@ namespace V8
         [System.Xml.Serialization.XmlElementAttribute("print-if-unread")]
         public Print_If_Unread Print_If_Unread { get; set; }
         
+        [System.Xml.Serialization.XmlElementAttribute("request-for-registration")]
+        public Request_For_Registration Request_For_Registration { get; set; }
+        
         [System.Xml.Serialization.XmlElementAttribute("batch")]
         public Batch Batch { get; set; }
     }
@@ -1770,6 +1775,28 @@ namespace V8
         public System.DateTime Print_If_Unread_After { get; set; }
         
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("print-details")]
+        public Print_Details Print_Details { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("request-for-registration", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Request_For_Registration
+    {
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("registration-deadline", DataType="dateTime")]
+        public System.DateTime Registration_Deadline { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("phone-number")]
+        public string Phone_Number { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("email-address")]
+        public string Email_Address { get; set; }
+        
         [System.Xml.Serialization.XmlElementAttribute("print-details")]
         public Print_Details Print_Details { get; set; }
     }
@@ -2339,6 +2366,7 @@ namespace V8
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Failed_Print_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Move_Files_From_Public_Sector_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Postmarked_Metadata))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Request_For_Registration_Expired_Metadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sms_Notification_Failed_Metadata))]
     public abstract partial class Event_Metadata
     {
@@ -2371,6 +2399,12 @@ namespace V8
         PEPPOL_DELIVERED,
         
         PEPPOL_FAILED,
+        
+        REQUEST_FOR_REGISTRATION_EXPIRED,
+        
+        REQUEST_FOR_REGISTRATION_DELIVERED_DIGIPOST,
+        
+        REQUEST_FOR_REGISTRATION_FAILED,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
@@ -2582,6 +2616,18 @@ namespace V8
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         [System.Xml.Serialization.XmlAttributeAttribute("postmarked-date", DataType="dateTime")]
         public System.DateTime Postmarked_Date { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("request-for-registration-expired-metadata", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Request_For_Registration_Expired_Metadata : Event_Metadata
+    {
+        
+        [System.Xml.Serialization.XmlAttributeAttribute("fallback-channel")]
+        public string Fallback_Channel { get; set; }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]

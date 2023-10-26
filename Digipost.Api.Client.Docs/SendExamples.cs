@@ -181,6 +181,35 @@ namespace Digipost.Api.Client.Docs
             var result = client.SendMessage(messageWithPrintIfUnread);
         }
 
+        public void SendLetterWithRequestForRegistration()
+        {
+            var recipient = new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx");
+
+            var requestForRegistration = new RequestForRegistration(
+                DateTime.Now.AddDays(3),
+                "+4711223344",
+                null,
+                new PrintDetails(
+                    printRecipient: new PrintRecipient(
+                        "Ola Nordmann",
+                        new NorwegianAddress("0460", "Oslo", "Prinsensveien 123")),
+                    printReturnRecipient: new PrintReturnRecipient(
+                        "Kari Nordmann",
+                        new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
+                )
+            );
+
+            var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+
+            var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
+            {
+                Id = "Reg-12345",
+                RequestForRegistration = requestForRegistration
+            };
+
+            var result = client.SendMessage(messageWithPrintIfUnread);
+        }
+
         public void SendLetterWithHigherSecurityLevel()
         {
             var primaryDocument = new Document(subject: "Primary document", fileType: "pdf", path: @"c:\...\document.pdf")
@@ -256,6 +285,7 @@ namespace Digipost.Api.Client.Docs
 
             var result = client.SendMessage(message);
         }
+
         public void SendInkasso()
         {
             var inkasso = new Inkasso();

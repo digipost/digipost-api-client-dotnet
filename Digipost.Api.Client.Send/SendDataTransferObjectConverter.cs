@@ -26,13 +26,13 @@ namespace Digipost.Api.Client.Send
             {
                 messageDto.Recipient = new Message_Recipient()
                 {
-                    Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails)
+                    Print_Details = message.PrintDetails.ToDataTransferObject()
                 };
             }
             else
             {
                 messageDto.Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient);
-                messageDto.Recipient.Print_Details = DataTransferObjectConverter.ToDataTransferObject(message.PrintDetails);
+                messageDto.Recipient.Print_Details = message.PrintDetails.ToDataTransferObject();
             }
 
             foreach (var document in message.Attachments.Select(ToDataTransferObject))
@@ -49,6 +49,11 @@ namespace Digipost.Api.Client.Send
             if (message.PrintIfUnreadAfterSpecified)
             {
                 messageDto.Print_If_Unread = DataTransferObjectConverter.ToDataTransferObject(message.PrintIfUnread);
+            }
+
+            if (message.RequestForRegistrationSpecified)
+            {
+                messageDto.Request_For_Registration = message.RequestForRegistration.ToDataTransferObject();
             }
 
             return messageDto;

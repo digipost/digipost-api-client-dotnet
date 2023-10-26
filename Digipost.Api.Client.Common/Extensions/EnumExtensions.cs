@@ -72,6 +72,8 @@ namespace Digipost.Api.Client.Common.Extensions
                     return DeliveryMethod.PEPPOL;
                 case V8.Channel.EPOST:
                     return DeliveryMethod.EPOST;
+                case V8.Channel.PENDING:
+                    return DeliveryMethod.PENDING;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(deliveryMethod), deliveryMethod, null);
             }

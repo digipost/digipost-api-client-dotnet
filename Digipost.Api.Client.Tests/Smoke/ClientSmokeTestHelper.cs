@@ -44,6 +44,9 @@ namespace Digipost.Api.Client.Tests.Smoke
         //Gradually built state, printMessage
         private IPrintDetails _printDetails;
 
+        //Gradually built state, requestForRegistration
+        private RequestForRegistration _requestForRegistration;
+
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
             var broker = new Broker(testSender.Id);
@@ -124,6 +127,21 @@ namespace Digipost.Api.Client.Tests.Smoke
 
             return this;
         }
+        public ClientSmokeTestHelper SendRequestForRegistration(String personalIdentificationNumber)
+        {
+            Assert_state(_requestForRegistration);
+
+            _messageDeliveryResult = _digipostClient.SendMessage(
+                new Message(new Sender(_testSender.Id),
+                    new RecipientById(IdentificationType.PersonalIdentificationNumber, personalIdentificationNumber),
+                    _primary
+                )
+                {
+                    RequestForRegistration = _requestForRegistration
+                });
+
+            return this;
+        }
 
         public void Expect_message_to_have_status(MessageStatus messageStatus)
         {
@@ -131,6 +149,14 @@ namespace Digipost.Api.Client.Tests.Smoke
 
             Assert.Equal(_messageDeliveryResult.Status, messageStatus);
         }
+
+        public void Expect_message_to_have_method(DeliveryMethod deliveryMethod)
+        {
+            Assert_state(_messageDeliveryResult);
+
+            Assert.Equal(_messageDeliveryResult.DeliveryMethod, deliveryMethod);
+        }
+
 
         private static void Assert_state(object obj)
         {
@@ -180,6 +206,13 @@ namespace Digipost.Api.Client.Tests.Smoke
                     "Kari Nordmann",
                     new NorwegianAddress("0400", "Oslo", "Akers Àle 2"))
             );
+            return this;
+        }
+
+        public ClientSmokeTestHelper RequestForRegistration(string phonenumber)
+        {
+            ToPrintDirectly();
+            _requestForRegistration = new RequestForRegistration(DateTime.Now.AddDays(6), phonenumber, null, _printDetails);
             return this;
         }
 

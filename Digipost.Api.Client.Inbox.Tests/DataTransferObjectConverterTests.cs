@@ -15,8 +15,6 @@ namespace Digipost.Api.Client.Inbox.Tests
             public void InboxDocument()
             {
                 const string contentType = "txt";
-                const string content = "http://contenturi.no";
-                const string deleteUri = "http://deletecontenturi.no";
                 var firstAccessed = DateTime.Today.AddDays(2);
                 var deliveryTime = DateTime.Today;
                 const int id = 123456789;

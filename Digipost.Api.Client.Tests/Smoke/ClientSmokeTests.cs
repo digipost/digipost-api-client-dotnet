@@ -2,6 +2,7 @@ using System;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
+using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
@@ -55,6 +56,17 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .ToPrintDirectly()
                 .SendPrintMessage()
                 .Expect_message_to_have_status(MessageStatus.DeliveredToPrint);
+        }
+
+        [Fact(Skip = "SmokeTest")]
+        public void Can_send_request_for_registration()
+        {
+            _client
+                .Create_message_with_primary_document()
+                .RequestForRegistration("+4711223344")
+                // Find a user with Tenor testdata to test registration. This is TYKKHUDET EKTEMANN
+                .SendRequestForRegistration("05926398190")
+                .Expect_message_to_have_method(DeliveryMethod.PENDING);
         }
 
         [Fact(Skip = "SmokeTest")]

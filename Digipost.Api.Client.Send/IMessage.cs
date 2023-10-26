@@ -55,16 +55,29 @@ namespace Digipost.Api.Client.Send
         ///     then fallback to print will start.
         /// </summary>
         IPrintDetails PrintDetails { get; set; }
-        
+
         /// <summary>
         ///     Specifies print-if-unread-after deadline for the current message. If the message is not read within the
         ///     deadline, it is sent to print with the contained printdetails.
         /// </summary>
         IPrintIfUnread PrintIfUnread { get; set; }
-        
+
         /// <summary>
         ///     True if print-if-unread-after is specified for the message. Otherwise false.
         /// </summary>
         bool PrintIfUnreadAfterSpecified { get; }
+
+        /// <summary>
+        ///     Specifies request-for-registraton. If the receiver is not registrered user of Digipost
+        /// they will be notified that a waiting document is being processed. They can, within the specified
+        /// deadline, register and receive the document in Digipost. They dont register, the document CAN
+        /// be sent to Print.
+        /// </summary>
+        RequestForRegistration RequestForRegistration { get; set; }
+
+        /// <summary>
+        /// true request-for-registraton is specified for the message. Otherwise false.
+        /// </summary>
+        bool RequestForRegistrationSpecified { get; }
     }
 }

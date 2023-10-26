@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
@@ -46,6 +45,8 @@ namespace Digipost.Api.Client.Tests.Smoke
 
         //Gradually built state, requestForRegistration
         private RequestForRegistration _requestForRegistration;
+
+        private DocumentStatus _documentStatus;
 
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
@@ -221,6 +222,27 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert_state(_searchResult);
 
             Assert.InRange(_searchResult.PersonDetails.ToList().Count, 1, 11);
+        }
+
+        public ClientSmokeTestHelper FetchDocumentStatus()
+        {
+            Assert_state(_messageDeliveryResult);
+            Assert_state(_primary);
+
+            _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(Guid.Parse(_primary.Guid)).Result;
+            return this;
+        }
+        public ClientSmokeTestHelper FetchDocumentStatus(Guid guid)
+        {
+            _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(guid).Result;
+            return this;
+        }
+
+        public void Expect_document_status_to_be(DocumentStatus.DocumentDeliveryStatus deliveryStatus, DeliveryMethod deliveryMethod)
+        {
+            Assert_state(_documentStatus);
+            Assert.Equal(_documentStatus.DeliveryMethod, deliveryMethod);
+            Assert.Equal(_documentStatus.DeliveryStatus, deliveryStatus);
         }
     }
 }

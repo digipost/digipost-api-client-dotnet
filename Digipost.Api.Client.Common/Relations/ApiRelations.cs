@@ -16,7 +16,6 @@ namespace Digipost.Api.Client.Common.Relations
         }
     }
 
-
     public class SendMessageUri : Uri
     {
         public SendMessageUri(Link link)
@@ -156,6 +155,19 @@ namespace Digipost.Api.Client.Common.Relations
     public class ArchiveDocumentDeleteUri : Uri
     {
         public ArchiveDocumentDeleteUri(Link link)
+            : base(link.Uri, UriKind.Absolute)
+        {
+        }
+    }
+
+    public class DocumentStatusUri : Uri
+    {
+        public DocumentStatusUri(Link link, Guid guid)
+            : base($"{link.Uri}{guid.ToString()}", UriKind.Absolute)
+        {
+        }
+
+        public DocumentStatusUri(Link link)
             : base(link.Uri, UriKind.Absolute)
         {
         }

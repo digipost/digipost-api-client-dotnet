@@ -414,5 +414,20 @@ namespace Digipost.Api.Client.Common
                     })
             };
         }
+
+        public static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
+        {
+            switch (hashAlgorithm)
+            {
+                case Hash_Algorithm.NONE:
+                    return HashAlgoritm.NONE;
+                case Hash_Algorithm.MD5:
+                    return HashAlgoritm.MD5;
+                case Hash_Algorithm.SHA256:
+                    return HashAlgoritm.SHA256;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

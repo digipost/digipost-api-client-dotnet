@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Digipost.Api.Client.Common;
+using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
 using V8;
 
@@ -86,16 +87,16 @@ namespace Digipost.Api.Client.Send
             return documentDto;
         }
 
-        public static V8.Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
+        public static Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
         {
             if (smsNotification == null)
                 return null;
 
-            var smsNotificationDto = new V8.Sms_Notification();
+            var smsNotificationDto = new Sms_Notification();
 
             if (smsNotification.NotifyAtTimes.Count > 0)
             {
-                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V8.Listed_Time {Time = dateTime, TimeSpecified = true});
+                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new Listed_Time {Time = dateTime, TimeSpecified = true});
                 foreach (var timesAsListedTime in timesAsListedTimes)
                 {
                     smsNotificationDto.At.Add(timesAsListedTime);
@@ -113,7 +114,7 @@ namespace Digipost.Api.Client.Send
             return smsNotificationDto;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(V8.Message_Delivery messageDeliveryDto)
+        public static IMessageDeliveryResult FromDataTransferObject(Message_Delivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
@@ -138,7 +139,7 @@ namespace Digipost.Api.Client.Send
             };
         }
 
-        public static ISmsNotification FromDataTransferObject(V8.Sms_Notification smsNotificationDto)
+        public static ISmsNotification FromDataTransferObject(Sms_Notification smsNotificationDto)
         {
             if (smsNotificationDto == null)
                 return null;
@@ -150,6 +151,48 @@ namespace Digipost.Api.Client.Send
             };
 
             return smsNotification;
+        }
+
+        public static DocumentStatus FromDataTransferObject(Document_Status dto)
+        {
+            return new DocumentStatus(
+                dto.Uuid,
+                dto.Sender_Id,
+                dto.Created,
+                dto.Status.ToDeliveryStatus(),
+                dto.ReadSpecified ? dto.Read.ToRead() : (DocumentStatus.Read?) null,
+                dto.Channel.ToDeliveryMethod(),
+                dto.Content_Hash,
+                dto.DeliveredSpecified ? dto.Delivered : (DateTime?) null,
+                dto.Is_Primary_DocumentSpecified ? dto.Is_Primary_Document : (bool?) null,
+                dto.Content_Hash_AlgorithmSpecified ? dto.Content_Hash_Algorithm.ToHashAlgoritm() : (HashAlgoritm?) null
+            );
+        }
+
+        private static DocumentStatus.DocumentDeliveryStatus ToDeliveryStatus(this Delivery_Status deliveryStatus)
+        {
+            switch (deliveryStatus)
+            {
+                case Delivery_Status.DELIVERED:
+                    return DocumentStatus.DocumentDeliveryStatus.DELIVERED;
+                case Delivery_Status.NOT_DELIVERED:
+                    return DocumentStatus.DocumentDeliveryStatus.NOT_DELIVERED;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static DocumentStatus.Read ToRead(this Read read)
+        {
+            switch (read)
+            {
+                case Read.Y:
+                    return DocumentStatus.Read.YES;
+                case Read.N:
+                    return DocumentStatus.Read.NO;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

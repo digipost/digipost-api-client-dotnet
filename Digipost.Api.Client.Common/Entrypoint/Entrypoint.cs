@@ -70,6 +70,11 @@ namespace Digipost.Api.Client.Common.Entrypoint
         {
             return new GetArchiveDocumentByUuidUri(Links["GET_ARCHIVE_DOCUMENT_BY_UUID"], guid);
         }
+
+        public DocumentStatusUri GetDocumentStatusUri(Guid guid)
+        {
+            return new DocumentStatusUri(Links["DOCUMENT_STATUS"], guid);
+        }
     }
 
     public class Link

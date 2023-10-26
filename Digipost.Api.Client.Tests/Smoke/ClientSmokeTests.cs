@@ -84,7 +84,6 @@ namespace Digipost.Api.Client.Tests.Smoke
         [Fact(Skip = "SmokeTest")]
         public void Can_send_document_with_object_datatype_to_digipost_user()
         {
-
             var externalLink = new ExternalLink {Url = "https://www.test.no", Description = "This is a link"};
             var linkXml = SerializeUtil.Serialize(externalLink);
 
@@ -93,6 +92,32 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .To_Digital_Recipient()
                 .SendMessage()
                 .Expect_message_to_have_status(MessageStatus.Delivered);
+        }
+
+        [Fact(Skip = "SmokeTest")]
+        public void Can_send_document_share_request_to_user()
+        {
+            _client
+                .Create_message_with_primary_document()
+                .To_Digital_Recipient()
+                .SendMessage()
+                .Expect_message_to_have_status(MessageStatus.Delivered);
+
+            _client.FetchDocumentStatus()
+                .Expect_document_status_to_be(
+                    DocumentStatus.DocumentDeliveryStatus.DELIVERED,
+                    DeliveryMethod.Digipost
+                );
+        }
+
+        [Fact(Skip = "SmokeTest")]
+        public void Check_document_status()
+        {
+            _client.FetchDocumentStatus(Guid.Parse("92c95fa4-dc74-4196-95e9-4dc580017588")) //Use a guid that you know of. This is just a random one.
+                .Expect_document_status_to_be(
+                    DocumentStatus.DocumentDeliveryStatus.NOT_DELIVERED,
+                    DeliveryMethod.PENDING
+                );
         }
     }
 }

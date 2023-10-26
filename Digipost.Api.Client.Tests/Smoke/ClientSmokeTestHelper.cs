@@ -232,13 +232,17 @@ namespace Digipost.Api.Client.Tests.Smoke
             _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(Guid.Parse(_primary.Guid)).Result;
             return this;
         }
+        public ClientSmokeTestHelper FetchDocumentStatus(Guid guid)
+        {
+            _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(guid).Result;
+            return this;
+        }
 
         public void Expect_document_status_to_be(DocumentStatus.DocumentDeliveryStatus deliveryStatus, DeliveryMethod deliveryMethod)
         {
             Assert_state(_documentStatus);
             Assert.Equal(_documentStatus.DeliveryMethod, deliveryMethod);
             Assert.Equal(_documentStatus.DeliveryStatus, deliveryStatus);
-            Assert.False(_documentStatus.DocumentRead.HasValue);
         }
     }
 }

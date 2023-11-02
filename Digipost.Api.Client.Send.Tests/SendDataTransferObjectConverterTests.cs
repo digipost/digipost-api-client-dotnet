@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -97,7 +97,7 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 //Act
-                var actual = SendDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -123,7 +123,7 @@ namespace Digipost.Api.Client.Send.Tests
                     .ForEach(time => expectedDto.At.Add(time));
 
                 //Act
-                var actual = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actual = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actual);
@@ -154,7 +154,7 @@ namespace Digipost.Api.Client.Send.Tests
                 };
 
                 //Act
-                var actual = SendDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);
@@ -169,7 +169,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var expectedDto = DomainUtility.GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById();
 
                 //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -187,7 +187,7 @@ namespace Digipost.Api.Client.Send.Tests
                 expectedDto.Recipient.Print_Details = DomainUtility.GetPrintDetailsDataTransferObject();
 
                 //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -256,7 +256,7 @@ namespace Digipost.Api.Client.Send.Tests
                     };
 
                 //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -332,7 +332,7 @@ namespace Digipost.Api.Client.Send.Tests
                     };
 
                 //Act
-                var actualDto = SendDataTransferObjectConverter.ToDataTransferObject(source);
+                var actualDto = source.ToDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expectedDto, actualDto);
@@ -357,7 +357,7 @@ namespace Digipost.Api.Client.Send.Tests
                 expected.NotifyAtTimes.AddRange(atTimes);
 
                 //Act
-                var actual = SendDataTransferObjectConverter.FromDataTransferObject(sourceDto);
+                var actual = sourceDto.FromDataTransferObject();
 
                 //Assert
                 Comparator.AssertEqual(expected, actual);

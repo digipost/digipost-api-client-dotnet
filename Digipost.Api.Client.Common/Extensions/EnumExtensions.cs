@@ -7,7 +7,7 @@ namespace Digipost.Api.Client.Common.Extensions
     internal static class EnumExtensions
     {
 
-        public static V8.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
+        internal static V8.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
         {
             switch (authenticationLevel)
             {
@@ -20,7 +20,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static V8.Sensitivity_Level ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
+        internal static V8.Sensitivity_Level ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
         {
             switch (sensitivityLevel)
             {
@@ -33,7 +33,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static V8.Print_Colors ToPrintColors(this PrintColors printColors)
+        internal static V8.Print_Colors ToPrintColors(this PrintColors printColors)
         {
             switch (printColors)
             {
@@ -46,7 +46,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static V8.Nondeliverable_Handling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
+        internal static V8.Nondeliverable_Handling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
         {
             switch (nondeliverableHandling)
             {
@@ -60,7 +60,7 @@ namespace Digipost.Api.Client.Common.Extensions
         }
 
 
-        public static DeliveryMethod ToDeliveryMethod(this V8.Channel deliveryMethod)
+        internal static DeliveryMethod ToDeliveryMethod(this V8.Channel deliveryMethod)
         {
             switch (deliveryMethod)
             {
@@ -79,7 +79,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static MessageStatus ToMessageStatus(this V8.Message_Status messagestatus)
+        internal static MessageStatus ToMessageStatus(this V8.Message_Status messagestatus)
         {
             switch (messagestatus)
             {
@@ -96,7 +96,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static AuthenticationLevel ToAuthenticationLevel(this V8.Authentication_Level authenticationlevel)
+        internal static AuthenticationLevel ToAuthenticationLevel(this V8.Authentication_Level authenticationlevel)
         {
             switch (authenticationlevel)
             {
@@ -109,7 +109,7 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
-        public static SensitivityLevel ToSensitivityLevel(this V8.Sensitivity_Level sensitivitylevel)
+        internal static SensitivityLevel ToSensitivityLevel(this V8.Sensitivity_Level sensitivitylevel)
         {
             switch (sensitivitylevel)
             {

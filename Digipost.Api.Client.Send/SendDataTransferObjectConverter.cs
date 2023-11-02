@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Send
 {
     internal static class SendDataTransferObjectConverter
     {
-        public static V8.Message ToDataTransferObject(IMessage message)
+        internal static V8.Message ToDataTransferObject(this IMessage message)
         {
             var primaryDocumentDataTransferObject = ToDataTransferObject(message.PrimaryDocument);
 
@@ -32,7 +32,7 @@ namespace Digipost.Api.Client.Send
             }
             else
             {
-                messageDto.Recipient = DataTransferObjectConverter.ToDataTransferObject(message.DigipostRecipient);
+                messageDto.Recipient = message.DigipostRecipient.ToDataTransferObject();
                 messageDto.Recipient.Print_Details = message.PrintDetails.ToDataTransferObject();
             }
 
@@ -49,7 +49,7 @@ namespace Digipost.Api.Client.Send
 
             if (message.PrintIfUnreadAfterSpecified)
             {
-                messageDto.Print_If_Unread = DataTransferObjectConverter.ToDataTransferObject(message.PrintIfUnread);
+                messageDto.Print_If_Unread = message.PrintIfUnread.ToDataTransferObject();
             }
 
             if (message.RequestForRegistrationSpecified)
@@ -60,7 +60,7 @@ namespace Digipost.Api.Client.Send
             return messageDto;
         }
 
-        public static V8.Document ToDataTransferObject(IDocument document)
+        internal static V8.Document ToDataTransferObject(this IDocument document)
         {
             var documentDto = new V8.Document
             {
@@ -87,7 +87,7 @@ namespace Digipost.Api.Client.Send
             return documentDto;
         }
 
-        public static Sms_Notification ToDataTransferObject(ISmsNotification smsNotification)
+        internal static Sms_Notification ToDataTransferObject(this ISmsNotification smsNotification)
         {
             if (smsNotification == null)
                 return null;
@@ -114,7 +114,7 @@ namespace Digipost.Api.Client.Send
             return smsNotificationDto;
         }
 
-        public static IMessageDeliveryResult FromDataTransferObject(Message_Delivery messageDeliveryDto)
+        internal static IMessageDeliveryResult FromDataTransferObject(this Message_Delivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
@@ -130,7 +130,7 @@ namespace Digipost.Api.Client.Send
             return messageDeliveryResult;
         }
 
-        public static IDocument FromDataTransferObject(V8.Document documentDto)
+        internal static IDocument FromDataTransferObject(this V8.Document documentDto)
         {
             return new Document(documentDto.Subject, documentDto.File_Type, documentDto.Authentication_Level.ToAuthenticationLevel(), documentDto.Sensitivity_Level.ToSensitivityLevel(), FromDataTransferObject(documentDto.Sms_Notification))
             {
@@ -139,7 +139,7 @@ namespace Digipost.Api.Client.Send
             };
         }
 
-        public static ISmsNotification FromDataTransferObject(Sms_Notification smsNotificationDto)
+        internal static ISmsNotification FromDataTransferObject(this Sms_Notification smsNotificationDto)
         {
             if (smsNotificationDto == null)
                 return null;
@@ -153,7 +153,7 @@ namespace Digipost.Api.Client.Send
             return smsNotification;
         }
 
-        public static DocumentStatus FromDataTransferObject(Document_Status dto)
+        internal static DocumentStatus FromDataTransferObject(this Document_Status dto)
         {
             return new DocumentStatus(
                 dto.Uuid,

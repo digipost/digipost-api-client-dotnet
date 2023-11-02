@@ -129,7 +129,7 @@ namespace Digipost.Api.Client.Common.Utilities
         private void ThrowNotEmptyResponseError(string responseContent)
         {
             var errorDataTransferObject = SerializeUtil.Deserialize<V8.Error>(responseContent);
-            var error = DataTransferObjectConverter.FromDataTransferObject(errorDataTransferObject);
+            var error = errorDataTransferObject.FromDataTransferObject();
 
             _logger.LogError("Error occured, check inner Error object for more information.", error);
             throw new ClientResponseException("Error occured, check inner Error object for more information.", error);

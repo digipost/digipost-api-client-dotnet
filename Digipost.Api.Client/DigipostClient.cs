@@ -90,7 +90,7 @@ namespace Digipost.Api.Client
             var result = _requestHelper.Get<V8.Entrypoint>(apiRootUri).ConfigureAwait(false);
             var entrypoint = result.GetAwaiter().GetResult();
 
-            root = DataTransferObjectConverter.FromDataTransferObject(entrypoint);
+            root = entrypoint.FromDataTransferObject();
 
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                 // Keep in cache for 5 minutes when in use, but max 1 hour.

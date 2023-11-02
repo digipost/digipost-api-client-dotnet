@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
@@ -17,7 +18,7 @@ namespace Digipost.Api.Client.Common
 {
     internal static class DataTransferObjectConverter
     {
-        public static Dictionary<string, Link> FromDataTransferObject(IEnumerable<V8.Link> links)
+        internal static Dictionary<string, Link> FromDataTransferObject(this IEnumerable<V8.Link> links)
         {
             return links.ToDictionary(
                 l => l.Rel.Substring(l.Rel.LastIndexOf('/') + 1).ToUpper(),
@@ -25,7 +26,7 @@ namespace Digipost.Api.Client.Common
             );
         }
 
-        public static Identification ToDataTransferObject(IIdentification identification)
+        internal static Identification ToDataTransferObject(this IIdentification identification)
         {
             Identification identificationDto = null;
 
@@ -42,7 +43,7 @@ namespace Digipost.Api.Client.Common
             return identificationDto;
         }
 
-        private static Identification IdentificationDataTransferObjectFromIdentificationById(RecipientById recipientById)
+        private static Identification IdentificationDataTransferObjectFromIdentificationById(this RecipientById recipientById)
         {
             switch (recipientById.IdentificationType)
             {
@@ -59,7 +60,7 @@ namespace Digipost.Api.Client.Common
             }
         }
 
-        private static Identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
+        private static Identification IdentificationDataTranferObjectFromIdentificationByNameAndAddress(this RecipientByNameAndAddress recipientByNameAndAddress)
         {
             var identification = new Identification
             {
@@ -85,51 +86,7 @@ namespace Digipost.Api.Client.Common
             return identification;
         }
 
-        public static Message_Recipient Message_RecipientDataTranferObjectFromIdentificationByNameAndAddress(RecipientByNameAndAddress recipientByNameAndAddress)
-        {
-            var identification = new Message_Recipient
-            {
-                Name_And_Address = new Name_And_Address()
-                {
-                    Fullname = recipientByNameAndAddress.FullName,
-                    Addressline1 = recipientByNameAndAddress.AddressLine1,
-                    Addressline2 = recipientByNameAndAddress.AddressLine2,
-                    Postalcode = recipientByNameAndAddress.PostalCode,
-                    City = recipientByNameAndAddress.City,
-                    Email_Address = recipientByNameAndAddress.Email,
-                    Phone_Number = recipientByNameAndAddress.PhoneNumber
-                }
-            };
-
-            if (recipientByNameAndAddress.BirthDate.HasValue)
-            {
-                var nameandaddress = identification.Name_And_Address;
-                nameandaddress.Birth_Date = recipientByNameAndAddress.BirthDate.Value;
-                nameandaddress.Birth_DateSpecified = true;
-            }
-
-            return identification;
-        }
-
-        public static Message_Recipient Message_RecipientDataTransferObjectFromIdentificationById(RecipientById recipientById)
-        {
-            switch (recipientById.IdentificationType)
-            {
-                case IdentificationType.DigipostAddress:
-                    return new Message_Recipient {Digipost_Address = recipientById.Id};
-                case IdentificationType.PersonalIdentificationNumber:
-                    return new Message_Recipient {Personal_Identification_Number = recipientById.Id};
-                case IdentificationType.OrganizationNumber:
-                    return new Message_Recipient {Organisation_Number = recipientById.Id};
-                case IdentificationType.BankAccountNumber:
-                    return new Message_Recipient {Bank_Account_Number = recipientById.Id};
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(recipientById.IdentificationType), recipientById.IdentificationType, null);
-            }
-        }
-
-
-        public static Message_Recipient ToDataTransferObject(IDigipostRecipient recipient)
+        internal static Message_Recipient ToDataTransferObject(this IDigipostRecipient recipient)
         {
             Message_Recipient messageRecipientDto = null;
 
@@ -146,7 +103,7 @@ namespace Digipost.Api.Client.Common
             return messageRecipientDto;
         }
 
-        private static Message_Recipient RecipientDataTransferObjectFromRecipientById(RecipientById recipient)
+        private static Message_Recipient RecipientDataTransferObjectFromRecipientById(this RecipientById recipient)
         {
             switch (recipient.IdentificationType)
             {
@@ -163,7 +120,7 @@ namespace Digipost.Api.Client.Common
             }
         }
 
-        private static Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(IRecipientByNameAndAddress recipientByNameAndAddress)
+        private static Message_Recipient RecipientDataTransferObjectFromRecipientByNameAndAddress(this IRecipientByNameAndAddress recipientByNameAndAddress)
         {
             var nameAndAddressDto = new Name_And_Address
             {
@@ -206,7 +163,7 @@ namespace Digipost.Api.Client.Common
             return printDetailsDataTransferObject;
         }
 
-        public static List<Print_Instruction> ToDataTransferObject(IPrintInstructions printInstructions)
+        internal static List<Print_Instruction> ToDataTransferObject(this IPrintInstructions printInstructions)
         {
             if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
                 return new List<Print_Instruction>();
@@ -214,7 +171,7 @@ namespace Digipost.Api.Client.Common
             return printInstructions.PrintInstruction.Select(ToDataTransferObject).ToList();
         }
 
-        public static Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
+        internal static Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
         {
             if (printInstruction == null)
                 return null;
@@ -228,7 +185,7 @@ namespace Digipost.Api.Client.Common
             return printInstructionTransferObject;
         }
 
-        public static Print_If_Unread ToDataTransferObject(IPrintIfUnread printIfUnread)
+        internal static Print_If_Unread ToDataTransferObject(this IPrintIfUnread printIfUnread)
         {
             if (printIfUnread == null)
                 return null;
@@ -253,7 +210,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        private static Print_Recipient ToDataTransferObject(IPrint recipient)
+        private static Print_Recipient ToDataTransferObject(this IPrint recipient)
         {
             var printRecipientDto = new Print_Recipient
             {
@@ -272,7 +229,7 @@ namespace Digipost.Api.Client.Common
             return printRecipientDto;
         }
 
-        public static Norwegian_Address ToDataTransferObject(INorwegianAddress norwegianAddress)
+        internal static Norwegian_Address ToDataTransferObject(this INorwegianAddress norwegianAddress)
         {
             return new Norwegian_Address
             {
@@ -284,7 +241,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static Foreign_Address ToDataTransferObject(IForeignAddress foreignAddress)
+        internal static Foreign_Address ToDataTransferObject(this IForeignAddress foreignAddress)
         {
             var result = new Foreign_Address
             {
@@ -305,7 +262,7 @@ namespace Digipost.Api.Client.Common
             return result;
         }
 
-        public static Print_Recipient ToDataTransferObject(Print.Print printOrPrintReturnRecipient)
+        internal static Print_Recipient ToDataTransferObject(this Print.Print printOrPrintReturnRecipient)
         {
             var printRecipientDataTransferObject = new Print_Recipient
             {
@@ -328,15 +285,15 @@ namespace Digipost.Api.Client.Common
             return printRecipientDataTransferObject;
         }
 
-        public static Root FromDataTransferObject(V8.Entrypoint entrypoint)
+        internal static Root FromDataTransferObject(this V8.Entrypoint entrypoint)
         {
             return new Root(entrypoint.Certificate)
             {
-                Links = FromDataTransferObject(entrypoint.Link)
+                Links = entrypoint.Link.FromDataTransferObject()
             };
         }
 
-        public static IIdentificationResult FromDataTransferObject(Identification_Result identificationResultDto)
+        internal static IIdentificationResult FromDataTransferObject(this Identification_Result identificationResultDto)
         {
             var digipostAddress = identificationResultDto.Digipost_Address;
             var personAlias = identificationResultDto.Person_Alias;
@@ -360,7 +317,7 @@ namespace Digipost.Api.Client.Common
             throw new ArgumentOutOfRangeException(nameof(identificationResultDto.Result), identificationResultDto.Result, null);
         }
 
-        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(Identification_Result identificationResultDto)
+        private static IdentificationResult IdentificationResultForDigipostOrPersonalIdentificationNumber(this Identification_Result identificationResultDto)
         {
             IdentificationResult identificationResult;
 
@@ -378,7 +335,7 @@ namespace Digipost.Api.Client.Common
             return identificationResult;
         }
 
-        public static Error FromDataTransferObject(V8.Error error)
+        internal static Error FromDataTransferObject(this V8.Error error)
         {
             return new Error
             {
@@ -388,7 +345,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static SearchDetailsResult FromDataTransferObject(Recipients recipients)
+        internal static SearchDetailsResult FromDataTransferObject(this V8.Recipients recipients)
         {
             return new SearchDetailsResult
             {
@@ -415,7 +372,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        public static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
+        internal static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
         {
             switch (hashAlgorithm)
             {

@@ -41,7 +41,7 @@ namespace Digipost.Api.Client.Inbox.Tests
                     Sender = sender
                 };
 
-                var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 Comparator.AssertEqual(expected, actual);
             }
@@ -52,7 +52,7 @@ namespace Digipost.Api.Client.Inbox.Tests
                 var source = new V8.Inbox();
                 var expected = new List<InboxDocument>();
 
-                var actual = InboxDataTransferObjectConverter.FromDataTransferObject(source);
+                var actual = source.FromDataTransferObject();
 
                 Comparator.AssertEqual(expected, actual);
             }

@@ -29,7 +29,7 @@ namespace Digipost.Api.Client.Archive.Actions
 
         protected override string Serialize(ArchiveDocument requestContent)
         {
-            var messageDataTransferObject = ArchiveDataTransferObjectConverter.ToDataTransferObject(requestContent);
+            var messageDataTransferObject = requestContent.ToDataTransferObject();
             return SerializeUtil.Serialize(messageDataTransferObject);
         }
     }

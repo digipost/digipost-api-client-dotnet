@@ -21,7 +21,7 @@ namespace Digipost.Api.Client.Send.Tests
                 var content = action.RequestContent;
 
                 //Assert
-                var expected = SerializeUtil.Serialize(SendDataTransferObjectConverter.ToDataTransferObject(message));
+                var expected = SerializeUtil.Serialize(message.ToDataTransferObject());
                 Assert.Equal(expected, content.InnerXml);
             }
 
@@ -30,7 +30,7 @@ namespace Digipost.Api.Client.Send.Tests
             {
                 ExternalLink externalLink = new ExternalLink {Url = "https://digipost.no"};
                 string linkXml = SerializeUtil.Serialize(externalLink);
-                
+
                 var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(linkXml));
 
                 var action = new MessageAction(message);

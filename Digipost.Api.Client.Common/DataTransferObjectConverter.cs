@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Send;
 using V8;
 using Identification = V8.Identification;
@@ -291,6 +293,39 @@ namespace Digipost.Api.Client.Common
             {
                 Links = entrypoint.Link.FromDataTransferObject()
             };
+        }
+
+        internal static SenderInformation FromDataTransferObject(this Sender_Information dto)
+        {
+            var notValidSender = dto.Status == Sender_Status.NO_INFO_AVAILABLE;
+            if (notValidSender)
+            {
+                return new SenderInformation(dto.Status.ToSenderStatus());
+            }
+
+            return new SenderInformation(
+                new Sender(dto.Sender_Id),
+                dto.Status.ToSenderStatus(),
+                dto.Supported_Features.FromDataTransferObject()
+            );
+        }
+
+        internal static SenderStatus ToSenderStatus(this Sender_Status dto)
+        {
+            switch (dto)
+            {
+                case Sender_Status.VALID_SENDER:
+                    return SenderStatus.ValidSender;
+                case Sender_Status.NO_INFO_AVAILABLE:
+                    return SenderStatus.NoInfoAvailable;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        internal static IEnumerable<SenderFeature> FromDataTransferObject(this Collection<Feature> dto)
+        {
+            return dto.Select(d => new SenderFeature(d.Value, d.Param));
         }
 
         internal static IIdentificationResult FromDataTransferObject(this Identification_Result identificationResultDto)

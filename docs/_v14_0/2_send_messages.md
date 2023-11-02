@@ -578,3 +578,22 @@ var documentStatus = _digipostClient.GetDocumentStatus(sender).GetDocumentStatus
 ```
 
 This can be useful if you use fallback to print, print-if-unread, request for registration etc. 
+
+### Get Sender by organisation number and a part id and send a message
+
+In very specific usecases where a broker organisation has multiple sub-organisations in Digipost
+it is possible to send with organisation number and a partid. The partid can be used to distinguish 
+between different divisions or however the organisation sees fit. This makes it possible 
+to not have to store the Digipost account id, but in stead fetch this information from the api.
+
+```csharp
+var senderInformation = client.GetSenderInformation(sender, new SenderOrganisation("9876543210", "thePartId"));
+
+var message = new Message(
+    senderInformation.Sender,
+    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
+    new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
+);
+
+var result = client.SendMessage(message);
+```

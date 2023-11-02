@@ -16,6 +16,20 @@ namespace Digipost.Api.Client.Common.Relations
         }
     }
 
+    public class SenderInformationUri : Uri
+    {
+        public SenderInformationUri(Link link, Sender sender)
+            : base($"{link.Uri}/{sender.Id}", UriKind.Absolute)
+        {
+
+        }
+        public SenderInformationUri(Link link, string organisationNumber, string partId)
+            : base($"{link.Uri}?org_id={organisationNumber}&part_id={partId}", UriKind.Absolute)
+        {
+
+        }
+    }
+
     public class SendMessageUri : Uri
     {
         public SendMessageUri(Link link)

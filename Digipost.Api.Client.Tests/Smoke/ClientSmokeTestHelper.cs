@@ -9,6 +9,7 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
@@ -47,6 +48,7 @@ namespace Digipost.Api.Client.Tests.Smoke
         private RequestForRegistration _requestForRegistration;
 
         private DocumentStatus _documentStatus;
+        private SenderInformation _senderInformation;
 
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
@@ -243,6 +245,19 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert_state(_documentStatus);
             Assert.Equal(_documentStatus.DeliveryMethod, deliveryMethod);
             Assert.Equal(_documentStatus.DeliveryStatus, deliveryStatus);
+        }
+
+        public ClientSmokeTestHelper GetSenderInformation()
+        {
+            //_senderInformation = _digipostClient.GetSenderInformation(_root.GetSenderInformationUri(new Sender(_testSender.Id)));
+            _senderInformation = _digipostClient.GetSenderInformation(new Sender(_testSender.Id), new SenderOrganisation("984661185", "signering"));
+            return this;
+        }
+
+        public void Expect_valid_sender_information()
+        {
+            Assert_state(_senderInformation);
+            Assert.True(_senderInformation.IsValidSender);
         }
     }
 }

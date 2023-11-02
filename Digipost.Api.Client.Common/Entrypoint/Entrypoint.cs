@@ -25,6 +25,15 @@ namespace Digipost.Api.Client.Common.Entrypoint
             return new ApiRootUri(sender);
         }
 
+        public SenderInformationUri GetSenderInformationUri(Sender sender)
+        {
+            return new SenderInformationUri(Links["GET_SENDER_INFORMATION"], sender);
+        }
+        public SenderInformationUri GetSenderInformationUri(string organisationNumber, string partId)
+        {
+            return new SenderInformationUri(Links["GET_SENDER_INFORMATION"], organisationNumber, partId);
+        }
+
         public GetInboxUri GetGetInboxUri(int offset = 0, int limit = 100)
         {
             return new GetInboxUri(Links["GET_INBOX"], offset, limit);

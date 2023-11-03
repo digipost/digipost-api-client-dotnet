@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
+using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
+using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Send;
@@ -98,6 +100,30 @@ namespace Digipost.Api.Client
                 .SetSlidingExpiration(TimeSpan.FromMinutes(5));
 
             return _entrypointCache.Set(cacheKey, root, cacheEntryOptions);
+        }
+
+        public SenderInformation GetSenderInformation(Sender senderId, SenderOrganisation senderOrganisation)
+        {
+            var senderInformationUri = GetRoot(new ApiRootUri(senderId)).GetSenderInformationUri(senderOrganisation.OrganisationNumber, senderOrganisation.PartId);
+
+            var cacheKey = "senderOrganisation" + senderInformationUri;
+
+            if (_entrypointCache.TryGetValue(cacheKey, out SenderInformation information)) return information;
+
+            var configuredTaskAwaitable = _requestHelper.Get<V8.Sender_Information>(senderInformationUri).ConfigureAwait(false);
+            var senderInformation = configuredTaskAwaitable.GetAwaiter().GetResult().FromDataTransferObject();
+
+            if (!senderInformation.IsValidSender)
+            {
+                throw new ConfigException($"Broker not authorized or sender does not exist. {senderInformation.SenderStatus}");
+            }
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                // Keep in cache for 5 minutes when in use, but max 1 hour.
+                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+
+            return _entrypointCache.Set(cacheKey, senderInformation, cacheEntryOptions);
         }
 
         public Inbox.Inbox GetInbox(Sender senderId)

@@ -39,6 +39,14 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
+        public void Get_sender_information()
+        {
+            _client
+                .GetSenderInformation()
+                .Expect_valid_sender_information();
+        }
+
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_digipost_user()
         {
             _client

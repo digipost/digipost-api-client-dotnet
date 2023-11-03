@@ -4,6 +4,7 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
@@ -423,6 +424,19 @@ namespace Digipost.Api.Client.Docs
             );
 
             // Create Message and send using the client as specified in other examples.
+        }
+
+        public void SendMessageWithSenderInformation()
+        {
+            var senderInformation = client.GetSenderInformation(sender, new SenderOrganisation("9876543210", "thePartId"));
+
+            var message = new Message(
+                senderInformation.Sender,
+                new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
+                new Document(subject: "Attachment", fileType: "txt", path: @"c:\...\document.txt")
+            );
+
+            var result = client.SendMessage(message);
         }
     }
 }

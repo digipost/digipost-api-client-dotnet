@@ -121,14 +121,15 @@ var result = client.SendMessage(messageWithFallbackToPrint);
 
 It is possible to send a message to a person, who does not have a Digipost account, where the message triggers 
 an SMS notification with a request for registration. The SMS notification says that if they register for a 
-Digipost account the document will be delivered digitally. If the user does not register for a Digipost 
-account within the defined deadline, the document will either be delivered as physical mail or not at all.
-Be aware that we need a PersonalIdentificationNumber as Recipient to be able to deliver the correct person!
+Digipost account the document will be delivered digitally. The actual content of the SMS is not part of the request, it is stored as part of the Digipost sender account and must be agreed upon with Digipost. If the user does not register for a Digipost 
+account within the defined deadline, the document will be either delivered as physical mail or not at all.
+Be aware that PersonalIdentificationNumber as Recipient is required to be able to deliver the document to the correct person.
 
-In this case the document will be delivered as physical mail by Digipost if the recipient has not registered for a Digipost account by the defined deadline:
+In the following the document will be delivered as physical mail by Digipost if the recipient has not registered for a Digipost account by the defined deadline:
 
 ```csharp
 var recipient = new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx");
+var documentGuid = Guid.NewGuid();
 
 var requestForRegistration = new RequestForRegistration(
     DateTime.Now.AddDays(3),
@@ -144,19 +145,27 @@ var requestForRegistration = new RequestForRegistration(
     )
 );
 
-var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf");
+var primaryDocument = new Document(subject: "document subject", fileType: "pdf", path: @"c:\...\document.pdf")
+{
+    Guid = documentGuid.ToString()
+};
 
-var messageWithPrintIfUnread = new Message(sender, recipient, primaryDocument)
+var messageWithRequestForRegistration = new Message(sender, recipient, primaryDocument)
 {
     RequestForRegistration = requestForRegistration
 };
 
-var result = client.SendMessage(messageWithPrintIfUnread);
+var result = client.SendMessage(messageWithRequestForRegistration);
 ```
 
 If the sender wishes to send the document as physical mail through it's own 
-service (if the recipient does not register a Digipost account), print details _must not be included_.
+service, print details _must not be included_. In that case the status of the delivery can be checked with the following:
 
+```csharp
+var documentStatus = _digipostClient.GetDocumentStatus(sender).GetDocumentStatus(documentGuid).Result;
+```
+
+The documentGuid is tha same as the one used when the originating message was sent. 
 
 ### Send letter with fallback to print if the user does not read the message within a certain deadline
 

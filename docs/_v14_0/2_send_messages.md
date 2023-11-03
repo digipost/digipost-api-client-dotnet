@@ -33,9 +33,10 @@ var message = new Message(
 
 var result = client.SendMessage(message);
 ```
+
 ### Other recipient types
 
-There are other recipient types available to identify recipients of messages. Note that some recipient types may 
+There are other recipient types available to identify recipients of messages. Note that some recipient types may
 require special permissions to be set up in order to be used.
 
 ```csharp
@@ -117,13 +118,18 @@ var messageWithFallbackToPrint = new Message(sender, recipient, primaryDocument)
 var result = client.SendMessage(messageWithFallbackToPrint);
 ```
 
-### Send messaage with request for registration
+### Send message with request for registration
 
-It is possible to send a message to a person, who does not have a Digipost account, where the message triggers 
-an SMS notification with a request for registration. The SMS notification says that if they register for a 
-Digipost account the document will be delivered digitally. The actual content of the SMS is not part of the request, it is stored as part of the Digipost sender account and must be agreed upon with Digipost. If the user does not register for a Digipost 
-account within the defined deadline, the document will be either delivered as physical mail or not at all.
-Be aware that PersonalIdentificationNumber as Recipient is required to be able to deliver the document to the correct person.
+It is possible to send a message to a person who does not have a Digipost account, where the message triggers
+an SMS notification with a request for registration. The SMS notification says that if they register for a
+Digipost account the document will be delivered digitally.
+
+The actual content of the SMS is not part of the request, it is stored as part of the Digipost sender account and must be agreed upon with Digipost, as well as the SMS sender ID or phone number.
+
+If the user does not register for a Digipost account within the defined deadline, the document will be either delivered as physical mail or not at all.
+Be aware that using `PersonalIdentificationNumber` is required as Recipient to be able to deliver the document to the correct person.
+
+It is important to include the country code, starting with a plus sign, in the recipient's phone number.
 
 In the following the document will be delivered as physical mail by Digipost if the recipient has not registered for a Digipost account by the defined deadline:
 
@@ -158,14 +164,30 @@ var messageWithRequestForRegistration = new Message(sender, recipient, primaryDo
 var result = client.SendMessage(messageWithRequestForRegistration);
 ```
 
-If the sender wishes to send the document as physical mail through it's own 
-service, print details _must not be included_. In that case the status of the delivery can be checked with the following:
+If the sender wishes to send the document as physical mail through its own
+service, print details _must not be included_ but be `null` instead.
+
+````csharp
+var recipient = new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx");
+var documentGuid = Guid.NewGuid();
+
+var requestForRegistration = new RequestForRegistration(
+    DateTime.Now.AddDays(3),
+    "+4711223344",
+    null,
+    null
+);
+```
+
+In this case the status of the delivery can be checked with the following:
 
 ```csharp
 var documentStatus = _digipostClient.GetDocumentStatus(sender).GetDocumentStatus(documentGuid).Result;
 ```
 
-The documentGuid is tha same as the one used when the originating message was sent. 
+If documentDeliveryStatus is still "NOT_DELIVERED" after the expiry date, you know that the user did not register a Digipost account and the document is not delivered.
+
+The documentGuid is the same as the one used when the originating message was sent.
 
 ### Send letter with fallback to print if the user does not read the message within a certain deadline
 
@@ -312,7 +334,7 @@ if (identificationResponse.ResultType == IdentificationResultType.DigipostAddres
 {
     //Exist as user in Digipost.
     //If you used personal identification number to identify - use this to send a message to this individual.
-    //If not, see Data field for DigipostAddress.  
+    //If not, see Data field for DigipostAddress.
 }
 else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
 {
@@ -393,8 +415,8 @@ var result = client.SendMessage(message);
 There are other enrichments that are available in Digipost. Ref.
 https://github.com/digipost/digipost-data-types-dotnet or the original project (for java) https://github.com/digipost/digipost-data-types.
 
-
 ### Search for receivers
+
 A central part of a user interface in the application that is integrating with Digipost is the possiblity to search for receivers. This is available via the search endpoint. A person can be found by simply searching by first name and last name, e.g. <code>Ola Nordmann</code>, or specified further by street address, postal code, city and organization name.
 
 It is important to note that the search results returned do not necessarily include the receiver to which you actually wish to send. The search results returned are strictly based on the search query you have sent in. This equally applies when only one search result is returned. This means that the actual person to which you wish to send must be confirmed by a human being before the actual document i sent (typically in the senders application). If the goal is to create a 100% automated workflow then the identify recipient endpoint should be used (see Identify recipient use case).
@@ -410,6 +432,7 @@ foreach (var person in response.PersonDetails)
 ```
 
 ### Send on behalf of organization
+
 In the following use case, `Sender` is defined as the party who is responsible for the actual content of the letter. `Broker` is defined as the party who is responsible for the technical transaction, which in this context means creating the request and being the party that is authenticated.
 
 ![example]({{ site.baseurl}}/assets/images/sender_broker_digipost.png)
@@ -418,7 +441,7 @@ Sending on behalf of an organization is accomplished by setting `Message.Sender`
 
 <blockquote> Remember to use the enterprise certificate of the broker to sign the message, not the one belonging to the sender. Also, the proper permissions need to be set by Digipost to send on behalf of an organization.</blockquote>
 
-Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.  
+Let us illustrate this with an example. Let _BrokerCompany_ be an organization with id _12345_, and thumbprint of their certificate _84e492a972b7e..._. They want to send on behalf of _SenderCompany_ with organization id _67890_.
 
 ```csharp
 var broker = new Broker(12345);
@@ -463,7 +486,7 @@ available datatypes and their documentation can be found at
 [digipost/digipost-data-types](https://github.com/digipost/digipost-data-types).
 
 DataTypes are sent as an XML string in the document's `datatype` field. You can build the XML yourself, or import our extension library [Digipost.Api.Client.DataTypes](https://www.nuget.org/packages/Digipost.Api.Client.DataTypes.Core/).
-This library includes classes for each datatype, which can be serialized using `SerializeUtil.Serialize(DataType)`, which gives you the XML string to append to the document. 
+This library includes classes for each datatype, which can be serialized using `SerializeUtil.Serialize(DataType)`, which gives you the XML string to append to the document.
 The expansion library is optional, but highly recommended if you'll be working with DataTypes. The examples below will assume the usage of said library.
 
 ### Send message with appointment datatype
@@ -490,6 +513,7 @@ var document = new Document(
 
 // Create Message and send using the client as specified in other examples.
 ```
+
 ### Send message with event datatype
 
 `Event` represents a meeting set for a specific place, but covering multiple time spans. The following example demonstrates how to include such extra data:
@@ -530,6 +554,7 @@ Document document = new Document(
 
 // Create Message and send using the client as specified in other examples.
 ```
+
 ### Send message with external link datatype
 
 `ExternalLink` enhances a message in Digipost with a button which sends the user to an external site. The button
@@ -556,10 +581,9 @@ var document = new Document(
 // Create Message and send using the client as specified in other examples.
 ```
 
-
 ### Get status of a sent document
 
-You can for any given document check its status to see if it and when has been delivered, status of 
+You can for any given document check its status to see if it and when has been delivered, status of
 read approval, delivery method etc.
 
 To do this you need to have the Guid given to the document.
@@ -586,13 +610,13 @@ To fetch fhe DocumentStatus later:
 var documentStatus = _digipostClient.GetDocumentStatus(sender).GetDocumentStatus(documentGuid).Result;
 ```
 
-This can be useful if you use fallback to print, print-if-unread, request for registration etc. 
+This can be useful if you use fallback to print, print-if-unread, request for registration etc.
 
 ### Get Sender by organisation number and a part id and send a message
 
 In very specific usecases where a broker organisation has multiple sub-organisations in Digipost
-it is possible to send with organisation number and a partid. The partid can be used to distinguish 
-between different divisions or however the organisation sees fit. This makes it possible 
+it is possible to send with organisation number and a partid. The partid can be used to distinguish
+between different divisions or however the organisation sees fit. This makes it possible
 to not have to store the Digipost account id, but in stead fetch this information from the api.
 
 ```csharp
@@ -606,3 +630,4 @@ var message = new Message(
 
 var result = client.SendMessage(message);
 ```
+````

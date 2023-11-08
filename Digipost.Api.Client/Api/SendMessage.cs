@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Send;
@@ -109,6 +110,20 @@ namespace Digipost.Api.Client.Api
             _logger.LogDebug("Response received for search with term '{search}' retrieved.", search);
 
             return searchDetailsResult;
+        }
+
+        public void SendAdditionalData(IAdditionalData additionalData, AddAdditionalDataUri uri)
+        {
+            SendAdditionalDataAsync(additionalData, uri).GetAwaiter().GetResult();
+        }
+
+        public async Task SendAdditionalDataAsync(IAdditionalData additionalData, AddAdditionalDataUri uri)
+        {
+            _logger.LogDebug("Sending additional data '{uri}'", uri);
+
+            await RequestHelper.PostAdditionalData<string>(additionalData, uri).ConfigureAwait(false);
+
+            _logger.LogDebug("Additional data added to '{uri}'", uri);
         }
     }
 }

@@ -10,6 +10,7 @@ using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
+using Digipost.Api.Client.Common.Share;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
@@ -17,6 +18,7 @@ using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
+using Sender = Digipost.Api.Client.Common.Sender;
 
 namespace Digipost.Api.Client.Tests.Smoke
 {
@@ -51,6 +53,8 @@ namespace Digipost.Api.Client.Tests.Smoke
         private DocumentStatus _documentStatus;
         private SenderInformation _senderInformation;
         private DocumentEvents _documentEvents;
+        private ShareDocumentsRequestState _shareDocumentsRequestState;
+        private ILogger<ClientSmokeTestHelper> _testLogger;
 
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
@@ -59,9 +63,12 @@ namespace Digipost.Api.Client.Tests.Smoke
 
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
-            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, serviceProvider.GetService<ILoggerFactory>());
+            var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, loggerFactory);
 
             _root = _digipostClient.GetRoot(new ApiRootUri());
+
+            _testLogger = loggerFactory.CreateLogger<ClientSmokeTestHelper>();
         }
 
         public ClientSmokeTestHelper HasRoot()
@@ -228,6 +235,32 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert.InRange(_searchResult.PersonDetails.ToList().Count, 1, 11);
         }
 
+        public ClientSmokeTestHelper FetchShareDocumentRequestState()
+        {
+            Assert_state(_messageDeliveryResult);
+            Assert_state(_primary);
+
+            _shareDocumentsRequestState = _digipostClient.GetDocumentSharing(new Sender(_testSender.Id)).GetShareDocumentsRequestState(Guid.Parse(_primary.Guid)).Result;
+            return this;
+        }
+
+        public void ExpectShareDocumentsRequestState()
+        {
+            Assert_state(_shareDocumentsRequestState);
+            if (_shareDocumentsRequestState.SharedDocuments.Any())
+            {
+                var sharedDocument = _shareDocumentsRequestState.SharedDocuments.First();
+                var sharedDocumentContent = _digipostClient.GetDocumentSharing(new Sender(_testSender.Id))
+                    .GetShareDocumentContent(sharedDocument.GetSharedDocumentContentUri()).Result;
+
+                _testLogger.LogInformation($"Uri til dokument (pressthelink): '{sharedDocumentContent.Uri}'");
+
+                var documentStream = _digipostClient.GetDocumentSharing(new Sender(_testSender.Id)).FetchSharedDocument(sharedDocument.GetSharedDocumentContentStreamUri()).Result;
+                Assert.Equal(true, documentStream.CanRead);
+                Assert.True(documentStream.Length > 500);
+            }
+        }
+
         public ClientSmokeTestHelper FetchDocumentStatus()
         {
             Assert_state(_messageDeliveryResult);
@@ -274,6 +307,15 @@ namespace Digipost.Api.Client.Tests.Smoke
         {
             Assert_state(_senderInformation);
             Assert.True(_senderInformation.IsValidSender);
+        }
+
+        public void PerformStopSharing()
+        {
+            Assert_state(_shareDocumentsRequestState);
+
+            var additionalData = new AdditionalData(new Sender(_testSender.Id), new ShareDocumentsRequestSharingStopped());
+
+            _digipostClient.AddAdditionalData(additionalData, _shareDocumentsRequestState.GetStopSharingUri());
         }
     }
 }

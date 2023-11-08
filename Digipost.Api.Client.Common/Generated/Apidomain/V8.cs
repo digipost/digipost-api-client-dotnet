@@ -3215,6 +3215,272 @@ namespace V8
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("share-documents-request-state", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("share-documents-request-state", Namespace="http://api.digipost.no/schema/v8")]
+    public partial class Share_Documents_Request_State
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Shared_Document> _shared_Documents;
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlArrayAttribute("shared-documents")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("shared-document", Namespace="http://api.digipost.no/schema/v8")]
+        public System.Collections.ObjectModel.Collection<Shared_Document> Shared_Documents
+        {
+            get
+            {
+                return this._shared_Documents;
+            }
+            private set
+            {
+                this._shared_Documents = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Share_Documents_Request_State" /> class.</para>
+        /// </summary>
+        public Share_Documents_Request_State()
+        {
+            this._shared_Documents = new System.Collections.ObjectModel.Collection<Shared_Document>();
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("shared-at-time", DataType="dateTime")]
+        public System.DateTime Shared_At_Time { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Shared_At_Time property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Shared_At_TimeSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("expiry-time", DataType="dateTime")]
+        public System.DateTime Expiry_Time { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Expiry_Time property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Expiry_TimeSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("withdrawn-time", DataType="dateTime")]
+        public System.DateTime Withdrawn_Time { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the Withdrawn_Time property is specified.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Withdrawn_TimeSpecified { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Link> _link;
+        
+        [System.Xml.Serialization.XmlElementAttribute("link")]
+        public System.Collections.ObjectModel.Collection<Link> Link
+        {
+            get
+            {
+                return this._link;
+            }
+            private set
+            {
+                this._link = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Link collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LinkSpecified
+        {
+            get
+            {
+                return (this.Link.Count != 0);
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-documents", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Shared_Documents
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Shared_Document> _shared_Document;
+        
+        [System.Xml.Serialization.XmlElementAttribute("shared-document")]
+        public System.Collections.ObjectModel.Collection<Shared_Document> Shared_Document
+        {
+            get
+            {
+                return this._shared_Document;
+            }
+            private set
+            {
+                this._shared_Document = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Shared_Document collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool Shared_DocumentSpecified
+        {
+            get
+            {
+                return (this.Shared_Document.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Shared_Documents" /> class.</para>
+        /// </summary>
+        public Shared_Documents()
+        {
+            this._shared_Document = new System.Collections.ObjectModel.Collection<Shared_Document>();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-document", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Shared_Document
+    {
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("delivery-time", DataType="dateTime")]
+        public System.DateTime Delivery_Time { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="en">Maximum length: 255.</para>
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(255)]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("subject")]
+        public string Subject { get; set; }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("file-type")]
+        public string File_Type { get; set; }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("file-size-bytes")]
+        public string File_Size_Bytes { get; set; }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("origin")]
+        public Shared_Document_Origin Origin { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Link> _link;
+        
+        [System.Xml.Serialization.XmlElementAttribute("link")]
+        public System.Collections.ObjectModel.Collection<Link> Link
+        {
+            get
+            {
+                return this._link;
+            }
+            private set
+            {
+                this._link = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Gets a value indicating whether the Link collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LinkSpecified
+        {
+            get
+            {
+                return (this.Link.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Shared_Document" /> class.</para>
+        /// </summary>
+        public Shared_Document()
+        {
+            this._link = new System.Collections.ObjectModel.Collection<Link>();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-document-origin", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Shared_Document_Origin
+    {
+        
+        [System.Xml.Serialization.XmlElementAttribute("organisation")]
+        public Shared_Document_Origin_Organisation Organisation { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("private-person")]
+        public Shared_Document_Origin_Private_Person Private_Person { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-document-origin-organisation", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Shared_Document_Origin_Organisation
+    {
+        
+        [System.Xml.Serialization.XmlAttributeAttribute("organisation-number")]
+        public string Organisation_Number { get; set; }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute("name")]
+        public string Name { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-document-origin-private-person", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Shared_Document_Origin_Private_Person
+    {
+        
+        [System.Xml.Serialization.XmlAttributeAttribute("name")]
+        public string Name { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("shared-document-content", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("shared-document-content", Namespace="http://api.digipost.no/schema/v8")]
+    public partial class Shared_Document_Content
+    {
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("content-type")]
+        public string Content_Type { get; set; }
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("uri")]
+        public string Uri { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.594.0")]
+    [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute("autocomplete", Namespace="http://api.digipost.no/schema/v8", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]

@@ -5,7 +5,7 @@ using Digipost.Api.Client.DataTypes.Core;
 
 namespace Digipost.Api.Client.Send
 {
-    public class Document : IDocument
+    public class Document : RestLinkable, IDocument
     {
         /// <param name="subject">The subject of the document.</param>
         /// <param name="fileType">The file type of the file (e.g pdf,txt.. ).</param>

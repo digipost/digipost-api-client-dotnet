@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Identify;
@@ -9,12 +10,11 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
-using Digipost.Api.Client.Common.Extensions;
+using Digipost.Api.Client.Common.Share;
 using Digipost.Api.Client.Send;
 using V8;
 using Identification = V8.Identification;
 using Link = Digipost.Api.Client.Common.Entrypoint.Link;
-using Root = Digipost.Api.Client.Common.Entrypoint.Root;
 
 namespace Digipost.Api.Client.Common
 {
@@ -182,7 +182,7 @@ namespace Digipost.Api.Client.Common
             return printDetailsDataTransferObject;
         }
 
-        internal static List<Print_Instruction> ToDataTransferObject(this IPrintInstructions printInstructions)
+        private static List<Print_Instruction> ToDataTransferObject(this IPrintInstructions printInstructions)
         {
             if (printInstructions == null || printInstructions.PrintInstruction.Count == 0)
                 return new List<Print_Instruction>();
@@ -190,7 +190,7 @@ namespace Digipost.Api.Client.Common
             return printInstructions.PrintInstruction.Select(ToDataTransferObject).ToList();
         }
 
-        internal static Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
+        private static Print_Instruction ToDataTransferObject(IPrintInstruction printInstruction)
         {
             if (printInstruction == null)
                 return null;
@@ -273,7 +273,8 @@ namespace Digipost.Api.Client.Common
             if (foreignAddress.CountryIdentifier == CountryIdentifier.Country)
             {
                 result.Country = foreignAddress.CountryIdentifierValue;
-            } else if (foreignAddress.CountryIdentifier == CountryIdentifier.Countrycode)
+            }
+            else if (foreignAddress.CountryIdentifier == CountryIdentifier.Countrycode)
             {
                 result.Country_Code = foreignAddress.CountryIdentifierValue;
             }
@@ -361,6 +362,7 @@ namespace Digipost.Api.Client.Common
             {
                 return new IdentificationResult(IdentificationResultType.InvalidReason, identificationResultDto.Invalid_Reason.ToString());
             }
+
             if (identificationResultDto.Unidentified_ReasonSpecified)
             {
                 return new IdentificationResult(IdentificationResultType.UnidentifiedReason, identificationResultDto.Unidentified_Reason.ToString());
@@ -384,6 +386,7 @@ namespace Digipost.Api.Client.Common
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             return identificationResult;
         }
 
@@ -397,7 +400,7 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        internal static SearchDetailsResult FromDataTransferObject(this V8.Recipients recipients)
+        internal static SearchDetailsResult FromDataTransferObject(this Recipients recipients)
         {
             return new SearchDetailsResult
             {
@@ -424,5 +427,43 @@ namespace Digipost.Api.Client.Common
             };
         }
 
+
+        internal static ShareDocumentsRequestState FromDataTransferObject(this Share_Documents_Request_State dto)
+        {
+            return new ShareDocumentsRequestState(
+                dto.Shared_At_TimeSpecified ? dto.Shared_At_Time : (DateTime?) null,
+                dto.Expiry_TimeSpecified ? dto.Expiry_Time : (DateTime?) null,
+                dto.Withdrawn_TimeSpecified ? dto.Withdrawn_Time : (DateTime?) null,
+                dto.Shared_Documents.FromDataTransferObject(),
+                dto.Link.FromDataTransferObject()
+            );
+        }
+
+        private static IEnumerable<SharedDocument> FromDataTransferObject(this Collection<Shared_Document> dto)
+        {
+            return dto.Select(document => new SharedDocument(
+                document.Delivery_Time,
+                document.Subject,
+                document.File_Type,
+                Convert.ToInt32(document.File_Size_Bytes),
+                document.Origin.FromDataTransferObject(),
+                document.Link.FromDataTransferObject()
+            )).ToList();
+        }
+
+        private static IOrigin FromDataTransferObject(this Shared_Document_Origin dto)
+        {
+            if (dto.Organisation != null)
+            {
+                return new OrganisationOrigin(dto.Organisation.Name, dto.Organisation.Organisation_Number);
+            }
+
+            return new PrivatePersonOrigin(dto.Private_Person.Name);
+        }
+
+        internal static SharedDocumentContent FromDataTransferObject(this Shared_Document_Content dto)
+        {
+            return new SharedDocumentContent(dto.Content_Type, new Uri(dto.Uri, UriKind.Absolute));
+        }
     }
 }

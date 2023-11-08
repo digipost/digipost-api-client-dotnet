@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common.Actions;
 using Digipost.Api.Client.Common.Identify;
+using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send.Actions;
 
@@ -27,6 +28,14 @@ namespace Digipost.Api.Client.Send
             var httpContent = messageAction.Content(message);
 
             return _requestHelper.Post<T>(httpContent, messageAction.RequestContent, uri, skipMetaDataValidation);
+        }
+
+        internal Task PostAdditionalData<T>(IAdditionalData additionalData, AddAdditionalDataUri uri)
+        {
+            var action = new AddAdditionalDataAction(additionalData);
+            var httpContent = action.Content(additionalData);
+
+            return _requestHelper.Post<T>(httpContent, action.RequestContent, uri);
         }
 
         internal Task<T> PostIdentification<T>(IIdentification identification, Uri uri)

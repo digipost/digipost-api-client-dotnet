@@ -122,7 +122,7 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
-        public void Can_send_document_share_request_to_user()
+        public void Can_send_document_and_check_document_status()
         {
             _client
                 .Create_message_with_primary_document()
@@ -145,6 +145,30 @@ namespace Digipost.Api.Client.Tests.Smoke
                     DocumentStatus.DocumentDeliveryStatus.NOT_DELIVERED,
                     DeliveryMethod.PENDING
                 );
+        }
+
+        [Fact(Skip = "SmokeTest")]
+        public void Can_send_document_share_request_to_user()
+        {
+            var shareDocReq = new ShareDocumentsRequest(maxShareDurationSeconds: 60 * 60 * 24 * 2, purpose: "The purpose for my use of the document"); // Two days
+
+            _client
+                .CreateMessageWithPrimaryDataTypeDocument(shareDocReq)
+                .To_Digital_Recipient()
+                .SendMessage()
+                .Expect_message_to_have_status(MessageStatus.Delivered);
+
+            _client.FetchDocumentStatus()
+                .Expect_document_status_to_be(
+                    DocumentStatus.DocumentDeliveryStatus.DELIVERED,
+                    DeliveryMethod.Digipost
+                );
+
+            //Set breakpoint her og del et dokument i qa.digipost.no!
+            _client.FetchShareDocumentRequestState()
+                .ExpectShareDocumentsRequestState();
+
+            _client.PerformStopSharing();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
@@ -76,11 +75,9 @@ namespace Digipost.Api.Client.Send
 
             if (document.DataType != null)
             {
-                var xmldoc = new XmlDocument();
-                xmldoc.LoadXml(document.DataType);
                 documentDto.Data_Type = new Data_Type()
                 {
-                    Any = xmldoc.DocumentElement
+                    Any = document.DataType.ToXmlDocument().DocumentElement
                 };
             }
 

@@ -1,4 +1,5 @@
-﻿using Digipost.Api.Client.Common.Utilities;
+﻿using System;
+using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send.Actions;
 using Digipost.Api.Client.Tests;
@@ -28,10 +29,9 @@ namespace Digipost.Api.Client.Send.Tests
             [Fact]
             public void SerializedXmlContainsDataType()
             {
-                ExternalLink externalLink = new ExternalLink {Url = "https://digipost.no"};
-                string linkXml = SerializeUtil.Serialize(externalLink);
+                ExternalLink externalLink = new ExternalLink(new Uri("https://digipost.no"));
 
-                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(linkXml));
+                var message = DomainUtility.GetSimpleMessageWithRecipientById(DomainUtility.GetDocument(externalLink));
 
                 var action = new MessageAction(message);
                 var content = action.RequestContent;

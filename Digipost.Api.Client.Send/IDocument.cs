@@ -1,5 +1,5 @@
-﻿using Digipost.Api.Client.Common;
-using Digipost.Api.Client.Common.Enums;
+﻿using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.DataTypes.Core;
 
 namespace Digipost.Api.Client.Send
 {
@@ -45,6 +45,6 @@ namespace Digipost.Api.Client.Send
         /// <summary>
         ///     Optional metadata to enrich the document in Digipost. See https://github.com/digipost/digipost-data-types for valid data-types.
         /// </summary>
-        string DataType { get; set; }
+        IDigipostDataType DataType { get; set; }
     }
 }

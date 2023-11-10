@@ -167,7 +167,7 @@ var result = client.SendMessage(messageWithRequestForRegistration);
 If the sender wishes to send the document as physical mail through its own
 service, print details _must not be included_ but be `null` instead.
 
-````csharp
+```csharp
 var recipient = new RecipientById(identificationType: IdentificationType.PersonalIdentificationNumber, id: "311084xxxx");
 var documentGuid = Guid.NewGuid();
 
@@ -619,8 +619,9 @@ it is possible to send with organisation number and a partid. The partid can be 
 between different divisions or however the organisation sees fit. This makes it possible
 to not have to store the Digipost account id, but in stead fetch this information from the api.
 
+Fetch sender information based on orgnumber and partid.
 ```csharp
-var senderInformation = client.GetSenderInformation(sender, new SenderOrganisation("9876543210", "thePartId"));
+var senderInformation = client.GetSenderInformation(new SenderOrganisation("9876543210", "thePartId"));
 
 var message = new Message(
     senderInformation.Sender,
@@ -630,4 +631,47 @@ var message = new Message(
 
 var result = client.SendMessage(message);
 ```
-````
+
+### Get document events
+
+Document events is special events created by Digipost when certain events happens to a document
+that the broker/sender could use to perform other operations with regards to the processing of
+the document. 
+
+When a sender send a RequestForRegistration one might be interested in knowing IF the user
+has registered with in the timeout specified to for instance print the message or do som other
+processing. When the timeout is reached, Digipost will create a DocumentEvent 
+with type `RequestForRegistrationExpired`. This can then be fetched by the sender via DocumentEvent-api.
+
+This is done by polling in certain intervals defined by the sender. 
+
+The following code fetches at max 100 events last 5 minutes.
+```csharp
+var from = DateTime.Now.Subtract(TimeSpan.FromMinutes(5));
+var to = DateTime.Now;
+
+DocumentEvents events = await Client.DocumentsApi(Sender)
+                .GetDocumentEvents(from, to, offset: 0, maxResults: 100);
+
+IEnumerable<DocumentEventType> documentEventTypes = events.Select(aEvent => aEvent.EventType);
+```
+
+Please note that this does not mean that you return all events in the time interval, but the maxResult you ask for. This
+means that _if_ you get, say, 100 events in the list back, there is a possibility that there are more events in the 
+specified time interval. You then need to fetch the same interval again, but specify an offset according to you maxResult.
+
+Note that we here specify offset as 100 and use the same DateTime instance as used above. 
+```csharp
+DocumentEvents events = await Client.DocumentsApi(Sender)
+                .GetDocumentEvents(from: from, to: to, offset: 100, maxResults: 100);
+
+IEnumerable<DocumentEventType> documentEventTypes = events.Select(aEvent => aEvent.EventType);
+```
+
+Usually we want the you to pull as few events at a time that seems reasonable since you need to process the events 
+somehow while pulling more.
+
+When you receive 0 og less that the specified maxResults, you have received all events in the current time interval.
+
+We propose that you somehow store the state of the polling time interval. We expire/delete events after 90 days, so there
+are enough time to be sure you have processed them all. There is no way to delete an event through the api.

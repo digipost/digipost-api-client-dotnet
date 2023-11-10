@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
@@ -49,6 +50,7 @@ namespace Digipost.Api.Client.Tests.Smoke
 
         private DocumentStatus _documentStatus;
         private SenderInformation _senderInformation;
+        private DocumentEvents _documentEvents;
 
         public ClientSmokeTestHelper(TestSender testSender, bool withoutDataTypesProject = false)
         {
@@ -215,7 +217,7 @@ namespace Digipost.Api.Client.Tests.Smoke
         public ClientSmokeTestHelper RequestForRegistration(string phonenumber)
         {
             ToPrintDirectly();
-            _requestForRegistration = new RequestForRegistration(DateTime.Now.AddDays(6), phonenumber, null, _printDetails);
+            _requestForRegistration = new RequestForRegistration(DateTime.Now.AddHours(1).AddSeconds(2), phonenumber, null, _printDetails);
             return this;
         }
 
@@ -231,12 +233,12 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert_state(_messageDeliveryResult);
             Assert_state(_primary);
 
-            _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(Guid.Parse(_primary.Guid)).Result;
+            _documentStatus = _digipostClient.DocumentsApi(new Sender(_testSender.Id)).GetDocumentStatus(Guid.Parse(_primary.Guid)).Result;
             return this;
         }
         public ClientSmokeTestHelper FetchDocumentStatus(Guid guid)
         {
-            _documentStatus = _digipostClient.GetDocumentStatus(new Sender(_testSender.Id)).GetDocumentStatus(guid).Result;
+            _documentStatus = _digipostClient.DocumentsApi(new Sender(_testSender.Id)).GetDocumentStatus(guid).Result;
             return this;
         }
 
@@ -247,10 +249,24 @@ namespace Digipost.Api.Client.Tests.Smoke
             Assert.Equal(_documentStatus.DeliveryStatus, deliveryStatus);
         }
 
+        public ClientSmokeTestHelper GetDocumentEvents()
+        {
+            _documentEvents = _digipostClient.DocumentsApi(new Sender(_testSender.Id)).GetDocumentEvents(
+                DateTime.Now.Subtract(TimeSpan.FromDays(1)),
+                DateTime.Now, 0, 100
+            ).Result;
+            return this;
+        }
+
+        public void Expect_document_events()
+        {
+            Assert_state(_documentEvents);
+        }
+
         public ClientSmokeTestHelper GetSenderInformation()
         {
-            //_senderInformation = _digipostClient.GetSenderInformation(_root.GetSenderInformationUri(new Sender(_testSender.Id)));
-            _senderInformation = _digipostClient.GetSenderInformation(new Sender(_testSender.Id), new SenderOrganisation("984661185", "signering"));
+            //_senderInformation = _digipostClient.GetSenderInformation(new Sender(_testSender.Id));
+            _senderInformation = _digipostClient.GetSenderInformation(new SenderOrganisation("984661185", "signering"));
             return this;
         }
 

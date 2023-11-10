@@ -80,6 +80,11 @@ namespace Digipost.Api.Client.Common.Entrypoint
             return new GetArchiveDocumentByUuidUri(Links["GET_ARCHIVE_DOCUMENT_BY_UUID"], guid);
         }
 
+        public DocumentEventsUri GetDocumentEventsUri(Sender sender, DateTime from, DateTime to, int offset, int maxResults)
+        {
+            return new DocumentEventsUri(Links["DOCUMENT_EVENTS"], sender, from, to, offset, maxResults);
+        }
+
         public DocumentStatusUri GetDocumentStatusUri(Guid guid)
         {
             return new DocumentStatusUri(Links["DOCUMENT_STATUS"], guid);

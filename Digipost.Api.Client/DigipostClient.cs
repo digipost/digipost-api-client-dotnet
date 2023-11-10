@@ -102,28 +102,24 @@ namespace Digipost.Api.Client
             return _entrypointCache.Set(cacheKey, root, cacheEntryOptions);
         }
 
-        public SenderInformation GetSenderInformation(Sender senderId, SenderOrganisation senderOrganisation)
+        /// <summary>
+        /// Fetch Sender Information
+        /// </summary>
+        /// <param name="sender">The sender is optional. If not specified, the broker will be used.</param>
+        /// <returns></returns>
+        public SenderInformation GetSenderInformation(Sender sender = null)
         {
-            var senderInformationUri = GetRoot(new ApiRootUri(senderId)).GetSenderInformationUri(senderOrganisation.OrganisationNumber, senderOrganisation.PartId);
+            var senderToUse = sender ?? new Sender(_clientConfig.Broker.Id);
+            var senderInformationUri = GetRoot(new ApiRootUri()).GetSenderInformationUri(senderToUse);
 
-            var cacheKey = "senderOrganisation" + senderInformationUri;
+            return new SenderInformationApi(_entrypointCache, _requestHelper).GetSenderInformation(senderInformationUri);
+        }
 
-            if (_entrypointCache.TryGetValue(cacheKey, out SenderInformation information)) return information;
+        public SenderInformation GetSenderInformation(SenderOrganisation senderOrganisation)
+        {
+            var senderInformationUri = GetRoot(new ApiRootUri()).GetSenderInformationUri(senderOrganisation.OrganisationNumber, senderOrganisation.PartId);
 
-            var configuredTaskAwaitable = _requestHelper.Get<V8.Sender_Information>(senderInformationUri).ConfigureAwait(false);
-            var senderInformation = configuredTaskAwaitable.GetAwaiter().GetResult().FromDataTransferObject();
-
-            if (!senderInformation.IsValidSender)
-            {
-                throw new ConfigException($"Broker not authorized or sender does not exist. {senderInformation.SenderStatus}");
-            }
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions()
-                // Keep in cache for 5 minutes when in use, but max 1 hour.
-                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
-                .SetSlidingExpiration(TimeSpan.FromMinutes(5));
-
-            return _entrypointCache.Set(cacheKey, senderInformation, cacheEntryOptions);
+            return new SenderInformationApi(_entrypointCache, _requestHelper).GetSenderInformation(senderInformationUri);
         }
 
         public Inbox.Inbox GetInbox(Sender senderId)
@@ -136,9 +132,15 @@ namespace Digipost.Api.Client
             return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
         }
 
-        public IDocumentsApi GetDocumentStatus(Sender senderId = null)
+        /// <summary>
+        /// Get access to the document api.
+        /// </summary>
+        /// <param name="sender">Optional parameter for sender if you are a broker. If you don't specify a sender, your broker ident will be used</param>
+        /// <returns></returns>
+        public IDocumentsApi DocumentsApi(Sender sender = null)
         {
-            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
+            var senderToUse = sender ?? new Sender(_clientConfig.Broker.Id);
+            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(sender)), senderToUse);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Digipost.Api.Client.Common.Enums;
 using V8;
 
@@ -79,6 +81,21 @@ namespace Digipost.Api.Client.Common.Extensions
             }
         }
 
+        internal static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
+        {
+            switch (hashAlgorithm)
+            {
+                case Hash_Algorithm.NONE:
+                    return HashAlgoritm.NONE;
+                case Hash_Algorithm.MD5:
+                    return HashAlgoritm.MD5;
+                case Hash_Algorithm.SHA256:
+                    return HashAlgoritm.SHA256;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         internal static MessageStatus ToMessageStatus(this V8.Message_Status messagestatus)
         {
             switch (messagestatus)
@@ -120,6 +137,39 @@ namespace Digipost.Api.Client.Common.Extensions
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sensitivitylevel), sensitivitylevel, null);
             }
+        }
+
+        internal static DocumentEventType ToEventType(this V8.Event_Type eventType)
+        {
+            return MapEnum<DocumentEventType>(eventType);
+        }
+
+        private static TTargetEnum MapEnum<TTargetEnum>(Enum sourceEnum) where TTargetEnum : Enum
+        {
+            Type targetEnumType = typeof(TTargetEnum);
+
+            string sourceEnumName = sourceEnum.ToString();
+            string[] targetEnumNames = Enum.GetNames(targetEnumType);
+
+            string mappedValueName = targetEnumNames.FirstOrDefault(
+                targetName => string.Equals(
+                    RemoveUnderscores(targetName),
+                    RemoveUnderscores(sourceEnumName),
+                    StringComparison.OrdinalIgnoreCase
+                )
+            );
+
+            if (!string.IsNullOrEmpty(mappedValueName))
+            {
+                object mappedValue = Enum.Parse(targetEnumType, mappedValueName);
+                return (TTargetEnum)mappedValue;
+            }
+
+            throw new ArgumentException($"Enum value {sourceEnum} not found in {targetEnumType.Name} enum.");
+        }
+        private static string RemoveUnderscores(string input)
+        {
+            return Regex.Replace(input, "_", string.Empty);
         }
     }
 }

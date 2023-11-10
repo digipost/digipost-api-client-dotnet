@@ -5,6 +5,7 @@ using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Common.Utilities;
 using Microsoft.Extensions.Caching.Memory;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Api
 {
@@ -25,7 +26,7 @@ namespace Digipost.Api.Client.Api
 
             if (_entrypointCache.TryGetValue(cacheKey, out SenderInformation information)) return information;
 
-            var configuredTaskAwaitable = _requestHelper.Get<V8.Sender_Information>(senderInformationUri).ConfigureAwait(false);
+            var configuredTaskAwaitable = _requestHelper.Get<V8.SenderInformation>(senderInformationUri).ConfigureAwait(false);
             var senderInformation = configuredTaskAwaitable.GetAwaiter().GetResult().FromDataTransferObject();
 
             if (!senderInformation.IsValidSender)

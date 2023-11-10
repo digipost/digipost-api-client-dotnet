@@ -4,7 +4,7 @@ using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Send
 {
@@ -16,23 +16,23 @@ namespace Digipost.Api.Client.Send
 
             var messageDto = new V8.Message
             {
-                Sender_Id = message.Sender.Id,
-                Sender_IdSpecified = true,
-                Primary_Document = primaryDocumentDataTransferObject,
-                Message_Id = message.Id
+                SenderId = message.Sender.Id,
+                SenderIdSpecified = true,
+                PrimaryDocument = primaryDocumentDataTransferObject,
+                MessageId = message.Id
             };
 
             if (message is PrintMessage)
             {
-                messageDto.Recipient = new Message_Recipient()
+                messageDto.Recipient = new V8.MessageRecipient()
                 {
-                    Print_Details = message.PrintDetails.ToDataTransferObject()
+                    PrintDetails = message.PrintDetails.ToDataTransferObject()
                 };
             }
             else
             {
                 messageDto.Recipient = message.DigipostRecipient.ToDataTransferObject();
-                messageDto.Recipient.Print_Details = message.PrintDetails.ToDataTransferObject();
+                messageDto.Recipient.PrintDetails = message.PrintDetails.ToDataTransferObject();
             }
 
             foreach (var document in message.Attachments.Select(ToDataTransferObject))
@@ -42,18 +42,18 @@ namespace Digipost.Api.Client.Send
 
             if (message.DeliveryTimeSpecified)
             {
-                messageDto.Delivery_Time = message.DeliveryTime.Value;
-                messageDto.Delivery_TimeSpecified = true;
+                messageDto.DeliveryTime = message.DeliveryTime.Value;
+                messageDto.DeliveryTimeSpecified = true;
             }
 
             if (message.PrintIfUnreadAfterSpecified)
             {
-                messageDto.Print_If_Unread = message.PrintIfUnread.ToDataTransferObject();
+                messageDto.PrintIfUnread = message.PrintIfUnread.ToDataTransferObject();
             }
 
             if (message.RequestForRegistrationSpecified)
             {
-                messageDto.Request_For_Registration = message.RequestForRegistration.ToDataTransferObject();
+                messageDto.RequestForRegistration = message.RequestForRegistration.ToDataTransferObject();
             }
 
             return messageDto;
@@ -64,18 +64,18 @@ namespace Digipost.Api.Client.Send
             var documentDto = new V8.Document
             {
                 Subject = document.Subject,
-                File_Type = document.FileType,
-                Authentication_Level = document.AuthenticationLevel.ToAuthenticationLevel(),
-                Authentication_LevelSpecified = true,
-                Sensitivity_Level = document.SensitivityLevel.ToSensitivityLevel(),
-                Sensitivity_LevelSpecified = true,
-                Sms_Notification = ToDataTransferObject(document.SmsNotification),
+                FileType = document.FileType,
+                AuthenticationLevel = document.AuthenticationLevel.ToAuthenticationLevel(),
+                AuthenticationLevelSpecified = true,
+                SensitivityLevel = document.SensitivityLevel.ToSensitivityLevel(),
+                SensitivityLevelSpecified = true,
+                SmsNotification = ToDataTransferObject(document.SmsNotification),
                 Uuid = document.Guid
             };
 
             if (document.DataType != null)
             {
-                documentDto.Data_Type = new Data_Type()
+                documentDto.DataType = new V8.DataType()
                 {
                     Any = document.DataType.ToXmlDocument().DocumentElement
                 };
@@ -84,16 +84,16 @@ namespace Digipost.Api.Client.Send
             return documentDto;
         }
 
-        internal static Sms_Notification ToDataTransferObject(this ISmsNotification smsNotification)
+        internal static V8.SmsNotification ToDataTransferObject(this ISmsNotification smsNotification)
         {
             if (smsNotification == null)
                 return null;
 
-            var smsNotificationDto = new Sms_Notification();
+            var smsNotificationDto = new V8.SmsNotification();
 
             if (smsNotification.NotifyAtTimes.Count > 0)
             {
-                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new Listed_Time {Time = dateTime, TimeSpecified = true});
+                var timesAsListedTimes = smsNotification.NotifyAtTimes.Select(dateTime => new V8.ListedTime {Time = dateTime, TimeSpecified = true});
                 foreach (var timesAsListedTime in timesAsListedTimes)
                 {
                     smsNotificationDto.At.Add(timesAsListedTime);
@@ -104,24 +104,24 @@ namespace Digipost.Api.Client.Send
             {
                 foreach (var i in smsNotification.NotifyAfterHours.ToArray())
                 {
-                    smsNotificationDto.After_Hours.Add(i);
+                    smsNotificationDto.AfterHours.Add(i);
                 }
             }
 
             return smsNotificationDto;
         }
 
-        internal static IMessageDeliveryResult FromDataTransferObject(this Message_Delivery messageDeliveryDto)
+        internal static IMessageDeliveryResult FromDataTransferObject(this V8.MessageDelivery messageDeliveryDto)
         {
             IMessageDeliveryResult messageDeliveryResult = new MessageDeliveryResult
             {
-                MessageId = messageDeliveryDto.Message_Id,
-                PrimaryDocument = FromDataTransferObject(messageDeliveryDto.Primary_Document),
+                MessageId = messageDeliveryDto.MessageId,
+                PrimaryDocument = FromDataTransferObject(messageDeliveryDto.PrimaryDocument),
                 Attachments = messageDeliveryDto.Attachment?.Select(FromDataTransferObject).ToList(),
-                DeliveryTime = messageDeliveryDto.Delivery_Time,
-                DeliveryMethod = messageDeliveryDto.Delivery_Method.ToDeliveryMethod(),
+                DeliveryTime = messageDeliveryDto.DeliveryTime,
+                DeliveryMethod = messageDeliveryDto.DeliveryMethod.ToDeliveryMethod(),
                 Status = messageDeliveryDto.Status.ToMessageStatus(),
-                SenderId = messageDeliveryDto.Sender_Id
+                SenderId = messageDeliveryDto.SenderId
             };
 
             return messageDeliveryResult;
@@ -129,77 +129,77 @@ namespace Digipost.Api.Client.Send
 
         internal static IDocument FromDataTransferObject(this V8.Document documentDto)
         {
-            return new Document(documentDto.Subject, documentDto.File_Type, documentDto.Authentication_Level.ToAuthenticationLevel(), documentDto.Sensitivity_Level.ToSensitivityLevel(), FromDataTransferObject(documentDto.Sms_Notification))
+            return new Document(documentDto.Subject, documentDto.FileType, documentDto.AuthenticationLevel.ToAuthenticationLevel(), documentDto.SensitivityLevel.ToSensitivityLevel(), FromDataTransferObject(documentDto.SmsNotification))
             {
                 Guid = documentDto.Uuid,
-                ContentHash = new ContentHash {HashAlgoritm = documentDto.Content_Hash.Hash_Algorithm, Value = documentDto.Content_Hash.Value},
+                ContentHash = new ContentHash {HashAlgoritm = documentDto.ContentHash.HashAlgorithm, Value = documentDto.ContentHash.Value},
                 Links = documentDto.Link.FromDataTransferObject()
             };
         }
 
-        internal static ISmsNotification FromDataTransferObject(this Sms_Notification smsNotificationDto)
+        internal static ISmsNotification FromDataTransferObject(this V8.SmsNotification smsNotificationDto)
         {
             if (smsNotificationDto == null)
                 return null;
 
             var smsNotification = new SmsNotification
             {
-                NotifyAfterHours = smsNotificationDto.After_Hours?.ToList() ?? new List<int>(),
+                NotifyAfterHours = smsNotificationDto.AfterHours?.ToList() ?? new List<int>(),
                 NotifyAtTimes = smsNotificationDto.At?.Select(listedTime => listedTime.Time).ToList() ?? new List<DateTime>()
             };
 
             return smsNotification;
         }
 
-        internal static DocumentStatus FromDataTransferObject(this Document_Status dto)
+        internal static DocumentStatus FromDataTransferObject(this V8.DocumentStatus dto)
         {
             return new DocumentStatus(
                 dto.Uuid,
-                dto.Sender_Id,
+                dto.SenderId,
                 dto.Created,
                 dto.Status.ToDeliveryStatus(),
                 dto.ReadSpecified ? dto.Read.ToRead() : (DocumentStatus.Read?) null,
                 dto.Channel.ToDeliveryMethod(),
-                dto.Content_Hash,
+                dto.ContentHash,
                 dto.DeliveredSpecified ? dto.Delivered : (DateTime?) null,
-                dto.Is_Primary_DocumentSpecified ? dto.Is_Primary_Document : (bool?) null,
-                dto.Content_Hash_AlgorithmSpecified ? dto.Content_Hash_Algorithm.ToHashAlgoritm() : (HashAlgoritm?) null
+                dto.IsPrimaryDocumentSpecified ? dto.IsPrimaryDocument : (bool?) null,
+                dto.ContentHashAlgorithmSpecified ? dto.ContentHashAlgorithm.ToHashAlgoritm() : (HashAlgoritm?) null
             );
         }
 
-        private static DocumentStatus.DocumentDeliveryStatus ToDeliveryStatus(this Delivery_Status deliveryStatus)
+        private static DocumentStatus.DocumentDeliveryStatus ToDeliveryStatus(this V8.DeliveryStatus deliveryStatus)
         {
             switch (deliveryStatus)
             {
-                case Delivery_Status.DELIVERED:
+                case V8.DeliveryStatus.Delivered:
                     return DocumentStatus.DocumentDeliveryStatus.DELIVERED;
-                case Delivery_Status.NOT_DELIVERED:
+                case V8.DeliveryStatus.NotDelivered:
                     return DocumentStatus.DocumentDeliveryStatus.NOT_DELIVERED;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private static DocumentStatus.Read ToRead(this Read read)
+        private static DocumentStatus.Read ToRead(this V8.Read read)
         {
             switch (read)
             {
-                case Read.Y:
+                case V8.Read.Y:
                     return DocumentStatus.Read.YES;
-                case Read.N:
+                case V8.Read.N:
                     return DocumentStatus.Read.NO;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        internal static Additional_Data ToDataTransferObject(this IAdditionalData additionalData)
+        internal static V8.AdditionalData ToDataTransferObject(this IAdditionalData additionalData)
         {
-            var dto = new Additional_Data
+            var dto = new V8.AdditionalData
             {
-                Sender_Id = additionalData.Sender.Id,
-                Sender_IdSpecified = true,
-                Data_Type = new Data_Type()
+                SenderId = additionalData.Sender.Id,
+                SenderIdSpecified = true,
+                DataType = new V8.DataType()
                 {
                     Any = additionalData.DataType.ToXmlDocument().DocumentElement
                 }

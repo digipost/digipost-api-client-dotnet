@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Tests.CompareObjects;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 using Xunit;
 
 namespace Digipost.Api.Client.Inbox.Tests
@@ -20,13 +20,13 @@ namespace Digipost.Api.Client.Inbox.Tests
                 const int id = 123456789;
                 const string sender = "sender";
 
-                var source = new V8.Inbox_Document()
+                var source = new V8.InboxDocument()
                 {
-                    Authentication_Level = Authentication_Level.PASSWORD,
-                    Content_Type = contentType,
-                    Delivery_Time = deliveryTime,
-                    First_Accessed = firstAccessed,
-                    First_AccessedSpecified = true,
+                    AuthenticationLevel = V8.AuthenticationLevel.Password,
+                    ContentType = contentType,
+                    DeliveryTime = deliveryTime,
+                    FirstAccessed = firstAccessed,
+                    FirstAccessedSpecified = true,
                     Id = id,
                     Sender = sender
                 };

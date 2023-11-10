@@ -8,11 +8,8 @@ using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
-using V8;
-using Document = Digipost.Api.Client.Send.Document;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 using Environment = Digipost.Api.Client.Common.Environment;
-using Identification = Digipost.Api.Client.Common.Identify.Identification;
-using Message = V8.Message;
 
 namespace Digipost.Api.Client.Tests
 {
@@ -63,35 +60,35 @@ namespace Digipost.Api.Client.Tests
             };
         }
 
-        public static Message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
+        public static V8.Message GetMessageDataTransferObjectWithBytesAndStaticGuidRecipientById()
         {
-            var message = new Message()
+            var message = new V8.Message()
             {
-                Sender_Id = long.Parse("1010"),
-                Sender_IdSpecified = true,
-                Message_Id = "ThatMessageId",
-                Primary_Document = new V8.Document()
+                SenderId = long.Parse("1010"),
+                SenderIdSpecified = true,
+                MessageId = "ThatMessageId",
+                PrimaryDocument = new V8.Document()
                 {
                     Subject = "TestSubject",
-                    File_Type = "txt",
+                    FileType = "txt",
                     Uuid = "attachmentGuidPrimary",
-                    Authentication_LevelSpecified = true,
-                    Sensitivity_LevelSpecified = true
+                    AuthenticationLevelSpecified = true,
+                    SensitivityLevelSpecified = true
                 },
-                Delivery_Time = DateTime.Today.AddDays(3),
-                Delivery_TimeSpecified = true,
-                Recipient = new Message_Recipient()
+                DeliveryTime = DateTime.Today.AddDays(3),
+                DeliveryTimeSpecified = true,
+                Recipient = new V8.MessageRecipient()
                 {
-                    Digipost_Address = "ola.nordmann#246BB"
+                    DigipostAddress = "ola.nordmann#246BB"
                 }
             };
             message.Attachment.Add(new V8.Document()
             {
                 Subject = "TestSubject attachment",
-                File_Type = "txt",
+                FileType = "txt",
                 Uuid = "attachmentGuid",
-                Authentication_LevelSpecified = true,
-                Sensitivity_LevelSpecified = true
+                AuthenticationLevelSpecified = true,
+                SensitivityLevelSpecified = true
             });
 
             return message;
@@ -139,28 +136,28 @@ namespace Digipost.Api.Client.Tests
                         new NorwegianAddress("5510", "Sophaugen", "Sophauggata 22")));
         }
 
-        public static Print_Details GetPrintDetailsDataTransferObject()
+        public static V8.PrintDetails GetPrintDetailsDataTransferObject()
         {
-            return new Print_Details
+            return new V8.PrintDetails
             {
-                Recipient = new Print_Recipient()
+                Recipient = new V8.PrintRecipient()
                 {
                     Name = "Ola Nordmann",
-                    Norwegian_Address = new Norwegian_Address
+                    NorwegianAddress = new V8.NorwegianAddress
                     {
                         Addressline1 = "Osloveien 15",
                         City = "Oslo",
-                        Zip_Code = "0115"
+                        ZipCode = "0115"
                     }
                 },
-                Return_Address = new Print_Recipient
+                ReturnAddress = new V8.PrintRecipient
                 {
                     Name = "Returkongen",
-                    Norwegian_Address = new Norwegian_Address()
+                    NorwegianAddress = new V8.NorwegianAddress()
                     {
                         Addressline1 = "Sophauggata 22",
                         City = "Sophaugen",
-                        Zip_Code = "5510"
+                        ZipCode = "5510"
                     }
                 }
             };
@@ -175,12 +172,12 @@ namespace Digipost.Api.Client.Tests
                     );
         }
 
-        public static Print_If_Unread GetPrintIfUnreadTransferObject()
+        public static V8.PrintIfUnread GetPrintIfUnreadTransferObject()
         {
-            return new Print_If_Unread
+            return new V8.PrintIfUnread
             {
-                Print_If_Unread_After = DateTime.Now.AddDays(3),
-                Print_Details = GetPrintDetailsDataTransferObject()
+                PrintIfUnreadAfter = DateTime.Now.AddDays(3),
+                PrintDetails = GetPrintDetailsDataTransferObject()
             };
         }
 

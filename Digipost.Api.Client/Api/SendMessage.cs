@@ -8,7 +8,7 @@ using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Extensions;
 using Digipost.Api.Client.Send;
 using Microsoft.Extensions.Logging;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Api
 {
@@ -41,7 +41,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug("Outgoing Digipost message to Recipient: {message}", message);
 
-            var messageDeliveryResultTask = RequestHelper.PostMessage<Message_Delivery>(message, _root.GetSendMessageUri(), skipMetaDataValidation);
+            var messageDeliveryResultTask = RequestHelper.PostMessage<V8.MessageDelivery>(message, _root.GetSendMessageUri(), skipMetaDataValidation);
 
             if (messageDeliveryResultTask.IsFaulted && messageDeliveryResultTask.Exception != null)
                 throw messageDeliveryResultTask.Exception?.InnerException;
@@ -62,7 +62,7 @@ namespace Digipost.Api.Client.Api
         {
             _logger.LogDebug("Outgoing identification request: {identification}", identification);
 
-            var identifyResponse = RequestHelper.PostIdentification<Identification_Result>(identification, _root.GetIdentifyRecipientUri());
+            var identifyResponse = RequestHelper.PostIdentification<V8.IdentificationResult>(identification, _root.GetIdentifyRecipientUri());
 
             if (identifyResponse.IsFaulted)
             {
@@ -103,7 +103,7 @@ namespace Digipost.Api.Client.Api
                 return await taskSource.Task.ConfigureAwait(false);
             }
 
-            var searchDetailsResultDataTransferObject = await RequestHelper.Get<Recipients>(uri).ConfigureAwait(false);
+            var searchDetailsResultDataTransferObject = await RequestHelper.Get<V8.Recipients>(uri).ConfigureAwait(false);
 
             var searchDetailsResult = searchDetailsResultDataTransferObject.FromDataTransferObject();
 

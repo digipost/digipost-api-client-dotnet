@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
-using Digipost.Api.Client.Common.Exceptions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
@@ -19,6 +18,7 @@ using Digipost.Api.Client.Shared.Certificate;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client
 {

@@ -8,7 +8,7 @@ using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Utilities;
 using Microsoft.Extensions.Logging;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -68,14 +68,14 @@ namespace Digipost.Api.Client.Archive
         public async Task<IEnumerable<Archive>> FetchArchives()
         {
             var archivesUri = _root.GetGetArchivesUri();
-            var archives = await _requestHelper.Get<Archives>(archivesUri).ConfigureAwait(false);
+            var archives = await _requestHelper.Get<V8.Archives>(archivesUri).ConfigureAwait(false);
 
             return archives.Archive.Select(ArchiveDataTransferObjectConverter.FromDataTransferObject);
         }
 
         public async Task<IEnumerable<Archive>> FetchArchiveDocumentsByReferenceId(string referenceId)
         {
-            var archives = await _requestHelper.Get<Archives>(_root.GetGetArchiveDocumentsReferenceIdUri(referenceId)).ConfigureAwait(false);
+            var archives = await _requestHelper.Get<V8.Archives>(_root.GetGetArchiveDocumentsReferenceIdUri(referenceId)).ConfigureAwait(false);
 
             return archives.Archive.Select(ArchiveDataTransferObjectConverter.FromDataTransferObject);
         }
@@ -104,7 +104,7 @@ namespace Digipost.Api.Client.Archive
             var messageAction = new ArchiveDocumentAction(archiveDocument);
             var httpContent = messageAction.Content(archiveDocument);
 
-            var updatedArchiveDocument = _requestHelper.Put<Archive_Document>(httpContent, messageAction.RequestContent, updateUri);
+            var updatedArchiveDocument = _requestHelper.Put<V8.ArchiveDocument>(httpContent, messageAction.RequestContent, updateUri);
 
             if (updatedArchiveDocument.IsFaulted && updatedArchiveDocument.Exception != null)
                 throw updatedArchiveDocument.Exception?.InnerException;
@@ -183,7 +183,7 @@ namespace Digipost.Api.Client.Archive
 
         public async Task<ArchiveDocumentContent> GetDocumentContent(ArchiveDocumentContentUri archiveDocumentContentUri)
         {
-            var result = await _requestHelper.Get<Archive_Document_Content>(archiveDocumentContentUri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.ArchiveDocumentContent>(archiveDocumentContentUri).ConfigureAwait(false);
 
             return result.FromDataTransferObject();
         }

@@ -3,101 +3,102 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Common.Extensions
 {
     internal static class EnumExtensions
     {
 
-        internal static IdentificationError ToIdentificationError(this V8.Identification_Result_Code code)
+
+        internal static IdentificationError ToIdentificationError(this V8.IdentificationResultCode code)
         {
             switch (code)
             {
-                case Identification_Result_Code.INVALID:
+                case V8.IdentificationResultCode.Invalid:
                     return IdentificationError.Invalid;
-                case Identification_Result_Code.UNIDENTIFIED:
+                case V8.IdentificationResultCode.Unidentified:
                     return IdentificationError.Unidentified;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(code), code, null);
             }
         }
 
-        internal static IdentificationError ToIdentificationError(this V8.Invalid_Reason code)
+        internal static IdentificationError ToIdentificationError(this V8.InvalidReason code)
         {
             switch (code)
             {
-                case Invalid_Reason.INVALID_ORGANISATION_NUMBER:
+                case V8.InvalidReason.InvalidOrganisationNumber:
                     return IdentificationError.InvalidOrganisationNumber;
-                case Invalid_Reason.INVALID_PERSONAL_IDENTIFICATION_NUMBER:
+                case V8.InvalidReason.InvalidPersonalIdentificationNumber:
                     return IdentificationError.InvalidPersonalIdentificationNumber;
-                case Invalid_Reason.UNKNOWN:
+                case V8.InvalidReason.Unknown:
                     return IdentificationError.Unknown;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(code), code, null);
             }
         }
 
-        internal static IdentificationError ToIdentificationError(this V8.Unidentified_Reason code)
+        internal static IdentificationError ToIdentificationError(this V8.UnidentifiedReason code)
         {
             switch (code)
             {
-                case Unidentified_Reason.NOT_FOUND:
+                case V8.UnidentifiedReason.NotFound:
                     return IdentificationError.Unknown; // <- See documentation on IdentificationError for explaination for `Unknown` here
-                case Unidentified_Reason.MULTIPLE_MATCHES:
+                case V8.UnidentifiedReason.MultipleMatches:
                     return IdentificationError.MultipleMatches;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(code), code, null);
             }
         }
 
-        internal static V8.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
+        internal static V8.AuthenticationLevel ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
         {
             switch (authenticationLevel)
             {
                 case AuthenticationLevel.Password:
-                    return V8.Authentication_Level.PASSWORD;
+                    return V8.AuthenticationLevel.Password;
                 case AuthenticationLevel.TwoFactor:
-                    return V8.Authentication_Level.TWO_FACTOR;
+                    return V8.AuthenticationLevel.TwoFactor;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(authenticationLevel), authenticationLevel, null);
             }
         }
 
-        internal static V8.Sensitivity_Level ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
+        internal static V8.SensitivityLevel ToSensitivityLevel(this SensitivityLevel sensitivityLevel)
         {
             switch (sensitivityLevel)
             {
                 case SensitivityLevel.Normal:
-                    return V8.Sensitivity_Level.NORMAL;
+                    return V8.SensitivityLevel.Normal;
                 case SensitivityLevel.Sensitive:
-                    return V8.Sensitivity_Level.SENSITIVE;
+                    return V8.SensitivityLevel.Sensitive;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sensitivityLevel), sensitivityLevel, null);
             }
         }
 
-        internal static V8.Print_Colors ToPrintColors(this PrintColors printColors)
+        internal static V8.PrintColors ToPrintColors(this PrintColors printColors)
         {
             switch (printColors)
             {
                 case PrintColors.Monochrome:
-                    return V8.Print_Colors.MONOCHROME;
+                    return V8.PrintColors.Monochrome;
                 case PrintColors.Colors:
-                    return V8.Print_Colors.COLORS;
+                    return V8.PrintColors.Colors;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(printColors), printColors, null);
             }
         }
 
-        internal static V8.Nondeliverable_Handling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
+        internal static V8.NondeliverableHandling ToNondeliverablehandling(this NondeliverableHandling nondeliverableHandling)
         {
             switch (nondeliverableHandling)
             {
                 case NondeliverableHandling.ReturnToSender:
-                    return V8.Nondeliverable_Handling.RETURN_TO_SENDER;
+                    return V8.NondeliverableHandling.ReturnToSender;
                 case NondeliverableHandling.Shred:
-                    return V8.Nondeliverable_Handling.SHRED;
+                    return V8.NondeliverableHandling.Shred;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(nondeliverableHandling), nondeliverableHandling, null);
             }
@@ -108,80 +109,80 @@ namespace Digipost.Api.Client.Common.Extensions
         {
             switch (deliveryMethod)
             {
-                case V8.Channel.PRINT:
+                case V8.Channel.Print:
                     return DeliveryMethod.Print;
-                case V8.Channel.DIGIPOST:
+                case V8.Channel.Digipost:
                     return DeliveryMethod.Digipost;
-                case V8.Channel.PEPPOL:
+                case V8.Channel.Peppol:
                     return DeliveryMethod.PEPPOL;
-                case V8.Channel.EPOST:
+                case V8.Channel.Epost:
                     return DeliveryMethod.EPOST;
-                case V8.Channel.PENDING:
+                case V8.Channel.Pending:
                     return DeliveryMethod.PENDING;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(deliveryMethod), deliveryMethod, null);
             }
         }
 
-        internal static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
+        internal static HashAlgoritm ToHashAlgoritm(this V8.HashAlgorithm hashAlgorithm)
         {
             switch (hashAlgorithm)
             {
-                case Hash_Algorithm.NONE:
+                case V8.HashAlgorithm.None:
                     return HashAlgoritm.NONE;
-                case Hash_Algorithm.MD5:
+                case V8.HashAlgorithm.Md5:
                     return HashAlgoritm.MD5;
-                case Hash_Algorithm.SHA256:
+                case V8.HashAlgorithm.Sha256:
                     return HashAlgoritm.SHA256;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        internal static MessageStatus ToMessageStatus(this V8.Message_Status messagestatus)
+        internal static MessageStatus ToMessageStatus(this V8.MessageStatus messagestatus)
         {
             switch (messagestatus)
             {
-                case Message_Status.NOT_COMPLETE:
+                case V8.MessageStatus.NotComplete:
                     return MessageStatus.NotComplete;
-                case Message_Status.COMPLETE:
+                case V8.MessageStatus.Complete:
                     return MessageStatus.Complete;
-                case Message_Status.DELIVERED:
+                case V8.MessageStatus.Delivered:
                     return MessageStatus.Delivered;
-                case Message_Status.DELIVERED_TO_PRINT:
+                case V8.MessageStatus.DeliveredToPrint:
                     return MessageStatus.DeliveredToPrint;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(messagestatus), messagestatus, null);
             }
         }
 
-        internal static AuthenticationLevel ToAuthenticationLevel(this V8.Authentication_Level authenticationlevel)
+        internal static AuthenticationLevel ToAuthenticationLevel(this V8.AuthenticationLevel authenticationlevel)
         {
             switch (authenticationlevel)
             {
-                case Authentication_Level.PASSWORD:
+                case V8.AuthenticationLevel.Password:
                     return AuthenticationLevel.Password;
-                case Authentication_Level.TWO_FACTOR:
+                case V8.AuthenticationLevel.TwoFactor:
                     return AuthenticationLevel.TwoFactor;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(authenticationlevel), authenticationlevel, null);
             }
         }
 
-        internal static SensitivityLevel ToSensitivityLevel(this V8.Sensitivity_Level sensitivitylevel)
+        internal static SensitivityLevel ToSensitivityLevel(this V8.SensitivityLevel sensitivitylevel)
         {
             switch (sensitivitylevel)
             {
-                case Sensitivity_Level.NORMAL:
+                case V8.SensitivityLevel.Normal:
                     return SensitivityLevel.Normal;
-                case Sensitivity_Level.SENSITIVE:
+                case V8.SensitivityLevel.Sensitive:
                     return SensitivityLevel.Sensitive;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sensitivitylevel), sensitivitylevel, null);
             }
         }
 
-        internal static DocumentEventType ToEventType(this V8.Event_Type eventType)
+        internal static DocumentEventType ToEventType(this V8.EventType eventType)
         {
             return MapEnum<DocumentEventType>(eventType);
         }

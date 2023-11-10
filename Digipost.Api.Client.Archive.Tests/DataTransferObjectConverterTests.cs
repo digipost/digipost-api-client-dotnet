@@ -1,7 +1,7 @@
 ﻿using System;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Tests.CompareObjects;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 using Xunit;
 
 namespace Digipost.Api.Client.Archive.Tests
@@ -18,7 +18,7 @@ namespace Digipost.Api.Client.Archive.Tests
                 var source = new V8.Archive()
                 {
                     Name = "per",
-                    Sender_Id = 1010,
+                    SenderId = 1010,
                 };
 
                 var expected = new Archive(new Sender(1010), "per");
@@ -32,14 +32,14 @@ namespace Digipost.Api.Client.Archive.Tests
             public void ArchiveDocumentBasicState()
             {
                 var newGuid = Guid.NewGuid();
-                var source = new Archive_Document()
+                var source = new V8.ArchiveDocument()
                 {
                     Uuid = newGuid.ToString(),
-                    File_Name = "per.txt",
-                    File_Type = "txt",
-                    Content_Type = "text/plain",
+                    FileName = "per.txt",
+                    FileType = "txt",
+                    ContentType = "text/plain",
                     Attributes = { },
-                    Link = {new Link() {Rel = $"{BaseUri}/relations/get_something", Uri = $"{BaseUri}/something", Media_Type = "text/plain"}}
+                    Link = {new V8.Link() {Rel = $"{BaseUri}/relations/get_something", Uri = $"{BaseUri}/something", MediaType = "text/plain"}}
                 };
 
                 var expected = new ArchiveDocument(newGuid, "per.txt", "txt", "text/plain");
@@ -56,13 +56,13 @@ namespace Digipost.Api.Client.Archive.Tests
                 var newGuid = Guid.NewGuid();
                 var source = new ArchiveDocument(newGuid, "per.txt", "txt", "text/plain").WithAttribute("test", "val");
 
-                var expected = new Archive_Document()
+                var expected = new V8.ArchiveDocument()
                 {
                     Uuid = newGuid.ToString(),
-                    File_Name = "per.txt",
-                    File_Type = "txt",
-                    Content_Type = "text/plain",
-                    Attributes = { new Archive_Document_Attribute(){Key = "test", Value = "val"} },
+                    FileName = "per.txt",
+                    FileType = "txt",
+                    ContentType = "text/plain",
+                    Attributes = { new V8.ArchiveDocumentAttribute(){Key = "test", Value = "val"} },
                 };
 
                 Comparator.AssertEqual(expected, source.ToDataTransferObject());

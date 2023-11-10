@@ -136,9 +136,15 @@ namespace Digipost.Api.Client
             return new Archive.ArchiveApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
         }
 
-        public IDocumentsApi GetDocumentStatus(Sender senderId = null)
+        /// <summary>
+        /// Get access to the document api.
+        /// </summary>
+        /// <param name="sender">Optional parameter for sender if you are a broker. If you don't specify a sender, your broker ident will be used</param>
+        /// <returns></returns>
+        public IDocumentsApi DocumentsApi(Sender sender = null)
         {
-            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(senderId)));
+            var senderToUse = sender ?? new Sender(_clientConfig.Broker.Id);
+            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(sender)), senderToUse);
         }
 
         public IIdentificationResult Identify(IIdentification identification)

@@ -46,6 +46,16 @@ namespace Digipost.Api.Client.Tests.Smoke
                 .Expect_valid_sender_information();
         }
 
+
+        [Fact(Skip = "SmokeTest")]
+        public void Get_Document_events()
+        {
+            _client
+                .GetDocumentEvents()
+                .Expect_document_events();
+        }
+
+
         [Fact(Skip = "SmokeTest")]
         public void Can_send_document_digipost_user()
         {
@@ -75,6 +85,10 @@ namespace Digipost.Api.Client.Tests.Smoke
                 // Find a user with Tenor testdata to test registration. This is TYKKHUDET EKTEMANN
                 .SendRequestForRegistration("05926398190")
                 .Expect_message_to_have_method(DeliveryMethod.PENDING);
+
+            _client
+                .GetDocumentEvents()
+                .Expect_document_events();
         }
 
         [Fact(Skip = "SmokeTest")]

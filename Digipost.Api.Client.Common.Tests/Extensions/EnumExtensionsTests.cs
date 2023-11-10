@@ -28,6 +28,24 @@ namespace Digipost.Api.Client.Common.Tests.Extensions
             }
         }
 
+        public class ToEventType
+        {
+            [Fact]
+            public void Convert_All_Enum_Values()
+            {
+                var enumValues = Enum.GetValues(typeof(DocumentEventType));
+                var enumValuesDto = Enum.GetValues(typeof(V8.Event_Type));
+
+                Assert.Equal(enumValues.Length, enumValuesDto.Length);
+
+                foreach (var enumValue in enumValuesDto)
+                {
+                    var currentEnum = (V8.Event_Type) enumValue;
+                    currentEnum.ToEventType();
+                }
+            }
+        }
+
         public class ToSensitivityLevel
         {
             [Fact]

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Identify;
@@ -10,6 +9,7 @@ using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
+using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Send;
 using V8;
 using Identification = V8.Identification;
@@ -26,6 +26,23 @@ namespace Digipost.Api.Client.Common
                 l => l.Rel.Substring(l.Rel.LastIndexOf('/') + 1).ToUpper(),
                 link => new Link(link.Uri) {Rel = link.Rel, MediaType = link.Media_Type}
             );
+        }
+
+        internal static DocumentEvents FromDataTransferObject(this Document_Events documentEvents)
+        {
+            return new DocumentEvents(documentEvents.Event.Select(FromDataTransferObject));
+        }
+
+        private static DocumentEvent FromDataTransferObject(this Event myEvent)
+        {
+            var documentEvent = new DocumentEvent(Guid.Parse(myEvent.Uuid), myEvent.Type.ToEventType(), myEvent.Created, myEvent.Document_Created);
+
+            if (myEvent.Metadata is Request_For_Registration_Expired_Metadata forRegistrationExpiredMetadata)
+            {
+                documentEvent.EventMetadata = new RequestForRegistrationExpiredMetadata(forRegistrationExpiredMetadata.Fallback_Channel);
+            }
+
+            return documentEvent;
         }
 
         internal static Identification ToDataTransferObject(this IIdentification identification)
@@ -407,19 +424,5 @@ namespace Digipost.Api.Client.Common
             };
         }
 
-        internal static HashAlgoritm ToHashAlgoritm(this V8.Hash_Algorithm hashAlgorithm)
-        {
-            switch (hashAlgorithm)
-            {
-                case Hash_Algorithm.NONE:
-                    return HashAlgoritm.NONE;
-                case Hash_Algorithm.MD5:
-                    return HashAlgoritm.MD5;
-                case Hash_Algorithm.SHA256:
-                    return HashAlgoritm.SHA256;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
     }
 }

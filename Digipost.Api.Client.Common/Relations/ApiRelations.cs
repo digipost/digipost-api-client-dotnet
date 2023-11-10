@@ -21,12 +21,11 @@ namespace Digipost.Api.Client.Common.Relations
         public SenderInformationUri(Link link, Sender sender)
             : base($"{link.Uri}/{sender.Id}", UriKind.Absolute)
         {
-
         }
+
         public SenderInformationUri(Link link, string organisationNumber, string partId)
             : base($"{link.Uri}?org_id={organisationNumber}&part_id={partId}", UriKind.Absolute)
         {
-
         }
     }
 
@@ -171,6 +170,20 @@ namespace Digipost.Api.Client.Common.Relations
         public ArchiveDocumentDeleteUri(Link link)
             : base(link.Uri, UriKind.Absolute)
         {
+        }
+    }
+
+    public class DocumentEventsUri : Uri
+    {
+        public DocumentEventsUri(Link link, Sender sender, DateTime from, DateTime to, int offset, int maxResults)
+            : base($"{link.Uri}?sender={sender.Id}&from={DatetimeFormatter(from)}&to={DatetimeFormatter(to)}&offset={offset}&maxResults={maxResults}", UriKind.Absolute)
+        {
+
+        }
+
+        private static string DatetimeFormatter(DateTime? dt)
+        {
+            return HttpUtility.UrlEncode(dt?.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK"));
         }
     }
 

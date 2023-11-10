@@ -37,7 +37,7 @@ namespace Digipost.Api.Client.Common.Tests.Identify
                     if (isFailedIdentificationresultcodes)
                     {
                         //Act
-                        var identificationResult = new IdentificationResult(nonEssentialFirstParameter, resultcode.ToString());
+                        var identificationResult = new IdentificationResult(nonEssentialFirstParameter, resultcode.ToIdentificationError());
 
                         //Assert
                         Assert.NotNull(identificationResult.Error.ToString());
@@ -65,7 +65,7 @@ namespace Digipost.Api.Client.Common.Tests.Identify
                     var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
 
                     //Act
-                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToString());
+                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToIdentificationError());
 
                     //Assert
                     Assert.NotNull(identificationResult.Error.ToString());
@@ -91,7 +91,7 @@ namespace Digipost.Api.Client.Common.Tests.Identify
                     var nonEssentialFirstParameter = IdentificationResultType.InvalidReason;
 
                     //Act
-                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToString());
+                    var identificationResult = new IdentificationResult(nonEssentialFirstParameter, reason.ToIdentificationError());
 
                     //Assert
                     Assert.NotNull(identificationResult.Error.ToString());

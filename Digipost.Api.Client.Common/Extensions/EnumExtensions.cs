@@ -2,12 +2,54 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Identify;
 using V8;
 
 namespace Digipost.Api.Client.Common.Extensions
 {
     internal static class EnumExtensions
     {
+
+        internal static IdentificationError ToIdentificationError(this V8.Identification_Result_Code code)
+        {
+            switch (code)
+            {
+                case Identification_Result_Code.INVALID:
+                    return IdentificationError.Invalid;
+                case Identification_Result_Code.UNIDENTIFIED:
+                    return IdentificationError.Unidentified;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(code), code, null);
+            }
+        }
+
+        internal static IdentificationError ToIdentificationError(this V8.Invalid_Reason code)
+        {
+            switch (code)
+            {
+                case Invalid_Reason.INVALID_ORGANISATION_NUMBER:
+                    return IdentificationError.InvalidOrganisationNumber;
+                case Invalid_Reason.INVALID_PERSONAL_IDENTIFICATION_NUMBER:
+                    return IdentificationError.InvalidPersonalIdentificationNumber;
+                case Invalid_Reason.UNKNOWN:
+                    return IdentificationError.Unknown;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(code), code, null);
+            }
+        }
+
+        internal static IdentificationError ToIdentificationError(this V8.Unidentified_Reason code)
+        {
+            switch (code)
+            {
+                case Unidentified_Reason.NOT_FOUND:
+                    return IdentificationError.Unknown; // <- See documentation on IdentificationError for explaination for `Unknown` here
+                case Unidentified_Reason.MULTIPLE_MATCHES:
+                    return IdentificationError.MultipleMatches;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(code), code, null);
+            }
+        }
 
         internal static V8.Authentication_Level ToAuthenticationLevel(this AuthenticationLevel authenticationLevel)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Digipost.Api.Client.Common.Enums;
+using Digipost.Api.Client.Common.Extensions;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
@@ -116,7 +117,7 @@ namespace Digipost.Api.Client.Common.Tests
                     //IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
-                var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
+                var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToIdentificationError());
 
                 //Act
                 var actual = source.FromDataTransferObject();
@@ -252,7 +253,7 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByOrganizationNumberReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                object invalidValue = Invalid_Reason.INVALID_ORGANISATION_NUMBER;
+                var invalidValue = Invalid_Reason.INVALID_ORGANISATION_NUMBER;
                 var source = new Identification_Result()
                 {
                     Result = Identification_Result_Code.INVALID,
@@ -264,7 +265,7 @@ namespace Digipost.Api.Client.Common.Tests
                     //IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
-                var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
+                var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToIdentificationError());
 
                 //Act
                 var actual = source.FromDataTransferObject();
@@ -289,7 +290,7 @@ namespace Digipost.Api.Client.Common.Tests
                     //IdentificationResultType = IdentificationResultType.UnidentifiedReason
                 };
 
-                var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToString());
+                var expected = new IdentificationResult(IdentificationResultType.UnidentifiedReason, reason.ToIdentificationError());
 
                 //Act
                 var actual = source.FromDataTransferObject();
@@ -350,7 +351,7 @@ namespace Digipost.Api.Client.Common.Tests
             public void IdentificationByPinReturnsInvalidResultWithInvalidReason()
             {
                 //Arrange
-                object invalidValue = Invalid_Reason.INVALID_PERSONAL_IDENTIFICATION_NUMBER;
+                var invalidValue = Invalid_Reason.INVALID_PERSONAL_IDENTIFICATION_NUMBER;
                 var source = new Identification_Result()
                 {
                     Result = Identification_Result_Code.INVALID,
@@ -362,7 +363,7 @@ namespace Digipost.Api.Client.Common.Tests
                     //IdentificationResultType = IdentificationResultType.InvalidReason
                 };
 
-                var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToString());
+                var expected = new IdentificationResult(IdentificationResultType.InvalidReason, invalidValue.ToIdentificationError());
 
                 //Act
                 var actual = source.FromDataTransferObject();

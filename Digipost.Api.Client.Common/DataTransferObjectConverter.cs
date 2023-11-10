@@ -360,12 +360,12 @@ namespace Digipost.Api.Client.Common
 
             if (identificationResultDto.Invalid_ReasonSpecified)
             {
-                return new IdentificationResult(IdentificationResultType.InvalidReason, identificationResultDto.Invalid_Reason.ToString());
+                return new IdentificationResult(IdentificationResultType.InvalidReason, identificationResultDto.Invalid_Reason.ToIdentificationError());
             }
 
             if (identificationResultDto.Unidentified_ReasonSpecified)
             {
-                return new IdentificationResult(IdentificationResultType.UnidentifiedReason, identificationResultDto.Unidentified_Reason.ToString());
+                return new IdentificationResult(IdentificationResultType.UnidentifiedReason, identificationResultDto.Unidentified_Reason.ToIdentificationError());
             }
 
             throw new ArgumentOutOfRangeException(nameof(identificationResultDto.Result), identificationResultDto.Result, null);

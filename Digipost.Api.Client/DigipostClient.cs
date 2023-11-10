@@ -143,6 +143,15 @@ namespace Digipost.Api.Client
             return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(sender)), senderToUse);
         }
 
+        public IDocumentsApi GetDocumentApi(Sender sender = null)
+        {
+            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(sender)), sender);
+        }
+        public IShareDocumentsApi GetDocumentSharing(Sender sender = null)
+        {
+            return new DocumentsApi(_requestHelper, _loggerFactory, GetRoot(new ApiRootUri(sender)), sender);
+        }
+
         public IIdentificationResult Identify(IIdentification identification)
         {
             return _sendMessageApi().Identify(identification);
@@ -161,6 +170,11 @@ namespace Digipost.Api.Client
         public Task<IMessageDeliveryResult> SendMessageAsync(IMessage message)
         {
             return _sendMessageApi().SendMessageAsync(message, _clientConfig.SkipMetaDataValidation);
+        }
+
+        public void AddAdditionalData(AdditionalData additionalData, AddAdditionalDataUri uri)
+        {
+            _sendMessageApi().SendAdditionalData(additionalData, uri);
         }
 
         public ISearchDetailsResult Search(string query)

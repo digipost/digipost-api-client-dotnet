@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.Common.Share;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
 using Address = Digipost.Api.Client.DataTypes.Core.Common.Address;
@@ -384,6 +387,40 @@ namespace Digipost.Api.Client.Docs
             );
 
             // Create Message and send using the client as specified in other examples.
+        }
+
+        public async void SendShareDocumentRequestMessage()
+        {
+            var shareDocReq = new ShareDocumentsRequest(
+                maxShareDurationSeconds: 60 * 60 * 24 * 5,  // Five calendar days
+                purpose: "The purpose for my use of the document");
+
+            var requestGuid = Guid.NewGuid(); // Keep this in your database as reference to this particular user interaction
+
+            var document = new Document(
+                subject: "Your appointment",
+                fileType: "pdf",
+                path: @"c:\...\document.pdf",
+                dataType: shareDocReq
+            )
+            {
+                Guid = requestGuid.ToString()
+            };
+
+            // Create Message and send using the client as specified in other examples.
+
+            // when you the user has shared a document:
+            var shareDocumentsRequestState = await client.GetDocumentSharing(sender)
+                .GetShareDocumentsRequestState(requestGuid);
+
+            SharedDocumentContent sharedDocumentContent = await client.GetDocumentSharing(sender).GetShareDocumentContent(shareDocumentsRequestState.SharedDocuments.First().GetSharedDocumentContentUri());
+
+            Stream stream = await client.GetDocumentSharing(sender).FetchSharedDocument(shareDocumentsRequestState.SharedDocuments.First().GetSharedDocumentContentStreamUri());
+            Uri uri = sharedDocumentContent.Uri;
+            // sharedDocumentContent.Uri is a url to a document that can be shown in an internet browser.
+
+            var additionalData = new AdditionalData(sender, new ShareDocumentsRequestSharingStopped());
+            client.AddAdditionalData(additionalData, shareDocumentsRequestState.GetStopSharingUri());
         }
 
         public void SendMessageWithSenderInformation()

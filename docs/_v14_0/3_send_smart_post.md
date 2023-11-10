@@ -104,3 +104,104 @@ var document = new Document(
 
 // Create Message and send using the client as specified in other examples.
 ```
+
+### Datatype ShareDocumentsRequest
+
+This datatype facilitates exchange of documents between an organisation and a Digipost end user. The sender
+first sends a message of datatype ShareDocumentsRequest, to which the end user can attach a list of documents. When
+new documents are shared, a DocumentEvent is generated. The organisation can retrieve the status of their
+ShareDocumentsRequest. If documents are shared and the sharing is not cancelled, the documents can either be downloaded
+or viewed on the digipostdata.no domain. Active requests can be cancelled both by the end user and the organisation.
+
+The `purpose` attribute of the ShareDocumentsRequest should briefly explain why the sender organisation want to gain
+access to the relevant documents. The primary document should contain a more detailed explanation.
+
+#### Send ShareDocumentsRequest
+
+```csharp
+var shareDocReq = new ShareDocumentsRequest(
+    maxShareDurationSeconds: 60 * 60 * 24 * 5,  // Five calendar days
+    purpose: "The purpose for my use of the document");
+
+var requestGuid = Guid.NewGuid(); // Keep this in your database as reference to this particular user interaction
+
+var document = new Document(
+    subject: "Information about document sharing",
+    fileType: "pdf",
+    path: @"c:\...\document.pdf",
+    dataType: shareDocReq
+)
+{
+    Guid = requestGuid.ToString()
+};
+
+var message = new Message(
+    senderInformation.Sender,
+    new RecipientById(IdentificationType.PersonalIdentificationNumber, "311084xxxx"),
+    new Document(subject: "Attachment", fileType: "pdf", path: @"c:\...\attachment.pdf")
+);
+
+IMessageDeliveryResult result = client.SendMessage(message);
+```
+
+#### Be notified of new shared documents
+The sender organisation can be notified of new shared documents by polling document events regularly. Use the `uuid` attribute
+of the DocumentEvent to match with the `messageUUID` of the origin ShareDocumentsRequest.
+
+This particular api is still not developed for .NET client. Periodically check the below api to check current status for 
+sent shared request.
+
+#### Get state of ShareDocumentsRequest
+
+* Use the `requestGuid` that you stored from previous.
+
+```csharp
+var shareDocumentsRequestState = await client.GetDocumentSharing(sender)
+                .GetShareDocumentsRequestState(requestGuid);
+```
+
+If the `shareDocumentsRequestState.SharedDocuments.Count() > 0` is true, then the user has shared a 
+document for this share request.
+
+#### Get documents
+
+Each `SharedDocument` has attributes describing the document and its origin. If `SharedDocumentOrigin` is of type
+`OrganisationOrigin`, the corresponding document was received by the end user through Digipost from the organisation
+with the provided organisation number. If the origin is of type `PrivatePersonOrigin`, the document was received either
+from another end user or uploaded by the user itself.
+
+Get a single document as stream:
+
+```csharp
+Stream stream = await client.GetDocumentSharing(sender)
+    .FetchSharedDocument(
+        shareDocumentsRequestState.SharedDocuments.First().GetSharedDocumentContentStreamUri()
+    );
+```
+
+Get link to view a single document on digipostdata.no:
+
+```csharp
+SharedDocumentContent sharedDocumentContent = await client.GetDocumentSharing(sender)
+    .GetShareDocumentContent(
+        shareDocumentsRequestState.SharedDocuments.First().GetSharedDocumentContentUri()
+    );
+
+Uri uriToOpenInBrowser = sharedDocumentContent.Uri;
+```
+
+#### Stop sharing
+
+Use the `requestGuid` from before. Top stop the sharing you add more information on the original 
+message you sent to start this process. Stop sharing can be done when you definitely don't need the
+document to be shared any more. The sharing will in any case stop at the originally 
+specified max share duration automatically. 
+
+```csharp
+var shareDocumentsRequestState = await client.GetDocumentSharing(sender)
+                .GetShareDocumentsRequestState(requestGuid);
+
+var additionalData = new AdditionalData(sender, new ShareDocumentsRequestSharingStopped());
+
+client.AddAdditionalData(additionalData, shareDocumentsRequestState.GetStopSharingUri());
+```

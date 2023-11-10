@@ -89,6 +89,11 @@ namespace Digipost.Api.Client.Common.Entrypoint
         {
             return new DocumentStatusUri(Links["DOCUMENT_STATUS"], guid);
         }
+
+        public ShareDocumentsRequestStateUri GetShareDocumentsRequestStateUri(Guid guid)
+        {
+            return new ShareDocumentsRequestStateUri(Links["GET_SHARE_DOCUMENTS_REQUEST_STATE"], guid);
+        }
     }
 
     public class Link

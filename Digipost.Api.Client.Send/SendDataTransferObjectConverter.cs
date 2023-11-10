@@ -132,7 +132,8 @@ namespace Digipost.Api.Client.Send
             return new Document(documentDto.Subject, documentDto.File_Type, documentDto.Authentication_Level.ToAuthenticationLevel(), documentDto.Sensitivity_Level.ToSensitivityLevel(), FromDataTransferObject(documentDto.Sms_Notification))
             {
                 Guid = documentDto.Uuid,
-                ContentHash = new ContentHash {HashAlgoritm = documentDto.Content_Hash.Hash_Algorithm, Value = documentDto.Content_Hash.Value}
+                ContentHash = new ContentHash {HashAlgoritm = documentDto.Content_Hash.Hash_Algorithm, Value = documentDto.Content_Hash.Value},
+                Links = documentDto.Link.FromDataTransferObject()
             };
         }
 
@@ -190,6 +191,21 @@ namespace Digipost.Api.Client.Send
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        internal static Additional_Data ToDataTransferObject(this IAdditionalData additionalData)
+        {
+            var dto = new Additional_Data
+            {
+                Sender_Id = additionalData.Sender.Id,
+                Sender_IdSpecified = true,
+                Data_Type = new Data_Type()
+                {
+                    Any = additionalData.DataType.ToXmlDocument().DocumentElement
+                }
+            };
+
+            return dto;
         }
     }
 }

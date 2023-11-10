@@ -8,6 +8,19 @@ using static System.Convert;
 
 namespace Digipost.Api.Client.Common.Relations
 {
+    /// <summary>
+    /// A guid-based uri is typically one that is supposed to be appended by a guid that only the sender/broker can know.
+    /// eg.
+    /// api/1234/document/uuid/{append-guid-here}
+    /// </summary>
+    public abstract class GuidBasedUri : Uri
+    {
+        protected GuidBasedUri(Link link, Guid? guid)
+            : base($"{link.Uri}{guid.ToString()}", UriKind.Absolute)
+        {
+        }
+    }
+
     public class ApiRootUri : Uri
     {
         public ApiRootUri(Sender senderId = null)
@@ -53,6 +66,15 @@ namespace Digipost.Api.Client.Common.Relations
         }
     }
 
+    public class AddAdditionalDataUri : Uri
+    {
+        public AddAdditionalDataUri(Link link)
+            : base(link.Uri, UriKind.Absolute)
+        {
+
+        }
+    }
+
     public class GetInboxUri : Uri
     {
         public GetInboxUri(Link link, int offset = 0, int limit = 100)
@@ -93,15 +115,15 @@ namespace Digipost.Api.Client.Common.Relations
         }
     }
 
-    public class GetArchiveDocumentByUuidUri : Uri
+    public class GetArchiveDocumentByUuidUri : GuidBasedUri
     {
         public GetArchiveDocumentByUuidUri(Link link, Guid guid)
-            : base($"{link.Uri}{guid.ToString()}", UriKind.Absolute)
+            : base(link, guid)
         {
         }
 
         public GetArchiveDocumentByUuidUri(Link link)
-            : base(link.Uri, UriKind.Absolute)
+            : base(link, null)
         {
         }
     }
@@ -187,14 +209,33 @@ namespace Digipost.Api.Client.Common.Relations
         }
     }
 
-    public class DocumentStatusUri : Uri
+    public class DocumentStatusUri : GuidBasedUri
     {
         public DocumentStatusUri(Link link, Guid guid)
-            : base($"{link.Uri}{guid.ToString()}", UriKind.Absolute)
+            : base(link, guid)
         {
         }
+    }
 
-        public DocumentStatusUri(Link link)
+    public class ShareDocumentsRequestStateUri : GuidBasedUri
+    {
+        public ShareDocumentsRequestStateUri(Link link, Guid guid)
+            : base(link, guid)
+        {
+        }
+    }
+
+    public class GetSharedDocumentContentStreamUri : Uri
+    {
+        public GetSharedDocumentContentStreamUri(Link link)
+            : base(link.Uri, UriKind.Absolute)
+        {
+        }
+    }
+
+    public class GetSharedDocumentContentUri : Uri
+    {
+        public GetSharedDocumentContentUri(Link link)
             : base(link.Uri, UriKind.Absolute)
         {
         }

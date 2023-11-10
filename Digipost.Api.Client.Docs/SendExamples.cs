@@ -7,9 +7,8 @@ using Digipost.Api.Client.Common.Recipient;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
-using Address = Digipost.Api.Client.DataTypes.Core.Address;
+using Address = Digipost.Api.Client.DataTypes.Core.Common.Address;
 using Environment = Digipost.Api.Client.Common.Environment;
-using Sender = Digipost.Api.Client.Common.Sender;
 
 #pragma warning disable 0649
 
@@ -267,11 +266,10 @@ namespace Digipost.Api.Client.Docs
 
         public void SendInvoice()
         {
-            var invoice = new Invoice();
-            invoice.Kid = "123123123";
-            invoice.Sum = new decimal(100.21);
-            invoice.Creditor_Account = "2593143xxxx";
-            invoice.Due_Date = "2022-12-03T10:15:30+01:00 Europe/Paris"; // ISO-8601 zoned datetime
+            var invoice = new Invoice(dueDate: DateTime.Parse("2022-12-03T10:15:30+01:00 Europe/Paris"), sum: new decimal(100.21), creditorAccount: "2593143xxxx")
+            {
+                Kid = "123123123"
+            };
 
             var message = new Message(
                 sender,
@@ -280,7 +278,7 @@ namespace Digipost.Api.Client.Docs
                     subject: "Invoice 1",
                     fileType: "pdf",
                     path: @"c:\...\invoice.pdf",
-                    dataType: SerializeUtil.Serialize(invoice))
+                    dataType: invoice)
             );
 
             var result = client.SendMessage(message);
@@ -288,11 +286,12 @@ namespace Digipost.Api.Client.Docs
 
         public void SendInkasso()
         {
-            var inkasso = new Inkasso();
-            inkasso.Kid = "123123123";
-            inkasso.Sum = new decimal(100.21);
-            inkasso.Account = "2593143xxxx";
-            inkasso.Due_Date = "2022-12-03T10:15:30+01:00 Europe/Paris"; // ISO-8601 zoned datetime
+            var inkasso = new Inkasso(dueDate: DateTime.Parse("2022-12-03T10:15:30+01:00 Europe/Paris"))
+            {
+                Kid = "123123123",
+                Sum = new decimal(100.21),
+                Account = "2593143xxxx"
+            };
 
             var message = new Message(
                 sender,
@@ -301,7 +300,7 @@ namespace Digipost.Api.Client.Docs
                     subject: "Invoice 1",
                     fileType: "pdf",
                     path: @"c:\...\invoice.pdf",
-                    dataType: SerializeUtil.Serialize(inkasso))
+                    dataType: inkasso)
             );
 
             var result = client.SendMessage(message);
@@ -349,77 +348,39 @@ namespace Digipost.Api.Client.Docs
 
         public void SendMessageWithAppointmentMetadata()
         {
-            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-            var appointment = new Appointment
+            var appointment = new Appointment(startTime: DateTime.Parse("2017-11-24T13:00:00+0100"))
             {
-                Start_Time = startTime.ToString("O"),
-                End_Time = startTime.AddMinutes(30).ToString("O"),
-                Address = new Address {Street_Address = "Storgata 1", Postal_Code = "0001", City = "Oslo"}
+                EndTime = DateTime.Parse("2017-11-24T13:00:00+0100").AddMinutes(30),
+                Address = new Address
+                {
+                    StreetAddress = "Storgata 1",
+                    PostalCode = "0001",
+                    City = "Oslo"
+                }
             };
-
-            string appointmentXml = SerializeUtil.Serialize(appointment);
 
             var document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
-                dataType: appointmentXml
-            );
-        }
-
-        public void SendMessageWithEventMetadata()
-        {
-            var startTime = DateTime.Parse("2017-11-24T13:00:00+0100");
-
-            var timeInterval1 = new TimeInterval {Start_Time = DateTime.Today.ToString("O"), End_Time = DateTime.Today.AddHours(3).ToString("O")};
-            var timeInterval2 = new TimeInterval {Start_Time = DateTime.Today.AddDays(1).ToString("O"), End_Time = DateTime.Today.AddDays(1).AddHours(5).ToString("O")};
-
-            var barcode = new Barcode {Barcode_Value = "12345678", Barcode_Type = "insert type here", Barcode_Text = "this is a code", Show_Value_In_Barcode = true};
-            var address = new Address {Street_Address = "Gateveien 1", Postal_Code = "0001", City = "Oslo"};
-            var info = new Info {Title = "Title", Text = "Very important information"};
-            var link = new Link {Url = "https://www.test.no", Description = "This is a link"};
-
-            Event @event = new Event
-            {
-                Start_Time = {timeInterval1, timeInterval2},
-                Description = "Description here",
-                Address = address,
-                Info = {info},
-                Place = "Oslo City Røntgen",
-                PlaceLabel = "This is a place",
-                Sub_Title = "SubTitle",
-                Barcode = barcode,
-                BarcodeLabel = "Barcode Label",
-                Links = {link}
-            };
-
-            string eventXml = SerializeUtil.Serialize(@event);
-
-            Document document = new Document(
-                subject: "Your appointment",
-                fileType: "pdf",
-                path: @"c:\...\document.pdf",
-                dataType: eventXml
+                dataType: appointment
             );
         }
 
         public void SendMessageWithExternalLinkMetadata()
         {
-            var externalLink = new ExternalLink
+            var externalLink = new ExternalLink(absoluteUri: new Uri("https://example.org/loan-offer/uniqueCustomerId/"))
             {
-                Url = "https://example.org/loan-offer/uniqueCustomerId/",
                 Description = "Please read the terms, and use the button above to accept them. The offer expires at 23/10-2018 10:00.",
-                Button_Text = "Accept offer",
+                ButtonText = "Accept offer",
                 Deadline = DateTime.Parse("2018-10-23T10:00:00+0200")
             };
-
-            string linkXml = SerializeUtil.Serialize(externalLink);
 
             var document = new Document(
                 subject: "Your appointment",
                 fileType: "pdf",
                 path: @"c:\...\document.pdf",
-                dataType: linkXml
+                dataType: externalLink
             );
 
             // Create Message and send using the client as specified in other examples.

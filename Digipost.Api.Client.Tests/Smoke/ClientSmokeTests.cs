@@ -1,6 +1,5 @@
 using System;
 using Digipost.Api.Client.Common.Enums;
-using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
@@ -67,6 +66,21 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
+        public void Can_send_invoice_digipost_user()
+        {
+            var invoice = new Invoice(dueDate: DateTime.Today.AddDays(14), sum: new decimal(100.21), creditorAccount: "2593143xxxx")
+            {
+                Kid = "123123123"
+            };
+
+            _client
+                .CreateMessageWithPrimaryDataTypeDocument(invoice)
+                .To_Digital_Recipient()
+                .SendMessage()
+                .Expect_message_to_have_status(MessageStatus.Delivered);
+        }
+
+        [Fact(Skip = "SmokeTest")]
         public void Can_send_direct_to_print()
         {
             _client
@@ -92,22 +106,13 @@ namespace Digipost.Api.Client.Tests.Smoke
         }
 
         [Fact(Skip = "SmokeTest")]
-        public void Can_send_document_with_raw_datatype_to_digipost_user()
-        {
-            const string raw = "<?xml version=\"1.0\" encoding=\"utf-8\"?><externalLink xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://api.digipost.no/schema/datatypes\"><url>https://www.test.no</url><description>This was raw string</description></externalLink>";
-
-            _clientWithoutDataTypes
-                .CreateMessageWithPrimaryDataTypeDocument(raw)
-                .To_Digital_Recipient()
-                .SendMessage()
-                .Expect_message_to_have_status(MessageStatus.Delivered);
-        }
-
-        [Fact(Skip = "SmokeTest")]
         public void Can_send_document_with_object_datatype_to_digipost_user()
         {
-            var externalLink = new ExternalLink {Url = "https://www.test.no", Description = "This is a link"};
-            var linkXml = SerializeUtil.Serialize(externalLink);
+            var externalLink = new ExternalLink(new Uri("https://www.test.no", UriKind.Absolute))
+            {
+                Description = "This is a link"
+            };
+            var linkXml = externalLink;
 
             _client
                 .CreateMessageWithPrimaryDataTypeDocument(linkXml)

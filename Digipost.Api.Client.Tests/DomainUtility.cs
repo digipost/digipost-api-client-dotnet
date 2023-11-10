@@ -5,6 +5,7 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
+using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Resources.Content;
 using Digipost.Api.Client.Send;
 using V8;
@@ -101,7 +102,7 @@ namespace Digipost.Api.Client.Tests
             return new Send.Message(GetSender(), GetRecipientByNameAndAddress(), GetDocument());
         }
 
-        public static IDocument GetDocument(string dataType = null)
+        public static IDocument GetDocument(IDigipostDataType dataType = null)
         {
             return new Document("simple-document-dotnet", "pdf", ContentResource.Hoveddokument.Pdf())
             {

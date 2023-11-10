@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Enums;
@@ -12,6 +11,7 @@ using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Common.Utilities;
+using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Utilities;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,7 +76,7 @@ namespace Digipost.Api.Client.Tests.Smoke
             return this;
         }
 
-        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(string dataType)
+        public ClientSmokeTestHelper CreateMessageWithPrimaryDataTypeDocument(IDigipostDataType dataType)
         {
             _primary = DomainUtility.GetDocument(dataType);
             return this;

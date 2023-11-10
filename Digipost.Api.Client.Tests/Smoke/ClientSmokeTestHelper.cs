@@ -265,8 +265,8 @@ namespace Digipost.Api.Client.Tests.Smoke
 
         public ClientSmokeTestHelper GetSenderInformation()
         {
-            //_senderInformation = _digipostClient.GetSenderInformation(_root.GetSenderInformationUri(new Sender(_testSender.Id)));
-            _senderInformation = _digipostClient.GetSenderInformation(new Sender(_testSender.Id), new SenderOrganisation("984661185", "signering"));
+            //_senderInformation = _digipostClient.GetSenderInformation(new Sender(_testSender.Id));
+            _senderInformation = _digipostClient.GetSenderInformation(new SenderOrganisation("984661185", "signering"));
             return this;
         }
 

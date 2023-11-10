@@ -4,7 +4,6 @@ using Digipost.Api.Client.Common.Enums;
 using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Print;
 using Digipost.Api.Client.Common.Recipient;
-using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.DataTypes.Core;
 using Digipost.Api.Client.Send;
@@ -428,7 +427,7 @@ namespace Digipost.Api.Client.Docs
 
         public void SendMessageWithSenderInformation()
         {
-            var senderInformation = client.GetSenderInformation(sender, new SenderOrganisation("9876543210", "thePartId"));
+            var senderInformation = client.GetSenderInformation(new SenderOrganisation("9876543210", "thePartId"));
 
             var message = new Message(
                 senderInformation.Sender,

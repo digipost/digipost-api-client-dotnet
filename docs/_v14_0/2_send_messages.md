@@ -619,8 +619,9 @@ it is possible to send with organisation number and a partid. The partid can be 
 between different divisions or however the organisation sees fit. This makes it possible
 to not have to store the Digipost account id, but in stead fetch this information from the api.
 
+Fetch sender information based on orgnumber and partid.
 ```csharp
-var senderInformation = client.GetSenderInformation(sender, new SenderOrganisation("9876543210", "thePartId"));
+var senderInformation = client.GetSenderInformation(new SenderOrganisation("9876543210", "thePartId"));
 
 var message = new Message(
     senderInformation.Sender,

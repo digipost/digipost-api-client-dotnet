@@ -129,7 +129,7 @@ The actual content of the SMS is not part of the request, it is stored as part o
 If the user does not register for a Digipost account within the defined deadline, the document will be either delivered as physical mail or not at all.
 Be aware that using `PersonalIdentificationNumber` is required as Recipient to be able to deliver the document to the correct person.
 
-It is important to include the country code, starting with a plus sign, in the recipient's phone number.
+The phone number provided SHOULD include the country code (i.e. +47). If the phone number does not start with either `"+"`, `"00"` or `"011"`, we will prepend `"+47"` if and only if the phone number string is 8 characters long. If this is not the case, the request is rejected.
 
 In the following the document will be delivered as physical mail by Digipost if the recipient has not registered for a Digipost account by the defined deadline:
 

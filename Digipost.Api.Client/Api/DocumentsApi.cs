@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
@@ -9,7 +8,7 @@ using Digipost.Api.Client.Common.Share;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Send;
 using Microsoft.Extensions.Logging;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Api
 {
@@ -61,7 +60,7 @@ namespace Digipost.Api.Client.Api
         public async Task<DocumentStatus> GetDocumentStatusAsync(Guid guid)
         {
             var documentStatusUri = _root.GetDocumentStatusUri(guid);
-            var result = await _requestHelper.Get<Document_Status>(documentStatusUri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.DocumentStatus>(documentStatusUri).ConfigureAwait(false);
 
             return result.FromDataTransferObject();
         }
@@ -79,7 +78,7 @@ namespace Digipost.Api.Client.Api
         public async Task<DocumentEvents> GetDocumentEventsAsync(DateTime from, DateTime to, int offset, int maxResults)
         {
             var documentEventsUri = _root.GetDocumentEventsUri(_sender, from, to, offset, maxResults);
-            var result = await _requestHelper.Get<Document_Events>(documentEventsUri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.DocumentEvents>(documentEventsUri).ConfigureAwait(false);
 
             return result.FromDataTransferObject();
         }
@@ -97,7 +96,7 @@ namespace Digipost.Api.Client.Api
         public async Task<ShareDocumentsRequestState> GetShareDocumentsRequestStateAsync(Guid guid)
         {
             var shareDocumentsRequestStateUri = _root.GetShareDocumentsRequestStateUri(guid);
-            var result = await _requestHelper.Get<Share_Documents_Request_State>(shareDocumentsRequestStateUri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.ShareDocumentsRequestState>(shareDocumentsRequestStateUri).ConfigureAwait(false);
 
             return result.FromDataTransferObject();
         }
@@ -113,7 +112,7 @@ namespace Digipost.Api.Client.Api
 
         public async Task<SharedDocumentContent> GetShareDocumentContentAsync(GetSharedDocumentContentUri uri)
         {
-            var result = await _requestHelper.Get<Shared_Document_Content>(uri).ConfigureAwait(false);
+            var result = await _requestHelper.Get<V8.SharedDocumentContent>(uri).ConfigureAwait(false);
 
             return result.FromDataTransferObject();
         }

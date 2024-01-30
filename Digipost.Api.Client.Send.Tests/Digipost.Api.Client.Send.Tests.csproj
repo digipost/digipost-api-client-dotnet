@@ -3,7 +3,7 @@
     <PropertyGroup>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Send.Tests</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Send.Tests</AssemblyName>
         <ProjectGuid>{57566E3A-1DE1-4020-B1B3-8AEDD79ED4AE}</ProjectGuid>

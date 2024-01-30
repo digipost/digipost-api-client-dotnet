@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Digipost.Api.Client.Common;
-using V8;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Archive
 {
@@ -12,8 +12,8 @@ namespace Digipost.Api.Client.Archive
             var dto = new V8.Archive()
             {
                 Name = a.Name,
-                Sender_Id = a.Sender.Id,
-                Sender_IdSpecified = true
+                SenderId = a.Sender.Id,
+                SenderIdSpecified = true
             };
 
             foreach (var ad in a.ArchiveDocuments.Select(ToDataTransferObject))
@@ -24,49 +24,49 @@ namespace Digipost.Api.Client.Archive
             return dto;
         }
 
-        internal static Archive_Document ToDataTransferObject(this ArchiveDocument ad)
+        internal static V8.ArchiveDocument ToDataTransferObject(this ArchiveDocument ad)
         {
-            var dto = new Archive_Document()
+            var dto = new V8.ArchiveDocument()
             {
                 Uuid = ad.Id.ToString(),
-                File_Name = ad.FileName,
-                File_Type = ad.FileType,
-                Content_Type = ad.ContentType,
+                FileName = ad.FileName,
+                FileType = ad.FileType,
+                ContentType = ad.ContentType,
                 Referenceid = ad.ReferenceId,
-                Archived_Time = ad.ArchiveTime,
-                Deletion_Time = ad.DeletionTime
+                ArchivedTime = ad.ArchiveTime,
+                DeletionTime = ad.DeletionTime
             };
 
             foreach (var attribute in ad.Attributes)
             {
-                dto.Attributes.Add(new Archive_Document_Attribute(){Key = attribute.Key, Value = attribute.Value});
+                dto.Attributes.Add(new V8.ArchiveDocumentAttribute(){Key = attribute.Key, Value = attribute.Value});
             }
 
             if (ad.ContentHash != null)
             {
-                dto.Content_Hash = new Content_Hash()
+                dto.ContentHash = new V8.ContentHash()
                 {
                     Value = ad.ContentHash.Value,
-                    Hash_Algorithm = ad.ContentHash.HashAlgoritm
+                    HashAlgorithm = ad.ContentHash.HashAlgoritm
                 };
             }
 
             return dto;
         }
 
-        internal static ArchiveDocument FromDataTransferObject(this Archive_Document ad)
+        internal static ArchiveDocument FromDataTransferObject(this V8.ArchiveDocument ad)
         {
             return new ArchiveDocument(
                 new Guid(ad.Uuid),
-                ad.File_Name,
-                ad.File_Type,
-                ad.Content_Type
+                ad.FileName,
+                ad.FileType,
+                ad.ContentType
             )
             {
                 ReferenceId = ad.Referenceid,
-                ContentHash = ad.Content_Hash == null ? null : new ContentHash {HashAlgoritm = ad.Content_Hash.Hash_Algorithm, Value = ad.Content_Hash.Value},
-                ArchiveTime = ad.Archived_Time,
-                DeletionTime = ad.Deletion_Time,
+                ContentHash = ad.ContentHash == null ? null : new ContentHash {HashAlgoritm = ad.ContentHash.HashAlgorithm, Value = ad.ContentHash.Value},
+                ArchiveTime = ad.ArchivedTime,
+                DeletionTime = ad.DeletionTime,
                 Attributes = ad.Attributes.ToDictionary(ada => ada.Key, ada => ada.Value),
                 Links = ad.Link.FromDataTransferObject()
             };
@@ -74,16 +74,16 @@ namespace Digipost.Api.Client.Archive
 
         internal static Archive FromDataTransferObject(this V8.Archive a)
         {
-            return new Archive(new Sender(a.Sender_Id), a.Name)
+            return new Archive(new Sender(a.SenderId), a.Name)
             {
                 ArchiveDocuments = a.Documents.Select(FromDataTransferObject).ToList(),
                 Links = a.Link.FromDataTransferObject()
             };
         }
 
-        internal static ArchiveDocumentContent FromDataTransferObject(this Archive_Document_Content result)
+        internal static ArchiveDocumentContent FromDataTransferObject(this V8.ArchiveDocumentContent result)
         {
-            return new ArchiveDocumentContent(result.Content_Type, new Uri(result.Uri, UriKind.Absolute));
+            return new ArchiveDocumentContent(result.ContentType, new Uri(result.Uri, UriKind.Absolute));
         }
     }
 }

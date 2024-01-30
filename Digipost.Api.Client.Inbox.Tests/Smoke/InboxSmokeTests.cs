@@ -6,12 +6,7 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 {
     public class InboxSmokeTests
     {
-        public InboxSmokeTests()
-        {
-            _t = new InboxSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
-        }
-
-        private readonly InboxSmokeTestsHelper _t;
+        private readonly InboxSmokeTestsHelper _t = new InboxSmokeTestsHelper(SenderUtility.GetSender(TestEnvironment.Qa));
 
         // To test this, log on to the account you are using and upload a document to the inbox.
         [Fact(Skip = "Skipping due to missing inbox for test users")]

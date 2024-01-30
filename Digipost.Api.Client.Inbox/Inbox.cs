@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common.Entrypoint;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Utilities;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Inbox
 {

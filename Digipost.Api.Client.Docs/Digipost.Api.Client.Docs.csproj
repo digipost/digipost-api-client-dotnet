@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Docs</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Docs</AssemblyName>
         <ProjectGuid>{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}</ProjectGuid>

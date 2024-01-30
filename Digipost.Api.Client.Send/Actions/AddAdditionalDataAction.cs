@@ -3,9 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Actions;
-using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Utilities;
-using V8;
 
 namespace Digipost.Api.Client.Send.Actions
 {

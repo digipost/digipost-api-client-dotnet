@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Digipost.Api.Client.Common.Exceptions;
 using Microsoft.Extensions.Logging;
+using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client.Common.Utilities
 {

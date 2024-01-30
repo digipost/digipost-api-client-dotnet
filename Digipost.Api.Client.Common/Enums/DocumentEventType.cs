@@ -16,5 +16,6 @@ namespace Digipost.Api.Client.Common.Enums
         RequestForRegistrationExpired,
         RequestForRegistrationDeliveredDigipost,
         RequestForRegistrationFailed,
+        ShareDocumentsRequestDocumentsShared,
     }
 }

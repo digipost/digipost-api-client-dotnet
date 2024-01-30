@@ -1118,6 +1118,7 @@
             <xsd:enumeration value="REQUEST_FOR_REGISTRATION_EXPIRED" />
             <xsd:enumeration value="REQUEST_FOR_REGISTRATION_DELIVERED_DIGIPOST" />
             <xsd:enumeration value="REQUEST_FOR_REGISTRATION_FAILED" />
+            <xsd:enumeration value="SHARE_DOCUMENTS_REQUEST_DOCUMENTS_SHARED"/>
         </xsd:restriction>
     </xsd:simpleType>
 

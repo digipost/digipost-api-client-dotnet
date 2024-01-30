@@ -2493,6 +2493,9 @@ namespace Digipost.Api.Client.Common.Generated.V8
         
         [System.Xml.Serialization.XmlEnumAttribute("REQUEST_FOR_REGISTRATION_FAILED")]
         RequestForRegistrationFailed,
+        
+        [System.Xml.Serialization.XmlEnumAttribute("SHARE_DOCUMENTS_REQUEST_DOCUMENTS_SHARED")]
+        ShareDocumentsRequestDocumentsShared,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.1.963.0")]

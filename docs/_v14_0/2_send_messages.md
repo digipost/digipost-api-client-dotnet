@@ -518,5 +518,5 @@ somehow while pulling more.
 
 When you receive 0 og less that the specified maxResults, you have received all events in the current time interval.
 
-We propose that you somehow store the state of the polling time interval. We expire/delete events after 90 days, so there
+We propose that you somehow store the state of the polling time interval. We expire/delete events after 30 days, so there
 are enough time to be sure you have processed them all. There is no way to delete an event through the api.

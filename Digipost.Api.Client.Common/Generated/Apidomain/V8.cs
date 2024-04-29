@@ -2496,6 +2496,9 @@ namespace Digipost.Api.Client.Common.Generated.V8
         
         [System.Xml.Serialization.XmlEnumAttribute("SHARE_DOCUMENTS_REQUEST_DOCUMENTS_SHARED")]
         ShareDocumentsRequestDocumentsShared,
+
+        [System.Xml.Serialization.XmlEnumAttribute("SHARE_DOCUMENTS_REQUEST_SHARING_WITHDRAWN")]
+        ShareDocumentsRequestSharingWithdrawn,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.1.963.0")]

@@ -5,6 +5,6 @@ require 'open-uri'
 versions = JSON.parse(OpenURI.open_uri('https://pages.github.com/versions.json').read)
 
 gem 'github-pages', versions['github-pages'], group: :jekyll_plugins
-gem "webrick", "~> 1.8"
+gem "webrick", "~> 1.8.2"
 gem "faraday", "~> 2.0.1"
 gem "nokogiri", "1.16.5"

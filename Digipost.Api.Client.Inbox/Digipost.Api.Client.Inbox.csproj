@@ -39,8 +39,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.1.3" />
+        <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.1.5" />
         <ProjectReference Include="..\Digipost.Api.Client.Common\Digipost.Api.Client.Common.csproj">
             <Project>{CD338E5A-1ED0-4331-B34E-8292FA8E387B}</Project>
             <Name>Digipost.Api.Client.Common</Name>

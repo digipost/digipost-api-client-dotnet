@@ -28,7 +28,7 @@ namespace Digipost.Api.Client.Archive.Tests
             {
                 ["key"] = "val"
             };
-            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0&attributes=a2V5LHZhbA==", archive.GetNextDocumentsUri(searchBy).ToString());
+            Assert.Equal("https://www.testing.no/1010/archive/1000/document?limit=100&offset=0&attributes=a2V5LHZhbA%3d%3d", archive.GetNextDocumentsUri(searchBy).ToString());
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Relations;
@@ -65,6 +66,16 @@ namespace Digipost.Api.Client.Archive
         public ArchiveNextDocumentsUri GetNextDocumentsUri(Dictionary<string, string> searchBy)
         {
             return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"], searchBy);
+        }
+
+        public ArchiveNextDocumentsUri GetNextDocumentsUri(DateTime from, DateTime to)
+        {
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"], from, to);
+        }
+
+        public ArchiveNextDocumentsUri GetNextDocumentsUri(Dictionary<string,string> searchBy, DateTime from, DateTime to)
+        {
+            return new ArchiveNextDocumentsUri(Links["NEXT_DOCUMENTS"], searchBy, from, to);
         }
     }
 }

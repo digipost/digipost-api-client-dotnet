@@ -1,4 +1,6 @@
-﻿using Digipost.Api.Client.Tests.Utilities;
+﻿using System;
+using System.Collections.Generic;
+using Digipost.Api.Client.Tests.Utilities;
 using Xunit;
 
 namespace Digipost.Api.Client.Archive.Tests.Smoke
@@ -26,10 +28,20 @@ namespace Digipost.Api.Client.Archive.Tests.Smoke
         [Fact(Skip = "SmokeTest")]
         public void ArchiveADocumentWithAttributes()
         {
+            var from = DateTime.Now;
+            
+            var searchBy = new Dictionary<string, string>
+            {
+                ["smoke"] = "test"
+            };
+            
             _t.ArchiveAFile()
                 .Get_Default_Archive()
                 .Get_All_DocumentsWithAttributes()
-                .Update_attritbutesOnFirst();
+                .Update_attritbutesOnFirst()
+                .Get_For_Timeinterval(from, DateTime.Now, 1)
+                .Get_For_TimeintervalWithAttributes(searchBy, from, DateTime.Now, 1);
+
         }
     }
 }

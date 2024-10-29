@@ -71,7 +71,6 @@ namespace Digipost.Api.Client.Common.Relations
         public AddAdditionalDataUri(Link link)
             : base(link.Uri, UriKind.Absolute)
         {
-
         }
     }
 
@@ -144,20 +143,41 @@ namespace Digipost.Api.Client.Common.Relations
         }
 
         public ArchiveNextDocumentsUri(Link link, Dictionary<string, string> searchBy)
-            : base(ToUri(new Uri(link.Uri, UriKind.Absolute), searchBy), UriKind.Absolute)
+            : base(ToUri(new Uri(link.Uri, UriKind.Absolute), searchBy, null, null), UriKind.Absolute)
         {
         }
 
-        private static string ToUri(Uri nextDocumentsUri, Dictionary<string, string> searchBy)
+        public ArchiveNextDocumentsUri(Link link, DateTime from, DateTime to)
+            : base(ToUri(new Uri(link.Uri, UriKind.Absolute), new Dictionary<string, string>(), from, to), UriKind.Absolute)
+        {
+        }
+
+        public ArchiveNextDocumentsUri(Link link, Dictionary<string, string> searchBy, DateTime from, DateTime to)
+            : base(ToUri(new Uri(link.Uri, UriKind.Absolute), searchBy, from, to), UriKind.Absolute)
+        {
+            
+        }
+
+        internal static string ToUri(Uri nextDocumentsUri, Dictionary<string, string> searchBy, DateTime? from, DateTime? to)
         {
             var query = HttpUtility.ParseQueryString(nextDocumentsUri.Query);
-            var commaSeparated = string.Join(",", searchBy.Select(x => x.Key + "," + x.Value).ToArray());
-            var base64 = ToBase64String(Encoding.UTF8.GetBytes(commaSeparated));
+            if (searchBy.Count > 0)
+            {
+                var commaSeparated = string.Join(",", searchBy.Select(x => x.Key + "," + x.Value).ToArray());
+                var base64 = ToBase64String(Encoding.UTF8.GetBytes(commaSeparated));
 
-            query["attributes"] = "";
+                query["attributes"] = base64;
+            }
+
+            if (from != null && to != null)
+            {
+                query["fromDate"] = from.Value.ToString("o");
+                query["toDate"] = to.Value.ToString("o");
+            }
+
             var uriBuilder = new UriBuilder(nextDocumentsUri)
             {
-                Query = query + base64
+                Query = query.ToString()
             };
             return uriBuilder.ToString();
         }
@@ -200,7 +220,6 @@ namespace Digipost.Api.Client.Common.Relations
         public DocumentEventsUri(Link link, Sender sender, DateTime from, DateTime to, int offset, int maxResults)
             : base($"{link.Uri}?sender={sender.Id}&from={DatetimeFormatter(from)}&to={DatetimeFormatter(to)}&offset={offset}&maxResults={maxResults}", UriKind.Absolute)
         {
-
         }
 
         private static string DatetimeFormatter(DateTime? dt)

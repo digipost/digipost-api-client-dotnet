@@ -57,7 +57,7 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
 
         public ArchiveSmokeTestsHelper Get_Default_Archive()
         {
-            _archive = _archiveApi.FetchArchives().Result.Where(a => a.Name == null).First();
+            _archive = _archiveApi.FetchArchives().Result.First(a => a.Name == string.Empty);
             return this;
         }
 
@@ -83,6 +83,24 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
             _byAttribute = _archiveApi.FetchArchiveDocuments(_archive.GetNextDocumentsUri(searchBy)).Result;
 
             Assert.NotEmpty(_byAttribute.ArchiveDocuments);
+            return this;
+        }
+
+        public ArchiveSmokeTestsHelper Get_For_Timeinterval(DateTime start, DateTime end, int expectCount = 0)
+        {
+            _byAttribute = _archiveApi.FetchArchiveDocuments(_archive.GetNextDocumentsUri(start, end)).Result;
+            
+            Assert.Equal(expectCount, _byAttribute.ArchiveDocuments.Count);
+            
+            return this;
+        }
+
+        public ArchiveSmokeTestsHelper Get_For_TimeintervalWithAttributes(Dictionary<string, string> searchBy, DateTime start, DateTime end, int expectCount = 0)
+        {
+            _byAttribute = _archiveApi.FetchArchiveDocuments(_archive.GetNextDocumentsUri(searchBy, start, end)).Result;
+            
+            Assert.Equal(expectCount, _byAttribute.ArchiveDocuments.Count);
+            
             return this;
         }
 

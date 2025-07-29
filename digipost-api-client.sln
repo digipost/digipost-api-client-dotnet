@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Common.Tests", "Digipost.Api.Client.Common.Tests\Digipost.Api.Client.Common.Tests.csproj", "{BC85F48B-9584-41F7-BBE8-EBBEC1EEC7E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.ConcurrencyTest", "Digipost.Api.Client.ConcurrencyTest\Digipost.Api.Client.ConcurrencyTest.csproj", "{7B5E5062-98E5-4312-9A82-28DF530BF5FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Docs", "Digipost.Api.Client.Docs\Digipost.Api.Client.Docs.csproj", "{1B5DB6E1-7363-4B6D-8565-CBF7E5C958DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digipost.Api.Client.Archive", "Digipost.Api.Client.Archive\Digipost.Api.Client.Archive.csproj", "{1BEC9279-D6C5-4C26-B926-13081F1C3DBC}"

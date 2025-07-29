@@ -1,13 +1,13 @@
 <Project>
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
 
         <Version>0.0.0.0</Version>
         <AssemblyVersion>0.0.0.0</AssemblyVersion>
 
         <Authors>Digipost AS</Authors>
-        <Company>Posten Norge AS</Company>
-        <Copyright>Copyright © 2024 Posten Norge AS</Copyright>
+        <Company>Posten Bring AS</Company>
+        <Copyright>Copyright © 2025 Posten Bring AS</Copyright>
 
         <PackageProjectUrl>https://github.com/digipost/digipost-api-client-dotnet/</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

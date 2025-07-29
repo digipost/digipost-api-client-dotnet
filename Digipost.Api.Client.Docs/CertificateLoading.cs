@@ -23,7 +23,7 @@ namespace Digipost.Api.Client.Docs
         {
             var clientConfig = new ClientConfig(broker, Environment.Production);
             var businessCertificate =
-                new X509Certificate2(
+                X509CertificateLoader.LoadPkcs12FromFile(
                     @"C:\Path\To\Certificate\Cert.p12",
                     "secretPasswordProperlyInstalledAndLoaded",
                     X509KeyStorageFlags.Exportable

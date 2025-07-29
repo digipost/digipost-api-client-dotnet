@@ -88,7 +88,7 @@ namespace Digipost.Api.Client.Send.Tests
             {
                 if (fileStream == null) return null;
                 var bytes = new byte[fileStream.Length];
-                fileStream.Read(bytes, 0, bytes.Length);
+                fileStream.ReadExactly(bytes, 0, bytes.Length);
                 return bytes;
             }
         }

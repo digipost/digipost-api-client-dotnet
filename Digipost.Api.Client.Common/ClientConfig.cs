@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 
 namespace Digipost.Api.Client.Common
 {
@@ -52,5 +53,10 @@ namespace Digipost.Api.Client.Common
         ///     Used to test sending documents as if you've not imported the DataTypes project.
         /// </summary>
         public bool SkipMetaDataValidation { get; set; }
+
+        /// <summary>
+        ///     A collection of custom delegating handlers to be used in the HttpClient pipeline for every request.
+        /// </summary>
+        public IReadOnlyCollection<DelegatingHandler> DelegatingHandlers { get; set; } = []
     }
 }

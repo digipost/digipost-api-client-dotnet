@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -11,7 +10,6 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
-using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Shared.Certificate;
@@ -59,7 +57,12 @@ namespace Digipost.Api.Client
 
         private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate, WebProxy proxy = null, NetworkCredential credential = null)
         {
-            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
+            var allDelegationHandlers = 
+                [
+                new LoggingHandler(_clientConfig, _loggerFactory),
+                new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory),
+                .. _clientConfig.DelegatingHandlers
+                ]
 
             var httpMessageHandler = new HttpClientHandler
             {

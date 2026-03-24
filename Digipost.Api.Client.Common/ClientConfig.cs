@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 
 namespace Digipost.Api.Client.Common
 {
@@ -57,6 +58,13 @@ namespace Digipost.Api.Client.Common
         /// <summary>
         ///     A collection of custom delegating handlers to be used in the HttpClient pipeline for every request.
         /// </summary>
-        public IReadOnlyCollection<DelegatingHandler> DelegatingHandlers { get; set; } = []
+        public IReadOnlyCollection<DelegatingHandler> DelegatingHandlers { get; set; } = [];
+
+        /// <summary>
+        ///     A list of interceptors that are invoked around every HTTP request.
+        ///     <see cref="IRequestInterceptor.OnBeforeRequestAsync" /> is called in list order (FIFO);
+        ///     <see cref="IRequestInterceptor.OnAfterResponseAsync" /> is called in reverse order (LIFO).
+        /// </summary>
+        public IList<IRequestInterceptor> RequestInterceptors { get; set; } = new List<IRequestInterceptor>();
     }
 }

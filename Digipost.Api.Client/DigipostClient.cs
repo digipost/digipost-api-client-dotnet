@@ -11,7 +11,6 @@ using Digipost.Api.Client.Common.Identify;
 using Digipost.Api.Client.Common.Relations;
 using Digipost.Api.Client.Common.Search;
 using Digipost.Api.Client.Common.SenderInfo;
-using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Shared.Certificate;
@@ -42,13 +41,18 @@ namespace Digipost.Api.Client
         }
 
         public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate, ILoggerFactory loggerFactory)
+            : this(clientConfig, enterpriseCertificate, loggerFactory, [])
+        {
+        }
+
+        internal DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate, ILoggerFactory loggerFactory, IList<IRequestInterceptor> interceptors)
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();
             _loggerFactory = loggerFactory;
             _entrypointCache = new MemoryCache(new MemoryCacheOptions());
 
             _clientConfig = clientConfig;
-            var httpClient = GetHttpClient(enterpriseCertificate, clientConfig.WebProxy, clientConfig.Credential);
+            var httpClient = GetHttpClient(enterpriseCertificate, interceptors, clientConfig.WebProxy, clientConfig.Credential);
             _requestHelper = new RequestHelper(httpClient, _loggerFactory);
         }
 
@@ -57,11 +61,11 @@ namespace Digipost.Api.Client
             return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot(new ApiRootUri()));
         }
 
-        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate, WebProxy proxy = null, NetworkCredential credential = null)
+        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate, IList<IRequestInterceptor> interceptors, WebProxy proxy = null, NetworkCredential credential = null)
         {
             var allDelegationHandlers = new List<DelegatingHandler>
             {
-                new InterceptorHandler(_clientConfig.RequestInterceptors),
+                new InterceptorHandler(interceptors),
                 new LoggingHandler(_clientConfig, _loggerFactory),
                 new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory),
             };

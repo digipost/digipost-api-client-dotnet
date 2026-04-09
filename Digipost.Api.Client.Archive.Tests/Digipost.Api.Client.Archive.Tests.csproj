@@ -6,7 +6,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <RootNamespace>Digipost.Api.Client.Archive.Tests</RootNamespace>
         <AssemblyName>Digipost.Api.Client.Archive.Tests</AssemblyName>
-        <ProjectGuid>{c22f80a7-08e5-4836-9e24-e7bb431e9a5d}</ProjectGuid>
+        <ProjectGuid>{C22F80A7-08E5-4836-9E24-E7BB431E9A5D}</ProjectGuid>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 

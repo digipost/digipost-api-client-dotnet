@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
+﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
 
     <PropertyGroup>
         <Title>Digipost Api Client Docs</Title>

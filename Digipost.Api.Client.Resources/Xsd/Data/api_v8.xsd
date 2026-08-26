@@ -1062,6 +1062,14 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="sms-notification-delivered-metadata">
+        <xsd:complexContent>
+            <xsd:extension base="event-metadata">
+                <xsd:attribute name="mobile-number" type="xsd:string" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="failed-print-metadata">
         <xsd:complexContent>
             <xsd:extension base="event-metadata">
@@ -1108,6 +1116,7 @@
             <xsd:enumeration value="EMAIL_MESSAGE_SENT" />
             <xsd:enumeration value="EMAIL_MESSAGE_FAILED" />
             <xsd:enumeration value="SMS_NOTIFICATION_FAILED" />
+            <xsd:enumeration value="SMS_NOTIFICATION_DELIVERED" />
             <xsd:enumeration value="OPENED" />
             <xsd:enumeration value="MOVE_FILES_FROM_PUBLIC_SECTOR" />
             <xsd:enumeration value="POSTMARKED" />

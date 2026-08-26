@@ -6,6 +6,7 @@ namespace Digipost.Api.Client.Common.Enums
         EmailMessageSent,
         EmailMessageFailed,
         SmsNotificationFailed,
+        SmsNotificationDelivered,
         Opened,
         MoveFilesFromPublicSector,
         Postmarked,

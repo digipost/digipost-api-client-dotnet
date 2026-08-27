@@ -2441,6 +2441,7 @@ namespace Digipost.Api.Client.Common.Generated.V8
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(MoveFilesFromPublicSectorMetadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(PostmarkedMetadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RequestForRegistrationExpiredMetadata))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SmsNotificationDeliveredMetadata))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SmsNotificationFailedMetadata))]
     public abstract partial class EventMetadata
     {
@@ -2463,6 +2464,9 @@ namespace Digipost.Api.Client.Common.Generated.V8
         
         [System.Xml.Serialization.XmlEnumAttribute("SMS_NOTIFICATION_FAILED")]
         SmsNotificationFailed,
+        
+        [System.Xml.Serialization.XmlEnumAttribute("SMS_NOTIFICATION_DELIVERED")]
+        SmsNotificationDelivered,
         
         [System.Xml.Serialization.XmlEnumAttribute("OPENED")]
         Opened,
@@ -2496,7 +2500,7 @@ namespace Digipost.Api.Client.Common.Generated.V8
         
         [System.Xml.Serialization.XmlEnumAttribute("SHARE_DOCUMENTS_REQUEST_DOCUMENTS_SHARED")]
         ShareDocumentsRequestDocumentsShared,
-
+        
         [System.Xml.Serialization.XmlEnumAttribute("SHARE_DOCUMENTS_REQUEST_SHARING_WITHDRAWN")]
         ShareDocumentsRequestSharingWithdrawn,
     }
@@ -2671,6 +2675,19 @@ namespace Digipost.Api.Client.Common.Generated.V8
         [System.ComponentModel.DataAnnotations.RequiredAttribute()]
         [System.Xml.Serialization.XmlAttributeAttribute("error-code")]
         public string ErrorCode { get; set; }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.1.963.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("sms-notification-delivered-metadata", Namespace="http://api.digipost.no/schema/v8")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SmsNotificationDeliveredMetadata : EventMetadata
+    {
+        
+        [System.ComponentModel.DataAnnotations.RequiredAttribute()]
+        [System.Xml.Serialization.XmlAttributeAttribute("mobile-number")]
+        public string MobileNumber { get; set; }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.1.963.0")]

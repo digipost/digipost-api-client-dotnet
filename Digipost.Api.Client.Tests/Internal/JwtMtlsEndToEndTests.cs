@@ -34,7 +34,7 @@ namespace Digipost.Api.Client.Tests.Handlers
                 TokenEndpoint = tokenServer.BaseAddress
             };
 
-            var tokenProvider = new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory(), CreateTestTokenHandler(clientCertificate));
+            var tokenProvider = new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory(), CreateTestTokenHandler(clientCertificate, midpCertificate));
 
             var token = await tokenProvider.GetTokenAsync();
 
@@ -75,9 +75,9 @@ namespace Digipost.Api.Client.Tests.Handlers
                 TokenEndpoint = tokenServer.BaseAddress
             };
 
-            var tokenProvider = new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory(), CreateTestTokenHandler(clientCertificate));
+            var tokenProvider = new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory(), CreateTestTokenHandler(clientCertificate, midpCertificate));
 
-            var httpClient = HttpClientFactory.Create(CreateResourceServerHandler(), new BearerTokenAuthenticationHandler(clientConfig, tokenProvider));
+            var httpClient = HttpClientFactory.Create(CreateResourceServerHandler(apiCertificate), new BearerTokenAuthenticationHandler(clientConfig, tokenProvider));
             httpClient.BaseAddress = environment.Url;
 
             var response = await httpClient.GetAsync("some/path");
@@ -91,23 +91,32 @@ namespace Digipost.Api.Client.Tests.Handlers
             Assert.False(recordedRequest.Headers.ContainsKey("X-Digipost-Signature"));
         }
 
-        private static HttpClientHandler CreateTestTokenHandler(X509Certificate2 clientCertificate)
+        private static HttpClientHandler CreateTestTokenHandler(X509Certificate2 clientCertificate, X509Certificate2 expectedServerCertificate)
         {
             var handler = new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                ServerCertificateCustomValidationCallback = (_, certificate, _, _) => IsExpectedCertificate(certificate, expectedServerCertificate)
             };
             handler.ClientCertificates.Add(clientCertificate);
 
             return handler;
         }
 
-        private static HttpClientHandler CreateResourceServerHandler()
+        private static HttpClientHandler CreateResourceServerHandler(X509Certificate2 expectedServerCertificate)
         {
             return new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                ServerCertificateCustomValidationCallback = (_, certificate, _, _) => IsExpectedCertificate(certificate, expectedServerCertificate)
             };
+        }
+
+        // These self-signed test certificates aren't rooted in anything the OS trust store recognizes, and
+        // have no SAN, so default chain/hostname validation would always reject them. Rather than bypassing
+        // validation outright, pin against the exact certificate the test itself handed to MtlsTestServer -
+        // proving the server presented the certificate we expect, not just "some" certificate.
+        private static bool IsExpectedCertificate(X509Certificate2 certificate, X509Certificate2 expectedServerCertificate)
+        {
+            return certificate != null && certificate.Thumbprint == expectedServerCertificate.Thumbprint;
         }
     }
 }

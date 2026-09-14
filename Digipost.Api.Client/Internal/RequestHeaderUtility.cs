@@ -23,6 +23,16 @@ namespace Digipost.Api.Client.Internal
             return date;
         }
 
+        public static string RefreshDateHeader(HttpRequestMessage request)
+        {
+            var date = DateTime.UtcNow.ToString("R");
+
+            request.Headers.Remove("Date");
+            request.Headers.Add("Date", date);
+
+            return date;
+        }
+
         public static async Task<string> ApplyContentHashHeaderIfPresent(HttpRequestMessage request)
         {
             if (request.Content == null)

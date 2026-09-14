@@ -45,6 +45,11 @@ namespace Digipost.Api.Client.Internal
                 var refreshedToken = await TokenProvider.GetTokenAsync(cancellationToken).ConfigureAwait(false);
                 retryRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", refreshedToken);
 
+                // Refresh Date last, right before sending - CloneRequestAsync copies the original request's Date
+                // header verbatim, and the token refetch above is itself a network round trip, so by this point
+                // that copied value no longer reflects when the retried request is actually being sent.
+                RequestHeaderUtility.RefreshDateHeader(retryRequest);
+
                 return await base.SendAsync(retryRequest, cancellationToken).ConfigureAwait(false);
             }
             finally

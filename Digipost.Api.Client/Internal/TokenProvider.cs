@@ -83,7 +83,17 @@ namespace Digipost.Api.Client.Internal
             }
             finally
             {
-                _refreshLock.Release();
+                // If Dispose() ran while this call was in flight, _refreshLock is already disposed - releasing it
+                // would throw ObjectDisposedException here and replace whatever this call actually produced
+                // (a fetched token, or the real exception from FetchTokenAsync). The provider is being torn down
+                // either way, so the lock no longer matters.
+                try
+                {
+                    _refreshLock.Release();
+                }
+                catch (ObjectDisposedException)
+                {
+                }
             }
         }
 

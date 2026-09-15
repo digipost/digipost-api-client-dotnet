@@ -167,6 +167,62 @@ namespace Digipost.Api.Client.Tests.Internal
             }
         }
 
+        public class FetchTokenLoggingMethod
+        {
+            private static readonly JwtAuthConfig JwtAuthConfig = new JwtAuthConfig("client-id", CertificateResource.Certificate());
+
+            [Fact]
+            public async Task LogsOutgoingRequestAndIncomingResponse_WhenLogRequestAndResponseIsEnabled()
+            {
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test) {LogRequestAndResponse = true};
+                var handler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"access_token\":\"tok1\",\"expires_in\":3600}", Encoding.UTF8, "application/json")
+                });
+                var loggerFactory = new RecordingLoggerFactory();
+                var provider = new TokenProvider(clientConfig, JwtAuthConfig, loggerFactory, handler);
+
+                await provider.GetTokenAsync();
+
+                Assert.Contains(loggerFactory.Messages, message => message.Contains("Outgoing token request") && message.Contains("client_id=client-id"));
+                Assert.Contains(loggerFactory.Messages, message => message.Contains("Incoming token response") && message.Contains("200"));
+            }
+
+            [Fact]
+            public async Task NeverLogsTheAccessToken()
+            {
+                // The response body - which for a successful request is itself a live, usable access token -
+                // is deliberately never logged, not even redacted; only the status code is.
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test) {LogRequestAndResponse = true};
+                var handler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"access_token\":\"tok1\",\"expires_in\":3600}", Encoding.UTF8, "application/json")
+                });
+                var loggerFactory = new RecordingLoggerFactory();
+                var provider = new TokenProvider(clientConfig, JwtAuthConfig, loggerFactory, handler);
+
+                await provider.GetTokenAsync();
+
+                Assert.DoesNotContain(loggerFactory.Messages, message => message.Contains("tok1"));
+            }
+
+            [Fact]
+            public async Task DoesNotLog_WhenLogRequestAndResponseIsDisabled()
+            {
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test) {LogRequestAndResponse = false};
+                var handler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"access_token\":\"tok1\",\"expires_in\":3600}", Encoding.UTF8, "application/json")
+                });
+                var loggerFactory = new RecordingLoggerFactory();
+                var provider = new TokenProvider(clientConfig, JwtAuthConfig, loggerFactory, handler);
+
+                await provider.GetTokenAsync();
+
+                Assert.DoesNotContain(loggerFactory.Messages, message => message.Contains("token request") || message.Contains("token response"));
+            }
+        }
+
         public class DisposeMethod
         {
             [Fact]

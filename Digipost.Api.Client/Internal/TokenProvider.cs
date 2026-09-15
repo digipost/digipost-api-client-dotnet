@@ -97,6 +97,8 @@ namespace Digipost.Api.Client.Internal
             }
         }
 
+        private bool ShouldLogRequestAndResponse => _clientConfig.LogRequestAndResponse && _logger.IsEnabled(LogLevel.Debug);
+
         private async Task<CachedToken> FetchTokenAsync(CancellationToken cancellationToken)
         {
             var tokenEndpoint = TokenEndpoint;
@@ -110,9 +112,20 @@ namespace Digipost.Api.Client.Internal
                 new KeyValuePair<string, string>("resource", _clientConfig.Environment.Url.AbsoluteUri.TrimEnd('/'))
             });
 
+            if (ShouldLogRequestAndResponse)
+            {
+                var requestBody = await requestContent.ReadAsStringAsync().ConfigureAwait(false);
+                _logger.LogDebug($"Outgoing token request: POST {tokenEndpoint}{System.Environment.NewLine}{requestBody}");
+            }
+
             using (var response = await _tokenClient.PostAsync(tokenEndpoint, requestContent, cancellationToken).ConfigureAwait(false))
             {
                 var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                if (ShouldLogRequestAndResponse)
+                {
+                    _logger.LogDebug($"Incoming token response: {(int) response.StatusCode} {response.StatusCode}");
+                }
 
                 if (!response.IsSuccessStatusCode)
                 {

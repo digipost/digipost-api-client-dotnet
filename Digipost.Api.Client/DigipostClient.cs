@@ -66,7 +66,7 @@ namespace Digipost.Api.Client
 
             _clientConfig = clientConfig;
             _tokenProvider = new TokenProvider(_clientConfig, jwtAuthConfig, _loggerFactory);
-            var httpClient = BuildHttpClient(new DelegatingHandler[] {new LoggingHandler(_clientConfig, _loggerFactory), new BearerTokenAuthenticationHandler(_clientConfig, _tokenProvider)}, clientConfig.WebProxy, clientConfig.Credential);
+            var httpClient = BuildHttpClient(new DelegatingHandler[] {new BearerTokenAuthenticationHandler(_clientConfig, _tokenProvider), new LoggingHandler(_clientConfig, _loggerFactory)}, clientConfig.WebProxy, clientConfig.Credential);
             _requestHelper = new RequestHelper(httpClient, _loggerFactory);
         }
 

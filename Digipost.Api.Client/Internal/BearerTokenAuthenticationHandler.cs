@@ -39,7 +39,7 @@ namespace Digipost.Api.Client.Internal
 
             try
             {
-                TokenProvider.InvalidateToken(accessToken);
+                await TokenProvider.InvalidateTokenAsync(accessToken, cancellationToken).ConfigureAwait(false);
 
                 var retryRequest = await CloneRequestAsync(request).ConfigureAwait(false);
                 var refreshedToken = await TokenProvider.GetTokenAsync(cancellationToken).ConfigureAwait(false);

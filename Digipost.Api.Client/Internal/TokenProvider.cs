@@ -50,12 +50,25 @@ namespace Digipost.Api.Client.Internal
             _refreshLock.Dispose();
         }
 
-        public void InvalidateToken(string accessToken)
+        public async Task InvalidateTokenAsync(string accessToken, CancellationToken cancellationToken = default)
         {
-            var current = _cachedToken;
-            if (current != null && current.AccessToken == accessToken)
+            await _refreshLock.WaitAsync(cancellationToken).ConfigureAwait(false);
+            try
             {
-                _cachedToken = null;
+                if (_cachedToken != null && _cachedToken.AccessToken == accessToken)
+                {
+                    _cachedToken = null;
+                }
+            }
+            finally
+            {
+                try
+                {
+                    _refreshLock.Release();
+                }
+                catch (ObjectDisposedException)
+                {
+                }
             }
         }
 

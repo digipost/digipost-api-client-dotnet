@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,20 @@ namespace Digipost.Api.Client.Tests.Internal
 {
     public class TokenProviderTests
     {
+        public class ConstructorMethod
+        {
+            [Fact]
+            public void Throws_WhenEnterpriseCertificateIsNull()
+            {
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test);
+                var jwtAuthConfig = new JwtAuthConfig("client-id", (X509Certificate2) null);
+
+                var exception = Assert.Throws<ArgumentNullException>(() => new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory()));
+
+                Assert.Equal("enterpriseCertificate", exception.ParamName);
+            }
+        }
+
         public class ParseTokenResponseMethod
         {
             [Fact]

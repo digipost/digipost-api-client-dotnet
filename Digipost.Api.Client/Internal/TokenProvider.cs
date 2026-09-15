@@ -250,6 +250,11 @@ namespace Digipost.Api.Client.Internal
 
         private static HttpClientHandler CreateMtlsHttpMessageHandler(X509Certificate2 enterpriseCertificate, WebProxy proxy, NetworkCredential credential)
         {
+            if (enterpriseCertificate == null)
+            {
+                throw new ArgumentNullException(nameof(enterpriseCertificate), "JwtAuthConfig.EnterpriseCertificate must be set for JWT/mTLS authentication.");
+            }
+
             var handler = new HttpClientHandler();
             handler.ClientCertificates.Add(enterpriseCertificate);
 

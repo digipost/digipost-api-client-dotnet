@@ -182,6 +182,38 @@ namespace Digipost.Api.Client.Tests.Internal
 
                 Assert.True(trackingHandler.Disposed);
             }
+
+            [Fact]
+            public async Task DoesNotMaskTheRealOutcome_WithObjectDisposedException_WhenDisposedWhileGetTokenAsyncIsInFlight()
+            {
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test);
+                var jwtAuthConfig = new JwtAuthConfig("client-id", CertificateResource.Certificate());
+
+                // Gates the token endpoint response so the test controls exactly when GetTokenAsync's in-flight
+                // call is genuinely suspended - letting it dispose the provider (and so _refreshLock) mid-flight
+                // deterministically, rather than relying on real timing.
+                var responseGate = new TaskCompletionSource<HttpResponseMessage>(TaskCreationOptions.RunContinuationsAsynchronously);
+                var gatedHandler = new GatedHttpMessageHandler(responseGate.Task);
+                var provider = new TokenProvider(clientConfig, jwtAuthConfig, new NullLoggerFactory(), gatedHandler);
+
+                var getTokenTask = provider.GetTokenAsync();
+                await gatedHandler.RequestReceived.Task;
+
+                // Disposing TokenProvider disposes its HttpClient, which aborts this in-flight call with a
+                // TaskCanceledException - that's real, expected HttpClient behavior, not the bug under test.
+                // What's under test is that this real exception reaches the caller as-is, rather than being
+                // replaced by an ObjectDisposedException from releasing the now-disposed _refreshLock.
+                provider.Dispose();
+                responseGate.TrySetResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{\"access_token\":\"tok1\",\"expires_in\":3600}", Encoding.UTF8, "application/json")
+                });
+
+                var exception = await Record.ExceptionAsync(() => getTokenTask);
+
+                Assert.NotNull(exception);
+                Assert.IsNotType<ObjectDisposedException>(exception);
+            }
         }
 
         private sealed class DisposeTrackingHandler : HttpMessageHandler
@@ -197,6 +229,24 @@ namespace Digipost.Api.Client.Tests.Internal
             {
                 Disposed = true;
                 base.Dispose(disposing);
+            }
+        }
+
+        private sealed class GatedHttpMessageHandler : HttpMessageHandler
+        {
+            private readonly Task<HttpResponseMessage> _response;
+
+            public GatedHttpMessageHandler(Task<HttpResponseMessage> response)
+            {
+                _response = response;
+            }
+
+            public TaskCompletionSource<bool> RequestReceived { get; } = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+            {
+                RequestReceived.TrySetResult(true);
+                return await _response.ConfigureAwait(false);
             }
         }
     }

@@ -240,10 +240,12 @@ namespace Digipost.Api.Client.Docs
                 //If you used personal identification number to identify - use this to send a message to this individual.
                 //If not, see Data field for DigipostAddress.
             }
+#pragma warning disable CS0618
             else if (identificationResponse.ResultType == IdentificationResultType.Personalias)
+#pragma warning restore CS0618
             {
                 //The person is identified but does not have an active Digipost account.
-                //You can continue to use this alias to check the status of the user in future calls.
+                //Data will always be empty.
             }
             else if (identificationResponse.ResultType == IdentificationResultType.InvalidReason ||
                      identificationResponse.ResultType == IdentificationResultType.UnidentifiedReason)

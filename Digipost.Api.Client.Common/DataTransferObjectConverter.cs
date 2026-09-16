@@ -376,7 +376,9 @@ namespace Digipost.Api.Client.Common
                     identificationResult = new IdentificationResult(IdentificationResultType.DigipostAddress, identificationResultDto.DigipostAddress + "");
                     break;
                 case V8.IdentificationResultCode.Identified:
+#pragma warning disable CS0618
                     identificationResult = new IdentificationResult(IdentificationResultType.Personalias, !identificationResultDto.PersonAlias.Any() ? "" : identificationResultDto.PersonAlias.First() + "");
+#pragma warning restore CS0618
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

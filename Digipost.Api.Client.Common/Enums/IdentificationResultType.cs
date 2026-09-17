@@ -1,4 +1,6 @@
-﻿namespace Digipost.Api.Client.Common.Enums
+﻿using System;
+
+namespace Digipost.Api.Client.Common.Enums
 {
     public enum IdentificationResultType
     {
@@ -6,6 +8,7 @@
 
         InvalidReason,
 
+        [Obsolete("No longer returned by the API.")]
         Personalias,
 
         UnidentifiedReason

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Tests.Handlers
+namespace Digipost.Api.Client.Tests.Internal
 {
     // Uses real local Kestrel HTTPS servers rather than handler-level mocks, since only a real TLS handshake
     // can prove which certificate (if any) actually got presented.

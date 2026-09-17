@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 using Environment = Digipost.Api.Client.Common.Environment;
 
-namespace Digipost.Api.Client.Tests.Internal
+namespace Digipost.Api.Client.Tests.Handlers
 {
     public class BearerTokenAuthenticationHandlerTests
     {

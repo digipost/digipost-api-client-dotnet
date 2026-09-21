@@ -1464,13 +1464,13 @@ namespace Digipost.Api.Client.Common.Generated.V8
         ///                        Requires special permission for the sending organisation - using this while not
         ///                        being permitted to will result in an error response.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("If true, the SMS notification will be sent even if the recipient has reserved th" +
-            "emselves against receiving sender-initiated SMS notifications from Digipost. It" +
-            " will also be sent even if the recipient has already read the message before th" +
-            "e scheduled notification time - normally a pending notification is cancelled as" +
-            " soon as the message is read, but that cancellation is skipped when this is set" +
-            ". Requires special permission for the sending organisation - using this while no" +
-            "t being permitted to will result in an error response.")]
+        [System.ComponentModel.DescriptionAttribute("If true, the SMS notification will be sent even if the recipient has reserved " +
+            "themselves against receiving sender-initiated SMS notifications from Digipost. It " +
+            "will also be sent even if the recipient has already read the message before the " +
+            "scheduled notification time - normally a pending notification is cancelled as soon " +
+            "as the message is read, but that cancellation is skipped when this is set. " +
+            "Requires special permission for the sending organisation - using this while not " +
+            "being permitted to will result in an error response.")]
         [System.ComponentModel.DefaultValueAttribute(false)]
         [System.Xml.Serialization.XmlElementAttribute("always-send")]
         public bool AlwaysSend
@@ -1492,9 +1492,9 @@ namespace Digipost.Api.Client.Common.Generated.V8
         /// <para>If the message is unread (or always-send is activated), a notification will be sent at these times.
         ///                        SMS is only sent between 9-20. Any notification falling outside this interval, will be sent around 9 the next morning.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("If the message is unread (or always-send is activated), a notification will be s" +
-            "ent at these times. SMS is only sent between 9-20. Any notification falling out" +
-            "side this interval, will be sent around 9 the next morning.")]
+        [System.ComponentModel.DescriptionAttribute("If the message is unread (or always-send is activated), a notification will be " +
+            "sent at these times. SMS is only sent between 9-20. Any notification falling " +
+            "outside this interval, will be sent around 9 the next morning.")]
         [System.Xml.Serialization.XmlElementAttribute("at")]
         public System.Collections.ObjectModel.Collection<ListedTime> At
         {
@@ -1537,10 +1537,10 @@ namespace Digipost.Api.Client.Common.Generated.V8
         ///                        SMS is only sent between 9-20. Any notification falling outside this interval, will be sent around 9 the next morning.</para>
         /// <para xml:lang="en">Minimum inclusive value: 0.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("If the message is unread (or always-send is activated), a notification will be s" +
-            "ent after the given amount of hours after delivery. SMS is only sent between 9-2" +
-            "0. Any notification falling outside this interval, will be sent around 9 the ne" +
-            "xt morning.")]
+        [System.ComponentModel.DescriptionAttribute("If the message is unread (or always-send is activated), a notification will be " +
+            "sent after the given amount of hours after delivery. SMS is only sent between " +
+            "9-20. Any notification falling outside this interval, will be sent around 9 the " +
+            "next morning.")]
         [System.Xml.Serialization.XmlElementAttribute("after-hours")]
         public System.Collections.ObjectModel.Collection<int> AfterHours
         {

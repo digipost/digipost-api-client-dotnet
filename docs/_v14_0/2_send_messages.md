@@ -86,6 +86,19 @@ var message = new Message(
 var result = client.SendMessage(message);
 ```
 
+The actual time the SMS is sent may be adjusted to fall within the hours we send SMS
+notifications, see [Digipost notifications](https://www.digipost.no/en/consumer/help-and-contact/notifications)
+for details.
+
+By default, the SMS notification is not sent if the recipient has already read the letter, or if
+the recipient has opted to not receive sender-initiated SMS notifications. Setting `AlwaysSend` to
+`true` overrides both of these. This feature is not enabled by default, and must be activated for
+the specific sender by Digipost admin.
+
+```csharp
+primaryDocument.SmsNotification = new SmsNotification(afterHours: 0){ AlwaysSend = true };
+```
+
 ### Send letter with fallback to print if the user does not exist in Digipost
 
 In cases where the recipient is not a Digipost user, it is also possible to use the recipient's name and address for physical mail delivery.

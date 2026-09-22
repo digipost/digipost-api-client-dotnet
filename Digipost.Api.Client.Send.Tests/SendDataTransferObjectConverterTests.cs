@@ -110,11 +110,11 @@ namespace Digipost.Api.Client.Send.Tests
                 var atTimes = new List<DateTime> {DateTime.Now, DateTime.Now.AddHours(3)};
                 var afterHours = new List<int> {4, 5};
 
-                var source = new SmsNotification();
+                var source = new SmsNotification {AlwaysSend = true};
                 source.NotifyAfterHours.AddRange(afterHours);
                 source.NotifyAtTimes.AddRange(atTimes);
 
-                var expectedDto = new V8.SmsNotification();
+                var expectedDto = new V8.SmsNotification {AlwaysSend = true};
 
                 afterHours.ForEach(s => expectedDto.AfterHours.Add(s));
 
@@ -348,11 +348,12 @@ namespace Digipost.Api.Client.Send.Tests
                 var sourceDto = new V8.SmsNotification()
                 {
                     AfterHours = { 4, 5 },
+                    AlwaysSend = true
                 };
                 atTimes.Select(a => new V8.ListedTime() {TimeSpecified = true, Time = a})
                     .ToList().ForEach(a => sourceDto.At.Add(a));
 
-                var expected = new SmsNotification();
+                var expected = new SmsNotification {AlwaysSend = true};
                 expected.NotifyAfterHours.AddRange(afterHours);
                 expected.NotifyAtTimes.AddRange(atTimes);
 

@@ -41,6 +41,19 @@ namespace Digipost.Api.Client.Send.Tests
                 //Assert
                 Comparator.AssertEqual(expected, actual);
             }
+
+            [Fact]
+            public void AlwaysSendDefaultsToFalse()
+            {
+                //Arrange
+                ISmsNotification smsNotification = new SmsNotification();
+
+                //Act
+                var actual = smsNotification.AlwaysSend;
+
+                //Assert
+                Assert.False(actual);
+            }
         }
     }
 }

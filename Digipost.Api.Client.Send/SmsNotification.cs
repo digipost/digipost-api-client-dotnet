@@ -35,5 +35,7 @@ namespace Digipost.Api.Client.Send
         public List<DateTime> NotifyAtTimes { get; set; }
 
         public List<int> NotifyAfterHours { get; set; }
+
+        public bool AlwaysSend { get; set; }
     }
 }

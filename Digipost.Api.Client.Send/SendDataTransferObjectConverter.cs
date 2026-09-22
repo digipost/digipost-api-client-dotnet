@@ -89,7 +89,10 @@ namespace Digipost.Api.Client.Send
             if (smsNotification == null)
                 return null;
 
-            var smsNotificationDto = new V8.SmsNotification();
+            var smsNotificationDto = new V8.SmsNotification
+            {
+                AlwaysSend = smsNotification.AlwaysSend
+            };
 
             if (smsNotification.NotifyAtTimes.Count > 0)
             {
@@ -145,7 +148,8 @@ namespace Digipost.Api.Client.Send
             var smsNotification = new SmsNotification
             {
                 NotifyAfterHours = smsNotificationDto.AfterHours?.ToList() ?? new List<int>(),
-                NotifyAtTimes = smsNotificationDto.At?.Select(listedTime => listedTime.Time).ToList() ?? new List<DateTime>()
+                NotifyAtTimes = smsNotificationDto.At?.Select(listedTime => listedTime.Time).ToList() ?? new List<DateTime>(),
+                AlwaysSend = smsNotificationDto.AlwaysSend
             };
 
             return smsNotification;

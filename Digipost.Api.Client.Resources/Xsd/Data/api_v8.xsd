@@ -782,10 +782,23 @@
     <xsd:complexType name="sms-notification">
         <xsd:sequence>
             <xsd:element name="overrides" type="sms-overrides" minOccurs="0" maxOccurs="1" nillable="false"/>
+            <xsd:element name="always-send" type="xsd:boolean" minOccurs="0" maxOccurs="1" default="false">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        If true, the SMS notification will be sent even if the recipient has reserved
+                        themselves against receiving sender-initiated SMS notifications from Digipost.
+                        It will also be sent even if the recipient has already read the message before
+                        the scheduled notification time - normally a pending notification is cancelled
+                        as soon as the message is read, but that cancellation is skipped when this is set.
+                        Requires special permission for the sending organisation - using this while not
+                        being permitted to will result in an error response.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
             <xsd:element name="at" type="listed-time" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>
-                        If the message is unread, a notification will be sent at these times.
+                        If the message is unread (or always-send is activated), a notification will be sent at these times.
                         SMS is only sent between 9-20. Any notification falling outside this interval, will be sent around 9 the next morning.
                     </xsd:documentation>
                 </xsd:annotation>
@@ -793,7 +806,7 @@
             <xsd:element name="after-hours" type="after-hours" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>
-                        If the message is unread, a notification will be sent after the given amount of hours after delivery.
+                        If the message is unread (or always-send is activated), a notification will be sent after the given amount of hours after delivery.
                         SMS is only sent between 9-20. Any notification falling outside this interval, will be sent around 9 the next morning.
                     </xsd:documentation>
                 </xsd:annotation>

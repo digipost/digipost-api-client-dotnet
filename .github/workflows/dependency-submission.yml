@@ -1,0 +1,37 @@
+# Generert av github-actions-templates, bør ikke endres manuelt
+name: Submit Dependency Snapshot
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1-5'  # Every weekday at 05:00 UTC
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**/*.csproj'
+      - '**/*.sln'
+      - 'Directory.Build.props'
+      - '.github/workflows/dependency-submission.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
+        with:
+          dotnet-version: 9.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Submit Dependency Snapshot
+        uses: advanced-security/component-detection-dependency-submission-action@b282c67b1008fde9b60da4bdfcd8849613e293b2 # v0.1.6
+        with:
+          detectorsCategories: NuGet

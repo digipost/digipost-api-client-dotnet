@@ -1,8 +1,16 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Resources.Certificate;
+using Digipost.Api.Client.Tests.Fakes;
+using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
+using Environment = Digipost.Api.Client.Common.Environment;
 
 namespace Digipost.Api.Client.Tests.Handlers
 {
@@ -43,12 +51,42 @@ namespace Digipost.Api.Client.Tests.Handlers
                 var contentBytes = Encoding.UTF8.GetBytes("This is the content to hash.");
 
                 //Act
-                var computedHash = AuthenticationHandler.ComputeHash(contentBytes);
+                var computedHash = RequestHeaderUtility.ComputeContentHash(contentBytes);
 
                 //Assert
                 var expectedHash = "gvXOB75lBGBY6LVTAVVpapZkBOv531VUE0EHrP2rryE=";
 
                 Assert.Equal(expectedHash, computedHash);
+            }
+        }
+
+        public class SendAsyncMethod
+        {
+            [Fact]
+            public async Task SetsExpectedHeaders()
+            {
+                var clientConfig = new ClientConfig(new Broker(1337), Environment.Test);
+                var certificate = CertificateResource.Certificate();
+
+                var handler = new AuthenticationHandler(clientConfig, certificate, new NullLoggerFactory())
+                {
+                    InnerHandler = new FakeResponseHandler {ResultCode = HttpStatusCode.OK, HttpContent = new StringContent(string.Empty)}
+                };
+                var invoker = new HttpMessageInvoker(handler);
+
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://fakeuri.no/someendpoint")
+                {
+                    Content = new StringContent("body")
+                };
+
+                await invoker.SendAsync(request, CancellationToken.None);
+
+                Assert.True(request.Headers.Contains("X-Digipost-UserId"));
+                Assert.True(request.Headers.Contains("Date"));
+                Assert.True(request.Headers.Contains("Accept"));
+                Assert.True(request.Headers.Contains("User-Agent"));
+                Assert.True(request.Headers.Contains("X-Content-SHA256"));
+                Assert.True(request.Headers.Contains("X-Digipost-Signature"));
             }
         }
     }

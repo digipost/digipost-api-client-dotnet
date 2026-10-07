@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
-using System.Runtime;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -10,7 +8,6 @@ using System.Threading.Tasks;
 using Digipost.Api.Client.Common;
 using Microsoft.Extensions.Logging;
 using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Security;
 
 namespace Digipost.Api.Client.Internal
@@ -35,67 +32,17 @@ namespace Digipost.Api.Client.Internal
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var date = DateTime.UtcNow.ToString("R");
+            var date = RequestHeaderUtility.ApplyCommonHeaders(request, ClientConfig.Broker.Id);
             var brokerId = ClientConfig.Broker.Id.ToString();
 
-            request.Headers.Add("X-Digipost-UserId", brokerId);
-            request.Headers.Add("Date", date);
-            request.Headers.Add("Accept", DigipostVersion.V8);
-            request.Headers.Add("User-Agent", GetAssemblyVersion());
             Method = request.Method.ToString();
 
-            string contentHash = null;
-
-            if (request.Content != null)
-            {
-                var contentBytes = await request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                contentHash = ComputeHash(contentBytes);
-                request.Headers.Add("X-Content-SHA256", contentHash);
-            }
+            var contentHash = await RequestHeaderUtility.ApplyContentHashHeaderIfPresent(request).ConfigureAwait(false);
 
             var signature = ComputeSignature(Method, request.RequestUri, date, contentHash, brokerId, BusinessCertificate, ClientConfig.LogRequestAndResponse);
             request.Headers.Add("X-Digipost-Signature", signature);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        }
-
-        private static string GetAssemblyVersion()
-        {
-            var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
-            return $"digipost-api-client-dotnet/{assemblyVersion} (netcore/{GetNetCoreVersion()})";
-        }
-
-        private static string GetNetCoreVersion()
-        {
-            try
-            {
-                var assembly = typeof(GCSettings).GetTypeInfo().Assembly;
-                var assemblyPath = assembly.CodeBase.Split(new[] {'/', '\\'}, StringSplitOptions.RemoveEmptyEntries);
-                var netCoreAppIndex = Array.IndexOf(assemblyPath, "Microsoft.NETCore.App");
-
-                if (netCoreAppIndex > 0 && netCoreAppIndex < assemblyPath.Length - 2)
-                {
-                    return assemblyPath[netCoreAppIndex + 1];
-                }
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return "AssemblyVersionNotFound";
-        }
-
-        internal static string ComputeHash(byte[] inputBytes)
-        {
-            IDigest digest = new Sha256Digest();
-            var hash = new byte[digest.GetDigestSize()];
-
-            digest.BlockUpdate(inputBytes, 0, inputBytes.Length);
-            digest.DoFinal(hash, 0);
-
-            return Convert.ToBase64String(hash);
         }
 
         internal static string ComputeSignature(string method, Uri uri, string date, string contentSha256Hash,

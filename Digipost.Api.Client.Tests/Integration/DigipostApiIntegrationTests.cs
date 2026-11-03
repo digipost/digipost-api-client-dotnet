@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
 using Digipost.Api.Client.Common.Entrypoint;
@@ -15,6 +14,7 @@ using Digipost.Api.Client.Resources.Certificate;
 using Digipost.Api.Client.Resources.Xml;
 using Digipost.Api.Client.Send;
 using Digipost.Api.Client.Tests.Fakes;
+using Digipost.Api.Client.Tests.TestSupport;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit;
@@ -24,7 +24,6 @@ namespace Digipost.Api.Client.Tests.Integration
 {
     public class DigipostApiIntegrationTests
     {
-        protected X509Certificate2 Certificate;
         protected ClientConfig ClientConfig;
         protected Uri Uri;
 
@@ -36,7 +35,6 @@ namespace Digipost.Api.Client.Tests.Integration
                 TimeoutMilliseconds = 300000000
             };
             Uri = new Uri("/identification", UriKind.Relative);
-            Certificate = CertificateResource.Certificate();
         }
 
         internal HttpClient GetHttpClient(
@@ -44,8 +42,16 @@ namespace Digipost.Api.Client.Tests.Integration
         {
             ClientConfig.LogRequestAndResponse = true;
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
+            var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
 
-            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(ClientConfig, serviceProvider.GetService<ILoggerFactory>()), new AuthenticationHandler(ClientConfig, Certificate, serviceProvider.GetService<ILoggerFactory>())};
+            var jwtAuthConfig = new JwtAuthConfig("client-id", CertificateResource.Certificate());
+            var tokenHandler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("{\"access_token\":\"test-token\",\"expires_in\":3600}")
+            });
+            var tokenProvider = new TokenProvider(ClientConfig, jwtAuthConfig, loggerFactory, tokenHandler);
+
+            var allDelegationHandlers = new List<DelegatingHandler> {new BearerTokenAuthenticationHandler(ClientConfig, tokenProvider), new LoggingHandler(ClientConfig, loggerFactory)};
 
             var httpClient = HttpClientFactory.Create(
                 fakehandler,

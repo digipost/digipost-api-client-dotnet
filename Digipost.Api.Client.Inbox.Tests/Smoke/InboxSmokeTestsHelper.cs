@@ -25,9 +25,10 @@ namespace Digipost.Api.Client.Inbox.Tests.Smoke
 
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
+            var jwtAuthConfig = new JwtAuthConfig(testSender.ClientId, testSender.Certificate);
             _client = new DigipostClient(
                 new ClientConfig(broker, testSender.Environment),
-                testSender.Certificate,
+                jwtAuthConfig,
                 serviceProvider.GetService<ILoggerFactory>()
             );
         }

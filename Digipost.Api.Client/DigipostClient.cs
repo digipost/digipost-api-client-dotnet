@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Digipost.Api.Client.Api;
 using Digipost.Api.Client.Common;
@@ -14,7 +13,6 @@ using Digipost.Api.Client.Common.SenderInfo;
 using Digipost.Api.Client.Common.Utilities;
 using Digipost.Api.Client.Internal;
 using Digipost.Api.Client.Send;
-using Digipost.Api.Client.Shared.Certificate;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -22,34 +20,41 @@ using V8 = Digipost.Api.Client.Common.Generated.V8;
 
 namespace Digipost.Api.Client
 {
-    public class DigipostClient
+    public class DigipostClient : IDisposable
     {
         private readonly ClientConfig _clientConfig;
         private readonly RequestHelper _requestHelper;
         private readonly IMemoryCache _entrypointCache;
+        private readonly TokenProvider _tokenProvider;
 
         private readonly ILogger<DigipostClient> _logger;
         private readonly ILoggerFactory _loggerFactory;
 
-        public DigipostClient(ClientConfig clientConfig, string thumbprint)
-            : this(clientConfig, CertificateUtility.SenderCertificate(thumbprint), new NullLoggerFactory())
+        public DigipostClient(ClientConfig clientConfig, JwtAuthConfig jwtAuthConfig)
+            : this(clientConfig, jwtAuthConfig, new NullLoggerFactory())
         {
         }
 
-        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate)
-            : this(clientConfig, enterpriseCertificate, new NullLoggerFactory())
-        {
-        }
-
-        public DigipostClient(ClientConfig clientConfig, X509Certificate2 enterpriseCertificate, ILoggerFactory loggerFactory)
+        public DigipostClient(ClientConfig clientConfig, JwtAuthConfig jwtAuthConfig, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<DigipostClient>();
             _loggerFactory = loggerFactory;
             _entrypointCache = new MemoryCache(new MemoryCacheOptions());
 
             _clientConfig = clientConfig;
-            var httpClient = GetHttpClient(enterpriseCertificate, clientConfig.WebProxy, clientConfig.Credential);
+            _tokenProvider = new TokenProvider(_clientConfig, jwtAuthConfig, _loggerFactory);
+            var httpClient = BuildHttpClient(new DelegatingHandler[] {new LoggingHandler(_clientConfig, _loggerFactory), new BearerTokenAuthenticationHandler(_clientConfig, _tokenProvider)}, clientConfig.WebProxy, clientConfig.Credential);
             _requestHelper = new RequestHelper(httpClient, _loggerFactory);
+        }
+
+        /// <summary>
+        ///     Disposes the underlying HttpClient(s), and the TokenProvider's mTLS HttpClient and refresh lock.
+        /// </summary>
+        public void Dispose()
+        {
+            _requestHelper.HttpClient?.Dispose();
+            _tokenProvider.Dispose();
+            _entrypointCache?.Dispose();
         }
 
         private SendMessageApi _sendMessageApi()
@@ -57,14 +62,13 @@ namespace Digipost.Api.Client
             return new SendMessageApi(new SendRequestHelper(_requestHelper), _loggerFactory, GetRoot(new ApiRootUri()));
         }
 
-        private HttpClient GetHttpClient(X509Certificate2 enterpriseCertificate, WebProxy proxy = null, NetworkCredential credential = null)
+        private HttpClient BuildHttpClient(DelegatingHandler[] delegatingHandlers, WebProxy proxy = null, NetworkCredential credential = null)
         {
-            var allDelegationHandlers = new List<DelegatingHandler> {new LoggingHandler(_clientConfig, _loggerFactory), new AuthenticationHandler(_clientConfig, enterpriseCertificate, _loggerFactory)};
-
             var httpMessageHandler = new HttpClientHandler
             {
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             };
+
             if (proxy != null)
             {
                 proxy.Credentials = credential;
@@ -72,9 +76,10 @@ namespace Digipost.Api.Client
                 httpMessageHandler.UseProxy = true;
                 httpMessageHandler.UseDefaultCredentials = false;
             }
+
             var httpClient = HttpClientFactory.Create(
                 httpMessageHandler,
-                allDelegationHandlers.ToArray()
+                delegatingHandlers
             );
 
             httpClient.Timeout = TimeSpan.FromMilliseconds(_clientConfig.TimeoutMilliseconds);

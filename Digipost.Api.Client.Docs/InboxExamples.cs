@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Docs
 
         public void ClientConfiguration()
         {
-            // The actual sender of the message. The broker is the owner of the organization certificate
+            // The actual sender of the message. The broker is the owner of the certificate
             // used in the library. The broker id can be retrieved from your Digipost organization account.
             var broker = new Broker(12345);
 
@@ -21,8 +21,9 @@ namespace Digipost.Api.Client.Docs
             var sender = new Sender(67890);
 
             var clientConfig = new ClientConfig(broker, Environment.Production);
+            var jwtAuthConfig = new JwtAuthConfig(clientId: "your-oauth-client-id", CertificateReader.ReadCertificate());
 
-            var client = new DigipostClient(clientConfig, CertificateReader.ReadCertificate());
+            var client = new DigipostClient(clientConfig, jwtAuthConfig);
         }
 
         private void Hent_dokumenter()

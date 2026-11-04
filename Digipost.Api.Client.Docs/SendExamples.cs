@@ -24,17 +24,19 @@ namespace Digipost.Api.Client.Docs
 
         public void ClientConfigurationWithThumbprint()
         {
-            // The actual sender of the message. The broker is the owner of the organization certificate
+            // The actual sender of the message. The broker is the owner of the certificate
             // used in the library. The broker id can be retrieved from your Digipost organization account.
             var broker = new Broker(12345);
 
             var clientConfig = new ClientConfig(broker, Environment.Production);
-            var client = new DigipostClient(clientConfig, thumbprint: "84e492a972b7e...");
+            var jwtAuthConfig = new JwtAuthConfig(clientId: "your-oauth-client-id", thumbprint: "84e492a972b7e...");
+
+            var client = new DigipostClient(clientConfig, jwtAuthConfig);
         }
 
         public void ClientConfigurationWithCertificate()
         {
-            // The actual sender of the message. The broker is the owner of the organization certificate
+            // The actual sender of the message. The broker is the owner of the enterprise certificate
             // used in the library. The broker id can be retrieved from your Digipost organization account.
             var broker = new Broker(12345);
 
@@ -43,8 +45,9 @@ namespace Digipost.Api.Client.Docs
             var sender = new Sender(67890);
 
             var clientConfig = new ClientConfig(broker, Environment.Production);
+            var jwtAuthConfig = new JwtAuthConfig(clientId: "your-oauth-client-id", CertificateReader.ReadCertificate());
 
-            var client = new DigipostClient(clientConfig, CertificateReader.ReadCertificate());
+            var client = new DigipostClient(clientConfig, jwtAuthConfig);
         }
 
         public void SendOneLetterToRecipientViaPersonalIdentificationNumber()
@@ -258,7 +261,8 @@ namespace Digipost.Api.Client.Docs
         {
             // API URL is different when request is sent from NHN
             var config = new ClientConfig(new Broker(12345), Environment.NorskHelsenett);
-            var client = new DigipostClient(config, thumbprint: "84e492a972b7e...");
+            var jwtAuthConfig = new JwtAuthConfig(clientId: "your-oauth-client-id", thumbprint: "84e492a972b7e...");
+            var client = new DigipostClient(config, jwtAuthConfig);
 
             var message = new Message(
                 sender,

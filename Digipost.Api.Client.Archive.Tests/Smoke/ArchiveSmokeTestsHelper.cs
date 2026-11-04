@@ -39,9 +39,10 @@ ___/ / /  / / /_/ / /| |/ /___  / / / /___ ___/ // /
 
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
+            var jwtAuthConfig = new JwtAuthConfig(testSender.ClientId, testSender.Certificate);
             var client = new DigipostClient(
                 new ClientConfig(broker, testSender.Environment) {LogRequestAndResponse = true},
-                testSender.Certificate,
+                jwtAuthConfig,
                 serviceProvider.GetService<ILoggerFactory>()
             );
 

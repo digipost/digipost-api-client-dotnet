@@ -189,7 +189,12 @@ namespace Digipost.Api.Client.Internal
                 return refreshAt;
             }
 
-            return minimum < expiresAtUtc ? minimum : expiresAtUtc;
+            var capped = minimum < expiresAtUtc ? minimum : expiresAtUtc;
+
+            // Token already expired by local clock (expires_in <= 0, or JWT exp behind due to clock skew).
+            // Caching it until "now" would refetch on every call; floor at MinimumCacheTime instead.
+            // If the token really is expired, the API returns 401 and the handler's invalidate+retry recovers.
+            return capped > now ? capped : minimum;
         }
 
         private static DateTimeOffset ResolveExpiry(string accessToken, JObject tokenResponse, DateTimeOffset now)

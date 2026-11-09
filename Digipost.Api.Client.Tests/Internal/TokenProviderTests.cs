@@ -113,6 +113,17 @@ namespace Digipost.Api.Client.Tests.Internal
                 Assert.True(TokenProvider.ResolveCacheValidUntil(Now, Now.AddSeconds(30)) > Now);
                 Assert.True(TokenProvider.ResolveCacheValidUntil(Now, Now.AddSeconds(1)) > Now);
             }
+
+            [Theory]
+            [InlineData(0)]
+            [InlineData(-10)]
+            [InlineData(-3600)]
+            public void FloorsAtMinimumCacheTime_WhenTokenIsAlreadyExpired(int expiresInSeconds)
+            {
+                var cacheValidUntil = TokenProvider.ResolveCacheValidUntil(Now, Now.AddSeconds(expiresInSeconds));
+
+                Assert.Equal(Now.AddSeconds(5), cacheValidUntil);
+            }
         }
 
         public class GetTokenAsyncMethod
@@ -142,6 +153,19 @@ namespace Digipost.Api.Client.Tests.Internal
                 var handler = new StubHttpMessageHandler(_ => JsonResponse("{\"access_token\":\"tok1\",\"expires_in\":10}"));
                 var provider = new TokenProvider(ClientConfig, JwtAuthConfig, new NullLoggerFactory(), handler);
 
+                await provider.GetTokenAsync();
+                await provider.GetTokenAsync();
+
+                Assert.Equal(1, handler.InvocationCount);
+            }
+
+            [Fact]
+            public async Task DoesNotRefetchOnEveryCall_WhenServerReturnsExpiresInZero()
+            {
+                var handler = new StubHttpMessageHandler(_ => JsonResponse("{\"access_token\":\"tok1\",\"expires_in\":0}"));
+                var provider = new TokenProvider(ClientConfig, JwtAuthConfig, new NullLoggerFactory(), handler);
+
+                await provider.GetTokenAsync();
                 await provider.GetTokenAsync();
                 await provider.GetTokenAsync();
 

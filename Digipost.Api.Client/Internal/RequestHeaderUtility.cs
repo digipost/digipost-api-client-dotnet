@@ -11,7 +11,7 @@ namespace Digipost.Api.Client.Internal
 {
     internal static class RequestHeaderUtility
     {
-        public static string ApplyCommonHeaders(HttpRequestMessage request, long brokerId)
+        public static void ApplyCommonHeaders(HttpRequestMessage request, long brokerId)
         {
             var date = DateTime.UtcNow.ToString("R");
 
@@ -19,32 +19,26 @@ namespace Digipost.Api.Client.Internal
             request.Headers.Add("Date", date);
             request.Headers.Add("Accept", DigipostVersion.V8);
             request.Headers.Add("User-Agent", GetAssemblyVersion());
-
-            return date;
         }
 
-        public static string RefreshDateHeader(HttpRequestMessage request)
+        public static void RefreshDateHeader(HttpRequestMessage request)
         {
             var date = DateTime.UtcNow.ToString("R");
 
             request.Headers.Remove("Date");
             request.Headers.Add("Date", date);
-
-            return date;
         }
 
-        public static async Task<string> ApplyContentHashHeaderIfPresent(HttpRequestMessage request)
+        public static async Task ApplyContentHashHeaderIfPresent(HttpRequestMessage request)
         {
             if (request.Content == null)
             {
-                return null;
+                return;
             }
 
             var contentBytes = await request.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
             var contentHash = ComputeContentHash(contentBytes);
             request.Headers.Add("X-Content-SHA256", contentHash);
-
-            return contentHash;
         }
 
         public static string ComputeContentHash(byte[] inputBytes)

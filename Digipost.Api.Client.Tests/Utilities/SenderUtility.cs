@@ -17,6 +17,7 @@ namespace Digipost.Api.Client.Tests.Utilities
                 case TestEnvironment.DifiTest:
                     return new TestSender(
                         497013,
+                        "your-oauth-client-id",
                         CertificateResource.Certificate(),
                         Environment.DifiTest,
                         new RecipientById(IdentificationType.DigipostAddress, "ReplaceMehere")
@@ -24,6 +25,7 @@ namespace Digipost.Api.Client.Tests.Utilities
                 case TestEnvironment.Qa:
                     return new TestSender(
                         1185201,
+                        "your-oauth-client-id",
                         CertificateReader.ReadCertificate(),
                         Environment.Qa,
                         new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
@@ -31,6 +33,7 @@ namespace Digipost.Api.Client.Tests.Utilities
                 case TestEnvironment.Local:
                     return new TestSender(
                         1111,
+                        "your-oauth-client-id",
                         CertificateReader.ReadCertificate(),
                         Environment.Local,
                         new RecipientById(IdentificationType.DigipostAddress, "liv.test.aliassen#8514")
@@ -50,15 +53,18 @@ namespace Digipost.Api.Client.Tests.Utilities
 
     internal class TestSender
     {
-        public TestSender(long id, X509Certificate2 certificate, Environment environment, DigipostRecipient recipient)
+        public TestSender(long id, string clientId, X509Certificate2 certificate, Environment environment, DigipostRecipient recipient)
         {
             Id = id;
+            ClientId = clientId;
             Certificate = certificate;
             Environment = environment;
             Recipient = recipient;
         }
 
         public long Id { get; set; }
+
+        public string ClientId { get; set; }
 
         public Environment Environment { get; set; }
 

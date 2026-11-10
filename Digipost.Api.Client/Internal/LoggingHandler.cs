@@ -12,7 +12,7 @@ namespace Digipost.Api.Client.Internal
 {
     internal class LoggingHandler : DelegatingHandler
     {
-        private static ILogger<DigipostClient> _logger;
+        private readonly ILogger<DigipostClient> _logger;
 
         public LoggingHandler(ClientConfig clientClientConfiguration, ILoggerFactory loggerFactory)
         {
@@ -39,13 +39,13 @@ namespace Digipost.Api.Client.Internal
             return httpResponseMessage;
         }
 
-        private static async Task LogRequest(HttpRequestMessage request)
+        private async Task LogRequest(HttpRequestMessage request)
         {
             var requestData = await GetRequestData(request).ConfigureAwait(false);
             _logger.LogDebug($"Outgoing: {requestData}");
         }
 
-        private static async Task LogResponse(HttpResponseMessage response)
+        private async Task LogResponse(HttpResponseMessage response)
         {
             var responseData = await GetResponseData(response).ConfigureAwait(false);
             _logger.LogDebug($"Incoming: {responseData}");
@@ -124,9 +124,19 @@ namespace Digipost.Api.Client.Internal
 
             keyValuePairs
                 .AddRange(headers
-                    .Select(header => new KeyValuePair<string, string>(header.Key, string.Join(",", header.Value))));
+                    .Select(header => new KeyValuePair<string, string>(header.Key, RedactIfAuthorization(header.Key, header.Value))));
 
             return keyValuePairs;
+        }
+        
+        private static string RedactIfAuthorization(string headerName, IEnumerable<string> headerValues)
+        {
+            if (string.Equals(headerName, "Authorization", System.StringComparison.OrdinalIgnoreCase))
+            {
+                return "[REDACTED]";
+            }
+
+            return string.Join(",", headerValues);
         }
 
         private static string FormatHttpData(IEnumerable<KeyValuePair<string, string>> keyValuePairs)

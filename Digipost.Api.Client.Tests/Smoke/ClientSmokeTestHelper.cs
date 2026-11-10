@@ -64,7 +64,8 @@ namespace Digipost.Api.Client.Tests.Smoke
             var serviceProvider = LoggingUtility.CreateServiceProviderAndSetUpLogging();
 
             var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
-            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, testSender.Certificate, loggerFactory);
+            var jwtAuthConfig = new JwtAuthConfig(testSender.ClientId, testSender.Certificate);
+            _digipostClient = new DigipostClient(new ClientConfig(broker, testSender.Environment) {TimeoutMilliseconds = 900000000, LogRequestAndResponse = true, SkipMetaDataValidation = withoutDataTypesProject}, jwtAuthConfig, loggerFactory);
 
             _root = _digipostClient.GetRoot(new ApiRootUri());
 
